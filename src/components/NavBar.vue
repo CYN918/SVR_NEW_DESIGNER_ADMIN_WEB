@@ -1,0 +1,106 @@
+<template>
+	<div class="wh">
+		<div class="fleft hnav marginleft60 fontcolorg">
+			<el-breadcrumb separator="/" class="fontcolorg">
+				<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
+			</el-breadcrumb>
+		</div>
+		<div class="fright hnav marginright60" style="position: relative;">
+			<router-link to="/review" tag="div" class="fleft pointer">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge">99+</span>
+			</router-link>
+			<span class="fright marginleft60 usertou pointer" @click="signOut"></span>
+			<div class="userinfobtn" v-if="IsSign">
+				<div>用户最长的昵称长度</div>
+				<div><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
+				<div><i class="iconfont" style="margin-right: 8.2px;">&#xe67f;</i>退出登录</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		components: {},
+		props: {},
+		data() {
+			return {
+				names: [],
+				IsSign: false,
+			}
+		},
+		watch: {
+			$route() {
+				this.getBreadcrumb();
+			}
+		},
+		computed: {},
+		methods: {
+			getBreadcrumb() {
+				this.names = this.$route.matched
+				//console.log(this.$route.matched)
+			},
+			signOut() {
+				this.IsSign = !this.IsSign
+			}
+		},
+		created() {
+			this.getBreadcrumb()
+		},
+		mounted() {}
+	}
+</script>
+<style lang="scss">
+	#app .el-breadcrumb {
+		line-height: 60px;
+	}
+
+	#app .el-breadcrumb__inner {
+		color: #999999 !important;
+	}
+
+	.sel-badge {
+		width: 38px;
+		height: 24px;
+		line-height: 24px;
+		margin: 0 5px;
+		text-align: center;
+		border-radius: 24px;
+		background: #FF0000;
+		color: white;
+	}
+
+	.usertou {
+		width: 32px;
+		height: 32px;
+		margin: 14px 0;
+		margin-left: 58px;
+		border-radius: 50%;
+		background: #FF0000;
+	}
+
+	.userinfobtn {
+		width: 170px;
+		border: 1px solid #E6E6E6;
+		position: absolute;
+		background: white;
+		right: 0px;
+		top: 50px;
+		box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.10);
+		border-radius: 2px 2px 2px 2px;
+		z-index: 888;
+	}
+
+	.userinfobtn div {
+		height: 40px;
+		padding: 0 19px;
+		line-height: 40px;
+		cursor: pointer;
+	}
+
+	.userinfobtn div:hover {
+		background: #ffede8;
+		color: #FF5121;
+	}
+</style>

@@ -1,0 +1,314 @@
+<template>
+	<div class="wh screenContent">
+		<div class="screenborder">
+			<div class="screenTop paddinglr30">
+				<span class="fleft">用户基础信息-筛选</span>
+				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
+			</div>
+			<div class="screenMidden paddinglr30">
+				<ul class="screenMiddenul ofh w">
+					<li v-for="(item,index) in texts" :key="item.id">
+						<div>{{ item.name }}</div>
+						<!-- form.selct[item.a] -->
+						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="!item.child && item.type != 'time'" clearable></el-input>
+						<el-select class="ipt" v-model="form[item.id]" placeholder="请选择" v-else-if="item.child">
+							<el-option value="" label="全部"></el-option>
+							<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+								 <!-- <el-checkbox :label="childitem.name"></el-checkbox> -->
+							</el-option>
+						</el-select>
+						<el-date-picker
+						  value-format="yyyy-MM-dd HH-mm-ss"
+						  v-if="item.type == 'time'"
+						  v-model="form[item.id]"
+						  type="datetime"
+						  placeholder="选择日期">
+						</el-date-picker>
+					</li>
+					<li>
+						<div>
+							用户
+						</div>
+						<div class="ipt el-input el-input--suffix sel-text">
+							<input type="text" autocomplete="off" placeholder="请输入内容" class="el-input__inner sel-input">
+							<div>
+								
+							</div>
+						</div>
+					</li>
+					<!-- <li>
+						<div>用户ID</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>用户名字</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>手机号</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>邮箱</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>性别</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-option value="12">
+								<el-checkbox>备选项1</el-checkbox>
+							</el-option>
+							<el-option value="13">
+								<el-checkbox >备选项2</el-checkbox>
+							</el-option>
+					    </el-select>
+					</li>
+					<li>
+						<div>职业</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-input class="checkboxipt" placeholder="请输入内容" clearable></el-input>
+							<div>
+								<el-option class="sel-zhiye" value="12">
+									<el-checkbox>备选项1</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="13">
+									<el-checkbox >备选项2</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="12">
+									<el-checkbox>备选项1</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="13">
+									<el-checkbox >备选项2</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="12">
+									<el-checkbox>备选项1</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="13">
+									<el-checkbox >备选项2</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="12">
+									<el-checkbox>备选项1</el-checkbox>
+								</el-option>
+								<el-option class="sel-zhiye" value="13">
+									<el-checkbox >备选项2</el-checkbox>
+								</el-option>
+							</div>
+						</el-select>
+					</li>
+					<li>
+						<div>所在地</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>作品数量</div>
+						<div>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<span style="padding: 0 14px;">至</span>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+						</div>
+					</li>
+					<li>
+						<div>关注人数</div>
+						<div>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<span style="padding: 0 14px;">至</span>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+						</div>
+					</li>
+					<li>
+						<div>粉丝人数</div>
+						<div>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<span style="padding: 0 14px;">至</span>
+							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
+						</div>
+					</li>
+					<li>
+						<div>非认证-微信号</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>非认证-QQ号</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>授权认证-微信号</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>授权认证-QQ号</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>授权认证-微博</div>
+						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+					</li>
+					<li>
+						<div>平台投稿人</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-option value="12">
+								<el-checkbox>备选项1</el-checkbox>
+							</el-option>
+							<el-option value="13">
+								<el-checkbox >备选项2</el-checkbox>
+							</el-option>
+						</el-select>
+					</li>
+					<li>
+						<div>供稿人认证账号主体</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-option value="12">
+								<el-checkbox>备选项1</el-checkbox>
+							</el-option>
+							<el-option value="13">
+								<el-checkbox >备选项2</el-checkbox>
+							</el-option>
+						</el-select>
+					</li>
+					<li>
+						<div>是否为平台推荐创作者</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-option value="12">
+								<el-checkbox>备选项1</el-checkbox>
+							</el-option>
+							<el-option value="13">
+								<el-checkbox >备选项2</el-checkbox>
+							</el-option>
+						</el-select>
+					</li>
+					<li>
+						<div>平台推荐等级</div>
+						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
+							<el-option value="12">
+								<el-checkbox>备选项1</el-checkbox>
+							</el-option>
+							<el-option value="13">
+								<el-checkbox >备选项2</el-checkbox>
+							</el-option>
+						</el-select>
+					</li>
+					<li>
+						<div>注册时间</div>
+						<el-date-picker
+						:value="1"
+						  type="date"
+						  placeholder="选择日期">
+						</el-date-picker>
+					</li>
+					<li>
+						<div>上次登录时间</div>
+						 <el-date-picker
+						 :value="1"
+						  type="date"
+						  placeholder="选择日期">
+						</el-date-picker>
+					</li> -->
+				</ul>
+			</div>
+			<div class="screenBottom paddinglr30">
+				<div class="screenBottombtn ofh">
+					<button class="fleft defaultbtn" @click="reset">重置</button>
+					<button class="fright defaultbtn" @click="getparent('reach')">查询</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import DataScreen from "@/assets/DataScreen.js"
+	export default {
+		props:["pageName"],
+		data() {
+			return {
+				form:{},
+				texts:'',
+			}
+		},
+		methods:{
+			getparent(data){
+				if(data == "reach"){
+					this.$router.push({path:('/'+ this.pageName),query:{ urlDate:JSON.stringify(this.form)}});
+					eventBus.$emit("sreenData",this.form);
+				}
+				this.$parent.screenmask("Off","left1");
+			},
+			init(){
+				//alert(typeof this.$route.query.urlDate != "string")
+				if(typeof this.$route.query.urlDate != "string" && this.$route.query.urlDate){
+					this.form = this.$route.query.urlDate;
+				}
+			},
+			getScreen(){
+				switch (this.pageName){
+					case "userBaseInfo":
+						this.texts = DataScreen.screen.userBaseInfo.filterFields;
+						break;
+					case "userPersonalInfo":
+						this.texts = DataScreen.screen.userPersonalInfo.filterFields;
+						break;
+					case "userCompanyInfo":
+						this.texts = DataScreen.screen.userCompanyInfo.filterFields;
+						break;
+					case "roleManager":
+						this.texts = DataScreen.screen.roleManager.filterFields;
+						break;
+					case "accountManager":
+						this.texts = DataScreen.screen.accountManager.filterFields;
+						break;
+					default:
+						break;
+				}
+			},
+			reset(){
+				this.form = {};
+			}
+		},
+		watch:{
+			'$route':function(data){
+				//console.log(data)
+			}
+		},
+		mounted(){
+			this.getScreen();
+			this.init()
+		}
+	}
+</script>
+
+<style>
+	.screenborder{
+		width: 772px;
+		background: #FFFFFF;
+		border-radius: 5px;
+	}
+	
+	.screenMiddenul{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		flex-flow: row wrap; 
+	}
+	
+	.screenMiddenul li{
+		margin-top: 27px;
+	}
+	
+	.el-select-dropdown .checkboxipt {
+		width: 200px;
+		height: 32px;
+		margin: 7px auto 14px;
+		display: block;
+	}
+	
+	.checkboxipt input{
+		display: block;
+		height: 32px;
+		margin: 0 auto;
+	}
+	
+	.el-select-dropdown__item .el-checkbox{
+		width: 100%;
+	}
+</style>
