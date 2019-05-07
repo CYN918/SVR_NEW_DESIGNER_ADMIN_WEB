@@ -1,19 +1,10 @@
 <template>
 	<div class="wh">
-		<div class="wh" v-if="IsDetail == 1">
-			<common-top :commonTopData="commonTopData"></common-top>
-			<div class="calc205">
-				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-				 ref="Tabledd"></common-table>
-			</div>
+		<common-top :commonTopData="commonTopData"></common-top>
+		<div class="calc205">
+			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+			 ref="Tabledd"></common-table>
 		</div>
-		<div class="wh baseInfoDetail" v-if="IsDetail == 2">
-			<create-roles :detailData="detailData" :roles="roles"></create-roles>
-		</div>
-		<div class="wh baseInfoDetail" v-if="IsDetail == 3">
-			<router-view/>
-		</div>
-		
 	</div>
 </template>
 
@@ -61,10 +52,11 @@
 		computed: {},
 		methods: {
 			getData(pg) {
+				this.tableConfig.currentpage = pg.pageCurrent;
+				this.tableConfig.pagesize = pg.pageSize;
 				//获取子组件表格数据
 				var data = {
 					access_token: 2,
-					contribute_type: 2,
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -74,12 +66,11 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.contribute_type = 2;
 					sreenData.access_token = 2;
 					data = sreenData;
 				}
 
-				this.api.getRoleList(data).then((da) => {
+				this.api.getAdminUserList(data).then((da) => {
 					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');

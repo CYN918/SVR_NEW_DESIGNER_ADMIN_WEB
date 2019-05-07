@@ -112,9 +112,6 @@
         <router-link to="/power/accountManager">
             <el-menu-item index="7-2">账号管理</el-menu-item>
         </router-link>
-      	<router-link to="/power/contributorManager">
-      	    <el-menu-item index="7-3">供稿人管理</el-menu-item>
-      	</router-link>
       </el-submenu>
     </el-menu>
   </div>

@@ -98,13 +98,14 @@
 					break;
 					case "roleManager":
 						if(idIndex == "right1"){
-							this.$parent.IsDetail = 2;
-							
+							this.router.push({
+								path:"/power/roleManager/createRoles"
+							})
 						};
 						const shownum3 = {
 							num: idIndex,
 							showmask: "No",
-							pageName: this.commonTopData.pageName,
+							pageName: 'power/'+this.commonTopData.pageName,
 						}
 						eventBus.$emit("screenshow", shownum3);
 					break;
@@ -113,7 +114,7 @@
 						const shownum4 = {
 							num: idIndex,
 							showmask: "No",
-							pageName: this.commonTopData.pageName,
+							pageName: 'power/'+this.commonTopData.pageName,
 						}
 						eventBus.$emit("screenshow", shownum4);
 					break;

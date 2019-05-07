@@ -28,6 +28,9 @@ export default {
 	deleteRole:{
 		url:'/admin/Role/delete',method:'post',baseURL:0
 	},
+	infoRole:{
+		url:'/admin/Role/info',method:'post',baseURL:0
+	},
 	getAdminUserInfo:{
 		url:'/admin/AdminUser/getAdminUserInfo',method:'post',baseURL:0
 	},

@@ -1,20 +1,26 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">查看页面</div>
+		<div class="detailtitle">编辑角色</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色名称</span>
-					<span>{{ rolename }}</span>
+					<span class="fleft roles-input" style="margin-right: 20px;">角色名称</span>
+					<div class="el-input__inner roles-input width500">
+						<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" @input="getleng(10)" v-model="text10">
+						<span class="fright">{{ length10 }}/10</span>
+					</div>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
-					<span>{{ roleintroduce }}</span>
+					<span class="fleft roles-input" style="margin-right: 20px;">角色介绍</span>
+					<div class="el-input__inner roles-input width500">
+						<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="30" @input="getleng(30)" v-model="text30">
+						<span class="fright">{{ length30 }}/30</span>
+					</div>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft roles-input" style="margin-right: 20px;">权限设置</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
+						<el-tree :data="data2" ref="tree" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
 						 :props="defaultProps">
 						</el-tree>
 					</div>
@@ -23,6 +29,7 @@
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
+			<button class="defaultbtn" @click="addrole()">提交</button>
 		</div>
 	</div>
 </template>
@@ -76,15 +83,13 @@
 				defaultProps: {
 					children: 'children',
 					label: 'label'
-				},
-				rolename:"--",
-				roleintroduce:"--"
+				}
 			}
 		},
 		methods: {
 			getparent() {
 				this.router.push({
-					path: "/power/roleManager"
+					path:"/power/roleManager"
 				})
 			},
 			getValue(val) {
@@ -101,14 +106,23 @@
 					this.length30 = this.text30.length
 				}
 			},
-			seeroles(){
-				this.api.infoRole({
+			addrole(){
+				console.log(this.$route.query);
+				let rolesString = this.$refs.tree.getCheckedKeys().toString();
+				this.api.editRole({
 					access_token:2,
-					id:this.$route.query.id
+					id:this.$route.query.id,
+					name:this.text10,
+					permissions:rolesString,
+					description:this.text30
 				}).then(da =>{
-					console.log(da);
-					this.rolename = da.name;
-					this.roleintroduce = da.description;
+					this.$message({
+					  type: 'info',
+					  message: da
+					});
+					this.router.push({
+						path:"/power/roleManager"
+					})
 				}).catch(da => {
 					
 				})
@@ -155,12 +169,11 @@
 		},
 		mounted() {
 			this.getMenu();
-			this.seeroles();
 		}
 	}
 </script>
 
-<style scoped>
+<style>
 	.Detail {
 		background: white;
 	}

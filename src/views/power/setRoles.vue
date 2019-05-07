@@ -12,7 +12,11 @@
 					<span>{{ roleintroduce }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft roles-input" style="margin-right: 20px;">角色名称</span>
+					<div class="el-input__inner roles-input width500"></div>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft" style="margin-right: 20px;">权限设置</span>
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
 						 :props="defaultProps">
@@ -84,7 +88,7 @@
 		methods: {
 			getparent() {
 				this.router.push({
-					path: "/power/roleManager"
+					path: "/power/accountManager"
 				})
 			},
 			getValue(val) {

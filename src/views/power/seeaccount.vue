@@ -4,15 +4,21 @@
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色名称</span>
+					<span class="fleft" style="margin-right: 20px;width: 84px;">角色名称</span>
 					<span>{{ rolename }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft" style="margin-right: 20px;width: 84px;">角色介绍</span>
 					<span>{{ roleintroduce }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft roles-input" style="margin-right: 20px;width: 84px;">角色名称</span>
+					<div class="fleft width500">
+						<span class="fleft account-ipt"> 超级价额 </span>
+					</div>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft" style="margin-right: 20px;width: 84px;">所持有的权限</span>
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
 						 :props="defaultProps">
@@ -84,7 +90,7 @@
 		methods: {
 			getparent() {
 				this.router.push({
-					path: "/power/roleManager"
+					path: "/power/accountManager"
 				})
 			},
 			getValue(val) {
@@ -236,5 +242,12 @@
 		display: inline-block;
 		overflow-y: auto;
 		border-radius: 5px;
+	}
+	
+	.account-ipt{
+		padding: 10px;
+		text-align: center;
+		border: 1px solid #999999;
+        border-radius: 5px;
 	}
 </style>

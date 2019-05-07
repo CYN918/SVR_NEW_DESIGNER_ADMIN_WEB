@@ -20,8 +20,15 @@
 				<li class="margint13 ofh">
 					<span class="fleft roles-input" style="margin-right: 20px;">角色介绍</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
-						 :props="defaultProps">
+						<el-tree 
+							:data="data2" 
+							show-checkbox 
+							node-key="id" 
+							:default-expanded-keys="[2, 3]" 
+							:default-checked-keys="[5]"
+						    :props="defaultProps"
+							ref="tree"
+						>
 						</el-tree>
 					</div>
 				</li>
@@ -88,7 +95,9 @@
 		},
 		methods: {
 			getparent() {
-				this.$parent.IsDetail = 1;
+			    this.router.push({
+					path:"/power/roleManager"
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -105,11 +114,20 @@
 				}
 			},
 			addrole(){
-				this.api.addRole({}).then(da =>{
-					
-				}).catch(da => {
-					
-				})
+				let rolesString = this.$refs.tree.getCheckedKeys().toString();
+				//alert(rolesString);
+				this.api.addRole({
+					access_token:2,
+					name:this.text10,
+					permissions:rolesString,
+					description:this.text30
+				}).then(da =>{
+					this.$message({
+					  type: 'info',
+					  message: da ? "添加成功" : "添加失败"
+					});
+					this.$parent.getData({pageCurrent:1,pageSize:10});
+				}).catch(da => {})
 			},
 			getMenu(){
 				const data = {

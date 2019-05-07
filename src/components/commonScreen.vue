@@ -250,10 +250,10 @@
 					case "userCompanyInfo":
 						this.texts = DataScreen.screen.userCompanyInfo.filterFields;
 						break;
-					case "roleManager":
+					case "power/roleManager":
 						this.texts = DataScreen.screen.roleManager.filterFields;
 						break;
-					case "accountManager":
+					case "power/accountManager":
 						this.texts = DataScreen.screen.accountManager.filterFields;
 						break;
 					default:

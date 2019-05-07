@@ -9,13 +9,14 @@
 						<span v-else-if="item.type != 'img'">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="120">
+				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
-						<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow">
+						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="!tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
+						<el-dropdown trigger="click" v-if="tableAction.morebtns.child">
 							<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 							<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-								<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor',tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+								<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
 								<!-- <el-dropdown-item class="comonbtn" @click.native="handleClick(scope.row,'contributor')">设为平台推荐创作者</el-dropdown-item>
 								<el-dropdown-item class="comonbtn">添加至黑名单</el-dropdown-item> -->
 							</el-dropdown-menu>
@@ -41,29 +42,13 @@
 				tableHeight: 150,
 				currentpage: 1,
 				pagesize: 10,
-				sdata: [
-				{
-					"id": "2",
-					"open_id": "",
-					"code": " 123123",
-					"company_name": " 123",
-					"business_license": " http://zk-new-designer.oss-cn-beijing.aliyuncs.com/33033edd11524bb6e69856e46b1b0269.png",
-					"opening_permit": " http://zk-new-designer.oss-cn-beijing.aliyuncs.com/33033edd11524bb6e69856e46b1b0269.png",
-					"tax_rate_type": "1",
-					"account_name": "",
-					"bank_card_no": " 123213",
-					"bank_name": "",
-					"branch_bank": " 123123",
-					"status": "0",
-					"created_at": "2019-04-27 10:56:08",
-					"updated_at": "2019-04-27 10:56:08"
-				}]
 			}
 		},
 		methods: {
 			handleClick(row, setid, page) {
 				
 				//console.log(row);
+				//return;
 				switch(page){
 					case "userBaseInfo":
 						if (setid == "contributor") {
@@ -73,11 +58,24 @@
 						this.$parent.linkDetail(row.open_id);
 					break;
 					case "roleManager":
-						if (setid == "contributor") {
-							this.router.push({path:"/power/roleManager/seeRoles"})
+						if (setid == "contributor0") {
+							this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id}});
 						}
-						this.$parent.IsDetail = 3;
-						this.router.push({path:"/power/roleManager/seeRoles"})
+						if (setid == "contributor1") {
+							this.$parent.delect(row.id);
+							//this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id}});
+						}
+						if(!setid){
+							this.router.push({path:"/power/roleManager/seeRoles",query:{id:row.id}});
+						}
+					case "accountManager":
+						if (setid == "contributor") {
+							this.router.push({path:"/power/accountManager/setRoles",query:{id:row.id}});
+						}
+						if(!setid){
+							this.router.push({path:"/power/accountManager/seeaccount",query:{id:row.id}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
 					break;
 				}
 				

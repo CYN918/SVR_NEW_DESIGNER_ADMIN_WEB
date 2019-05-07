@@ -94,21 +94,35 @@ export default new Router({
 			children: [
 				{
 					path: 'roleManager',
-					name: 'Layout',
+					name: 'roleManager',
 					meta: {
 						title: "角色管理"
 					},
 					component: () => import('@/views/power/roleManager.vue'),
-					children:[
-						{
-							path: 'seeRoles',
-							name: 'seeRoles',
-							meta: {
-								title: "查看页面"
-							},
-							component: () => import('@/views/power/seeRoles.vue'),
-						}
-					]
+				},
+				{
+					path: 'roleManager/seeRoles',
+					name: 'seeRoles',
+					meta: {
+						title: "角色管理 / 查看页面"
+					},
+					component: () => import('@/views/power/seeRoles.vue'),
+				},
+				{
+					path: 'roleManager/editRoles',
+					name: 'editRoles',
+					meta: {
+						title: "角色管理 / 编辑角色"
+					},
+					component: () => import('@/views/power/editRoles.vue'),
+				},
+				{
+					path: 'roleManager/createRoles',
+					name: 'createRoles',
+					meta: {
+						title: "角色管理 / 添加角色"
+					},
+					component: () => import('@/views/power/createRoles.vue'),
 				},
 				{
 					path: 'accountManager',
@@ -119,12 +133,20 @@ export default new Router({
 					component: () => import('@/views/power/accountManager.vue')
 				},
 				{
-					path: 'contributorManager',
-					name: 'contributorManager',
+					path: 'accountManager/seeaccount',
+					name: 'seeaccount',
 					meta: {
-						title: "供稿人管理"
+						title: "账号管理 / 查看页面"
 					},
-					component: () => import('@/views/power/contributorManager.vue')
+					component: () => import('@/views/power/seeaccount.vue'),
+				},
+				{
+					path: 'accountManager/setRoles',
+					name: 'setRoles',
+					meta: {
+						title: "账号管理 / 设置角色"
+					},
+					component: () => import('@/views/power/setRoles.vue'),
 				}
 			]
 		}

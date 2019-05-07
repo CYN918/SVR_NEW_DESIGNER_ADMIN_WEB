@@ -1,19 +1,12 @@
 <template>
 	<div class="wh">
-		<div class="wh" v-if="IsDetail == 1">
+		<div class="wh">
 			<common-top :commonTopData="commonTopData"></common-top>
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
 			</div>
 		</div>
-		<div class="wh baseInfoDetail" v-if="IsDetail == 2">
-			<create-roles :detailData="detailData" :roles="roles"></create-roles>
-		</div>
-		<div class="wh baseInfoDetail" v-if="IsDetail == 3">
-			<router-view/>
-		</div>
-		
 	</div>
 </template>
 
@@ -58,7 +51,6 @@
 				tableData: [],
 				tableAction: DataScreen.screenShow.roleManager.action,
 				detailData: "",
-				roleManager: false,
 				filterFields:DataScreen.screen.roleManager.filterFields,
 				IsDetail:1,
 				roles:{}
@@ -68,10 +60,11 @@
 		computed: {},
 		methods: {
 			getData(pg) {
+				this.tableConfig.currentpage = pg.pageCurrent;
+				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
 				var data = {
 					access_token: 2,
-					contribute_type: 2,
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -81,7 +74,6 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.contribute_type = 2;
 					sreenData.access_token = 2;
 					data = sreenData;
 				}
@@ -147,10 +139,23 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/userCompanyInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/power/roleManager',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
+			},
+			delect(id){
+				this.api.deleteRole({
+					access_token:2,
+					id:id
+				}).then(da => {
+					console.log(da);
+					this.$message({
+						type:"waring",
+						message:da
+					})
+					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+				}).catch()
 			}
 		},
 		created() {},

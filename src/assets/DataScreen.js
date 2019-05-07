@@ -83,9 +83,14 @@ const screenData = {
 		accountManager:{
 			filterFields:[
 				{name:"账号ID",id:"id"},
-				{name:"角色名称",id:"create_time_start"},
-				{name:"账户名",id:"create_time_end"},
-				{name:"邮箱",id:"create_time_end"}
+				{name:"角色ID",id:"role"},
+				{name:"账户名",id:"name"},
+				{name:"邮箱",id:"email"}
+			]
+		},
+		publishWork:{
+			filterFields:[
+				
 			]
 		}
 	},
@@ -93,26 +98,26 @@ const screenData = {
 		//用户基础信心展示字段筛选字段
 		userBaseInfo:{
 			bts:[
-				{prop:'open_id',lable:'用户ID',width:120},
-				{prop:'avatar',lable:'用户头像',width:120,type:"img"},
-				{prop:'username',lable:'用户昵称',width:120},
-				{prop:'sex',lable:'性别',width:120},
-				{prop:'vocation',lable:'职位',width:120},
-				{prop:'address',lable:'所在地',width:120},
-				{prop:'personal_sign',lable:'个性签名',width:120},
-				{prop:'works_num',lable:'作品数量',width:120},
-				{prop:'follow_num',lable:'关注人数',width:120},
-				{prop:'fans_num',lable:'粉丝人数',width:120},
-				{prop:'education_school',lable:'学校名称',width:120},
-				{prop:'weixin_visible',lable:'非认证-微信号',width:120},
-				{prop:'qq_visible',lable:'非认证-QQ号',width:120},
-				{prop:'home_page',lable:'主页链接',width:120},
-				{prop:'weixin',lable:'授权认证-微信',width:120},
-				{prop:'qq',lable:'授权认证-QQ',width:120},
-				{prop:'create_time',lable:'注册时间',width:120},
-				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:120},
-				{prop:'is_contributor',lable:'是否为平台推荐创作者',width:120},
-				{prop:'recommend_level',lable:'平台推荐等级',width:120},
+				{prop:'open_id',lable:'用户ID'},
+				{prop:'avatar',lable:'用户头像',type:"img"},
+				{prop:'username',lable:'用户昵称'},
+				{prop:'sex',lable:'性别'},
+				{prop:'vocation',lable:'职位'},
+				{prop:'address',lable:'所在地'},
+				{prop:'personal_sign',lable:'个性签名'},
+				{prop:'works_num',lable:'作品数量'},
+				{prop:'follow_num',lable:'关注人数'},
+				{prop:'fans_num',lable:'粉丝人数'},
+				{prop:'education_school',lable:'学校名称'},
+				{prop:'weixin_visible',lable:'非认证-微信号',width:150},
+				{prop:'qq_visible',lable:'非认证-QQ号',width:150},
+				{prop:'home_page',lable:'主页链接'},
+				{prop:'weixin',lable:'授权认证-微信',width:150},
+				{prop:'qq',lable:'授权认证-QQ',width:150},
+				{prop:'create_time',lable:'注册时间'},
+				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200},
+				{prop:'is_contributor',lable:'是否为平台推荐创作者',width:200},
+				{prop:'recommend_level',lable:'平台推荐等级',width:150},
 			],
 			defaults:[
 				'open_id','username','size','address','works_num','follow_num','fans_num','weixin_visible',
@@ -144,21 +149,21 @@ const screenData = {
 				'bank_name','branch_bank','status','created_at','updated_at'
 			],
 			bts:[
-				{prop:'open_id',lable:'用户ID',width:120},
-				{prop:'name',lable:'用户昵称',width:120},
-				{prop:'code',lable:'统一信用代码（企业）',width:120},
-				{prop:'company_name',lable:'企业/机构名称',width:120},
-				{prop:'business_license',lable:'营业执照',width:120,type:"img"},
-				{prop:'opening_permit',lable:'身份证正面照片',width:120,type:"img"},
-				{prop:'tax_rate_type',lable:'提供发票税率（企业）',width:120},
-				{prop:'account_name',lable:'账户名称（个人）',width:120},
-				{prop:'bank_card_no',lable:'银行卡号',width:120},
-				{prop:'bank_name',lable:'开户银行',width:120},
-				{prop:'branch_bank',lable:'开户支行',width:120},
-				{prop:'status',lable:'审核状态',width:120},
-				{prop:'created_at',lable:'注册时间',width:120},
-				{prop:'updated_at',lable:'最近更新时间',width:120},
-				{prop:'reserve_phone',lable:'预留手机号（个人）',width:120},
+				{prop:'open_id',lable:'用户ID'},
+				{prop:'name',lable:'用户昵称'},
+				{prop:'code',lable:'统一信用代码（企业）',width:200},
+				{prop:'company_name',lable:'企业/机构名称',width:150},
+				{prop:'business_license',lable:'营业执照',type:"img",width:200},
+				{prop:'opening_permit',lable:'身份证正面照片',type:"img",width:200},
+				{prop:'tax_rate_type',lable:'提供发票税率（企业）',width:200},
+				{prop:'account_name',lable:'账户名称（个人）',width:200},
+				{prop:'bank_card_no',lable:'银行卡号'},
+				{prop:'bank_name',lable:'开户银行'},
+				{prop:'branch_bank',lable:'开户支行'},
+				{prop:'status',lable:'审核状态'},
+				{prop:'created_at',lable:'注册时间'},
+				{prop:'updated_at',lable:'最近更新时间',width:200},
+				{prop:'reserve_phone',lable:'预留手机号（个人）',width:200},
 			],
 			action:{
 				morebtns:{
@@ -177,21 +182,21 @@ const screenData = {
 				'bank_name','branch_bank','status','created_at','updated_at'
 			],
 			bts:[
-				{prop:'open_id',lable:'用户ID',width:120},
-				{prop:'name',lable:'用户昵称',width:120},
-				{prop:'code',lable:'统一信用代码（企业）',width:120},
-				{prop:'company_name',lable:'企业/机构名称',width:120},
-				{prop:'business_license',lable:'营业执照',width:120,type:"img"},
-				{prop:'opening_permit',lable:'身份证正面照片',width:120,type:"img"},
-				{prop:'tax_rate_type',lable:'提供发票税率（企业）',width:120},
-				{prop:'account_name',lable:'账户名称（个人）',width:120},
-				{prop:'bank_card_no',lable:'银行卡号',width:120},
-				{prop:'bank_name',lable:'开户银行',width:120},
-				{prop:'branch_bank',lable:'开户支行',width:120},
-				{prop:'status',lable:'审核状态',width:120},
-				{prop:'created_at',lable:'注册时间',width:120},
-				{prop:'updated_at',lable:'最近更新时间',width:120},
-				{prop:'reserve_phone',lable:'预留手机号（个人）',width:120},
+				{prop:'open_id',lable:'用户ID'},
+				{prop:'name',lable:'用户昵称'},
+				{prop:'code',lable:'统一信用代码（企业）'},
+				{prop:'company_name',lable:'企业/机构名称'},
+				{prop:'business_license',lable:'营业执照',type:"img"},
+				{prop:'opening_permit',lable:'身份证正面照片',type:"img"},
+				{prop:'tax_rate_type',lable:'提供发票税率（企业）'},
+				{prop:'account_name',lable:'账户名称（个人）'},
+				{prop:'bank_card_no',lable:'银行卡号'},
+				{prop:'bank_name',lable:'开户银行'},
+				{prop:'branch_bank',lable:'开户支行'},
+				{prop:'status',lable:'审核状态'},
+				{prop:'created_at',lable:'注册时间'},
+				{prop:'updated_at',lable:'最近更新时间'},
+				{prop:'reserve_phone',lable:'预留手机号（个人）'},
 			],
 			action:{
 				morebtns:{
@@ -206,11 +211,11 @@ const screenData = {
 		},
 		roleManager:{
 			bts:[
-				{prop:'id',lable:'角色ID',width:120},
-				{prop:'name',lable:'角色名称',width:120},
-				{prop:'',lable:'角色介绍',width:120},
-				{prop:'',lable:'绑定账号数',width:120},
-				{prop:'',lable:'创建时间',width:120},
+				{prop:'id',lable:'角色ID'},
+				{prop:'name',lable:'角色名称'},
+				{prop:'',lable:'角色介绍'},
+				{prop:'',lable:'绑定账号数'},
+				{prop:'',lable:'创建时间'},
 			],
 			action:{
 				morebtns:{
@@ -219,6 +224,9 @@ const screenData = {
 					child:[
 						{
 							name:"编辑"
+						},
+						{
+							name:"删除"
 						}
 					],
 					page:"roleManager"
@@ -231,24 +239,19 @@ const screenData = {
 		},
 		accountManager:{
 			bts:[
-				{prop:'id',lable:'用户ID',width:120},
-				{prop:'role',lable:'角色ID',width:120},
-				{prop:'name',lable:'角色名称',width:120},
-				{prop:'sex',lable:'性别',width:120},
-				{prop:'email',lable:'邮箱',width:120},
-				{prop:'created_at',lable:'注册时间',width:120},
-				{prop:'updated_at',lable:'最近登录时间',width:120},
+				{prop:'id',lable:'用户ID'},
+				{prop:'role',lable:'角色ID'},
+				{prop:'name',lable:'角色名称'},
+				{prop:'sex',lable:'性别'},
+				{prop:'email',lable:'邮箱'},
+				{prop:'created_at',lable:'注册时间'},
+				{prop:'updated_at',lable:'最近登录时间'},
 			],
 			action:{
 				morebtns:{
-					name:"更多",
+					name:"设置角色",
 					Ishow:true,
-					child:[
-						{
-							name:"编辑"
-						}
-					],
-					page:"roleManager"
+					page:"accountManager"
 				},
 				links:{
 					name:"查看",

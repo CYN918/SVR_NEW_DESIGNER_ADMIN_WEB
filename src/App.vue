@@ -274,6 +274,11 @@ input{
 	height: calc(100% - 205px);
 }
 
+#app .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+	background-color: #FF5121;
+    border-color: #FF5121;
+}
+
 @media screen and (max-width: 1400px) {
 	.screenMidden{
 		height: 220px;
