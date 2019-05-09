@@ -6,14 +6,16 @@
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
 						<span v-if="item.type == 'img'" style="width: 120px;height: 50px;background: red;display: inline-block;"></span>
-						<span v-else-if="item.type != 'img'">{{ scope.row[item.prop] }}</span>
+						<span  v-else-if="item.type == 'url'"></span>
+						<button :class="'defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ 1 }}</button>
+						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
-						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="!tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
-						<el-dropdown trigger="click" v-if="tableAction.morebtns.child">
+						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
+						<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child">
 							<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 							<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 								<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
@@ -47,15 +49,18 @@
 		methods: {
 			handleClick(row, setid, page) {
 				
-				//console.log(row);
+				console.log(row);
 				//return;
 				switch(page){
 					case "userBaseInfo":
-						if (setid == "contributor") {
+						if (setid == "contributor0") {
 							this.$parent.setContributor(row);
-							return;
 						}
-						this.$parent.linkDetail(row.open_id);
+						
+						if (!setid) {
+							this.$parent.linkDetail(row.open_id);
+						}
+						
 					break;
 					case "roleManager":
 						if (setid == "contributor0") {
@@ -68,12 +73,19 @@
 						if(!setid){
 							this.router.push({path:"/power/roleManager/seeRoles",query:{id:row.id}});
 						}
+					break;
 					case "accountManager":
 						if (setid == "contributor") {
 							this.router.push({path:"/power/accountManager/setRoles",query:{id:row.id}});
 						}
 						if(!setid){
 							this.router.push({path:"/power/accountManager/seeaccount",query:{id:row.id}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+					break;
+					case "publishWork":
+						if(!setid){
+							this.router.push({path:"/review/publishWork/workDetial",query:{id:1,page:"publishWork"}});
 							//this.router.push({path:"/power/accountManager/seeRoles"});
 						}
 					break;

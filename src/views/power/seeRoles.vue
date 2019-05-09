@@ -14,8 +14,12 @@
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
-						 :props="defaultProps">
+						<el-tree :data="data2" 
+						show-checkbox
+						node-key="id" 
+						:default-expanded-keys="[2, 3]" 
+						:default-checked-keys="[5]"
+						:props="defaultProps">
 						</el-tree>
 					</div>
 				</li>
@@ -74,8 +78,8 @@
 					}]
 				}],
 				defaultProps: {
-					children: 'children',
-					label: 'label'
+					children: 'child',
+					label: 'title'
 				},
 				rolename:"--",
 				roleintroduce:"--"
@@ -118,40 +122,12 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					//console.log(da[0])
-					this.toTree(da)
+					//console.log(da)
+					this.data2 = da;
 				}).catch(da =>{
 					
 				})
-			},
-			toTree(data) {
-			    // 删除 所有 children,以防止多次调用
-			    data.forEach(item => {
-			        delete item.children;
-			    });
-					
-			    // 将数据存储为 以 id 为 KEY 的 map 索引数据列
-			    var map = {};
-			    data.forEach(item => {
-			        map[item.level] = item;
-			    });
-			    //console.log(map)
-			    var val = [];
-			    data.forEach(item => {
-			        // 以当前遍历项的pid,去map对象中找到索引的id
-			        var parent = map[item.id];
-					//  console.log(parent);
-			        // 好绕啊，如果找到索引，那么说明此项不在顶级当中,那么需要把此项添加到，他对应的父级中
-			        if (parent) {
-			            (parent.children || ( parent.children = [] )).push(item);
-			        } else {
-			            //  如果没有在map中找到对应的索引ID,那么直接把 当前的item添加到 val结果集中，作为顶级
-			            val.push(item);
-			        }
-			    });
-				//console.log(val);
-			    return val;
-			},
+			}
 		},
 		mounted() {
 			this.getMenu();

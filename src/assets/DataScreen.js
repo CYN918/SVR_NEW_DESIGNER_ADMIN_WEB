@@ -8,10 +8,8 @@ const screenData = {
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
 				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"}]},
-				{name:'作品数量下限',id:'works_num_min'},
-				{name:'作品数量上限',id:'works_num_max'},
-				{name:'关注数下限',id:'follow_num_min'},
-				{name:'关注数上限',id:'follow_num_max'},
+				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
+				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
 				{name:'注册时间（开始）',id:'register_time_start',type:"time"},
 				{name:'注册时间（结束）',id:'register_time_end',type:"time"},
 				{name:'用户名',id:'username'},
@@ -90,7 +88,17 @@ const screenData = {
 		},
 		publishWork:{
 			filterFields:[
-				
+				{name:"审核ID",id:"id"},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name"},
+				{name:"提审用户ID",id:"open_id"},
+				{name:"提升用户昵称",id:"username"},
+				{name:"提审时间（开始）",id:"create_time_start"},
+				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:"审核状态",id:"status ",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"2"},{name:"未通过",id:"-2"},{name:"已删除",id:"4"}]},
+				{name:"审核人",id:"reviewer"},
+				{name:"审核时间（开始）",id:"review_time_start"},
+				{name:"审核时间（结束）",id:"review_time_end"},
 			]
 		}
 	},
@@ -258,6 +266,32 @@ const screenData = {
 					Ishow:true
 				}
 			}
+		},
+		publishWork:{
+			bts:[
+				{prop:'id',lable:'审核ID'},
+				{prop:'work_id',lable:'作品ID'},
+				{prop:'work_name',lable:'作品名称',type:"url"},
+				{prop:'open_id',lable:'提审用户ID',width:200},
+				{prop:'status',lable:'审核状态',type:"btn"},
+				{prop:'is_del',lable:''},
+				{prop:'create_time',lable:'提审时间',width:200},
+				{prop:'username',lable:'提升用户昵称',width:200},
+				{prop:'reviewer_name',lable:'审核人名称',width:200},
+				{prop:'review_time',lable:'审核时间'},
+				{prop:'role',lable:'权限'},
+			],
+			action:{
+				morebtns:{
+					name:"设置角色",
+					Ishow:false,
+					page:"publishWork"
+				},
+				links:{
+					name:"详情",
+					Ishow:true
+				}
+			},
 		}
 		
 	}

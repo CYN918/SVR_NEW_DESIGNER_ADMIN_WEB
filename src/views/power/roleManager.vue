@@ -53,7 +53,8 @@
 				detailData: "",
 				filterFields:DataScreen.screen.roleManager.filterFields,
 				IsDetail:1,
-				roles:{}
+				roles:{},
+				menulist:'',
 			}
 		},
 		watch: {},
@@ -156,7 +157,8 @@
 					})
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}).catch()
-			}
+			},
+			
 		},
 		created() {},
 		mounted() {

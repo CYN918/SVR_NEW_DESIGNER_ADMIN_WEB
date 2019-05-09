@@ -58,12 +58,28 @@ export default new Router({
 					component: () => import('@/views/review/publishWork.vue')
 				},
 				{
+					path: 'publishWork/workDetial',
+					name: 'workDetial',
+					meta: {
+						title: "作品发布 / 审核详情"
+					},
+					component: () => import('@/views/review/workDetial.vue')
+				},
+				{
 					path: 'finalistsWork',
 					name: 'finalistsWork',
 					meta: {
 						title: "作品入围"
 					},
 					component: () => import('@/views/review/finalistsWork.vue')
+				},
+				{
+					path: 'publishWork/workDetial',
+					name: 'workDetial',
+					meta: {
+						title: "作品入围 / 审核详情"
+					},
+					component: () => import('@/views/review/workDetial.vue')
 				},
 				{
 					path: 'employWork',
@@ -74,13 +90,29 @@ export default new Router({
 					component: () => import('@/views/review/employWork.vue')
 				},
 				{
+					path: 'publishWork/workDetial',
+					name: 'workDetial',
+					meta: {
+						title: "作品录用 / 审核详情"
+					},
+					component: () => import('@/views/review/workDetial.vue')
+				},
+				{
 					path: 'applyPerson',
 					name: 'applyPerson',
 					meta: {
 						title: "供稿人申请"
 					},
 					component: () => import('@/views/review/applyPerson.vue')
-				}
+				},
+				{
+					path: 'publishWork/workDetial',
+					name: 'workDetial',
+					meta: {
+						title: "供稿人申请 / 审核详情"
+					},
+					component: () => import('@/views/review/workDetial.vue')
+				},
 			]
 		},
 		{

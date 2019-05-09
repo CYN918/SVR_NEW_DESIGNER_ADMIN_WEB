@@ -7,11 +7,9 @@
 				{{ currentpageName }}
 			</span>
 			<div class="textcenter">
-				<router-link v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :to="item.linkTo" tag="span" >
-					<span :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
-						<el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge>
-					</span>
-				</router-link>
+				<span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+					<el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge>
+				</span>
 			</div>
 		</div>
 		
@@ -55,8 +53,7 @@
 				radio2: 3,
 				c:this.commonTopData.commonbottombtn,
 				activeName: 'second',
-				tabsnum:0,
-				currentpageName:''
+				currentpageName:'',
 			};
 		},
 		methods: {
@@ -118,6 +115,14 @@
 						}
 						eventBus.$emit("screenshow", shownum4);
 					break;
+					case "publishWork":
+						const shownum5 = {
+							num: idIndex,
+							showmask: "No",
+							pageName: 'review/'+this.commonTopData.pageName,
+						}
+						eventBus.$emit("screenshow", shownum5);
+					break;
 					default:;
 				}
 				
@@ -141,10 +146,27 @@
 				console.log(tab, event);
 			},
 			tabsChange(num){
-				this.tabsnum = num
+				switch (num){
+					case 0:
+						this.router.push({path:"/review/publishWork"});
+						break;
+					case 1:
+						this.router.push({path:"/review/finalistsWork"});
+						break;
+					case 2:
+						this.router.push({path:"/review/employWork"})
+						break;
+					case 3:
+						this.router.push({path:"/review/applyPerson"})
+						break;
+					default:
+						break;
+				}
+				
 			}
 		},
 		mounted() {
+			//alert(typeof this.commonTopData.tabnums)
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title
 		},
 		watch:{

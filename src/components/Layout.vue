@@ -39,6 +39,7 @@ export default {
 		IsScreen:"Off",//筛选显隐控制
 		IsScreenShow:"off",//展示字段筛选显隐控制
 		pageName:"",
+		menulist:""
     }
   },
   watch:{},
@@ -73,7 +74,6 @@ export default {
 			}
 		})
 	}
-	
   },
   created(){},
   mounted(){

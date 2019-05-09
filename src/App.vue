@@ -130,6 +130,12 @@ input{
 	color: #333333;
 }
 
+#app .defaultbtnactive{
+	background: #ff5121;
+	color: #ffffff;
+	border-color: #ff5121;
+}
+
 #app .defaultbtn:hover{
 	background: #ff5121;
 	color: #ffffff;
@@ -156,6 +162,10 @@ input{
 #app .el-tag .el-icon-close:hover{
 	color: white;
 	background: #222222;
+}
+
+#app .el-textarea__inner:focus{
+	border-color: #ff5121;
 }
 
 .marginlr30{
@@ -196,6 +206,12 @@ input{
 	color: #FF5121 !important;
 }
 
+.sel-footer .el-button:focus,.sel-footer .el-button:hover,.sel-footer .el-button:active{
+	background: #FFF;
+    border: 1px solid #DCDFE6;
+    outline: 0;
+}
+
 .el-checkbox__input.is-checked+.el-checkbox__label{
 	color: #ff5121 !important;
 }
@@ -211,6 +227,11 @@ input{
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after{
 	color: transparent !important;
+}
+
+.el-dialog__body{
+	padding:27px 0 27px !important;
+	border-top:1px solid #e6e6e6;
 }
 
 .screenContent{
@@ -278,6 +299,65 @@ input{
 	background-color: #FF5121;
     border-color: #FF5121;
 }
+
+.el-radio__input.is-checked+.el-radio__label{
+	color: #FF5121 !important;
+}
+
+.el-radio__input.is-checked .el-radio__inner{
+	background-color: #FF5121 !important;
+	border-color: #FF5121 !important;
+}
+
+.defaultbtn0,.defaultbtn4{
+	min-width: auto;
+	height: 40px;
+	border:1px solid #999999;
+	border-radius: 4px;
+	color: #333333;
+	background: transparent;
+	padding-left: 23px;
+	padding-right: 23px;
+}
+
+.defaultbtn2{
+	border-color: #67C239;
+	color: #67C239;
+}
+.defaultbtn-2{
+	border-color: #FF1A27;
+	color: #FF1A27;
+}
+
+.el-radio__inner{
+	border-radius: 2px !important;
+}
+
+.el-radio__inner::after{
+	box-sizing: content-box;
+    content: "";
+    border: 1px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    height: 7px;
+    left: 4px;
+    position: absolute;
+    top: 1px;
+    transform: rotate(45deg) scaleY(0);
+    width: 3px;
+    transition: transform .15s cubic-bezier(.71,-.46,.88,.6) .05s;
+    transform-origin: center;
+	border-radius:0;
+	background-color:transparent;
+}
+
+.el-radio__input.is-checked .el-radio__inner::after{
+	transform: rotate(45deg) scaleY(1);
+}
+
+.el-radio{
+	width: 100%;
+} 
 
 @media screen and (max-width: 1400px) {
 	.screenMidden{

@@ -112,7 +112,7 @@
 					access_token:2,
 					id:this.$route.query.id
 				}).then(da =>{
-					console.log(da);
+					//console.log(da);
 					this.rolename = da.name;
 					this.roleintroduce = da.description;
 				}).catch(da => {

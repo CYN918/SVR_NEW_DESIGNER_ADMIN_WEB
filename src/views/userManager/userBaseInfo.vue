@@ -259,6 +259,7 @@
 					//console.log(urldata);
 					this.filterFields.forEach(item=>{
 						//console.log(item);
+						
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
@@ -272,6 +273,18 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
+							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
+							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
 						}
 					})
 				}

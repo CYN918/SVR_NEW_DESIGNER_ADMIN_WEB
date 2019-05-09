@@ -40,4 +40,7 @@ export default {
 	getMenuList:{
 		url:'/admin/menu/getMenuList',method:'post',baseURL:0
 	},
+	reviewList:{
+		url:'/admin/Review/list',method:'post',baseURL:0
+	},
 }

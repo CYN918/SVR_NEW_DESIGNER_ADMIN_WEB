@@ -10,30 +10,24 @@
 					<li v-for="(item,index) in texts" :key="item.id">
 						<div>{{ item.name }}</div>
 						<!-- form.selct[item.a] -->
-						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="!item.child && item.type != 'time'" clearable></el-input>
-						<el-select class="ipt" v-model="form[item.id]" placeholder="请选择" v-else-if="item.child">
+						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
+						 clearable></el-input>
+						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && (!item.type)">
 							<el-option value="" label="全部"></el-option>
+							<el-radio-group v-model="form[item.id]">
 							<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-								 <!-- <el-checkbox :label="childitem.name"></el-checkbox> -->
+							   <!-- <el-checkbox :label="childitem.name" max="1"></el-checkbox> -->
+							    <el-radio :label="childitem.name"></el-radio>
 							</el-option>
+							</el-radio-group>
 						</el-select>
-						<el-date-picker
-						  value-format="yyyy-MM-dd HH-mm-ss"
-						  v-if="item.type == 'time'"
-						  v-model="form[item.id]"
-						  type="datetime"
-						  placeholder="选择日期">
+						<el-date-picker value-format="yyyy-MM-dd HH-mm-ss" v-if="item.type == 'time'" v-model="form[item.id]" type="datetime"
+						 placeholder="选择日期">
 						</el-date-picker>
-					</li>
-					<li>
-						<div>
-							用户
-						</div>
-						<div class="ipt el-input el-input--suffix sel-text">
-							<input type="text" autocomplete="off" placeholder="请输入内容" class="el-input__inner sel-input">
-							<div>
-								
-							</div>
+						<div v-if="item.type == 'two'">
+							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<span style="padding: 0 14px;">至</span>
+							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 					</li>
 					<!-- <li>
@@ -218,29 +212,52 @@
 <script>
 	import DataScreen from "@/assets/DataScreen.js"
 	export default {
-		props:["pageName"],
+		props: ["pageName"],
 		data() {
 			return {
-				form:{},
-				texts:'',
+				form: {},
+				texts: '',
+				options: [{
+					  value: '选项1',
+					  label: '黄金糕'
+					}, {
+					  value: '选项2',
+					  label: '双皮奶'
+					}, {
+					  value: '选项3',
+					  label: '蚵仔煎'
+					}, {
+					  value: '选项4',
+					  label: '龙须面'
+					}, {
+					  value: '选项5',
+					  label: '北京烤鸭'
+				}],
+				value: '',
 			}
 		},
-		methods:{
-			getparent(data){
-				if(data == "reach"){
-					this.$router.push({path:('/'+ this.pageName),query:{ urlDate:JSON.stringify(this.form)}});
-					eventBus.$emit("sreenData",this.form);
+		methods: {
+			getparent(data) {
+				if (data == "reach") {
+					this.$router.push({
+						path: ('/' + this.pageName),
+						query: {
+							urlDate: JSON.stringify(this.form)
+						}
+					});
+					eventBus.$emit("sreenData", this.form);
 				}
-				this.$parent.screenmask("Off","left1");
+				this.$parent.screenmask("Off", "left1");
 			},
-			init(){
+			init() {
 				//alert(typeof this.$route.query.urlDate != "string")
-				if(typeof this.$route.query.urlDate != "string" && this.$route.query.urlDate){
+				if (typeof this.$route.query.urlDate != "string" && this.$route.query.urlDate) {
 					this.form = this.$route.query.urlDate;
 				}
 			},
-			getScreen(){
-				switch (this.pageName){
+			getScreen() {
+				//alert(this.pageName)
+				switch (this.pageName) {
 					case "userBaseInfo":
 						this.texts = DataScreen.screen.userBaseInfo.filterFields;
 						break;
@@ -256,20 +273,23 @@
 					case "power/accountManager":
 						this.texts = DataScreen.screen.accountManager.filterFields;
 						break;
+					case "review/publishWork":
+						this.texts = DataScreen.screen.publishWork.filterFields;
+						break;
 					default:
 						break;
 				}
 			},
-			reset(){
+			reset() {
 				this.form = {};
 			}
 		},
-		watch:{
-			'$route':function(data){
+		watch: {
+			'$route': function(data) {
 				//console.log(data)
 			}
 		},
-		mounted(){
+		mounted() {
 			this.getScreen();
 			this.init()
 		}
@@ -277,38 +297,60 @@
 </script>
 
 <style>
-	.screenborder{
+	.screenborder {
 		width: 772px;
 		background: #FFFFFF;
 		border-radius: 5px;
 	}
-	
-	.screenMiddenul{
+
+	.screenMiddenul {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-between;
-		flex-flow: row wrap; 
+		flex-flow: row wrap;
 	}
-	
-	.screenMiddenul li{
+
+	.screenMiddenul li {
 		margin-top: 27px;
 	}
-	
+
 	.el-select-dropdown .checkboxipt {
 		width: 200px;
 		height: 32px;
 		margin: 7px auto 14px;
 		display: block;
 	}
-	
-	.checkboxipt input{
+
+	.checkboxipt input {
 		display: block;
 		height: 32px;
 		margin: 0 auto;
 	}
-	
-	.el-select-dropdown__item .el-checkbox{
+
+	.el-select-dropdown__item .el-checkbox {
 		width: 100%;
+	}
+	
+	.sel-text .screentext{
+		width: 200px;
+		height: 32px;
+		line-height: 32px;
+		display: block;
+	}
+	
+	.screentext .el-input__inner {
+		height: 32px;
+		line-height: 32px;
+	}
+	
+	.screentextbg{
+		padding:5px 12px;
+		width: 100%;
+		background: #FFFFFF;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+		border-radius: 4px;
+		position: relative;
+		z-index: 9999;
 	}
 </style>
