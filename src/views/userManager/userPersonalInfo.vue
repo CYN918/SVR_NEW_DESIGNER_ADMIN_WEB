@@ -1,14 +1,11 @@
 <template>
 	<div class="wh">
-		<div class="wh" v-if="!IsDetail">
+		<div class="wh">
 			<common-top :commonTopData="commonTopData"></common-top>
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
 			</div>
-		</div>
-		<div class="wh baseInfoDetail" v-if="IsDetail">
-			<user-personal-info-detail :detailData="detailData"></user-personal-info-detail>
 		</div>
 	</div>
 </template>
@@ -43,7 +40,7 @@
 					currentpage:1,
 					pagesize:10,
 					list: DataScreen.screenShow.userPersonalInfo.bts,
-
+					ischeck:false
 				},
 				tableData: [],
 				tableAction: DataScreen.screenShow.userPersonalInfo.action,

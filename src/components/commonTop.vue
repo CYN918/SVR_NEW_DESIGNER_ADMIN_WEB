@@ -143,7 +143,7 @@
 				this.$parent.centerDialogVisible = true;
 			},
 			handleClick(tab, event) {
-				console.log(tab, event);
+				//console.log(tab, event);
 			},
 			tabsChange(num){
 				switch (num){

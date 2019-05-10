@@ -18,17 +18,13 @@
 					</div>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft roles-input" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft roles-input" style="margin-right: 20px;">权限设置</span>
 					<div class="roles-input width500 roletree">
-						<el-tree 
-							:data="data2" 
-							show-checkbox 
-							node-key="id" 
-							:default-expanded-keys="[2, 3]" 
-							:default-checked-keys="[5]"
-						    :props="defaultProps"
-							ref="tree"
-						>
+						<el-tree :data="data2" 
+						show-checkbox
+						node-key="id" 
+						ref="tree"
+						:props="defaultProps">
 						</el-tree>
 					</div>
 				</li>
@@ -50,47 +46,11 @@
 				text30: "",
 				length10: 0,
 				length30: 0,
-				data2: [{
-					id: 1,
-					label: '一级 1',
-					children: [{
-						id: 4,
-						label: '二级 1-1',
-						children: [{
-							id: 9,
-							label: '三级 1-1-1'
-						}, {
-							id: 10,
-							label: '三级 1-1-2',
-							disabled:true,
-						}]
-					}]
-				}, {
-					id: 2,
-					label: '一级 2',
-					children: [{
-						id: 5,
-						label: '二级 2-1',
-						disabled:true
-					}, {
-						id: 6,
-						label: '二级 2-2'
-					}]
-				}, {
-					id: 3,
-					label: '一级 3',
-					children: [{
-						id: 7,
-						label: '二级 3-1'
-					}, {
-						id: 8,
-						label: '二级 3-2'
-					}]
-				}],
+				data2: [{}],
 				defaultProps: {
-					children: 'children',
-					label: 'label'
-				}
+					children: 'child',
+					label: 'title'
+				},
 			}
 		},
 		methods: {
@@ -114,7 +74,16 @@
 				}
 			},
 			addrole(){
-				let rolesString = this.$refs.tree.getCheckedKeys().toString();
+				let rolesString = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()).toString();
+				if(!this.text10 || !rolesString){
+					this.$message({
+					  type: 'warning',
+					  message: "请填写角色名称/角色权限"
+					});
+					return;
+				}
+				
+				//console.log(this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()))
 				//alert(rolesString);
 				this.api.addRole({
 					access_token:2,
@@ -134,40 +103,12 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					//console.log(da[0])
-					this.toTree(da)
+					//console.log(da)
+					this.data2 = da;
 				}).catch(da =>{
 					
 				})
-			},
-			toTree(data) {
-			    // 删除 所有 children,以防止多次调用
-			    data.forEach(item => {
-			        delete item.children;
-			    });
-					
-			    // 将数据存储为 以 id 为 KEY 的 map 索引数据列
-			    var map = {};
-			    data.forEach(item => {
-			        map[item.level] = item;
-			    });
-			    //console.log(map)
-			    var val = [];
-			    data.forEach(item => {
-			        // 以当前遍历项的pid,去map对象中找到索引的id
-			        var parent = map[item.id];
-					//  console.log(parent);
-			        // 好绕啊，如果找到索引，那么说明此项不在顶级当中,那么需要把此项添加到，他对应的父级中
-			        if (parent) {
-			            (parent.children || ( parent.children = [] )).push(item);
-			        } else {
-			            //  如果没有在map中找到对应的索引ID,那么直接把 当前的item添加到 val结果集中，作为顶级
-			            val.push(item);
-			        }
-			    });
-				//console.log(val);
-			    return val;
-			},
+			}
 		},
 		mounted() {
 			this.getMenu();

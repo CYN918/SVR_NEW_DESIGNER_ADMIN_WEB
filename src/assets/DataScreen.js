@@ -15,15 +15,15 @@ const screenData = {
 				{name:'用户名',id:'username'},
 				{name:'用户手机号',id:'phone'},
 				{name:'邮箱',id:'email'},
-				{name:'职业',id:'vocation'},
+				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","三维设计师","网页设计师","UI设计师","动画师","产品设计师","室内设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","概念设计师","特效设计师","建筑师","服装设计师","手工艺人","艺人工作者","教育工作者"]},
 				{name:'所在地',id:'address'},
 				{name:'非认证微信',id:'weixin_visible'},
 				{name:'认证微信',id:'weixin'},
 				{name:'非认证QQ',id:'qq_visible'},
 				{name:'认证qq',id:'qq'},
 				{name:'认证微博',id:'weibo'}
-				
-			]
+			],
+			
 		},
 		userCompanyInfo:{
 			filterFields:[
@@ -176,12 +176,14 @@ const screenData = {
 			action:{
 				morebtns:{
 					name:"更多",
-					Ishow:false
+					Ishow:false,
+					page:'userCompanyInfo'
 				},
 				links:{
 					name:"查看详情",
 					Ishow:true
-				}
+				},
+				
 			}
 		},
 		userPersonalInfo:{
@@ -209,12 +211,14 @@ const screenData = {
 			action:{
 				morebtns:{
 					name:"更多",
-					Ishow:false
+					Ishow:false,
+					page:"userPersonalInfo"
 				},
 				links:{
 					name:"查看详情",
 					Ishow:true
-				}
+				},
+				
 			}
 		},
 		roleManager:{
@@ -242,7 +246,8 @@ const screenData = {
 				links:{
 					name:"查看",
 					Ishow:true
-				}
+				},
+				page:'roleManager'
 			}
 		},
 		accountManager:{

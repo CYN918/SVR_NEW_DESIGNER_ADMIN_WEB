@@ -1,6 +1,6 @@
 <template>
   <div class="wh">
-	<div class="wh" v-if="!IsDetail">
+	<div class="wh">
 		<common-top :commonTopData="commonTopData"></common-top>
 		<div class="calc205">
 			<common-table
@@ -11,9 +11,6 @@
 				ref="Tabledd"
 			></common-table>
 		</div>
-	</div>
-    <div class="wh baseInfoDetail" v-if="IsDetail">
-		<user-base-info-detail :detailData="detailData"></user-base-info-detail>
 	</div>
 	<el-dialog title="批量操作-设为平台推荐创作者" :visible.sync="centerDialogVisible" width="406px">
 	  <div style="position: relative;">
@@ -122,6 +119,7 @@
 					currentpage:1,
 					pagesize:10,
 					list:[],
+					ischeck:true,
 					
 				},
 				tableData:[],
@@ -154,7 +152,7 @@
 					if(!da){
 						this.$message('数据为空');
 					}
-					console.log(da.data)
+					//console.log(da.data)
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;

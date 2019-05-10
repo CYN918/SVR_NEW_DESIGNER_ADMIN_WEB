@@ -15,12 +15,22 @@
 						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && (!item.type)">
 							<el-option value="" label="全部"></el-option>
 							<el-radio-group v-model="form[item.id]">
-							<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							   <!-- <el-checkbox :label="childitem.name" max="1"></el-checkbox> -->
-							    <el-radio :label="childitem.name"></el-radio>
-							</el-option>
+								<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+								   <!-- <el-checkbox :label="childitem.name" max="1"></el-checkbox> -->
+									<el-radio :label="childitem.name"></el-radio>
+								</el-option>
 							</el-radio-group>
 						</el-select>
+						
+							<el-select v-model="value2" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
+								<el-option value="" label="全部"></el-option>
+								<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
+									
+									<el-checkbox :label="childitem"></el-checkbox>
+									
+								</el-option>
+							</el-select>
+						
 						<el-date-picker value-format="yyyy-MM-dd HH-mm-ss" v-if="item.type == 'time'" v-model="form[item.id]" type="datetime"
 						 placeholder="选择日期">
 						</el-date-picker>
@@ -234,6 +244,7 @@
 					  label: '北京烤鸭'
 				}],
 				value: '',
+				value2:[]
 			}
 		},
 		methods: {

@@ -43,4 +43,8 @@ export default {
 	reviewList:{
 		url:'/admin/Review/list',method:'post',baseURL:0
 	},
+	access:{
+		url:'/admin/Menu/access',method:'post',baseURL:0
+	},
+	
 }

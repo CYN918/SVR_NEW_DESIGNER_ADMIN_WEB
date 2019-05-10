@@ -90,10 +90,33 @@
 
 <script>
 	export default {
-		props:['detailData'],
+		data(){
+			return{
+				detailData:''
+			}
+		},
 		methods:{
 			getparent(){
-				this.$parent.IsDetail = false;
+				this.router.push({
+					path:"/userPersonalInfo"
+				})
+			},
+			getValue(val){
+				if(val) {
+					return val
+				} else{
+					return "--"
+				}
+			},
+			getdata(){
+				
+				const id = this.$route.query.open_id;
+				this.api.getContributorInfo({
+					open_id: id,
+					contribute_type:1
+				}).then(da => {
+					this.detailData = da;
+				}).catch(() => {})
 			}
 		}
 	}

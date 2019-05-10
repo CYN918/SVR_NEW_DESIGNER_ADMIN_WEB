@@ -133,11 +133,29 @@
 
 <script>
 	export default {
-		props:['detailData'],
+		data(){
+			return{
+				detailData:''
+			}
+		},
 		methods:{
 			getparent(){
-				this.$parent.IsDetail = false;
+				//this.$parent.IsDetail = false;
+				this.router.push({
+					path:"/userBaseInfo"
+				})
+			},
+			getdata(){
+				const id = this.$route.query.id;
+				this.api.getUserInfo({open_id:id}).then(da => {
+					this.detailData = da;
+				}).catch(()=>{
+					
+				})
 			}
+		},
+		mounted(){
+			this.getdata();
 		}
 	}
 </script>

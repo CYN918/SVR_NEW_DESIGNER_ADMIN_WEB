@@ -82,10 +82,16 @@
 
 <script>
 	export default {
-		props:['detailData'],
+		data(){
+			return{
+				detailData:''
+			}
+		},
 		methods:{
 			getparent(){
-				this.$parent.IsDetail = false;
+				this.router.push({
+					path:"/userCompanyInfo"
+				})
 			},
 			getValue(val){
 				if(val) {
@@ -93,7 +99,21 @@
 				} else{
 					return "--"
 				}
+			},
+			getdata(){
+				
+				const id = this.$route.query.open_id;
+				this.api.getContributorInfo({
+					open_id: id,
+					contribute_type:2
+				}).then(da => {
+					this.detailData = da;
+					//console.log(da);
+				}).catch(() => {})
 			}
+		},
+		mounted(){
+			this.getdata();
 		}
 	}
 </script>

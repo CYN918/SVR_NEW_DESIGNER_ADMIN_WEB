@@ -24,6 +24,14 @@ export default new Router({
 					component: () => import('@/views/userManager/userBaseInfo.vue')
 				},
 				{
+					path: 'userBaseInfo/userBaseInfoDetail',
+					name: 'userBaseInfoDetail',
+					meta: {
+						title: "用户基本信息 / 查看用户信息"
+					},
+					component: () => import('@/views/userManager/userBaseInfoDetail.vue')
+				},
+				{
 					path: 'userPersonalInfo',
 					name: 'userPersonalInfo',
 					meta: {
@@ -32,13 +40,29 @@ export default new Router({
 					component: () => import('@/views/userManager/userPersonalInfo.vue')
 				},
 				{
+					path: 'userPersonalInfo/userPersonalInfoDetail',
+					name: 'userPersonalInfoDetail',
+					meta: {
+						title: "供稿人信息表-个人 / 查看用户信息"
+					},
+					component: () => import('@/views/userManager/userPersonalInfoDetail.vue')
+				},
+				{
 					path: 'userCompanyInfo',
 					name: 'userCompanyInfo',
 					meta: {
-						title: "供稿人信息表-企业/机构"
+						title: "供稿人信息表-企业-机构"
 					},
 					component: () => import('@/views/userManager/userCompanyInfo.vue')
-				}
+				},
+				{
+					path: 'userCompanyInfo/userCompanyInfoDetail',
+					name: 'userCompanyInfoDetail',
+					meta: {
+						title: "供稿人信息表-企业-机构  /  查看机构信息"
+					},
+					component: () => import('@/views/userManager/userCompanyInfoDetail.vue')
+				},
 			]
 		},
 		{

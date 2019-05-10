@@ -2,7 +2,9 @@
 	<div class="wh">
 		<div class="tabtop" ref="elememt">
 			<el-table :height="tableHeight" :data="tableDatas" style="width: 100%" @selection-change="handleSelectionChange">
-				<el-table-column fixed type="selection" width="55"></el-table-column>
+				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
+				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
+				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
 						<span v-if="item.type == 'img'" style="width: 120px;height: 50px;background: red;display: inline-block;"></span>
@@ -27,14 +29,17 @@
 				</el-table-column>
 			</el-table>
 		</div>
-		<div class="w block">
+		<div class="w" style="text-align: right;background: #FFFFFF;">
+			<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+				<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+			</div>
 			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableConfig.total">
+			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 			</el-pagination>
 		</div>
 	</div>
 </template>
-
+<!-- :total="tableConfig.total" -->
 <script>
 	export default {
 		props: ['tableConfig', 'tableDatas','tableAction'],
@@ -44,12 +49,13 @@
 				tableHeight: 150,
 				currentpage: 1,
 				pagesize: 10,
+				selected:0
 			}
 		},
 		methods: {
 			handleClick(row, setid, page) {
 				
-				console.log(row);
+				//console.log(page);
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -58,9 +64,21 @@
 						}
 						
 						if (!setid) {
-							this.$parent.linkDetail(row.open_id);
+							this.router.push({path:"/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
+							///this.$parent.linkDetail(row.open_id);
 						}
-						
+					break;
+					case "userCompanyInfo":
+						if (!setid) {
+							this.router.push({path:"userCompanyInfo/userCompanyInfoDetail",query:{open_id:row.open_id}});
+							///this.$parent.linkDetail(row.open_id);
+						}
+					break;
+					case "userPersonalInfo":
+						if (!setid) {
+							this.router.push({path:"userPersonalInfo/userPersonalInfoDetail",query:{open_id:row.open_id}});
+							///this.$parent.linkDetail(row.open_id);
+						}
 					break;
 					case "roleManager":
 						if (setid == "contributor0") {
@@ -101,7 +119,7 @@
 				this.getTabData();
 			},
 			handleSelectionChange(val) {
-				//console.log(val);
+				this.selected = val.length
 				this.$parent.selectData = val;
 			},
 			getTabData() {
@@ -227,4 +245,8 @@
 	.el-pager li.btn-quicknext, .el-pager li.btn-quickprev{
 		line-height: 100px;
 	}
+	
+	/* .el-table__fixed {
+		margin-left: 27px;
+	} */
 </style>

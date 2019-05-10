@@ -18,8 +18,12 @@
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">权限设置</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" show-checkbox node-key="id" :default-expanded-keys="[2, 3]" :default-checked-keys="[5]"
-						 :props="defaultProps">
+						<el-tree :data="data2" 
+						show-checkbox
+						node-key="id" 
+						:default-expanded-keys="[2, 3]" 
+						:default-checked-keys="[5]"
+						:props="defaultProps">
 						</el-tree>
 					</div>
 				</li>
@@ -78,8 +82,8 @@
 					}]
 				}],
 				defaultProps: {
-					children: 'children',
-					label: 'label'
+					children: 'child',
+					label: 'title'
 				},
 				rolename:"--",
 				roleintroduce:"--"
@@ -122,8 +126,8 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					//console.log(da[0])
-					this.toTree(da)
+					//console.log(da)
+					this.data2 = da;
 				}).catch(da =>{
 					
 				})
