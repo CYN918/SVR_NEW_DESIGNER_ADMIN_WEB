@@ -4,25 +4,45 @@
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色名称</span>
+					<span class="fleft" style="margin-right: 20px;width:84px">用户ID</span>
 					<span>{{ rolename }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">角色介绍</span>
+					<span class="fleft" style="margin-right: 20px;width:84px">用户名称</span>
 					<span>{{ roleintroduce }}</span>
 				</li>
+				
 				<li class="margint13 ofh">
-					<span class="fleft roles-input" style="margin-right: 20px;">角色名称</span>
-					<div class="el-input__inner roles-input width500"></div>
+					<span class="fleft" style="margin-right: 20px;width:84px">邮箱</span>
+					<span>{{ roleintroduce }}</span>
+				</li>
+				<li class="margint13 relative">
+					<span class="fleft roles-input" style="margin-right: 20px;width:84px">角色名称</span>
+					<div class="el-input__inner roles-input width500 pointer" @click="seloption()">
+						<div class="fleft" style="width: 450px;height: 100%;overflow-y: auto;">
+							<el-tag :key="item" v-for="item in checkedCities1" closable class="tag"
+							 :disable-transitions="false" @close="handleClose(item)">
+								{{item}}
+							</el-tag>
+						</div>
+						<i class="fright el-icon-arrow-down" style="margin-top: 12px;"></i>
+					</div>
+					<div class="sel-select-option" v-show="Islist">
+						<el-checkbox-group v-model="checkedCities1">
+							<div  v-for="city in cities" :key="city">
+								<el-checkbox :label="city">{{city}}</el-checkbox>
+							</div>
+						 </el-checkbox-group>
+					</div>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">权限设置</span>
+					<span class="fleft" style="margin-right: 20px;width:84px">权限设置</span>
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" 
 						show-checkbox
 						node-key="id" 
-						:default-expanded-keys="[2, 3]" 
-						:default-checked-keys="[5]"
+						check-strictly
+						:default-checked-keys="permissions"
 						:props="defaultProps">
 						</el-tree>
 					</div>
@@ -31,11 +51,13 @@
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
+			<button class="defaultbtn" @click="addrole()">提交</button>
 		</div>
 	</div>
 </template>
 
 <script>
+	const cityOptions = ['上海', '北京', '广州', '深圳'];
 	export default {
 		props: ['detailData','roles'],
 		data() {
@@ -45,48 +67,18 @@
 				length10: 0,
 				length30: 0,
 				data2: [{
-					id: 1,
-					label: '一级 1',
-					children: [{
-						id: 4,
-						label: '二级 1-1',
-						children: [{
-							id: 9,
-							label: '三级 1-1-1'
-						}, {
-							id: 10,
-							label: '三级 1-1-2',
-							disabled:true,
-						}]
-					}]
-				}, {
-					id: 2,
-					label: '一级 2',
-					children: [{
-						id: 5,
-						label: '二级 2-1',
-						disabled:true
-					}, {
-						id: 6,
-						label: '二级 2-2'
-					}]
-				}, {
-					id: 3,
-					label: '一级 3',
-					children: [{
-						id: 7,
-						label: '二级 3-1'
-					}, {
-						id: 8,
-						label: '二级 3-2'
-					}]
+					
 				}],
 				defaultProps: {
 					children: 'child',
 					label: 'title'
 				},
 				rolename:"--",
-				roleintroduce:"--"
+				roleintroduce:"--",
+				permissions:[],
+				checkedCities1: ['上海', '北京'],
+                cities: cityOptions,
+				Islist:true,
 			}
 		},
 		methods: {
@@ -110,13 +102,21 @@
 				}
 			},
 			seeroles(){
-				this.api.infoRole({
+				this.api.getAdminUserInfo({
 					access_token:2,
 					id:this.$route.query.id
 				}).then(da =>{
-					console.log(da);
-					this.rolename = da.name;
-					this.roleintroduce = da.description;
+					console.log(da)
+					/* this.rolename = da.name;
+					this.roleintroduce = da.description; */
+					console.log(da.permissions.split(","));
+					da.permissions.split(",").forEach((itme)=>{
+						if(parseInt(itme)){
+							this.permissions.push(parseInt(itme));
+						}
+						
+					})
+					
 				}).catch(da => {
 					
 				})
@@ -131,7 +131,20 @@
 				}).catch(da =>{
 					
 				})
-			}
+			},
+			seloption(){
+				this.Islist = !this.Islist;
+			},
+			handleClose(tag) {
+				this.checkedCities1.forEach((item,index)=>{
+					if(tag == item){
+						this.checkedCities1.splice(index,1)
+					}
+				});
+				/* if(this.checkedCities1.length == 0){
+					this.Islist =false;
+				} */
+			},
 		},
 		mounted() {
 			this.getMenu();
@@ -216,5 +229,15 @@
 		display: inline-block;
 		overflow-y: auto;
 		border-radius: 5px;
+	}
+	
+	.sel-select-option {
+		position: absolute;
+		background: #FFFFFF;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+		border-radius: 5px;
+		z-index: 99999;
+		padding: 20px;
+		width: calc(100% - 65px);
 	}
 </style>

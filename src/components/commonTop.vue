@@ -32,7 +32,7 @@
 		</div>
 		<div class="margin40" style="height: 60px;">
 			<div class="tagbts">
-				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="btntag"
+				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 				 :disable-transitions="false" @close="handleClose(item.id)">
 					{{item.btnName + "：" + item.val}}
 				</el-tag>

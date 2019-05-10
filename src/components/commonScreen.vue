@@ -22,14 +22,14 @@
 							</el-radio-group>
 						</el-select>
 						
-							<el-select v-model="value2" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
-								<el-option value="" label="全部"></el-option>
-								<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
-									
-									<el-checkbox :label="childitem"></el-checkbox>
-									
-								</el-option>
-							</el-select>
+						<el-select v-model="form[item.id]" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
+							<el-option value="" label="全部"></el-option>
+							<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
+								
+								<el-checkbox>{{ childitem }}</el-checkbox>
+								
+							</el-option>
+						</el-select>
 						
 						<el-date-picker value-format="yyyy-MM-dd HH-mm-ss" v-if="item.type == 'time'" v-model="form[item.id]" type="datetime"
 						 placeholder="选择日期">

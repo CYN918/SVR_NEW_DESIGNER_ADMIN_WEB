@@ -6,19 +6,19 @@
 		</div>
 		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
 		 active-text-color="#FF5121">
-			<!-- <el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id" >
+			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id" >
 				<template slot="title">
-					<i class="iconfont">{{ iconfont[item.id] }}</i>
+					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
 				
 				<router-link v-if="item.child" v-for="citem in item.child" :key="citem.id" :to="url[citem.id]">
 					<el-menu-item :index="citem.id" class="">{{ citem.title }}</el-menu-item>
 				</router-link>
-			</el-submenu> -->
+			</el-submenu>
 			
 			
-			<el-submenu index="1">
+			<!-- <el-submenu index="1">
 				<template slot="title">
 					<i class="iconfont">&#xe602;</i>
 					<span style="padding:15px;">用户管理</span>
@@ -119,7 +119,7 @@
 				<router-link to="/power/accountManager">
 					<el-menu-item index="7-2">账号管理</el-menu-item>
 				</router-link>
-			</el-submenu>
+			</el-submenu> -->
 		</el-menu>
 	</div>
 </template>
@@ -131,15 +131,17 @@
 		data() {
 			return {
 				menuAccess:[],
-				/* url:{
+				url:{
 					"2":"/userBaseInfo",
-					"4":"/userPersonalInfo",
-					"3":"/userCompanyInfo"
+					"3":"/userPersonalInfo",
+					"4":"/userCompanyInfo",
+					"6":"/power/roleManager",
+					"7":"/power/accountManager",
 				},
 				iconfont:{
-					"1": &#xe602;,
-					"5": &#xe609;,
-				} */
+					"1": "&#xe602;",
+					"5": "&#xe609;",
+				}
 			}
 		},
 		watch: {},
@@ -155,7 +157,7 @@
 		created() {
 			if(localStorage.getItem("access")){
 				this.menuAccess = JSON.parse(localStorage.getItem("access"));
-				console.log(this.menuAccess);
+				//console.log(this.menuAccess);
 			}
 			
 		},

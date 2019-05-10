@@ -146,13 +146,16 @@ input{
 	border-bottom: #f8f8f8 solid 3px;
 }
 
-#app .btntag {
+#app .tag{
 	border-color: #E6E6E6;
 	background: #E6E6E6;
 	color: #666666;
+	margin-right:14px;
+}
+
+#app .btntag{
 	height: 40px;
 	line-height: 40px;
-	margin-right:14px;
 }
 
 #app .el-tag .el-icon-close {

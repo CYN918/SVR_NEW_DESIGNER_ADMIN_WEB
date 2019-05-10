@@ -78,6 +78,7 @@
 				this.api.access({
 					user_id: "test@qq.com"
 				}).then(da => {
+					//console.log(da)
 					localStorage.setItem("access",JSON.stringify(da.menu_banner))
 				}).catch(da => {
 
