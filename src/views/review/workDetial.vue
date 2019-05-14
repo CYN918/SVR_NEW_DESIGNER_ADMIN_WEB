@@ -34,8 +34,8 @@
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1 && pagetype != 4">
 				<el-checkbox-group v-model="checkList">
-					<div>
-						<div>附件</div>
+					<div v-if="material_info['附件']">
+						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
 							<li class="">
 								<div class="material relative">
@@ -59,32 +59,22 @@
 							</li>
 						</ul>
 					</div>
-					<div>
-						<div>图片</div>
+					<div v-if="material_info['图片']">
+						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
+							<li v-for="(item,index) in material_info['图片']" :key = "item.url">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
 									<el-checkbox class="material-checkbox" label="3" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="4" v-if="workselect"></el-checkbox>
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">3M</span>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<div>
-						<div>视屏</div>
+					<div v-if="material_info['视频']">
+						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
 							<li class="">
 								<div class="material relative">
@@ -98,8 +88,8 @@
 							</li>
 						</ul>
 					</div>
-					<div>
-						<div>音频</div>
+					<div v-if="material_info['音频']">
+						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
 							<li class="">
 								<div class="material relative">
@@ -351,8 +341,6 @@
 				text30: "",
 				length10: 0,
 				length30: 0,
-				rolename: "--",
-				roleintroduce: "--",
 				tabData: [{}],
 				tabData1:[{
 						name: "买断式"
@@ -507,7 +495,7 @@
 					//console.log(this.reviewinfostatus);
 				};
 				if (this.status_info == -1) {
-					alert(2)
+					//alert(2)
 					this.reviewinfostatus = reviewData[pagename].reviewinfo.status_1;
 				};
 			},
@@ -880,6 +868,7 @@
 		color: #666666;
 		margin-top: 3px;
 		overflow: hidden;
+		font-size: 14px;
 	}
 
 	.el-message-box--center .el-message-box__title {

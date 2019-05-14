@@ -60,6 +60,12 @@ export default {
 	},
 	todoCount:{
 		url:'/admin/Review/todoCount',method:'post',baseURL:0,suktip:true
-	}
+	},
+	workList:{
+		url:'/admin/work/list',method:'post',baseURL:0,suktip:true
+	},
+	workInfo:{
+		url:'/admin/Work/info',method:'post',baseURL:0,suktip:true
+	},
 	
 }

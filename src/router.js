@@ -205,6 +205,50 @@ export default new Router({
 					component: () => import('@/views/power/setRoles.vue'),
 				}
 			]
+		},
+		{
+			path:"/workManager",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/workManager/workInfo",
+			meta: {
+				title: "作品管理"
+			},
+			children:[
+				{
+					path: "workInfo",
+					name: 'workInfo',
+					meta: {
+						title: "作品信息表"
+					},
+					component: () => import('@/views/workManager/workInfo.vue'),
+				},
+				{
+					path: "workInfo/workInfoDetial",
+					name: 'workInfoDetial',
+					meta: {
+						title: "作品信息表 / 作品查看"
+					},
+					component: () => import('@/views/workManager/workInfoDetial.vue'),
+				},
+				{
+					path: "workInfo/worksShelves",
+					name: 'worksShelves',
+					meta: {
+						title: "作品信息表 / 作品下架"
+					},
+					component: () => import('@/views/workManager/worksShelves.vue'),
+				},
+				{
+					path: "workInfo/workEmploy",
+					name: 'workEmploy',
+					meta: {
+						title: "作品信息表 / 作品录用"
+					},
+					component: () => import('@/views/workManager/workEmploy.vue'),
+				},
+				
+			]
 		}
 	]
 })

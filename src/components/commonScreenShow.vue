@@ -42,20 +42,14 @@
 			},
 			reset() {
 				//重置默认选中按钮
-				this.selectbtns = DataScreen.screenShow.userBaseInfo.defaults;
+				this.selectbtns = DataScreen.screenShow[this.pageName].defaults;
 			},	
 			handleCheckedCitiesChange(value) {
 				this.selectbtns = value;
 			},
 			getScreen(){
 				//以及pagenema获取相应的展示字段
-				switch (this.pageName){
-					case "userBaseInfo":
-						this.btns = DataScreen.screenShow.userBaseInfo.bts;
-						break;
-					default:
-						break;
-				}
+				this.btns = DataScreen.screenShow[this.pageName].bts;
 			},
 			saveSelectBts(value){
 				//传值到commonTable.vue;
@@ -69,7 +63,7 @@
 				if(localStorage.getItem("screenShowDataChange")){
 					this.selectbtns =  localStorage.getItem("screenShowDataChange").split(',');
 				} else {
-					this.selectbtns = DataScreen.screenShow.userBaseInfo.defaults ;
+					this.selectbtns = DataScreen.screenShow[this.pageName].defaults ;
 				}
 			}
 		},

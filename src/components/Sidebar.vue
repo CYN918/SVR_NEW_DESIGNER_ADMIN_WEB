@@ -16,7 +16,24 @@
 					<el-menu-item :index="citem.id" class="">{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
-			
+			<el-submenu index="7">
+				<template slot="title">
+					<i class="iconfont">&#xe781;</i>
+					<span style="padding:15px;">作品管理</span>
+				</template>
+				<router-link to="/workManager/workInfo">
+					<el-menu-item index="3-1" class="">作品信息表</el-menu-item>
+				</router-link>
+				<router-link to="/userPersonalInfo">
+					<el-menu-item index="3-2">素材库</el-menu-item>
+				</router-link>
+				<router-link to="/userCompanyInfo">
+					<el-menu-item index="3-3">作品标签</el-menu-item>
+				</router-link>
+				<router-link to="/userCompanyInfo">
+					<el-menu-item index="3-3">评论回复管理</el-menu-item>
+				</router-link>
+			</el-submenu>
 			
 			<!-- <el-submenu index="1">
 				<template slot="title">

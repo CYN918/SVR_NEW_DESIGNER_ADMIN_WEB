@@ -4,7 +4,7 @@ const screenData = {
 			filterFields:[
 				{name:'用户id',id:'open_id'},
 				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
-				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"},{name:"审核中",id:"2"}]},
+				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
 				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"}]},
@@ -138,7 +138,7 @@ const screenData = {
 		applyPerson:{
 			filterFields:[
 				{name:"审核ID",id:"id"},
-				{name:"账号主体",id:"ids"},
+				{name:"账号主体",id:"contributor_type"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提升用户昵称",id:"username"},
 				{name:"提审时间（开始）",id:"create_time_start"},
@@ -147,6 +147,30 @@ const screenData = {
 				{name:"审核人",id:"reviewer"},
 				{name:"审核时间（开始）",id:"review_time_start"},
 				{name:"审核时间（结束）",id:"review_time_end"},
+			]
+		},
+		workInfo:{
+			filterFields:[
+				{name:"作品ID",id:"work_id"},
+				{name:"作品标题",id:"work_name"},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户昵称",id:"username"},
+				{name:"作品类型",id:"classify_1",type:"cascader"},
+				{name:"版权说明",id:"copyright",child:[{name:" 禁止匿名转载；禁止商业使用；禁止个人使用",id:" 禁止匿名转载；禁止商业使用；禁止个人使用"},{name:"禁止匿名转载；禁止商业使用",id:"禁止匿名转载；禁止商业使用"},{name:"不限制作品用途",id:"不限制作品用途"}]},
+				{name:"作品标签",id:"labels"},
+				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
+				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"},{name:"分成式",id:"2"}]},
+				{name:"录用活动ID",id:"activity_id"},
+				{name:"录用订单ID",id:"hire_id"},
+				{name:"录用订单名称",id:"hire_order_name"},
+				/* {name:"投放状态",id:"ids",child:[{name:"无",id:"1"},{name:"未投放",id:"1"},{name:"上线中",id:"1"},{name:"已下线",id:"1"}]}, */
+				{name:"创建时间（开始）",id:"create_time_start",type:"time"},
+				{name:"创建时间（结束）",id:"create_time_end",type:"time"},
+				{name:"最近更新时间（开始）",id:"update_time_start"},
+				{name:"最近更新时间（结束）",id:"update_time_end"},
+				/* {name:"作品预览链接",id:"ids"}, */
+				{name:"当前状态",id:"status",child:[{name:"草稿",id:"-1"},{name:"待审核",id:"0"},{name:"审核驳回",id:"-2"},{name:" 审核通过",id:"2"},{name:"下架",id:"-3"},{name:" 用户删除",id:"-4"}]},
 			]
 		}
 	},
@@ -408,6 +432,54 @@ const screenData = {
 				},
 				links:{
 					name:"详情",
+					Ishow:true
+				}
+			},
+		},
+		workInfo:{
+			defaults:["work_id","work_name","face_pic","username","classify","is_platform_work","is_hired","hire_type","status"],
+			bts:[
+				{prop:'work_id',lable:'作品ID'},
+				{prop:'work_name',lable:'作品标题',width:200},
+				{prop:'face_pic',lable:'封面图',type:"img",width:150},
+				{prop:'open_id',lable:'用户ID'},
+				{prop:'username',lable:'用户昵称',type:"url"},
+				{prop:'avatar',lable:'用户头像',type:"img",width:150},
+				{prop:'classify',lable:'作品类型',width:200},
+				{prop:'copyright',lable:'版权说明'},
+				{prop:'labels',lable:'作品标签'},
+				{prop:'is_platform_work',lable:'是否为平台投稿作品',width:200},
+				{prop:'is_hired',lable:'是否已被录用',width:200},
+				{prop:'hire_type',lable:'录用方式'},
+				{prop:'activity_id',lable:'录用活动ID'},
+				{prop:'ids',lable:'录用活动名称'},
+				{prop:'hire_id',lable:'录用订单ID'},
+				{prop:'hire_order_name',lable:'录用订单名称',width:200},
+				{prop:'ids',lable:'作品预览链接',width:200},
+				{prop:'status',lable:'当前状态'}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"workInfo",
+					child:[
+						{
+							name:"预览"
+						},
+						{
+							name:"下架"
+						},
+						{
+							name:"录用"
+						},
+						{
+							name:"修改平台推荐等级"
+						}
+					],
+				},
+				links:{
+					name:"查看",
 					Ishow:true
 				}
 			},

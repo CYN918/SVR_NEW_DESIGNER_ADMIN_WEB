@@ -7,7 +7,7 @@
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
-						<span v-if="item.type == 'img'" style="width: 120px;height: 50px;background: red;display: inline-block;"></span>
+						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
 						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
@@ -122,6 +122,17 @@
 						if(!setid){
 							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
 							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+					case "workInfo":
+						if(!setid){
+							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+						if(setid == "contributor1"){
+							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
+						}
+						if(setid == "contributor2"){
+							this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
 						}
 					break;
 				};
