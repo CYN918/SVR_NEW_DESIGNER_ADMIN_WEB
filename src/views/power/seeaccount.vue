@@ -5,21 +5,21 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户ID</span>
-					<span>{{ rolename }}</span>
+					<span>{{ roleintroduce.id }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户名称</span>
-					<span>{{ roleintroduce }}</span>
+					<span>{{ roleintroduce.user_name }}</span>
 				</li>
 				
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">邮箱</span>
-					<span>{{ roleintroduce }}</span>
+					<span>{{ roleintroduce.email }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft roles-input" style="margin-right: 20px;width: 84px;">角色名称</span>
 					<div class="fleft width500">
-						<span class="fleft account-ipt"> 超级价额 </span>
+						<span v-for="itme in roleintroduce.role" :key="itme" class="fleft account-ipt"> {{ itme }} </span>
 					</div>
 				</li>
 				<li class="margint13 ofh">
@@ -58,8 +58,7 @@
 					children: 'child',
 					label: 'title'
 				},
-				rolename:"--",
-				roleintroduce:"--",
+				roleintroduce:[],
 				permissions:[],
 			}
 		},
@@ -89,14 +88,12 @@
 					id:this.$route.query.id
 				}).then(da =>{
 					console.log(da)
-					/* this.rolename = da.name;
-					this.roleintroduce = da.description; */
+					this.roleintroduce = da; 
 					console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
-						
 					})
 					
 				}).catch(da => {
@@ -113,6 +110,9 @@
 				}).catch(da =>{
 					
 				})
+			},
+			children(item){
+				
 			}
 		},
 		mounted() {

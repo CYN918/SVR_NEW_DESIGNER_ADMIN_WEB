@@ -136,11 +136,11 @@ input{
 	border-color: #ff5121;
 }
 
-#app .defaultbtn:hover{
+/* #app .defaultbtn:hover{
 	background: #ff5121;
 	color: #ffffff;
 	border-color: #ff5121;
-}
+} */
 
 .borderb{
 	border-bottom: #f8f8f8 solid 3px;
@@ -312,22 +312,21 @@ input{
 	border-color: #FF5121 !important;
 }
 
-.defaultbtn0,.defaultbtn4{
-	min-width: auto;
+.defaultbtn0,.defaultbtn-2{
+	display: block;
+	width: calc(100% - 23px);
 	height: 40px;
 	border:1px solid #999999;
 	border-radius: 4px;
 	color: #333333;
 	background: transparent;
-	padding-left: 23px;
-	padding-right: 23px;
 }
 
-.defaultbtn2{
+.defaultbtn1{
 	border-color: #67C239;
 	color: #67C239;
 }
-.defaultbtn-2{
+.defaultbtn-1{
 	border-color: #FF1A27;
 	color: #FF1A27;
 }

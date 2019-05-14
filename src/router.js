@@ -98,7 +98,7 @@ export default new Router({
 					component: () => import('@/views/review/finalistsWork.vue')
 				},
 				{
-					path: 'publishWork/workDetial',
+					path: 'finalistsWork/workDetial',
 					name: 'workDetial',
 					meta: {
 						title: "作品入围 / 审核详情"
@@ -114,7 +114,7 @@ export default new Router({
 					component: () => import('@/views/review/employWork.vue')
 				},
 				{
-					path: 'publishWork/workDetial',
+					path: 'employWork/workDetial',
 					name: 'workDetial',
 					meta: {
 						title: "作品录用 / 审核详情"
@@ -130,7 +130,7 @@ export default new Router({
 					component: () => import('@/views/review/applyPerson.vue')
 				},
 				{
-					path: 'publishWork/workDetial',
+					path: 'applyPerson/workDetial',
 					name: 'workDetial',
 					meta: {
 						title: "供稿人申请 / 审核详情"

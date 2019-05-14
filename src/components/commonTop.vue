@@ -1,18 +1,16 @@
 <template>
 	<div class="w ctcontent">
-		
 		<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
 		<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
-			<span class="fleft">
+			<span class="fleft" style="width: 84px;">
 				{{ currentpageName }}
 			</span>
 			<div class="textcenter">
 				<span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
-					<el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge>
+					<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 				</span>
 			</div>
 		</div>
-		
 		
 		<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 			<div class="ofh">
@@ -54,6 +52,7 @@
 				c:this.commonTopData.commonbottombtn,
 				activeName: 'second',
 				currentpageName:'',
+				doCount:{}
 			};
 		},
 		methods: {
@@ -69,29 +68,6 @@
 							this.Istooltip = !this.Istooltip;
 							return;
 						}
-						
-						const shownum = {
-							num: idIndex,
-							showmask: "No",
-							pageName: this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum);
-					break;
-					case "userCompanyInfo":
-						const shownum1 = {
-							num: idIndex,
-							showmask: "No",
-							pageName: this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum1);
-					break;
-					case "userPersonalInfo":
-						const shownum2 = {
-							num: idIndex,
-							showmask: "No",
-							pageName: this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum2);
 					break;
 					case "roleManager":
 						if(idIndex == "right1"){
@@ -99,33 +75,16 @@
 								path:"/power/roleManager/createRoles"
 							})
 						};
-						const shownum3 = {
-							num: idIndex,
-							showmask: "No",
-							pageName: 'power/'+this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum3);
 					break;
-					case "accountManager":
+					default:
 						
-						const shownum4 = {
-							num: idIndex,
-							showmask: "No",
-							pageName: 'power/'+this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum4);
-					break;
-					case "publishWork":
-						const shownum5 = {
-							num: idIndex,
-							showmask: "No",
-							pageName: 'review/'+this.commonTopData.pageName,
-						}
-						eventBus.$emit("screenshow", shownum5);
-					break;
-					default:;
 				}
-				
+				const shownum = {
+					num: idIndex,
+					showmask: "No",
+					pageName: this.commonTopData.pageName,
+				}
+				eventBus.$emit("screenshow", shownum);
 			},
 
 			initbtn() {
@@ -163,7 +122,22 @@
 						break;
 				}
 				
+			},
+			gettodoCount(){
+				this.api.todoCount({
+					access_token:2,
+				}).then(da =>{
+					//alert(1);
+					//console.log(da);
+					this.doCount = da;
+					console.log(this.doCount)
+				}).catch(da=>{
+					
+				})
 			}
+		},
+		created() {
+			this.gettodoCount();
 		},
 		mounted() {
 			//alert(typeof this.commonTopData.tabnums)

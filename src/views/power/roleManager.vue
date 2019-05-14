@@ -80,7 +80,7 @@
 				}
 
 				this.api.getRoleList(data).then((da) => {
-					//console.log(da.data)
+					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}

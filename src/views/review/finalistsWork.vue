@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<div class="wh">
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" ></common-top>
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
@@ -26,7 +26,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "publishWork",
+					"pageName": "finalistsWork",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
@@ -55,22 +55,21 @@
 							publishWorks:"",
 						}
 					],
-					tabnums:1,
+					'tabnums':1,
 				},
 				screenConfig: [],
 				tableConfig: {
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					list: DataScreen.screenShow.publishWork.bts
+					list: DataScreen.screenShow.finalistsWork.bts
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.publishWork.action,
+				tableAction: DataScreen.screenShow.finalistsWork.action,
 				detailData: "",
-				filterFields:DataScreen.screen.publishWork.filterFields,
+				filterFields:DataScreen.screen.finalistsWork.filterFields,
 				IsDetail:1,
 				roles:{},
-				menulist:'',
 			}
 		},
 		watch: {},
@@ -83,7 +82,8 @@
 				var data = {
 					access_token: 2,
 					page: pg.pageCurrent,
-					limit: pg.pageSize
+					limit: pg.pageSize,
+					type:2
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
@@ -92,11 +92,12 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = 2;
+					sreenData.type = 2
 					data = sreenData;
 				}
 
 				this.api.reviewList(data).then((da) => {
-					//console.log(da.data)
+					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -114,17 +115,6 @@
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 					
 				})
-			},
-			linkDetail(id) {
-				//alert(id);
-				this.IsDetail = 3;
-				this.api.getContributorInfo({
-					open_id: id,
-					contribute_type:2
-				}).then(da => {
-					this.detailData = da;
-					console.log(da);
-				}).catch(() => {})
 			},
 			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
@@ -156,7 +146,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/review/publishWork',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/review/finalistsWork',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}

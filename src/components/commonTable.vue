@@ -1,15 +1,15 @@
 <template>
 	<div class="wh">
-		<div class="tabtop" ref="elememt">
-			<el-table :height="tableHeight" :data="tableDatas" style="width: 100%" @selection-change="handleSelectionChange">
+		<div class="tabtop" ref="elememt" id="table">
+			<el-table :height="tableHeight" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
 						<span v-if="item.type == 'img'" style="width: 120px;height: 50px;background: red;display: inline-block;"></span>
-						<span  v-else-if="item.type == 'url'"></span>
-						<button :class="'defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ 1 }}</button>
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
+						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
@@ -55,14 +55,13 @@
 		methods: {
 			handleClick(row, setid, page) {
 				
-				//console.log(page);
+				//alert(page);
 				//return;
 				switch(page){
 					case "userBaseInfo":
 						if (setid == "contributor0") {
 							this.$parent.setContributor(row);
 						}
-						
 						if (!setid) {
 							this.router.push({path:"/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
 							///this.$parent.linkDetail(row.open_id);
@@ -103,11 +102,30 @@
 					break;
 					case "publishWork":
 						if(!setid){
-							this.router.push({path:"/review/publishWork/workDetial",query:{id:1,page:"publishWork"}});
+							this.router.push({path:"/review/publishWork/workDetial",query:{id:row.id,type:1,check_status:row.check_status}});
 							//this.router.push({path:"/power/accountManager/seeRoles"});
 						}
 					break;
-				}
+					case "finalistsWork":
+						if(!setid){
+							this.router.push({path:"/review/finalistsWork/workDetial",query:{id:row.id,type:2,check_status:row.check_status}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+					break;
+					case "employWork":
+						if(!setid){
+							this.router.push({path:"/review/employWork/workDetial",query:{id:row.id,type:3,check_status:row.check_status}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+					break;
+					case "applyPerson":
+						if(!setid){
+							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+						}
+					break;
+				};
+				
 				
 			},
 			handleSizeChange(val) {
@@ -139,7 +157,11 @@
 			},
 			init(){
 				//console.log(this.tableAction)
+			},
+			cellStyle() {
+			  return 'borderBottom: 5px solid #f0f2f5'
 			}
+		
 		},
 		mounted() {
 			this.autoTableHeight();
@@ -246,6 +268,9 @@
 		line-height: 100px;
 	}
 	
+	/* #table .el-table th.is-leaf {
+		border-bottom: 5px solid #545C64;
+	} */
 	/* .el-table__fixed {
 		margin-left: 27px;
 	} */

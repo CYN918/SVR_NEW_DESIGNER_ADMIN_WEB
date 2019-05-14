@@ -30,7 +30,7 @@ const screenData = {
 				{name:"银行卡号",id:"bank_card_no"},
 				{name:"开户银行",id:"bank_name"},
 				{name:"开户支行",id:"branch_bank"},
-				{name:"审核状态",id:"status"},
+				{name:"审核状态",id:"check_status"},
 				{name:"邮箱",id:"email"},
 				{name:"手机号",id:"phone"},
 				{name:"用户昵称",id:"username"},
@@ -53,7 +53,7 @@ const screenData = {
 				{name:"银行卡号",id:"bank_card_no"},
 				{name:"开户银行",id:"bank_name"},
 				{name:"开户支行",id:"branch_bank"},
-				{name:"审核状态",id:"status"},
+				{name:"审核状态",id:"check_status"},
 				{name:"邮箱",id:"email"},
 				{name:"手机号",id:"phone"},
 				{name:"用户昵称",id:"username"},
@@ -90,12 +90,60 @@ const screenData = {
 			filterFields:[
 				{name:"审核ID",id:"id"},
 				{name:"作品ID",id:"work_id"},
+				{name:"作品标题",id:"work_name"},
+				{name:"提审用户ID",id:"open_id"},
+				{name:"提审用户昵称",id:"username"},
+				{name:"提审时间（开始）",id:"create_time_start"},
+				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+				{name:"审核人",id:"reviewer"},
+				{name:"审核时间（开始）",id:"review_time_start"},
+				{name:"审核时间（结束）",id:"review_time_end"},
+			]
+		},
+		finalistsWork:{
+			filterFields:[
+				{name:"审核ID",id:"id"},
+				{name:"作品ID",id:"work_id"},
 				{name:"作品名称",id:"work_name"},
+				{name:"活动ID",id:"activity_id"},
+				{name:"活动名称",id:"activity_name"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提升用户昵称",id:"username"},
 				{name:"提审时间（开始）",id:"create_time_start"},
 				{name:"提审时间（结束）",id:"create_time_end"},
-				{name:"审核状态",id:"status ",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"2"},{name:"未通过",id:"-2"},{name:"已删除",id:"4"}]},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+				{name:"审核人",id:"reviewer"},
+				{name:"审核时间（开始）",id:"review_time_start"},
+				{name:"审核时间（结束）",id:"review_time_end"},
+			]
+		},
+		employWork:{
+			filterFields:[
+				{name:"审核ID",id:"id"},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name"},
+				{name:"活动ID",id:"activity_id"},
+				{name:"活动名称",id:"activity_name"},
+				{name:"提审用户ID",id:"open_id"},
+				{name:"提升用户昵称",id:"username"},
+				{name:"提审时间（开始）",id:"create_time_start"},
+				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+				{name:"审核人",id:"reviewer"},
+				{name:"审核时间（开始）",id:"review_time_start"},
+				{name:"审核时间（结束）",id:"review_time_end"},
+			]
+		},
+		applyPerson:{
+			filterFields:[
+				{name:"审核ID",id:"id"},
+				{name:"账号主体",id:"ids"},
+				{name:"提审用户ID",id:"open_id"},
+				{name:"提升用户昵称",id:"username"},
+				{name:"提审时间（开始）",id:"create_time_start"},
+				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
 				{name:"审核时间（开始）",id:"review_time_start"},
 				{name:"审核时间（结束）",id:"review_time_end"},
@@ -168,7 +216,7 @@ const screenData = {
 				{prop:'bank_card_no',lable:'银行卡号'},
 				{prop:'bank_name',lable:'开户银行'},
 				{prop:'branch_bank',lable:'开户支行'},
-				{prop:'status',lable:'审核状态'},
+				{prop:'check_status',lable:'审核状态'},
 				{prop:'created_at',lable:'注册时间'},
 				{prop:'updated_at',lable:'最近更新时间',width:200},
 				{prop:'reserve_phone',lable:'预留手机号（个人）',width:200},
@@ -203,7 +251,7 @@ const screenData = {
 				{prop:'bank_card_no',lable:'银行卡号'},
 				{prop:'bank_name',lable:'开户银行'},
 				{prop:'branch_bank',lable:'开户支行'},
-				{prop:'status',lable:'审核状态'},
+				{prop:'check_status',lable:'审核状态'},
 				{prop:'created_at',lable:'注册时间'},
 				{prop:'updated_at',lable:'最近更新时间'},
 				{prop:'reserve_phone',lable:'预留手机号（个人）'},
@@ -225,9 +273,9 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'角色ID'},
 				{prop:'name',lable:'角色名称'},
-				{prop:'',lable:'角色介绍'},
-				{prop:'',lable:'绑定账号数'},
-				{prop:'',lable:'创建时间'},
+				{prop:'description',lable:'角色介绍'},
+				{prop:'bind_user_num',lable:'绑定账号数'},
+				{prop:'created_at',lable:'创建时间'},
 			],
 			action:{
 				morebtns:{
@@ -276,15 +324,11 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'审核ID'},
 				{prop:'work_id',lable:'作品ID'},
-				{prop:'work_name',lable:'作品名称',type:"url"},
+				{prop:'work_name',lable:'作品标题',type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'status',lable:'审核状态',type:"btn"},
-				{prop:'is_del',lable:''},
-				{prop:'create_time',lable:'提审时间',width:200},
-				{prop:'username',lable:'提升用户昵称',width:200},
-				{prop:'reviewer_name',lable:'审核人名称',width:200},
-				{prop:'review_time',lable:'审核时间'},
-				{prop:'role',lable:'权限'},
+				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_admin_name',lable:'审核人'},
 			],
 			action:{
 				morebtns:{
@@ -297,7 +341,77 @@ const screenData = {
 					Ishow:true
 				}
 			},
-		}
+		},
+		finalistsWork:{
+			bts:[
+				{prop:'id',lable:'审核ID'},
+				{prop:'work_id',lable:'作品ID'},
+				{prop:'work_name',lable:'作品标题'},
+				{prop:"activity_id",lable:"活动ID"},
+				{prop:"activity_name",lable:"活动标题",type:"url"},
+				{prop:'open_id',lable:'提审用户ID',width:200},
+				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_admin_name',lable:'审核人'},
+			],
+			action:{
+				morebtns:{
+					name:"设置角色",
+					Ishow:false,
+					page:"finalistsWork"
+				},
+				links:{
+					name:"详情",
+					Ishow:true
+				}
+			},
+		},
+		employWork:{
+			bts:[
+				{prop:'id',lable:'审核ID'},
+				{prop:'work_id',lable:'作品ID'},
+				{prop:'work_name',lable:'作品标题'},
+				{prop:"activity_id",lable:"活动ID"},
+				{prop:"activity_name",lable:"活动标题",type:"url"},
+				{prop:'open_id',lable:'提审用户ID',width:200},
+				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_admin_name',lable:'审核人'},
+			],
+			action:{
+				morebtns:{
+					name:"设置角色",
+					Ishow:false,
+					page:"employWork"
+				},
+				links:{
+					name:"详情",
+					Ishow:true
+				}
+			},
+		},
+		applyPerson:{
+			bts:[
+				{prop:'id',lable:'审核ID'},
+				{prop:'contributor_type',lable:'账号主体'},
+				{prop:'check_type',lable:'提交类型'},
+				{prop:'open_id',lable:'提审用户ID',width:200},
+				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_admin_name',lable:'审核人'},
+			],
+			action:{
+				morebtns:{
+					name:"设置角色",
+					Ishow:false,
+					page:"applyPerson"
+				},
+				links:{
+					name:"详情",
+					Ishow:true
+				}
+			},
+		},
 		
 	}
 }

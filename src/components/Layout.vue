@@ -76,7 +76,7 @@
 			},
 			getaccess() {
 				this.api.access({
-					user_id: "test@qq.com"
+					user_id: "7"
 				}).then(da => {
 					//console.log(da)
 					localStorage.setItem("access",JSON.stringify(da.menu_banner))

@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">查看页面</div>
+		<div class="detailtitle">设置角色</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -16,21 +16,22 @@
 					<span class="fleft" style="margin-right: 20px;width:84px">邮箱</span>
 					<span>{{ roleintroduce }}</span>
 				</li>
-				<li class="margint13 relative">
+				<li class="margint13  relative">
 					<span class="fleft roles-input" style="margin-right: 20px;width:84px">角色名称</span>
 					<div class="el-input__inner roles-input width500 pointer" @click="seloption()">
 						<div class="fleft" style="width: 450px;height: 100%;overflow-y: auto;">
-							<el-tag :key="item" v-for="item in checkedCities1" closable class="tag"
+							<el-tag :key="item" v-for="item in checkedroles" closable class="tag"
 							 :disable-transitions="false" @close="handleClose(item)">
 								{{item}}
 							</el-tag>
 						</div>
 						<i class="fright el-icon-arrow-down" style="margin-top: 12px;"></i>
 					</div>
+					<div class="mask" @click="hide()" v-if="Islist"></div>
 					<div class="sel-select-option" v-show="Islist">
-						<el-checkbox-group v-model="checkedCities1">
-							<div  v-for="city in cities" :key="city">
-								<el-checkbox :label="city">{{city}}</el-checkbox>
+						<el-checkbox-group v-model="checkedroles" @change="checkedrole">
+							<div  v-for="item in rolesData" :key="item.id">
+								<el-checkbox :label="item.name">{{item.name}}</el-checkbox>
 							</div>
 						 </el-checkbox-group>
 					</div>
@@ -51,13 +52,12 @@
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn" @click="addrole()">提交</button>
+			<button class="defaultbtn defaultbtnactive" @click="setrole()">提交</button>
 		</div>
 	</div>
 </template>
 
 <script>
-	const cityOptions = ['上海', '北京', '广州', '深圳'];
 	export default {
 		props: ['detailData','roles'],
 		data() {
@@ -76,9 +76,10 @@
 				rolename:"--",
 				roleintroduce:"--",
 				permissions:[],
-				checkedCities1: ['上海', '北京'],
-                cities: cityOptions,
-				Islist:true,
+				checkedroles: ['测试1'],
+				Islist:false,
+				rolesData:[],
+				role_ids:[],
 			}
 		},
 		methods: {
@@ -109,7 +110,7 @@
 					console.log(da)
 					/* this.rolename = da.name;
 					this.roleintroduce = da.description; */
-					console.log(da.permissions.split(","));
+					///console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
@@ -136,15 +137,63 @@
 				this.Islist = !this.Islist;
 			},
 			handleClose(tag) {
-				this.checkedCities1.forEach((item,index)=>{
+				this.checkedroles.forEach((item,index)=>{
 					if(tag == item){
-						this.checkedCities1.splice(index,1)
+						this.checkedroles.splice(index,1)
 					}
 				});
 				/* if(this.checkedCities1.length == 0){
 					this.Islist =false;
 				} */
 			},
+			hide(){
+				this.Islist = false;
+			},
+			getData(pg) {
+				//获取所有的角色
+				var data = {
+					access_token: 2,
+					page: 1,
+					limit: 100
+				}
+				
+				this.api.getRoleList(data).then((da) => {
+					//console.log(da.data)
+					if (!da) {
+						this.$message('数据为空');
+					}
+					this.rolesData = da.data;
+					this.checkedrole(this.checkedroles)
+					///console.log(this.rolesData);
+				}).catch(() => {
+			
+				});
+			},
+			setrole(){
+				this.api.setRole({
+					access_token:2,
+					user_id:this.$route.query.id,
+					role_ids:this.role_ids.toString(),
+				}).then(da=>{
+					console.log(da)
+				}).catch(da=>{
+					
+				})
+			},
+			checkedrole(val){
+				this.role_ids = []
+				this.rolesData.forEach((item,index)=>{
+					val.forEach(citem=>{
+						if(item.name == citem){
+							this.role_ids.push(item.id);
+						}
+					})
+				})
+				console.log(this.role_ids);
+			}
+		},
+		created(){
+			this.getData();
 		},
 		mounted() {
 			this.getMenu();
@@ -238,6 +287,16 @@
 		border-radius: 5px;
 		z-index: 99999;
 		padding: 20px;
-		width: calc(100% - 65px);
+		width: 460px;
+		left: 104px;
+	}
+	
+	.mask{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 888;
 	}
 </style>

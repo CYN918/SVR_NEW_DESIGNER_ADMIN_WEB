@@ -47,4 +47,19 @@ export default {
 		url:'/admin/Menu/access',method:'post',baseURL:0
 	},
 	
+	setRole:{
+		url:'/admin/AdminUser/setRole',method:'post',baseURL:0,suktip:true
+	},
+	
+	reviewInfo:{
+		url:'/admin/Review/info',method:'post',baseURL:0,suktip:true
+	},
+	
+	reviewCheck:{
+		url:'/admin/Review/check',method:'post',baseURL:0,suktip:true
+	},
+	todoCount:{
+		url:'/admin/Review/todoCount',method:'post',baseURL:0,suktip:true
+	}
+	
 }

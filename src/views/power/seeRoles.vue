@@ -78,7 +78,7 @@
 					console.log(da);
 					this.rolename = da.name;
 					this.roleintroduce = da.description;
-					console.log(da.permissions.split(","));
+					//console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));

@@ -70,7 +70,6 @@
 				filterFields:DataScreen.screen.publishWork.filterFields,
 				IsDetail:1,
 				roles:{},
-				menulist:'',
 			}
 		},
 		watch: {},
@@ -83,7 +82,8 @@
 				var data = {
 					access_token: 2,
 					page: pg.pageCurrent,
-					limit: pg.pageSize
+					limit: pg.pageSize,
+					type:1
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
@@ -92,11 +92,12 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = 2;
+					sreenData.type = 1
 					data = sreenData;
 				}
 
 				this.api.reviewList(data).then((da) => {
-					//console.log(da.data)
+					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}

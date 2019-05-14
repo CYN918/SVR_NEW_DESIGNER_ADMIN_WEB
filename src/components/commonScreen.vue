@@ -21,7 +21,6 @@
 								</el-option>
 							</el-radio-group>
 						</el-select>
-						
 						<el-select v-model="form[item.id]" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
 							<el-option value="" label="全部"></el-option>
 							<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
@@ -250,8 +249,9 @@
 		methods: {
 			getparent(data) {
 				if (data == "reach") {
+					console.log()
 					this.$router.push({
-						path: ('/' + this.pageName),
+						path: this.$route.matched[this.$route.matched.length - 1].path,
 						query: {
 							urlDate: JSON.stringify(this.form)
 						}
@@ -268,28 +268,7 @@
 			},
 			getScreen() {
 				//alert(this.pageName)
-				switch (this.pageName) {
-					case "userBaseInfo":
-						this.texts = DataScreen.screen.userBaseInfo.filterFields;
-						break;
-					case "userPersonalInfo":
-						this.texts = DataScreen.screen.userPersonalInfo.filterFields;
-						break;
-					case "userCompanyInfo":
-						this.texts = DataScreen.screen.userCompanyInfo.filterFields;
-						break;
-					case "power/roleManager":
-						this.texts = DataScreen.screen.roleManager.filterFields;
-						break;
-					case "power/accountManager":
-						this.texts = DataScreen.screen.accountManager.filterFields;
-						break;
-					case "review/publishWork":
-						this.texts = DataScreen.screen.publishWork.filterFields;
-						break;
-					default:
-						break;
-				}
+				this.texts = DataScreen.screen[this.pageName].filterFields
 			},
 			reset() {
 				this.form = {};
