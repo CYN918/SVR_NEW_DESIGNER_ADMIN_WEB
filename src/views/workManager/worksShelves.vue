@@ -9,15 +9,15 @@
 			<ul>
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ "--" }}</span>
-					<span v-if="!item.type">{{ "--" }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ "--" }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
+					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
+					<span v-if="!item.type">{{ work_info[item.id] }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="work_info[item.id]" alt="">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
+					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="work_info[item.id]" alt="">
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ "--" }}</span>
+						<span class="routerLink">{{ work_info[item.id] }}</span>
 					</router-link>
 				</li>
 			</ul>
@@ -29,7 +29,7 @@
 					<li class="margint13 ofh" style="margin-left: 102px;">
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
-							<button class="defaultbtn" style="margin: 0;"  @click="dialogTableVisible = !dialogTableVisible">选择通知用户</button>
+							<button class="defaultbtn" style="margin: 0;" @click="dialogTableVisible = !dialogTableVisible">选择通知用户</button>
 						</div>
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
@@ -41,31 +41,48 @@
 					</li>
 					<li class="margint13 ofh" style="margin-left: 102px;">
 						<div>
-							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
+							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">通知举报者</span>
 							<div class="fleft defaultbtnworkbg">
-								<textarea name="" id="" cols="30" rows="10" class="defaultbtnwork"></textarea>
-								<span class="fright">{{ 0 }}/100</span>
+								<div>
+									<textarea name="" id="" cols="60" rows="10" v-model="textarea" Maxlength="100" class="defaultbtnwork"></textarea>
+								</div>
+								<span class="fright fontcolorg">{{ textarea.length }}/100</span>
 							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<el-dialog title="请选择 “作品下架” 需通知到的举报者" :visible.sync="dialogTableVisible">
-		  <common-top :commonTopData="commonTopData"></common-top>
-		  <div class="calc205">
-		  	<common-table
-		  		:screenConfig="screenConfig" 
-		  		:tableConfig="tableConfig" 
-		  		:tableDatas="tableData"
-		  		:tableAction = "tableAction"
-		  		ref="Tabledd"
-		  	></common-table>
-		  </div>
+		<el-dialog title="请选择 “作品下架” 需通知到的举报者" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+			<div>
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="handleClose(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205">
+					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+					 ref="Tabledd"></common-table>
+				</div>
+			</div>
+
 		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="shelves()">下架</button>
+		</div>
+		<div class="workfixed" v-if="IsScreen == 'No'">
+			<common-screen :pageName="pageName"></common-screen>
 		</div>
 	</div>
 </template>
@@ -74,11 +91,50 @@
 	import workData from "../../assets/workData.js"
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
+	import DataScreen from "@/assets/DataScreen.js"
 	export default {
+		components: {
+			commonTop,
+			commonTable,
+		},
 		data() {
 			return {
-				baseInfo:workData.worksShelves,
-				dialogTableVisible:false,
+				pageName: "worksShelves",
+				baseInfo: workData.worksShelves,
+				tableAction: DataScreen.screenShow.worksShelves.action,
+				filterFields: DataScreen.screen.worksShelves.filterFields,
+				dialogTableVisible: false,
+				textarea: '',
+				commonTopData: {
+					"pageName": "worksShelves",
+					"commonleftbtn": [{
+							name: "筛选",
+							id: "left1",
+							url: ""
+						},
+						{
+							name: "选择全部",
+							id: "left2",
+							url: ""
+						},
+					],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					"IsShow": true,
+				},
+				screenConfig: [],
+				tableConfig: {
+					"pageName": "worksShelves",
+					total: 0,
+					currentpage: 1,
+					pagesize: 10,
+					list: DataScreen.screenShow.worksShelves.bts,
+					ischeck: true,
+
+				},
+				tableData: [],
+				IsScreen: "Off",
+				work_info: {},
 			}
 		},
 		methods: {
@@ -87,7 +143,7 @@
 				this.router.push({
 					path: "/workManager/workInfo"
 				})
-				
+
 			},
 			getValue(val) {
 				if (val) {
@@ -96,16 +152,43 @@
 					return "--"
 				}
 			},
-			shelves(){
-				
-			}
+			shelves() {
+
+			},
+			screen(id) {
+				if (id = "left1") {
+					this.IsScreen = "No";
+				}
+			},
+			screenmask(data, n) {
+				this.pageName = "";
+				switch (n) {
+					case "left1":
+						this.IsScreen = data;
+						break;
+					default:
+						break;
+				}
+
+			},
+			getworkdetial() {
+				this.api.workInfo({
+					work_id: this.$route.query.id,
+					access_token: 2
+				}).then(da => {
+					console.log(da)
+					this.work_info = da.work_info;
+				}).catch(da => {
+
+				})
+			},
 
 		},
 		created() {
-			
+			this.getworkdetial()
 		},
 		mounted() {
-			
+
 		}
 	}
 </script>
@@ -114,21 +197,73 @@
 	.materiallist .el-checkbox__label {
 		display: none;
 	}
-	
-	.work .el-button--primary{
+
+	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
 	}
-	.defaultbtnworkbg{
-		border: 1px solid #E6E6E6;
+
+	.ctcontent {
+		background: white;
+		margin-bottom: 20px;
 	}
-	.defaultbtnwork{
-		border: 0;
+
+	.paddingb10 {
+		padding-bottom: 10px;
+	}
+
+	.padding10 {
+		padding: 10px 0;
+	}
+
+	.cttitle {
+		line-height: 60px;
+		padding-bottom: 20px;
+	}
+
+	.tagbts {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		overflow-x: auto;
+	}
+
+	.lefttit {
+		position: absolute;
+		height: 60px;
+		line-height: 60px;
+		left: 40px;
+	}
+
+	.tabs {
+		width: 96px;
+		height: 58px;
+		display: inline-block;
+		margin-right: 71px;
+		cursor: pointer;
+	}
+
+	.tabactive {
+		color: #FF5121;
+		border-bottom: 2px solid #FF5121;
+	}
+
+	.badge .el-badge__content.is-fixed {
+		top: 13px
+	}
+
+	.workfixed {
+		position: absolute;
+		z-index: 9999;
+		top: 120px;
+	}
+	
+	.sel-dialog  {
+		width: 1000px;
 	}
 </style>
 
 <style scoped>
-	
 	.Detail {
 		background: white;
 	}
@@ -236,7 +371,7 @@
 		height: 68px;
 		border-radius: 50%;
 	}
-	
+
 	.img-zheng {
 		width: 160px;
 		height: 100px;
@@ -388,19 +523,19 @@
 	.workbtn {
 		width: 70px;
 	}
-	
-	.employipt{
+
+	.employipt {
 		height: 40px;
 		line-height: 40px;
 		margin: 30px;
 	}
-	
+
 	.employmonre {
 		width: 300px;
 		display: inline-block;
 		margin: 0 20px;
 	}
-	
+
 	.employmonre input {
 		width: 200px;
 		height: 100%;

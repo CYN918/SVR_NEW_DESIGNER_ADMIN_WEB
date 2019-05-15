@@ -41,12 +41,12 @@
 	  <div style="position: relative;">
 		<ul>
 			<li class="w ofh">
-				<span class="fleft Dialogkey">用户ID</span>
-				<span class="fleft">{{ selectOne.open_id }}</span>
+				<span class="fleft Dialogkey">作品ID</span>
+				<span class="fleft">{{ selectOne.work_id }}</span>
 			</li>
 			<li class="w ofh">
-				<span class="fleft Dialogkey">用户昵称</span>
-				<span>{{ selectOne.username }}</span>
+				<span class="fleft Dialogkey">作品名称</span>
+				<span>{{ selectOne.work_name }}</span>
 			</li>
 			<li class="w ofh">
 				<span class="fleft Dialogkey">
@@ -209,9 +209,9 @@
 				this.centerDialogVisible1 = true;
 			},
 			contributor(){
-				//console.log(openids)
+				//console.log(workids)
 				//console.log(this.selectData);
-				var open_ids = this.getopenids();
+				var work_ids = this.getworkids();
 			    this.centerDialogVisible = false;
 				this.centerDialogVisible1 = false;
 			    this.$confirm('有30位用已经是平台推荐创作者</br>是否统一将推荐评级修改为A', '确认修改', {
@@ -221,8 +221,8 @@
 					type: '',
 					center: true
 			    }).then(() => {
-					//console.log({open_ids:openids,level:this.radioS})
-					this.api.setRecommendLevel({open_ids:open_ids,level:this.radioS}).then(da=>{
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.setRecommendLevel({work_ids:work_ids,level:this.radioS}).then(da=>{
 						this.$message(da)
 						//console.log(da)
 					})
@@ -233,20 +233,20 @@
 					});
 			  });
 			},
-			getopenids(){
+			getworkids(){
 				//console.log(this.selectData);
-				var openids = '';
+				var workids = '';
 				this.selectData.forEach((item,index)=>{
-					openids +=  (index == (this.selectData.length-1)) ?  item.open_id : item.open_id +",";
+					workids +=  (index == (this.selectData.length-1)) ?  item.work_id : item.work_id +",";
 				})
 				if(this.centerDialogVisible) {
-					openids = openids
+					workids = workids
 				};
 				
 				if(this.centerDialogVisible1) {
-					openids = this.selectOne.open_id;
+					workids = this.selectOne.work_id;
 				}
-				return openids;
+				return workids;
 			},
 			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];

@@ -1,5 +1,5 @@
 <template>
-	<div class="wh screenContent">
+	<div class="wh screenContent" style="position: relative;z-index: 9999;">
 		<div class="screenborder">
 			<div class="screenTop paddinglr30">
 				<span class="fleft">用户基础信息-筛选</span>
@@ -24,9 +24,7 @@
 						<el-select v-model="form[item.id]" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
 							<el-option value="" label="全部"></el-option>
 							<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
-								
 								<el-checkbox>{{ childitem }}</el-checkbox>
-								
 							</el-option>
 						</el-select>
 						
@@ -249,7 +247,7 @@
 		methods: {
 			getparent(data) {
 				if (data == "reach") {
-					console.log()
+					//console.log()
 					this.$router.push({
 						path: this.$route.matched[this.$route.matched.length - 1].path,
 						query: {
@@ -267,7 +265,7 @@
 				}
 			},
 			getScreen() {
-				//alert(this.pageName)
+				alert(this.pageName)
 				this.texts = DataScreen.screen[this.pageName].filterFields
 			},
 			reset() {

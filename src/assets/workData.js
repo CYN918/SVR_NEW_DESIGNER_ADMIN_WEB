@@ -138,12 +138,12 @@ const workData = {
 		worksShelves:[
 			{
 				name:"作品ID",
-				id:"ids",
+				id:"work_id",
 				type:"text"
 			},
 			{
 				name:"作品标题",
-				id:"ids",
+				id:"work_name",
 				type:"text"
 			},
 			{
@@ -153,17 +153,17 @@ const workData = {
 			},
 			{
 				name:"用户ID",
-				id:"ids",
+				id:"open_id",
 				type:"text"
 			},
 			{
 				name:"用户昵称",
-				id:"ids",
+				id:"username",
 				type:"url"
 			},
 			{
 				name:"作品类型",
-				id:"ids",
+				id:"classify",
 				type:"text"
 			},
 			{

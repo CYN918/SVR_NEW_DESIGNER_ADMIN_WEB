@@ -13,7 +13,7 @@
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="150">
+				<el-table-column fixed="right" label="操作" width="150" v-if="tableAction.links.Ishow">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
 						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
@@ -132,7 +132,12 @@
 							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
 						}
 						if(setid == "contributor2"){
-							this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
+							//this.$parent.setContributor(row);
+							//this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
+						}
+						if(setid == "contributor3"){
+							this.$parent.setContributor(row);
+							//this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
 						}
 					break;
 				};

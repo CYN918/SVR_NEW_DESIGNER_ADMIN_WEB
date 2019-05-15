@@ -246,8 +246,11 @@
 						<span class="fleft Dialogkey">
 							驳回详细说明
 						</span>
-						<div class="fleft" style="width:468px;">
-							<el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="text100" maxlength="100"></el-input>
+						<div class="fleft defaultbtnworkbg">
+							<div>
+								<textarea name="" id="" cols="60" rows="10" v-model="text100" Maxlength="100" class="defaultbtnwork"></textarea>
+							</div>
+							<span class="fright fontcolorg">{{ text100.length }}/100</span>
 						</div>
 					</li>
 				</ul>

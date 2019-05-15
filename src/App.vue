@@ -209,7 +209,13 @@ input{
 	color: #FF5121 !important;
 }
 
-.sel-footer .el-button:focus,.sel-footer .el-button:hover,.sel-footer .el-button:active{
+/* .sel-footer .el-button:focus,.sel-footer .el-button:hover,.sel-footer .el-button:active{
+	background: #FFF;
+    border: 1px solid #DCDFE6;
+    outline: 0;
+} */
+
+.sel-footer .el-button:focus,.sel-footer .el-button:active{
 	background: #FFF;
     border: 1px solid #DCDFE6;
     outline: 0;
@@ -360,6 +366,16 @@ input{
 .el-radio{
 	width: 100%;
 } 
+
+.defaultbtnworkbg{
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+}
+.defaultbtnwork{
+	border: 0;	
+	resize:none;
+	border-radius: 5px;
+}
 
 @media screen and (max-width: 1400px) {
 	.screenMidden{

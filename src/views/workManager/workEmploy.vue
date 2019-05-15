@@ -2,7 +2,7 @@
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
-				作品下架
+				作品录用
 			</span>
 		</div>
 		<div class="detailContent1 ofh">

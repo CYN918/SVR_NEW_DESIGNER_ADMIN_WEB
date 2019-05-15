@@ -247,6 +247,14 @@ export default new Router({
 					},
 					component: () => import('@/views/workManager/workEmploy.vue'),
 				},
+				{
+					path: "materialBank",
+					name: 'materialBank',
+					meta: {
+						title: "素材库"
+					},
+					component: () => import('@/views/workManager/materialBank.vue'),
+				},
 				
 			]
 		}

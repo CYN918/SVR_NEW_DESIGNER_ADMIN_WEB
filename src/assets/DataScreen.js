@@ -172,6 +172,19 @@ const screenData = {
 				/* {name:"作品预览链接",id:"ids"}, */
 				{name:"当前状态",id:"status",child:[{name:"草稿",id:"-1"},{name:"待审核",id:"0"},{name:"审核驳回",id:"-2"},{name:" 审核通过",id:"2"},{name:"下架",id:"-3"},{name:" 用户删除",id:"-4"}]},
 			]
+		},
+		worksShelves:{
+			filterFields:[
+				{name:"举报单ID",id:"work_id"},
+				{name:"举报者ID",id:"work_name"},
+				{name:"举报者昵称",id:"username"},
+				{name:"举报类型",id:"copyright",child:[{name:" 禁止匿名转载；禁止商业使用；禁止个人使用",id:" 禁止匿名转载；禁止商业使用；禁止个人使用"},{name:"禁止匿名转载；禁止商业使用",id:"禁止匿名转载；禁止商业使用"},{name:"不限制作品用途",id:"不限制作品用途"}]},
+				{name:"举报对象ID",id:"labels"},
+				{name:"举报对象昵称",id:"activity_id"},
+				{name:"举报位置",id:"hire_id"},
+				{name:"详细说明",id:"hire_order_name"},
+				{name:"提交时间",id:"update_time_end"},
+			]
 		}
 	},
 	screenShow:{
@@ -484,6 +497,44 @@ const screenData = {
 				}
 			},
 		},
+		worksShelves:{
+			defaults:['ids'],
+			bts:[
+				{prop:'ids',lable:'举报单ID'},
+				{prop:'ids',lable:'举报者ID',width:200},
+				{prop:'ids',lable:'举报类型',type:"img",width:150},
+				{prop:'ids',lable:'举报对象ID'},
+				{prop:'ids',lable:'举报对象昵称',type:"url"},
+				{prop:'ids',lable:'举报位置',type:"img",width:150},
+				{prop:'ids',lable:'详细说明',width:200},
+				{prop:'ids',lable:'提交时间'}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"workInfo",
+					child:[
+						{
+							name:"预览"
+						},
+						{
+							name:"下架"
+						},
+						{
+							name:"录用"
+						},
+						{
+							name:"修改平台推荐等级"
+						}
+					],
+				},
+				links:{
+					name:"查看",
+					Ishow:false
+				},
+			}
+		}
 		
 	}
 }

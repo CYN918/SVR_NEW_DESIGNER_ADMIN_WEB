@@ -11,7 +11,6 @@
 				</span>
 			</div>
 		</div>
-		
 		<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 			<div class="ofh">
 				<div class="fleft">
@@ -21,8 +20,7 @@
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
 						<button class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip">
-							<div class="comonbtn" @click="IsShow()">设为平台推荐创作者</div>
-							<div class="comonbtn">添加至黑名单</div>
+							<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 						</div>
 					</div>
 				</div>
@@ -35,7 +33,6 @@
 					{{item.btnName + "：" + item.val}}
 				</el-tag>
 			</div>
-			
 		</div>
 	</div>
 </template>
@@ -52,7 +49,8 @@
 				c:this.commonTopData.commonbottombtn,
 				activeName: 'second',
 				currentpageName:'',
-				doCount:{}
+				doCount:{},
+				operations:[]
 			};
 		},
 		methods: {
@@ -60,11 +58,20 @@
 				this.$parent.resetSave(tag)
 			},
 			getparent(id,name) {
-				var idIndex = id
+				var idIndex = id;
+				
 				switch (name)
 				{
 					case "userBaseInfo":
 						if (idIndex == "right1") {
+							this.operations = [
+								{
+									name:"设为平台推荐创作者",
+								},
+								{
+									name:"添加至黑名单"
+								}
+							];
 							this.Istooltip = !this.Istooltip;
 							return;
 						}
@@ -74,6 +81,17 @@
 							this.router.push({
 								path:"/power/roleManager/createRoles"
 							})
+						};
+					break;
+					case "workInfo":
+						if(idIndex == "right1"){
+							this.operations = [
+								{
+									name:"修改平台推荐等级"
+								}
+							];
+							this.Istooltip = !this.Istooltip;
+							return;
 						};
 					break;
 					default:
@@ -91,15 +109,18 @@
 				//根据页面的名字进行展示字段-筛选按钮的初始化
 
 			},
-			IsShow() {
-				if (this.$parent.selectData.length == 0) {
-					this.$message({
-						message: '请勾选用户',
-						type: 'warning'
-					});
-					return;
+			IsShow(index) {
+				if(index == 0) {
+					if (this.$parent.selectData.length == 0) {
+						this.$message({
+							message: '请勾选用户',
+							type: 'warning'
+						});
+						return;
+					}
+					this.$parent.centerDialogVisible = true;
 				}
-				this.$parent.centerDialogVisible = true;
+				
 			},
 			handleClick(tab, event) {
 				//console.log(tab, event);

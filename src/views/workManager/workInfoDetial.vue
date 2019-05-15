@@ -246,7 +246,21 @@
 				}).catch(da =>{
 					
 				})
-			}
+			},
+			screenmask(data, n) {
+				this.pageName = "";
+				switch (n) {
+					case "left1":
+						this.IsScreen = data;
+						break;
+					case "right2":
+						this.IsScreenShow = data;
+						break;
+					default:
+						break;
+				}
+			
+			},
 		},
 		created() {
 			this.getworkdetial();

@@ -24,7 +24,7 @@
 				<router-link to="/workManager/workInfo">
 					<el-menu-item index="3-1" class="">作品信息表</el-menu-item>
 				</router-link>
-				<router-link to="/userPersonalInfo">
+				<router-link to="/workManager/materialBank">
 					<el-menu-item index="3-2">素材库</el-menu-item>
 				</router-link>
 				<router-link to="/userCompanyInfo">
