@@ -23,28 +23,13 @@ const workData = {
 		},
 		{
 			name:"用户昵称",
-			id:"user_name",
+			id:"username",
 			type:"url"
 		},
 		{
 			name:"用户头像",
 			id:"avatar",
 			type:"imgtou",
-		},
-		{
-			name:"活动ID",
-			id:"activity_id",
-			type:"text",
-		},
-		{
-			name:"活动标题",
-			id:"activity_name",
-			type:"url",
-		},
-		{
-			name:"banner",
-			id:"banner",
-			type:"imgbanner",
 		},
 		{
 			name:"作品类型",
@@ -62,11 +47,6 @@ const workData = {
 			type:"text"
 		},
 		{
-			name:"是否为平台投稿作品",
-			id:"is_platform_work",
-			type:"text"
-		},
-		{
 			name:"是否为平台推荐作品",
 			id:"is_recommend",
 			type:"text"
@@ -77,67 +57,122 @@ const workData = {
 			type:"text"
 		},
 		{
+			name:"是否为平台投稿作品",
+			id:"is_platform_work",
+			type:"text"
+		},
+		{
+			name:"是否已被录用",
+			id:"",
+			type:"text"
+		},
+		{
 			name:"创建时间",
 			id:"create_time",
 			type:"text"
 		},
 		{
 			name:"最近更新时间",
-			id:"name",
+			id:"ids",
+			type:"text"
+		},
+		{
+			name:"作品预览链接",
+			id:"ids",
+			type:"text"
+		},
+		{
+			name:"当前状态",
+			id:"status",
 			type:"text"
 		}],
 		employInfo:
 			[
 				{
-					name:"审核ID",
+					name:"录用来源",
 					id:"id",
 					type:"text"
 				},
 				{
-					name:"提审项",
+					name:"录用时间",
+					id:"ids",
+					type:"text"
 				},
 				{
-					name:"提审用户ID",
+					name:"录用活动ID",
 					id:"open_id",
 					type:"text"
 				},
 				{
-					name:"提审用户昵称",
+					name:"录用活动名称",
 					id:"username",
+					type:"text"
+				},
+				{
+					name:"录用订单ID",
+					id:"check_time",
+					type:"text"
+				},
+				{
+					name:"录用订单名称",
+					id:"check_time",
 					type:"url"
 				},
 				{
-					name:"提审时间",
+					name:"录用方式",
 					id:"check_time",
-					type:"text"
+					type:"url"
 				},
 				{
-					name:"当前审核状态",
+					name:"当前状态",
 					id:"check_status",
 					type:"btn",
 					child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
-				},
-				{
-					name:"审核角色",
-					id:"role",
-					type:"text"
-				},
-				{
-					name:"审核人",
-					id:"check_admin_name",
-					type:"text"
-				},
-				{
-					name:"审核时间",
-					id:"check_time",
-					type:"text"
 				},
 				{
 					name:"最近更新时间",
 					id:"ads",
 					type:"text"
 				}
-			]
+			],
+		worksShelves:[
+			{
+				name:"作品ID",
+				id:"ids",
+				type:"text"
+			},
+			{
+				name:"作品标题",
+				id:"ids",
+				type:"text"
+			},
+			{
+				name:"封面图",
+				id:"face_pic",
+				type:"imgfeng"
+			},
+			{
+				name:"用户ID",
+				id:"ids",
+				type:"text"
+			},
+			{
+				name:"用户昵称",
+				id:"ids",
+				type:"url"
+			},
+			{
+				name:"作品类型",
+				id:"ids",
+				type:"text"
+			},
+			{
+				name:"作品预设链接",
+				id:"ids",
+				type:"url"
+			},
+		]
+			
 }
 
 export default workData

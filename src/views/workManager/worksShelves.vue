@@ -26,11 +26,43 @@
 					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
 						<span class="fleft fontcolorg">选择 “下架作品” 需通知到举报用户</span>
 					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<div>
+							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
+							<button class="defaultbtn" style="margin: 0;"  @click="dialogTableVisible = !dialogTableVisible">选择通知用户</button>
+						</div>
+						<div>
+							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
+							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数999</span>
+						</div>
+					</li>
+					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
+						<span class="fleft fontcolorg">下架原因说明</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<div>
+							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
+							<div class="fleft defaultbtnworkbg">
+								<textarea name="" id="" cols="30" rows="10" class="defaultbtnwork"></textarea>
+								<span class="fright">{{ 0 }}/100</span>
+							</div>
+						</div>
+					</li>
 				</ul>
 			</div>
-			
 		</div>
-		
+		<el-dialog title="请选择 “作品下架” 需通知到的举报者" :visible.sync="dialogTableVisible">
+		  <common-top :commonTopData="commonTopData"></common-top>
+		  <div class="calc205">
+		  	<common-table
+		  		:screenConfig="screenConfig" 
+		  		:tableConfig="tableConfig" 
+		  		:tableDatas="tableData"
+		  		:tableAction = "tableAction"
+		  		ref="Tabledd"
+		  	></common-table>
+		  </div>
+		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="shelves()">下架</button>
@@ -40,11 +72,13 @@
 
 <script>
 	import workData from "../../assets/workData.js"
+	import commonTop from '@/components/commonTop.vue'
+	import commonTable from '@/components/commonTable.vue'
 	export default {
 		data() {
 			return {
-				baseInfo:workData.workInfo,
-				employInfo:workData.employInfo,
+				baseInfo:workData.worksShelves,
+				dialogTableVisible:false,
 			}
 		},
 		methods: {
@@ -85,10 +119,16 @@
 		background: #FF5121;
 		border-color: #FF5121;
 	}
-	
+	.defaultbtnworkbg{
+		border: 1px solid #E6E6E6;
+	}
+	.defaultbtnwork{
+		border: 0;
+	}
 </style>
 
 <style scoped>
+	
 	.Detail {
 		background: white;
 	}

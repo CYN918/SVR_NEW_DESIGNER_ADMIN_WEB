@@ -20,15 +20,15 @@
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ "--" }}</span>
-					<span v-if="!item.type">{{ "--" }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ "--" }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" src="../../assets/img/SHT_SHXQ_psd_icon.png" alt="">
+					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
+					<span v-if="!item.type">{{ work_info[item.id] }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="work_info[item.id]" alt="">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
+					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="work_info[item.id]" alt="">
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ "--" }}</span>
+						<span class="routerLink">{{ work_info[item.id] }}</span>
 					</router-link>
 				</li>
 			</ul>
@@ -59,26 +59,16 @@
 							</li>
 						</ul>
 					</div>
-					<div>
-						<div  style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
+					<div v-if="material_list['图片']">
+						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="3" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
+							<li v-for="(item,index) in material_list['图片']" :key="item.url">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label="item.url" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="4" v-if="workselect"></el-checkbox>
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size }}</span>
 								</div>
 							</li>
 						</ul>
@@ -118,7 +108,7 @@
 			</div>
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in employInfo" :key="index" :type="item.type">
-					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ 12 }}</span>
 					<span v-if="!item.type">{{ 12 }}</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" src="../../assets/img/scsc_icon_yp.png" alt="">
@@ -133,6 +123,49 @@
 					</router-link>
 				</li>
 			</ul>
+			<div v-if="tabsnum == 2" class="marginlr30">
+				<ul class="margint13">
+					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
+						<span class="fleft fontcolorg">渠道1</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">分成渠道ID</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">广告位ID</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">投放渠道</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">分成指标</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">录用价格</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">投放效果数据</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">结算收益</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">当前状态</span>
+						<span>{{ 12345 }}</span>
+					</li>
+					<li class="margint13 ofh" style="margin-left: 102px;">
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">最近更新</span>
+						<span>{{ "--" }}</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -140,7 +173,7 @@
 		<div class="screenContent detailbtn" v-if="!detailbtn">
 			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
-				个选项（100M）</button>
+				个选项（{{ 11 }}）</button>
 		</div>
 	</div>
 </template>
@@ -166,6 +199,10 @@
 				workselect:false,
 				checkList: [],
 				checkAll: ["1", "2", "3", "4", "5", "6"],
+				work_info:{},
+				material_list:{},
+				hire_info:{},
+				font_size:'',
 			}
 		},
 		methods: {
@@ -203,6 +240,9 @@
 					access_token:2
 				}).then(da => {
 					console.log(da)
+					this.work_info = da.work_info;
+					this.material_list = da.material_list;
+					this.hire_info = da.hire_info;
 				}).catch(da =>{
 					
 				})
