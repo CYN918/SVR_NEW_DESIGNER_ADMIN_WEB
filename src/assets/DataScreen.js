@@ -716,14 +716,20 @@ const screenData = {
 			}
 		},
 		activityworks:{
+			defaults:['work_id','work_name','activity_id','activity_name','open_id','username','status'],
 			bts:[
-				{lable:"作品ID",porp:"work_id"},
-				{lable:"作品名称",porp:"work_name"},
-				{lable:"活动ID",porp:"activity_id"},
-				{lable:"活动名称",porp:"activity_name"},
-				{lable:"用户ID",porp:"open_id"},
-				{lable:"用户名称",porp:"username"},
-				{lable:"当前状态",porp:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{lable:"作品ID",prop:"work_id"},
+				{lable:"作品名称",prop:"work_name"},
+				{lable:"活动ID",prop:"activity_id"},
+				{lable:"活动名称",prop:"activity_name"},
+				{lable:"用户ID",prop:"open_id"},
+				{lable:"用户名称",prop:"username"},
+				{lable:"用户头像",prop:"avatar"},
+				{lable:"作品封面图",prop:"face_pic"},
+				{lable:"活动banner",prop:"banner"},
+				{lable:"入围时间",prop:"shortlisted_time"},
+				{lable:"录用时间",prop:"hire_time"},
+				{lable:"当前状态",prop:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
 			],
 			action:{
 				morebtns:{
