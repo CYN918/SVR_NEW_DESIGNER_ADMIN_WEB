@@ -224,10 +224,8 @@ const screenData = {
 		},
 		labels:{
 			filterFields:[
-				{name:"标签词ID",id:"id"},
-				{name:"标签词",id:"category_name"},
-				{name:"作品标注数",id:"id"},
-				{name:"被搜索次数",id:"category_name"},
+				{name:"标签词",id:"label"},
+				{name:"被搜索次数",id:"count"}
 			]
 		},
 		activityworks:{
@@ -664,10 +662,8 @@ const screenData = {
 		},
 		labels:{
 			bts:[
-				{prop:'id',lable:'标签词ID',width:200},
-				{prop:'category_name',lable:'标签词',width:150},
-				{prop:'',lable:'作品标注数'},
-				{prop:'updated_at',lable:'被搜索的次数'},
+				{prop:'label',lable:'标签词',width:150},
+				{prop:'count',lable:'作品标注数'}
 			],
 			action:{
 				morebtns:{

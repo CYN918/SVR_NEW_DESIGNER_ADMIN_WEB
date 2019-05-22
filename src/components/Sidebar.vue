@@ -12,7 +12,7 @@
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
 				
-				<router-link v-if="item.child" v-for="citem in item.child" :key="citem.id" :to="url[citem.id]">
+				<router-link v-if="item.child.length == 0" v-for="citem in item.child" :key="citem.id" :to="url[citem.id]">
 					<el-menu-item :index="citem.id" class="">{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
@@ -34,20 +34,23 @@
 					<el-menu-item index="3-4">评论回复管理</el-menu-item>
 				</router-link>
 			</el-submenu>
-			<el-submenu index="8">
+			<el-submenu index="9">
 				<template slot="title">
 					<i class="iconfont">&#xe627;</i>
 					<span style="padding:15px;">活动管理</span>
 				</template>
 				<router-link to="/activityManager/activityEmploy">
-					<el-menu-item index="8-2">发布活动</el-menu-item>
+					<el-menu-item index="9-2">发布活动</el-menu-item>
 				</router-link>
 				<router-link to="/activityManager/activityClass">
-					<el-menu-item index="8-1" class="">主题分类管理</el-menu-item>
+					<el-menu-item index="9-1" class="">主题分类管理</el-menu-item>
 				</router-link>
 				
 				<router-link to="/activityManager/activityworks">
-					<el-menu-item index="8-3">参与活动的作品</el-menu-item>
+					<el-menu-item index="9-4">参与活动的作品</el-menu-item>
+				</router-link>
+				<router-link to="/activityManager/solicitationTemplate">
+					<el-menu-item index="9-3">征集模板文件</el-menu-item>
 				</router-link>
 			</el-submenu>
 			
@@ -174,6 +177,7 @@
 				iconfont:{
 					"1": "&#xe602;",
 					"5": "&#xe609;",
+					"8": "&#xe730;"
 				}
 			}
 		},
@@ -190,7 +194,7 @@
 		created() {
 			if(localStorage.getItem("access")){
 				this.menuAccess = JSON.parse(localStorage.getItem("access"));
-				//console.log(this.menuAccess);
+				console.log(this.menuAccess);
 			}
 			
 		},

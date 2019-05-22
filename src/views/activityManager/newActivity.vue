@@ -99,7 +99,7 @@
 			</ul>
 		</div>
 		<div class="detailContent ofh relative" v-if="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
-			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
+			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 			<div class="ueditoruploadul">
 				<div class="fleft">
 					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
@@ -147,7 +147,7 @@
 				num: this.$route.query.num,
 				form: {
 					is_provide_template: "0",
-					content: '<p style="color:#999">从这里开始编辑作品类容...</p>',
+					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					is_related_needs: "0",
 					banner:'',
 					filename:"",
@@ -252,10 +252,11 @@
 				formData.append('timestamp', times)
 				var _this = this
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					//console.log(response.data.data.url);
-					_this.form.content += '<img src="' + response.data.data.url + '" alt="111111">';
-					this.ifBjType == 0
-					console.log(_this.form.content);
+					if (_this.ifBjType == 0) {
+						_this.form.info = "";
+						_this.ifBjType = 1;
+					}
+					_this.form.info += '<img src="' + response.data.data.url + '" alt="111111">';
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -286,13 +287,13 @@
 
 				editorInstance.addListener('focus', (editor) => {
 					if (this.ifBjType == 0) {
-						this.form.content = '';
+						this.form.info = '';
 						this.ifBjType = 1;
 					}
 				});
 				editorInstance.addListener('blur', (editor) => {
-					if (this.ifBjType == 1 && this.form.content == '') {
-						this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+					if (this.ifBjType == 1 && this.form.info == '') {
+						this.form.info = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 						this.ifBjType = 0;
 					}
 				});

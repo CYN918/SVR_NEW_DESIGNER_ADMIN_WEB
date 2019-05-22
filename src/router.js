@@ -331,6 +331,14 @@ export default new Router({
 					},
 					component: () => import('@/views/activityManager/activityworks.vue'),
 				},
+				{
+					path: "solicitationTemplate",
+					name: 'solicitationTemplate',
+					meta: {
+						title: "活动作品"
+					},
+					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
+				},
 			]
 		}
 	]

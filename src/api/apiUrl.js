@@ -106,8 +106,11 @@ export default {
 	reportlist:{
 		url:'/admin/report/list',method:'post',baseURL:0,suktip:true
 	},
-	
+	Worklabel:{
+		url:'/admin/Work/label',method:'post',baseURL:0,suktip:true
+	},
 	activitywork:{
 		url:'/admin/activity/work',method:'post',baseURL:0,suktip:true
 	},
+	
 }

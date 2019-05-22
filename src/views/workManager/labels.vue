@@ -56,7 +56,6 @@
 				//获取子组件表格数据
 				var data = {
 					access_token: 2,
-					contribute_type: 2,
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -66,12 +65,11 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.contribute_type = 2;
 					sreenData.access_token = 2;
 					data = sreenData;
 				}
 
-				this.api.getContributorList(data).then((da) => {
+				this.api.Worklabel(data).then((da) => {
 					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
@@ -90,17 +88,6 @@
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 					
 				})
-			},
-			linkDetail(id) {
-				//alert(id);
-				this.IsDetail = true;
-				this.api.getContributorInfo({
-					open_id: id,
-					contribute_type:2
-				}).then(da => {
-					this.detailData = da;
-					console.log(da);
-				}).catch(() => {})
 			},
 			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
@@ -143,7 +130,7 @@
 			//console.log(this.tableConfig)
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
-			this.getcommonrightbtn();
+			//this.getcommonrightbtn();
 		}
 	}
 </script>
