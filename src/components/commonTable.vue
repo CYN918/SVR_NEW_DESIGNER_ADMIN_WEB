@@ -13,6 +13,7 @@
 						<div v-else-if="item.type == 'merge'">
 							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
 						</div>
+						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
@@ -201,6 +202,9 @@
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
+			},
+			setstatus(){
+				return "red"
 			}
 		
 		},
@@ -212,7 +216,24 @@
 	}
 </script>
 <style>
-	
+	.status-2{
+		color: #F5222D;
+	}
+	.status-1{
+		color: #000000;
+	}
+	.status0{
+		color:#52C41A;
+	}
+	.status1{
+		color:#52C41A;
+	}
+	.status2{
+		color:#52C41A;
+	}
+	.status10{
+		color:#52C41A;
+	}
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;
 	} */

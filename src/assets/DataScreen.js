@@ -725,7 +725,7 @@ const screenData = {
 				{lable:"活动banner",prop:"banner"},
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"},
-				{lable:"当前状态",prop:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{lable:"当前状态",prop:"status",type:"status",child:{"-2":"入围未录用","-1":"未入围","0":"参与活动","1":"已入围","2":"已录用","10":"已参加"}},
 			],
 			action:{
 				morebtns:{

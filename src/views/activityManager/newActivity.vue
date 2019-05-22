@@ -109,14 +109,14 @@
 					</el-upload>
 				</div>
 				<div class="fleft marginlr30">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccess" >
+					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
 						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
 							 alt=""></div>
 						<div>上传视频</div>
 					</el-upload>
 				</div>
 				<div class="fleft" style="margin-right: 10px;">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
 						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
 							 alt=""></div>
 						<div>上传音频</div>
@@ -256,7 +256,75 @@
 						_this.form.info = "";
 						_this.ifBjType = 1;
 					}
-					_this.form.info += '<img src="' + response.data.data.url + '" alt="111111">';
+					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="111111">';
+				}).catch(function (error) {
+					console.log(error);
+				});
+				 
+			},
+			handleAvatarSuccessvideo(params) {
+				//console.log(params);
+				const _file = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+				
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+				var _this = this
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					console.log(response)
+					if (_this.ifBjType == 0) {
+						_this.form.info = "";
+						_this.ifBjType = 1;
+					}
+					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><video src="'+ response.data.data.url +'" controls="controls"></video>';
+				}).catch(function (error) {
+					console.log(error);
+				});
+				 
+			},
+			handleAvatarSuccessaudio(params) {
+				//console.log(params);
+				const _file = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+				
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+				var _this = this
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					console.log(response)
+					if (_this.ifBjType == 0) {
+						_this.form.info = "";
+						_this.ifBjType = 1;
+					}
+					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><audio src="'+ response.data.data.url +'" controls="controls"></audio>';
 				}).catch(function (error) {
 					console.log(error);
 				});
