@@ -33,28 +33,18 @@
 				</li>
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
-				<el-checkbox-group v-model="checkList">
-					<div>
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+					<div v-if="material_list['附件']">
 						<div  style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in material_list['附件']">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="2" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
@@ -62,43 +52,43 @@
 					<div v-if="material_list['图片']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['图片']" :key="item.url">
+							<li v-for="(item,index) in material_list['图片']">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.url" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<div>
+					<div v-if="material_list['视频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="5" v-if="workselect"></el-checkbox>
+							<li v-for="(item,index) in material_list['视频']">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<div>
+					<div v-if="material_list['音频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="6" v-if="workselect"></el-checkbox>
+							<li v-for="(item,index) in material_list['音频']">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 
@@ -173,7 +163,7 @@
 		<div class="screenContent detailbtn" v-if="!detailbtn">
 			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
-				个选项（{{ 11 }}）</button>
+				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB" }}）</button>
 		</div>
 	</div>
 </template>
@@ -200,9 +190,60 @@
 				checkList: [],
 				checkAll: ["1", "2", "3", "4", "5", "6"],
 				work_info:{},
-				material_list:{},
+				material_list:{
+					"附件": [
+						{
+							"file_name": "新建文件夹.zip",
+							"url": "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/76502558070e6c7efff0f8d68849ad53.zip",
+							"file_size": "127.13",
+							"file_size_format": "127.13 KB"
+						}
+					],
+					"图片": [
+						{
+							"file_name": "xxxxxxxxxf.png",
+							"url": "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/a24169b8ef5577ac434b8a2d30e7567e.png",
+							"file_size": "67.80",
+							"file_size_format": "67.8 KB"
+						},
+						{
+							"file_name": "203850b3-b314-4242-a01e-7611eefebb8a.jpg",
+							"url": "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d9e7113597464f01c75325f811644ab1.jpg",
+							"file_size": "60.10",
+							"file_size_format": "60.1 KB"
+						},
+						{
+							"file_name": "企业微信截图_e91ed7a9-f58e-4746-b400-33bdff357a29.png",
+							"url": "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/33033edd11524bb6e69856e46b1b0269.png",
+							"file_size": "88.35",
+							"file_size_format": "88.35 KB"
+						},
+						{
+							"file_name": "企业微信截图_e91ed7a9-f58e-4746-b400-33bdff357a29.png",
+							"url": "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/33033edd11524bb6e69856e46b1b0269.png",
+							"file_size": "88.35",
+							"file_size_format": "88.35 KB"
+						}
+					],
+					"视频": [
+						{
+							"file_name": "首页_上传作品_demo.mp4",
+							"url": "http://zk-web-object.oss-cn-qingdao.aliyuncs.com/48d6e3804288a4f177d9f6798141390f.mp4",
+							"file_size": "32001.60",
+							"file_size_format": "31.25 MB"
+						}
+					],
+					"音频": [
+						{
+							"file_name": "song.ogg",
+							"url": "http://zk-web-object.oss-cn-qingdao.aliyuncs.com/91f251012a3a2778bcb13741c54b411c.ogg",
+							"file_size": "233.76",
+							"file_size_format": "233.76 KB"
+						}
+					]
+				},
 				hire_info:{},
-				font_size:'',
+				font_size:0,
 			}
 		},
 		methods: {
@@ -223,7 +264,11 @@
 			
 			tabsChange(num) {
 				this.tabsnum = num;
-				
+				//alert(this.tabsnum)
+				if (this.tabsnum != 1) {
+					this.detailbtn = true;
+					this.workselect = false;
+				}
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
@@ -241,26 +286,20 @@
 				}).then(da => {
 					console.log(da)
 					this.work_info = da.work_info;
-					this.material_list = da.material_list;
-					this.hire_info = da.hire_info;
+					//this.material_list = da.material_list;
+					//this.hire_info = da.hire_info;
 				}).catch(da =>{
 					
 				})
 			},
-			screenmask(data, n) {
-				this.pageName = "";
-				switch (n) {
-					case "left1":
-						this.IsScreen = data;
-						break;
-					case "right2":
-						this.IsScreenShow = data;
-						break;
-					default:
-						break;
-				}
-			
+			handleCheckedCitiesChange(val){
+				//console.log(val
+				this.font_size = 0;
+				val.forEach((item,index) =>{
+					this.font_size += Number(item)
+				});
 			},
+			
 		},
 		created() {
 			this.getworkdetial();

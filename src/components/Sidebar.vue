@@ -27,11 +27,27 @@
 				<router-link to="/workManager/materialBank">
 					<el-menu-item index="3-2">素材库</el-menu-item>
 				</router-link>
-				<router-link to="/userCompanyInfo">
+				<router-link to="/workManager/labels">
 					<el-menu-item index="3-3">作品标签</el-menu-item>
 				</router-link>
-				<router-link to="/userCompanyInfo">
-					<el-menu-item index="3-3">评论回复管理</el-menu-item>
+				<router-link to="/workManager/commentManager">
+					<el-menu-item index="3-4">评论回复管理</el-menu-item>
+				</router-link>
+			</el-submenu>
+			<el-submenu index="8">
+				<template slot="title">
+					<i class="iconfont">&#xe627;</i>
+					<span style="padding:15px;">活动管理</span>
+				</template>
+				<router-link to="/activityManager/activityEmploy">
+					<el-menu-item index="8-2">发布活动</el-menu-item>
+				</router-link>
+				<router-link to="/activityManager/activityClass">
+					<el-menu-item index="8-1" class="">主题分类管理</el-menu-item>
+				</router-link>
+				
+				<router-link to="/activityManager/activityworks">
+					<el-menu-item index="8-3">参与活动的作品</el-menu-item>
 				</router-link>
 			</el-submenu>
 			

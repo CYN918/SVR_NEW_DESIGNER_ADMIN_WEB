@@ -175,17 +175,76 @@ const screenData = {
 		},
 		worksShelves:{
 			filterFields:[
-				{name:"举报单ID",id:"work_id"},
-				{name:"举报者ID",id:"work_name"},
+				{name:"举报单ID",id:"report_id"},
+				{name:"举报者ID",id:"open_id"},
 				{name:"举报者昵称",id:"username"},
-				{name:"举报类型",id:"copyright",child:[{name:" 禁止匿名转载；禁止商业使用；禁止个人使用",id:" 禁止匿名转载；禁止商业使用；禁止个人使用"},{name:"禁止匿名转载；禁止商业使用",id:"禁止匿名转载；禁止商业使用"},{name:"不限制作品用途",id:"不限制作品用途"}]},
-				{name:"举报对象ID",id:"labels"},
-				{name:"举报对象昵称",id:"activity_id"},
-				{name:"举报位置",id:"hire_id"},
+				{name:"举报类型",id:"classify_id",child:[{name:"垃圾广告信息",id:"1"},{name:"涉黄涉暴等违法信息",id:"2"},{name:"侮辱、恶意及辱骂等行为",id:"3"},{name:"作品侵犯原作者权益",id:"4"},{name:"其他",id:"5"}]},
+				{name:"举报对象ID",id:"accused_open_id"},
+				{name:"举报对象昵称",id:"accused_username"},
+				{name:"举报位置",id:"position"},
 				{name:"详细说明",id:"hire_order_name"},
-				{name:"提交时间",id:"update_time_end"},
+				{name:"举报时间（开始）",id:"create_time_start"},
+				{name:"举报时间（结束）",id:"create_time_end"},
+				
 			]
-		}
+		},
+		commentManager:{
+			filterFields:[
+				{name:"评论ID",id:"comment_id"},
+				{name:"评论人ID",id:"open_id"},
+				{name:"评论人昵称",id:"username"},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name"},
+				{name:"评论类型",id:"type",child:[{name:"评论",id:"1"},{name:"回复",id:"2"}]},
+				{name:"评论内容",id:"content"},
+				{name:"评论回复对象（用户ID）",id:"to_open_id"},
+				{name:"创建时间（开始）",id:"create_time_start"},
+				{name:"创建时间（结束）",id:"create_time_end"}
+			]
+		},
+		activityClass:{
+			filterFields:[
+				{name:"主题分类ID",id:"id"},
+				{name:"主题分类名称",id:"category_name"},
+				{name:"使用状态",id:"status",child:[{name:"启用",id:"1"},{name:"停用",id:"2"}]},
+			]
+		},
+		activityEmploy:{
+			filterFields:[
+				{name:"活动ID",id:"activity_id"},
+				{name:"活动名称",id:"activity_name"},
+				{name:"活动类型",id:"type"},
+				{name:"主题分类",id:"category_id"},
+				{name:"活动时间",id:"id",type:"time"},
+				{name:"当前状态",id:"status",child:[{}]},
+				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
+				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
+				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min"},{id:"hire_num_max"}]},
+			]
+		},
+		labels:{
+			filterFields:[
+				{name:"标签词ID",id:"id"},
+				{name:"标签词",id:"category_name"},
+				{name:"作品标注数",id:"id"},
+				{name:"被搜索次数",id:"category_name"},
+			]
+		},
+		activityworks:{
+			filterFields:[
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name"},
+				{name:"活动ID",id:"activity_id"},
+				{name:"活动名称",id:"activity_name"},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户名称",id:"username"},
+				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{name:"入围时间（开始）",id:"shortlisted_time_start",type:"time"},
+				{name:"入围时间（结束）",id:"shortlisted_time_end",type:"time"},
+				{name:"录用时间（开始）",id:"hire_time_start",type:"time"},
+				{name:"录用时间（结束）",id:"hire_time_end",type:"time"},
+			]
+		},
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
@@ -488,6 +547,9 @@ const screenData = {
 						},
 						{
 							name:"修改平台推荐等级"
+						},
+						{
+							name:"绑定补充合同"
 						}
 					],
 				},
@@ -500,9 +562,9 @@ const screenData = {
 		worksShelves:{
 			defaults:['ids'],
 			bts:[
-				{prop:'ids',lable:'举报单ID'},
-				{prop:'ids',lable:'举报者ID',width:200},
-				{prop:'ids',lable:'举报类型',type:"img",width:150},
+				{prop:'report_id',lable:'举报单ID'},
+				{prop:'open_id',lable:'举报者ID',width:200},
+				{prop:'classify_id',lable:'举报类型',child:[{name:"垃圾广告信息",id:"1"},{name:"涉黄涉暴等违法信息",id:"2"},{name:"侮辱、恶意及辱骂等行为",id:"3"},{name:"作品侵犯原作者权益",id:"4"},{name:"其他",id:"5"}],width:150},
 				{prop:'ids',lable:'举报对象ID'},
 				{prop:'ids',lable:'举报对象昵称',type:"url"},
 				{prop:'ids',lable:'举报位置',type:"img",width:150},
@@ -526,7 +588,8 @@ const screenData = {
 						},
 						{
 							name:"修改平台推荐等级"
-						}
+						},
+						
 					],
 				},
 				links:{
@@ -534,8 +597,154 @@ const screenData = {
 					Ishow:false
 				},
 			}
+		},
+		commentManager:{
+			defaults:['comment_id','open_id','username','content','to_open_id','type','create_time'],
+			bts:[
+				{prop:'comment_id',lable:'评论回复ID'},
+				{prop:'open_id',lable:'用户ID',width:200},
+				{prop:'username',lable:'用户昵称',width:150},
+				{prop:'avatar',lable:'用户头像',width:150},
+				{prop:'work_id',lable:'作品ID'},
+				{prop:'type',lable:'发言类型',type:"url"},
+				{prop:'content',lable:'发言内容',width:150},
+				{prop:'to_open_id',lable:'评论/回复 对象（用户ID）',width:200},
+				{prop:'create_time',lable:'发言时间'}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"commentManager",
+					child:[
+						{
+							name:"预览"
+						},
+						{
+							name:"下架"
+						},
+						{
+							name:"录用"
+						},
+						{
+							name:"修改平台推荐等级"
+						},
+						
+					],
+				},
+				links:{
+					name:"删除",
+					Ishow:true
+				},
+			}
+		},
+		activityClass:{
+			bts:[
+				{prop:'id',lable:'主题分类ID',width:200},
+				{prop:'category_name',lable:'主题分类名称',width:150},
+				{prop:'',lable:'进行中活动数'},
+				{prop:'updated_at',lable:'更新时间'},
+				{prop:'status',lable:'当前状态'}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"activityClass",
+					child:[
+						
+						
+					],
+				},
+				links:{
+					name:"修改",
+					Ishow:true
+				},
+			}
+		},
+		labels:{
+			bts:[
+				{prop:'id',lable:'标签词ID',width:200},
+				{prop:'category_name',lable:'标签词',width:150},
+				{prop:'',lable:'作品标注数'},
+				{prop:'updated_at',lable:'被搜索的次数'},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"labels",
+					child:[	
+						
+						
+					],
+				},
+				links:{
+					name:"修改",
+					Ishow:false
+				},
+			}
+		},
+		activityEmploy:{
+			bts:[
+				{prop:'id',lable:'活动ID'},
+				{prop:'activity_name',lable:'活动名称'},
+				{prop:'banner',lable:'banner',type:"img",width:150},
+				{prop:'category_name',lable:'主题分类'},
+				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
+				{prop:'status',lable:'当前状态',width:150},
+				{prop:'setting_type',lable:'作品上传和展示',width:250},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"activityEmploy",
+					child:[
+						{
+							name:"删除"
+						},
+						{
+							name:"编辑"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:true
+				},
+			}
+		},
+		activityworks:{
+			bts:[
+				{lable:"作品ID",porp:"work_id"},
+				{lable:"作品名称",porp:"work_name"},
+				{lable:"活动ID",porp:"activity_id"},
+				{lable:"活动名称",porp:"activity_name"},
+				{lable:"用户ID",porp:"open_id"},
+				{lable:"用户名称",porp:"username"},
+				{lable:"当前状态",porp:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"activityEmploy",
+					child:[
+						{
+							name:"删除"
+						},
+						{
+							name:"编辑"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:true
+				},
+			}
 		}
-		
 	}
 }
 

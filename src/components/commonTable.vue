@@ -10,6 +10,9 @@
 						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
 						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
+						<div v-else-if="item.type == 'merge'">
+							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+						</div>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
@@ -21,8 +24,7 @@
 							<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 							<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 								<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
-								<!-- <el-dropdown-item class="comonbtn" @click.native="handleClick(scope.row,'contributor')">设为平台推荐创作者</el-dropdown-item>
-								<el-dropdown-item class="comonbtn">添加至黑名单</el-dropdown-item> -->
+								
 							</el-dropdown-menu>
 						</el-dropdown>
 					</template>
@@ -132,12 +134,35 @@
 							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
 						}
 						if(setid == "contributor2"){
-							//this.$parent.setContributor(row);
-							//this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
+							this.$parent.centerDialogVisible2 = true;
 						}
 						if(setid == "contributor3"){
 							this.$parent.setContributor(row);
 							//this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
+						}
+						if(setid == "contributor4"){
+							this.$parent.centerDialogVisible3 = true;
+						}
+					break;
+					case "commentManager":
+						if(!setid){
+							//this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
+							//this.router.push({path:"/power/accountManager/seeRoles"});
+							this.$parent.setContributor(row);
+						}
+					break;
+					case "activityClass":
+						if(!setid){
+							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+					case "activityEmploy":
+						if(!setid){
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+
+						if(setid == "contributor0"){
+							this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 					break;
 				};
@@ -187,102 +212,6 @@
 	}
 </script>
 <style>
-	.block {
-		height: 100px;
-		line-height: 100px;
-		text-align: center;
-		background: white;
-	}
-
-	.tabtop {
-		height: calc(100% - 100px);
-		overflow: hidden;
-	}
-
-	#app .el-pagination .number,
-	#app .el-pagination button {
-		border: 1px #999999 solid;
-		color: #999999;
-		margin-left: 14px;
-		border-radius: 5px;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		margin-top: 29px;
-	}
-
-	#app .el-pagination .number:hover,
-	#app .el-pagination button:hover {
-		border-color: #ff5121;
-		background-color: #ff5121;
-		color: white;
-	}
-
-	#app .el-pagination .number:active,
-	#app .el-pagination button:active {
-		border-color: #ff5121;
-		background-color: #ff5121;
-		color: white;
-	}
-
-	#app .el-pagination button,
-	.el-pagination span:not([class*=suffix]) {
-		line-height: 100px;
-	}
-
-	#app .el-input--mini .el-input__inner,
-	#app .el-pagination__editor.el-input .el-input__inner {
-		height: 40px;
-		border: 1px #999999 solid;
-	}
-
-	#app .el-pager li.active {
-		border-color: #FF5121;
-		background-color: #FF5121 !important;
-		color: white;
-	}
-
-	.el-dropdown-link {
-		cursor: pointer;
-		color: #FF5121;
-		padding-left: 20px;
-	}
-
-	.el-dropdown-menu__item:focus,
-	.el-dropdown-menu__item:not(.is-disabled):hover {
-		background: #ffede8;
-		color: #FF5121;
-	}
-
-	.el-dropdown-menu__item {
-		line-height: 40px;
-	}
-
-	.el-popper[x-placement^=bottom] {
-		margin-top: 0;
-	}
-
-	.el-dropdown-menu {
-		padding: 0;
-	}
-
-	.el-button--text {
-		color: #FF5121;
-	}
-
-	#app .el-checkbox__inner:hover {
-		border-color: #FF5121;
-	}
-
-	.el-checkbox__input.is-checked .el-checkbox__inner,
-	.el-checkbox__input.is-indeterminate .el-checkbox__inner {
-		background-color: #FF5121;
-		border-color: #FF5121;
-	}
-	
-	.el-pager li.btn-quicknext, .el-pager li.btn-quickprev{
-		line-height: 100px;
-	}
 	
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;

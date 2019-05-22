@@ -67,5 +67,47 @@ export default {
 	workInfo:{
 		url:'/admin/Work/info',method:'post',baseURL:0,suktip:true
 	},
+	setRecommendLevelwork:{
+		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0,suktip:true
+	},
+	offShelve:{
+		url:'/admin/work/offShelve',method:'post',baseURL:0,suktip:true
+	},
+	getLevelCount:{
+		url:'/admin/work/getLevelCount',method:'post',baseURL:0,suktip:true
+	},
+	categoryList:{
+		url:'/admin/category/list',method:'post',baseURL:0,suktip:true
+	},
+	categoryAdd:{
+		url:'/admin/category/add',method:'post',baseURL:0,suktip:true
+	},
+	categoryEdit:{
+		url:'/admin/category/edit',method:'post',baseURL:0,suktip:true
+	},
+	workComment:{
+		url:'/admin/work/comment',method:'post',baseURL:0,suktip:true
+	},
+	deleteComment:{
+		url:'/admin/work/deleteComment',method:'post',baseURL:0,suktip:true
+	},
+	activitylist:{
+		url:'/admin/activity/list',method:'post',baseURL:0,suktip:true
+	},
+	activitydelete:{
+		url:'/admin/activity/delete',method:'post',baseURL:0,suktip:true
+	},
+	activityadd:{
+		url:'/admin/activity/add',method:'post',baseURL:0,suktip:true
+	},
+	insertFile:{
+		url:'/File/File/insert',method:'post',baseURL:0,suktip:true
+	},
+	reportlist:{
+		url:'/admin/report/list',method:'post',baseURL:0,suktip:true
+	},
 	
+	activitywork:{
+		url:'/admin/activity/work',method:'post',baseURL:0,suktip:true
+	},
 }

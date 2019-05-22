@@ -1,9 +1,9 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
-			<div>
+			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
-					查看作品
+					素材库
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -18,11 +18,11 @@
 				</div>
 			</div>
 			<div>
-				
+				<common-top :commonTopData="commonTopData"></common-top>
 			</div>
 			
 		</div>
-		<div class="detailContent1 ofh">
+		<div class="detailContent1 ofh" style="height: calc(100% - 328px);">
 			<div class="paddinglr40 ofh" v-if="tabsnum == 0">
 				<el-checkbox-group v-model="checkList">
 					<div>
@@ -120,9 +120,16 @@
 					</div>
 				</el-checkbox-group>
 			</div>
-			
 		</div>
-		<div class="screenContent detailbtn">
+		<div class="w" style="text-align: right;background: #FFFFFF;" v-if="!workselect">
+			<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+				 <span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
+			</div>
+			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
+			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
+			</el-pagination>
+		</div>
+		<div class="screenContent detailbtn"  v-if="workselect">
 			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
 				个选项（{{ 11 }}）</button>
@@ -132,7 +139,11 @@
 
 <script>
 	import workData from "../../assets/workData.js"
+	import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				tabData: [{
@@ -158,6 +169,22 @@
 				material_list:{},
 				hire_info:{},
 				font_size:'',
+				commonTopData: {
+					"pageName": "materialBank",
+					"commonleftbtn": [{
+						name: "筛选",
+						id: "left1",
+						url: ""
+					}, ],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					"IsShow":true
+				},
+				pagesize:10,
+				total:122,
+				currentpage:1,
+				selected:0,
+				
 			}
 		},
 		methods: {
@@ -178,7 +205,8 @@
 			
 			tabsChange(num) {
 				this.tabsnum = num;
-				
+				this.detailbtn=true;
+				this.workselect=false;
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
@@ -190,7 +218,7 @@
 				this.workselect = true;
 			},
 			getworkdetial(){
-				this.api.workInfo({
+				/* this.api.workInfo({
 					work_id:this.$route.query.id,
 					access_token:2
 				}).then(da => {
@@ -200,7 +228,19 @@
 					this.hire_info = da.hire_info;
 				}).catch(da =>{
 					
-				})
+				}) */
+			},
+			handleSizeChange(val) {
+				/* this.pagesize = val;
+				this.getTabData(); */
+			},
+			handleCurrentChange(val) {
+				/* this.currentpage = val;
+				this.getTabData(); */
+			},
+			handleSelectionChange(val) {
+				/* this.selected = val.length
+				this.$parent.selectData = val; */
 			},
 		},
 		created() {

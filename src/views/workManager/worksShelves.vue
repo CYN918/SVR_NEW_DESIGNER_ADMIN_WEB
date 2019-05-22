@@ -33,7 +33,7 @@
 						</div>
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
-							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数999</span>
+							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数{{ this.selectData.length }}</span>
 						</div>
 					</li>
 					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
@@ -75,13 +75,13 @@
 					 ref="Tabledd"></common-table>
 				</div>
 			</div>
-
+			
 		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="shelves()">下架</button>
 		</div>
-		<div class="workfixed" v-if="IsScreen == 'No'">
+		<div class="workfixed" v-show="IsScreen == 'No'">
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
 	</div>
@@ -135,6 +135,7 @@
 				tableData: [],
 				IsScreen: "Off",
 				work_info: {},
+				selectData:[],
 			}
 		},
 		methods: {
@@ -151,9 +152,6 @@
 				} else {
 					return "--"
 				}
-			},
-			shelves() {
-
 			},
 			screen(id) {
 				if (id = "left1") {
@@ -176,16 +174,252 @@
 					work_id: this.$route.query.id,
 					access_token: 2
 				}).then(da => {
-					console.log(da)
+					//console.log(da)
 					this.work_info = da.work_info;
 				}).catch(da => {
 
 				})
 			},
+			shelves(){
+				this.$confirm('提示', '确认下架改作品', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning',
+					center: true
+				}).then(() => {
+					this.api.offShelve({
+						access_token:2,
+						work_ids:this.$route.query.id,
+						reason:this.textarea,
+						notice_ids:"",
+					}).then(da =>{
+						console.log(da);
+					})
+					//alert(22);
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: 2,
+					page: pg.pageCurrent,
+					limit: pg.pageSize
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.access_token = 2;
+					data = sreenData;
+				}
+			
+				this.api.reportlist(data).then((da) => {
+					if (!da) {
+						this.$message('数据为空');
+					}
+					//console.log(da.data)
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+				}).catch(() => {
+			
+				});
+			
+				/* this.setLoding(false); */
+			},
+			setLoding(type) {
+				/* this.$refs.Tabledd.setLoding(type);	 */
+			},
+			getScreenShowData() {
+				//获取字段展示-筛选修改
+				eventBus.$on("screenShowDataChange", (data) => {
+					this.tableConfig.list = [];
+					this.forshowkey(data)
+				});
+			
+				//获取字段展示-筛选初始化
+				if (localStorage.getItem("screenShowDataChange")) {
+					this.forshowkey(localStorage.getItem("screenShowDataChange").split(','))
+				} else {
+					this.forshowkey(this.defaultbts);
+				}
+			},
+			forshowkey(data) {
+				//筛选展示字段
+				this.bts.forEach(item => {
+					const val = item;
+					data.forEach(item1 => {
+						if (val.prop == item1) {
+							this.tableConfig.list.push(val)
+						}
+					})
+				})
+			},
+			screenreach() {
+				eventBus.$on("sreenData", (data) => {
+					this.getcommonrightbtn();
+					this.getData({
+						pageCurrent: this.tableConfig.currentpage,
+						pageSize: this.tableConfig.pagesize
+					});
+				})
+			},
+			linkDetail(id) {
+				//alert(id);
+				this.IsDetail = true;
+				this.api.getUserInfo({
+					open_id: id
+				}).then(da => {
+					this.detailData = da;
+				}).catch(() => {
+			
+				})
+			},
+			setContributor(val) {
+				this.selectOne = val;
+				this.centerDialogVisible1 = true;
+			},
+			contributor() {
+				//console.log(workids)
+				//console.log(this.selectData);
+				var work_ids = this.getworkids();
+				this.centerDialogVisible = false;
+				this.centerDialogVisible1 = false;
+				this.api.getLevelCount({
+					access_token:2,
+					recommend_level:this.radioS,
+				}).then(da => {
+					console.log(da)
+					this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						dangerouslyUseHTMLString: true,
+						type: '',
+						center: true
+					}).then(() => {
+						//console.log({work_ids:workids,level:this.radioS})
+						this.api.setRecommendLevelwork({
+							work_ids: work_ids,
+							recommend_level: this.radioS,
+							access_token: 2,
+						}).then(da => {
+							
+							this.$message({
+								type: 'success',
+								message: '修改成功'
+							});
+							
+						})
+					}).catch(() => {
+						this.$message({
+							type: 'info',
+							message: '已经取消'
+						});
+					});
+				}).catch(da => {
+					
+				})
+				
+			},
+			getworkids() {
+				//console.log(this.selectData);
+				var workids = '';
+				this.selectData.forEach((item, index) => {
+					workids += (index == (this.selectData.length - 1)) ? item.work_id : item.work_id + ",";
+				})
+				if (this.centerDialogVisible) {
+					workids = workids
+				};
+			
+				if (this.centerDialogVisible1) {
+					workids = this.selectOne.work_id;
+				}
+				return workids;
+			},
+			getcommonrightbtn() {
+				this.commonTopData.commonbottombtn = [];
+				if (this.$route.query.urlDate) {
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item => {
+						//console.log(item);
+			
+						if (urldata[item.id]) {
+							var val = urldata[item.id];
+							if (item.child) {
+								val = "";
+								item.child.forEach(citem => {
+									//alert(urldata[item.id])
+									if (citem.id == urldata[item.id]) {
+										val = citem.name;
+									}
+								})
+							}
+							this.commonTopData.commonbottombtn.push({
+								btnName: item.name,
+								val: val,
+								id: item.id
+							});
+							//console.log(this.commonTopData.commonbottombtn);
+						}
+						if (item.type == "two") {
+							if (item.child) {
+								item.child.forEach(citem => {
+									if (urldata[citem.id]) {
+										this.commonTopData.commonbottombtn.push({
+											btnName: citem.name,
+											val: urldata[citem.id],
+											id: citem.id
+										})
+									}
+								})
+							}
+							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
+							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
+							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
+						}
+					})
+				}
+			
+			},
+			resetSave(tag) {
+				if (this.$route.query.urlDate) {
+					const urldata = JSON.parse(this.$route.query.urlDate)
+					delete urldata[tag];
+					console.log(tag);
+					this.$router.push({
+						path: '/workManager/workInfo',
+						query: {
+							urlDate: JSON.stringify(urldata)
+						}
+					});
+					this.getcommonrightbtn();
+					this.getData({
+						pageCurrent: this.tableConfig.currentpage,
+						pageSize: this.tableConfig.pagesize
+					});
+				}
+			},
 
 		},
 		created() {
-			this.getworkdetial()
+			this.getworkdetial();
+			this.getData({
+				pageCurrent: this.tableConfig.currentpage,
+				pageSize: this.tableConfig.pagesize
+			});
+			this.getScreenShowData();
+			this.screenreach();
+			this.getcommonrightbtn();
 		},
 		mounted() {
 
@@ -253,9 +487,14 @@
 	}
 
 	.workfixed {
-		position: absolute;
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
 		z-index: 9999;
-		top: 120px;
+		display: fixed;
+		background: rgba(0,0,0,0.5);
 	}
 	
 	.sel-dialog  {

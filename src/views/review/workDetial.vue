@@ -33,7 +33,7 @@
 				</li>
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1 && pagetype != 4">
-				<el-checkbox-group v-model="checkList">
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div v-if="material_info['附件']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
@@ -64,11 +64,11 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['图片']" :key = "item.url">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" label="3" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">3M</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
@@ -176,7 +176,7 @@
 		<div class="screenContent detailbtn" v-if="!detailbtn">
 			<button class="defaultbtn" @click="cancel">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks">下载 {{ checkList.length }}
-				个选项（100M）</button>
+				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</button>
 		</div>
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
 			<div style="position: relative;">
@@ -361,7 +361,7 @@
 				workselect: false,
 				detailbtn: true,
 				checkList: [],
-				checkAll: ["1", "2", "3", "4", "5", "6"],
+				checkAll: [],
 				reviewinfocommon: [],
 				reviewinfostatus: [],
 				status_info: parseInt(this.$route.query.check_status),
@@ -391,7 +391,8 @@
 				price2:"",
 				pagetype:parseInt(this.$route.query.type),
 				hire_type:"",
-				contributor_type:""
+				contributor_type:"",
+				font_size:0,
 			}
 		},
 		methods: {
@@ -440,7 +441,7 @@
 			tabsChange(num) {
 				this.tabsnum = num;
 				//alert(this.tabsnum)
-				if (num != 1) {
+				if (this.tabsnum != 1) {
 					this.detailbtn = true;
 					this.workselect = false;
 				}
@@ -668,6 +669,13 @@
 				} else{
 					return true;
 				}
+			},
+			handleCheckedCitiesChange(val){
+				//console.log(val
+				this.font_size = 0;
+				val.forEach((item,index) =>{
+					this.font_size += Number(item)
+				});
 			}
 
 		},
@@ -681,293 +689,10 @@
 </script>
 
 <style>
-	.materiallist .el-checkbox__label {
-		display: none;
-	}
 	
-	.work .el-button--primary{
-		background: #FF5121;
-		border-color: #FF5121;
-	}
 	
 </style>
 
 <style scoped>
-	.Detail {
-		background: white;
-	}
-
-	.Dialogkey {
-		margin: 0 33px 26px 66px;
-		width: 84px;
-	}
-
-	.detailtitle {
-		padding-left: 40px;
-		padding-top: 18px;
-	}
-
-	.detailContent1 {
-		height: calc(100% - 139px);
-		overflow-y: auto;
-	}
-
-	.detailContent1>ul {
-		padding-left: 132px;
-		padding-top: 64px;
-	}
-
-	.margint13 {
-		margin-bottom: 13px;
-	}
-
-	.detailKey {
-		width: 160px;
-		font-family: PingFangSC-Regular;
-		font-size: 14px;
-		color: #999999;
-	}
-
-	.detailValueImg {
-		width: 68px;
-		height: 68px;
-		border-radius: 50%;
-		background: red;
-	}
-
-	.detailKeyImg {
-		line-height: 68px;
-	}
-
-	.routerLink {
-		color: #FF5121;
-	}
-
-	.detailbtn {
-		height: 100px;
-	}
-
-	.squareImg {
-		width: 160px;
-		height: 102px;
-		background: red;
-	}
-
-	.roles-input {
-		height: 40px;
-		line-height: 40px;
-	}
-
-	.width500 {
-		width: 500px;
-	}
-
-	.roles-input input {
-		height: 100%;
-		width: 400px;
-	}
-
-	.roletree {
-		height: 460px;
-		border: 1px solid #D9D9D9;
-		display: inline-block;
-		overflow-y: auto;
-		border-radius: 5px;
-	}
-
-	.account-ipt {
-		padding: 10px;
-		text-align: center;
-		border: 1px solid #999999;
-		border-radius: 5px;
-	}
-
-	.tabs {
-		width: 96px;
-		height: 33px;
-		display: inline-block;
-		margin-right: 71px;
-		cursor: pointer;
-	}
-
-	.tabactive {
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
-	}
-
-	.img-top {
-		width: 68px;
-		height: 68px;
-		border-radius: 50%;
-	}
 	
-	.img-zheng {
-		width: 160px;
-		height: 100px;
-	}
-
-	.img-fengmian {
-		width: 200px;
-		height: 150px;
-	}
-
-	.img-banner {
-		width: 341px;
-		height: 110px;
-	}
-
-	.materiallist {
-		display: flex;
-		overflow: hidden;
-		flex-wrap: wrap;
-		justify-content: flex-start
-	}
-
-	.materiallist li {
-		margin: 0 17px 17px 0;
-	}
-
-	.material {
-		width: 239px;
-		height: 135px;
-		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
-		border-radius: 5px;
-		background: #F9F9F9;
-	}
-
-	.material-fu {
-		width: 60px;
-		height: 68px;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-top: -34px;
-		margin-left: -30px;
-	}
-
-	.material-bo {
-		width: 32px;
-		height: 32px;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-top: -16px;
-		margin-left: -16px;
-	}
-
-	.material-checkbox {
-		position: absolute;
-		top: 6px;
-		right: 10px;
-	}
-
-	.materialdownload {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-	}
-
-	.color66 {
-		color: #666666;
-		margin-top: 3px;
-		overflow: hidden;
-		font-size: 14px;
-	}
-
-	.el-message-box--center .el-message-box__title {
-		justify-content: left;
-	}
-
-	.sel-alert {
-		width: 406px;
-	}
-
-	.el-message-box__header,
-	.el-dialog__header {
-		padding: 27px 30px !important;
-
-	}
-
-	.el-dialog__title {
-		font-size: 16px !important;
-	}
-
-	.el-dialog__body {
-		padding: 27px 0 27px !important;
-		border-top: 1px solid #e6e6e6;
-	}
-
-	.el-radio-group {
-		display: block;
-	}
-
-	.el-dialog__headerbtn {
-		position: "";
-		float: right;
-		font-size: 18px;
-	}
-
-	.sel-footer {
-		display: block;
-		text-align: center;
-	}
-
-	.el-radio {
-		line-height: 28px;
-	}
-
-	.el-radio__input.is-checked .el-radio__inner,
-	.el-button--primary {
-		background: #FF5121;
-		border-color: #FF5121;
-	}
-
-	.el-button--primary:focus,
-	.el-button--primary:hover {
-		background: #FF5121;
-		border-color: #FF5121;
-	}
-
-	[class*=" el-icon-"],
-	[class^=el-icon-] {
-		line-height: 2;
-	}
-
-	.sel-radio-title {
-		position: absolute;
-		left: 30px;
-	}
-
-	.font12 {
-		font-family: PingFangSC-Regular;
-		font-size: 12px;
-		color: #999999;
-	}
-
-	.el-message-box--center .el-message-box__content {
-		padding: 20px 0 37px;
-		border-top: 1px solid #E6E6E6;
-	}
-
-	.workbtn {
-		width: 70px;
-	}
-	
-	.employipt{
-		height: 40px;
-		line-height: 40px;
-		margin: 30px;
-	}
-	
-	.employmonre {
-		width: 300px;
-		display: inline-block;
-		margin: 0 20px;
-	}
-	
-	.employmonre input {
-		width: 200px;
-		height: 100%;
-		margin-left: 5px;
-	}
 </style>

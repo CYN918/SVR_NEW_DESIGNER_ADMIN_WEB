@@ -255,7 +255,82 @@ export default new Router({
 					},
 					component: () => import('@/views/workManager/materialBank.vue'),
 				},
+				{
+					path: "commentManager",
+					name: 'commentManager',
+					meta: {
+						title: "评论回复管理"
+					},
+					component: () => import('@/views/workManager/commentManager.vue'),
+				},
+				{
+					path: "labels",
+					name: 'labels',
+					meta: {
+						title: "评论回复管理"
+					},
+					component: () => import('@/views/workManager/labels.vue'),
+				},
 				
+			]
+		},
+		{
+			path:"/activityManager",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/activityManager/activityClass",
+			meta: {
+				title: "活动管理"
+			},
+			children:[
+				{
+					path: "activityClass",
+					name: 'activityClass',
+					meta: {
+						title: "主题分类管理"
+					},
+					component: () => import('@/views/activityManager/activityClass.vue'),
+				},
+				{
+					path: "activityClass/addActivity",
+					name: 'addActivity',
+					meta: {
+						title: "主题分类管理 / 添加主题分类"
+					},
+					component: () => import('@/views/activityManager/reviseActivity.vue'),
+				},
+				{
+					path: "activityClass/editActivity",
+					name: 'editActivity',
+					meta: {
+						title: "主题分类管理 / 修改页面"
+					},
+					component: () => import('@/views/activityManager/reviseActivity.vue'),
+				},
+				{
+					path: "activityEmploy",
+					name: 'activityEmploy',
+					meta: {
+						title: "发布活动"
+					},
+					component: () => import('@/views/activityManager/activityEmploy.vue'),
+				},
+				{
+					path: "activityEmploy/newActivity",
+					name: 'newActivity',
+					meta: {
+						title: "发布活动 / 新建页面"
+					},
+					component: () => import('@/views/activityManager/newActivity.vue'),
+				},
+				{
+					path: "activityworks",
+					name: 'activityworks',
+					meta: {
+						title: "活动作品"
+					},
+					component: () => import('@/views/activityManager/activityworks.vue'),
+				},
 			]
 		}
 	]

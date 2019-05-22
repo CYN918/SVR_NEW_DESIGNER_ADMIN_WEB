@@ -146,6 +146,8 @@ const workData = {
 				id:"work_name",
 				type:"text"
 			},
+			
+			
 			{
 				name:"封面图",
 				id:"face_pic",

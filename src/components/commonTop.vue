@@ -1,17 +1,20 @@
 <template>
 	<div class="w ctcontent">
-		<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
-		<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
-			<span class="fleft" style="width: 84px;">
-				{{ currentpageName }}
-			</span>
-			<div class="textcenter">
-				<span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
-					<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
+		<div v-if="!commonTopData.IsShow">
+			<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
+				<span class="fleft" style="width: 84px;">
+					{{ currentpageName }}
 				</span>
+				<div class="textcenter">
+					<span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
+					</span>
+				</div>
 			</div>
 		</div>
-		<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+		
+		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
 			<div class="ofh">
 				<div class="fleft">
 					<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</el-button>
@@ -50,7 +53,7 @@
 				activeName: 'second',
 				currentpageName:'',
 				doCount:{},
-				operations:[]
+				operations:[],
 			};
 		},
 		methods: {
@@ -58,8 +61,8 @@
 				this.$parent.resetSave(tag)
 			},
 			getparent(id,name) {
+				//alert(name);
 				var idIndex = id;
-				
 				switch (name)
 				{
 					case "userBaseInfo":
@@ -92,6 +95,20 @@
 							];
 							this.Istooltip = !this.Istooltip;
 							return;
+						};
+					break;
+					case "activityClass":
+						if(idIndex == "right1"){
+							this.router.push({
+								path:"/activityManager/activityClass/addActivity"
+							})
+						};
+					break;
+					case "activityEmploy":
+						if(idIndex == "right1"){
+							this.router.push({
+								path:"/activityManager/activityEmploy/newActivity"
+							})
 						};
 					break;
 					default:
@@ -151,7 +168,7 @@
 					//alert(1);
 					//console.log(da);
 					this.doCount = da;
-					console.log(this.doCount)
+					//console.log(this.doCount)
 				}).catch(da=>{
 					
 				})
@@ -220,5 +237,9 @@
 	
 	.badge .el-badge__content.is-fixed{
 		top:13px
+	}
+	
+	.marginl0{
+		margin-left: 0;
 	}
 </style>

@@ -265,7 +265,7 @@
 				}
 			},
 			getScreen() {
-				alert(this.pageName)
+				//alert(this.pageName)
 				this.texts = DataScreen.screen[this.pageName].filterFields
 			},
 			reset() {
