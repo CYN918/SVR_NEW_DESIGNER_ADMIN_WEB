@@ -21,10 +21,12 @@
 				</div>
 				<div class="fright">
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
-						<button class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+						<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip">
 							<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 						</div>
+						
+						<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 					</div>
 				</div>
 			</div>
@@ -109,6 +111,14 @@
 							this.router.push({
 								path:"/activityManager/activityEmploy/newActivity"
 							})
+						};
+					break;
+					case "solicitationTemplate":
+						if(idIndex == "right1"){
+							/* this.router.push({
+								path:"/activityManager/activityEmploy/newActivity"
+							}) */
+							this.$parent.showmask = true;
 						};
 					break;
 					default:

@@ -204,6 +204,7 @@ export default new Router({
 					},
 					component: () => import('@/views/power/setRoles.vue'),
 				}
+				
 			]
 		},
 		{
@@ -335,10 +336,30 @@ export default new Router({
 					path: "solicitationTemplate",
 					name: 'solicitationTemplate',
 					meta: {
-						title: "活动作品"
+						title: "征集模板文件"
 					},
 					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
+				}
+			]
+		},
+		{
+			path:"/contentManager",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/contentManager/homeBanner",
+			meta: {
+				title: "内容管理"
+			},
+			children:[
+				{
+					path: "homeBanner",
+					name: 'homeBanner',
+					meta: {
+						title: "首页banner"
+					},
+					component: () => import('@/views/contentManager/homeBanner.vue'),
 				},
+				
 			]
 		}
 	]

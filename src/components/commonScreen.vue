@@ -267,6 +267,9 @@
 			getScreen() {
 				//alert(this.pageName)
 				this.texts = DataScreen.screen[this.pageName].filterFields
+				if(!DataScreen.screen[this.pageName].filterFields){
+					this.texts = DataScreen.screen[this.pageName].filterFields0
+				}
 			},
 			reset() {
 				this.form = {};

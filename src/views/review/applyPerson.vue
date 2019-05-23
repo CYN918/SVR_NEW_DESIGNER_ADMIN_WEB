@@ -14,13 +14,11 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
-	import createRoles from '@/views/power/createRoles.vue'
 
 	export default {
 		components: {
 			commonTop,
 			commonTable,
-			createRoles,
 		},
 		props: {},
 		data() {

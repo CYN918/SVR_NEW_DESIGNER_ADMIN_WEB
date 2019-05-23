@@ -6,7 +6,7 @@
 			</span>
 			<div class="textcenter">
 				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-				 @click="tabsChange(index,item.name)">
+				 @click="tabsChange(index,item.name)" style="height: 33px;">
 					<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 					{{ item.name }}
 				</span>
@@ -508,7 +508,6 @@
 			},
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
-				
 			},
 			contributor() {
 				let data = {

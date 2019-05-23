@@ -243,6 +243,47 @@ const screenData = {
 				{name:"录用时间（结束）",id:"hire_time_end",type:"time"},
 			]
 		},
+		solicitationTemplate:{
+			filterFields:[
+				{name:"模板文件ID",id:"work_id"},
+				{name:"文件名称",id:"work_name"},
+				{name:"文件格式",id:"activity_id",child:[{name:"小于100M",id:"小于100M"}]},
+				{name:"文件大小",id:"activity_name"},
+				{name:"在用活动数",id:"open_id"},
+				{name:"上传人",id:"username"},
+				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
+				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+			],
+			filterFields2:[
+				{name:"模板文件ID",id:"work_id"},
+				{name:"文件名称",id:"work_name"},
+				{name:"文件格式",id:"activity_id"},
+				{name:"文件大小",id:"activity_name"},
+				{name:"在用活动数",id:"open_id"},
+				{name:"上传人",id:"username"},
+				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
+				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+			]
+		},
+		homeBanner:{
+			filterFields0:[
+				{name:"banner素材ID",id:"id"},
+				{name:"banner素材名称",id:"banner_name"},
+				{name:"创建时间（开始）",id:"create_time_start",type:"time"},
+				{name:"创建时间（结束）",id:"create_time_end",type:"time"},
+				{name:"当前状态",id:"status",child:[{name:"线上展示中",id:"1"},{name:" 待用方案内",id:"0"},{name:"未使用",id:"-1"}]},
+			],
+			filterFields1:[
+				{name:"模板文件ID",id:"work_id"},
+				{name:"文件名称",id:"work_name"},
+				{name:"文件格式",id:"activity_id"},
+				{name:"文件大小",id:"activity_name"},
+				{name:"在用活动数",id:"open_id"},
+				{name:"上传人",id:"username"},
+				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
+				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+			]
+		},
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
@@ -746,7 +787,82 @@ const screenData = {
 					Ishow:true
 				},
 			}
-		}
+		},
+		solicitationTemplate:{
+			bts0:[
+				{lable:"模板文件ID",prop:"template_file_id"},
+				{lable:"文件名称",prop:"file_name"},
+				{lable:"网盘链接",prop:"activity_id"},
+				{lable:"在用活动数",prop:"processing_activity_num"},
+				{lable:"上传人",prop:"admin_name"},
+				{lable:"入围时间",prop:"shortlisted_time"},
+				{lable:"录用时间",prop:"hire_time"}
+			],
+			bts1:[
+				{lable:"模板文件ID",prop:"template_file_id"},
+				{lable:"文件名称",prop:"file_name"},
+				{lable:"文件格式",prop:"file_type"},
+				{lable:"文件大小",prop:"file_size_format"},
+				{lable:"在线活动数",prop:"processing_activity_num"},
+				{lable:"上传人",prop:"admin_name"},
+				{lable:"更新时间",prop:"updated_at"},
+				{lable:"上传时间",prop:"created_at"}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"solicitationTemplate",
+					child:[
+						{
+							name:"修改文件名"
+						},
+						{
+							name:"下载"
+						},
+						{
+							name:"删除"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:false
+				},
+			}
+		},
+		homeBanner:{
+			bts:[
+				{lable:"banner素材ID",prop:"template_file_id"},
+				{lable:"banner素材名称",prop:"file_name"},
+				{lable:"banner图片",prop:"activity_id"},
+				{lable:"跳转链接",prop:"processing_activity_num"},
+				{lable:"创建时间",prop:"shortlisted_time"},
+				{lable:"当前状态",prop:"hire_time"}
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:true,
+					page:"homeBanner",
+					child:[
+						/* {
+							name:"修改文件名"
+						},
+						{
+							name:"下载"
+						},
+						{
+							name:"删除"
+						} */
+					],
+				},
+				links:{
+					name:"修改",
+					Ishow:true
+				},
+			}
+		},
 	}
 }
 

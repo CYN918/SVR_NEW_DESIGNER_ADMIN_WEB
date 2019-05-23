@@ -112,5 +112,15 @@ export default {
 	activitywork:{
 		url:'/admin/activity/work',method:'post',baseURL:0,suktip:true
 	},
+	templateList:{
+		url:'/admin/template/list',method:'post',baseURL:0,suktip:true
+	},
+	templateDelete:{
+		url:'/admin/template/delete',method:'post',baseURL:0,suktip:true
+	},
+	bannerlist:{
+		url:'/admin/banner/list',method:'post',baseURL:0,suktip:true
+	},
+	
 	
 }

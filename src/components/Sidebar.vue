@@ -11,9 +11,8 @@
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
-				
-				<router-link v-if="item.child.length == 0" v-for="citem in item.child" :key="citem.id" :to="url[citem.id]">
-					<el-menu-item :index="citem.id" class="">{{ citem.title }}</el-menu-item>
+				<router-link v-if="item.child && item.child.length != 0"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
+					<el-menu-item :index="citem.id" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
 			<el-submenu index="7">
@@ -52,6 +51,16 @@
 				<router-link to="/activityManager/solicitationTemplate">
 					<el-menu-item index="9-3">征集模板文件</el-menu-item>
 				</router-link>
+			</el-submenu>
+			<el-submenu index="10">
+				<template slot="title">
+					<i class="iconfont">&#xe730;</i>
+					<span style="padding:15px;">内容管理</span>
+				</template>
+				<router-link to="/contentManager/homeBanner">
+					<el-menu-item index="10-2">首页banner</el-menu-item>
+				</router-link>
+				
 			</el-submenu>
 			
 			<!-- <el-submenu index="1">
@@ -173,6 +182,7 @@
 					"4":"/userCompanyInfo",
 					"6":"/power/roleManager",
 					"7":"/power/accountManager",
+					"16":""
 				},
 				iconfont:{
 					"1": "&#xe602;",

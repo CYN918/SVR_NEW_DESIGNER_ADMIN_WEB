@@ -17,7 +17,7 @@
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="150" v-if="tableAction.links.Ishow">
+				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
 						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
@@ -58,7 +58,7 @@
 		methods: {
 			handleClick(row, setid, page) {
 				
-				//alert(page);
+				alert(page);
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -127,6 +127,7 @@
 							//this.router.push({path:"/power/accountManager/seeRoles"});
 						}
 					case "workInfo":
+					break;
 						if(!setid){
 							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
 							//this.router.push({path:"/power/accountManager/seeRoles"});
@@ -156,12 +157,29 @@
 						if(!setid){
 							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
+					break;
 					case "activityEmploy":
 						if(!setid){
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 
 						if(setid == "contributor0"){
+							this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+					break;
+					case "solicitationTemplate":
+						
+					
+						if(setid == "contributor0"){
+							this.$parent.centerDialogVisible = true;
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+						if(setid == "contributor1"){
+							this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+						if(setid == "contributor2"){
 							this.$parent.delete(row);
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}

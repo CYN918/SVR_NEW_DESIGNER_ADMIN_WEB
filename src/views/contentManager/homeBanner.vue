@@ -15,9 +15,23 @@
 			</div>
 			<common-top :commonTopData="commonTopData"></common-top>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;">
+		<div style="height: calc(100% - 235px);margin-top: 20px;" v-if="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
+		</div>
+		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-if="tabsnum == 1">
+			<div>
+				111
+			</div>
+			<div style="text-align: right;">
+				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+				</div>
+				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
+				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+				</el-pagination>
+			</div>
+			
 		</div>
 		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
 		  <div style="position: relative;">
@@ -27,7 +41,6 @@
 					<input type="text" class="fleft defaultbtn defaultbtn0" style="width:200px">
 				</li>
 			</ul>
-		    
 		  </div>
 		  <span slot="footer" class="dialog-footer sel-footer">
 			<el-button type="primary" >确 定</el-button>
@@ -49,21 +62,21 @@
 		data() {
 			return {
 				tabData: [{
-						name: "本地文件"
+						name: "banner素材"
 					},
 					{
-						name: "网盘链接"
+						name: "展示方案"
 					}],
 				tabsnum: 0,
 				commonTopData: {
-					"pageName": "solicitationTemplate",
+					"pageName": "homeBanner",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "上传模板文件",
+						name: "新建banner素材",
 						id: "right1",
 						url: ""
 					}],
@@ -77,15 +90,15 @@
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					pageName:"solicitationTemplate",
-					list: DataScreen.screenShow.solicitationTemplate.bts1,
+					pageName:"homeBanner",
+					list: DataScreen.screenShow.homeBanner.bts,
 					ischeck:false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.solicitationTemplate.action,
+				tableAction: DataScreen.screenShow.homeBanner.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.solicitationTemplate.filterFields,
+				filterFields:DataScreen.screen.homeBanner.filterFields0,
 				centerDialogVisible:false,
 				showmask:false,
 			}
@@ -99,8 +112,7 @@
 				var data = {
 					access_token: 2,
 					page: pg.pageCurrent,
-					limit: pg.pageSize,
-					type:1
+					limit: pg.pageSize
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
@@ -112,8 +124,8 @@
 					data = sreenData;
 				}
 			
-				this.api.templateList(data).then((da) => {
-					console.log(da.data)
+				this.api.bannerlist(data).then((da) => {
+					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
