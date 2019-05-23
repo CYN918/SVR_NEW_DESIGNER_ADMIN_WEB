@@ -57,8 +57,6 @@
 		},
 		methods: {
 			handleClick(row, setid, page) {
-				
-				alert(page);
 				//return;
 				switch(page){
 					case "userBaseInfo":
