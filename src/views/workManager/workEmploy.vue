@@ -2,7 +2,7 @@
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
-				作品录用
+				作品发布
 			</span>
 		</div>
 		<div class="detailContent1 ofh">

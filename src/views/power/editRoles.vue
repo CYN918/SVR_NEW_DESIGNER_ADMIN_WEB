@@ -44,8 +44,8 @@
 		props: ['detailData','roles'],
 		data() {
 			return {
-				text10: '',
-				text30: "",
+				text10: this.$route.query.name,
+				text30: this.$route.query.description,
 				length10: 0,
 				length30: 0,
 				data2: [{}],
@@ -84,7 +84,7 @@
 					});
 					return;
 				}
-				console.log(rolesString);
+				//console.log(rolesString);
 				this.api.editRole({
 					access_token:2,
 					id:this.$route.query.id,
@@ -96,6 +96,12 @@
 					  type: 'info',
 					  message: da
 					});
+					if(da == "修改成功"){
+						this.router.push({
+							path:"/power/roleManager"
+						})
+					}
+					
 					/* this.router.push({
 						path:"/power/roleManager"
 					}) */

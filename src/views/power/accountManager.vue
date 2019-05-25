@@ -51,6 +51,10 @@
 		watch: {},
 		computed: {},
 		methods: {
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
+			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize;
@@ -71,7 +75,7 @@
 				}
 
 				this.api.getAdminUserList(data).then((da) => {
-					console.log(da)
+					//console.log(da)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -79,8 +83,9 @@
 					this.tableConfig.total = parseInt(da.total) ;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.limit;
+					this.setLoding(false);
 				}).catch(() => {
-
+					this.setLoding(false);
 				});
 			},
 			screenreach() {
@@ -98,7 +103,7 @@
 					contribute_type:2
 				}).then(da => {
 					this.detailData = da;
-					console.log(da);
+					//console.log(da);
 				}).catch(() => {})
 			},
 			getcommonrightbtn(){
@@ -120,7 +125,7 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							//console.log(this.commonTopData.commonbottombtn);
 						}
 					})
 				}
@@ -131,7 +136,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/userCompanyInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/power/accountManager',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}

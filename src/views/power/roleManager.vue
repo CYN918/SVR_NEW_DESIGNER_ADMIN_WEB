@@ -4,7 +4,7 @@
 			<common-top :commonTopData="commonTopData"></common-top>
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-				 ref="Tabledd"></common-table>
+				ref="Tabledd"></common-table>
 			</div>
 		</div>
 	</div>
@@ -60,6 +60,26 @@
 		watch: {},
 		computed: {},
 		methods: {
+			getDataAll(pg) {
+				this.api.getRoleList({
+					access_token: 2,
+					page: 1,
+					limit: 100
+				}).then((da) => {
+					console.log(da);
+					DataScreen.screen.roleManager.filterFields.forEach(item =>{
+						if(item.id == "role_name"){
+							item.child = da.data;
+						}
+					})
+				}).catch(() => {
+					
+				});
+			},
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
+			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
@@ -88,8 +108,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false)
 				}).catch(() => {
-
+					this.setLoding(false)
 				});
 			},
 			screenreach() {
@@ -160,12 +181,15 @@
 			},
 			
 		},
-		created() {},
+		created() {
+			
+		},
 		mounted() {
 			//console.log(this.tableConfig)
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getDataAll();
 		}
 	}
 </script>

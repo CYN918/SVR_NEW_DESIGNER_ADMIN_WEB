@@ -105,8 +105,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.$refs.Tabledd.setLoding(false);	
 				}).catch(() => {
-
+					this.$refs.Tabledd.setLoding(false);	
 				});
 			},
 			screenreach() {

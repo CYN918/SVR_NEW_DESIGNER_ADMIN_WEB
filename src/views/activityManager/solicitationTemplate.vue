@@ -20,18 +20,43 @@
 			 ref="Tabledd"></common-table>
 		</div>
 		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
-		  <div style="position: relative;">
-			<ul>
-				<li class="w ofh textcenter">
-					<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
-					<input type="text" class="fleft defaultbtn defaultbtn0" style="width:200px">
-				</li>
-			</ul>
-		    
-		  </div>
-		  <span slot="footer" class="dialog-footer sel-footer">
-			<el-button type="primary" >确 定</el-button>
-		  </span>
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh textcenter">
+						<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
+						<input type="text" v-model="file_name" class="fleft defaultbtn defaultbtn0" style="width:200px">
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="centerDialogVisible = false">取 消</button>
+				<button class="defaultbtn defaultbtnactive" @click="newname">确 定</button>
+			</span>
+		</el-dialog>
+		<el-dialog title="本地文件" :visible.sync="showmask">
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="showmaskload">本地文件</button>
+				<button class="defaultbtn" @click="showmaskload">网盘链接</button>
+			</span>
+		</el-dialog>
+		<el-dialog title="本地文件" :visible.sync="showmask1">
+			<div class="dorg">
+				<el-upload
+				  class="upload-demo"
+				  drag
+				  action="https://jsonplaceholder.typicode.com/posts/"
+				  multiple>
+				  <div>
+				  	<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
+				  </div>
+				  <div class="w textcenter">
+				  	点击或将文件拖拽到这里上传
+				  </div>
+				  <div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
+				</el-upload>
+			</div>
+			
+			
 		</el-dialog>
 	</div>
 </template>
@@ -40,7 +65,7 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
-	
+
 	export default {
 		components: {
 			commonTop,
@@ -53,7 +78,8 @@
 					},
 					{
 						name: "网盘链接"
-					}],
+					}
+				],
 				tabsnum: 0,
 				commonTopData: {
 					"pageName": "solicitationTemplate",
@@ -67,32 +93,40 @@
 						id: "right1",
 						url: ""
 					}],
-					"commonbottombtn":[],
-					"IsShow":true,
-					upload:true
-					
+					"commonbottombtn": [],
+					"IsShow": true,
+					upload: true
+
 				},
 				screenConfig: [],
 				tableConfig: {
 					total: 0,
-					currentpage:1,
-					pagesize:10,
-					pageName:"solicitationTemplate",
-					list: DataScreen.screenShow.solicitationTemplate.bts1,
-					ischeck:false
+					currentpage: 1,
+					pagesize: 10,
+					pageName: "solicitationTemplate",
+					list: DataScreen.screenShow.solicitationTemplate.bts0,
+					ischeck: false
 				},
 				tableData: [],
 				tableAction: DataScreen.screenShow.solicitationTemplate.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.solicitationTemplate.filterFields,
-				centerDialogVisible:false,
-				showmask:false,
+				filterFields: DataScreen.screen.solicitationTemplate.filterFields0,
+				centerDialogVisible: false,
+				showmask: false,
+				type: 1,
+				rowdata: "",
+				file_name: "",
+				showmask1: false,
 			}
 		},
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
+				this.type = num + 1;
+				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
+				this.filterFields = DataScreen.screenShow.solicitationTemplate["filterFields" + num];
+				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -100,8 +134,9 @@
 					access_token: 2,
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					type:1
+					type: this.type,
 				}
+
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
 					const sreenData = JSON.parse(this.$route.query.urlDate);
@@ -109,9 +144,10 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = 2;
+					sreenData.type = this.type;
 					data = sreenData;
 				}
-			
+
 				this.api.templateList(data).then((da) => {
 					console.log(da.data)
 					if (!da) {
@@ -121,15 +157,22 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false);
 				}).catch(() => {
-			
+					this.setLoding(false);
 				});
+			},
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
-					
+					this.getData({
+						pageCurrent: this.tableConfig.currentpage,
+						pageSize: this.tableConfig.pagesize
+					});
 				})
 			},
 			linkDetail(id) {
@@ -137,45 +180,57 @@
 				this.IsDetail = true;
 				this.api.getContributorInfo({
 					open_id: id,
-					contribute_type:2
+					contribute_type: 2
 				}).then(da => {
 					this.detailData = da;
 					console.log(da);
 				}).catch(() => {})
 			},
-			getcommonrightbtn(){
+			getcommonrightbtn() {
 				this.commonTopData.commonbottombtn = [];
-				if(this.$route.query.urlDate){
+				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					this.filterFields.forEach(item=>{
+					this.filterFields.forEach(item => {
 						//console.log(item);
-						if(urldata[item.id]){
+						if (urldata[item.id]) {
 							var val = urldata[item.id];
-							if(item.child){	
+							if (item.child) {
 								val = "";
-								item.child.forEach(citem=>{
+								item.child.forEach(citem => {
 									//alert(urldata[item.id])
-									if(citem.id == urldata[item.id]){
+									if (citem.id == urldata[item.id]) {
 										val = citem.name;
 									}
 								})
-							} 
-							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							}
+							this.commonTopData.commonbottombtn.push({
+								btnName: item.name,
+								val: val,
+								id: item.id
+							});
+							//console.log(this.commonTopData.commonbottombtn);
 						}
 					})
 				}
-				
+
 			},
-			resetSave(tag){
-				if(this.$route.query.urlDate){
+			resetSave(tag) {
+				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/userCompanyInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({
+						path: '/userCompanyInfo',
+						query: {
+							urlDate: JSON.stringify(urldata)
+						}
+					});
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({
+						pageCurrent: this.tableConfig.currentpage,
+						pageSize: this.tableConfig.pagesize
+					});
 				}
 			},
 			delete(val) {
@@ -186,17 +241,18 @@
 					type: '',
 					center: true
 				}).then(() => {
-					//console.log({work_ids:workids,level:this.radioS})
-					 this.api.templateDelete({
-						activity_id: val.id,
+					console.log(val.template_file_id)
+					this.api.templateDelete({
+						template_file_id: val.template_file_id,
 						access_token: 2,
 					}).then(da => {
+						console.log(da)
 						this.$message({
 							type: 'info',
-							message: '删除成功'
+							message: da
 						});
-					}) 
-					
+					})
+
 				}).catch(() => {
 					this.$message({
 						type: 'info',
@@ -204,14 +260,38 @@
 					});
 				});
 			},
+			newname() {
+				this.api.templateedit({
+					template_file_id: this.rowdata.template_file_id,
+					file_name: this.file_name,
+					access_token: 2,
+				}).then(da => {
+					this.$message({
+						message: da
+					})
+				}).catch(da => {
+					this.$message({
+						type: 'info',
+						message: "系统网络故障"
+					})
+				})
+				this.centerDialogVisible = false;
+			},
+			showmaskload(){
+				this.showmask = false;
+				this.showmask1 = true;
+			}
 		},
 		created() {
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+			this.getData({
+				pageCurrent: this.tableConfig.currentpage,
+				pageSize: this.tableConfig.pagesize
+			});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			
+
 		}
 	}
 </script>
@@ -220,12 +300,11 @@
 	.materiallist .el-checkbox__label {
 		display: none;
 	}
-	
-	.work .el-button--primary{
+
+	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
 	}
-	
 </style>
 
 <style scoped>
@@ -336,7 +415,7 @@
 		height: 68px;
 		border-radius: 50%;
 	}
-	
+
 	.img-zheng {
 		width: 160px;
 		height: 100px;
@@ -488,22 +567,29 @@
 	.workbtn {
 		width: 70px;
 	}
-	
-	.employipt{
+
+	.employipt {
 		height: 40px;
 		line-height: 40px;
 		margin: 30px;
 	}
-	
+
 	.employmonre {
 		width: 300px;
 		display: inline-block;
 		margin: 0 20px;
 	}
-	
+
 	.employmonre input {
 		width: 200px;
 		height: 100%;
 		margin-left: 5px;
+	}
+	
+	.dorg{
+		width:384px;
+		height:195px;
+		margin:auto;
+		border-radius:4px;
 	}
 </style>

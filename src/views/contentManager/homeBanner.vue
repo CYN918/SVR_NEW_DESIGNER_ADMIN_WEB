@@ -15,11 +15,11 @@
 			</div>
 			<common-top :commonTopData="commonTopData"></common-top>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;" v-if="tabsnum == 0">
+		<div style="height: calc(100% - 235px);margin-top: 20px;" v-show="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-if="tabsnum == 1">
+		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
 			<div>
 				111
 			</div>
@@ -106,6 +106,12 @@
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
+				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+				
+			},
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -133,8 +139,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false);
 				}).catch(() => {
-			
+					this.setLoding(false);
 				});
 			},
 			screenreach() {
@@ -208,6 +215,34 @@
 							message: '删除成功'
 						});
 					}) 
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
+			delect(val) {
+				//this.centerDialogVisible = true;
+				this.$confirm('确认删除该banner素材？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.bannerdelete({
+						access_token:2,
+						id: val.id,
+					}).then(da => {
+						this.getData({
+							pageCurrent: this.tableConfig.currentpage,
+							pageSize: this.tableConfig.pagesize
+						});
+						
+					})
 					
 				}).catch(() => {
 					this.$message({

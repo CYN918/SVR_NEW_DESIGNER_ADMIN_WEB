@@ -4,17 +4,17 @@
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width:84px">用户ID</span>
-					<span>{{ rolename }}</span>
+					<span class="fleft" style="margin-right: 20px;width: 84px;">用户ID</span>
+					<span>{{ roleintroduce.id }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width:84px">用户名称</span>
-					<span>{{ roleintroduce }}</span>
+					<span class="fleft" style="margin-right: 20px;width: 84px;">用户名称</span>
+					<span>{{ roleintroduce.user_name }}</span>
 				</li>
 				
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width:84px">邮箱</span>
-					<span>{{ roleintroduce }}</span>
+					<span class="fleft" style="margin-right: 20px;width: 84px;">邮箱</span>
+					<span>{{ roleintroduce.email }}</span>
 				</li>
 				<li class="margint13  relative">
 					<span class="fleft roles-input" style="margin-right: 20px;width:84px">角色名称</span>
@@ -30,7 +30,7 @@
 					<div class="mask" @click="hide()" v-if="Islist"></div>
 					<div class="sel-select-option" v-show="Islist">
 						<el-checkbox-group v-model="checkedroles" @change="checkedrole">
-							<div  v-for="item in rolesData" :key="item.id">
+							<div  v-for="item in rolesData" :key="item.id" :id = "item.id">
 								<el-checkbox :label="item.name">{{item.name}}</el-checkbox>
 							</div>
 						 </el-checkbox-group>
@@ -73,10 +73,9 @@
 					children: 'child',
 					label: 'title'
 				},
-				rolename:"--",
-				roleintroduce:"--",
+				roleintroduce:{},
 				permissions:[],
-				checkedroles: ['测试1'],
+				checkedroles:[],
 				Islist:false,
 				rolesData:[],
 				role_ids:[],
@@ -108,16 +107,19 @@
 					id:this.$route.query.id
 				}).then(da =>{
 					console.log(da)
-					/* this.rolename = da.name;
-					this.roleintroduce = da.description; */
-					///console.log(da.permissions.split(","));
+					this.roleintroduce = da;
+					console.log(da.role);
+					for(var itme in da.role){
+						this.checkedroles.push(da.role[itme])
+					}
+					this.checkedrole(this.checkedroles);
+					
 					da.permissions.split(",").forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
-						
 					})
-					
+					this.getMenu();
 				}).catch(da => {
 					
 				})
@@ -137,14 +139,14 @@
 				this.Islist = !this.Islist;
 			},
 			handleClose(tag) {
+				//console.log(this.checkedroles)
 				this.checkedroles.forEach((item,index)=>{
 					if(tag == item){
-						this.checkedroles.splice(index,1)
+						this.checkedroles.splice(index,1);
+						this.checkedrole(this.checkedroles)
 					}
 				});
-				/* if(this.checkedCities1.length == 0){
-					this.Islist =false;
-				} */
+				
 			},
 			hide(){
 				this.Islist = false;
@@ -163,7 +165,7 @@
 						this.$message('数据为空');
 					}
 					this.rolesData = da.data;
-					this.checkedrole(this.checkedroles)
+					this.seeroles();
 					///console.log(this.rolesData);
 				}).catch(() => {
 			
@@ -175,12 +177,21 @@
 					user_id:this.$route.query.id,
 					role_ids:this.role_ids.toString(),
 				}).then(da=>{
-					console.log(da)
+					this.$message({
+					  type: 'info',
+					  message: da
+					});
+					if(da == "修改成功"){
+						this.router.push({
+							path:"/power/accountManager"
+						})
+					}
 				}).catch(da=>{
 					
 				})
 			},
 			checkedrole(val){
+				console.log(val)
 				this.role_ids = []
 				this.rolesData.forEach((item,index)=>{
 					val.forEach(citem=>{
@@ -189,15 +200,16 @@
 						}
 					})
 				})
-				console.log(this.role_ids);
+				//console.log(this.role_ids);
 			}
 		},
 		created(){
 			this.getData();
+			//this.seeroles();
 		},
 		mounted() {
-			this.getMenu();
-			this.seeroles();
+			
+			
 		}
 	}
 </script>

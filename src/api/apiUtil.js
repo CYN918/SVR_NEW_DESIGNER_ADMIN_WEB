@@ -42,30 +42,16 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 	instance.interceptors.response.use(response => {
 		let {result, msg, data} = response.data;
 		if(result==0){
+			///console.log(isType)
 			if(isType.suktip){
+				
 				Message({message: '操作成功',type: 'success'});
 			}
 			if(isType.reload){	
 				location.reload();	
 			}
 			return data
-		}else{			
-			if(result=='104'){
-				if(pass){
-					axios({
-						method: 'post',
-						url: '/user/12345',
-						data:JSON.stringify(pass)
-					}).then((da)=>{				
-						
-																							
-					}).catch(()=>{	
-								
-					});						
-				}				
-						
-				return
-			}
+		}else{		
 			Message({dangerouslyUseHTMLString:true,message: data});
 		}
 	},error => {	  

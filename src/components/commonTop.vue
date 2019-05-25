@@ -115,13 +115,14 @@
 					break;
 					case "solicitationTemplate":
 						if(idIndex == "right1"){
-							/* this.router.push({
-								path:"/activityManager/activityEmploy/newActivity"
-							}) */
-							this.$parent.showmask = true;
+						    this.$parent.showmask = true;
 						};
 					break;
-					default:
+					case "homeBanner":
+						if(idIndex == "left1"){
+						    this.$parent.showmask = true;
+						};
+					break;
 						
 				}
 				const shownum = {
@@ -176,8 +177,9 @@
 					access_token:2,
 				}).then(da =>{
 					//alert(1);
-					//console.log(da);
+					console.log(da);
 					this.doCount = da;
+					eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
 				}).catch(da=>{
 					

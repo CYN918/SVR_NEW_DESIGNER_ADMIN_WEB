@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<div class="tabtop" ref="elememt" id="table">
-			<el-table :height="tableHeight" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" @selection-change="handleSelectionChange">
+			<el-table :height="tableHeight" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
@@ -13,6 +13,7 @@
 						<div v-else-if="item.type == 'merge'">
 							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
 						</div>
+						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
@@ -52,11 +53,13 @@
 				tableHeight: 150,
 				currentpage: 1,
 				pagesize: 10,
-				selected:0
+				selected:0,
+				loading:true
 			}
 		},
 		methods: {
 			handleClick(row, setid, page) {
+				console.log(row)
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -82,7 +85,7 @@
 					break;
 					case "roleManager":
 						if (setid == "contributor0") {
-							this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id}});
+							this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id,name:row.name,description:row.description}});
 						}
 						if (setid == "contributor1") {
 							this.$parent.delect(row.id);
@@ -98,37 +101,37 @@
 						}
 						if(!setid){
 							this.router.push({path:"/power/accountManager/seeaccount",query:{id:row.id}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
 						}
 					break;
 					case "publishWork":
 						if(!setid){
-							this.router.push({path:"/review/publishWork/workDetial",query:{id:row.id,type:1,check_status:row.check_status}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							this.router.push({path:"/review/publishWork/workDetial",query:{id:row.id,type:1,check_status:row.check_status,work_id:row.work_id}});
+							
 						}
 					break;
 					case "finalistsWork":
 						if(!setid){
-							this.router.push({path:"/review/finalistsWork/workDetial",query:{id:row.id,type:2,check_status:row.check_status}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							this.router.push({path:"/review/finalistsWork/workDetial",query:{id:row.id,type:2,check_status:row.check_status,work_id:row.work_id}});
+							
 						}
 					break;
 					case "employWork":
 						if(!setid){
-							this.router.push({path:"/review/employWork/workDetial",query:{id:row.id,type:3,check_status:row.check_status}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							this.router.push({path:"/review/employWork/workDetial",query:{id:row.id,type:3,check_status:row.check_status,work_id:row.work_id}});
+							
 						}
 					break;
 					case "applyPerson":
+					//console.log(row);
 						if(!setid){
-							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status,contribute_type:row.contributor_type}});
+							
 						}
 					case "workInfo":
 					break;
 						if(!setid){
 							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							
 						}
 						if(setid == "contributor1"){
 							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
@@ -147,7 +150,7 @@
 					case "commentManager":
 						if(!setid){
 							//this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
-							//this.router.push({path:"/power/accountManager/seeRoles"});
+							
 							this.$parent.setContributor(row);
 						}
 					break;
@@ -171,10 +174,24 @@
 					
 						if(setid == "contributor0"){
 							this.$parent.centerDialogVisible = true;
+							this.$parent.rowdata = row;
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor1"){
+							///this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+						if(setid == "contributor2"){
 							this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+					break;
+					case "homeBanner":
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+						if(setid == "contributor1"){
+							///this.$parent.delete(row);
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor2"){
@@ -219,16 +236,25 @@
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
 			},
-			setstatus(){
-				return "red"
-			}
-		
+			starloding(){
+				this.loading = true;
+			},
+			setLoding(type){
+				this.loading = type;
+			},
+			endloding(){
+				this.loading = false;
+			},
+			lodingfalse(){
+				this.loading = false;
+			},
+			
 		},
 		mounted() {
 			this.autoTableHeight();
 			//console.log(this.tableConfig)
 			this.init()
-		}
+		},
 	}
 </script>
 <style>

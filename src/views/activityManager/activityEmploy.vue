@@ -57,6 +57,10 @@
 		watch: {},
 		computed: {},
 		methods: {
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
+			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
@@ -85,8 +89,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false);
 				}).catch(() => {
-
+					this.setLoding(false);
 				});
 			},
 			screenreach() {
@@ -144,7 +149,6 @@
 					});
 				});
 			},
-			
 		},
 		created() {},
 		mounted() {

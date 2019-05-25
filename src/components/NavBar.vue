@@ -8,7 +8,7 @@
 		<div class="fright hnav marginright60" style="position: relative;">
 			<router-link to="/review" tag="div" class="fleft pointer">
 				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge">99+</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
 			<span class="fright marginleft60 usertou pointer" @click="signOut"></span>
 			<div class="userinfobtn" v-if="IsSign">
@@ -28,6 +28,7 @@
 			return {
 				names: [],
 				IsSign: false,
+				reviewnum:0
 			}
 		},
 		watch: {
@@ -43,10 +44,17 @@
 			},
 			signOut() {
 				this.IsSign = !this.IsSign
+			},
+			getbus(){
+				eventBus.$on("reviewnum",(data) =>{
+					this.reviewnum  = data;
+				})
 			}
+			
 		},
 		created() {
-			this.getBreadcrumb()
+			this.getBreadcrumb();
+			this.getbus();
 		},
 		mounted() {}
 	}

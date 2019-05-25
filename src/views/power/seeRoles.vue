@@ -85,7 +85,7 @@
 						}
 						
 					})
-					console.log(this.permissions)
+					this.getMenu();
 				}).catch(da => {
 					
 				})
@@ -106,7 +106,6 @@
 			this.seeroles();
 		},
 		mounted() {
-			this.getMenu();
 			
 		}
 	}

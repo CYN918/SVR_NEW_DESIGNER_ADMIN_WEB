@@ -33,18 +33,19 @@ const reviewData = {
 		},
 		{
 			name:"作品类型",
-			id:"name",
+			id:"classify",
 			type:"text"
 		},
 		{
 			name:"作品标签",
 			id:"labels",
-			type:"text"
+			type:"arr"
 		},
 		{
 			name:"是否为平台投稿作品",
-			id:"is_recommended",
-			type:"text"
+			id:"is_platform_work",
+			type:"child",
+			child:{"0":"否","1":"是"}
 		},
 		{
 			name:"创建时间",
@@ -53,7 +54,7 @@ const reviewData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"ids",
+			id:"updated_at",
 			type:"text"
 		}],
 		reviewinfo:{
@@ -189,17 +190,19 @@ const reviewData = {
 		{
 			name:"作品标签",
 			id:"labels",
-			type:"text"
+			type:"arr"
 		},
 		{
 			name:"是否为平台投稿作品",
 			id:"is_platform_work",
-			type:"text"
+			type:"child",
+			child:{"0":"否","1":"是"}
 		},
 		{
 			name:"是否为平台推荐作品",
 			id:"is_recommend",
-			type:"text"
+			type:"child",
+			child:{"0":"否","1":"是"}
 		},
 		{
 			name:"作品推荐等级",
@@ -342,17 +345,19 @@ const reviewData = {
 		{
 			name:"作品标签",
 			id:"labels",
-			type:"text"
+			type:"arr"
 		},
 		{
 			name:"是否为平台投稿作品",
 			id:"is_platform_work",
-			type:"text"
+			type:"child",
+			child:{"0":"否","1":"是"}
 		},
 		{
 			name:"是否为平台推荐作品",
 			id:"is_recommend",
-			type:"text"
+			type:"child",
+			child:{"0":"否","1":"是"}
 		},
 		{
 			name:"作品推荐等级",
@@ -366,7 +371,7 @@ const reviewData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"name",
+			id:"ids",
 			type:"text"
 		}],
 		reviewinfo:{
@@ -471,7 +476,8 @@ const reviewData = {
 			{
 				name:"提交类型",
 				id:"check_type",
-				type:"text"
+				type:"child",
+				child:{"1":"为初次申请","2":"为驳回复审申请 ","3":"为修改信息申请"}
 			},
 			
 			{
@@ -492,7 +498,8 @@ const reviewData = {
 			{
 				name:"账号主体",
 				id:"contributor_type",
-				type:"text",
+				type:"child",
+				child:{"1":"个体","2":"企业"}
 			},
 			{
 				name:"身份证正面照片",
@@ -538,7 +545,8 @@ const reviewData = {
 			{
 				name:"提交类型",
 				id:"check_type",
-				type:"text"
+				type:"child",
+				child:{"1":"为初次申请","2":"为驳回复审申请 ","3":"为修改信息申请"}
 			},
 			
 			{
@@ -559,7 +567,8 @@ const reviewData = {
 			{
 				name:"账号主体",
 				id:"contributor_type",
-				type:"text",
+				type:"child",
+				child:{"1":"个体","2":"企业"}
 			},
 			{
 				name:"统一社会信用代码",

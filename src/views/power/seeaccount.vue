@@ -83,19 +83,22 @@
 				}
 			},
 			seeroles(){
+				//console.log(this.permissions)
+				this.permissions = [];
 				this.api.getAdminUserInfo({
 					access_token:2,
 					id:this.$route.query.id
 				}).then(da =>{
-					console.log(da)
+					//console.log(da)
 					this.roleintroduce = da; 
-					console.log(da.permissions.split(","));
+					//console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
 					})
-					
+					this.getMenu();
+					//console.log(this.permissions);
 				}).catch(da => {
 					
 				})
@@ -107,6 +110,7 @@
 				this.api.getMenuList(data).then(da => {
 					//console.log(da)
 					this.data2 = da;
+					
 				}).catch(da =>{
 					
 				})
@@ -116,11 +120,10 @@
 			}
 		},
 		mounted() {
-			this.getMenu();
-			
+			this.seeroles();
 		},
 		created() {
-			this.seeroles();
+			
 		}
 	}
 </script>

@@ -75,7 +75,12 @@
 		watch: {},
 		computed: {},
 		methods: {
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
+			},
 			getData(pg) {
+				//this.setLoding(true);
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
@@ -95,7 +100,8 @@
 					sreenData.type = 1
 					data = sreenData;
 				}
-
+				
+				
 				this.api.reviewList(data).then((da) => {
 					console.log(da.data)
 					if (!da) {
@@ -105,8 +111,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false);
 				}).catch(() => {
-
+					this.setLoding(false);
 				});
 			},
 			screenreach() {
@@ -124,7 +131,7 @@
 					contribute_type:2
 				}).then(da => {
 					this.detailData = da;
-					console.log(da);
+					//console.log(da);
 				}).catch(() => {})
 			},
 			getcommonrightbtn(){
@@ -177,12 +184,14 @@
 			},
 			
 		},
-		created() {},
-		mounted() {
+		created() {
 			//console.log(this.tableConfig)
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
+		},
+		mounted() {
+			
 		}
 	}
 </script>

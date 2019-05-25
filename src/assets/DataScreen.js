@@ -1,3 +1,4 @@
+
 const screenData = {
 	screen:{
 		userBaseInfo:{
@@ -73,7 +74,8 @@ const screenData = {
 		},
 		roleManager:{
 			filterFields:[
-				{name:"用户名称",id:"id"},
+				{name:"角色ID",id:"id"},
+				{name:"角色名称",id:"role_name",child:[]},
 				{name:"创建时间（开始）",id:"create_time_start"},
 				{name:"创建时间（结束）",id:"create_time_end"}
 			]
@@ -81,7 +83,7 @@ const screenData = {
 		accountManager:{
 			filterFields:[
 				{name:"账号ID",id:"id"},
-				{name:"角色ID",id:"role"},
+				{name:"角色ID",id:"role_id"},
 				{name:"账户名",id:"name"},
 				{name:"邮箱",id:"email"}
 			]
@@ -109,7 +111,7 @@ const screenData = {
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name"},
 				{name:"提审用户ID",id:"open_id"},
-				{name:"提升用户昵称",id:"username"},
+				{name:"提审用户昵称",id:"username"},
 				{name:"提审时间（开始）",id:"create_time_start"},
 				{name:"提审时间（结束）",id:"create_time_end"},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
@@ -126,7 +128,7 @@ const screenData = {
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name"},
 				{name:"提审用户ID",id:"open_id"},
-				{name:"提升用户昵称",id:"username"},
+				{name:"提审用户昵称",id:"username"},
 				{name:"提审时间（开始）",id:"create_time_start"},
 				{name:"提审时间（结束）",id:"create_time_end"},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
@@ -140,7 +142,7 @@ const screenData = {
 				{name:"审核ID",id:"id"},
 				{name:"账号主体",id:"contributor_type"},
 				{name:"提审用户ID",id:"open_id"},
-				{name:"提升用户昵称",id:"username"},
+				{name:"提审用户昵称",id:"username"},
 				{name:"提审时间（开始）",id:"create_time_start"},
 				{name:"提审时间（结束）",id:"create_time_end"},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
@@ -274,14 +276,12 @@ const screenData = {
 				{name:"当前状态",id:"status",child:[{name:"线上展示中",id:"1"},{name:" 待用方案内",id:"0"},{name:"未使用",id:"-1"}]},
 			],
 			filterFields1:[
-				{name:"模板文件ID",id:"work_id"},
-				{name:"文件名称",id:"work_name"},
-				{name:"文件格式",id:"activity_id"},
-				{name:"文件大小",id:"activity_name"},
-				{name:"在用活动数",id:"open_id"},
-				{name:"上传人",id:"username"},
-				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
-				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+				{name:"banner展示方案ID",id:"id"},
+				{name:"banner展示方案名称",id:"banner_program_name"},
+				{name:"干预时间（开始）",id:"program_begin_time"},
+				{name:"干预时间（结束）",id:"program_end_time"},
+				{name:"当前状态",id:"status"},
+				{name:"是否为默认展示方案",id:"is_default",child:[{name:"是",id:"1"},{name:" 否",id:"0"}]}
 			]
 		},
 	},
@@ -436,7 +436,7 @@ const screenData = {
 		accountManager:{
 			bts:[
 				{prop:'id',lable:'用户ID'},
-				{prop:'role',lable:'角色ID'},
+				{prop:'role_id',lable:'角色ID'},
 				{prop:'name',lable:'角色名称'},
 				{prop:'sex',lable:'性别'},
 				{prop:'email',lable:'邮箱'},
@@ -461,7 +461,7 @@ const screenData = {
 				{prop:'work_id',lable:'作品ID'},
 				{prop:'work_name',lable:'作品标题',type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'username',lable:'提审用户昵称',width:200,type:"url"},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
 				{prop:'check_admin_name',lable:'审核人'},
 			],
@@ -485,7 +485,7 @@ const screenData = {
 				{prop:"activity_id",lable:"活动ID"},
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'username',lable:'提审用户昵称',width:200,type:"url"},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
 				{prop:'check_admin_name',lable:'审核人'},
 			],
@@ -509,7 +509,7 @@ const screenData = {
 				{prop:"activity_id",lable:"活动ID"},
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'username',lable:'提审用户昵称',width:200,type:"url"},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
 				{prop:'check_admin_name',lable:'审核人'},
 			],
@@ -528,10 +528,10 @@ const screenData = {
 		applyPerson:{
 			bts:[
 				{prop:'id',lable:'审核ID'},
-				{prop:'contributor_type',lable:'账号主体'},
-				{prop:'check_type',lable:'提交类型'},
+				{prop:'contributor_type',lable:'账号主体',type:"keyvalue",child:{"1":"个体","2":"企业"}},
+				{prop:'check_type',lable:'提交类型',type:"keyvalue",child:{"1":"为初次申请","2":"为驳回复审申请","3":"为修改信息申请"}},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'提升用户昵称',width:200,type:"url"},
+				{prop:'username',lable:'提审用户昵称',width:200,type:"url"},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
 				{prop:'check_admin_name',lable:'审核人'},
 			],
@@ -766,7 +766,7 @@ const screenData = {
 				{lable:"活动banner",prop:"banner"},
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"-2":"入围未录用","-1":"未入围","0":"参与活动","1":"已入围","2":"已录用","10":"已参加"}},
+				{lable:"当前状态",prop:"status",type:"status",child:{"-2":"入围未录用","-1":"未入围","0":"参与活动","11":"已入围","2":"已录用","10":"已参加","1":"入围待审核"}},
 			],
 			action:{
 				morebtns:{
@@ -789,7 +789,7 @@ const screenData = {
 			}
 		},
 		solicitationTemplate:{
-			bts0:[
+			bts1:[
 				{lable:"模板文件ID",prop:"template_file_id"},
 				{lable:"文件名称",prop:"file_name"},
 				{lable:"网盘链接",prop:"activity_id"},
@@ -798,7 +798,7 @@ const screenData = {
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"}
 			],
-			bts1:[
+			bts0:[
 				{lable:"模板文件ID",prop:"template_file_id"},
 				{lable:"文件名称",prop:"file_name"},
 				{lable:"文件格式",prop:"file_type"},
@@ -833,29 +833,18 @@ const screenData = {
 		},
 		homeBanner:{
 			bts:[
-				{lable:"banner素材ID",prop:"template_file_id"},
-				{lable:"banner素材名称",prop:"file_name"},
-				{lable:"banner图片",prop:"activity_id"},
-				{lable:"跳转链接",prop:"processing_activity_num"},
-				{lable:"创建时间",prop:"shortlisted_time"},
-				{lable:"当前状态",prop:"hire_time"}
+				{lable:"banner素材ID",prop:"id"},
+				{lable:"banner素材名称",prop:"banner_name"},
+				{lable:"banner图片",prop:"banner_pic",type:"img"},
+				{lable:"跳转链接",prop:"jump_url",type:"url"},
+				{lable:"创建时间",prop:"create_time"},
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用"}}
 			],
 			action:{
 				morebtns:{
 					name:"删除",
 					Ishow:true,
 					page:"homeBanner",
-					child:[
-						/* {
-							name:"修改文件名"
-						},
-						{
-							name:"下载"
-						},
-						{
-							name:"删除"
-						} */
-					],
 				},
 				links:{
 					name:"修改",

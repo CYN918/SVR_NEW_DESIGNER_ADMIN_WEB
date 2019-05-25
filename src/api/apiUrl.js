@@ -48,79 +48,86 @@ export default {
 	},
 	
 	setRole:{
-		url:'/admin/AdminUser/setRole',method:'post',baseURL:0,suktip:true
+		url:'/admin/AdminUser/setRole',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	
 	reviewInfo:{
-		url:'/admin/Review/info',method:'post',baseURL:0,suktip:true
+		url:'/admin/Review/info',method:'post',baseURL:0
 	},
 	
 	reviewCheck:{
-		url:'/admin/Review/check',method:'post',baseURL:0,suktip:true
+		url:'/admin/Review/check',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	todoCount:{
-		url:'/admin/Review/todoCount',method:'post',baseURL:0,suktip:true
+		url:'/admin/Review/todoCount',method:'post',baseURL:0
 	},
 	workList:{
-		url:'/admin/work/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/list',method:'post',baseURL:0
 	},
 	workInfo:{
-		url:'/admin/Work/info',method:'post',baseURL:0,suktip:true
+		url:'/admin/Work/info',method:'post',baseURL:0
 	},
 	setRecommendLevelwork:{
-		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0
 	},
 	offShelve:{
-		url:'/admin/work/offShelve',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/offShelve',method:'post',baseURL:0
 	},
 	getLevelCount:{
-		url:'/admin/work/getLevelCount',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/getLevelCount',method:'post',baseURL:0
 	},
 	categoryList:{
-		url:'/admin/category/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/category/list',method:'post',baseURL:0
 	},
 	categoryAdd:{
-		url:'/admin/category/add',method:'post',baseURL:0,suktip:true
+		url:'/admin/category/add',method:'post',baseURL:0
 	},
 	categoryEdit:{
-		url:'/admin/category/edit',method:'post',baseURL:0,suktip:true
+		url:'/admin/category/edit',method:'post',baseURL:0
 	},
 	workComment:{
-		url:'/admin/work/comment',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/comment',method:'post',baseURL:0
 	},
 	deleteComment:{
-		url:'/admin/work/deleteComment',method:'post',baseURL:0,suktip:true
+		url:'/admin/work/deleteComment',method:'post',baseURL:0
 	},
 	activitylist:{
-		url:'/admin/activity/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/activity/list',method:'post',baseURL:0
 	},
 	activitydelete:{
-		url:'/admin/activity/delete',method:'post',baseURL:0,suktip:true
+		url:'/admin/activity/delete',method:'post',baseURL:0
 	},
 	activityadd:{
-		url:'/admin/activity/add',method:'post',baseURL:0,suktip:true
+		url:'/admin/activity/add',method:'post',baseURL:0
 	},
 	insertFile:{
-		url:'/File/File/insert',method:'post',baseURL:0,suktip:true
+		url:'/File/File/insert',method:'post',baseURL:0
 	},
 	reportlist:{
-		url:'/admin/report/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/report/list',method:'post',baseURL:0
 	},
 	Worklabel:{
-		url:'/admin/Work/label',method:'post',baseURL:0,suktip:true
+		url:'/admin/Work/label',method:'post',baseURL:0
 	},
 	activitywork:{
-		url:'/admin/activity/work',method:'post',baseURL:0,suktip:true
+		url:'/admin/activity/work',method:'post',baseURL:0
 	},
 	templateList:{
-		url:'/admin/template/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/template/list',method:'post',baseURL:0
 	},
 	templateDelete:{
-		url:'/admin/template/delete',method:'post',baseURL:0,suktip:true
+		url:'/admin/template/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	bannerlist:{
-		url:'/admin/banner/list',method:'post',baseURL:0,suktip:true
+		url:'/admin/banner/list',method:'post',baseURL:0
 	},
+	templateedit:{
+		url:'/admin/template/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	bannerdelete:{
+		url:'/admin/banner/delete',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 	
 	
 }

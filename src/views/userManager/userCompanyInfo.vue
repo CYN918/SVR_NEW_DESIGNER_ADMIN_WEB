@@ -54,6 +54,10 @@
 		watch: {},
 		computed: {},
 		methods: {
+			setLoding(type){
+				//alert(2);
+				this.$refs.Tabledd.setLoding(type);	
+			},
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
@@ -82,8 +86,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					this.setLoding(false);
 				}).catch(() => {
-
+					this.setLoding(false);
 				});
 			},
 			screenreach() {

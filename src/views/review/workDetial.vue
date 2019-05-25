@@ -20,15 +20,19 @@
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-for="(item,index) in workData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ apply_info[item.id] }}</span>
-					<span v-if="!item.type">{{ this.title }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="apply_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="apply_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="apply_info[item.id]" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ apply_info[item.id] }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="apply_info[item.id]" alt="">
+					<span v-if="item.type == 'text'">{{ getValue(apply_info[item.id])  }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<span v-else-if="item.type == 'arr'">
+						<span v-for="(item,index) in apply_info.labels" :key = "item">{{ item + (index == (apply_info.labels.length - 1) ? "" : "/")  }}</span>
+					</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="apply_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="apply_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="apply_info[item.id]" alt="没有图片">
+					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(apply_info[item.id])  }} </span>
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="apply_info[item.id]" alt="没有图片">
+					<span v-else-if="item.type == 'child'">{{  getValue(item.child[apply_info[item.id]])}}</span>
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ apply_info[item.id] }}</span>
+						<span class="routerLink">{{ getValue(apply_info[item.id]) }}</span>
 					</router-link>
 				</li>
 			</ul>
@@ -40,7 +44,7 @@
 							<li class="">
 								<div class="material relative">
 									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
+									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
 									<span class="fleft">新概念</span>
@@ -50,7 +54,7 @@
 							<li class="">
 								<div class="material relative">
 									<el-checkbox class="material-checkbox" label="2" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
+									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
 									<span class="fleft">新概念</span>
@@ -79,7 +83,7 @@
 							<li class="">
 								<div class="material relative">
 									<el-checkbox class="material-checkbox" label="5" v-if="workselect"></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
+									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
 								<div class="color66">
 									<span class="fleft">新概念</span>
@@ -94,7 +98,7 @@
 							<li class="">
 								<div class="material relative">
 									<el-checkbox class="material-checkbox" label="6" v-if="workselect"></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
+									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
 								<div class="color66">
 									<span class="fleft">新概念</span>
@@ -109,60 +113,66 @@
 			<ul v-if="tabsnum == 1 && pagetype == 4">
 				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
 					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ check_info[item.id] }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="">
+					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
 					<button :class="'workbtn defaultbtn0 defaultbtn'+check_info[item.id]" v-else-if="item.type == 'btn'">
-						{{item.child[check_info[item.id]]}}
+						{{ getValue(item.child[check_info[item.id]]) }}
 					</button>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ check_info[item.id] }}</span>
+						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
 					</router-link>
 				</li>
 				<li v-if="reviewinfostatus" class="margint13 ofh" v-for="(item,index) in reviewinfostatus" :key="index+item.type"
 				 :type="item.type">
 					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ check_info[item.id] }}</span>
-					<span v-if="!item.type">{{ this.title }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="">
+					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ check_info[item.id] }}</span>
+						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
 					</router-link>
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
 					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ check_info[item.id] }}</span>
+					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
 					<span v-if="!item.type">{{ title }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="">
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
 					<button :class="'workbtn defaultbtn0 defaultbtn'+check_info[item.id]" v-else-if="item.type == 'btn'">
-						{{item.child[check_info[item.id]]}}
+						{{ getValue(item.child[check_info[item.id]]) }}
 					</button>
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ check_info[item.id] }}</span>
+						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
 					</router-link>
 				</li>
 				<li v-if="reviewinfostatus" class="margint13 ofh" v-for="(item,index) in reviewinfostatus" :key="index+item.type"
 				 :type="item.type">
 					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ check_info[item.id] }}</span>
-					
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="">
+					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
 					<!-- <span v-else-if="item.type == 'imgbanner'" style="{background: ;}"></span> -->
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="[check_info[item.id]]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="[check_info[item.id]]" alt="">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="[check_info[item.id]]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="[check_info[item.id]]" alt="没有图片">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
+					
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ check_info[item.id] }}</span>
+						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
 					</router-link>
 				</li>
 			</ul>
@@ -171,7 +181,7 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject()">审核驳回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="agree()">审核通过</button>
-			<button class="defaultbtn" v-if="pagetype != 4">预览作品</button>
+			<button class="defaultbtn" v-if="pagetype != 4" @click="linksee">预览作品</button>
 		</div>
 		<div class="screenContent detailbtn" v-if="!detailbtn">
 			<button class="defaultbtn" @click="cancel">取消选项</button>
@@ -391,7 +401,7 @@
 				price2:"",
 				pagetype:parseInt(this.$route.query.type),
 				hire_type:"",
-				contributor_type:"",
+				contributor_type:parseInt(this.$route.query.contribute_type),
 				font_size:0,
 			}
 		},
@@ -474,6 +484,7 @@
 				
 				
 				if(this.pagetype == 4){
+					//alert(this.contributor_type)
 					if(this.contributor_type == 1) {
 						this.workData = reviewData[pagename].contributor_type1;
 					} else {
@@ -638,9 +649,9 @@
 					if(da.check_info.hire_type){
 						this.hire_type = da.check_info.hire_type;
 					}
-					if(da.check_info.contributor_type){
+					/* if(da.check_info.contributor_type){
 						this.contributor_type = da.apply_info.contributor_type;
-					}
+					} */
 					this.getkey();
 				}).catch(da => {
 
@@ -650,14 +661,7 @@
 			submint(data){
 				//console.log(data);
 				this.api.reviewCheck(data).then(da => {
-					if(da.msg == "ok"){
-						this.$message({
-							type: 'info',
-							message: '已经取消'
-						});
-					}
-					
-					//console.log(da)
+					//getparent()
 				}).catch(da => {
 				
 				})
@@ -675,6 +679,9 @@
 				val.forEach((item,index) =>{
 					this.font_size += Number(item)
 				});
+			},
+			linksee(){
+				window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + this.$route.query.work_id);   
 			}
 
 		},
