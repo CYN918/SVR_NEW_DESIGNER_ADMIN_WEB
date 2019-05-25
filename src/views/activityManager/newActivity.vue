@@ -15,7 +15,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh" v-if="!Isnextshow">
+		<div class="detailContent ofh" v-show="!Isnextshow">
 			<ul>
 				<li class="margint23 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
@@ -98,7 +98,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="detailContent ofh relative" v-if="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
+		<div class="detailContent ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
 			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 			<div class="ueditoruploadul">
 				<div class="fleft">
@@ -256,7 +256,7 @@
 						_this.form.info = "";
 						_this.ifBjType = 1;
 					}
-					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="111111">';
+					_this.form.info += '<img src="' + response.data.data.url + '" alt="111111">';
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -414,19 +414,6 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-				/* console.log("times",times)
-				console.log("arr",arr)
-				console.log("file",formData.get("file"))
-				console.log("app_id",formData.get("app_id"))
-				console.log("sign",formData.get("sign"))
-				console.log("user",formData.get("user"))
-				console.log("relation_type",formData.get("relation_type"))
-				console.log("timestamp",formData.get("timestamp")) */
-				/* this.api.insertFile(formData).then(da => {
-					console.log(da)
-				}).catch(da => {
-
-				}) */
 			    var _this = this
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					//console.log(response.data.data.url);

@@ -122,6 +122,11 @@
 						if(idIndex == "left1"){
 						    this.$parent.showmask = true;
 						};
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/homeBanner/addHomeBanner"
+						    })
+						};
 					break;
 						
 				}
@@ -191,7 +196,8 @@
 		},
 		mounted() {
 			//alert(typeof this.commonTopData.tabnums)
-			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			localStorage.setItem("screenShowDataChange","");
 		},
 		watch:{
 			$route(val){

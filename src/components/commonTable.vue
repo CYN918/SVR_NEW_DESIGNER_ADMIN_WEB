@@ -59,7 +59,7 @@
 		},
 		methods: {
 			handleClick(row, setid, page) {
-				console.log(row)
+				console.log(page)
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -151,12 +151,17 @@
 						if(!setid){
 							//this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
 							
-							this.$parent.setContributor(row);
+							this.$parent.delect(row);
 						}
 					break;
 					case "activityClass":
 						if(!setid){
-							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:row.processing_activity_num,name:row.category_name}});
+						}
+					break;
+					case "activityworks":
+						if(!setid){
+							window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + row.work_id);
 						}
 					break;
 					case "activityEmploy":
@@ -200,8 +205,6 @@
 						}
 					break;
 				};
-				
-				
 			},
 			handleSizeChange(val) {
 				this.pagesize = val;

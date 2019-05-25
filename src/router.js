@@ -359,7 +359,14 @@ export default new Router({
 					},
 					component: () => import('@/views/contentManager/homeBanner.vue'),
 				},
-				
+				{
+					path: "homeBanner/addHomeBanner",
+					name: 'addHomeBanner',
+					meta: {
+						title: "首页banner"
+					},
+					component: () => import('@/views/contentManager/addHomeBanner.vue'),
+				}
 			]
 		}
 	]

@@ -232,12 +232,12 @@ const screenData = {
 		},
 		activityworks:{
 			filterFields:[
+				{name:"用户ID",id:"open_id"},
+				{name:"用户名称",id:"username"},
 				{name:"作品ID",id:"work_id"},
 				{name:"作品名称",id:"work_name"},
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name"},
-				{name:"用户ID",id:"open_id"},
-				{name:"用户名称",id:"username"},
 				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
 				{name:"入围时间（开始）",id:"shortlisted_time_start",type:"time"},
 				{name:"入围时间（结束）",id:"shortlisted_time_end",type:"time"},
@@ -645,7 +645,7 @@ const screenData = {
 				{prop:'username',lable:'用户昵称',width:150},
 				{prop:'avatar',lable:'用户头像',width:150},
 				{prop:'work_id',lable:'作品ID'},
-				{prop:'type',lable:'发言类型',type:"url"},
+				{prop:'type',lable:'发言类型',type:"keyvalue",child:{"1":"评论","2":"回复"}},
 				{prop:'content',lable:'发言内容',width:150},
 				{prop:'to_open_id',lable:'评论/回复 对象（用户ID）',width:200},
 				{prop:'create_time',lable:'发言时间'}
@@ -681,9 +681,9 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'主题分类ID',width:200},
 				{prop:'category_name',lable:'主题分类名称',width:150},
-				{prop:'',lable:'进行中活动数'},
+				{prop:'processing_activity_num',lable:'进行中活动数'},
 				{prop:'updated_at',lable:'更新时间'},
-				{prop:'status',lable:'当前状态'}
+				{prop:'status',lable:'当前状态',type:"keyvalue",child:{"1":"启用","0":"停用"}}
 			],
 			action:{
 				morebtns:{
@@ -760,9 +760,9 @@ const screenData = {
 				{lable:"活动ID",prop:"activity_id"},
 				{lable:"活动名称",prop:"activity_name"},
 				{lable:"用户ID",prop:"open_id"},
-				{lable:"用户名称",prop:"username"},
-				{lable:"用户头像",prop:"avatar"},
-				{lable:"作品封面图",prop:"face_pic"},
+				{lable:"用户名称",prop:"username",},
+				{lable:"用户头像",prop:"avatar",type:"img",width:150},
+				{lable:"作品封面图",prop:"face_pic",type:"img",width:150},
 				{lable:"活动banner",prop:"banner"},
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"},
@@ -772,7 +772,7 @@ const screenData = {
 				morebtns:{
 					name:"更多",
 					Ishow:false,
-					page:"activityEmploy",
+					page:"activityworks",
 					child:[
 						{
 							name:"删除"
@@ -838,7 +838,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img"},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用"}}
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
 			],
 			action:{
 				morebtns:{

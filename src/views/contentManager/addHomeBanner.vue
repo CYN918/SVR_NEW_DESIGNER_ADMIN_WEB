@@ -15,7 +15,7 @@
 					<span class="fleft detailKey">状态</span>
 					<div class="fleft status">
 						<el-radio v-model="radio2" label="1" class="fleft">启用</el-radio>
-						<el-radio v-model="radio2" label="0" class="fleft">停用</el-radio>
+						<el-radio v-model="radio2" label="2" class="fleft">停用</el-radio>
 					</div>
 				</li>
 			</ul>
@@ -36,8 +36,7 @@
 				input10: '',
 				radio2:"1",
 				id:this.$route.query.id,
-				num:this.$route.query.num,
-				name:this.$route.query.name
+				num:this.$route.query.num
 			}
 		},
 		methods: {
@@ -54,34 +53,18 @@
 				}
 			},
 			add(){
-				
-				if(this.input10.length == 0){
-					this.$message({
-						message:"主题分类名称不能为空"
-					});
-					return;
-				}
-				
 				const id = this.$route.query.open_id;
 				this.api.categoryAdd({
 					access_token:2,
 					category_name: this.input10,
 					status:this.radio2
 				}).then(da => {
-					//console.log(da)
-					if(da = "添加成功"){
-						this.$router.go(-1);
-					}
+					console.log(da)
 				}).catch(() => {
 					
 				})
 			},
 			edit(){
-				this.$message({
-					message:"主题分类名称不能为空"
-				});
-				return;
-				
 				const id = this.$route.query.open_id;
 				this.api.categoryEdit({
 					access_token:2,
@@ -89,19 +72,11 @@
 					status:this.radio2,
 					id:this.id
 				}).then(da => {
-					//console.log(da)
-					if(da = "修改成功"){
-						this.$router.go(-1);
-					}
+					console.log(da)
 				}).catch(() => {
 					
 				})
-			},
-		},
-		created() {
-			if(this.id){
-				this.input10 = this.name;
-			}
+			}	
 		}
 	}
 </script>

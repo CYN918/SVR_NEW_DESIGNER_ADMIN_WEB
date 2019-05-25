@@ -60,7 +60,6 @@
 				tableData: [],
 				detailData: {},
 				selectData: [],
-				selectOne: {},
 			}
 		},
 		methods: {
@@ -147,8 +146,7 @@
 
 				})
 			},
-			setContributor(val) {
-				this.selectOne = val;
+			delect(val) {
 				//this.centerDialogVisible = true;
 				this.$confirm('确认删除该条发言内容', '确认修改', {
 					confirmButtonText: '确定',
@@ -160,8 +158,8 @@
 					//console.log({work_ids:workids,level:this.radioS})
 					this.api.deleteComment({
 						access_token:2,
-						type: this.selectOne.type,
-						comment_id: this.selectOne.comment_id,
+						type: val.type,
+						comment_id: val.comment_id,
 					}).then(da => {
 						this.$message({
 							type: 'info',

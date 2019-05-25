@@ -7,7 +7,7 @@ export default {
 		url:'/admin/User/getUserInfo',method:'post',baseURL:0
 	},
 	setRecommendLevel:{
-		url:'/admin/User/setRecommendLevel',method:'post',baseURL:0
+		url:'/admin/User/setRecommendLevel',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	getContributorList:{
 		url:'/admin/User/getContributorList',method:'post',baseURL:0
@@ -20,13 +20,13 @@ export default {
 		url:'/admin/Role/getRoleList',method:'post',baseURL:0
 	},
 	addRole:{
-		url:'/admin/Role/add',method:'post',baseURL:0
+		url:'/admin/Role/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	editRole:{
-		url:'/admin/Role/edit',method:'post',baseURL:0
+		url:'/admin/Role/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	deleteRole:{
-		url:'/admin/Role/delete',method:'post',baseURL:0
+		url:'/admin/Role/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	infoRole:{
 		url:'/admin/Role/info',method:'post',baseURL:0
@@ -68,7 +68,7 @@ export default {
 		url:'/admin/Work/info',method:'post',baseURL:0
 	},
 	setRecommendLevelwork:{
-		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0
+		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	offShelve:{
 		url:'/admin/work/offShelve',method:'post',baseURL:0
@@ -80,25 +80,25 @@ export default {
 		url:'/admin/category/list',method:'post',baseURL:0
 	},
 	categoryAdd:{
-		url:'/admin/category/add',method:'post',baseURL:0
+		url:'/admin/category/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	categoryEdit:{
-		url:'/admin/category/edit',method:'post',baseURL:0
+		url:'/admin/category/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	workComment:{
 		url:'/admin/work/comment',method:'post',baseURL:0
 	},
 	deleteComment:{
-		url:'/admin/work/deleteComment',method:'post',baseURL:0
+		url:'/admin/work/deleteComment',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	activitylist:{
 		url:'/admin/activity/list',method:'post',baseURL:0
 	},
 	activitydelete:{
-		url:'/admin/activity/delete',method:'post',baseURL:0
+		url:'/admin/activity/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	activityadd:{
-		url:'/admin/activity/add',method:'post',baseURL:0
+		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	insertFile:{
 		url:'/File/File/insert',method:'post',baseURL:0

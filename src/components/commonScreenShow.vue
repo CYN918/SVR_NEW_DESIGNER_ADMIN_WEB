@@ -2,7 +2,7 @@
 	<div class="wh screenContent">
 		<div class="screenbordershow">
 			<div class="screenTop paddinglr30">
-				<span class="fleft">用户基础信息-展示字段筛选</span>
+				<span class="fleft">{{ currentpageName }}-展示字段筛选</span>
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
 			<div class="screenMidden paddinglr30">
@@ -12,8 +12,8 @@
 			</div>
 			<div class="screenBottom paddinglr30">
 				<div class="screenBottombtn ofh">
-					<button  class="fleft defaultbtn" @click="reset">重置</button>
-					<button class="fright defaultbtn" @click="getparent('reach')">查询</button>
+					<button  class="fleft defaultbtn" @click="reset">恢复默认</button>
+					<button class="fright defaultbtn defaultbtnactive" @click="getparent('reach')">确 定</button>
 				</div>
 			</div>
 		</div>
@@ -30,6 +30,7 @@
 			btns: [],
 			isIndeterminate: true,
 			selectbtns:[],
+			currentpageName:"",
 		  };
 		},
 		methods:{
@@ -70,6 +71,7 @@
 		mounted() {
 			this.getScreen();
 			this.initbts();
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 		}
 	}
 </script>
