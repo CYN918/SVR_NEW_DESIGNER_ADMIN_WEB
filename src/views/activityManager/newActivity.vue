@@ -58,12 +58,22 @@
 					</div>
 				</li>
 				<li class="margint23 ofh">
+					<span class="fleft detailKey">活动类型</span>
+					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
+						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+							<el-radio :label="childitem.name"></el-radio>
+						</el-option> -->
+						<el-radio label="1">普通活动</el-radio>
+						<el-radio label="2">征集活动</el-radio>
+					</el-radio-group>
+				</li>
+				<li class="margint23 ofh">
 					<span class="fleft detailKey">作品上传和展示</span>
 					<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
 						<el-radio label="1">不支持上传</el-radio>
 						<el-radio label="2">支持上传，不支持展示作品</el-radio>
 						<el-radio label="3">支持上传，仅展示入围作品</el-radio>
-						<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
+						<el-radio v-if="form['type'] != 1"  label="4">支持上传，并展示入围作品及录用作品</el-radio>
 					</el-radio-group>
 				</li>
 				<li class="margint23 ofh">
@@ -77,21 +87,11 @@
 					</el-radio-group>
 				</li>
 				<li class="margint23 ofh">
-					<span class="fleft detailKey">活动类型</span>
-					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
-						<el-radio label="1">普通活动</el-radio>
-						<el-radio label="2">征集活动</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">模板文件</span>
-					<el-upload action="http://139.129.221.123/File/File/insert" :on-change="filechange" :show-file-list="false">
+					<el-upload action="http://139.129.221.123/File/File/insert" :http-request="filechange" :show-file-list="false">
 						<button class="defaultbtn" style="margin-left: 0;">模板上传</button>
 					</el-upload>
-					<span class="fontcolorg" style="margin-left: 160px;">{{ form['filename'] }}</span>
+					<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">是否关联综合平台需求</span>
@@ -153,12 +153,12 @@
 				radio2: "1",
 				id: this.$route.query.id,
 				num: this.$route.query.num,
+				filename:"",
 				form: {
 					is_provide_template: "0",
 					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					is_related_needs: "0",
 					banner:'',
-					filename:"",
 					access_token: 2,
 					type:'1'
 				},
@@ -432,10 +432,41 @@
 				});
 				//console.log(this.form.banner = url)
 			},
-			filechange(file){
-				console.log(file);
-				this.form['filename'] = file.name;
-				//console.log(this.form['filename']);
+			filechange(params){
+				//console.log("params",params)
+				//const isLt2M = _file.size / 1024 / 1024 < 2;
+				const _file = params.file;
+				/* if (!isLt2M) {
+					this.$message.error("请上传2M以下是的文件");
+					return false;
+				} */
+				
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+				
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+				var _this = this
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					console.log(response.data.data);
+					_this.filename = response.data.data.file_name;
+					_this.form.template_file_id = response.data.data.fid
+				}).catch(function (error) {
+					console.log(error);
+				});
 			},
 			createdactivity(){
 				this.api.activityadd(this.form).then(da =>{
