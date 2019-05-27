@@ -17,7 +17,7 @@
 			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="screenbg" v-if="IsScreen == 'No'">
-			<common-screen :pageName="pageName"></common-screen>
+			<common-screen :pageName="pageName" :tabnum="tabnum"></common-screen>
 		</div>
 		<div class="screenbg" v-if="IsScreenShow == 'No'">
 			<common-screen-show :pageName="pageName"></common-screen-show>
@@ -40,7 +40,8 @@
 				IsScreenShow: "off", //展示字段筛选显隐控制
 				pageName: "",
 				menulist: "",
-				parentnum:""
+				parentnum:"",
+				tabnum:""
 			}
 		},
 		watch: {},
@@ -72,7 +73,7 @@
 							break;
 						default:
 							break;
-					}
+					};
 				})
 			},
 			getaccess() {
@@ -84,6 +85,9 @@
 				}).catch(da => {
 
 				})
+			},
+			tabchange(val){
+				this.tabnum = val;
 			}
 		},
 		created() {

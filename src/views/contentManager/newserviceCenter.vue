@@ -1,11 +1,11 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">
-			<span class="fleft">新建活动</span>
+			<span class="fleft">新建文档</span>
 			<div class="employment" style="text-align: center;">
 				<span>
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
-					<span :class="{'fontactive':!Isnextshow}">绑定综合平台需求</span>
+					<span :class="{'fontactive':!Isnextshow}">文档信息设置</span>
 				</span>
 				<!-- <span :class="['centerline',{'centerlineactive': Isnextshow}]"></span> -->
 				<span class="centerline"></span>
@@ -18,98 +18,32 @@
 		<div class="detailContent ofh" v-show="!Isnextshow">
 			<ul>
 				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
-					<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
+					<span class="fleft detailKey" style="line-height: 40px;">文档备注</span>
 					<el-input placeholder="请输入内容" v-model="form['remark']" style="width:357px;height:40px;" clearable></el-input>
 				</li>
 				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">banner</span>
-					<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
-						<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-						<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
-					</el-upload>
-					<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
-					<el-select v-model="form['category_id']" placeholder="请选择">
-						<el-radio-group v-model="form['category_id']">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.category_name">
-								<el-radio :label="item.id">{{ item.category_name }}</el-radio>
+					<span class="fleft detailKey" style="line-height: 40px;">文档类型</span>
+					<el-select v-model="form['type']" placeholder="请选择">
+						<el-radio-group v-model="form['type']">
+							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.name">
+								<el-radio :label="item.id">{{ item.name }}</el-radio>
 							</el-option>
 						</el-radio-group>
 					</el-select>
 				</li>
-				<li class="margint23 ofh">
-					<div>
-						<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
-						 placeholder="开始时间">
-						</el-date-picker>
-						<span class="fleft" style="line-height: 40px;">
-							&nbsp;至&nbsp;
-						</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
-						 placeholder="结束时间">
-						</el-date-picker>
-					</div>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">作品上传和展示</span>
-					<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
-						<el-radio label="1">不支持上传</el-radio>
-						<el-radio label="2">支持上传，不支持展示作品</el-radio>
-						<el-radio label="3">支持上传，仅展示入围作品</el-radio>
-						<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">是否提供模板文件</span>
-					<el-radio-group v-model="form['is_provide_template']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
-						<el-radio label="0">不提供</el-radio>
-						<el-radio label="1">提供</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">活动类型</span>
-					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
-						<el-radio label="1">普通活动</el-radio>
-						<el-radio label="2">征集活动</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">模板文件</span>
-					<el-upload action="http://139.129.221.123/File/File/insert" :on-change="filechange" :show-file-list="false">
-						<button class="defaultbtn" style="margin-left: 0;">模板上传</button>
-					</el-upload>
-					<span class="fontcolorg" style="margin-left: 160px;">{{ form['filename'] }}</span>
-				</li>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">是否关联综合平台需求</span>
+					<span class="fleft detailKey">是否设为线上展示</span>
 					<div class="fleft status">
-						<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
-							<el-radio label="1" class="fleft">启用</el-radio>
-							<el-radio label="0" class="fleft">停用</el-radio>
+						<el-radio-group v-model="form['is']" style="width:357px;float: left;">
+							<el-radio label="1" class="fleft">是</el-radio>
+							<el-radio label="0" class="fleft">否</el-radio>
 						</el-radio-group>
 					</div>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
-					<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
 				</li>
 			</ul>
 		</div>
 		<div class="detailContent ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
-			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
+			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 			<div class="ueditoruploadul">
 				<div class="fleft">
 					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
@@ -135,6 +69,7 @@
 			</div>
 		</div>
 		<div class="screenContent detailbtn">
+			<button class="defaultbtn"  @click="getparent">返回</button>
 			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="createdactivity">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
@@ -155,7 +90,7 @@
 				num: this.$route.query.num,
 				form: {
 					is_provide_template: "0",
-					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
+					content: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					is_related_needs: "0",
 					banner:'',
 					filename:"",
@@ -178,7 +113,12 @@
 					serverUrl:'http://139.129.221.123/File/File/insert'
 				},
 				imageUrl: "",
-				tableData: [],
+				tableData: [
+					{name:"关于我们",id:"1"},
+					{name:"用户协议",id:"2"},
+					{name:"授权协议",id:"3"},
+					{name:"帮助中心",id:"4"},
+				],
 				ifBjType:0,
 			}
 		},
@@ -187,9 +127,7 @@
 		},
 		methods: {
 			getparent() {
-				this.router.push({
-					path: "/activityManager/activityClass"
-				})
+				this.$router.go(-1);
 			},
 			getValue(val) {
 				if (val) {
@@ -262,10 +200,10 @@
 				var _this = this
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					if (_this.ifBjType == 0) {
-						_this.form.info = "";
+						_this.form.content = "";
 						_this.ifBjType = 1;
 					}
-					_this.form.info += '<img src="' + response.data.data.url + '" alt="111111">';
+					_this.form.content += '<img src="' + response.data.data.url + '" alt="111111">';
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -296,10 +234,10 @@
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response)
 					if (_this.ifBjType == 0) {
-						_this.form.info = "";
+						_this.form.content = "";
 						_this.ifBjType = 1;
 					}
-					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><video src="'+ response.data.data.url +'" controls="controls"></video>';
+					_this.form.content += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><video src="'+ response.data.data.url +'" controls="controls"></video>';
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -330,10 +268,10 @@
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response)
 					if (_this.ifBjType == 0) {
-						_this.form.info = "";
+						_this.form.content = "";
 						_this.ifBjType = 1;
 					}
-					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><audio src="'+ response.data.data.url +'" controls="controls"></audio>';
+					_this.form.content += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><audio src="'+ response.data.data.url +'" controls="controls"></audio>';
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -364,37 +302,19 @@
 
 				editorInstance.addListener('focus', (editor) => {
 					if (this.ifBjType == 0) {
-						this.form.info = '';
+						this.form.content = '';
 						this.ifBjType = 1;
 					}
 				});
 				editorInstance.addListener('blur', (editor) => {
-					if (this.ifBjType == 1 && this.form.info == '') {
-						this.form.info = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+					if (this.ifBjType == 1 && this.form.content == '') {
+						this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 						this.ifBjType = 0;
 					}
 				});
 
 			},
-			getData(pg) {
-				//获取子组件表格数据
-				var data = {
-					access_token: 2,
-					page: 1,
-					limit: 10000
-				}
-
-				this.api.categoryList(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
-					this.tableData = da.data;
-
-				}).catch(() => {
-
-				});
-			},
+			
 			httprequest(params) {
 				//console.log("params",params)
 				const _file = params.file;
@@ -438,7 +358,7 @@
 				//console.log(this.form['filename']);
 			},
 			createdactivity(){
-				this.api.activityadd(this.form).then(da =>{
+				this.api.documentadd(this.form).then(da =>{
 					console.log(da);
 				}).catch(da =>{
 					
@@ -446,7 +366,7 @@
 			}
 		},
 		created() {
-			this.getData();
+			
 		}
 	}
 </script>

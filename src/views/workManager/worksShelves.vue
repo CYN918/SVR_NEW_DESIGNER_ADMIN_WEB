@@ -29,7 +29,7 @@
 					<li class="margint13 ofh" style="margin-left: 102px;">
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
-							<button class="defaultbtn" style="margin: 0;" @click="dialogTableVisible = !dialogTableVisible">选择通知用户</button>
+							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择通知用户</button>
 						</div>
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
@@ -130,6 +130,7 @@
 					pagesize: 10,
 					list: DataScreen.screenShow.worksShelves.bts,
 					ischeck: true,
+					loading:true
 
 				},
 				tableData: [],
@@ -240,9 +241,6 @@
 				});
 			
 				/* this.setLoding(false); */
-			},
-			setLoding(type) {
-				/* this.$refs.Tabledd.setLoding(type);	 */
 			},
 			getScreenShowData() {
 				//获取字段展示-筛选修改
@@ -414,6 +412,14 @@
 					});
 				}
 			},
+			dialogTable(){
+				this.dialogTableVisible = !this.dialogTableVisible;
+				/* if(this.dialogTableVisible == true){
+					this.setLoding(false);
+				} */
+				//this.$refs.Tabledd.loading = false;	
+			}
+			
 
 		},
 		created() {

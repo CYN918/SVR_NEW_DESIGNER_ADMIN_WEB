@@ -25,7 +25,6 @@
 						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip">
 							<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 						</div>
-						
 						<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 					</div>
 				</div>
@@ -119,12 +118,28 @@
 						};
 					break;
 					case "homeBanner":
-						if(idIndex == "left1"){
-						    this.$parent.showmask = true;
-						};
 						if(idIndex == "right1"){
 						    this.router.push({
 						    	path:"/contentManager/homeBanner/addHomeBanner"
+						    })
+						};
+						if(idIndex == "right0"){
+						    this.router.push({
+						    	path:"/contentManager/homeBanner/addbannerScheme"
+						    })
+						};
+					break;
+					case "serviceCenter":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/serviceCenter/newserviceCenter"
+						    })
+						};
+					break;
+					case "recommendedActivities":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/recommendedActivities/newrecommendedActivities"
 						    })
 						};
 					break;
@@ -196,6 +211,7 @@
 		},
 		mounted() {
 			//alert(typeof this.commonTopData.tabnums)
+			//console.log(this.$route.matched[this.$route.matched.length-1])
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			localStorage.setItem("screenShowDataChange","");
 		},

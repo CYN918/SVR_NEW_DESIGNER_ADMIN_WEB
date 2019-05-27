@@ -60,7 +60,15 @@
 				<router-link to="/contentManager/homeBanner">
 					<el-menu-item index="10-2">首页banner</el-menu-item>
 				</router-link>
-				
+				<router-link to="/contentManager/hotWordSearch">
+					<el-menu-item index="10-3">热门搜素词</el-menu-item>
+				</router-link>
+				<router-link to="/contentManager/recommendedActivities">
+					<el-menu-item index="10-4">我的收益-推荐活动</el-menu-item>
+				</router-link>
+				<router-link to="/contentManager/serviceCenter">
+					<el-menu-item index="10-5">文档服务中心</el-menu-item>
+				</router-link>
 			</el-submenu>
 			
 			<!-- <el-submenu index="1">

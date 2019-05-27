@@ -127,8 +127,8 @@
 							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status,contribute_type:row.contributor_type}});
 							
 						}
-					case "workInfo":
 					break;
+					case "workInfo":
 						if(!setid){
 							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
 							
@@ -156,7 +156,7 @@
 					break;
 					case "activityClass":
 						if(!setid){
-							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:row.processing_activity_num,name:row.category_name}});
+							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:row.processing_activity_num,name:row.category_name,status:row.status}});
 						}
 					break;
 					case "activityworks":
@@ -204,6 +204,33 @@
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 					break;
+					case "hotWordSearch":
+						if(!setid){
+							this.router.push({path:"/contentManager/hotWordSearch/newhotword", query:{row: JSON.stringify(row)}})
+						}
+						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
+					case "serviceCenter":
+						if(!setid){
+							this.router.push({path:"/contentManager/serviceCenter/newserviceCenter", query:{row: JSON.stringify(row)}})
+						}
+						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
+					case "recommendedActivities":
+						if(!setid){
+							this.router.push({path:"/contentManager/recommendedActivities/newrecommendedActivities", query:{row: JSON.stringify(row)}})
+						}
+						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
 				};
 			},
 			handleSizeChange(val) {
@@ -215,8 +242,11 @@
 				this.getTabData();
 			},
 			handleSelectionChange(val) {
+				//alert(val)
+				console.log(val)
 				this.selected = val.length
-				this.$parent.selectData = val;
+				//this.$parent.selectData = val;
+				this.$parent.$parent.selectData = val;
 			},
 			getTabData() {
 				const data = {
@@ -234,6 +264,10 @@
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度
 			},
 			init(){
+				if(this.tableConfig.loading){
+					this.loading = false;
+				}
+				
 				//console.log(this.tableAction)
 			},
 			cellStyle() {

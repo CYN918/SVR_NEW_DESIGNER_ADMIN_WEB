@@ -2,7 +2,7 @@
 	<div class="wh screenContent" style="position: relative;z-index: 9999;">
 		<div class="screenborder">
 			<div class="screenTop paddinglr30">
-				<span class="fleft">{{ currentpageName }}-筛选</span>
+				<span class="fleft">用户基础信息-筛选</span>
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
 			<div class="screenMidden paddinglr30">
@@ -219,7 +219,7 @@
 <script>
 	import DataScreen from "@/assets/DataScreen.js"
 	export default {
-		props: ["pageName"],
+		props: ["pageName","tabnum"],
 		data() {
 			return {
 				form: {},
@@ -241,8 +241,7 @@
 					  label: '北京烤鸭'
 				}],
 				value: '',
-				value2:[],
-				currentpageName:"",
+				value2:[]
 			}
 		},
 		methods: {
@@ -266,10 +265,20 @@
 				}
 			},
 			getScreen() {
-				//alert(this.pageName)
-				this.texts = DataScreen.screen[this.pageName].filterFields
-				if(!DataScreen.screen[this.pageName].filterFields){
-					this.texts = DataScreen.screen[this.pageName].filterFields0
+				
+				if(this.tabnum){
+					if(this.tabnum == 1){
+						this.texts = DataScreen.screen[this.pageName].filterFields0
+					};
+					if(this.tabnum == 2){
+						this.texts = DataScreen.screen[this.pageName].filterFields1
+					};
+					if(!DataScreen.screen[this.pageName].filterFields1 && !DataScreen.screen[this.pageName].filterFields0){
+						this.texts = DataScreen.screen[this.pageName].filterFields
+						
+					}
+				} else {
+					this.texts = DataScreen.screen[this.pageName].filterFields
 				}
 			},
 			reset() {
@@ -277,14 +286,14 @@
 			}
 		},
 		watch: {
-			'$route': function(data) {
-				//console.log(data)
+			'tabnum': function(data) {
+				
 			}
 		},
 		mounted() {
 			this.getScreen();
 			this.init();
-			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			
 		}
 	}
 </script>

@@ -3,7 +3,7 @@
 		<div class="detailtitle ofh relative Detail">
 			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
-					征集模板文件
+					首页banner
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -20,21 +20,70 @@
 			 ref="Tabledd"></common-table>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
-			<div>
-				111
+			<div style="height: calc(100% - 100px);margin-top: 20px;background-color: white;overflow: auto;">
+				<ul class="screenContent" style="flex-wrap: wrap">
+					<li class="bannerlistg relative">
+						<div class="wh">
+							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">11111</div>
+							<el-carousel height="190px">
+							  <el-carousel-item v-for="index in 4" :key="index">
+								<h3>{{index}}</h3>
+							  </el-carousel-item>
+							</el-carousel>
+							<div class="fleft w" style="height: calc(100% - 190px);">
+								<div class="fleft">
+									<div class="fontcolorg">
+										<span>ID: </span><span>11111111111111111111</span>
+									</div>
+									<div class="fontcolorg">
+										<span>2222222222</span>
+									</div>
+								</div>
+								<div class="fright">
+									<button class="defaultbtn">22</button>
+									<button class="defaultbtn">22</button>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="bannerlistg relative">
+						<div class="wh">
+							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">11111</div>
+							<el-carousel height="190px">
+							  <el-carousel-item v-for="index in 4" :key="index">
+								<h3>{{index}}</h3>
+							  </el-carousel-item>
+							</el-carousel>
+							<div class="fleft w" style="height: calc(100% - 190px);">
+								<div class="fleft">
+									<div class="fontcolorg">
+										<span>ID: </span><span>11111111111111111111</span>
+									</div>
+									<div class="fontcolorg">
+										<span>2222222222</span>
+									</div>
+								</div>
+								<div class="fright">
+									<button class="defaultbtn">22</button>
+									<button class="defaultbtn">22</button>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</div>
 			<div style="text-align: right;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{totalc}}条数据</span>
 				</div>
-				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpagec"
+				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesizec" layout="sizes, prev, pager, next, jumper" :total="totalc">
 				</el-pagination>
 			</div>
 			
 		</div>
 		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
-		  <div style="position: relative;">
+		  <div style="position: relative;overflow: auto;">
 			<ul>
 				<li class="w ofh textcenter">
 					<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
@@ -101,13 +150,28 @@
 				filterFields:DataScreen.screen.homeBanner.filterFields0,
 				centerDialogVisible:false,
 				showmask:false,
+				totalc: 0,
+				currentpagec:1,
+				pagesizec:10,
 			}
 		},
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
-				
+				//console.log(this.tableConfig.list);
+				if(num == 0){
+					this.commonTopData.commonrightbtn = [{
+						name: "新建banner素材",
+						id: "right1",
+					}];
+				} else {
+					this.commonTopData.commonrightbtn = [{
+						name: "新建展示素材",
+						id: "right0",
+					}];
+				}
+				this.$parent.tabchange(num+1)
 			},
 			setLoding(type){
 				//alert(2);
@@ -251,14 +315,24 @@
 					});
 				});
 			},
+			handleSizeChange(val) {
+				//this.pagesize = val;
+			},
+			handleCurrentChange(val) {
+				//this.currentpage = val;
+			},
+			handleSelectionChange(val) {
+				//this.selected = val.length
+			},
 		},
 		created() {
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
+			//this.tabchange();
 		},
 		mounted() {
-			
+			this.$parent.tabchange(1);
 		}
 	}
 </script>
@@ -276,6 +350,25 @@
 </style>
 
 <style scoped>
+	.bannerlistg{
+		width:750px;
+		height:270px;
+		border-radius:5px;
+		background-color: red;
+		margin-top: 20px;
+	}
+	
+	.bannerlisttag0 {
+		width:100px;
+		height:40px;
+		border-radius:0px 5px 0px 5px;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(255,255,255,1);
+		line-height:40px;
+		text-align: center;
+	}
+	
 	.Detail {
 		background: white;
 	}

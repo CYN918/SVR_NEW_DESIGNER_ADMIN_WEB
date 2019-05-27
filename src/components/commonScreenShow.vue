@@ -49,6 +49,7 @@
 				this.selectbtns = value;
 			},
 			getScreen(){
+				//alert(this.pageName)
 				//以及pagenema获取相应的展示字段
 				this.btns = DataScreen.screenShow[this.pageName].bts;
 			},

@@ -177,15 +177,11 @@
 					user_id:this.$route.query.id,
 					role_ids:this.role_ids.toString(),
 				}).then(da=>{
-					this.$message({
-					  type: 'info',
-					  message: da
-					});
-					if(da == "修改成功"){
-						this.router.push({
-							path:"/power/accountManager"
-						})
-					}
+					console.log(da);
+					
+					this.router.push({
+						path:"/power/accountManager"
+					})
 				}).catch(da=>{
 					
 				})

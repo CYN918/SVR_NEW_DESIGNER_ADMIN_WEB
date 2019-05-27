@@ -127,7 +127,40 @@ export default {
 	bannerdelete:{
 		url:'/admin/banner/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	banneradd:{
+		url:'/admin/banner/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	bannerprogramadd:{
+		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	hotwordlist:{
+		url:'/admin/hotword/list',method:'post',baseURL:0
+	},
+	hotworddelete:{
+		url:'/admin/hotword/delete',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	hotwordadd:{
+		url:'/admin/hotword/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	hotwordedit:{
+		url:'/admin/hotword/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	
+	recommendactivitylist:{
+		url:'/admin/recommendactivity/list',method:'post',baseURL:0
+	},
+	recommendactivityadd:{
+		url:'/admin/recommendactivity/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	recommendactivityedit:{
+		url:'/admin/recommendactivity/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	documentadd:{
+		url:'/admin/document/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	
+	documentlist:{
+		url:'/admin/document/list',method:'post',baseURL:0
+	},
 	
 }

@@ -37,7 +37,8 @@
 				radio2:"1",
 				id:this.$route.query.id,
 				num:this.$route.query.num,
-				name:this.$route.query.name
+				name:this.$route.query.name,
+				status:this.$route.query.status
 			}
 		},
 		methods: {
@@ -77,10 +78,12 @@
 				})
 			},
 			edit(){
-				this.$message({
-					message:"主题分类名称不能为空"
-				});
-				return;
+				if(this.input10.length == 0){
+					this.$message({
+						message:"主题分类名称不能为空"
+					});
+					return;
+				}
 				
 				const id = this.$route.query.open_id;
 				this.api.categoryEdit({
@@ -101,6 +104,7 @@
 		created() {
 			if(this.id){
 				this.input10 = this.name;
+				this.radio2  = this.status;
 			}
 		}
 	}

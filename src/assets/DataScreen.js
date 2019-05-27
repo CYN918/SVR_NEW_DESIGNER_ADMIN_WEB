@@ -246,7 +246,7 @@ const screenData = {
 			]
 		},
 		solicitationTemplate:{
-			filterFields:[
+			filterFields0:[
 				{name:"模板文件ID",id:"work_id"},
 				{name:"文件名称",id:"work_name"},
 				{name:"文件格式",id:"activity_id",child:[{name:"小于100M",id:"小于100M"}]},
@@ -282,6 +282,36 @@ const screenData = {
 				{name:"干预时间（结束）",id:"program_end_time"},
 				{name:"当前状态",id:"status"},
 				{name:"是否为默认展示方案",id:"is_default",child:[{name:"是",id:"1"},{name:" 否",id:"0"}]}
+			]
+		},
+		hotWordSearch:{
+			filterFields:[
+				{name:"任务ID",id:"open_id"},
+				{name:"词文案",id:"username"},
+				{name:"干预位置",id:"work_id"},
+				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
+				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
+			]
+		},
+		serviceCenter:{
+			filterFields:[
+				{name:"任务ID",id:"open_id"},
+				{name:"词文案",id:"username"},
+				{name:"干预位置",id:"work_id"},
+				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
+				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
+			]
+		},
+		recommendedActivities:{
+			filterFields:[
+				{name:"任务ID",id:"open_id"},
+				{name:"词文案",id:"username"},
+				{name:"干预位置",id:"work_id"},
+				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
+				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
 			]
 		},
 	},
@@ -730,7 +760,9 @@ const screenData = {
 				{prop:'category_name',lable:'主题分类'},
 				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{prop:'status',lable:'当前状态',width:150},
-				{prop:'setting_type',lable:'作品上传和展示',width:250},
+				{prop:'setting_type',lable:'作品上传和展示',type:"keyvalue",width:250,child:{"1":"不支持上传","2":"支持上传，不支持展示作品","3":"支持上传，仅展示入围作品","4":"支持上传，并展示入围和录用作品"}},
+				{prop:'shortlisted_num',lable:'入围作品数量',width:250},
+				{prop:'hire_num',lable:'录用作品数量',width:250},
 			],
 			action:{
 				morebtns:{
@@ -852,6 +884,77 @@ const screenData = {
 				},
 			}
 		},
+		hotWordSearch:{
+			bts:[
+				{lable:"任务ID",prop:"id"},
+				{lable:"调文案",prop:"word"},
+				{lable:"干预位置",prop:"position"},
+				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:true,
+					page:"hotWordSearch",
+				},
+				links:{
+					name:"编辑",
+					Ishow:true
+				},
+			}
+		},
+		serviceCenter:{
+			bts:[
+				{lable:"文档ID",prop:"id"},
+				{lable:"文档备注",prop:"remark"},
+				{lable:"文档类型",prop:"type",type:"keyvalue",child:{"1":"关于我们","2":"用户协议","3":"授权协议","4":"帮助中心"}},
+				{lable:'更新时间',prop:"updated_at"},
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待使用","-1":"已过期","-2":"已删除"}}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"serviceCenter",
+					child:[
+						{
+							name:"编辑"
+						},
+						{
+							name:"删除"
+						},
+						{
+							name:"设为线上展示"
+						}
+					]
+				},
+				links:{
+					name:"编辑",
+					Ishow:true
+				},
+			}
+		},
+		recommendedActivities:{
+			bts:[
+				{lable:"任务ID",prop:"id"},
+				{lable:"干预活动",prop:"activity_name"},
+				{lable:"干预位置",prop:"position"},
+				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:true,
+					page:"recommendedActivities",
+				},
+				links:{
+					name:"编辑",
+					Ishow:true
+				},
+			}
+		}
 	}
 }
 

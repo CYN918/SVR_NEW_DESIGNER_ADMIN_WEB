@@ -363,10 +363,66 @@ export default new Router({
 					path: "homeBanner/addHomeBanner",
 					name: 'addHomeBanner',
 					meta: {
-						title: "首页banner"
+						title: "首页banner / 新建banner素材"
 					},
 					component: () => import('@/views/contentManager/addHomeBanner.vue'),
-				}
+				},
+				{
+					path: "homeBanner/addbannerScheme",
+					name: 'addbannerScheme',
+					meta: {
+						title: "首页banner / 新建banner方案"
+					},
+					component: () => import('@/views/contentManager/addbannerScheme.vue'),
+				},
+				{
+					path: "hotWordSearch",
+					name: 'hotWordSearch',
+					meta: {
+						title: "热门搜素词"
+					},
+					component: () => import('@/views/contentManager/hotWordSearch.vue'),
+				},
+				{
+					path: "hotWordSearch/newhotword",
+					name: 'newhotword',
+					meta: {
+						title: "热门搜素词 / 新建干预任务"
+					},
+					component: () => import('@/views/contentManager/newhotword.vue'),
+				},
+				{
+					path: "recommendedActivities",
+					name: 'recommendedActivities',
+					meta: {
+						title: "我的收益-推荐活动"
+					},
+					component: () => import('@/views/contentManager/recommendedActivities.vue'),
+				},
+				{
+					path: "recommendedActivities/newrecommendedActivities",
+					name: 'newrecommendedActivities',
+					meta: {
+						title: "我的收益-推荐活动 / 新建干预任务"
+					},
+					component: () => import('@/views/contentManager/newrecommendedActivities.vue'),
+				},
+				{
+					path: "serviceCenter",
+					name: 'serviceCenter',
+					meta: {
+						title: "文档服务中心"
+					},
+					component: () => import('@/views/contentManager/serviceCenter.vue'),
+				},
+				{
+					path: "serviceCenter/newserviceCenter",
+					name: 'newserviceCenter',
+					meta: {
+						title: "文档服务中心 / 新建文档"
+					},
+					component: () => import('@/views/contentManager/newserviceCenter.vue'),
+				},
 			]
 		}
 	]
