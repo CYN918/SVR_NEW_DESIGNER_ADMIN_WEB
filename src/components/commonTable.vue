@@ -20,15 +20,26 @@
 				</el-table-column>
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
-						<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
-						<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child">
-							<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
-							<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-								<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
-								
-							</el-dropdown-menu>
-						</el-dropdown>
+						<div v-if="!tableAction.pagefilterField">
+							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
+							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
+							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child">
+								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
+								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
+									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</div>
+						<div  v-else-if="tableAction.pagefilterField">
+							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
+							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
+							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row['status']) > -1)">
+								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
+								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
+									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" v-if="(citem.filterField.indexOf(scope.row['status']) > -1)" :key="index" class="comonbtn" @click.native="handleClick(scope.row,citem.id,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>
+						</div>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -59,7 +70,7 @@
 		},
 		methods: {
 			handleClick(row, setid, page) {
-				console.log(page)
+				console.log(page,setid)
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -125,7 +136,6 @@
 					//console.log(row);
 						if(!setid){
 							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status,contribute_type:row.contributor_type}});
-							
 						}
 					break;
 					case "workInfo":
@@ -166,12 +176,16 @@
 					break;
 					case "activityEmploy":
 						if(!setid){
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+							window.open("http://dev-web-ndesigner.idatachain.cn/#/detailed?id=" + row.id);
 						}
 
-						if(setid == "contributor0"){
-							this.$parent.delete(row);
+						if(setid == "top0"){
+							this.$parent.delect(row);
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
+						}
+						
+						if(setid == "top1"){
+							this.router.push({path:"/activityManager/activityEmploy/newActivity",query:{row:JSON.stringify(row)}});
 						}
 					break;
 					case "solicitationTemplate":
@@ -195,14 +209,11 @@
 						if(setid == "contributor"){
 							this.$parent.delect(row);
 						}
-						if(setid == "contributor1"){
-							///this.$parent.delete(row);
+						if(!setid){
+							this.router.push({path:"/contentManager/homeBanner/addHomeBanner", query:{row: JSON.stringify(row)}})
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
-						if(setid == "contributor2"){
-							this.$parent.delete(row);
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
+						
 					break;
 					case "hotWordSearch":
 						if(!setid){
@@ -214,13 +225,15 @@
 						}
 					break;
 					case "serviceCenter":
-						if(!setid){
+						if(setid == "contributor0"){
 							this.router.push({path:"/contentManager/serviceCenter/newserviceCenter", query:{row: JSON.stringify(row)}})
 						}
 						
-						if(setid == "contributor"){
+						if(setid == "contributor1"){
 							this.$parent.delect(row);
 						}
+						
+						
 					break;
 					case "recommendedActivities":
 						if(!setid){

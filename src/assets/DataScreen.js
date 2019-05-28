@@ -218,7 +218,7 @@ const screenData = {
 				{name:"活动类型",id:"type"},
 				{name:"主题分类",id:"category_id"},
 				{name:"活动时间",id:"id",type:"time"},
-				{name:"当前状态",id:"status",child:[{}]},
+				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
 				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
 				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min"},{id:"hire_num_max"}]},
@@ -273,7 +273,7 @@ const screenData = {
 				{name:"banner素材名称",id:"banner_name"},
 				{name:"创建时间（开始）",id:"create_time_start",type:"time"},
 				{name:"创建时间（结束）",id:"create_time_end",type:"time"},
-				{name:"当前状态",id:"status",child:[{name:"线上展示中",id:"1"},{name:" 待用方案内",id:"0"},{name:"未使用",id:"-1"}]},
+				{name:"当前状态",id:"status",child:[{name:"待使用",id:"1"},{name:" 未使用",id:"0"},{name:"线上展示中",id:"2"}]},
 			],
 			filterFields1:[
 				{name:"banner展示方案ID",id:"id"},
@@ -559,7 +559,7 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'审核ID'},
 				{prop:'contributor_type',lable:'账号主体',type:"keyvalue",child:{"1":"个体","2":"企业"}},
-				{prop:'check_type',lable:'提交类型',type:"keyvalue",child:{"1":"为初次申请","2":"为驳回复审申请","3":"为修改信息申请"}},
+				{prop:'check_type',lable:'提交类型',type:"keyvalue",child:{"1":"初次申请","2":"驳回复审申请","3":"修改信息申请"}},
 				{prop:'open_id',lable:'提审用户ID',width:200},
 				{prop:'username',lable:'提审用户昵称',width:200,type:"url"},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
@@ -759,7 +759,7 @@ const screenData = {
 				{prop:'banner',lable:'banner',type:"img",width:150},
 				{prop:'category_name',lable:'主题分类'},
 				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{prop:'status',lable:'当前状态',width:150},
+				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}},
 				{prop:'setting_type',lable:'作品上传和展示',type:"keyvalue",width:250,child:{"1":"不支持上传","2":"支持上传，不支持展示作品","3":"支持上传，仅展示入围作品","4":"支持上传，并展示入围和录用作品"}},
 				{prop:'shortlisted_num',lable:'入围作品数量',width:250},
 				{prop:'hire_num',lable:'录用作品数量',width:250},
@@ -769,12 +769,17 @@ const screenData = {
 					name:"更多",
 					Ishow:true,
 					page:"activityEmploy",
+					filterField:["0","1"],
 					child:[
 						{
-							name:"删除"
+							name:"删除",
+							filterField:["0"],
+							id:"top0"
 						},
 						{
-							name:"编辑"
+							name:"编辑",
+							filterField:["0","1"],
+							id:"top1"
 						}
 					],
 				},
@@ -782,6 +787,7 @@ const screenData = {
 					name:"预览",
 					Ishow:true
 				},
+				pagefilterField:true,
 			}
 		},
 		activityworks:{
@@ -870,7 +876,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img"},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
 			],
 			action:{
 				morebtns:{
@@ -930,7 +936,7 @@ const screenData = {
 					]
 				},
 				links:{
-					name:"编辑",
+					name:"预览",
 					Ishow:true
 				},
 			}

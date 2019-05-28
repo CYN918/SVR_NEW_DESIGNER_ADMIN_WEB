@@ -5,7 +5,7 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">banner素材活动</span>
-					<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
+					<el-input placeholder="请输入内容" style="width:357px;height:40px;" v-model="banner_name">{{2222 }}</el-input>
 				</li>
 				<li class="margint23 ofh">
 					<span class="fleft detailKey"  style="line-height: 40px;color: #000000;">banner</span>
@@ -19,13 +19,14 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>
-					<el-input placeholder="请输入内容" v-model="jump_url" style="width:357px;height:40px;" clearable></el-input>
+					<el-input placeholder="请输入内容" v-model="jump_url" style="width:357px;height:40px;"></el-input>
 				</li>
 			</ul>
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="!rows" @click="add()">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="rows"  @click="edit()">确定</button>
 		</div>
 	</div>
 </template>
@@ -35,9 +36,10 @@
 		data() {
 			return {
 				detailData: '',
-				input10: '',
+				banner_name: "",
 				banner_pic:"",
-				jump_url:""
+				jump_url:"",
+				rows: "",
 			}
 		},
 		methods: {
@@ -52,8 +54,7 @@
 				}
 			},
 			add(){
-				
-				if(!this.input10 || !this.banner_pic || !this.jump_url){
+				if(!this.banner_name || !this.banner_pic || !this.jump_url){
 					this.$message({
 						type:"info",
 						message:"banner素材活动*banner图片*跳转链接不能为空！！"
@@ -63,7 +64,7 @@
 				
 				this.api.banneradd({
 					access_token:2,
-					banner_name: this.input10,
+					banner_name: this.banner_name,
 					banner_pic:this.banner_pic,
 					jump_url:this.jump_url
 				}).then(da => {
@@ -76,16 +77,12 @@
 				})
 			},
 			edit(){
-				this.$message({
-					message:"主题分类名称不能为空"
-				});
-				return;
-				
-				/* this.api.categoryEdit({
+				 this.api.banneredit({
 					access_token:2,
-					category_name: this.input10,
-					status:this.radio2,
-					id:this.id
+					banner_name: this.banner_name,
+					banner_pic:this.banner_pic,
+					jump_url:this.jump_url,
+					id:this.rows.id
 				}).then(da => {
 					//console.log(da)
 					if(da = "修改成功"){
@@ -93,7 +90,7 @@
 					}
 				}).catch(() => {
 					
-				}) */
+				})
 			},
 			httprequest(params) {
 				//console.log("params",params)
@@ -135,7 +132,12 @@
 			},
 		},
 		created() {
-			
+			if(this.$route.query.row){
+				this.rows = JSON.parse(this.$route.query.row);
+				this.banner_name = this.rows.banner_name;
+				this.banner_pic = this.rows.banner_pic;
+				this.jump_url = this.rows.jump_url;
+			}
 		}
 	}
 </script>

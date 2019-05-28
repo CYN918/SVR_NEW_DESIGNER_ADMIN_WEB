@@ -54,7 +54,7 @@ const reviewData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"updated_at",
+			id:"update_at",
 			type:"text"
 		}],
 		reviewinfo:{
@@ -79,7 +79,7 @@ const reviewData = {
 				},
 				{
 					name:"提审时间",
-					id:"check_time",
+					id:"create_time",
 					type:"text"
 				},
 				{
@@ -105,7 +105,7 @@ const reviewData = {
 				},
 				{
 					name:"最近更新时间",
-					id:"ads",
+					id:"check_time",
 					type:"text"
 				}
 			],
@@ -216,7 +216,7 @@ const reviewData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"name",
+			id:"check_time",
 			type:"text"
 		}],
 		reviewinfo:{
@@ -241,7 +241,7 @@ const reviewData = {
 				},
 				{
 					name:"提审时间",
-					id:"check_time",
+					id:"create_time",
 					type:"text"
 				},
 				{
@@ -267,7 +267,7 @@ const reviewData = {
 				},
 				{
 					name:"最近更新时间",
-					id:"ads",
+					id:"check_time",
 					type:"text"
 				}
 			],
@@ -371,7 +371,7 @@ const reviewData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"ids",
+			id:"check_time",
 			type:"text"
 		}],
 		reviewinfo:{
@@ -396,7 +396,7 @@ const reviewData = {
 				},
 				{
 					name:"提审时间",
-					id:"check_time",
+					id:"create_time",
 					type:"text"
 				},
 				{
@@ -422,7 +422,7 @@ const reviewData = {
 				},
 				{
 					name:"最近更新时间",
-					id:"ads",
+					id:"check_time",
 					type:"text"
 				}
 			],
@@ -477,7 +477,7 @@ const reviewData = {
 				name:"提交类型",
 				id:"check_type",
 				type:"child",
-				child:{"1":"为初次申请","2":"为驳回复审申请 ","3":"为修改信息申请"}
+				child:{"1":"初次申请","2":"驳回复审申请 ","3":"修改信息申请"}
 			},
 			
 			{
@@ -487,7 +487,7 @@ const reviewData = {
 			},
 			{
 				name:"用户昵称",
-				id:"user_name",
+				id:"username",
 				type:"url"
 			},
 			{
@@ -556,7 +556,7 @@ const reviewData = {
 			},
 			{
 				name:"用户昵称",
-				id:"user_name",
+				id:"username",
 				type:"url"
 			},
 			{
@@ -627,7 +627,7 @@ const reviewData = {
 				},
 				{
 					name:"提审时间",
-					id:"check_time",
+					id:"create_time",
 					type:"text"
 				},
 				{
@@ -653,7 +653,7 @@ const reviewData = {
 				},
 				{
 					name:"最近更新时间",
-					id:"ads",
+					id:"check_time",
 					type:"text"
 				}
 			],

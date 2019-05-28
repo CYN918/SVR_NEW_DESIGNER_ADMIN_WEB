@@ -36,7 +36,7 @@
 		<el-dialog title="本地文件" :visible.sync="showmask">
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="showmaskload">本地文件</button>
-				<button class="defaultbtn" @click="showmaskload">网盘链接</button>
+				<button class="defaultbtn" @click="showmaskload1">网盘链接</button>
 			</span>
 		</el-dialog>
 		<el-dialog title="本地文件" :visible.sync="showmask1">
@@ -57,6 +57,21 @@
 			</div>
 			
 			
+		</el-dialog>
+		<el-dialog title="网盘链接" :visible.sync="showmask2">
+			<div class="dorg textcenter" style="width: 100%;">
+				<div>
+					<span style="line-height: 40px;padding-right: 20px;">文件名称</span>
+					<el-input style="width: 357px" placeholder="请输入文件名称"></el-input>
+				</div>
+				<div style="margin-top: 30px;">
+					<span style="line-height: 40px;padding-right: 20px;">网盘链接</span>
+					<el-input style="width: 357px" placeholder="请输入网盘链接，提取码等"></el-input>
+				</div>
+				<div style="margin-top: 40px;">
+					<button class="defaultbtn defaultbtnactive " @click="showmaskload1">确定</button>
+				</div>
+			</div>
 		</el-dialog>
 	</div>
 </template>
@@ -118,6 +133,7 @@
 				rowdata: "",
 				file_name: "",
 				showmask1: false,
+				showmask2:false
 			}
 		},
 		methods: {
@@ -276,6 +292,10 @@
 					})
 				})
 				this.centerDialogVisible = false;
+			},
+			showmaskload1(){
+				this.showmask = false;
+				this.showmask2 = true;
 			},
 			showmaskload(){
 				this.showmask = false;

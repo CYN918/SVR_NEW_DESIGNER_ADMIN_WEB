@@ -121,8 +121,7 @@
 					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			},
-			delete(val) {
-				this.selectOne = val;
+			delect(val) {
 				//this.centerDialogVisible = true;
 				this.$confirm('确认删除该条发言内容', '确认修改', {
 					confirmButtonText: '确定',
@@ -132,14 +131,11 @@
 					center: true
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
-					 this.api.setRecommendLevelwork({
+					 this.api.activitydelete({
 						activity_id: val.id,
 						access_token: 2,
 					}).then(da => {
-						this.$message({
-							type: 'info',
-							message: '删除成功'
-						});
+						this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 					}) 
 					
 				}).catch(() => {

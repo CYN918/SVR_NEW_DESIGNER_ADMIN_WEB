@@ -100,6 +100,9 @@ export default {
 	activityadd:{
 		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	activityedit:{
+		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	insertFile:{
 		url:'/File/File/insert',method:'post',baseURL:0
 	},
@@ -130,8 +133,14 @@ export default {
 	banneradd:{
 		url:'/admin/banner/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	banneredit:{
+		url:'/admin/banner/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	bannerprogramadd:{
 		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	bannerprogramlist:{
+		url:'/admin/bannerprogram/list',method:'post',baseURL:0
 	},
 	hotwordlist:{
 		url:'/admin/hotword/list',method:'post',baseURL:0
@@ -162,5 +171,9 @@ export default {
 	documentlist:{
 		url:'/admin/document/list',method:'post',baseURL:0
 	},
+	documentdelete:{
+		url:'/admin/document/delete',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 	
 }

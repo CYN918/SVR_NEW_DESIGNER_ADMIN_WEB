@@ -22,50 +22,26 @@
 		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
 			<div style="height: calc(100% - 100px);margin-top: 20px;background-color: white;overflow: auto;">
 				<ul class="screenContent" style="flex-wrap: wrap">
-					<li class="bannerlistg relative">
+					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
 							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">11111</div>
-							<el-carousel height="190px">
+							<el-carousel height="190px" style="background: gray;">
 							  <el-carousel-item v-for="index in 4" :key="index">
 								<h3>{{index}}</h3>
 							  </el-carousel-item>
 							</el-carousel>
 							<div class="fleft w" style="height: calc(100% - 190px);">
-								<div class="fleft">
+								<div class="fleft" style="padding: 20px;">
 									<div class="fontcolorg">
-										<span>ID: </span><span>11111111111111111111</span>
+										<span>ID: </span><span>{{item.id}}</span><span>{{ item.banner_program_name }}</span>
 									</div>
 									<div class="fontcolorg">
-										<span>2222222222</span>
-									</div>
-								</div>
-								<div class="fright">
-									<button class="defaultbtn">22</button>
-									<button class="defaultbtn">22</button>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="bannerlistg relative">
-						<div class="wh">
-							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">11111</div>
-							<el-carousel height="190px">
-							  <el-carousel-item v-for="index in 4" :key="index">
-								<h3>{{index}}</h3>
-							  </el-carousel-item>
-							</el-carousel>
-							<div class="fleft w" style="height: calc(100% - 190px);">
-								<div class="fleft">
-									<div class="fontcolorg">
-										<span>ID: </span><span>11111111111111111111</span>
-									</div>
-									<div class="fontcolorg">
-										<span>2222222222</span>
+										<span>{{ item.program_begin_time + " 至 " + item.program_end_time}}  </span>
 									</div>
 								</div>
-								<div class="fright">
-									<button class="defaultbtn">22</button>
-									<button class="defaultbtn">22</button>
+								<div class="fright" style="padding: 20px;margin: 0;">
+									<button class="defaultbtn">默认展示</button>
+									<button class="defaultbtn">更多操作</button>
 								</div>
 							</div>
 						</div>
@@ -74,10 +50,10 @@
 			</div>
 			<div style="text-align: right;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{totalc}}条数据</span>
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
 				</div>
-				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpagec"
-				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesizec" layout="sizes, prev, pager, next, jumper" :total="totalc">
+				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpagec"
+				 :page-sizes="[10, 20, 30, 40]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
 			
@@ -150,9 +126,7 @@
 				filterFields:DataScreen.screen.homeBanner.filterFields0,
 				centerDialogVisible:false,
 				showmask:false,
-				totalc: 0,
-				currentpagec:1,
-				pagesizec:10,
+				bannerprogramlists:[],
 			}
 		},
 		methods: {
@@ -171,7 +145,7 @@
 						id: "right0",
 					}];
 				}
-				this.$parent.tabchange(num+1)
+				this.$parent.tabchange(num+1);
 			},
 			setLoding(type){
 				//alert(2);
@@ -179,34 +153,61 @@
 			},
 			getData(pg) {
 				//获取子组件表格数据
-				var data = {
-					access_token: 2,
-					page: pg.pageCurrent,
-					limit: pg.pageSize
-				}
-				//获取筛选的条件
-				if (this.$route.query.urlDate) {
-					const sreenData = JSON.parse(this.$route.query.urlDate);
-					//console.log(sreenData)
-					sreenData.page = pg.pageCurrent;
-					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
-					data = sreenData;
-				}
-			
-				this.api.bannerlist(data).then((da) => {
-					//console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
+				if(this.tabsnum == 0){
+					var data = {
+						access_token: 2,
+						page: pg.pageCurrent,
+						limit: pg.pageSize
 					}
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-					this.setLoding(false);
-				}).catch(() => {
-					this.setLoding(false);
-				});
+					//获取筛选的条件
+					if (this.$route.query.urlDate) {
+						const sreenData = JSON.parse(this.$route.query.urlDate);
+						//console.log(sreenData)
+						sreenData.page = pg.pageCurrent;
+						sreenData.limit = pg.pageSize;
+						sreenData.access_token = 2;
+						data = sreenData;
+					}
+								
+					this.api.bannerlist(data).then((da) => {
+						//console.log(da.data)
+						if (!da) {
+							this.$message('数据为空');
+						}
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+						this.setLoding(false);
+					}).catch(() => {
+						this.setLoding(false);
+					});
+				} else {
+					var data = {
+						access_token: 2,
+						page: pg.pageCurrent,
+						limit: pg.pageSize
+					}
+					//获取筛选的条件
+					if (this.$route.query.urlDate) {
+						const sreenData = JSON.parse(this.$route.query.urlDate);
+						//console.log(sreenData)
+						sreenData.page = pg.pageCurrent;
+						sreenData.limit = pg.pageSize;
+						sreenData.access_token = 2;
+						data = sreenData;
+					}
+								
+					this.api.bannerprogramlist(data).then((da) => {
+						this.bannerprogramlists = da.data;
+						if (!da) {
+							this.$message('数据为空');
+						}
+						
+					}).catch(() => {
+					});
+				}
+				
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
@@ -316,13 +317,13 @@
 				});
 			},
 			handleSizeChange(val) {
-				//this.pagesize = val;
+				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			},
 			handleCurrentChange(val) {
-				//this.currentpage = val;
+				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			},
 			handleSelectionChange(val) {
-				//this.selected = val.length
+				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			},
 		},
 		created() {
@@ -354,7 +355,7 @@
 		width:750px;
 		height:270px;
 		border-radius:5px;
-		background-color: red;
+		border: 1px solid #E6E6E6;
 		margin-top: 20px;
 	}
 	

@@ -57,23 +57,23 @@
 						</el-date-picker>
 					</div>
 				</li>
-				<li class="margint23 ofh">
+				<!-- <li class="margint23 ofh">
 					<span class="fleft detailKey">活动类型</span>
 					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
+						
 						<el-radio label="1">普通活动</el-radio>
 						<el-radio label="2">征集活动</el-radio>
 					</el-radio-group>
-				</li>
+				</li> -->
 				<li class="margint23 ofh">
 					<span class="fleft detailKey">作品上传和展示</span>
 					<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
+						<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
 						<el-radio label="1">不支持上传</el-radio>
 						<el-radio label="2">支持上传，不支持展示作品</el-radio>
 						<el-radio label="3">支持上传，仅展示入围作品</el-radio>
-						<el-radio v-if="form['type'] != 1"  label="4">支持上传，并展示入围作品及录用作品</el-radio>
+						<div class="fontcolorg font12" style="line-height: 20px">征集活动</div>
+						<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
 					</el-radio-group>
 				</li>
 				<li class="margint23 ofh">
@@ -86,11 +86,9 @@
 						<el-radio label="1">提供</el-radio>
 					</el-radio-group>
 				</li>
-				<li class="margint23 ofh">
+				<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
 					<span class="fleft detailKey" style="line-height: 40px;">模板文件</span>
-					<el-upload action="http://139.129.221.123/File/File/insert" :http-request="filechange" :show-file-list="false">
-						<button class="defaultbtn" style="margin-left: 0;">模板上传</button>
-					</el-upload>
+					<div><button class="defaultbtn" style="margin-left: 0;">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
 					<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
 				</li>
 				<li class="margint13 ofh">
@@ -102,7 +100,7 @@
 						</el-radio-group>
 					</div>
 				</li>
-				<li class="margint23 ofh">
+				<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
 					<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
 					<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
 				</li>
@@ -135,9 +133,12 @@
 			</div>
 		</div>
 		<div class="screenContent detailbtn">
-			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="createdactivity">创建</button>
+			<button class="defaultbtn" @click="getparent()">返回</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow && rows" @click="edit()">确定</button>
+			
 		</div>
 	</div>
 </template>
@@ -151,8 +152,7 @@
 				detailData: '',
 				input10: '',
 				radio2: "1",
-				id: this.$route.query.id,
-				num: this.$route.query.num,
+				rows:  JSON.parse(this.$route.query.row),
 				filename:"",
 				form: {
 					is_provide_template: "0",
@@ -187,9 +187,7 @@
 		},
 		methods: {
 			getparent() {
-				this.router.push({
-					path: "/activityManager/activityClass"
-				})
+				this.$router.go(-1);
 			},
 			getValue(val) {
 				if (val) {
@@ -211,13 +209,9 @@
 				})
 			},
 			edit() {
-				const id = this.$route.query.open_id;
-				this.api.categoryEdit({
-					access_token: 2,
-					category_name: this.input10,
-					status: this.radio2,
-					id: this.id
-				}).then(da => {
+				this.form.access_token = 2;
+				this.form.activity_id = this.rows.id;
+				this.api.activityedit(this.form).then(da => {
 					console.log(da)
 				}).catch(() => {
 
@@ -390,6 +384,12 @@
 						this.$message('数据为空');
 					}
 					this.tableData = da.data;
+					console.log(da.data)
+					da.data.forEach(item =>{
+						if(this.rows.category_name == item.category_name){
+							this.form.category_id = item.id
+						}
+					})
 
 				}).catch(() => {
 
@@ -478,6 +478,22 @@
 		},
 		created() {
 			this.getData();
+			if(this.rows){
+				/* this.form['activity_name'] = this.rows.activity_name;
+				this.form['remark'] = this.rows.remark;
+				this.form['banner'] = this.rows.banner;
+				this.form['category_id'] = this.rows.activity_name;
+				this.form['start_time'] = this.rows.activity_name;
+				this.form['end_time'] = this.rows.activity_name;
+				this.form['setting_type'] = this.rows.activity_name;
+				this.form['is_provide_template'] = this.rows.activity_name;
+				this.form['is_related_needs'] = this.rows.activity_name;
+				this.form.info = this.rows.activity_name;
+				this.form.related_needs_id = this.rows.activity_name;
+				this.form.template_file_id = this.rows.activity_name; */
+				this.form = this.rows
+				console.log(this.form);
+			}
 		}
 	}
 </script>

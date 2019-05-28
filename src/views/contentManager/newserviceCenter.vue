@@ -71,8 +71,9 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn"  @click="getparent">返回</button>
 			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="createdactivity">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
+			<button class="defaultbtn defaultbtnactive" v-if="rows" @click="nxet()">确 定</button>
 		</div>
 	</div>
 </template>
@@ -120,6 +121,7 @@
 					{name:"帮助中心",id:"4"},
 				],
 				ifBjType:0,
+				rows : {},
 			}
 		},
 		components: {
@@ -366,7 +368,13 @@
 			}
 		},
 		created() {
-			
+			if(this.$route.query.row){
+				this.rows = JSON.parse(this.$route.query.row);
+				this.form['remark'] = this.rows.remark;
+				this.form['type'] = this.rows.type;
+				this.form['is'] = 1;
+				this.form['content'] = this.rows.content
+			}
 		}
 	}
 </script>
