@@ -24,23 +24,23 @@
 				<ul class="screenContent" style="flex-wrap: wrap">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
-							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">11111</div>
+							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">zhanshi</div>
 							<el-carousel height="190px" style="background: gray;">
-							  <el-carousel-item v-for="index in 4" :key="index">
-								<h3>{{index}}</h3>
+							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
+								<img :src="citem.banner_pic" width="100%" height="100%" alt="">
 							  </el-carousel-item>
 							</el-carousel>
 							<div class="fleft w" style="height: calc(100% - 190px);">
 								<div class="fleft" style="padding: 20px;">
 									<div class="fontcolorg">
-										<span>ID: </span><span>{{item.id}}</span><span>{{ item.banner_program_name }}</span>
+										<span>ID: </span><span>{{ item.id }}</span><span style="padding-left: 20px;">{{ item.banner_program_name }}</span>
 									</div>
 									<div class="fontcolorg">
-										<span>{{ item.program_begin_time + " 至 " + item.program_end_time}}  </span>
+										<span>展示时间段: </span><span>{{ item.program_begin_time + " 至 " + item.program_end_time}}  </span>
 									</div>
 								</div>
 								<div class="fright" style="padding: 20px;margin: 0;">
-									<button class="defaultbtn">默认展示</button>
+									<button class="defaultbtn" @click="isdefault(item.id)">默认展示</button>
 									<button class="defaultbtn">更多操作</button>
 								</div>
 							</div>

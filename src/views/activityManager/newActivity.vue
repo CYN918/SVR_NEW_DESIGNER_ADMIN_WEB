@@ -152,7 +152,7 @@
 				detailData: '',
 				input10: '',
 				radio2: "1",
-				rows:  JSON.parse(this.$route.query.row),
+				rows: "",
 				filename:"",
 				form: {
 					is_provide_template: "0",
@@ -478,7 +478,8 @@
 		},
 		created() {
 			this.getData();
-			if(this.rows){
+			if(this.$route.query.row){
+				this.rows = JSON.parse(this.$route.query.row);
 				/* this.form['activity_name'] = this.rows.activity_name;
 				this.form['remark'] = this.rows.remark;
 				this.form['banner'] = this.rows.banner;

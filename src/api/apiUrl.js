@@ -174,6 +174,19 @@ export default {
 	documentdelete:{
 		url:'/admin/document/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	orderlist:{
+		url:'/admin/order/list',method:'post',baseURL:0
+	},
+	orderinfo:{
+		url:'/admin/order/info',method:'post',baseURL:0
+	},
+	orderprofit:{
+		url:'/admin/order/profit',method:'post',baseURL:0
+	},
+	Workmaterial:{
+		url:'/admin/Work/material',method:'post',baseURL:0
+	},
+	
 	
 	
 }

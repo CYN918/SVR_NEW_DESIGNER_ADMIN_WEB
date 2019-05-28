@@ -7,7 +7,7 @@
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.name)">
+					 @click="tabsChange(index,item.id)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
@@ -22,7 +22,7 @@
 			</div>
 			
 		</div>
-		<div class="detailContent1 ofh" style="height: calc(100% - 328px);">
+		<div class="detailContent1 ofh" style="height: calc(100% - 328px);" v-loading="setLoding">
 			<div class="paddinglr40 ofh" v-if="tabsnum == 0">
 				<el-checkbox-group v-model="checkList">
 					<div>
@@ -53,35 +53,17 @@
 			</div>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<el-checkbox-group v-model="checkList">
-					<div>
-						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
-							
-						</ul>
-					</div>
-					<!-- <div v-if="material_list['图片']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['图片']" :key="item.url">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.url" v-if="workselect"></el-checkbox>
-								</div>
-								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size }}</span>
-								</div>
-							</li>
-						</ul>
-					</div> -->
+					<ul class="materiallist">
+						<li v-for="(item,index) in materialdata" :key="item.url">
+							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}">
+								<el-checkbox class="material-checkbox" :label="item.url" v-if="workselect"></el-checkbox>
+							</div>
+							<div class="color66">
+								<span class="fleft">{{ item.file_name }}</span>
+								<span class="fright">{{ item.file_size }}</span>
+							</div>
+						</li>
+					</ul>
 				</el-checkbox-group>
 			</div>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 2">
@@ -147,20 +129,22 @@
 		data() {
 			return {
 				tabData: [{
-						name: "附件"
+						name: "附件",
+						id:"zip"
 					},
 					{
-						name: "图片"
+						name: "图片",
+						id:"image"
 					},
 					{
-						name: "视频"
+						name: "视频",
+						id:"video"
 					},
 					{
-						name: "音频"
+						name: "音频",
+						id:"audio"
 					}],
 				tabsnum: 0,
-				baseInfo:workData.workInfo,
-				employInfo:workData.employInfo,
 				detailbtn:true,
 				workselect:false,
 				checkList: [],
@@ -181,10 +165,12 @@
 					"IsShow":true
 				},
 				pagesize:10,
-				total:122,
+				total:0,
 				currentpage:1,
 				selected:0,
-				
+				file_type:"zip",
+				setLoding:true,
+				materialdata:"",
 			}
 		},
 		methods: {
@@ -203,10 +189,47 @@
 				}
 			},
 			
-			tabsChange(num) {
+			getData(currentpage,pagesize) {
+				//获取子组件表格数据
+				var data = {
+					access_token: 2,
+					page: currentpage,
+					limit: pagesize,
+					file_type:this.file_type
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = currentpage;
+					sreenData.limit = pagesize;
+					sreenData.file_type = this.file_type;
+					sreenData.access_token = 2;
+					data = sreenData;
+				}
+			
+				this.api.Workmaterial(data).then((da) => {
+					if (!da) {
+						this.$message('数据为空');
+					}
+					this.materialdata = da.data
+					this.total = da.total;
+					this.currentpage = da.currentpage;
+					this.pagesize = da.pagesize;
+					this.setLoding = false;
+				}).catch(() => {
+					this.setLoding = false;
+				});
+			
+				/* this.setLoding(false); */
+			},
+			tabsChange(num,id) {
 				this.tabsnum = num;
 				this.detailbtn=true;
 				this.workselect=false;
+				this.file_type = id;
+				this.getData(this.currentpage,this.pagesize)
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
@@ -217,26 +240,11 @@
 				this.detailbtn = false;
 				this.workselect = true;
 			},
-			getworkdetial(){
-				/* this.api.workInfo({
-					work_id:this.$route.query.id,
-					access_token:2
-				}).then(da => {
-					console.log(da)
-					this.work_info = da.work_info;
-					this.material_list = da.material_list;
-					this.hire_info = da.hire_info;
-				}).catch(da =>{
-					
-				}) */
-			},
 			handleSizeChange(val) {
-				/* this.pagesize = val;
-				this.getTabData(); */
+				this.getData(this.currentpage,val)
 			},
 			handleCurrentChange(val) {
-				/* this.currentpage = val;
-				this.getTabData(); */
+				this.getData(val,this.pagesize)
 			},
 			handleSelectionChange(val) {
 				/* this.selected = val.length
@@ -244,7 +252,7 @@
 			},
 		},
 		created() {
-			this.getworkdetial();
+			this.getData(this.currentpage,this.pagesize);
 		},
 		mounted() {
 			

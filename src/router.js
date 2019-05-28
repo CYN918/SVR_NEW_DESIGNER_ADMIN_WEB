@@ -424,6 +424,41 @@ export default new Router({
 					component: () => import('@/views/contentManager/newserviceCenter.vue'),
 				},
 			]
+		},
+		{
+			path:"/employmentManager",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/employmentManager/employmentorder",
+			meta: {
+				title: "录用管理"
+			},
+			children:[
+				{
+					path: "employmentorder",
+					name: 'employmentorder',
+					meta: {
+						title: "录用订单"
+					},
+					component: () => import('@/views/employmentManager/employmentorder.vue'),
+				},
+				{
+					path: "employmentorder/orderDetial",
+					name: 'orderDetial',
+					meta: {
+						title: "录用订单 / 查看详情"
+					},
+					component: () => import('@/views/employmentManager/orderDetial.vue'),
+				},
+				{
+					path: "channel",
+					name: 'channel',
+					meta: {
+						title: "分成渠道表"
+					},
+					component: () => import('@/views/employmentManager/channel.vue'),
+				},
+			],
 		}
 	]
 })

@@ -142,9 +142,7 @@
 		methods: {
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				this.router.push({
-					path: "/workManager/workInfo"
-				})
+				this.$router.go(-1);
 
 			},
 			getValue(val) {

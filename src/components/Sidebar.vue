@@ -70,7 +70,18 @@
 					<el-menu-item index="10-5">文档服务中心</el-menu-item>
 				</router-link>
 			</el-submenu>
-			
+			<el-submenu index="11">
+				<template slot="title">
+					<i class="iconfont">&#xe62b;</i>
+					<span style="padding:15px;">录用管理</span>
+				</template>
+				<router-link to="/employmentManager/employmentorder">
+					<el-menu-item index="11-1" class="">录用订单</el-menu-item>
+				</router-link>
+				<router-link to="/employmentManager/channel">
+					<el-menu-item index="11-2">分成渠道表</el-menu-item>
+				</router-link>
+			</el-submenu>
 			<!-- <el-submenu index="1">
 				<template slot="title">
 					<i class="iconfont">&#xe602;</i>

@@ -314,6 +314,32 @@ const screenData = {
 				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
 			]
 		},
+		employmentorder:{
+			filterFields:[
+				{name:"录用订单ID",id:"id"},
+				{name:"订单名称",id:"hire_order_name"},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name",},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户名称",id:"username",type:"time"},
+				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"},{name:"分成式",id:"2"}]},
+				{name:"录用时间（开始）",id:"hire_time_start",type:"time"},
+				{name:"录用时间（开始）",id:"hire_time_end",type:"time"},
+				{name:"录用审核人",id:"check_admin"},
+			]
+		},
+		channel:{
+			filterFields:[
+				{name:"录用订单ID",id:"id"},
+				{name:"录用订单名称",id:"hire_order_name"},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品名称",id:"work_name",},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户名称",id:"username",type:"time"},
+				{name:"结算日期（开始）",id:"start_date",type:"time"},
+				{name:"结算日期（开始）",id:"start_date",type:"time"},
+			]
+		},
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
@@ -958,6 +984,61 @@ const screenData = {
 				links:{
 					name:"编辑",
 					Ishow:true
+				},
+			}
+		},
+		employmentorder:{
+			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type','status',"username","hire_time"],
+			bts:[
+				{lable:"录用订单ID",prop:"order_id"},
+				{lable:"订单名称",prop:"hire_order_name",type:"url"},
+				{lable:"作品ID",prop:"work_id"},
+				{lable:"作品名称",prop:"work_name"},
+				{lable:"用户ID",prop:"open_id"},
+				{lable:"录用时间",prop:"hire_time"},
+				{lable:"用户昵称",prop:"username",type:"url"},
+				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}},
+				{lable:"状态",prop:"status",type:"status",child:{"1":"待结算","0":"已结算"}},
+			],
+			action:{
+				morebtns:{
+					name:"预览",
+					Ishow:true,
+					page:"employmentorder",
+				},
+				links:{
+					name:"详情",
+					Ishow:true
+				},
+			}
+		},
+		channel:{
+			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type','status',"username","hire_time"],
+			bts:[
+				{lable:"分成渠道ID",prop:"ids"},
+				{lable:"录用订单ID",prop:"order_id"},
+				{lable:"作品ID",prop:"work_id"},
+				{lable:"用户ID",prop:"open_id"},
+				{lable:"子渠道ID",prop:"ids"},
+				{lable:"广告位ID",prop:"ids"},
+				{lable:"广告位名称",prop:"ids"},
+				{lable:"投放渠道",prop:"ids"},
+				{lable:"分成指标",prop:"ids"},
+				{lable:"分成单价",prop:"ids"},
+				{lable:"展示量",prop:"ids"},
+				{lable:"结算收益",prop:"ids"},
+				{lable:"当前状态",prop:"ids",type:"status",child:{"1":"待结算","0":"已结算"}},
+				{lable:"最近更新时间",prop:"ids"},
+			],
+			action:{
+				morebtns:{
+					name:"预览",
+					Ishow:false,
+					page:"employmentorder",
+				},
+				links:{
+					name:"详情",
+					Ishow:false
 				},
 			}
 		}

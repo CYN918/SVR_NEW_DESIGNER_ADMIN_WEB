@@ -232,14 +232,20 @@
 						if(setid == "contributor1"){
 							this.$parent.delect(row);
 						}
-						
-						
 					break;
 					case "recommendedActivities":
 						if(!setid){
 							this.router.push({path:"/contentManager/recommendedActivities/newrecommendedActivities", query:{row: JSON.stringify(row)}})
 						}
 						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
+					case "employmentorder":
+						if(!setid){
+							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id}})
+						}
 						if(setid == "contributor"){
 							this.$parent.delect(row);
 						}

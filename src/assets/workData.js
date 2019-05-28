@@ -173,6 +173,59 @@ const workData = {
 				id:"ids",
 				type:"url"
 			},
+		],
+		orderDetial:[
+			{
+				name:"录用订单ID",
+				id:"order_id",
+				type:"text"
+			},
+			{
+				name:"录用订单名称",
+				id:"hire_order_name",
+				type:"text"
+			},
+			{
+				name:"作品ID",
+				id:"work_id",
+				type:"text"
+			},
+			{
+				name:"作品名称",
+				id:"work_name",
+				type:"text"
+			},
+			{
+				name:"用户ID",
+				id:"open_id",
+				type:"text"
+			},
+			{
+				name:"用户昵称",
+				id:"username",
+				type:"url"
+			},
+			{
+				name:"录用方式",
+				id:"hire_type",
+				type:"keyvalue",
+				child:{"1":"买断式","2":"分成式"}
+			},
+			{
+				name:"录用时间",
+				id:"check_time",
+				type:"text"
+			},
+			{
+				name:"录用审核人",
+				id:"check_admin",
+				type:"text"
+			},
+			{
+				name:"订单状态",
+				id:"ads",
+				type:"text"
+			}
 		]
 			
 }
