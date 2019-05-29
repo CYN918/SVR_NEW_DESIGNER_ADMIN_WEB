@@ -256,7 +256,7 @@ const screenData = {
 				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
 				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
 			],
-			filterFields2:[
+			filterFields1:[
 				{name:"模板文件ID",id:"work_id"},
 				{name:"文件名称",id:"work_name"},
 				{name:"文件格式",id:"activity_id"},
@@ -337,9 +337,71 @@ const screenData = {
 				{name:"用户ID",id:"open_id"},
 				{name:"用户名称",id:"username",type:"time"},
 				{name:"结算日期（开始）",id:"start_date",type:"time"},
-				{name:"结算日期（开始）",id:"start_date",type:"time"},
+				{name:"结算日期（结束）",id:"end_date",type:"time"},
 			]
 		},
+		embodyRecord:{
+			filterFields:[
+				{name:"提现单ID",id:"id"},
+				{name:"提现用户ID",id:"hire_order_name"},
+				{name:"提现用户昵称",id:"work_id"},
+				{name:"提现金额",id:"work_name",},
+				{name:"账号主体",id:"open_id"},
+				{name:"状态",id:"username"},
+				{name:"审核时间（开始）",id:"start_date",type:"time"},
+				{name:"审核时间（结束）",id:"start_date",type:"time"},
+				{name:"处理时间（开始）",id:"start_date",type:"time"},
+				{name:"处理时间（结束）",id:"start_date",type:"time"},
+			]
+		},
+		presetReason:{
+			filterFields:[
+				{name:"驳回理由预设ID",id:"id"},
+				{name:"审核类型",id:"work_id"},
+				{name:"驳回理由",id:"work_name",},
+				{name:"状态",id:"username"},
+				{name:"创建时间（开始）",id:"ids",type:"time"},
+				{name:"创建时间（结束）",id:"ids1",type:"time"},
+			]
+		},
+		feedback:{
+			filterFields0:[
+				{name:"意见反馈ID",id:"feedback_id"},
+				{name:"",id:"username"},
+				{name:"驳回理由",id:"classify_id",child:[{name:"功能问题",id:"1"},{name:"设计问题",id:"2"},{name:"作品问题",id:"3"},{name:"未知问题",id:"4"},{name:"其他",id:"5"}]},
+				{name:"联系方式",id:"link"},
+				{name:"反馈时间（开始）",id:"create_time_start",type:"time"},
+				{name:"反馈时间（结束）",id:"create_time_end",type:"time"},
+			],
+			filterFields1:[
+				/* {name:"驳回理由预设ID",id:"id"},
+				{name:"审核类型",id:"work_id"},
+				{name:"驳回理由",id:"work_name",},
+				{name:"状态",id:"username"},
+				{name:"创建时间（开始）",id:"ids",type:"time"},
+				{name:"创建时间（结束）",id:"ids1",type:"time"}, */
+				{}
+			]
+		},
+		reportInfo:{
+			filterFields0:[
+				{name:"意见反馈ID",id:"feedback_id"},
+				{name:"",id:"username"},
+				{name:"驳回理由",id:"classify_id",child:[{name:"功能问题",id:"1"},{name:"设计问题",id:"2"},{name:"作品问题",id:"3"},{name:"未知问题",id:"4"},{name:"其他",id:"5"}]},
+				{name:"联系方式",id:"link"},
+				{name:"反馈时间（开始）",id:"create_time_start",type:"time"},
+				{name:"反馈时间（结束）",id:"create_time_end",type:"time"},
+			],
+			filterFields1:[
+				/* {name:"驳回理由预设ID",id:"id"},
+				{name:"审核类型",id:"work_id"},
+				{name:"驳回理由",id:"work_name",},
+				{name:"状态",id:"username"},
+				{name:"创建时间（开始）",id:"ids",type:"time"},
+				{name:"创建时间（结束）",id:"ids1",type:"time"}, */
+				{}
+			]
+		}
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
@@ -1041,7 +1103,143 @@ const screenData = {
 					Ishow:false
 				},
 			}
-		}
+		},
+		embodyRecord:{
+			bts:[
+				{lable:"提现ID",prop:"ids"},
+				{lable:"提现用户ID",prop:"order_id"},
+				{lable:"提现用户昵称",prop:"ids"},
+				{lable:"提现金额",prop:"ids"},
+				{lable:"账号主体",prop:"ids",type:"keyvalue",child:{"1":"待结算","0":"已结算"}},
+				{lable:"状态",prop:"ids"},
+				{lable:"申请时间",prop:"ids"},
+				{lable:"处理时间",prop:"ids"},
+				{lable:"当前状态",prop:"ids",type:"status",},
+				{lable:"最近更新时间",prop:"ids"}
+			],
+			action:{
+				morebtns:{
+					name:"预览",
+					Ishow:false,
+					page:"embodyRecord",
+				},
+				links:{
+					name:"查看",
+					Ishow:true
+				},
+			}
+		},
+		presetReason:{
+			bts:[
+				{lable:"驳回理由预设ID",prop:"id"},
+				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请"}},
+				{lable:"驳回理由",prop:"content"},
+				{lable:"状态",prop:"status",type:"status",child:{"0":"停用","1":"启用","-1":"已删除"}},
+				{lable:"该理由驳回数",prop:"reject_num"},
+				{lable:"创建时间",prop:"created_at"}
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:true,
+					page:"presetReason",
+				},
+				links:{
+					name:"停用",
+					Ishow:true,
+					child:{"1":"启用","0":"停用"}
+				},
+			}
+		},
+		feedback:{
+			bts0:[
+				{lable:"反馈单ID",prop:"feedback_id"},
+				{lable:"用户ID",prop:"open_id"},
+				{lable:"分类ID",prop:"classify_id"},
+				{lable:"用户昵称",prop:"file_type"},
+				{lable:"截图",prop:"pic",type:"img"},
+				{lable:"问题类型",prop:"classify_name"},
+				{lable:"问题描述",prop:"detail"},
+				{lable:"联系方式类型",prop:"link_type"},
+				{lable:"联系方式",prop:"link"},
+				{lable:"提交时间",prop:"create_time"},
+				
+			],
+			bts1:[
+				{lable:"问题类型ID",prop:"id"},
+				{lable:"类型名称",prop:"classify_name"},
+				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"}},
+				{lable:"该类型反馈数",prop:"used_num"},
+				{lable:"创建时间",prop:"created_at"},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"feedback",
+					child:[
+						{
+							name:"修改文件名"
+						},
+						{
+							name:"下载"
+						},
+						{
+							name:"删除"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:false
+				},
+			}
+		},
+		reportInfo:{
+			bts0:[
+				{lable:"反馈单ID",prop:"feedback_id"},
+				{lable:"用户ID",prop:"open_id"},
+				{lable:"分类ID",prop:"classify_id"},
+				{lable:"用户昵称",prop:"file_type"},
+				{lable:"截图",prop:"pic",type:"img"},
+				{lable:"问题类型",prop:"classify_name"},
+				{lable:"问题描述",prop:"detail"},
+				{lable:"联系方式类型",prop:"link_type"},
+				{lable:"联系方式",prop:"link"},
+				{lable:"提交时间",prop:"create_time"},
+				
+			],
+			bts1:[
+				{lable:"问题类型ID",prop:"id"},
+				{lable:"类型名称",prop:"classify_name"},
+				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"}},
+				{lable:"该类型反馈数",prop:"used_num"},
+				{lable:"创建时间",prop:"created_at"},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"reportInfo",
+					child:[
+						{
+							name:"修改文件名"
+						},
+						{
+							name:"下载"
+						},
+						{
+							name:"删除"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:false
+				},
+			}
+		},
+		
 	}
 }
 

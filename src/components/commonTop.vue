@@ -143,6 +143,13 @@
 						    })
 						};
 					break;
+					case "presetReason":
+						if(idIndex == "right3"){
+						    this.router.push({
+						    	path:"/otherInformation/presetReason/revisePresetReason"
+						    })
+						};
+					break;
 						
 				}
 				const shownum = {

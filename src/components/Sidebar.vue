@@ -82,6 +82,24 @@
 					<el-menu-item index="11-2">分成渠道表</el-menu-item>
 				</router-link>
 			</el-submenu>
+			<el-submenu index="12">
+				<template slot="title">
+					<i class="el-icon-setting" style="margin-right: 0;width: auto;"></i>
+					<span style="padding:15px;">其他信息及设置</span>
+				</template>
+				<router-link to="/otherInformation/embodyRecord">
+					<el-menu-item index="12-1" class="">体现记录表</el-menu-item>
+				</router-link>
+				<router-link to="/otherInformation/presetReason">
+					<el-menu-item index="12-2">审核驳回理由预设</el-menu-item>
+				</router-link>
+				<router-link to="/otherInformation/feedback">
+					<el-menu-item index="12-3">意见反馈</el-menu-item>
+				</router-link>
+				<router-link to="/otherInformation/reportInfo">
+					<el-menu-item index="12-4">举报信息</el-menu-item>
+				</router-link>
+			</el-submenu>
 			<!-- <el-submenu index="1">
 				<template slot="title">
 					<i class="iconfont">&#xe602;</i>

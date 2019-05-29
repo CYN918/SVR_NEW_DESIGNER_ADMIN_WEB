@@ -376,6 +376,14 @@ export default new Router({
 					component: () => import('@/views/contentManager/addbannerScheme.vue'),
 				},
 				{
+					path: "homeBanner/seebannerScheme",
+					name: 'seebannerScheme',
+					meta: {
+						title: "首页banner / 查看banner方案"
+					},
+					component: () => import('@/views/contentManager/seebannerScheme.vue'),
+				},
+				{
 					path: "hotWordSearch",
 					name: 'hotWordSearch',
 					meta: {
@@ -457,6 +465,57 @@ export default new Router({
 						title: "分成渠道表"
 					},
 					component: () => import('@/views/employmentManager/channel.vue'),
+				},
+			],
+		},
+		{
+			path:"/otherInformation",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/otherInformation/embodyRecord",
+			meta: {
+				title: "录用管理"
+			},
+			children:[
+				{
+					path: "embodyRecord",
+					name: 'embodyRecord',
+					meta: {
+						title: "提现记录表"
+					},
+					component: () => import('@/views/otherInformation/embodyRecord.vue'),
+				},
+				{
+					path: "presetReason",
+					name: 'presetReason',
+					meta: {
+						title: "审核驳回理由预设"
+					},
+					component: () => import('@/views/otherInformation/presetReason.vue'),
+				},
+				{
+					path: "presetReason/revisePresetReason",
+					name: 'revisePresetReason',
+					meta: {
+						title: "审核驳回理由预设 / 新建驳回理由"
+					},
+					component: () => import('@/views/otherInformation/revisePresetReason.vue'),
+				},
+				{
+					path: "feedback",
+					name: 'feedback',
+					meta: {
+						title: "意见反馈"
+					},
+					component: () => import('@/views/otherInformation/feedback.vue'),
+				},
+				{
+					path: "reportInfo",
+					name: 'reportInfo',
+					meta: {
+						title: "意见反馈"
+					},
+					component: () => import('@/views/otherInformation/reportInfo.vue'),
 				},
 			],
 		}

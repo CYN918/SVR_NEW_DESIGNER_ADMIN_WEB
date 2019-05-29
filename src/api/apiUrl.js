@@ -142,6 +142,15 @@ export default {
 	bannerprogramlist:{
 		url:'/admin/bannerprogram/list',method:'post',baseURL:0
 	},
+	bannerprogramedit:{
+		url:'/admin/bannerprogram/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	bannerprogramdelete:{
+		url:'/admin/bannerprogram/delete',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	bannerprograminfo:{
+		url:'/admin/bannerprogram/info',method:'post',baseURL:0
+	},
 	hotwordlist:{
 		url:'/admin/hotword/list',method:'post',baseURL:0
 	},
@@ -186,7 +195,20 @@ export default {
 	Workmaterial:{
 		url:'/admin/Work/material',method:'post',baseURL:0
 	},
-	
-	
+	reviewaddReason:{
+		url:'/admin/review/addReason',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	reviewreason:{
+		url:'/admin/review/reason',method:'post',baseURL:0
+	},
+	reviewupdateReason:{
+		url:'/admin/review/updateReason',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	feedbacklist:{
+		url:'/admin/feedback/list',method:'post',baseURL:0
+	},
+	feedbackclassify:{
+		url:'/admin/feedback/classify',method:'post',baseURL:0
+	},
 	
 }

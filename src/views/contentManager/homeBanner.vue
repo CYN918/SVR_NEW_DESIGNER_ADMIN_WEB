@@ -41,7 +41,14 @@
 								</div>
 								<div class="fright" style="padding: 20px;margin: 0;">
 									<button class="defaultbtn" @click="isdefault(item.id)">默认展示</button>
-									<button class="defaultbtn">更多操作</button>
+									<el-dropdown :hide-on-click="false">
+									  <button class="defaultbtn">更多操作</button>
+									  <el-dropdown-menu slot="dropdown">
+										<el-dropdown-item @click.native="delectprogram(item.id)">删除</el-dropdown-item>
+										<el-dropdown-item>编辑</el-dropdown-item>
+										<el-dropdown-item @click.native="seeprogram(item.id)">查看</el-dropdown-item>
+									  </el-dropdown-menu>
+									</el-dropdown>
 								</div>
 							</div>
 						</div>
@@ -325,6 +332,53 @@
 			handleSelectionChange(val) {
 				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			},
+			isdefault(id){
+				this.api.bannerprogramedit({
+					access_token:2,
+					is_default:1,
+					id:id
+				}).then(da =>{
+					
+				}).catch(da =>{
+					
+				})
+			},
+			seeprogram(id){
+				this.router.push({
+					path:"/contentManager/homeBanner/seebannerScheme",
+					query:{
+						id:id
+					}
+				})
+			},
+			delectprogram(id){
+				this.$confirm('确认删除该banner方案？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.bannerprogramdelete({
+						access_token:2,
+						id:id
+					}).then(da =>{
+						this.getData({
+							pageCurrent: this.tableConfig.currentpage,
+							pageSize: this.tableConfig.pagesize
+						});
+					}).catch(da =>{
+						
+					})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
+			}
 		},
 		created() {
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});

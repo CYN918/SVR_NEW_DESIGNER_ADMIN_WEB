@@ -21,7 +21,7 @@
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<div v-if="!tableAction.pagefilterField">
-							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
+							<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 12px;" v-if="tableAction.links.Ishow">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
 							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
 							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child">
 								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
@@ -69,7 +69,7 @@
 			}
 		},
 		methods: {
-			handleClick(row, setid, page) {
+			handleClick(row, setid, page,event) {
 				console.log(page,setid)
 				//return;
 				switch(page){
@@ -248,6 +248,52 @@
 						}
 						if(setid == "contributor"){
 							this.$parent.delect(row);
+						}
+					break;
+					case "presetReason":
+						if(!setid){
+							if(event.target.innerHTML == "启用"){
+								
+								this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+									confirmButtonText: '确定',
+									cancelButtonText: '取消',
+									dangerouslyUseHTMLString: true,
+									type: '',
+									center: true
+								}).then(() => {
+									this.$parent.update(row,1,"启用");
+									event.target.innerHTML = "停用"
+								}).catch(() => {
+									this.$message({
+										type: 'info',
+										message: '已经取消'
+									});
+								});
+								
+								
+							} else{
+								this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+									confirmButtonText: '确定',
+									cancelButtonText: '取消',
+									dangerouslyUseHTMLString: true,
+									type: '',
+									center: true
+								}).then(() => {
+									this.$parent.update(row,0,"停用");
+									event.target.innerHTML = "启用"
+								}).catch(() => {
+									this.$message({
+										type: 'info',
+										message: '已经取消'
+									});
+								});
+								
+								
+							}
+						}
+						if(setid == "contributor"){
+							
+							this.$parent.update(row,-1,"删除");
 						}
 					break;
 				};

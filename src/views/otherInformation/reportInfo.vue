@@ -3,7 +3,7 @@
 		<div class="detailtitle ofh relative Detail">
 			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
-					征集模板文件
+					意见反馈
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -89,22 +89,22 @@
 		data() {
 			return {
 				tabData: [{
-						name: "本地文件"
+						name: "反馈内容"
 					},
 					{
-						name: "网盘链接"
+						name: "问题类型预设"
 					}
 				],
 				tabsnum: 0,
 				commonTopData: {
-					"pageName": "solicitationTemplate",
+					"pageName": "reportInfo",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "上传模板文件",
+						name: "添加类型问题",
 						id: "right1",
 						url: ""
 					}],
@@ -118,15 +118,15 @@
 					total: 0,
 					currentpage: 1,
 					pagesize: 10,
-					pageName: "solicitationTemplate",
-					list: DataScreen.screenShow.solicitationTemplate.bts0,
+					pageName: "reportInfo",
+					list: DataScreen.screenShow.reportInfo.bts0,
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.solicitationTemplate.action,
+				tableAction: DataScreen.screenShow.reportInfo.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields: DataScreen.screen.solicitationTemplate.filterFields0,
+				filterFields: DataScreen.screen.reportInfo.filterFields0,
 				centerDialogVisible: false,
 				showmask: false,
 				type: 1,
@@ -139,11 +139,11 @@
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
-				this.type = num + 1;
-				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
-				this.filterFields = DataScreen.screenShow.solicitationTemplate["filterFields" + num];
-				this.$parent.tabchange(num+1);
+				this.tableConfig.list = DataScreen.screenShow.reportInfo["bts" + num];
+				this.filterFields = DataScreen.screenShow.reportInfo["filterFields" + num];
+				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
 				this.getData({pageCurrent:1,pageSize:10});
+				this.$parent.tabchange(num+1);
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -151,7 +151,6 @@
 					access_token: 2,
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					type: this.type,
 				}
 
 				//获取筛选的条件
@@ -161,23 +160,38 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = 2;
-					sreenData.type = this.type;
 					data = sreenData;
 				}
-
-				this.api.templateList(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-					this.setLoding(false);
-				}).catch(() => {
-					this.setLoding(false);
-				});
+				
+				if(this.tabsnum == 0){
+					this.api.feedbacklist(data).then((da) => {
+						console.log(da.data)
+						if (!da) {
+							this.$message('数据为空');
+						}
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+						this.setLoding(false);
+					}).catch(() => {
+						this.setLoding(false);
+					});
+				} else{
+					this.api.feedbackclassify(data).then((da) => {
+						console.log(da.data)
+						if (!da) {
+							this.$message('数据为空');
+						}
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+						this.setLoding(false);
+					}).catch(() => {
+						this.setLoding(false);
+					});
+				}
 			},
 			setLoding(type){
 				//alert(2);
