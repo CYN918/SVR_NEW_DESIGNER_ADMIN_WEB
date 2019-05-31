@@ -11,9 +11,9 @@
 			getaccess() {
 				//console.log(access_token,this.getQueryString("access_token"));
 				if(this.getQueryString("access_token")){
-					let access_token = this.getQueryString("access_token")
+					let access_token = this.getQueryString("access_token");
+					localStorage.setItem("access_token",access_token);
 					this.api.access({
-						user_id: "7",
 						access_token:access_token
 					}).then(da => {
 						

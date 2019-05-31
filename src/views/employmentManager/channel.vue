@@ -134,7 +134,7 @@
 			getData(pg){
 				//获取子组件表格数据
 				var data = {
-					access_token:0,
+					access_token:localStorage.getItem("access_token"),
 					page:pg.pageCurrent,
 					limit:pg.pageSize
 				}

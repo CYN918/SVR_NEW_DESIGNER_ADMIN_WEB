@@ -227,7 +227,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -238,7 +238,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 
@@ -314,7 +314,7 @@
 				this.centerDialogVisible = false;
 				this.centerDialogVisible1 = false;
 				this.api.getLevelCount({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					recommend_level:this.radioS,
 				}).then(da => {
 					console.log(da)
@@ -329,7 +329,7 @@
 						this.api.setRecommendLevelwork({
 							work_ids: work_ids,
 							recommend_level: this.radioS,
-							access_token: 2,
+							access_token: localStorage.getItem("access_token"),
 						}).then(da => {
 							
 							this.$message({
@@ -442,7 +442,7 @@
 			},
 			getLevelworkCount(){
 				this.api.getLevelCount({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					recommend_level:"",
 				}).then(da => {
 					

@@ -148,7 +148,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 				}
@@ -159,7 +159,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 				
@@ -275,7 +275,7 @@
 					console.log(val.template_file_id)
 					this.api.templateDelete({
 						template_file_id: val.template_file_id,
-						access_token: 2,
+						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
 						console.log(da)
 						this.$message({
@@ -295,7 +295,7 @@
 				this.api.templateedit({
 					template_file_id: this.rowdata.template_file_id,
 					file_name: this.file_name,
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 				}).then(da => {
 					this.$message({
 						message: da

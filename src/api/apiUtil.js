@@ -58,10 +58,10 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				router.push({path:"/userManager/userBaseInfo"});
 			}
 			return data
-		}else{		
+		}else {
 			Message({dangerouslyUseHTMLString:true,message: data});
 			if(isType.login){
-				window.history.go(-1)
+				window.location.href = data;
 			}
 		}
 	},error => {	  

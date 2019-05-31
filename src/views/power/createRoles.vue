@@ -86,7 +86,7 @@
 				//console.log(this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()))
 				//alert(rolesString);
 				this.api.addRole({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					name:this.text10,
 					permissions:rolesString,
 					description:this.text30

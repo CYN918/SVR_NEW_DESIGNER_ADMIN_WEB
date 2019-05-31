@@ -60,7 +60,7 @@
 				this.tableConfig.pagesize = pg.pageSize;
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -70,7 +70,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 

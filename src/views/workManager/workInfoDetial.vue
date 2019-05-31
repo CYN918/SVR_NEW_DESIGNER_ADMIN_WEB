@@ -282,7 +282,7 @@
 			getworkdetial(){
 				this.api.workInfo({
 					work_id:this.$route.query.id,
-					access_token:2
+					access_token:localStorage.getItem("access_token")
 				}).then(da => {
 					console.log(da)
 					this.work_info = da.work_info;

@@ -103,7 +103,7 @@
 			},
 			seeroles(){
 				this.api.getAdminUserInfo({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id
 				}).then(da =>{
 					console.log(da)
@@ -154,7 +154,7 @@
 			getData(pg) {
 				//获取所有的角色
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100
 				}
@@ -173,7 +173,7 @@
 			},
 			setrole(){
 				this.api.setRole({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					user_id:this.$route.query.id,
 					role_ids:this.role_ids.toString(),
 				}).then(da=>{

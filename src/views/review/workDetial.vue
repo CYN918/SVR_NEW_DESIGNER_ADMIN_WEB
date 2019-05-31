@@ -522,7 +522,7 @@
 			},
 			contributor() {
 				let data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					type: this.$route.query.type,
 					id: this.$route.query.id,
 					check_status: -1,
@@ -544,7 +544,7 @@
 					center: true
 				}).then(() => {
 					var data = {
-						access_token: 2,
+						access_token: localStorage.getItem("access_token"),
 						type: this.$route.query.type,
 						id: this.$route.query.id,
 						check_status: 1,
@@ -636,7 +636,7 @@
 				
 				
 				this.api.reviewInfo({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					type: this.$route.query.type,
 					id: this.$route.query.id,
 				}).then(da => {

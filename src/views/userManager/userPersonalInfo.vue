@@ -59,7 +59,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					contribute_type: 1,
 					page: pg.pageCurrent,
 					limit: pg.pageSize
@@ -71,7 +71,7 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.contribute_type = 1;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 

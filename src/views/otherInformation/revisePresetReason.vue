@@ -63,7 +63,7 @@
 			},
 			add(){
 				this.api.reviewaddReason({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					type:this.type,
 					content:this.content,
 					status:this.status
@@ -84,7 +84,7 @@
 					return;
 				}
 				this.api.categoryEdit({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					
 				}).then(da => {
 					//console.log(da)
