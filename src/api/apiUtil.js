@@ -58,7 +58,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				router.push({path:"/userManager/userBaseInfo"});
 			}
 			return data
-		} if else(result == 201) {
+		} else if(result == 201) {
 			window.location.href = data;
 		} else {
 			Message({dangerouslyUseHTMLString:true,message: data});
