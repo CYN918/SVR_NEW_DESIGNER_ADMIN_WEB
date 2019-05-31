@@ -10,7 +10,7 @@
 		methods:{
 			getaccess() {
 				//console.log(access_token,this.getQueryString("access_token"));
-				if(this.getQueryString("access_token")){
+				/* if(this.getQueryString("access_token")){
 					let access_token = this.getQueryString("access_token");
 					localStorage.setItem("access_token",access_token);
 					this.api.access({
@@ -24,8 +24,18 @@
 					this.$message({
 						message:"access_token请求失败，请重新登录"
 					});
-					window.history.go(-1)
-				}
+					///window.history.go(-1)
+				} */
+				
+				let access_token = this.getQueryString("access_token");
+				localStorage.setItem("access_token",access_token);
+				this.api.access({
+					access_token:access_token
+				}).then(da => {
+					
+				}).catch(da => {
+					
+				})
 			},
 			getQueryString(name) { 
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
