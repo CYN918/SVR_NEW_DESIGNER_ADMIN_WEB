@@ -80,7 +80,7 @@
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
-				//this.setLoding(true);
+				this.setLoding(true);
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
@@ -165,8 +165,8 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({path:'/review/publishWork',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					//this.getcommonrightbtn();
+					///this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			},
 			delect(id){
@@ -179,19 +179,23 @@
 						type:"waring",
 						message:da
 					})
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 				}).catch()
 			},
 			
 		},
 		created() {
-			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
-			this.screenreach();
-			this.getcommonrightbtn();
+			
 		},
 		mounted() {
 			
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

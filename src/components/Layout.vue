@@ -76,22 +76,11 @@
 					};
 				})
 			},
-			getaccess() {
-				this.api.access({
-					user_id: "7"
-				}).then(da => {
-					//console.log(da)
-					localStorage.setItem("access",JSON.stringify(da.menu_banner))
-				}).catch(da => {
-
-				})
-			},
 			tabchange(val){
 				this.tabnum = val;
 			}
 		},
 		created() {
-			this.getaccess();
 		},
 		mounted() {
 			this.eventbus();

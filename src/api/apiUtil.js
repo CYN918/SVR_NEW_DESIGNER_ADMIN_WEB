@@ -1,6 +1,8 @@
+import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs'
 import {Message} from 'element-ui'
+import router from '../router'
 const generateApiMap = (map) => {
 	let facade = {}
 	for(let el in map){
@@ -41,18 +43,26 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 	let instance = createApiInstance(config,on,Type)
 	instance.interceptors.response.use(response => {
 		let {result, msg, data} = response.data;
+		//alert(result)
 		if(result==0){
 			///console.log(isType)
 			if(isType.suktip){
-				
 				Message({message: '操作成功',type: 'success'});
 			}
 			if(isType.reload){	
 				location.reload();	
 			}
+			if(isType.login) {
+				//alert(2)
+				localStorage.setItem("access",JSON.stringify(data));
+				router.push({path:"/userManager/userBaseInfo"});
+			}
 			return data
 		}else{		
 			Message({dangerouslyUseHTMLString:true,message: data});
+			if(isType.login){
+				window.history.go(-1)
+			}
 		}
 	},error => {	  
 		Message({message: '服务器故障',type: 'warning'});

@@ -214,9 +214,9 @@
 			return {
 				menuAccess:[],
 				url:{
-					"2":"/userBaseInfo",
-					"3":"/userPersonalInfo",
-					"4":"/userCompanyInfo",
+					"2":"/userManager/userBaseInfo",
+					"3":"/userManager/userPersonalInfo",
+					"4":"/userManager/userCompanyInfo",
 					"6":"/power/roleManager",
 					"7":"/power/accountManager",
 					"16":""

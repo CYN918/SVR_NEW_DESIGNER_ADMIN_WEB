@@ -1,17 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout.vue'
-
+import loading from '@/components/loading.vue'
 Vue.use(Router)
 
 export default new Router({
 	//mode: 'history',
 	//base: process.env.BASE_URL,
-	routes: [{
+	routes: [
+		{
 			path: '/',
+			name: 'loading',
+			component: loading,
+		},
+		{
+			path: '/userManager',
 			name: 'Layout',
 			component: Layout,
-			redirect: '/userBaseInfo',
+			redirect: '/userManager/userBaseInfo',
 			meta: {
 				title: "用户管理"
 			},
@@ -513,7 +519,7 @@ export default new Router({
 					path: "reportInfo",
 					name: 'reportInfo',
 					meta: {
-						title: "意见反馈"
+						title: "举报信息"
 					},
 					component: () => import('@/views/otherInformation/reportInfo.vue'),
 				},

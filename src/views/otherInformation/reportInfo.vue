@@ -3,7 +3,7 @@
 		<div class="detailtitle ofh relative Detail">
 			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
-					意见反馈
+					举报信息
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -88,11 +88,11 @@
 		},
 		data() {
 			return {
-				tabData: [{
-						name: "反馈内容"
+				tabData:[{
+						name: "举报内容"
 					},
 					{
-						name: "问题类型预设"
+						name: "举报分类预设"
 					}
 				],
 				tabsnum: 0,
@@ -104,7 +104,7 @@
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "添加类型问题",
+						name: "添加举报分类",
 						id: "right1",
 						url: ""
 					}],
@@ -164,7 +164,7 @@
 				}
 				
 				if(this.tabsnum == 0){
-					this.api.feedbacklist(data).then((da) => {
+					this.api.reportlist(data).then((da) => {
 						console.log(da.data)
 						if (!da) {
 							this.$message('数据为空');
@@ -300,7 +300,7 @@
 					this.$message({
 						message: da
 					})
-				}).catch(da => {
+				}).catch(()=> {
 					this.$message({
 						type: 'info',
 						message: "系统网络故障"

@@ -44,7 +44,7 @@ export default {
 		url:'/admin/Review/list',method:'post',baseURL:0
 	},
 	access:{
-		url:'/admin/Menu/access',method:'post',baseURL:0
+		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{login:true}
 	},
 	
 	setRole:{
@@ -209,6 +209,5 @@ export default {
 	},
 	feedbackclassify:{
 		url:'/admin/feedback/classify',method:'post',baseURL:0
-	},
-	
+	}
 }

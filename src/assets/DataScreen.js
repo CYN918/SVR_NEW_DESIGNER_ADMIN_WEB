@@ -717,22 +717,22 @@ const screenData = {
 			},
 		},
 		worksShelves:{
-			defaults:['ids'],
 			bts:[
-				{prop:'report_id',lable:'举报单ID'},
-				{prop:'open_id',lable:'举报者ID',width:200},
-				{prop:'classify_id',lable:'举报类型',child:[{name:"垃圾广告信息",id:"1"},{name:"涉黄涉暴等违法信息",id:"2"},{name:"侮辱、恶意及辱骂等行为",id:"3"},{name:"作品侵犯原作者权益",id:"4"},{name:"其他",id:"5"}],width:150},
-				{prop:'ids',lable:'举报对象ID'},
-				{prop:'ids',lable:'举报对象昵称',type:"url"},
-				{prop:'ids',lable:'举报位置',type:"img",width:150},
-				{prop:'ids',lable:'详细说明',width:200},
-				{prop:'ids',lable:'提交时间'}
+				{lable:"举报单ID",prop:"report_id"},
+				{lable:"举报者ID",prop:"open_id"},
+				{lable:"举报者昵称",prop:"username"},
+				{lable:"举报类型",prop:"classify_name"},
+				{lable:"举报对象ID",prop:"accused_open_id"},
+				{lable:"举报对象昵称",prop:"accused_username"},
+				{lable:"举报位置",prop:"position"},
+				{lable:"详细说明",prop:"detail"},
+				{lable:"提交时间",prop:"create_time"},
 			],
 			action:{
 				morebtns:{
 					name:"更多",
 					Ishow:false,
-					page:"workInfo",
+					page:"worksShelves",
 					child:[
 						{
 							name:"预览"
@@ -1197,23 +1197,22 @@ const screenData = {
 		},
 		reportInfo:{
 			bts0:[
-				{lable:"反馈单ID",prop:"feedback_id"},
-				{lable:"用户ID",prop:"open_id"},
-				{lable:"分类ID",prop:"classify_id"},
-				{lable:"用户昵称",prop:"file_type"},
-				{lable:"截图",prop:"pic",type:"img"},
-				{lable:"问题类型",prop:"classify_name"},
-				{lable:"问题描述",prop:"detail"},
-				{lable:"联系方式类型",prop:"link_type"},
-				{lable:"联系方式",prop:"link"},
+				{lable:"举报单ID",prop:"report_id"},
+				{lable:"举报者ID",prop:"open_id"},
+				{lable:"举报者昵称",prop:"username"},
+				{lable:"举报类型",prop:"classify_name"},
+				{lable:"举报对象ID",prop:"accused_open_id"},
+				{lable:"举报对象昵称",prop:"accused_username"},
+				{lable:"举报位置",prop:"position"},
+				{lable:"详细说明",prop:"detail"},
 				{lable:"提交时间",prop:"create_time"},
 				
 			],
 			bts1:[
 				{lable:"问题类型ID",prop:"id"},
-				{lable:"类型名称",prop:"classify_name"},
+				{lable:"分类名称",prop:"classify_name"},
 				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"}},
-				{lable:"该类型反馈数",prop:"used_num"},
+				{lable:"该分类举报数",prop:"used_num"},
 				{lable:"创建时间",prop:"created_at"},
 			],
 			action:{
@@ -1235,7 +1234,7 @@ const screenData = {
 				},
 				links:{
 					name:"预览",
-					Ishow:false
+					Ishow:true
 				},
 			}
 		},
