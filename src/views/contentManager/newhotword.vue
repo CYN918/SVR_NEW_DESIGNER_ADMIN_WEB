@@ -70,7 +70,7 @@
 				
 				const id = this.$route.query.open_id;
 				this.api.hotwordadd({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					word: this.word,
 					start_time:this.start_time,
 					end_time:this.end_time,
@@ -86,7 +86,7 @@
 			},
 			edit(){
 				this.api.hotwordedit({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					word: this.word,
 					start_time:this.start_time,
 					end_time:this.end_time,

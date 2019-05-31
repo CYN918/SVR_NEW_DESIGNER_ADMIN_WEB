@@ -70,7 +70,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -81,7 +81,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 
@@ -158,7 +158,7 @@
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
 					this.api.deleteComment({
-						access_token:2,
+						access_token:localStorage.getItem("access_token"),
 						type: this.selectOne.type,
 						comment_id: this.selectOne.comment_id,
 					}).then(da => {

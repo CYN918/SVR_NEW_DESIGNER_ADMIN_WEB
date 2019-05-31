@@ -145,7 +145,7 @@
 					//console.log(sreenData)
 				    sreenData.page = pg.pageCurrent;
 				    sreenData.limit = pg.pageSize;
-					sreenData.access_token = 0;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 				

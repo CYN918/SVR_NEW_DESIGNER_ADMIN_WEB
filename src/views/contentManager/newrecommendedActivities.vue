@@ -78,7 +78,7 @@
 			},
 			add(){
 				this.api.recommendactivityadd({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					activity_id: this.activity_id,
 					start_time:this.start_time,
 					end_time:this.end_time,
@@ -95,7 +95,7 @@
 			edit(){
 				
 				this.api.recommendactivityedit({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					activity_id: this.activity_id,
 					start_time:this.start_time,
 					end_time:this.end_time,

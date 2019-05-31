@@ -190,7 +190,7 @@
 			add() {
 				const id = this.$route.query.open_id;
 				this.api.categoryAdd({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					category_name: this.input10,
 					status: this.radio2
 				}).then(da => {
@@ -202,7 +202,7 @@
 			edit() {
 				const id = this.$route.query.open_id;
 				this.api.categoryEdit({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					category_name: this.input10,
 					status: this.radio2,
 					id: this.id
@@ -307,7 +307,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 10000
 				}

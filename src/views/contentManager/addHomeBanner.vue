@@ -63,7 +63,7 @@
 				}
 				
 				this.api.banneradd({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
 					banner_pic:this.banner_pic,
 					jump_url:this.jump_url
@@ -78,7 +78,7 @@
 			},
 			edit(){
 				 this.api.banneredit({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
 					banner_pic:this.banner_pic,
 					jump_url:this.jump_url,

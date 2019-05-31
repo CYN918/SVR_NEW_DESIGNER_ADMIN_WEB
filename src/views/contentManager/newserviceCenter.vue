@@ -95,7 +95,7 @@
 					is_related_needs: "0",
 					banner:'',
 					filename:"",
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					type:'1'
 				},
 				fileList: [{
@@ -141,7 +141,7 @@
 			add() {
 				const id = this.$route.query.open_id;
 				this.api.categoryAdd({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					category_name: this.input10,
 					status: this.radio2
 				}).then(da => {
@@ -153,7 +153,7 @@
 			edit() {
 				const id = this.$route.query.open_id;
 				this.api.categoryEdit({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					category_name: this.input10,
 					status: this.radio2,
 					id: this.id

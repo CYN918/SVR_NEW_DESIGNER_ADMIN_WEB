@@ -86,7 +86,7 @@
 			},
 			getinfo(){
 				this.api.bannerprograminfo({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id
 				}).then(da=>{
 					console.log(da);

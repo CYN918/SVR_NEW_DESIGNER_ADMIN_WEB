@@ -201,7 +201,7 @@
 			},
 			gettodoCount(){
 				this.api.todoCount({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 				}).then(da =>{
 					//alert(1);
 					console.log(da);

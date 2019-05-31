@@ -120,7 +120,7 @@
 			getworkdetial(){
 				this.api.orderinfo({
 					id:this.$route.query.id,
-					access_token:2
+					access_token:localStorage.getItem("access_token")
 				}).then(da => {
 					//console.log(da)
 					this.orderinfo = da;

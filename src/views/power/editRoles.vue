@@ -86,7 +86,7 @@
 				}
 				//console.log(rolesString);
 				this.api.editRole({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id,
 					name:this.text10,
 					permissions:rolesString,

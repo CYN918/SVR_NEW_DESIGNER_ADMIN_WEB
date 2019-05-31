@@ -173,7 +173,7 @@
 				})
 				
 				this.api.bannerprogramadd({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					banner_material_ids:this.banner_material_ids,
 					banner_program_name:this.banner_program_name,
 					program_begin_time:this.program_begin_time,
@@ -253,7 +253,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize
 				}
@@ -263,7 +263,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.access_token = 2;
+					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 			

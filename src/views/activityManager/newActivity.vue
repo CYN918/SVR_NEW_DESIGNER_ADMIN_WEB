@@ -159,7 +159,7 @@
 					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					is_related_needs: "0",
 					banner:'',
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					type:'1'
 				},
 				fileList: [{
@@ -199,7 +199,7 @@
 			add() {
 				const id = this.$route.query.open_id;
 				this.api.categoryAdd({
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					category_name: this.input10,
 					status: this.radio2
 				}).then(da => {
@@ -209,7 +209,7 @@
 				})
 			},
 			edit() {
-				this.form.access_token = 2;
+				this.form.access_token = localStorage.getItem("access_token");
 				this.form.activity_id = this.rows.id;
 				this.api.activityedit(this.form).then(da => {
 					console.log(da)
@@ -373,7 +373,7 @@
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
-					access_token: 2,
+					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 10000
 				}

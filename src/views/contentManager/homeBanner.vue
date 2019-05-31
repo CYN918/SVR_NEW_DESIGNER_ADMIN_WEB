@@ -162,7 +162,7 @@
 				//获取子组件表格数据
 				if(this.tabsnum == 0){
 					var data = {
-						access_token: 2,
+						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,
 						limit: pg.pageSize
 					}
@@ -172,7 +172,7 @@
 						//console.log(sreenData)
 						sreenData.page = pg.pageCurrent;
 						sreenData.limit = pg.pageSize;
-						sreenData.access_token = 2;
+						sreenData.access_token = localStorage.getItem("access_token");
 						data = sreenData;
 					}
 								
@@ -191,7 +191,7 @@
 					});
 				} else {
 					var data = {
-						access_token: 2,
+						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,
 						limit: pg.pageSize
 					}
@@ -201,7 +201,7 @@
 						//console.log(sreenData)
 						sreenData.page = pg.pageCurrent;
 						sreenData.limit = pg.pageSize;
-						sreenData.access_token = 2;
+						sreenData.access_token = localStorage.getItem("access_token");
 						data = sreenData;
 					}
 								
@@ -306,7 +306,7 @@
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
 					this.api.bannerdelete({
-						access_token:2,
+						access_token:localStorage.getItem("access_token"),
 						id: val.id,
 					}).then(da => {
 						this.getData({
@@ -334,7 +334,7 @@
 			},
 			isdefault(id){
 				this.api.bannerprogramedit({
-					access_token:2,
+					access_token:localStorage.getItem("access_token"),
 					is_default:1,
 					id:id
 				}).then(da =>{
@@ -361,7 +361,7 @@
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
 					this.api.bannerprogramdelete({
-						access_token:2,
+						access_token:localStorage.getItem("access_token"),
 						id:id
 					}).then(da =>{
 						this.getData({
