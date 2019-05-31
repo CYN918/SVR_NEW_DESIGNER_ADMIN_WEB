@@ -185,10 +185,11 @@
 			
 		},
 		created() {
-			
+			this.screenreach();
+			this.getcommonrightbtn();
 		},
 		mounted() {
-			
+			this.getData({pageCurrent:1,pageSize:10});
 		},
 		watch:{
 			"$route":function(){
