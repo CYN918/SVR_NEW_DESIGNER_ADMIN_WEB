@@ -7,17 +7,17 @@
 					<span class="fleft detailKey" style="line-height: 40px;">词干预</span>
 					<el-input placeholder="请输入内容" v-model="word" style="width:357px;height:40px;" clearable></el-input>
 				</li>
-				<!-- <li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
-					<el-select v-model="form['category_id']" placeholder="请选择">
-						<el-radio-group v-model="form['category_id']">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.category_name">
-								<el-radio :label="item.id">{{ item.category_name }}</el-radio>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey" style="line-height: 40px;">干预位置</span>
+					<el-select v-model="position" placeholder="请选择">
+						<el-radio-group v-model="position">
+							<el-option v-for="(item,index) in tableData" :key="item.name" :value="item.id" :label="item.name">
+								<el-radio :label="item.id">{{ item.name }}</el-radio>
 							</el-option>
 						</el-radio-group>
 					</el-select>
-				</li> -->
-				<li class="margint23 ofh">
+				</li>
+				<li class="margint13 ofh">
 					<div>
 						<span class="fleft detailKey" style="line-height: 40px;">展示时间段</span>
 						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="start_time" type="datetime"
@@ -37,7 +37,7 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
-			<button class="defaultbtn defaultbtnactive" v-if="row" @click="add()">确认</button>
+			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
 	</div>
 </template>
@@ -51,7 +51,14 @@
 				start_time:'',
 				end_time:'',
 				position:'',
-				row: JSON.parse(this.$route.query.row),
+				row: '',
+				tableData:[
+					{name:"第一位",id:"1"},
+					{name:"第二位",id:"2"},
+					{name:"第三位",id:"3"},
+					{name:"第四位",id:"4"},
+					{name:"第五位",id:"5"}
+				]
 			}
 		},
 		methods: {
@@ -66,8 +73,6 @@
 				}
 			},
 			add(){
-				
-				
 				const id = this.$route.query.open_id;
 				this.api.hotwordadd({
 					access_token:localStorage.getItem("access_token"),
@@ -102,8 +107,8 @@
 			},
 		},
 		created() {
-			console.log(this.row)
-			if(this.row){
+			if(this.$route.query.row){
+				this.row = JSON.parse(this.$route.query.row)
 				this.word = this.row.word;
 				this.start_time = this.row.start_time;
 				this.end_time = this.row.end_time;

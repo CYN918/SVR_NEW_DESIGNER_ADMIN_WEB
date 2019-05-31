@@ -139,6 +139,7 @@
 							type: 'info',
 							message: '删除成功'
 						});
+						this.getData({pageCurrent:1,pageSize:10})
 					}) 
 					
 				}).catch(() => {

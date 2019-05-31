@@ -240,7 +240,7 @@
 		},
 		created() {
 			if(localStorage.getItem("access")){
-				this.menuAccess = JSON.parse(localStorage.getItem("access"));
+				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
 				console.log(this.menuAccess);
 			}
 			

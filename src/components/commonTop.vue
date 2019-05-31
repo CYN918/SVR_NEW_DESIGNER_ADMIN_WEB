@@ -150,6 +150,13 @@
 						    })
 						};
 					break;
+					case "hotWordSearch":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/hotWordSearch/newhotword"
+						    })
+						};
+					break;
 						
 				}
 				const shownum = {
