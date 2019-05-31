@@ -27,7 +27,8 @@
 					///window.history.go(-1)
 				} */
 				
-				let access_token = this.getQueryString("access_token");
+				let access_token = this.$route.query.access_token;
+				console.log(access_token)
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
@@ -38,7 +39,7 @@
 				})
 			},
 			getQueryString(name) { 
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 				var r = window.location.search.substr(1).match(reg); 
 				if (r != null) return unescape(r[2]); 
 				return null; 
