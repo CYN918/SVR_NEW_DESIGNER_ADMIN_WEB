@@ -65,7 +65,7 @@
 				<div class="margin40" style="height: 60px;">
 					<div class="tagbts">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
-						 :disable-transitions="false" @close="handleClose(item.id)">
+						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
@@ -73,6 +73,9 @@
 				<div class="calc205">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
+				</div>
+				<div class="w textcenter">
+					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
 				</div>
 			</div>
 			
@@ -179,7 +182,16 @@
 
 				})
 			},
+			getnoticeids() {
+				console.log(this.selectData);
+				var openids = '';
+				this.selectData.forEach((item, index) => {
+					openids += (index == (this.selectData.length - 1)) ? item.open_id : item.open_id + ",";
+				})
+				return openids;
+			},
 			shelves(){
+				
 				this.$confirm('提示', '确认下架改作品', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
@@ -190,7 +202,7 @@
 						access_token:localStorage.getItem("access_token"),
 						work_ids:this.$route.query.id,
 						reason:this.textarea,
-						notice_ids:"",
+						notice_ids:this.getnoticeids(),
 					}).then(da =>{
 						console.log(da);
 					})
@@ -233,9 +245,7 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
-					this.setLoding(false);
 				}).catch(() => {
-					this.setLoding(false);
 				});
 			
 				/* this.setLoding(false); */
@@ -269,8 +279,8 @@
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
 					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
+						pageCurrent: 1,
+						pageSize: 10
 					});
 				})
 			},
@@ -346,68 +356,53 @@
 				}
 				return workids;
 			},
-			getcommonrightbtn() {
+			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
-				if (this.$route.query.urlDate) {
+				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					this.filterFields.forEach(item => {
+					this.filterFields.forEach(item=>{
 						//console.log(item);
-			
-						if (urldata[item.id]) {
+						if(urldata[item.id]){
 							var val = urldata[item.id];
-							if (item.child) {
+							if(item.child){	
 								val = "";
-								item.child.forEach(citem => {
+								item.child.forEach(citem=>{
 									//alert(urldata[item.id])
-									if (citem.id == urldata[item.id]) {
+									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
-							}
-							this.commonTopData.commonbottombtn.push({
-								btnName: item.name,
-								val: val,
-								id: item.id
-							});
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
-						}
-						if (item.type == "two") {
-							if (item.child) {
-								item.child.forEach(citem => {
-									if (urldata[citem.id]) {
-										this.commonTopData.commonbottombtn.push({
-											btnName: citem.name,
-											val: urldata[citem.id],
-											id: citem.id
-										})
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
 									}
 								})
 							}
-							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
-							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
-							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
-			
 			},
-			resetSave(tag) {
-				if (this.$route.query.urlDate) {
+			resetSave(tag){
+				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					console.log(tag);
-					this.$router.push({
-						path: '/workManager/workInfo',
-						query: {
-							urlDate: JSON.stringify(urldata)
-						}
-					});
-					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.$router.push({path:'/workManager/workInfo/worksShelves',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(){
@@ -423,10 +418,9 @@
 		created() {
 			this.getworkdetial();
 			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
+				pageCurrent: 1,
+				pageSize: 10
 			});
-			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
 		},

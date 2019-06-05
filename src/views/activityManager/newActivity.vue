@@ -375,7 +375,8 @@
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
-					limit: 10000
+					limit: 10000,
+					status:1
 				}
 
 				this.api.categoryList(data).then((da) => {

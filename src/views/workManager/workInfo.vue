@@ -36,7 +36,7 @@
 			<div style="position: relative;">
 				<div class="textcenter">
 					<div class="employment">
-						<span>
+						<!-- <span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">绑定综合平台需求</span>
 						</span>
@@ -44,14 +44,15 @@
 						<span>
 							<span :class="['number',{'numberactive':Isnextshow}]">2</span>
 							<span :class="{'fontactive': Isnextshow}">绑定综合平台需求</span>
-						</span>
+						</span> -->
+						<span>录用方式</span>
 					</div>
-					<span v-show="Isnextshow" style="margin-right:0;height: auto; margin-top: 62px;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
+					<span style="margin-right:0;height: auto; margin-top: 62px;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange1(index,item.name)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
-					<div class="textcenter employipt" v-if="tabsnum1 == 0">
+					<div class="textcenter employipt" v-if="false">
 						<span style="display: inline-block;margin-right: 60px;">选择需求</span>
 						<!-- <el-select v-model="value" placeholder="请选择" multiple  style="width: 357px;">
 							<el-option
@@ -62,32 +63,38 @@
 							</el-option>
 						  </el-select> -->
 					</div>
-					<div v-if="tabsnum1 == 1">
+					<div v-if="tabsnum1 == 0">
 						<div class="textcenter employipt">
+							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
+							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price">单位：元</span>
+						</div>
+					</div>
+					<div v-if="tabsnum1 == 1">
+						暂无
+						<!-- <div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
 							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price2">单位：元</span>
 						</div>
 						<div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">预计投放渠道</span>
 							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="channel"><span style="color: transparent;">1</span></span>
-							<!-- <el-select v-model="value" class="employmonre" placeholder="请选择" multiple>
+							<el-select v-model="value" class="employmonre" placeholder="请选择" multiple>
 								<el-option
 								  v-for="item in options"
 								  :key="item.value"
 								  :label="item.label"
 								  :value="item.value">
 								</el-option>
-							  </el-select> -->
-							<!-- <span class="defaultbtn0 employmonre"><input class="w fleft" type="text">单位：元</span> -->
-						</div>
+							  </el-select> <span class="defaultbtn0 employmonre"><input class="w fleft" type="text">单位：元</span>
+						</div> -->
 					</div>
 				</div>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="prev()" v-show="Isnextshow">上一步</button>
+				<!-- <button class="defaultbtn" @click="prev()" v-show="Isnextshow">上一步</button> -->
 				<button class="defaultbtn" @click="reject2()">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="next()"  v-show="!Isnextshow">下一步</button>
-				<button class="defaultbtn defaultbtnactive"   v-show="Isnextshow">确认</button>
+				<!-- <button class="defaultbtn defaultbtnactive" @click="next()"  v-show="!Isnextshow">下一步</button> -->
+				<button class="defaultbtn defaultbtnactive" @click="workhire">确认</button>
 			</span>
 		</el-dialog>
 		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible3" custom-class="width610">
@@ -95,15 +102,14 @@
 				<div class="textcenter">
 					<div class="textcenter employipt">
 						<span style="display: inline-block;margin-right: 60px;">合同ID</span>
-						  <el-input placeholder="请输入内容" style="width: 357px;"></el-input>
+						  <el-input placeholder="请输入内容" style="width: 357px;" v-model="contract_id"></el-input>
 					</div>
 				</div>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				
-				<button class="defaultbtn" >取消</button>
-				
-				<button class="defaultbtn defaultbtnactive">确认</button>
+				<button class="defaultbtn" @click="centerDialogVisible3 = false">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="setcontractid">确认</button>
 			</span>
 		</el-dialog>
 		<el-dialog title="用户基础信息-设为平台推荐创作者" :visible.sync="centerDialogVisible1" width="406px">
@@ -217,6 +223,9 @@
 				selectData: [],
 				selectOne: {},
 				Isnextshow:false,
+				contract_id:"",
+				workid:"",
+				price:""
 			}
 		},
 		methods: {
@@ -330,11 +339,6 @@
 							access_token: localStorage.getItem("access_token"),
 						}).then(da => {
 							
-							this.$message({
-								type: 'success',
-								message: '修改成功'
-							});
-							
 						})
 					}).catch(() => {
 						this.$message({
@@ -442,6 +446,42 @@
 				}).catch(da => {
 					
 				})
+			},
+			setcontractid(){
+				
+				this.api.bindContract({
+					access_token:localStorage.getItem("access_token"),
+					work_id:this.workid,
+					contract_id:this.contract_id
+				}).then(da => {
+					this.centerDialogVisible3=!this.centerDialogVisible3;
+				}).catch(da => {
+					this.centerDialogVisible3=!this.centerDialogVisible3;
+				})
+			},
+			workhire(){
+				this.$confirm('确定录用改作品', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.hire({
+						work_id: this.workid,
+						hire_type: 1,
+						price:this.price,
+						access_token: localStorage.getItem("access_token"),
+					}).then(da => {
+						
+					})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
 			}
 		},
 		created() {

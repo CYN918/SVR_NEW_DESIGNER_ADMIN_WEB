@@ -228,5 +228,12 @@ export default {
 	},
 	materialDetail:{
 		url:'/admin/Work/materialDetail',method:'post',baseURL:0
-	}
+	},
+	bindContract:{
+		url:'/admin/work/bindContract',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	hire:{
+		url:'/admin/work/hire',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 }

@@ -31,12 +31,12 @@
 							</el-dropdown>
 						</div>
 						<div  v-else-if="tableAction.pagefilterField">
-							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow">{{ tableAction.links.name }}</el-button>
+							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true )">{{ tableAction.links.name }}</el-button>
 							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
-							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row['status']) > -1)">
+							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)">
 								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" v-if="(citem.filterField.indexOf(scope.row['status']) > -1)" :key="index" class="comonbtn" @click.native="handleClick(scope.row,citem.id,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" v-if="(citem.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)" :key="index" class="comonbtn" @click.native="handleClick(scope.row,citem.id,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 						</div>
@@ -152,6 +152,7 @@
 						}
 						if(setid == "contributor2"){
 							this.$parent.centerDialogVisible2 = true;
+							this.$parent.workid = row.work_id;
 						}
 						if(setid == "contributor3"){
 							this.$parent.setContributor(row);
@@ -159,6 +160,7 @@
 						}
 						if(setid == "contributor4"){
 							this.$parent.centerDialogVisible3 = true;
+							this.$parent.workid = row.work_id;
 						}
 					break;
 					case "commentManager":
@@ -249,6 +251,7 @@
 					case "newrecommendedActivities":
 						if(!setid){
 							this.$parent.$parent.getactivitiesrows(row);
+							this.$parent.$parent.dialogTableVisible = false;
 						}
 					break;
 					case "employmentorder":

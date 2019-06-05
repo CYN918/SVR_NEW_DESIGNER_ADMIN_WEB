@@ -8,6 +8,7 @@
 			<div class="screenMidden paddinglr30">
 				<el-checkbox-group class="screenMiddenShowul" v-model="selectbtns">
 					<el-checkbox class="checkboxshow" v-for="(item,index) in btns" :label="item.prop" :key="item.lable" border>{{item.lable}}</el-checkbox>
+					<button class="defaultbtn" style="visibility: hidden;width: 170px;"></button>
 				</el-checkbox-group>
 			</div>
 			<div class="screenBottom paddinglr30">

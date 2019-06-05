@@ -147,6 +147,7 @@
 				this.tabsnum = num;
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
+				console.log(this.tableConfig.list);
 				this.filterFields = DataScreen.screenShow.solicitationTemplate["filterFields" + num];
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
@@ -335,15 +336,27 @@
 				
 			},
 			templateadds(type){
-				this.api.templateadd({
-					file_name:this.file_info.name,
-					file_type:this.file_info.type,
-					file_size:this.file_info.size,
-					template_url:this.file_url,
-					online_disk_info:this.online_disk_info,
-					type:type,
-					access_token: localStorage.getItem("access_token"),
-				}).then(da => {
+				var data = {};
+				if(type == 1){
+					data = {
+						file_name:this.file_info.name,
+						file_type:this.file_info.type,
+						file_size:this.file_info.size,
+						template_url:this.file_url,
+						online_disk_info:this.online_disk_info,
+						type:1,
+						access_token: localStorage.getItem("access_token"),
+					}
+				} else {
+					data = {
+						file_name:this.filename,
+						online_disk_info:this.online_disk_info,
+						type:2,
+						access_token: localStorage.getItem("access_token"),
+					}
+				}
+				
+				this.api.templateadd(data).then(da => {
 					this.getData({pageCurrent:1,pageSize:10});
 				}).catch(da => {
 					this.$message({
