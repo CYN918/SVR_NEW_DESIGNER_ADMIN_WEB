@@ -178,7 +178,7 @@
 						this.setLoding(false);
 					});
 				} else{
-					this.api.feedbackclassify(data).then((da) => {
+					this.api.reportclassify(data).then((da) => {
 						console.log(da.data)
 						if (!da) {
 							this.$message('数据为空');

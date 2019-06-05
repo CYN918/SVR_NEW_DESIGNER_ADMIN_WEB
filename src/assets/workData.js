@@ -90,42 +90,43 @@ const workData = {
 			[
 				{
 					name:"录用来源",
-					id:"id",
+					id:"11",
 					type:"text"
 				},
 				{
 					name:"录用时间",
-					id:"ids",
+					id:"hire_time",
 					type:"text"
 				},
 				{
 					name:"录用活动ID",
-					id:"open_id",
+					id:"activity_id",
 					type:"text"
 				},
 				{
 					name:"录用活动名称",
-					id:"username",
+					id:"activity_name",
 					type:"text"
 				},
 				{
 					name:"录用订单ID",
-					id:"check_time",
+					id:"order_id",
 					type:"text"
 				},
 				{
 					name:"录用订单名称",
-					id:"check_time",
+					id:"hire_order_name",
 					type:"url"
 				},
 				{
 					name:"录用方式",
-					id:"check_time",
-					type:"url"
+					id:"hire_type",
+					type:"keyvalue",
+					child:{"1":"买断式","2":"分成式"}
 				},
 				{
 					name:"当前状态",
-					id:"check_status",
+					id:"status",
 					type:"btn",
 					child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
 				},

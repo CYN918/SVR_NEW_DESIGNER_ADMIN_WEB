@@ -13,7 +13,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">手机号</span>
-					<span class="fleft detailValue">{{ getValue(detailData.phone) }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.mobile) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">邮箱</span>
@@ -29,11 +29,11 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey squareKey">营业执照</span>
-					<span class="fleft detailValue squareImg"></span>
+					<img class="fleft detailValue squareImg" :src="detailData.business_license" alt="">
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey squareKey">开户许可证</span>
-					<span class="fleft detailValue squareImg"></span>
+					<img class="fleft detailValue squareImg" :src="detailData.opening_permit" alt="">	
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">提供发票税率</span>
@@ -89,9 +89,7 @@
 		},
 		methods:{
 			getparent(){
-				this.router.push({
-					path:"/userCompanyInfo"
-				})
+				this.$router.go(-1);
 			},
 			getValue(val){
 				if(val) {
@@ -108,7 +106,7 @@
 					contribute_type:2
 				}).then(da => {
 					this.detailData = da;
-					//console.log(da);
+					console.log(da);
 				}).catch(() => {})
 			}
 		},
@@ -152,7 +150,6 @@
 		width: 68px;
 		height: 68px;
 		border-radius: 50%;
-		background: red;
 	}
 	
 	.detailKeyImg{
@@ -170,6 +167,5 @@
 	.squareImg{
 		width: 160px;
 		height: 102px;
-		background: red;
 	}
 </style>

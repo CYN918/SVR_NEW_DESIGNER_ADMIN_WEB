@@ -76,7 +76,7 @@
 				}
 
 				this.api.getContributorList(data).then((da) => {
-					//console.log(da.data)
+					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -92,7 +92,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 				})
 			},
 			linkDetail(id) {
@@ -126,6 +126,24 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
@@ -135,19 +153,26 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					console.log(tag);
-					this.$router.push({path:'/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					//console.log(tag);
+					this.$router.push({path:'/userManager/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
+					
 				}
 			}
 		},
-		created() {},
-		mounted() {
-			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+		},
+		mounted() {
+			//console.log(this.tableConfig)
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

@@ -5,7 +5,7 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户ID</span>
-					<span class="fleft detailValue">{{ detailData.open_id }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.open_id) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey detailKeyImg">头像</span>
@@ -13,19 +13,19 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户名</span>
-					<span class="fleft detailValue">{{ detailData.username }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.username)}}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">手机区号</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.mobile_zone) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">手机号</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.mobile) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">邮箱</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.email) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">目前状态</span>
@@ -33,7 +33,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">性别</span>
-					<span class="fleft detailValue">{{ detailData.sex }}</span>
+					<span class="fleft detailValue">{{  getValue(detailData.username) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">职业</span>
@@ -139,16 +139,22 @@
 			}
 		},
 		methods:{
+			getValue(val){
+				if(val) {
+					return val
+				} else{
+					return "--"
+				}
+			},
 			getparent(){
 				//this.$parent.IsDetail = false;
-				this.router.push({
-					path:"/userBaseInfo"
-				})
+				this.$router.go(-1);
 			},
 			getdata(){
-				const id = this.$route.query.id;
+				let id = this.$route.query.open_id;
 				this.api.getUserInfo({open_id:id}).then(da => {
 					this.detailData = da;
+					console.log(da);
 				}).catch(()=>{
 					
 				})
@@ -194,7 +200,6 @@
 		width: 68px;
 		height: 68px;
 		border-radius: 50%;
-		background: red;
 	}
 	
 	.detailKeyImg{

@@ -117,7 +117,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 					
 				})
 			},
@@ -152,8 +152,6 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({path:'/review/finalistsWork',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			},
 			delect(id){
@@ -166,18 +164,24 @@
 						type:"waring",
 						message:da
 					})
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 				}).catch()
 			},
 		},
 		created() {
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

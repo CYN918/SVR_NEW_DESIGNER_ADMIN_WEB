@@ -1,4 +1,3 @@
-
 const screenData = {
 	screen:{
 		userBaseInfo:{
@@ -11,8 +10,7 @@ const screenData = {
 				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"}]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
-				{name:'注册时间（开始）',id:'register_time_start',type:"time"},
-				{name:'注册时间（结束）',id:'register_time_end',type:"time"},
+				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
 				{name:'用户名',id:'username'},
 				{name:'用户手机号',id:'phone'},
 				{name:'邮箱',id:'email'},
@@ -36,48 +34,42 @@ const screenData = {
 				{name:"手机号",id:"phone"},
 				{name:"用户昵称",id:"username"},
 				{name:"用户ID",id:"open_id"},
-				{name:"录用作品（上限）",id:"hire_num_max"},
-				{name:"录用作品（下限）",id:"hire_num_min"},
-				{name:"收益（上限）",id:"profit_max"},
-				{name:"收益（下限）",id:"profit_min"},
+				{name:'作品数量', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
+				{name:'收益', type:'two',child:[{id:'profit_max'},{id:'profit_min'}]},
 				{name:"身份证姓名（个人）",id:"real_name"},
 				{name:"身份证号码（个人）",id:"id_card"},
 				{name:"账户名称（个人）",id:"account_name"},
 				{name:"预留手机号（个人）",id:"reserve_phone"},
 				{name:"企业/机构名称",id:"company_name"},
 				{name:"统一信用代码（企业）",id:"code"},
-				{name:"提供发票税率（企业）",id:"tax_rate_type"}
+				{name:"提供发票税率（企业）",id:"tax_rate_type"},
+				{name:"",type:"display"},
 			]
 		},
 		userPersonalInfo:{
 			filterFields:[
-				{name:"银行卡号",id:"bank_card_no"},
-				{name:"开户银行",id:"bank_name"},
-				{name:"开户支行",id:"branch_bank"},
-				{name:"审核状态",id:"check_status"},
-				{name:"邮箱",id:"email"},
-				{name:"手机号",id:"phone"},
-				{name:"用户昵称",id:"username"},
 				{name:"用户ID",id:"open_id"},
-				{name:"录用作品（上限）",id:"hire_num_max"},
-				{name:"录用作品（下限）",id:"hire_num_min"},
-				{name:"收益（上限）",id:"profit_max"},
-				{name:"收益（下限）",id:"profit_min"},
-				{name:"身份证姓名（个人）",id:"real_name"},
-				{name:"身份证号码（个人）",id:"id_card"},
-				{name:"账户名称（个人）",id:"account_name"},
+				{name:"用户昵称",id:"username"},
+				{name:"手机号",id:"phone"},
+				{name:"邮箱",id:"email"},
+				{name:"身份证姓名",id:"real_name"},
+				{name:"身份证号码",id:"id_card"},
+				{name:"收款人账号",id:""},
+				{name:"银行卡号",id:"bank_card_no"},
 				{name:"预留手机号（个人）",id:"reserve_phone"},
-				{name:"企业/机构名称",id:"company_name"},
-				{name:"统一信用代码（企业）",id:"code"},
-				{name:"提供发票税率（企业）",id:"tax_rate_type"}
+				{name:"所属开户银行",id:"bank_name"},
+				{name:"所属开户支行",id:"branch_bank"},
+				{name:'累积收益', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
+				{name:'累积录用作品数量', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
+				{name:"当前状态",id:"status"},
+				{name:"",type:"display"},
 			]
 		},
 		roleManager:{
 			filterFields:[
 				{name:"角色ID",id:"id"},
-				{name:"角色名称",id:"role_name",child:[]},
-				{name:"创建时间（开始）",id:"create_time_start"},
-				{name:"创建时间（结束）",id:"create_time_end"}
+				{name:"角色名称",id:"role_name"},
+				{name:'创建时间',id:'register_time',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
 			]
 		},
 		accountManager:{
@@ -95,12 +87,10 @@ const screenData = {
 				{name:"作品标题",id:"work_name"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提审用户昵称",id:"username"},
-				{name:"提审时间（开始）",id:"create_time_start"},
-				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:'提审时间',type:"time",child:[{name:'提审时间(开始)',id:'create_time_start'},{name:'提审时间(开始)',id:'create_time_end'}]},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
-				{name:"审核时间（开始）",id:"review_time_start"},
-				{name:"审核时间（结束）",id:"review_time_end"},
+				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
 			]
 		},
 		finalistsWork:{
@@ -112,12 +102,10 @@ const screenData = {
 				{name:"活动名称",id:"activity_name"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提审用户昵称",id:"username"},
-				{name:"提审时间（开始）",id:"create_time_start"},
-				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:'提审时间',type:"time",child:[{name:'提审时间(开始)',id:'create_time_start'},{name:'提审时间(开始)',id:'create_time_end'}]},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
-				{name:"审核时间（开始）",id:"review_time_start"},
-				{name:"审核时间（结束）",id:"review_time_end"},
+				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
 			]
 		},
 		employWork:{
@@ -129,12 +117,10 @@ const screenData = {
 				{name:"活动名称",id:"activity_name"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提审用户昵称",id:"username"},
-				{name:"提审时间（开始）",id:"create_time_start"},
-				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:'提审时间',type:"time",child:[{name:'提审时间(开始)',id:'create_time_start'},{name:'提审时间(开始)',id:'create_time_end'}]},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
-				{name:"审核人",id:"reviewer"},
-				{name:"审核时间（开始）",id:"review_time_start"},
-				{name:"审核时间（结束）",id:"review_time_end"},
+				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
+				{name:"审核人",id:"reviewer"}
 			]
 		},
 		applyPerson:{
@@ -143,12 +129,10 @@ const screenData = {
 				{name:"账号主体",id:"contributor_type"},
 				{name:"提审用户ID",id:"open_id"},
 				{name:"提审用户昵称",id:"username"},
-				{name:"提审时间（开始）",id:"create_time_start"},
-				{name:"提审时间（结束）",id:"create_time_end"},
+				{name:'提审时间',type:"time",child:[{name:'提审时间(开始)',id:'create_time_start'},{name:'提审时间(开始)',id:'create_time_end'}]},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
-				{name:"审核时间（开始）",id:"review_time_start"},
-				{name:"审核时间（结束）",id:"review_time_end"},
+				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
 			]
 		},
 		workInfo:{
@@ -167,12 +151,29 @@ const screenData = {
 				{name:"录用订单ID",id:"hire_id"},
 				{name:"录用订单名称",id:"hire_order_name"},
 				/* {name:"投放状态",id:"ids",child:[{name:"无",id:"1"},{name:"未投放",id:"1"},{name:"上线中",id:"1"},{name:"已下线",id:"1"}]}, */
-				{name:"创建时间（开始）",id:"create_time_start",type:"time"},
-				{name:"创建时间（结束）",id:"create_time_end",type:"time"},
-				{name:"最近更新时间（开始）",id:"update_time_start"},
-				{name:"最近更新时间（结束）",id:"update_time_end"},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:'update_time_start'},{name:'最近更新时间(开始)',id:'update_time_end'}]},
 				/* {name:"作品预览链接",id:"ids"}, */
 				{name:"当前状态",id:"status",child:[{name:"草稿",id:"-1"},{name:"待审核",id:"0"},{name:"审核驳回",id:"-2"},{name:" 审核通过",id:"2"},{name:"下架",id:"-3"},{name:" 用户删除",id:"-4"}]},
+			]
+		},
+		materialBank:{
+			filterFields:[
+				{name:"附加ID",id:"fid"},
+				{name:"文件名称",id:"file_name"},
+				{name:"文件格式",id:"file_type",child:[{name:" 图片",id:"image"},{name:"音频",id:"audio"},{name:"视频",id:"video"},{name:"附件",id:"zip"}]},
+				{name:"作品ID",id:"work_id"},
+				{name:"作品类型",id:"classify_1"},
+				{name:"作品名称",id:"work_name"},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户昵称",id:"username"},
+				{name:"创作者职业",id:"vocation"},
+				{name:"是否为平台推荐作品",id:"is_recommend",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:"推荐评级",id:"recommend_level",child:[{name:"S",id:"S"},{name:"A",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"}]},
+				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
+				{name:"当前状态",id:"status",child:[{name:"待审核",id:"0"},{name:"审核中",id:"1"},{name:" 审核通过",id:"2"},{name:" 未通过",id:"-2"}]},
 			]
 		},
 		worksShelves:{
@@ -185,8 +186,7 @@ const screenData = {
 				{name:"举报对象昵称",id:"accused_username"},
 				{name:"举报位置",id:"position"},
 				{name:"详细说明",id:"hire_order_name"},
-				{name:"举报时间（开始）",id:"create_time_start"},
-				{name:"举报时间（结束）",id:"create_time_end"},
+				{name:'举报时间',type:"time",child:[{name:'举报时间(开始)',id:'create_time_start'},{name:'举报时间(开始)',id:'create_time_end'}]},
 				
 			]
 		},
@@ -200,8 +200,7 @@ const screenData = {
 				{name:"评论类型",id:"type",child:[{name:"评论",id:"1"},{name:"回复",id:"2"}]},
 				{name:"评论内容",id:"content"},
 				{name:"评论回复对象（用户ID）",id:"to_open_id"},
-				{name:"创建时间（开始）",id:"create_time_start"},
-				{name:"创建时间（结束）",id:"create_time_end"}
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
 			]
 		},
 		activityClass:{
@@ -217,7 +216,20 @@ const screenData = {
 				{name:"活动名称",id:"activity_name"},
 				{name:"活动类型",id:"type"},
 				{name:"主题分类",id:"category_id"},
-				{name:"活动时间",id:"id",type:"time"},
+				/* {name:"活动时间",id:"id",type:"time"}, */
+				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
+				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
+				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
+				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min"},{id:"hire_num_max"}]},
+			]
+		},
+		newrecommendedActivities:{
+			filterFields:[
+				{name:"活动ID",id:"activity_id"},
+				{name:"活动名称",id:"activity_name"},
+				{name:"活动类型",id:"type"},
+				{name:"主题分类",id:"category_id"},
+				/* {name:"活动时间",id:"id",type:"time"}, */
 				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
 				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
@@ -227,7 +239,8 @@ const screenData = {
 		labels:{
 			filterFields:[
 				{name:"标签词",id:"label"},
-				{name:"被搜索次数",id:"count"}
+				{name:"被搜索次数",id:"count"},
+				{name:"",type:"display"},
 			]
 		},
 		activityworks:{
@@ -239,10 +252,8 @@ const screenData = {
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name"},
 				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
-				{name:"入围时间（开始）",id:"shortlisted_time_start",type:"time"},
-				{name:"入围时间（结束）",id:"shortlisted_time_end",type:"time"},
-				{name:"录用时间（开始）",id:"hire_time_start",type:"time"},
-				{name:"录用时间（结束）",id:"hire_time_end",type:"time"},
+				{name:'录用时间',type:"time",child:[{name:'录用时间(开始)',id:'hire_time_start'},{name:'录用时间(开始)',id:'hire_time_end'}]},
+				{name:'入围时间',type:"time",child:[{name:'入围时间(开始)',id:'shortlisted_time_start'},{name:'入围时间(开始)',id:'shortlisted_time_end'}]},
 			]
 		},
 		solicitationTemplate:{
@@ -253,8 +264,8 @@ const screenData = {
 				{name:"文件大小",id:"activity_name"},
 				{name:"在用活动数",id:"open_id"},
 				{name:"上传人",id:"username"},
-				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
-				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+				/* {name:"更新时间",id:"shortlisted_time_start",type:"time"},
+				{name:"上传时间",id:"shortlisted_time_end",type:"time"}, */
 			],
 			filterFields1:[
 				{name:"模板文件ID",id:"work_id"},
@@ -263,55 +274,54 @@ const screenData = {
 				{name:"文件大小",id:"activity_name"},
 				{name:"在用活动数",id:"open_id"},
 				{name:"上传人",id:"username"},
-				{name:"更新时间",id:"shortlisted_time_start",type:"time"},
-				{name:"上传时间",id:"shortlisted_time_end",type:"time"},
+				/* {name:"更新时间",id:"shortlisted_time_start",type:"time"},
+				{name:"上传时间",id:"shortlisted_time_end",type:"time"}, */
 			]
 		},
 		homeBanner:{
 			filterFields0:[
 				{name:"banner素材ID",id:"id"},
 				{name:"banner素材名称",id:"banner_name"},
-				{name:"创建时间（开始）",id:"create_time_start",type:"time"},
-				{name:"创建时间（结束）",id:"create_time_end",type:"time"},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
 				{name:"当前状态",id:"status",child:[{name:"待使用",id:"1"},{name:" 未使用",id:"0"},{name:"线上展示中",id:"2"}]},
 			],
 			filterFields1:[
 				{name:"banner展示方案ID",id:"id"},
 				{name:"banner展示方案名称",id:"banner_program_name"},
-				{name:"干预时间（开始）",id:"program_begin_time"},
-				{name:"干预时间（结束）",id:"program_end_time"},
+				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'program_begin_time'},{name:'干预时间(开始)',id:'program_end_time'}]},
 				{name:"当前状态",id:"status"},
-				{name:"是否为默认展示方案",id:"is_default",child:[{name:"是",id:"1"},{name:" 否",id:"0"}]}
+				{name:"是否为默认展示方案",id:"is_default",child:[{name:"是",id:"1"},{name:" 否",id:"0"}]},
+				{name:"",type:"display"},
 			]
 		},
 		hotWordSearch:{
 			filterFields:[
-				{name:"任务ID",id:"open_id"},
-				{name:"词文案",id:"username"},
-				{name:"干预位置",id:"work_id"},
-				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
-				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
-				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
+				{name:"热门搜索词ID",id:"id"},
+				{name:"文案",id:"word"},
+				{name:"干预位置",id:"position"},
+				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
+				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
+				{name:"",type:"display"},
 			]
 		},
 		serviceCenter:{
 			filterFields:[
-				{name:"任务ID",id:"open_id"},
-				{name:"词文案",id:"username"},
-				{name:"干预位置",id:"work_id"},
-				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
-				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
-				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
+				{name:"热门搜索词ID",id:"id"},
+				{name:"文案",id:"word"},
+				{name:"干预位置",id:"position"},
+				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
+				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
+				{name:"",type:"display"},
 			]
 		},
 		recommendedActivities:{
 			filterFields:[
-				{name:"任务ID",id:"open_id"},
-				{name:"词文案",id:"username"},
-				{name:"干预位置",id:"work_id"},
-				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
-				{name:"干预时间段（开始）",id:"shortlisted_time_start",type:"time"},
-				{name:"干预时间段（结束）",id:"shortlisted_time_end",type:"time"},
+				{name:"热门搜索词ID",id:"id"},
+				{name:"文案",id:"word"},
+				{name:"干预位置",id:"position"},
+				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
+				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
+				{name:"",type:"display"},
 			]
 		},
 		employmentorder:{
@@ -323,8 +333,7 @@ const screenData = {
 				{name:"用户ID",id:"open_id"},
 				{name:"用户名称",id:"username",type:"time"},
 				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"},{name:"分成式",id:"2"}]},
-				{name:"录用时间（开始）",id:"hire_time_start",type:"time"},
-				{name:"录用时间（开始）",id:"hire_time_end",type:"time"},
+				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'shortlisted_time_start'},{name:'干预时间(开始)',id:'shortlisted_time_end'}]},
 				{name:"录用审核人",id:"check_admin"},
 			]
 		},
@@ -335,9 +344,8 @@ const screenData = {
 				{name:"作品ID",id:"work_id"},
 				{name:"作品名称",id:"work_name",},
 				{name:"用户ID",id:"open_id"},
-				{name:"用户名称",id:"username",type:"time"},
-				{name:"结算日期（开始）",id:"start_date",type:"time"},
-				{name:"结算日期（结束）",id:"end_date",type:"time"},
+				{name:"用户名称",id:"username"},
+				{name:'结算日期',type:"time",child:[{name:'结算日期(开始)',id:'start_date'},{name:'结算日期(结束)',id:'end_date'}]},
 			]
 		},
 		embodyRecord:{
@@ -360,8 +368,7 @@ const screenData = {
 				{name:"审核类型",id:"work_id"},
 				{name:"驳回理由",id:"work_name",},
 				{name:"状态",id:"username"},
-				{name:"创建时间（开始）",id:"ids",type:"time"},
-				{name:"创建时间（结束）",id:"ids1",type:"time"},
+				{name:'创建时间',type:"time",child:["create_time_start","create_time_end"]},
 			]
 		},
 		feedback:{
@@ -389,8 +396,7 @@ const screenData = {
 				{name:"",id:"username"},
 				{name:"驳回理由",id:"classify_id",child:[{name:"功能问题",id:"1"},{name:"设计问题",id:"2"},{name:"作品问题",id:"3"},{name:"未知问题",id:"4"},{name:"其他",id:"5"}]},
 				{name:"联系方式",id:"link"},
-				{name:"反馈时间（开始）",id:"create_time_start",type:"time"},
-				{name:"反馈时间（结束）",id:"create_time_end",type:"time"},
+				{name:'反馈时间',type:"time",child:["create_time_start","create_time_end"]},
 			],
 			filterFields1:[
 				/* {name:"驳回理由预设ID",id:"id"},
@@ -401,16 +407,36 @@ const screenData = {
 				{name:"创建时间（结束）",id:"ids1",type:"time"}, */
 				{}
 			]
-		}
+		},
+		newsRelease:{
+			filterFields:[
+				{name:"通知ID",id:"id"},
+				{name:"通知标题",id:"title"},
+				{name:'发送用户数', type:'two',child:[{name:'作品数量下限',id:'send_num_min'},{name:'作品数量上限',id:'send_num_max'}]},
+				{name:'最近更新时间',type:"time",child:["update_time_start","update_time_end"]},
+				{name:"创建人",id:"admin_username"},
+				{name:"当前投放状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+			]
+		},
+		noticetemplate:{
+			filterFields:[
+				{name:"通知模板ID",id:"id"},
+				{name:"通知标题",id:"title"},
+				{name:'最近更新时间',type:"time",child:["update_time_start","update_time_end"]},
+				{name:"通知触发场景说明",id:"condition"},
+				{name:"通知内容",id:"content"},
+			]
+		},
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
+		//、keyvalue，img,btn,two
 		userBaseInfo:{
 			bts:[
 				{prop:'open_id',lable:'用户ID'},
 				{prop:'avatar',lable:'用户头像',type:"img"},
 				{prop:'username',lable:'用户昵称'},
-				{prop:'sex',lable:'性别'},
+				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"无"}},
 				{prop:'vocation',lable:'职位'},
 				{prop:'address',lable:'所在地'},
 				{prop:'personal_sign',lable:'个性签名'},
@@ -424,8 +450,8 @@ const screenData = {
 				{prop:'weixin',lable:'授权认证-微信',width:150},
 				{prop:'qq',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
-				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200},
-				{prop:'is_contributor',lable:'是否为平台推荐创作者',width:200},
+				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
+				{prop:'is_contributor',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'recommend_level',lable:'平台推荐等级',width:150},
 			],
 			defaults:[
@@ -453,10 +479,6 @@ const screenData = {
 			}
 		},
 		userCompanyInfo:{
-			defaults:[
-				'open_id','code','company_name','business_license','opening_permit','tax_rate_type','account_name','bank_card_no',
-				'bank_name','branch_bank','status','created_at','updated_at'
-			],
 			bts:[
 				{prop:'open_id',lable:'用户ID'},
 				{prop:'name',lable:'用户昵称'},
@@ -488,26 +510,14 @@ const screenData = {
 			}
 		},
 		userPersonalInfo:{
-			defaults:[
-				'open_id','code','company_name','business_license','opening_permit','tax_rate_type','account_name','bank_card_no',
-				'bank_name','branch_bank','status','created_at','updated_at'
-			],
 			bts:[
 				{prop:'open_id',lable:'用户ID'},
-				{prop:'name',lable:'用户昵称'},
-				{prop:'code',lable:'统一信用代码（企业）'},
-				{prop:'company_name',lable:'企业/机构名称'},
-				{prop:'business_license',lable:'营业执照',type:"img"},
-				{prop:'opening_permit',lable:'身份证正面照片',type:"img"},
-				{prop:'tax_rate_type',lable:'提供发票税率（企业）'},
-				{prop:'account_name',lable:'账户名称（个人）'},
-				{prop:'bank_card_no',lable:'银行卡号'},
-				{prop:'bank_name',lable:'开户银行'},
-				{prop:'branch_bank',lable:'开户支行'},
-				{prop:'check_status',lable:'审核状态'},
-				{prop:'created_at',lable:'注册时间'},
-				{prop:'updated_at',lable:'最近更新时间'},
-				{prop:'reserve_phone',lable:'预留手机号（个人）'},
+				{prop:'username',lable:'用户昵称'},
+				{prop:'mobile',lable:'手机号'},
+				{prop:'email',lable:'邮箱'},
+				{prop:'name',lable:'身份证姓名'},
+				{prop:'id_card',lable:'身份证号码'},
+				{prop:'front_photo',lable:'身份证照片',type:"img"},
 			],
 			action:{
 				morebtns:{
@@ -556,7 +566,7 @@ const screenData = {
 				{prop:'id',lable:'用户ID'},
 				{prop:'role_id',lable:'角色ID'},
 				{prop:'name',lable:'角色名称'},
-				{prop:'sex',lable:'性别'},
+				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"未知"}},
 				{prop:'email',lable:'邮箱'},
 				{prop:'created_at',lable:'注册时间'},
 				{prop:'updated_at',lable:'最近登录时间'},
@@ -677,15 +687,15 @@ const screenData = {
 				{prop:'classify',lable:'作品类型',width:200},
 				{prop:'copyright',lable:'版权说明'},
 				{prop:'labels',lable:'作品标签'},
-				{prop:'is_platform_work',lable:'是否为平台投稿作品',width:200},
-				{prop:'is_hired',lable:'是否已被录用',width:200},
-				{prop:'hire_type',lable:'录用方式'},
+				{prop:'is_platform_work',lable:'是否为平台投稿作品',width:200,type:"keyvalue",child:{"0":"否","1":"是"}},
+				{prop:'is_hired',lable:'是否已被录用',width:200,type:"keyvalue",child:{"0":"否","1":"是"}},
+				{prop:'hire_type',lable:'录用方式',type:"keyvalue",child:{"1":"买断式","2":"分成式","0":"未录用"}},
 				{prop:'activity_id',lable:'录用活动ID'},
 				{prop:'ids',lable:'录用活动名称'},
 				{prop:'hire_id',lable:'录用订单ID'},
 				{prop:'hire_order_name',lable:'录用订单名称',width:200},
 				{prop:'ids',lable:'作品预览链接',width:200},
-				{prop:'status',lable:'当前状态'}
+				{prop:'status',lable:'当前状态',type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -878,6 +888,45 @@ const screenData = {
 				pagefilterField:true,
 			}
 		},
+		
+		newrecommendedActivities:{
+			bts:[
+				{prop:'id',lable:'活动ID'},
+				{prop:'activity_name',lable:'活动名称'},
+				{prop:'banner',lable:'banner',type:"img",width:150},
+				{prop:'category_name',lable:'主题分类'},
+				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
+				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}},
+				{prop:'setting_type',lable:'作品上传和展示',type:"keyvalue",width:250,child:{"1":"不支持上传","2":"支持上传，不支持展示作品","3":"支持上传，仅展示入围作品","4":"支持上传，并展示入围和录用作品"}},
+				{prop:'shortlisted_num',lable:'入围作品数量',width:250},
+				{prop:'hire_num',lable:'录用作品数量',width:250},
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"newrecommendedActivities",
+					filterField:["0","1"],
+					child:[
+						{
+							name:"删除",
+							filterField:["0"],
+							id:"top0"
+						},
+						{
+							name:"编辑",
+							filterField:["0","1"],
+							id:"top1"
+						}
+					],
+				},
+				links:{
+					name:"选择",
+					Ishow:true
+				}
+			}
+		},
+		
 		activityworks:{
 			defaults:['work_id','work_name','activity_id','activity_name','open_id','username','status'],
 			bts:[
@@ -984,7 +1033,7 @@ const screenData = {
 				{lable:"调文案",prop:"word"},
 				{lable:"干预位置",prop:"position"},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1235,6 +1284,50 @@ const screenData = {
 				links:{
 					name:"预览",
 					Ishow:true
+				},
+			}
+		},
+		newsRelease:{
+			bts:[
+				{lable:"通知ID",prop:"id"},
+				{lable:"通知标题",prop:"title"},
+				{lable:"预发用户数",prop:"content"},
+				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},width:320},
+				{lable:"当前状态",prop:"status",type:"status",child:{"0":"停用","1":"启用","-1":"已删除"}},
+				{lable:"发送成功数",prop:"send_num"},
+				{lable:"创建人",prop:"admin_username"},
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:true,
+					page:"newsRelease",
+				},
+				links:{
+					name:"停用",
+					Ishow:true,
+					child:{"1":"启用","0":"停用"}
+				},
+			}
+		},
+		noticetemplate:{
+			bts:[
+				{lable:"通知模板ID",prop:"id",width:200},
+				{lable:"通知标题",prop:"title",width:300},
+				{lable:"通知触发场景说明",prop:"condition",width:300},
+				{lable:"通知内容",prop:"content",width:300},
+				{lable:"最近更新时间",prop:"updated_at",width:300},
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"noticetemplate",
+				},
+				links:{
+					name:"停用",
+					Ishow:false,
+					child:{"1":"启用","0":"停用"}
 				},
 			}
 		},

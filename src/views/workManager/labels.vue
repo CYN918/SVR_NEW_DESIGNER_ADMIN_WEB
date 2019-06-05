@@ -90,7 +90,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 					
 				})
 			},
@@ -113,11 +113,28 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
-				
 			},
 			resetSave(tag){
 				if(this.$route.query.urlDate){
@@ -125,17 +142,23 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({path:'/workManager/labels',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			}
 		},
-		created() {},
-		mounted() {
-			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+		created() {
 			this.screenreach();
-			//this.getcommonrightbtn();
+			this.getcommonrightbtn();
+		},
+		mounted() {
+			this.getData({pageCurrent:1,pageSize:10});
+			
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

@@ -123,16 +123,16 @@
 						</span>
 						<el-radio-group v-model="radioS" class="sel-dialog-content fleft">
 							<div class="w textcenter sel-radio">
-								<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
+								<el-radio label="S">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
 							</div>
 							<div class="w textcenter sel-radio">
-								<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
+								<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
 							</div>
 							<div class="w textcenter sel-radio">
-								<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
+								<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
 							</div>
 							<div class="w textcenter sel-radio">
-								<el-radio label="S">D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+								<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 							</div>
 						</el-radio-group>
 					</li>
@@ -246,7 +246,7 @@
 					if (!da) {
 						this.$message('数据为空');
 					}
-					//console.log(da.data)
+					console.log(da.data)
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -274,6 +274,7 @@
 			},
 			forshowkey(data) {
 				//筛选展示字段
+				this.tableConfig.list = [];
 				this.bts.forEach(item => {
 					const val = item;
 					data.forEach(item1 => {
@@ -286,10 +287,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:10});
 				})
 			},
 			linkDetail(id) {
@@ -414,17 +412,12 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					console.log(tag);
+					//console.log(tag);
 					this.$router.push({
 						path: '/workManager/workInfo',
 						query: {
 							urlDate: JSON.stringify(urldata)
 						}
-					});
-					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
 					});
 				}
 			},
@@ -451,19 +444,21 @@
 				})
 			}
 		},
-		mounted() {
-			//console.log(this.tableConfig)
-			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
-			});
+		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
-		watch: {
-			screenShowDataChange(val) {
-				//console.log(val)
+		mounted() {
+			//console.log(this.tableConfig)
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+				this.getScreenShowData();
 			}
 		}
 	}

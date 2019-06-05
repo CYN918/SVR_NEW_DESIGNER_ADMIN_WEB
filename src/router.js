@@ -263,6 +263,15 @@ export default new Router({
 					component: () => import('@/views/workManager/materialBank.vue'),
 				},
 				{
+					path: "materialBank/materialBankdetail",
+					name: 'materialBankdetail',
+					meta: {
+						title: "素材库 / 查看素材信息"
+					},
+					component: () => import('@/views/workManager/materialBankdetail.vue'),
+				},
+				
+				{
 					path: "commentManager",
 					name: 'commentManager',
 					meta: {
@@ -480,7 +489,7 @@ export default new Router({
 			name: 'Layout',
 			redirect:"/otherInformation/embodyRecord",
 			meta: {
-				title: "录用管理"
+				title: "其他信息及设置"
 			},
 			children:[
 				{
@@ -524,6 +533,33 @@ export default new Router({
 					component: () => import('@/views/otherInformation/reportInfo.vue'),
 				},
 			],
+		},
+		{
+			path:"/noticeManager",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/noticeManager/newsRelease",
+			meta: {
+				title: "消息通知管理"
+			},
+			children:[
+				{
+					path:"newsRelease",
+					name: 'newsRelease',
+					meta: {
+						title: "消息发布"
+					},
+					component: () => import('@/views/noticeManager/newsRelease.vue'),
+				},
+				{
+					path:"noticetemplate",
+					name: 'noticetemplate',
+					meta: {
+						title: "消息发布"
+					},
+					component: () => import('@/views/noticeManager/noticetemplate.vue'),
+				},
+			]
 		}
 	]
 })

@@ -8,16 +8,17 @@
 			<div class="screenMidden paddinglr30">
 				<ul class="screenMiddenul ofh w">
 					<li v-for="(item,index) in texts" :key="item.id">
-						<div>{{ item.name }}</div>
+						<div>
+							{{ item.name }}
+						</div>
 						<!-- form.selct[item.a] -->
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
 						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && (!item.type)">
 							<el-option value="" label="全部"></el-option>
-							<el-radio-group v-model="form[item.id]">
+							 <el-radio-group v-model="form[item.id]">
 								<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-								   <!-- <el-checkbox :label="childitem.name" max="1"></el-checkbox> -->
-									<el-radio :label="childitem.name"></el-radio>
+									<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
 								</el-option>
 							</el-radio-group>
 						</el-select>
@@ -27,14 +28,25 @@
 								<el-checkbox>{{ childitem }}</el-checkbox>
 							</el-option>
 						</el-select>
-						
-						<el-date-picker value-format="yyyy-MM-dd HH-mm-ss" v-if="item.type == 'time'" v-model="form[item.id]" type="datetime"
-						 placeholder="选择日期">
+						 <el-date-picker
+						  v-if="item.type == 'time'"
+						   @change="timetwo(item.child)"
+						  class="ipt"
+						  v-model="times"
+						  type="daterange"
+						  value-format="yyyy-MM-dd HH-mm-ss"
+						  start-placeholder="开始日期"
+						  end-placeholder="结束日期"
+						  >
+						</el-date-picker>
 						</el-date-picker>
 						<div v-if="item.type == 'two'">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 14px;">至</span>
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+						</div>
+						<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
+							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
 						</div>
 					</li>
 					<!-- <li>
@@ -204,6 +216,19 @@
 						  placeholder="选择日期">
 						</el-date-picker>
 					</li> -->
+					<!-- <li>
+						<div>上次登录时间</div>
+						 <el-date-picker
+						   class="ipt"
+						   v-model="times"
+						   type="daterange"
+						   value-format="yyyy-MM-dd HH-mm-ss"
+						   start-placeholder="开始日期"
+						   end-placeholder="结束日期"
+						   default-value="2010-10-01">
+						 </el-date-picker>
+					</li> -->
+					
 				</ul>
 			</div>
 			<div class="screenBottom paddinglr30">
@@ -243,6 +268,7 @@
 				value: '',
 				value2:[],
 				currentpageName:"",
+				times:[],
 			}
 		},
 		methods: {
@@ -284,11 +310,17 @@
 			},
 			reset() {
 				this.form = {};
+			},
+			timetwo(time){
+				//console.log(time,thistimes)
+				this.form[time[0].id] = this.times[0];
+				this.form[time[1].id] = this.times[1];
+				//console.log(this.form)
 			}
 		},
 		watch: {
-			'tabnum': function(data) {
-				
+			'value9': function(data) {
+				console.log(data);
 			}
 		},
 		mounted() {

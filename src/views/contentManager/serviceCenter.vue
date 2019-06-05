@@ -52,6 +52,7 @@
 				IsDetail:1,
 				roles:{},
 				menulist:'',
+				isajax:0,
 			}
 		},
 		watch: {},
@@ -80,7 +81,12 @@
 					data = sreenData;
 				}
 
+				if(this.isajax==1){
+					return
+				}
+				this.isajax=1;
 				this.api.documentlist(data).then((da) => {
+					this.isajax = 0;
 					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
@@ -91,6 +97,7 @@
 					this.tableConfig.pagesize = da.page_size;
 					this.setLoding(false);
 				}).catch(() => {
+					this.isajax = 0
 					this.setLoding(false);
 				});
 			},
@@ -111,14 +118,52 @@
 					console.log(da);
 				}).catch(() => {})
 			},
-			resetSave(tag){
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					this.filterFields.forEach(item=>{
+						//console.log(urldata[item.id]);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+			},
+			resetSave(tag) {
+				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					//console.log(tag);
-					this.$router.push({path:'/contentManager/serviceCenter',query:{urlDate:JSON.stringify(urldata)}});
-					
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.$router.push({ path: '/contentManager/serviceCenter', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			delect(val) {
@@ -149,11 +194,19 @@
 				});
 			},
 		},
-		created() {},
-		mounted() {
-			//console.log(DataScreen.screenShow.activityClass.bts)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+		created() {
 			this.screenreach();
+			this.getcommonrightbtn();
+		},
+		mounted() {
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

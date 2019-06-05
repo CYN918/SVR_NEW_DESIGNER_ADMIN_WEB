@@ -34,7 +34,7 @@
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">是否设为线上展示</span>
 					<div class="fleft status">
-						<el-radio-group v-model="form['is']" style="width:357px;float: left;">
+						<el-radio-group v-model="form['status']" style="width:357px;float: left;">
 							<el-radio label="1" class="fleft">是</el-radio>
 							<el-radio label="0" class="fleft">否</el-radio>
 						</el-radio-group>
@@ -73,7 +73,7 @@
 			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="rows" @click="nxet()">确 定</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows">确 定</button>
 		</div>
 	</div>
 </template>
@@ -362,6 +362,9 @@
 			createdactivity(){
 				this.api.documentadd(this.form).then(da =>{
 					console.log(da);
+					if(da == "添加成功"){
+						this.$router.go(-1);
+					}
 				}).catch(da =>{
 					
 				})

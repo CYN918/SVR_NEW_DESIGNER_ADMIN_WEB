@@ -20,16 +20,16 @@
 		</div>
 	    <el-radio-group v-model="radioS" class="sel-dialog-content">
 			<div class="w textcenter sel-radio">
-				<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
+				<el-radio label="S">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
 			</div>
 			<div class="w textcenter sel-radio">
-				<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
+				<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
 			</div>
 			<div class="w textcenter sel-radio">
-				<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
+				<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
 			</div>
 			<div class="w textcenter sel-radio">
-				<el-radio label="S">D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+				<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 			</div>
 		</el-radio-group>
 	  </div>
@@ -54,16 +54,16 @@
 				</span>
 				<el-radio-group v-model="radioS" class="sel-dialog-content fleft">
 					<div class="w textcenter sel-radio">
-						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
+						<el-radio label="S">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
+						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
+						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="S">D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 					</div>
 				</el-radio-group>
 			</li>
@@ -127,22 +127,30 @@
 				radioS:"C",
 				selectData:[],
 				selectOne:{},
+				isajax:0
 			}
+			
 		},
 		methods:{
 			setLoding(type){
 				//alert(2);
+				console.log(this.$refs);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg){
 				//获取子组件表格数据
+				this.tableData = [];
 				var data = {
 					access_token:localStorage.getItem("access_token"),
 					page:pg.pageCurrent,
 					limit:pg.pageSize
 				}
 				//获取筛选的条件
-				//console.log(JSON.parse(this.$route.query.urlDate))
+				//console.log(JSON.parse(this.$route.query.urlDate))\
+				if(this.isajax==1){
+					return
+				}
+				this.isajax=1;
 				if(this.$route.query.urlDate){
 				    const sreenData = JSON.parse(this.$route.query.urlDate);
 					//console.log(sreenData)
@@ -153,6 +161,7 @@
 				}
 				
 				this.api.getUserList(data).then((da)=>{
+					this.isajax=0;
 					if(!da){
 						this.$message('数据为空');
 					}
@@ -163,6 +172,7 @@
 					this.tableConfig.pagesize = da.page_size;
 					this.setLoding(false)
 				}).catch(()=>{
+					this.isajax=0;
 					this.setLoding(false)
 				});	 
 					
@@ -171,7 +181,6 @@
 			getScreenShowData(){
 			  //获取字段展示-筛选修改
 			  eventBus.$on("screenShowDataChange",(data)=> {
-				this.tableConfig.list = [];
 				this.forshowkey(data)
 			  });
 			  
@@ -184,6 +193,7 @@
 			},
 			forshowkey(data){
 				//筛选展示字段
+				this.tableConfig.list = [];
 				this.bts.forEach(item => {
 					const val = item;
 					data.forEach(item1 =>{
@@ -196,7 +206,7 @@
 			screenreach(){
 				eventBus.$on("sreenData",(data) =>{
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 				})
 			},
 			linkDetail(id){
@@ -215,27 +225,36 @@
 			contributor(){
 				//console.log(openids)
 				//console.log(this.selectData);
+				
 				var open_ids = this.getopenids();
 			    this.centerDialogVisible = false;
 				this.centerDialogVisible1 = false;
-			    this.$confirm('有30位用已经是平台推荐创作者</br>是否统一将推荐评级修改为A', '确认修改', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-				    dangerouslyUseHTMLString:true,
-					type: '',
-					center: true
-			    }).then(() => {
-					//console.log({open_ids:openids,level:this.radioS})
-					this.api.setRecommendLevel({open_ids:open_ids,level:this.radioS}).then(da=>{
-						this.$message(da)
-						//console.log(da)
-					})
-			    }).catch(() => {
-					this.$message({
-					  type: 'info',
-					  message: '已经取消'
+				
+				this.api.usergetLevelCount({
+					access_token:localStorage.getItem("access_token"),
+					recommend_level:this.radioS
+				}).then(da =>{
+					//console.log(da);
+					this.$confirm('有'+ da +'位用已经是平台推荐创作者</br>是否统一将推荐评级修改为' + this.radioS, '确认修改', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						dangerouslyUseHTMLString:true,
+						type: '',
+						center: true
+					}).then(() => {
+						//console.log({open_ids:openids,level:this.radioS})
+						this.api.setRecommendLevel({open_ids:open_ids,level:this.radioS}).then(da=>{
+							
+						})
+					}).catch(() => {
+						this.$message({
+						  type: 'info',
+						  message: '已经取消'
+						});
 					});
-			  });
+				})
+				
+			    
 			},
 			getopenids(){
 				//console.log(this.selectData);
@@ -259,7 +278,6 @@
 					//console.log(urldata);
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
@@ -282,9 +300,15 @@
 									}
 								})
 							}
-							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
-							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
-							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
@@ -294,23 +318,29 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					console.log(tag);
-					this.$router.push({path:'/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.$router.push({path:'/userManager/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
 				}
+			},
+			getusergetLevelCount(){
+				
 			}
 		},
-		mounted(){
-			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
+		mounted(){
+			console.log(1);
+			//console.log(this.tableConfig)
+			this.getData({pageCurrent:1,pageSize:10});
+		},
 		watch:{
-			screenShowDataChange(val){
-				//console.log(val)
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+				this.getScreenShowData();
 			}
 		}
 	}

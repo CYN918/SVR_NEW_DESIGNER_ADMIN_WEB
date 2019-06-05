@@ -374,7 +374,8 @@
 				checkAll: [],
 				reviewinfocommon: [],
 				reviewinfostatus: [],
-				status_info: parseInt(this.$route.query.check_status),
+				/* status_info: parseInt(this.$route.query.check_status), */
+				status_info:"",
 				apply_info: {},
 				check_info:{},
 				material_info:{},
@@ -644,7 +645,7 @@
 					this.apply_info = da.apply_info;
 					this.check_info = da.check_info;
 					this.material_info = da.material_info;
-					//this.status_info = da.check_info.check_status;
+					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
 					if(da.check_info.hire_type){
 						this.hire_type = da.check_info.hire_type;
@@ -662,6 +663,7 @@
 				//console.log(data);
 				this.api.reviewCheck(data).then(da => {
 					//getparent()
+					this.getreviewInfo();
 				}).catch(da => {
 				
 				})

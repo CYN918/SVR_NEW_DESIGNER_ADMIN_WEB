@@ -121,6 +121,10 @@ export default {
 	templateDelete:{
 		url:'/admin/template/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	templateadd:{
+		url:'/admin/template/add',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 	bannerlist:{
 		url:'/admin/banner/list',method:'post',baseURL:0
 	},
@@ -209,5 +213,20 @@ export default {
 	},
 	feedbackclassify:{
 		url:'/admin/feedback/classify',method:'post',baseURL:0
+	},
+	reportclassify:{
+		url:'/admin/report/classify',method:'post',baseURL:0
+	},
+	noticelist:{
+		url:'/admin/notice/list',method:'post',baseURL:0
+	},
+	noticetemplate:{
+		url:'/admin/notice/template',method:'post',baseURL:0
+	},
+	usergetLevelCount:{
+		url:'/admin/user/getLevelCount',method:'post',baseURL:0
+	},
+	materialDetail:{
+		url:'/admin/Work/materialDetail',method:'post',baseURL:0
 	}
 }

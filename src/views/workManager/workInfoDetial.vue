@@ -99,21 +99,19 @@
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in employInfo" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ 12 }}</span>
-					<span v-if="!item.type">{{ 12 }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" src="../../assets/img/scsc_icon_yp.png" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" src="../../assets/img/scsc_icon_yp.png" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" src="../../assets/img/scsc_icon_yp.png" alt="">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" src="../../assets/img/scsc_icon_yp.png" alt="">
+					<span v-if="item.type == 'text'">{{ hire_info[item.id] }}</span>
+					<span v-if="!item.type">{{ hire_info[item.id] }}</span>
 					<button :class="'workbtn defaultbtn0 defaultbtn'+1" v-else-if="item.type == 'btn'">
-						{{12}}
+						{{hire_info[item.id]}}
 					</button>
+					<span v-else-if="item.type == 'keyvalue'">{{item.child[hire_info[item.id]]}}</span>
+					
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ 11 }}</span>
+						<span class="routerLink">{{ hire_info[item.id] }}</span>
 					</router-link>
 				</li>
 			</ul>
-			<div v-if="tabsnum == 2" class="marginlr30">
+			<div v-if="false" class="marginlr30">
 				<ul class="margint13">
 					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
 						<span class="fleft fontcolorg">渠道1</span>
@@ -286,8 +284,8 @@
 				}).then(da => {
 					console.log(da)
 					this.work_info = da.work_info;
-					//this.material_list = da.material_list;
-					//this.hire_info = da.hire_info;
+					this.material_list = da.material_list;
+					this.hire_info = da.hire_info;
 				}).catch(da =>{
 					
 				})

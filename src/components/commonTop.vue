@@ -173,6 +173,7 @@
 			},
 			IsShow(index) {
 				if(index == 0) {
+					console.log(this.$parent.selectData);
 					if (this.$parent.selectData.length == 0) {
 						this.$message({
 							message: '请勾选用户',
@@ -224,10 +225,14 @@
 			this.gettodoCount();
 		},
 		mounted() {
-			//alert(typeof this.commonTopData.tabnums)
-			//console.log(this.$route.matched[this.$route.matched.length-1])
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			localStorage.setItem("screenShowDataChange","");
+			
+			var access = [];
+			if(localStorage.getItem("access")){
+				access = JSON.parse(localStorage.getItem("access"));
+			}
+			
 		},
 		watch:{
 			$route(val){

@@ -5,16 +5,16 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户ID</span>
-					<span>{{ roleintroduce.id }}</span>
+					<span>{{ rows.id }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户名称</span>
-					<span>{{ roleintroduce.user_name }}</span>
+					<span>{{ rows.name }}</span>
 				</li>
 				
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">邮箱</span>
-					<span>{{ roleintroduce.email }}</span>
+					<span>{{ rows.email }}</span>
 				</li>
 				<li class="margint13  relative">
 					<span class="fleft roles-input" style="margin-right: 20px;width:84px">角色名称</span>
@@ -79,6 +79,7 @@
 				Islist:false,
 				rolesData:[],
 				role_ids:[],
+				rows:JSON.parse(this.$route.query.row)
 			}
 		},
 		methods: {
@@ -104,7 +105,7 @@
 			seeroles(){
 				this.api.getAdminUserInfo({
 					access_token:localStorage.getItem("access_token"),
-					id:this.$route.query.id
+					id:this.rows.id
 				}).then(da =>{
 					console.log(da)
 					this.roleintroduce = da;
@@ -129,7 +130,7 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					//console.log(da)
+					console.log(da)
 					this.data2 = da;
 				}).catch(da =>{
 					
@@ -174,11 +175,10 @@
 			setrole(){
 				this.api.setRole({
 					access_token:localStorage.getItem("access_token"),
-					user_id:this.$route.query.id,
+					user_id:this.rows.id,
 					role_ids:this.role_ids.toString(),
 				}).then(da=>{
-					console.log(da);
-					
+					//console.log(da);
 					this.router.push({
 						path:"/power/accountManager"
 					})
@@ -202,6 +202,7 @@
 		created(){
 			this.getData();
 			//this.seeroles();
+			//console.log(this.rows);
 		},
 		mounted() {
 			

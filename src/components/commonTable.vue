@@ -78,19 +78,19 @@
 							this.$parent.setContributor(row);
 						}
 						if (!setid) {
-							this.router.push({path:"/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
+							this.router.push({path:"/userManager/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
 							///this.$parent.linkDetail(row.open_id);
 						}
 					break;
 					case "userCompanyInfo":
 						if (!setid) {
-							this.router.push({path:"userCompanyInfo/userCompanyInfoDetail",query:{open_id:row.open_id}});
+							this.router.push({path:"/userManager/userCompanyInfo/userCompanyInfoDetail",query:{open_id:row.open_id}});
 							///this.$parent.linkDetail(row.open_id);
 						}
 					break;
 					case "userPersonalInfo":
 						if (!setid) {
-							this.router.push({path:"userPersonalInfo/userPersonalInfoDetail",query:{open_id:row.open_id}});
+							this.router.push({path:"/userManager/userPersonalInfo/userPersonalInfoDetail",query:{open_id:row.open_id}});
 							///this.$parent.linkDetail(row.open_id);
 						}
 					break;
@@ -108,10 +108,10 @@
 					break;
 					case "accountManager":
 						if (setid == "contributor") {
-							this.router.push({path:"/power/accountManager/setRoles",query:{id:row.id}});
+							this.router.push({path:"/power/accountManager/setRoles",query:{row:JSON.stringify(row)}});
 						}
 						if(!setid){
-							this.router.push({path:"/power/accountManager/seeaccount",query:{id:row.id}});
+							this.router.push({path:"/power/accountManager/seeaccount",query:{row:JSON.stringify(row)}});
 						}
 					break;
 					case "publishWork":
@@ -143,6 +143,10 @@
 							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
 							
 						}
+						if(setid == "contributor0"){
+							window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + row.work_id);
+						}
+						
 						if(setid == "contributor1"){
 							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
 						}
@@ -242,6 +246,11 @@
 							this.$parent.delect(row);
 						}
 					break;
+					case "newrecommendedActivities":
+						if(!setid){
+							this.$parent.$parent.getactivitiesrows(row);
+						}
+					break;
 					case "employmentorder":
 						if(!setid){
 							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id}})
@@ -310,8 +319,14 @@
 				//alert(val)
 				console.log(val)
 				this.selected = val.length
-				//this.$parent.selectData = val;
-				this.$parent.$parent.selectData = val;
+				
+				if(this.$parent.selectData){
+					this.$parent.selectData = val;
+				};
+				if(this.$parent.$parent){
+					this.$parent.$parent.selectData = val;
+				}
+				
 			},
 			getTabData() {
 				const data = {
@@ -332,8 +347,6 @@
 				if(this.tableConfig.loading){
 					this.loading = false;
 				}
-				
-				//console.log(this.tableAction)
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'

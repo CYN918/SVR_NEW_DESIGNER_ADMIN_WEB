@@ -63,7 +63,8 @@
 			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
-				this.tableConfig.pagesize = pg.pageSize
+				this.tableConfig.pagesize = pg.pageSize;
+				this.setLoding(true);
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -96,7 +97,7 @@
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 					
 				})
 			},
@@ -111,14 +112,55 @@
 					console.log(da);
 				}).catch(() => {})
 			},
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item=>{
+						//console.log(item);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+				
+			},
 			resetSave(tag){
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({path:'/activityManager/activityEmploy',query:{urlDate:JSON.stringify(urldata)}});
-					
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			},
 			delect(val) {
@@ -135,7 +177,7 @@
 						activity_id: val.id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+						this.getData({pageCurrent:1,pageSize:10});
 					}) 
 					
 				}).catch(() => {
@@ -146,11 +188,20 @@
 				});
 			},
 		},
-		created() {},
+		created() {
+			this.screenreach();
+			this.getcommonrightbtn();
+		},
 		mounted() {
 			//console.log(DataScreen.screenShow.activityClass.bts)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
-			this.screenreach();
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

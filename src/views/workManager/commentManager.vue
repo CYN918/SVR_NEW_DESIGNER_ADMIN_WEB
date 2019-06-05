@@ -63,11 +63,8 @@
 			}
 		},
 		methods: {
-			setLoding(type){
-				//alert(2);
-				this.$refs.Tabledd.setLoding(type);	
-			},
 			getData(pg) {
+				this.$refs.Tabledd.setLoding(true);	
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -94,9 +91,9 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
-					this.setLoding(false);
+					this.$refs.Tabledd.setLoding(false);	
 				}).catch(() => {
-					this.setLoding(false);
+					this.$refs.Tabledd.setLoding(false);	
 				});
 
 				/* this.setLoding(false); */
@@ -117,6 +114,7 @@
 			},
 			forshowkey(data) {
 				//筛选展示字段
+				this.tableConfig.list = [];
 				this.bts.forEach(item => {
 					const val = item;
 					data.forEach(item1 => {
@@ -129,10 +127,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:10});
 				})
 			},
 			linkDetail(id) {
@@ -165,10 +160,7 @@
 							type: 'info',
 							message: da
 						});
-						this.getData({
-							pageCurrent: this.tableConfig.currentpage,
-							pageSize: this.tableConfig.pagesize
-						});
+						this.getData({pageCurrent:1,pageSize:10});
 						
 					})
 					
@@ -179,51 +171,47 @@
 					});
 				});
 			},
-			getcommonrightbtn() {
+			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
-				if (this.$route.query.urlDate) {
+				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					this.filterFields.forEach(item => {
+					this.filterFields.forEach(item=>{
 						//console.log(item);
-
-						if (urldata[item.id]) {
+						if(urldata[item.id]){
 							var val = urldata[item.id];
-							if (item.child) {
+							if(item.child){	
 								val = "";
-								item.child.forEach(citem => {
+								item.child.forEach(citem=>{
 									//alert(urldata[item.id])
-									if (citem.id == urldata[item.id]) {
+									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
-							}
-							this.commonTopData.commonbottombtn.push({
-								btnName: item.name,
-								val: val,
-								id: item.id
-							});
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
-						}
-						if (item.type == "two") {
-							if (item.child) {
-								item.child.forEach(citem => {
-									if (urldata[citem.id]) {
-										this.commonTopData.commonbottombtn.push({
-											btnName: citem.name,
-											val: urldata[citem.id],
-											id: citem.id
-										})
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
 									}
 								})
 							}
-							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
-							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
-							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
-
 			},
 			resetSave(tag) {
 				if (this.$route.query.urlDate) {
@@ -236,27 +224,23 @@
 							urlDate: JSON.stringify(urldata)
 						}
 					});
-					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
 				}
 			},
 		},
-		mounted() {
-			//console.log(this.tableConfig)
-			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
-			});
+		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
-		watch: {
-			screenShowDataChange(val) {
-				//console.log(val)
+		mounted() {
+			this.getData({pageCurrent:1,pageSize:10});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+				this.getScreenShowData();
 			}
 		}
 	}

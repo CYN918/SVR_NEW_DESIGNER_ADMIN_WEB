@@ -22,10 +22,10 @@
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" 
 						show-checkbox
-						ref="tree"
 						node-key="id" 
-						:default-expanded-keys="[2, 3]" 
-						:default-checked-keys="[5]"
+						check-strictly
+						:default-checked-keys="permissions"
+						ref="tree"
 						:props="defaultProps">
 						</el-tree>
 					</div>
@@ -53,6 +53,7 @@
 					children: 'child',
 					label: 'title'
 				},
+				permissions:[]
 			}
 		},
 		methods: {
@@ -92,10 +93,6 @@
 					permissions:rolesString,
 					description:this.text30
 				}).then(da =>{
-					this.$message({
-					  type: 'info',
-					  message: da
-					});
 					if(da == "修改成功"){
 						this.router.push({
 							path:"/power/roleManager"
@@ -105,6 +102,26 @@
 					/* this.router.push({
 						path:"/power/roleManager"
 					}) */
+				}).catch(da => {
+					
+				})
+			},
+			seeroles(){
+				this.api.infoRole({
+					access_token:localStorage.getItem("access_token"),
+					id:this.$route.query.id
+				}).then(da =>{
+					console.log(da);
+					this.rolename = da.name;
+					this.roleintroduce = da.description;
+					//console.log(da.permissions.split(","));
+					da.permissions.split(",").forEach((itme)=>{
+						if(parseInt(itme)){
+							this.permissions.push(parseInt(itme));
+						}
+						
+					})
+					this.getMenu();
 				}).catch(da => {
 					
 				})
@@ -123,6 +140,7 @@
 		},
 		mounted() {
 			this.getMenu();
+			this.seeroles();
 		}
 	}
 </script>

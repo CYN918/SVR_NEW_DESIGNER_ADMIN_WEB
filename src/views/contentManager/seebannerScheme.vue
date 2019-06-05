@@ -1,37 +1,37 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">新建banner方案</div>
-		<div class="detailContent ofh">
+		<div class="detailtitle">banner方案</div>
+		<div class="detailContent ofh" v-if="edit != 'edit'">
 			<ul>
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey">banner展示方案ID</span>
-					<span style="width:357px;height:40px;">{{ data.id }}</span>
+					<span style="width:357px;height:40px;">{{ datadetial.id }}</span>
 				</li>
 				
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey" >banner方案名称</span>
-					<span style="width:357px;height:40px;">{{ data.banner_program_name }}</span>
+					<span style="width:357px;height:40px;">{{ datadetial.banner_program_name }}</span>
 				</li>
 				<li class="margint23 ofh" style="line-height: 40px;">
 					<div>
 						<span class="fleft detailKey" >展示时间段</span>
-						<span class="fleft">{{ data.program_begin_time }}</span>
+						<span class="fleft">{{ datadetial.program_begin_time }}</span>
 						<span class="fleft" >
 							&nbsp;至&nbsp;
 						</span>
-						<span class="fleft">{{ data.program_end_time }}</span>
+						<span class="fleft">{{ datadetial.program_end_time }}</span>
 					</div>
 				</li>
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey">是否设为默认展示方案</span>
 					<div class="fleft status">
-						<el-radio v-model="data.is_default" label="1" class="fleft" style="height: 40px;line-height: 40px;">是</el-radio>
-						<el-radio v-model="data.is_default" label="0" class="fleft" style="height: 40px;line-height: 40px;">否</el-radio>
+						<el-radio v-model="datadetial.is_default" label="1" class="fleft" style="height: 40px;line-height: 40px;">是</el-radio>
+						<el-radio v-model="datadetial.is_default" label="0" class="fleft" style="height: 40px;line-height: 40px;">否</el-radio>
 					</div>
 				</li>
 			</ul>
 			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
-				<div v-for ="(item,index) in data.banner_info" :key="item.id">
+				<div v-for ="(item,index) in datadetial.banner_info" :key="item.id">
 					<div class="fleft" style="line-height: 40px;padding-left: 40px;">banner-{{ index+1 }}</div>
 					<ul style="padding-top: 0px;margin-top: 0px;">
 						<!-- <div class="detailtitle">Banner-1</div> -->
@@ -52,8 +52,51 @@
 				</div>
 			</div>
 		</div>
+		<div class="detailContent ofh" v-if="edit == 'edit'">
+			<ul>
+				<li class="margint13 ofh" style="line-height: 40px;">
+					<span class="fleft detailKey">banner展示方案ID</span>
+					<span style="width:357px;height:40px;">{{ datadetial.id }}</span>
+				</li>
+				
+				<li class="margint13 ofh" style="line-height: 40px;">
+					<span class="fleft detailKey" >banner方案名称</span>
+					<el-input style="width:357px;height:40px;" v-model="datadetial.banner_program_name"></el-input>
+				</li>
+				<li class="margint23 ofh" style="line-height: 40px;">
+					<!-- <div>
+						<span class="fleft detailKey" >展示时间段</span>
+						<span class="fleft">{{ datadetial.program_begin_time }}</span>
+						<span class="fleft" >
+							&nbsp;至&nbsp;
+						</span>
+						<span class="fleft">{{ datadetial.program_end_time }}</span>
+					</div> -->
+					<div>
+						<span class="fleft detailKey" style="line-height: 40px;">展示时间段</span>
+						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="datadetial.program_begin_time" type="datetime"
+						 placeholder="开始时间">
+						</el-date-picker>
+						<span class="fleft" style="line-height: 40px;">
+							&nbsp;至&nbsp;
+						</span>
+						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="datadetial.program_end_time" type="datetime"
+						 placeholder="结束时间">
+						</el-date-picker>
+					</div>
+				</li>
+				<li class="margint13 ofh" style="line-height: 40px;">
+					<span class="fleft detailKey">是否设为默认展示方案</span>
+					<div class="fleft status">
+						<el-radio v-model="datadetial.is_default" label="1" class="fleft" style="height: 40px;line-height: 40px;">是</el-radio>
+						<el-radio v-model="datadetial.is_default" label="0" class="fleft" style="height: 40px;line-height: 40px;">否</el-radio>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
+			<button class="defaultbtn defaultbtnactive" v-if="edit == 'edit'" @click="editp()">确定</button>
 		</div>
 	</div>
 </template>
@@ -70,7 +113,8 @@
 		},
 		data() {
 			return {
-				data:{}
+				edit:this.$route.query.edit,
+				datadetial:{}
 			}
 		},
 		methods: {
@@ -89,8 +133,17 @@
 					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id
 				}).then(da=>{
-					console.log(da);
-					this.data = da;
+					//console.log(da);
+					this.datadetial = da;
+				}).catch(da=>{
+					
+				})
+			},
+			editp(){
+				this.datadetial.access_token = localStorage.getItem("access_token");
+				this.api.bannerprogramedit(this.datadetial).then(da=>{
+					//console.log(da);
+					//this.data = da;
 				}).catch(da=>{
 					
 				})

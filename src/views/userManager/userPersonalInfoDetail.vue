@@ -5,59 +5,59 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户ID</span>
-					<span class="fleft detailValue">{{ detailData.open_id }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.open_id) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户名</span>
-					<span class="fleft detailValue">{{ detailData.username }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.username) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">手机号</span>
-					<span class="fleft detailValue">{{ detailData.username }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.mobile) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">邮箱</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.email) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">身份证姓名</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.name) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey ">身份证号码</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.id_card) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey squareKey">身份证正面照片</span>
-					<span class="fleft detailValue squareImg"></span>
+					<img class="fleft detailValue squareImg" :src="detailData.front_photo" alt="">
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey squareKey">身份证反面照片</span>
-					<span class="fleft detailValue squareImg"></span>
+					<img class="fleft detailValue squareImg" :src="detailData.back_photo" alt="">
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey squareKey">手持身份证照片</span>
-					<span class="fleft detailValue squareImg"></span>
+					<img class="fleft detailValue squareImg" :src="detailData.hand_hold_photo" alt="">
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">收款账户名</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.name) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">银行卡号</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.bank_card_no) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">所属开户银行</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.bank_name) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">所属开户支行</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.branch_bank) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">银行预留手机号</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.reserve_phone) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">累计收益</span>
@@ -77,7 +77,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">最近更新时间</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.updated_at) }}</span>
 				</li>
 				
 			</ul>
@@ -97,9 +97,7 @@
 		},
 		methods:{
 			getparent(){
-				this.router.push({
-					path:"/userPersonalInfo"
-				})
+				this.$router.go(-1);
 			},
 			getValue(val){
 				if(val) {
@@ -109,15 +107,18 @@
 				}
 			},
 			getdata(){
-				
 				const id = this.$route.query.open_id;
 				this.api.getContributorInfo({
 					open_id: id,
 					contribute_type:1
 				}).then(da => {
 					this.detailData = da;
+					console.log(da)
 				}).catch(() => {})
 			}
+		},
+		created() {
+			this.getdata();
 		}
 	}
 </script>
@@ -156,7 +157,6 @@
 		width: 68px;
 		height: 68px;
 		border-radius: 50%;
-		background: red;
 	}
 	
 	.detailKeyImg{

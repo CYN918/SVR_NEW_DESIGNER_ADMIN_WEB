@@ -5,16 +5,16 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户ID</span>
-					<span>{{ roleintroduce.id }}</span>
+					<span>{{ rows.id }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">用户名称</span>
-					<span>{{ roleintroduce.user_name }}</span>
+					<span>{{ rows.name }}</span>
 				</li>
 				
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">邮箱</span>
-					<span>{{ roleintroduce.email }}</span>
+					<span>{{ rows.email }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft roles-input" style="margin-right: 20px;width: 84px;">角色名称</span>
@@ -60,6 +60,7 @@
 				},
 				roleintroduce:[],
 				permissions:[],
+				rows:JSON.parse(this.$route.query.row)
 			}
 		},
 		methods: {
@@ -87,7 +88,7 @@
 				this.permissions = [];
 				this.api.getAdminUserInfo({
 					access_token:localStorage.getItem("access_token"),
-					id:this.$route.query.id
+					id:this.rows.id
 				}).then(da =>{
 					//console.log(da)
 					this.roleintroduce = da; 

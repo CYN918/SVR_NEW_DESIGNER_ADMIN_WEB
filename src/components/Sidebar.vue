@@ -100,6 +100,19 @@
 					<el-menu-item index="12-4">举报信息</el-menu-item>
 				</router-link>
 			</el-submenu>
+			<el-submenu index="13">
+				<template slot="title">
+					<i class="iconfont">&#xe62b;</i>
+					<span style="padding:15px;">消息通知管理</span>
+				</template>
+				<router-link to="/noticeManager/newsRelease">
+					<el-menu-item index="12-1" class="">消息发布</el-menu-item>
+				</router-link>
+				<router-link to="/noticeManager/noticetemplate">
+					<el-menu-item index="12-2">系统通知模板</el-menu-item>
+				</router-link>
+				
+			</el-submenu>
 			<!-- <el-submenu index="1">
 				<template slot="title">
 					<i class="iconfont">&#xe602;</i>

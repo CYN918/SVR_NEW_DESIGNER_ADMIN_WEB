@@ -33,18 +33,20 @@
 				<button class="defaultbtn defaultbtnactive" @click="newname">确 定</button>
 			</span>
 		</el-dialog>
-		<el-dialog title="本地文件" :visible.sync="showmask">
+		<el-dialog title="上传模板文件" :visible.sync="showmask">
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="showmaskload">本地文件</button>
 				<button class="defaultbtn" @click="showmaskload1">网盘链接</button>
 			</span>
 		</el-dialog>
 		<el-dialog title="本地文件" :visible.sync="showmask1">
-			<div class="dorg">
+			<div class="dorg textcenter">
 				<el-upload
-				  class="upload-demo"
+				  class="upload-demo textcenter"
 				  drag
-				  action="https://jsonplaceholder.typicode.com/posts/"
+				  action="1111"
+				  :http-request="httprequest"
+				  :limit = "1"
 				  multiple>
 				  <div>
 				  	<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
@@ -54,22 +56,21 @@
 				  </div>
 				  <div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
 				</el-upload>
+				<button class="defaultbtn defaultbtnactive " @click="templateadds(1)">确定</button>
 			</div>
-			
-			
 		</el-dialog>
 		<el-dialog title="网盘链接" :visible.sync="showmask2">
 			<div class="dorg textcenter" style="width: 100%;">
 				<div>
 					<span style="line-height: 40px;padding-right: 20px;">文件名称</span>
-					<el-input style="width: 357px" placeholder="请输入文件名称"></el-input>
+					<el-input style="width: 357px" v-model="filename" placeholder="请输入文件名称"></el-input>
 				</div>
 				<div style="margin-top: 30px;">
 					<span style="line-height: 40px;padding-right: 20px;">网盘链接</span>
-					<el-input style="width: 357px" placeholder="请输入网盘链接，提取码等"></el-input>
+					<el-input style="width: 357px" v-model="online_disk_info" placeholder="请输入网盘链接，提取码等"></el-input>
 				</div>
 				<div style="margin-top: 40px;">
-					<button class="defaultbtn defaultbtnactive " @click="showmaskload1">确定</button>
+					<button class="defaultbtn defaultbtnactive " @click="templateadds(2)">确定</button>
 				</div>
 			</div>
 		</el-dialog>
@@ -133,7 +134,12 @@
 				rowdata: "",
 				file_name: "",
 				showmask1: false,
-				showmask2:false
+				showmask2:false,
+				file_info:{},
+				file_url:'',
+				typewen:1,
+				online_disk_info:"",
+				filename:'',
 			}
 		},
 		methods: {
@@ -143,6 +149,7 @@
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
 				this.filterFields = DataScreen.screenShow.solicitationTemplate["filterFields" + num];
 				this.$parent.tabchange(num+1);
+				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:10});
 			},
 			getData(pg) {
@@ -181,15 +188,13 @@
 			},
 			setLoding(type){
 				//alert(2);
+				//console.log(this.$refs);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:10});
 				})
 			},
 			linkDetail(id) {
@@ -203,51 +208,83 @@
 					console.log(da);
 				}).catch(() => {})
 			},
-			getcommonrightbtn() {
+			httprequest(params) {
+				const _file = params.file;
+				this.file_info = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+			    var _this = this
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					console.log(response.data.data);
+					_this.file_url = response.data.data.url;
+				}).catch(function (error) {
+					console.log(error);
+				});
+				//console.log(this.form.banner = url)
+			},
+			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
-				if (this.$route.query.urlDate) {
+				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					this.filterFields.forEach(item => {
+					this.filterFields = this.tabsnum == 0 ? DataScreen.screen.solicitationTemplate.filterFields0 : DataScreen.screen.solicitationTemplate.filterFields1
+					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if (urldata[item.id]) {
+						if(urldata[item.id]){
 							var val = urldata[item.id];
-							if (item.child) {
+							if(item.child){	
 								val = "";
-								item.child.forEach(citem => {
+								item.child.forEach(citem=>{
 									//alert(urldata[item.id])
-									if (citem.id == urldata[item.id]) {
+									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
-							}
-							this.commonTopData.commonbottombtn.push({
-								btnName: item.name,
-								val: val,
-								id: item.id
-							});
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
-
 			},
 			resetSave(tag) {
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					//console.log(tag);
-					this.$router.push({
-						path: '/userCompanyInfo',
-						query: {
-							urlDate: JSON.stringify(urldata)
-						}
-					});
-					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			delete(val) {
@@ -258,16 +295,12 @@
 					type: '',
 					center: true
 				}).then(() => {
-					console.log(val.template_file_id)
+					//console.log(val.template_file_id)
 					this.api.templateDelete({
 						template_file_id: val.template_file_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						console.log(da)
-						this.$message({
-							type: 'info',
-							message: da
-						});
+						this.getData({pageCurrent:1,pageSize:10});
 					})
 
 				}).catch(() => {
@@ -283,9 +316,7 @@
 					file_name: this.file_name,
 					access_token: localStorage.getItem("access_token"),
 				}).then(da => {
-					this.$message({
-						message: da
-					})
+					this.getData({pageCurrent:1,pageSize:10});
 				}).catch(da => {
 					this.$message({
 						type: 'info',
@@ -301,19 +332,46 @@
 			showmaskload(){
 				this.showmask = false;
 				this.showmask1 = true;
+				
+			},
+			templateadds(type){
+				this.api.templateadd({
+					file_name:this.file_info.name,
+					file_type:this.file_info.type,
+					file_size:this.file_info.size,
+					template_url:this.file_url,
+					online_disk_info:this.online_disk_info,
+					type:type,
+					access_token: localStorage.getItem("access_token"),
+				}).then(da => {
+					this.getData({pageCurrent:1,pageSize:10});
+				}).catch(da => {
+					this.$message({
+						type: 'info',
+						message: "系统网络故障"
+					})
+				})
+				this.showmask1 = false;
+				this.showmask2 = false;
 			}
 		},
 		created() {
-			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
-			});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-
+			//console.log(this.tableConfig)
+			this.getData({pageCurrent:1,pageSize:10});
+			this.$parent.tabchange(1);
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
+		
 	}
 </script>
 
@@ -325,6 +383,10 @@
 	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	
+	.el-upload-list__item-name{
+		text-align: left;
 	}
 </style>
 
@@ -609,7 +671,6 @@
 	
 	.dorg{
 		width:384px;
-		height:195px;
 		margin:auto;
 		border-radius:4px;
 	}

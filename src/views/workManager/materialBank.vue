@@ -27,26 +27,17 @@
 				<el-checkbox-group v-model="checkList">
 					<div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('附件',item.fid)">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size }}</span>
 								</div>
 							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="2" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
+							
 						</ul>
 					</div>
 				</el-checkbox-group>
@@ -54,9 +45,9 @@
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<el-checkbox-group v-model="checkList">
 					<ul class="materiallist">
-						<li v-for="(item,index) in materialdata" :key="item.url">
+						<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('图片',item.fid)">
 							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}">
-								<el-checkbox class="material-checkbox" :label="item.url" v-if="workselect"></el-checkbox>
+								<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
 							</div>
 							<div class="color66">
 								<span class="fleft">{{ item.file_name }}</span>
@@ -70,14 +61,14 @@
 				<el-checkbox-group v-model="checkList">
 					<div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('视频',item.fid)">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="5" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size }}</span>
 								</div>
 							</li>
 						</ul>
@@ -88,14 +79,14 @@
 				<el-checkbox-group v-model="checkList">
 					<div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('音频',item.fid)">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="6" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size }}</span>
 								</div>
 							</li>
 						</ul>
@@ -113,7 +104,7 @@
 		</div>
 		<div class="screenContent detailbtn"  v-if="workselect">
 			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
+			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downfile">下载 {{ checkList.length }}
 				个选项（{{ 11 }}）</button>
 		</div>
 	</div>
@@ -122,6 +113,8 @@
 <script>
 	import workData from "../../assets/workData.js"
 	import commonTop from '@/components/commonTop.vue'
+	import DataScreen from "@/assets/DataScreen.js"
+	
 	export default {
 		components: {
 			commonTop
@@ -171,12 +164,13 @@
 				file_type:"zip",
 				setLoding:true,
 				materialdata:"",
+				filterFields:DataScreen.screen.materialBank.filterFields
 			}
 		},
 		methods: {
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				this.router.push({
+				this.$router.push({
 					path: "/workManager/workInfo"
 				})
 				
@@ -213,6 +207,7 @@
 					if (!da) {
 						this.$message('数据为空');
 					}
+					console.log(da)
 					this.materialdata = da.data
 					this.total = da.total;
 					this.currentpage = da.currentpage;
@@ -250,12 +245,88 @@
 				/* this.selected = val.length
 				this.$parent.selectData = val; */
 			},
+			gotodetail(name,fid){
+				this.router.push({
+					path:"materialBank/materialBankdetail",
+					query:{tabsnum:this.tabsnum,name:name,fid:fid}
+				})
+			},
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item=>{
+						//console.log(item);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+			},
+			resetSave(tag){
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate)
+					delete urldata[tag];
+					//console.log(tag);
+					this.$router.push({path:'/workManager/materialBank',query:{urlDate:JSON.stringify(urldata)}});
+				}
+			},
+			downfile(){
+				var x=new XMLHttpRequest();
+				x.open("GET", "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/776cc6d81cabf16305fa9749ac0fdfc8.zip", true);
+				x.responseType = 'blob';
+				x.onload=function(e){
+					var url = window.URL.createObjectURL(x.response)
+					var a = document.createElement('a');
+					a.href = url
+					a.download = ''
+					a.click()
+				}
+				x.send();
+			}
+			
 		},
 		created() {
-			this.getData(this.currentpage,this.pagesize);
+			this.getcommonrightbtn();
 		},
 		mounted() {
-			
+			this.getData(1,10);
+		},
+		watch:{
+			"$route":function(){
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>

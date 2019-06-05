@@ -24,7 +24,7 @@
 				<ul class="screenContent" style="flex-wrap: wrap">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
-							<div class="bannerlisttag0" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;">zhanshi</div>
+							<div class="bannerlisttag0 defaultbtn" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;"></div>
 							<el-carousel height="190px" style="background: gray;">
 							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
 								<img :src="citem.banner_pic" width="100%" height="100%" alt="">
@@ -45,7 +45,7 @@
 									  <button class="defaultbtn">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
 										<el-dropdown-item @click.native="delectprogram(item.id)">删除</el-dropdown-item>
-										<el-dropdown-item>编辑</el-dropdown-item>
+										<el-dropdown-item @click.native="seeprogram(item.id,'edit')">编辑</el-dropdown-item>
 										<el-dropdown-item @click.native="seeprogram(item.id)">查看</el-dropdown-item>
 									  </el-dropdown-menu>
 									</el-dropdown>
@@ -139,7 +139,7 @@
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
-				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+				this.getData({pageCurrent:1,pageSize:10});
 				//console.log(this.tableConfig.list);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [{
@@ -219,7 +219,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:10});
 					
 				})
 			},
@@ -238,15 +238,17 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					//console.log(urldata);
+					console.log(urldata);
+					this.filterFields = this.tabsnum == 0 ? DataScreen.screen.homeBanner.filterFields0 : DataScreen.screen.homeBanner.filterFields1;
+					console.log(this.filterFields);
 					this.filterFields.forEach(item=>{
-						//console.log(item);
+						//console.log(urldata[item.id]);
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
-									//alert(urldata[item.id])
+									alert(urldata[item.id])
 									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
@@ -254,19 +256,33 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
-				
 			},
-			resetSave(tag){
-				if(this.$route.query.urlDate){
+			resetSave(tag) {
+				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					//console.log(tag);
-					this.$router.push({path:'/userCompanyInfo',query:{urlDate:JSON.stringify(urldata)}});
-					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.$router.push({ path: '/contentManager/homeBanner', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			delete(val) {
@@ -282,10 +298,7 @@
 						activity_id: val.id,
 						access_token: 2,
 					}).then(da => {
-						this.$message({
-							type: 'info',
-							message: '删除成功'
-						});
+						this.getData({pageCurrent:1,pageSize:10});
 					}) 
 					
 				}).catch(() => {
@@ -309,11 +322,7 @@
 						access_token:localStorage.getItem("access_token"),
 						id: val.id,
 					}).then(da => {
-						this.getData({
-							pageCurrent: this.tableConfig.currentpage,
-							pageSize: this.tableConfig.pagesize
-						});
-						
+						this.getData({pageCurrent:1,pageSize:10});
 					})
 					
 				}).catch(() => {
@@ -333,21 +342,37 @@
 				this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			},
 			isdefault(id){
-				this.api.bannerprogramedit({
-					access_token:localStorage.getItem("access_token"),
-					is_default:1,
-					id:id
-				}).then(da =>{
+				this.$confirm('确认设置默认方案？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.bannerprogramedit({
+						access_token:localStorage.getItem("access_token"),
+						is_default:1,
+						id:id
+					}).then(da =>{
+						this.getData({pageCurrent:1,pageSize:10});
+					}).catch(da =>{
+						
+					})
 					
-				}).catch(da =>{
-					
-				})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
 			},
-			seeprogram(id){
+			seeprogram(id,edit){
 				this.router.push({
 					path:"/contentManager/homeBanner/seebannerScheme",
 					query:{
-						id:id
+						id:id,
+						edit:edit
 					}
 				})
 			},
@@ -364,10 +389,7 @@
 						access_token:localStorage.getItem("access_token"),
 						id:id
 					}).then(da =>{
-						this.getData({
-							pageCurrent: this.tableConfig.currentpage,
-							pageSize: this.tableConfig.pagesize
-						});
+						this.getData({pageCurrent:1,pageSize:10});
 					}).catch(da =>{
 						
 					})
@@ -381,13 +403,19 @@
 			}
 		},
 		created() {
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
-			//this.tabchange();
 		},
 		mounted() {
+			this.getData({pageCurrent:1,pageSize:10});
 			this.$parent.tabchange(1);
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:10});
+			}
 		}
 	}
 </script>
