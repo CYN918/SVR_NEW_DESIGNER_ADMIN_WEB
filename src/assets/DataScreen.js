@@ -26,24 +26,18 @@ const screenData = {
 		},
 		userCompanyInfo:{
 			filterFields:[
-				{name:"银行卡号",id:"bank_card_no"},
-				{name:"开户银行",id:"bank_name"},
-				{name:"开户支行",id:"branch_bank"},
-				{name:"审核状态",id:"check_status"},
-				{name:"邮箱",id:"email"},
-				{name:"手机号",id:"phone"},
-				{name:"用户昵称",id:"username"},
 				{name:"用户ID",id:"open_id"},
-				{name:'作品数量', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
-				{name:'收益', type:'two',child:[{id:'profit_max'},{id:'profit_min'}]},
-				{name:"身份证姓名（个人）",id:"real_name"},
-				{name:"身份证号码（个人）",id:"id_card"},
-				{name:"账户名称（个人）",id:"account_name"},
-				{name:"预留手机号（个人）",id:"reserve_phone"},
+				{name:"用户昵称",id:"username"},
+				{name:"手机号",id:"phone"},
+				{name:"邮箱",id:"email"},
 				{name:"企业/机构名称",id:"company_name"},
-				{name:"统一信用代码（企业）",id:"code"},
-				{name:"提供发票税率（企业）",id:"tax_rate_type"},
-				{name:"",type:"display"},
+				{name:"统一信用代码",id:"code",}, 
+				{name:"提供发票税率",id:"tax_rate_type",child:[{name:"6%或17% ",id:"1"},{name:"3%",id:"2"}]},
+				{name:"企业银行卡号",id:"bank_card_no"},
+				{name:"所属开户银行",id:"bank_name"},
+				{name:"所属开户支行",id:"branch_bank"},
+				{name:'累积收益', type:'two',child:[{id:'profit_max'},{id:'profit_min'}]},
+				{name:'累积录用作品数', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
 			]
 		},
 		userPersonalInfo:{
@@ -54,15 +48,13 @@ const screenData = {
 				{name:"邮箱",id:"email"},
 				{name:"身份证姓名",id:"real_name"},
 				{name:"身份证号码",id:"id_card"},
-				{name:"收款人账号",id:""},
+				{name:"收款账号名",id:"account_name"},
 				{name:"银行卡号",id:"bank_card_no"},
-				{name:"预留手机号（个人）",id:"reserve_phone"},
+				{name:"银行预留手机号",id:"reserve_phone"},
 				{name:"所属开户银行",id:"bank_name"},
 				{name:"所属开户支行",id:"branch_bank"},
 				{name:'累积收益', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
 				{name:'累积录用作品数量', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
-				{name:"当前状态",id:"status"},
-				{name:"",type:"display"},
 			]
 		},
 		roleManager:{
@@ -307,18 +299,19 @@ const screenData = {
 		},
 		serviceCenter:{
 			filterFields:[
-				{name:"热门搜索词ID",id:"id"},
-				{name:"文案",id:"word"},
+				{name:"文档ID",id:"id"},
+				{name:"文档备注",id:"remark"},
+				{name:"文档类型",id:"type",child:[{name:"关于我们",id:"1"},{name:"用户协议",id:"2"},{name:"授权协议",id:"3"},{name:"帮助中心",id:"4"}]},
 				{name:"干预位置",id:"position"},
 				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
-				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
+				{name:'干预时间',type:"time",child:[{name:'更新时间(开始)',id:'update_time_start'},{name:'更新时间(开始)',id:'update_time_end'}]},
 				{name:"",type:"display"},
 			]
 		},
 		recommendedActivities:{
 			filterFields:[
-				{name:"热门搜索词ID",id:"id"},
-				{name:"文案",id:"word"},
+				{name:"任务ID",id:"id"},
+				{name:"活动名称",id:"activity_name"},
 				{name:"干预位置",id:"position"},
 				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
 				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
@@ -493,21 +486,13 @@ const screenData = {
 		},
 		userCompanyInfo:{
 			bts:[
-				{prop:'open_id',lable:'用户ID'},
+				{prop:'open_id',lable:'用户ID',width:200},
 				{prop:'name',lable:'用户昵称'},
-				{prop:'code',lable:'统一信用代码（企业）',width:200},
+				{prop:'mobile',lable:'手机号',width:200},
+				{prop:'email',lable:'邮箱',width:200},
 				{prop:'company_name',lable:'企业/机构名称',width:150},
+				{prop:'code',lable:'统一信用代码（企业）',width:200},
 				{prop:'business_license',lable:'营业执照',type:"img",width:200},
-				{prop:'opening_permit',lable:'身份证正面照片',type:"img",width:200},
-				{prop:'tax_rate_type',lable:'提供发票税率（企业）',width:200},
-				{prop:'account_name',lable:'账户名称（个人）',width:200},
-				{prop:'bank_card_no',lable:'银行卡号'},
-				{prop:'bank_name',lable:'开户银行'},
-				{prop:'branch_bank',lable:'开户支行'},
-				{prop:'check_status',lable:'审核状态'},
-				{prop:'created_at',lable:'注册时间'},
-				{prop:'updated_at',lable:'最近更新时间',width:200},
-				{prop:'reserve_phone',lable:'预留手机号（个人）',width:200},
 			],
 			action:{
 				morebtns:{
@@ -524,7 +509,7 @@ const screenData = {
 		},
 		userPersonalInfo:{
 			bts:[
-				{prop:'open_id',lable:'用户ID'},
+				{prop:'open_id',lable:'用户ID',width:200},
 				{prop:'username',lable:'用户昵称'},
 				{prop:'mobile',lable:'手机号'},
 				{prop:'email',lable:'邮箱'},
@@ -613,12 +598,10 @@ const screenData = {
 		},
 		accountManager:{
 			bts:[
-				{prop:'id',lable:'用户ID'},
-				{prop:'role_id',lable:'角色ID'},
-				{prop:'name',lable:'角色名称'},
-				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"未知"}},
+				{prop:'id',lable:'账户ID'},
+				{prop:'name',lable:'账户名'},
 				{prop:'email',lable:'邮箱'},
-				{prop:'created_at',lable:'注册时间'},
+				{prop:'role_name',lable:'权限角色'},
 				{prop:'updated_at',lable:'最近登录时间'},
 			],
 			action:{
@@ -875,8 +858,12 @@ const screenData = {
 				},
 				links:{
 					name:"修改",
-					Ishow:true
+					Ishow:true,
+					filterField:[0],
 				},
+				pagefilterField:true,
+				pagefilterFieldid:"processing_activity_num"
+				
 			}
 		},
 		labels:{
@@ -936,6 +923,7 @@ const screenData = {
 					Ishow:true
 				},
 				pagefilterField:true,
+				pagefilterFieldid:"status"
 			}
 		},
 		
@@ -972,8 +960,10 @@ const screenData = {
 				},
 				links:{
 					name:"选择",
-					Ishow:true
-				}
+					Ishow:true,
+					filterField:["0"],
+				},
+				
 			}
 		},
 		
@@ -1017,11 +1007,11 @@ const screenData = {
 			bts1:[
 				{lable:"模板文件ID",prop:"template_file_id"},
 				{lable:"文件名称",prop:"file_name"},
-				{lable:"网盘链接",prop:"activity_id"},
+				{lable:"网盘链接",prop:"online_disk_info"},
 				{lable:"在用活动数",prop:"processing_activity_num"},
 				{lable:"上传人",prop:"admin_name"},
-				{lable:"入围时间",prop:"shortlisted_time"},
-				{lable:"录用时间",prop:"hire_time"}
+				{lable:"更新时间",prop:"updated_at"},
+				{lable:"上传时间",prop:"created_at"}
 			],
 			bts0:[
 				{lable:"模板文件ID",prop:"template_file_id"},

@@ -171,7 +171,8 @@
 				this.loading = true;
 				this.api.recommendactivityedit({
 					access_token:localStorage.getItem("access_token"),
-					activity_id: this.activity_id,
+					id: this.row.id,
+					activity_id: this.activitiesrows.id,
 					start_time:this.start_time,
 					end_time:this.end_time,
 					position:this.position
@@ -286,7 +287,7 @@
 		created() {
 			//console.log(this.row)
 			if(this.$route.query.row){
-				this.row = JSON.parse(this.$route.query.row)
+				this.row = JSON.parse(this.$route.query.row);
 				this.activity_id = this.row.activity_id;
 				this.start_time = this.row.start_time;
 				this.end_time = this.row.end_time;
