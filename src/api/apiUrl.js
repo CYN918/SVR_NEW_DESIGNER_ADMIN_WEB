@@ -229,9 +229,7 @@ export default {
 	materialDetail:{
 		url:'/admin/Work/materialDetail',method:'post',baseURL:0
 	},
-<<<<<<< HEAD
-	
-	
+
 	taskList:{
 		url:'/admin/Homerec/taskList',method:'post',baseURL:0
 	},
@@ -245,13 +243,13 @@ export default {
 	
 	Homerec_edit:{
 		url:'/admin/Homerec/edit',method:'post',baseURL:0
-=======
+
 	bindContract:{
 		url:'/admin/work/bindContract',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	hire:{
 		url:'/admin/work/hire',method:'post',baseURL:0,isType:{suktip:true}
->>>>>>> c19499ecaffadfaab8ae1bc2b58b6bc636c908c3
+
 	},
 	
 }
