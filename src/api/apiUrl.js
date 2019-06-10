@@ -242,7 +242,8 @@ export default {
 	},
 	
 	Homerec_edit:{
-		url:'/admin/Homerec/edit',method:'post',baseURL:0
+		url:'/admin/Homerec/edit',method:'post',baseURL:0,
+	},
 
 	bindContract:{
 		url:'/admin/work/bindContract',method:'post',baseURL:0,isType:{suktip:true}
