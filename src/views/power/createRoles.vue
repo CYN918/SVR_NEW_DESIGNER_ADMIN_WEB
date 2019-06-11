@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">创建角色</div>
+		<div class="detailtitle">编辑角色</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -91,11 +91,10 @@
 					permissions:rolesString,
 					description:this.text30
 				}).then(da =>{
-					this.$message({
-					  type: 'info',
-					  message: da ? "添加成功" : "添加失败"
-					});
-					this.$parent.getData({pageCurrent:1,pageSize:10});
+					
+					this.router.push({
+						path:"/power/roleManager"
+					})
 				}).catch(da => {})
 			},
 			getMenu(){

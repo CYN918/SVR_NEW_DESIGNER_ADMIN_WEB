@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail" v-loading="loading">
-		<div class="detailtitle">新建干预任务</div>
+		<div class="detailtitle">编辑干预任务</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -13,7 +13,7 @@
 							<span v-html="activitiesrows.activity_name"></span>
 						</div>
 						<div>
-							<span class="fontcolorg" style="font-size: 12px;">{{ activitiesrows.category_name +" "+ "--"+"至"+ "--" }}</span>	
+							<span class="fontcolorg" style="font-size: 12px;">{{ getValue(activitiesrows.category_name) +" "+ getValue(activitiesrows.start_time)+"至"+ getValue(activitiesrows.end_time) }}</span>	
 						</div>
 					</div>
 				</li>
@@ -98,8 +98,7 @@
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
-					{name:"第四位",id:"4"},
-					{name:"第五位",id:"5"}
+					{name:"第四位",id:"4"}
 				],
 				loading:false,
 				pageName: "newrecommendedActivities",
@@ -131,7 +130,10 @@
 				
 				},
 				tableData: [],
-				activitiesrows:{}
+				activitiesrows:{
+					
+				},
+				recommendainfo:{}
 			}
 		},
 		methods: {
@@ -283,6 +285,18 @@
 					
 				})
 			},
+			recommendactivityinfo(){
+				/* this.api.recommendactivityinfo({
+					access_token:localStorage.getItem("access_token"),
+					id: this.row.id
+				}).then(da=>{
+					console.log(da)
+					this.activity_id = da.id;
+					this.activitiesrows = da;
+					
+					
+				}) */
+			}
 		},
 		created() {
 			//console.log(this.row)
@@ -292,6 +306,8 @@
 				this.start_time = this.row.start_time;
 				this.end_time = this.row.end_time;
 				this.position = this.row.position;
+				//this.recommendactivityinfo();
+				this.activitiesrows
 			}
 			this.screenreach();
 			this.getcommonrightbtn();

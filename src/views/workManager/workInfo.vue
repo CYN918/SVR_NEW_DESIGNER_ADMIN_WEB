@@ -32,11 +32,11 @@
 				<el-button type="primary" @click="contributor">确 定</el-button>
 			</span>
 		</el-dialog>
-		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible2" custom-class="width610">
+		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible2" width="520px">
 			<div style="position: relative;">
 				<div class="textcenter">
-					<div class="employment">
-						<!-- <span>
+					<!-- <div class="employment">
+						<span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">绑定综合平台需求</span>
 						</span>
@@ -44,10 +44,10 @@
 						<span>
 							<span :class="['number',{'numberactive':Isnextshow}]">2</span>
 							<span :class="{'fontactive': Isnextshow}">绑定综合平台需求</span>
-						</span> -->
+						</span>
 						<span>录用方式</span>
-					</div>
-					<span style="margin-right:0;height: auto; margin-top: 62px;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
+					</div> -->
+					<span style="margin-right:0;height: auto;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange1(index,item.name)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
@@ -112,7 +112,7 @@
 				<button class="defaultbtn defaultbtnactive" @click="setcontractid">确认</button>
 			</span>
 		</el-dialog>
-		<el-dialog title="用户基础信息-设为平台推荐创作者" :visible.sync="centerDialogVisible1" width="406px">
+		<el-dialog title="作品信息-设为平台推荐作品" :visible.sync="centerDialogVisible1" width="406px">
 			<div style="position: relative;">
 				<ul>
 					<li class="w ofh">

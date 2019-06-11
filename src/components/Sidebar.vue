@@ -88,7 +88,7 @@
 					<span style="padding:15px;">其他信息及设置</span>
 				</template>
 				<router-link to="/otherInformation/embodyRecord">
-					<el-menu-item index="12-1" class="">体现记录表</el-menu-item>
+					<el-menu-item index="12-1" class="">提现记录表</el-menu-item>
 				</router-link>
 				<router-link to="/otherInformation/presetReason">
 					<el-menu-item index="12-2">审核驳回理由预设</el-menu-item>

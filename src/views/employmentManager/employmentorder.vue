@@ -116,7 +116,6 @@
 					currentpage:1,
 					pagesize:10,
 					list:[],
-					ischeck:true,
 					
 				},
 				tableData:[],

@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">添加驳回理由</div>
+		<div class="detailtitle">编辑驳回理由</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">

@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">
-			<span class="fleft">新建活动</span>
+			<span class="fleft">编辑活动</span>
 			<div class="employment" style="text-align: center;">
 				<span>
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>

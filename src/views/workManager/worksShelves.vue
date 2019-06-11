@@ -33,7 +33,7 @@
 						</div>
 						<div>
 							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
-							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数{{ this.selectData.length }}</span>
+							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数：{{ this.selectData.length }}</span>
 						</div>
 					</li>
 					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
@@ -192,10 +192,9 @@
 			},
 			shelves(){
 				
-				this.$confirm('提示', '确认下架改作品', {
+				this.$confirm('确认下架作品?', '', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
-					type: 'warning',
 					center: true
 				}).then(() => {
 					this.api.offShelve({
@@ -315,6 +314,7 @@
 						cancelButtonText: '取消',
 						dangerouslyUseHTMLString: true,
 						type: '',
+						customClass:"",
 						center: true
 					}).then(() => {
 						//console.log({work_ids:workids,level:this.radioS})

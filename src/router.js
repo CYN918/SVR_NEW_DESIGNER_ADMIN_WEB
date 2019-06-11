@@ -182,7 +182,7 @@ export default new Router({
 					path: 'roleManager/createRoles',
 					name: 'createRoles',
 					meta: {
-						title: "角色管理 / 添加角色"
+						title: "角色管理 / 编辑角色"
 					},
 					component: () => import('@/views/power/createRoles.vue'),
 				},
@@ -206,7 +206,7 @@ export default new Router({
 					path: 'accountManager/setRoles',
 					name: 'setRoles',
 					meta: {
-						title: "账号管理 / 设置角色"
+						title: "账号管理 / 编辑角色"
 					},
 					component: () => import('@/views/power/setRoles.vue'),
 				}
@@ -311,7 +311,7 @@ export default new Router({
 					path: "activityClass/addActivity",
 					name: 'addActivity',
 					meta: {
-						title: "主题分类管理 / 添加主题分类"
+						title: "主题分类管理 / 编辑主题分类"
 					},
 					component: () => import('@/views/activityManager/reviseActivity.vue'),
 				},
@@ -319,7 +319,7 @@ export default new Router({
 					path: "activityClass/editActivity",
 					name: 'editActivity',
 					meta: {
-						title: "主题分类管理 / 修改页面"
+						title: "主题分类管理 / 编辑主题分类"
 					},
 					component: () => import('@/views/activityManager/reviseActivity.vue'),
 				},
@@ -335,7 +335,7 @@ export default new Router({
 					path: "activityEmploy/newActivity",
 					name: 'newActivity',
 					meta: {
-						title: "发布活动 / 新建页面"
+						title: "发布活动 / 编辑活动"
 					},
 					component: () => import('@/views/activityManager/newActivity.vue'),
 				},
@@ -378,7 +378,7 @@ export default new Router({
 					path: "homeBanner/addHomeBanner",
 					name: 'addHomeBanner',
 					meta: {
-						title: "首页banner / 新建banner素材"
+						title: "首页banner / 编辑banner素材"
 					},
 					component: () => import('@/views/contentManager/addHomeBanner.vue'),
 				},
@@ -386,7 +386,7 @@ export default new Router({
 					path: "homeBanner/addbannerScheme",
 					name: 'addbannerScheme',
 					meta: {
-						title: "首页banner / 新建banner方案"
+						title: "首页banner / 编辑banner方案"
 					},
 					component: () => import('@/views/contentManager/addbannerScheme.vue'),
 				},
@@ -410,7 +410,7 @@ export default new Router({
 					path: "hotWordSearch/newhotword",
 					name: 'newhotword',
 					meta: {
-						title: "热门搜素词 / 新建干预任务"
+						title: "热门搜素词 / 编辑干预任务"
 					},
 					component: () => import('@/views/contentManager/newhotword.vue'),
 				},
@@ -426,7 +426,7 @@ export default new Router({
 					path: "recommendedActivities/newrecommendedActivities",
 					name: 'newrecommendedActivities',
 					meta: {
-						title: "我的收益-推荐活动 / 新建干预任务"
+						title: "我的收益-推荐活动 / 编辑干预任务"
 					},
 					component: () => import('@/views/contentManager/newrecommendedActivities.vue'),
 				},
@@ -442,7 +442,7 @@ export default new Router({
 					path: "serviceCenter/newserviceCenter",
 					name: 'newserviceCenter',
 					meta: {
-						title: "文档服务中心 / 新建文档"
+						title: "文档服务中心 / 编辑文档"
 					},
 					component: () => import('@/views/contentManager/newserviceCenter.vue'),
 				},
@@ -477,7 +477,7 @@ export default new Router({
 					path: "channel",
 					name: 'channel',
 					meta: {
-						title: "分成渠道表"
+						title: "分享收益表"
 					},
 					component: () => import('@/views/employmentManager/channel.vue'),
 				},
@@ -512,7 +512,7 @@ export default new Router({
 					path: "presetReason/revisePresetReason",
 					name: 'revisePresetReason',
 					meta: {
-						title: "审核驳回理由预设 / 新建驳回理由"
+						title: "审核驳回理由预设 / 编辑驳回理由"
 					},
 					component: () => import('@/views/otherInformation/revisePresetReason.vue'),
 				},

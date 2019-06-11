@@ -235,5 +235,12 @@ export default {
 	hire:{
 		url:'/admin/work/hire',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	documentedit:{
+		url:'/admin/document/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	recommendactivityinfo:{
+		url:'/admin/recommendactivity/info',method:'post',baseURL:0
+	},
+	
 	
 }

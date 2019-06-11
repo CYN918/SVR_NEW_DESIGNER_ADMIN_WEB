@@ -22,10 +22,21 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
 					<span v-if="!item.type">{{ work_info[item.id] }}</span>
+					<span v-else-if="item.type == 'isnum'"> {{ work_info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="work_info[item.id]" alt="">
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
 					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
+					<span v-else-if="item.type == 'keyvalue'">{{item.child[work_info[item.id]]}}</span>
+					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
+					<span v-else-if="item.type == 'status'"> 
+						<span v-if="work_info['is_del'] == '0'">
+							{{ item.child.status[work_info['status']] }} 
+						</span>
+						<span v-else-if="work_info['is_del'] != '0'">
+							{{ item.child.is_del[work_info['is_del']] }}
+						</span>
+					</span>
 					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="work_info[item.id]" alt="">
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ work_info[item.id] }}</span>
@@ -105,7 +116,7 @@
 						{{hire_info[item.id]}}
 					</button>
 					<span v-else-if="item.type == 'keyvalue'">{{item.child[hire_info[item.id]]}}</span>
-					
+					<span v-else-if="item.type == 'isnum'"> {{ work_info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ hire_info[item.id] }}</span>
 					</router-link>
@@ -297,7 +308,9 @@
 					this.font_size += Number(item)
 				});
 			},
-			
+			openwindow(url){
+				window.open(url)
+			}
 		},
 		created() {
 			this.getworkdetial();

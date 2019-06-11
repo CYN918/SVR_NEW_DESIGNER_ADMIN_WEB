@@ -22,9 +22,10 @@
 				<div class="fright">
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
 						<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip">
+						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
 							<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 						</div>
+						<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
 						<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 					</div>
 				</div>

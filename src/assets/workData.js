@@ -49,7 +49,11 @@ const workData = {
 		{
 			name:"是否为平台推荐作品",
 			id:"is_recommend",
-			type:"text"
+			type:"keyvalue",
+			child:{
+				"1":"是",
+				"0":"否"
+			}
 		},
 		{
 			name:"作品推荐等级",
@@ -59,12 +63,17 @@ const workData = {
 		{
 			name:"是否为平台投稿作品",
 			id:"is_platform_work",
-			type:"text"
+			type:"keyvalue",
+			child:{
+				"1":"是",
+				"0":"否"
+			}
 		},
 		{
 			name:"是否已被录用",
-			id:"",
-			type:"text"
+			id:"hire_id",
+			type:"isnum",
+			child:["是","否"]
 		},
 		{
 			name:"创建时间",
@@ -73,25 +82,30 @@ const workData = {
 		},
 		{
 			name:"最近更新时间",
-			id:"ids",
+			id:"updated_at",
 			type:"text"
 		},
 		{
 			name:"作品预览链接",
-			id:"ids",
-			type:"text"
+			id:"http://dev-web-ndesigner.idatachain.cn/#/cont?id=",
+			type:"urlopen"
 		},
 		{
 			name:"当前状态",
 			id:"status",
-			type:"text"
+			type:"status",
+			child:{
+				is_del:{"1":"用户删除","2":"系统下架"},
+				status:{"0":"待审核","1":"审核中","2":"审核通过","-1":"草稿","-2":"未通过"}
+			}
 		}],
 		employInfo:
 			[
 				{
 					name:"录用来源",
-					id:"11",
-					type:"text"
+					id:"activity_id",
+					type:"isnum",
+					child:["活动录用","直接录用"]
 				},
 				{
 					name:"录用时间",
@@ -132,7 +146,7 @@ const workData = {
 				},
 				{
 					name:"最近更新时间",
-					id:"ads",
+					id:"updated_at",
 					type:"text"
 				}
 			],

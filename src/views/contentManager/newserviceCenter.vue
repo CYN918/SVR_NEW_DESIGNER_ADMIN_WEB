@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">
-			<span class="fleft">新建文档</span>
+			<span class="fleft">编辑文档</span>
 			<div class="employment" style="text-align: center;">
 				<span>
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
@@ -71,9 +71,9 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn"  @click="getparent">返回</button>
 			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows.id" @click="createdactivity">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows">确 定</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows.id" @click="edit()">确 定</button>
 		</div>
 	</div>
 </template>
@@ -87,14 +87,10 @@
 				detailData: '',
 				input10: '',
 				radio2: "1",
-				id: this.$route.query.id,
-				num: this.$route.query.num,
 				form: {
-					is_provide_template: "0",
+					remark:"",
 					content: '<p style="color:#999">从这里开始编辑作品类容...</p>',
-					is_related_needs: "0",
-					banner:'',
-					filename:"",
+					status:"",
 					access_token: localStorage.getItem("access_token"),
 					type:'1'
 				},
@@ -121,7 +117,8 @@
 					{name:"帮助中心",id:"4"},
 				],
 				ifBjType:0,
-				rows : {},
+				rows:{},
+				
 			}
 		},
 		components: {
@@ -138,27 +135,11 @@
 					return "--"
 				}
 			},
-			add() {
-				const id = this.$route.query.open_id;
-				this.api.categoryAdd({
-					access_token: localStorage.getItem("access_token"),
-					category_name: this.input10,
-					status: this.radio2
-				}).then(da => {
-					console.log(da)
-				}).catch(() => {
-
-				})
-			},
+			
 			edit() {
-				const id = this.$route.query.open_id;
-				this.api.categoryEdit({
-					access_token: localStorage.getItem("access_token"),
-					category_name: this.input10,
-					status: this.radio2,
-					id: this.id
-				}).then(da => {
-					console.log(da)
+				this.form.id=this.rows.id;
+				this.api.documentedit(this.form).then(da => {
+					this.$router.go(-1);
 				}).catch(() => {
 
 				})
@@ -370,12 +351,12 @@
 				})
 			}
 		},
-		created() {
+		mounted() {
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
 				this.form['remark'] = this.rows.remark;
 				this.form['type'] = this.rows.type;
-				this.form['is'] = 1;
+				this.form['status'] = this.rows.status;
 				this.form['content'] = this.rows.content
 			}
 		}

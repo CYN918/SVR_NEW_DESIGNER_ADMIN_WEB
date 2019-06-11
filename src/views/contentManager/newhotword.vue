@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">新建干预任务</div>
+		<div class="detailtitle">编辑干预任务</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">

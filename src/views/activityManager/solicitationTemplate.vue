@@ -23,7 +23,7 @@
 			<div style="position: relative;">
 				<ul>
 					<li class="w ofh textcenter">
-						<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
+						<span class="fleft marginleft60" style="line-height: 40px;">文件名称</span>
 						<input type="text" v-model="file_name" class="fleft defaultbtn defaultbtn0" style="width:200px">
 					</li>
 				</ul>
@@ -127,7 +127,7 @@
 				tableAction: DataScreen.screenShow.solicitationTemplate.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields: DataScreen.screen.solicitationTemplate.filterFields0,
+				filterFields: DataScreen.screen.solicitationTemplate.filterFields,
 				centerDialogVisible: false,
 				showmask: false,
 				type: 1,
@@ -148,7 +148,6 @@
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
 				console.log(this.tableConfig.list);
-				this.filterFields = DataScreen.screenShow.solicitationTemplate["filterFields" + num];
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:10});
@@ -243,7 +242,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					this.filterFields = this.tabsnum == 0 ? DataScreen.screen.solicitationTemplate.filterFields0 : DataScreen.screen.solicitationTemplate.filterFields1
+					/* this.filterFields = this.tabsnum == 0 ? DataScreen.screen.solicitationTemplate.filterFields0 : DataScreen.screen.solicitationTemplate.filterFields1 */
 					this.filterFields.forEach(item=>{
 						//console.log(item);
 						if(urldata[item.id]){

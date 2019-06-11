@@ -53,6 +53,10 @@
 							</div>
 						</div>
 					</li>
+					
+					<li class="bannerlistg relative" style="visibility: hidden;">
+						
+					</li>
 				</ul>
 			</div>
 			<div style="text-align: right;">
