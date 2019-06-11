@@ -154,7 +154,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/userManager/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/userManager/userPersonalInfo',query:{urlDate:JSON.stringify(urldata)}});
 					
 				}
 			}

@@ -287,8 +287,9 @@
 			},
 			init() {
 				//alert(typeof this.$route.query.urlDate != "string")
-				this.form = JSON.parse(this.$route.query.urlDate);
-				console.log(this.form);
+				if(this.$route.query.urlDate){
+					this.form = JSON.parse(this.$route.query.urlDate);
+				}
 			},
 			getScreen() {
 				
@@ -326,6 +327,7 @@
 			this.getScreen();
 			this.init();
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			console.log(this.$route.matched);
 		},
 		
 		
