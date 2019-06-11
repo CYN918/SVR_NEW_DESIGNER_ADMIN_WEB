@@ -71,7 +71,7 @@
 	    
 	  </div>
 	  <span slot="footer" class="dialog-footer sel-footer">
-		<el-button type="primary" @click="contributor">确 定</el-button>
+		<el-button type="primary" @click="contributor1">确 定</el-button>
 	  </span>
 	</el-dialog>
   </div>
@@ -127,7 +127,8 @@
 				radioS:"C",
 				selectData:[],
 				selectOne:{},
-				isajax:0
+				isajax:0,
+				seltotal:"",
 			}
 			
 		},
@@ -170,6 +171,10 @@
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					
+					if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					}
 					this.setLoding(false)
 				}).catch(()=>{
 					this.isajax=0;
@@ -222,6 +227,27 @@
 				this.selectOne = val;
 				this.centerDialogVisible1 = true;
 			},
+			contributor1(){
+				//console.log(openids)
+				//console.log(this.selectData);
+				
+				var open_ids = this.getopenids();
+			    this.centerDialogVisible = false;
+				this.centerDialogVisible1 = false;
+				
+				let data = {
+					open_id:open_ids,
+					level:this.radioS,
+					access_token:localStorage.getItem("access_token")
+				};
+				this.api.setRecommendLevel(data).then(da=>{
+					
+				}).catch(da=>{
+					
+				})
+				
+			    
+			},
 			contributor(){
 				//console.log(openids)
 				//console.log(this.selectData);
@@ -243,14 +269,32 @@
 						center: true
 					}).then(() => {
 						//console.log({open_ids:openids,level:this.radioS})
-						this.api.setRecommendLevel({open_ids:open_ids,level:this.radioS}).then(da=>{
-							
+						let data = {
+							open_id:open_ids,
+							level:this.radioS,
+							access_token:localStorage.getItem("access_token")
+						};
+						
+						if(this.$refs.Tabledd.sel == false) {
+							data = {};
+							if(this.$route.query.urlDate){
+							    data = JSON.parse(this.$route.query.urlDate);
+							}
+							data.access_token = localStorage.getItem("access_token");
+							data.level = this.radioS;
+						} 
+						
+						this.api.setRecommendLevel(data).then(da=>{
+							this.$refs.Tabledd.setall();
+						}).catch(da=>{
+							this.$refs.Tabledd.setall();
 						})
 					}).catch(() => {
 						this.$message({
 						  type: 'info',
 						  message: '已经取消'
 						});
+						this.$refs.Tabledd.setall();
 					});
 				})
 				
@@ -320,9 +364,6 @@
 					delete urldata[tag];
 					this.$router.push({path:'/userManager/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
 				}
-			},
-			getusergetLevelCount(){
-				
 			}
 		},
 		created() {

@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<div class="tabtop" ref="elememt" id="table">
-			<el-table :height="tableHeight" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+			<el-table :height="tableHeight" ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
@@ -12,6 +12,15 @@
 						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
 						<div v-else-if="item.type == 'merge'">
 							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+						</div>
+						<div v-else-if="item.type == 'statustwo'">
+							<span v-if="scope.row['is_del'] == '0'">
+								<span :class="'status'+scope.row['status']">●</span><span>{{ item.child.status[scope.row['status']] }}</span>
+							</span>
+							<span v-else-if="scope.row['is_del'] != '0'">
+								<!-- <span :class="'status'+scope.row['is_del']">●</span> --><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
+							</span>
+							<!-- <span>{{ scope.row['is_del'] }}</span> -->
 						</div>
 						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
@@ -46,7 +55,7 @@
 		</div>
 		<div class="w" style="text-align: right;background: #FFFFFF;">
 			<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-				<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+				<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">选择全部</button>
 			</div>
 			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
 			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
@@ -65,7 +74,12 @@
 				currentpage: 1,
 				pagesize: 10,
 				selected:0,
-				loading:true
+				loading:true,
+				allselect:false,
+				sel:true,
+				multipleSelectionAll:[],
+				multipleSelection:[],
+				pageid:""
 			}
 		},
 		methods: {
@@ -139,6 +153,7 @@
 						}
 					break;
 					case "workInfo":
+						this.pageid = "work_id";
 						if(!setid){
 							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
 							
@@ -248,15 +263,6 @@
 							this.$parent.delect(row);
 						}
 					break;
-					case "listAd":
-						if(!setid){
-							this.router.push({path:"/contentManager/recommendedActivities/newlistAd", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
 					case "newrecommendedActivities":
 						if(!setid){
 							this.$parent.$parent.getactivitiesrows(row);
@@ -328,18 +334,80 @@
 				this.getTabData();
 			},
 			handleSelectionChange(val) {
-				//alert(val)
-				console.log(val)
-				this.selected = val.length
 				
+				if(this.sel == false){
+					return;
+				}
+				this.multipleSelection = val
+                this.changePageCoreRecordData (this.multipleSelection)
+			},
+			changePageCoreRecordData (x) {
+                // 总选择里面的key集合
+				let selectAllIds = [];
+				this.multipleSelectionAll.forEach((row,index)=>{
+				    selectAllIds.push(row[this.pageid]);
+				})
+				
+				let selectIds = [];
+				// 获取当前页选中的id
+				//console.log(this.pageid);
+				x.forEach((row,index)=>{
+				    selectIds.push(row[this.pageid]);
+					if (selectAllIds.indexOf(row[this.pageid]) < 0) {
+					    this.multipleSelectionAll.push(row);
+					}
+				});
+				
+				let pageids = [];
+				let noSelectIds = [];
+				this.tableDatas.forEach((row,index)=>{
+				    pageids.push(row[this.pageid]);
+					if (selectIds.indexOf(row[this.pageid]) < 0) {
+					    noSelectIds.push(row[this.pageid]);
+					}
+				})
+				///console.log(noSelectIds)
+				noSelectIds.forEach(id=>{
+				    if (selectAllIds.indexOf(id) >= 0) {
+				        for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
+				            if (this.multipleSelectionAll[i][this.pageid] == id) {
+				                // 如果总选择中有未被选中的，那么就删除这条
+				                this.multipleSelectionAll.splice(i, 1);
+				            }
+				        }
+				    }
+				})
+               // console.log(this.multipleSelectionAll);
+				
+				this.selected = this.multipleSelectionAll.length;
 				if(this.$parent.selectData){
-					this.$parent.selectData = val;
+					this.$parent.selectData = this.multipleSelectionAll;
 				};
 				if(this.$parent.$parent){
-					this.$parent.$parent.selectData = val;
-				}
+					this.$parent.$parent.selectData = this.multipleSelectionAll;
+				};
 				
-			},
+            },
+			change(data){
+				let _this = this
+                for(let i = 0;i<data.length;i++){
+					var c = i
+                    for(let x = 0;x<this.multipleSelectionAll.length;x++){     
+						if(data[i][this.pageid] == this.multipleSelectionAll[x][this.pageid] ){
+							var f = function(a){
+								setTimeout(() => {
+									console.log(data[a])
+									_this.$refs.multipleTable.toggleRowSelection(data[a],true);
+								}, 100);
+							}
+							f(c)
+							
+							//_this.$refs.multipleTable.toggleRowSelection(data[i],true);
+						}
+					}
+                }
+                
+            },
 			getTabData() {
 				const data = {
 					pageCurrent: this.currentpage,
@@ -363,17 +431,47 @@
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
 			},
-			starloding(){
-				this.loading = true;
-			},
 			setLoding(type){
 				this.loading = type;
 			},
-			endloding(){
-				this.loading = false;
+			cheaxz(id){
+				/* let on = this.ids.indexOf(id);
+				if(on!=-1){
+					this.ids.splice(on,1);
+				}else{
+					this.ids.push(id);
+				}
+				let pok = [];
+				for(let i=0,n=this.ids.length;i<n;i++){
+					pok.push({id:this.ids[i]});
+				}
+				this.multipleSelection = pok;
+				this.$parent.xzFn(this.multipleSelection); */
+				
+			},	
+			setall(){
+				this.sel = !this.sel;
+				if(this.sel == false){
+					this.selected = this.tableConfig.total;
+					this.$parent.seltotal = this.tableConfig.total;
+					this.toggleSelection(this.tableDatas)
+				} else {
+					this.selected = 0;
+					this.$parent.seltotal = 0;
+					this.toggleSelection();
+				};
 			},
-			lodingfalse(){
-				this.loading = false;
+			toggleSelection(rows) {
+				if (rows) {
+				  rows.forEach(row => {
+					this.$refs.multipleTable.toggleRowSelection(row);
+				  });
+				} else {
+				  this.$refs.multipleTable.clearSelection();
+				}
+			},
+			getRowKeys(row) {
+				return row.id;
 			},
 			
 		},
@@ -382,6 +480,16 @@
 			//console.log(this.tableConfig)
 			this.init()
 		},
+		created() {
+			switch(this.tableAction.morebtns.page){
+				case "userBaseInfo":
+					this.pageid = "open_id";
+				break;
+				case "workInfo":
+					this.pageid = "work_id";
+				break;
+			}
+		}
 	}
 </script>
 <style>

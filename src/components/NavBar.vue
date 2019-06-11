@@ -11,11 +11,13 @@
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
 			<span class="fright marginleft60 usertou pointer" @click="signOut"></span>
-			<div class="userinfobtn" v-if="IsSign">
+			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
 				<div>用户最长的昵称长度</div>
 				<div><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
 				<div><i class="iconfont" style="margin-right: 8.2px;">&#xe67f;</i>退出登录</div>
 			</div>
+			<div class="masku" v-if="IsSign" @click="signOut"></div>
+		
 		</div>
 	</div>
 </template>

@@ -108,6 +108,7 @@
 					contribute_type:2
 				}).then(da => {
 					this.detailData = da;
+					console.log(da);
 				}).catch(() => {})
 			},
 			getcommonrightbtn(){

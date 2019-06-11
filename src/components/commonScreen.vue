@@ -287,9 +287,8 @@
 			},
 			init() {
 				//alert(typeof this.$route.query.urlDate != "string")
-				if (typeof this.$route.query.urlDate != "string" && this.$route.query.urlDate) {
-					this.form = this.$route.query.urlDate;
-				}
+				this.form = JSON.parse(this.$route.query.urlDate);
+				console.log(this.form);
 			},
 			getScreen() {
 				
@@ -319,15 +318,17 @@
 			}
 		},
 		watch: {
-			'value9': function(data) {
-				console.log(data);
+			"$route":function(){
+				this.form = JSON.parse(this.$route.query.urlDate);
 			}
 		},
 		mounted() {
 			this.getScreen();
 			this.init();
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
-		}
+		},
+		
+		
 	}
 </script>
 

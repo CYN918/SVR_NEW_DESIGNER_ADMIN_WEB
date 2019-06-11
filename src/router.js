@@ -431,14 +431,6 @@ export default new Router({
 					component: () => import('@/views/contentManager/newrecommendedActivities.vue'),
 				},
 				{
-					path: "recommendedActivities/newlistAd",
-					name: 'newlistAd',
-					meta: {
-						title: "我的收益-推荐活动 / 新建干预任务"
-					},
-					component: () => import('@/views/contentManager/newlistAd.vue'),
-				},
-				{
 					path: "serviceCenter",
 					name: 'serviceCenter',
 					meta: {
@@ -453,15 +445,6 @@ export default new Router({
 						title: "文档服务中心 / 新建文档"
 					},
 					component: () => import('@/views/contentManager/newserviceCenter.vue'),
-				},
-				
-				{
-					path: "listAd",
-					name: 'serviceCenter_listAd',
-					meta: {
-						title: "推荐干预"
-					},
-					component: () => import('@/views/contentManager/listAd.vue'),
 				},
 			]
 		},

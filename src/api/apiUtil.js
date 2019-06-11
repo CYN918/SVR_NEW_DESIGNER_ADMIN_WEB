@@ -13,13 +13,7 @@ const generateApiMap = (map) => {
 // PASSPORT_HOST = 139.129.221.123;
 // API_HOST = 139.129.221.123;
 // UPLOAD_HOST = 139.129.221.123 ;
-
-
-let baseURLs = 'http://dev-api-ndesigner-admin.idatachain.cn';
-if(window.location.host=='shiquaner-admin.zookingsoft.com'){
-	baseURLs = 'https://shiquaner-admin-api.zookingsoft.com';
-}
-
+const baseURLs = ['http://dev-api-ndesigner-admin.idatachain.cn',];
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
@@ -31,7 +25,7 @@ const createApiInstance = (config = {},on,Type) => {
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
-		baseURL: baseURLs,		
+		baseURL: baseURLs[ds],		
 		headers:{
 			//'Authorization':'Bearer '+localStorage.getItem('token'),
 			'Content-Type':Type?Type:'application/x-www-form-urlencoded'

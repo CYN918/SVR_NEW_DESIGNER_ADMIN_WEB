@@ -225,7 +225,8 @@
 				Isnextshow:false,
 				contract_id:"",
 				workid:"",
-				price:""
+				price:"",
+				seltotal:"",
 			}
 		},
 		methods: {
@@ -233,12 +234,13 @@
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	
 			},
-			getData(pg) {
+			getData(pg,is_export) {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
-					limit: pg.pageSize
+					limit: pg.pageSize,
+					is_export:is_export
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -247,6 +249,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
+					sreenData.is_export = is_export;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
@@ -255,11 +258,14 @@
 					if (!da) {
 						this.$message('数据为空');
 					}
-					console.log(da.data)
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
+					if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					}
 					this.setLoding(false);
 				}).catch(() => {
 					this.setLoding(false);
@@ -332,24 +338,55 @@
 						type: '',
 						center: true
 					}).then(() => {
-						//console.log({work_ids:workids,level:this.radioS})
-						this.api.setRecommendLevelwork({
+						
+						let data = {
 							work_ids: work_ids,
 							recommend_level: this.radioS,
 							access_token: localStorage.getItem("access_token"),
-						}).then(da => {
-							
-						})
+						};
+						//alert(this.$refs.Tabledd.sel);
+						//return;
+						if(this.$refs.Tabledd.sel == false) {
+							data = {};
+							if(this.$route.query.urlDate){
+							    data = JSON.parse(this.$route.query.urlDate);
+							}
+							data.access_token = localStorage.getItem("access_token");
+							data.recommend_level = this.radioS;
+						} 
+						
+						this.api.setRecommendLevelwork(data).then(da => {
+							this.$refs.Tabledd.setall();
+						}).catch(() => {
+							this.$refs.Tabledd.setall();
+					    });
 					}).catch(() => {
 						this.$message({
 							type: 'info',
 							message: '已经取消'
 						});
+						this.$refs.Tabledd.setall();
 					});
 				}).catch(da => {
 					
 				})
 				
+			},
+			export(){
+				this.$confirm('确认导出', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.getData({pageCurrent:1,pageSize:10},1);
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
 			},
 			getworkids() {
 				//console.log(this.selectData);

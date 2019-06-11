@@ -69,9 +69,6 @@
 				<router-link to="/contentManager/serviceCenter">
 					<el-menu-item index="10-5">文档服务中心</el-menu-item>
 				</router-link>
-				<router-link to="/contentManager/listAd">
-					<el-menu-item index="10-6">作品排序干预</el-menu-item>
-				</router-link>
 			</el-submenu>
 			<el-submenu index="11">
 				<template slot="title">

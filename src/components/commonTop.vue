@@ -97,6 +97,10 @@
 							this.Istooltip = !this.Istooltip;
 							return;
 						};
+						
+						if(idIndex == "right3"){
+							this.$parent.export()
+						};
 					break;
 					case "activityClass":
 						if(idIndex == "right1"){
@@ -143,16 +147,6 @@
 						    })
 						};
 					break;
-					case "listAd":
-						if(idIndex == "right1"){
-						    this.router.push({
-						    	path:"/contentManager/recommendedActivities/newlistAd"
-						    })
-						};
-					break;
-					
-					
-					
 					case "presetReason":
 						if(idIndex == "right3"){
 						    this.router.push({
@@ -184,14 +178,15 @@
 			IsShow(index) {
 				if(index == 0) {
 					console.log(this.$parent.selectData);
-					if (this.$parent.selectData.length == 0) {
+					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
+						this.$parent.centerDialogVisible = true;
+					} else {
 						this.$message({
 							message: '请勾选用户',
 							type: 'warning'
 						});
-						return;
 					}
-					this.$parent.centerDialogVisible = true;
+					
 				}
 				
 			},

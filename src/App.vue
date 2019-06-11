@@ -804,6 +804,15 @@ input{
 	.centerlineactive {
 		border-color:#FF5121; 
 	}
+	
+.masku {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2003;
+}
 
 @media screen and (max-width: 1400px) {
 	.screenMidden{
