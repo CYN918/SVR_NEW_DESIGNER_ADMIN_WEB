@@ -547,7 +547,7 @@ export default new Router({
 					path:"newsRelease",
 					name: 'newsRelease',
 					meta: {
-						title: "消息发布"
+						title: "发布通知"
 					},
 					component: () => import('@/views/noticeManager/newsRelease.vue'),
 				},
@@ -555,7 +555,7 @@ export default new Router({
 					path:"noticetemplate",
 					name: 'noticetemplate',
 					meta: {
-						title: "消息发布"
+						title: "系统通知模板"
 					},
 					component: () => import('@/views/noticeManager/noticetemplate.vue'),
 				},

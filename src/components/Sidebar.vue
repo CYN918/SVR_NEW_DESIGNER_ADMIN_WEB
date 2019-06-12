@@ -78,9 +78,9 @@
 				<router-link to="/employmentManager/employmentorder">
 					<el-menu-item index="11-1" class="">录用订单</el-menu-item>
 				</router-link>
-				<router-link to="/employmentManager/channel">
+				<!-- <router-link to="/employmentManager/channel">
 					<el-menu-item index="11-2">分成渠道表</el-menu-item>
-				</router-link>
+				</router-link> -->
 			</el-submenu>
 			<el-submenu index="12">
 				<template slot="title">
