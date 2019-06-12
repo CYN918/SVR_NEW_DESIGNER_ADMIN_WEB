@@ -1,23 +1,12 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">添加驳回理由</div>
+		<div class="detailtitle">新建问题类型预设</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">审核类型</span>
-					<el-select v-model="type" placeholder="请选择">
-						<el-radio-group v-model="type">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.name">
-								<el-radio :label="item.id">{{ item.name }}</el-radio>
-							</el-option>
-						</el-radio-group>
-					</el-select>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">驳回理由</span>
+					<span class="fleft detailKey" style="line-height: 40px;">问题类型名称</span>
 					<el-input placeholder="请输入内容" v-model="content" style="width:357px;height:40px;" clearable></el-input>
 				</li>
-				
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">状态</span>
 					<div class="fleft status">
@@ -41,13 +30,6 @@
 				detailData: '',
 				content: '',
 				status:"1",
-				tableData:[
-					{name:"作品发布 ",id:"1"},
-					{name:"作品入围 ",id:"2"},
-					{name:"作品审核 ",id:"3"},
-					{name:"平台供稿人-认证申请 ",id:"4"},
-				],
-				type:"1",
 			}
 		},
 		methods: {
@@ -64,7 +46,6 @@
 			add(){
 				this.api.reviewaddReason({
 					access_token:localStorage.getItem("access_token"),
-					type:this.type,
 					content:this.content,
 					status:this.status
 				}).then(da => {
@@ -75,26 +56,7 @@
 				}).catch(() => {
 					
 				})
-			},
-			edit(){
-				if(this.content.length == 0){
-					this.$message({
-						message:"主题分类名称不能为空"
-					});
-					return;
-				}
-				this.api.categoryEdit({
-					access_token:localStorage.getItem("access_token"),
-					
-				}).then(da => {
-					//console.log(da)
-					if(da = "修改成功"){
-						this.$router.go(-1);
-					}
-				}).catch(() => {
-					
-				})
-			},
+			}
 		},
 		created() {
 			/* if(this.id){

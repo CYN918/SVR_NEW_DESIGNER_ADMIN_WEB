@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">
-			<span class="fleft">编辑活动</span>
+			<span class="fleft">{{ currentpageName }}</span>
 			<div class="employment" style="text-align: center;">
 				<span>
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
@@ -180,6 +180,7 @@
 				imageUrl: "",
 				tableData: [],
 				ifBjType:0,
+				currentpageName:""
 			}
 		},
 		components: {
@@ -494,8 +495,12 @@
 				this.form.related_needs_id = this.rows.activity_name;
 				this.form.template_file_id = this.rows.activity_name; */
 				this.form = this.rows
-				console.log(this.form);
+				//console.log(this.form);
 			}
+		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
 		}
 	}
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">编辑角色</div>
+		<div class="detailtitle">设置角色</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">

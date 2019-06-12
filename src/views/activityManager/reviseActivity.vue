@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">查看用户信息</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -38,7 +38,8 @@
 				id:this.$route.query.id,
 				num:this.$route.query.num,
 				name:this.$route.query.name,
-				status:this.$route.query.status
+				status:this.$route.query.status,
+				currentpageName:""
 			}
 		},
 		methods: {
@@ -106,6 +107,10 @@
 				this.input10 = this.name;
 				this.radio2  = this.status;
 			}
+		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
 		}
 	}
 </script>

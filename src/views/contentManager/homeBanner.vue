@@ -45,7 +45,7 @@
 									  <button class="defaultbtn">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
 										<el-dropdown-item @click.native="delectprogram(item.id)">删除</el-dropdown-item>
-										<el-dropdown-item @click.native="seeprogram(item.id,'edit')">编辑</el-dropdown-item>
+										<el-dropdown-item @click.native="editprogram(item.id,'edit')">编辑</el-dropdown-item>
 										<el-dropdown-item @click.native="seeprogram(item.id)">查看</el-dropdown-item>
 									  </el-dropdown-menu>
 									</el-dropdown>
@@ -152,7 +152,7 @@
 					}];
 				} else {
 					this.commonTopData.commonrightbtn = [{
-						name: "新建展示素材",
+						name: "新建展示方案",
 						id: "right0",
 					}];
 				}
@@ -371,9 +371,17 @@
 					});
 				});
 			},
-			seeprogram(id,edit){
+			seeprogram(id){
 				this.router.push({
 					path:"/contentManager/homeBanner/seebannerScheme",
+					query:{
+						id:id
+					}
+				})
+			},
+			editprogram(id,edit){
+				this.router.push({
+					path:"/contentManager/homeBanner/editbannerScheme",
 					query:{
 						id:id,
 						edit:edit

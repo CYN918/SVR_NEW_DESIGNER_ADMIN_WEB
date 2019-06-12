@@ -206,7 +206,7 @@
 						}
 						
 						if(setid == "top1"){
-							this.router.push({path:"/activityManager/activityEmploy/newActivity",query:{row:JSON.stringify(row)}});
+							this.router.push({path:"/activityManager/activityEmploy/editActivity",query:{row:JSON.stringify(row)}});
 						}
 					break;
 					case "solicitationTemplate":
@@ -231,14 +231,14 @@
 							this.$parent.delect(row);
 						}
 						if(!setid){
-							this.router.push({path:"/contentManager/homeBanner/addHomeBanner", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/contentManager/homeBanner/editHomeBanner", query:{row: JSON.stringify(row)}})
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						
 					break;
 					case "hotWordSearch":
 						if(!setid){
-							this.router.push({path:"/contentManager/hotWordSearch/newhotword", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/contentManager/hotWordSearch/edithotword", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){
@@ -247,7 +247,7 @@
 					break;
 					case "serviceCenter":
 						if(setid == "contributor0"){
-							this.router.push({path:"/contentManager/serviceCenter/newserviceCenter", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/contentManager/serviceCenter/editserviceCenter", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor1"){
@@ -256,7 +256,7 @@
 					break;
 					case "recommendedActivities":
 						if(!setid){
-							this.router.push({path:"/contentManager/recommendedActivities/newrecommendedActivities", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/contentManager/recommendedActivities/editrecommendedActivities", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){

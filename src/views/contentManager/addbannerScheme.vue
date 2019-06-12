@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">编辑banner方案</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -144,6 +144,7 @@
 				program_begin_time:"",
 				program_end_time:"",
 				is_default:"0",
+				currentpageName:""
 			}
 		},
 		methods: {
@@ -159,19 +160,17 @@
 			},
 			add(){
 				
-				/* if(!this.banner_material_ids || !this.banner_program_name || !this.is_default || !program_begin_time || !program_end_time){
+				this.selectData.forEach((item,index)=>{
+					this.banner_material_ids += (this.selectData.length-1)== index ? item.id : (item.id+",")
+				})
+				
+				if(this.banner_material_ids == "" || this.banner_program_name == "" || this.program_begin_time == "" || this.program_end_time == "" || this.selectData.length == 0){
 					this.$message({
 						type:"info",
 						message:"方案名称*是否设为默认展示方案*展示时间段*banner素材不能为空！！"
 					});
 					return;
-				} */
-				
-				
-				this.selectData.forEach((item,index)=>{
-					this.banner_material_ids += (this.selectData.length-1)== index ? item.id : (item.id+",")
-				})
-				
+				}
 				this.api.bannerprogramadd({
 					access_token:localStorage.getItem("access_token"),
 					banner_material_ids:this.banner_material_ids,
@@ -341,6 +340,10 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
+		}
 	}
 </script>
 

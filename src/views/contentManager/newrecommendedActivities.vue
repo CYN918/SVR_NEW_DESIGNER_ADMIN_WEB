@@ -307,7 +307,9 @@
 				this.end_time = this.row.end_time;
 				this.position = this.row.position;
 				//this.recommendactivityinfo();
-				this.activitiesrows
+				this.activitiesrows.start_time = this.row.activity_start_time;
+				this.activitiesrows.end_time = this.row.activity_end_time;
+				this.activitiesrows.activity_name = this.row.activity_name;
 			}
 			this.screenreach();
 			this.getcommonrightbtn();

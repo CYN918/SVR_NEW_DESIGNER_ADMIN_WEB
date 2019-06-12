@@ -103,11 +103,7 @@
 						id: "left1",
 						url: ""
 					}],
-					"commonrightbtn": [{
-						name: "添加举报分类",
-						id: "right1",
-						url: ""
-					}],
+					"commonrightbtn": [],
 					"commonbottombtn": [],
 					"IsShow": true,
 					upload: true
@@ -144,6 +140,15 @@
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
 				this.getData({pageCurrent:1,pageSize:10});
 				this.$parent.tabchange(num+1);
+				if(num == 0){
+					this.commonTopData.commonrightbtn = [];
+				} else {
+					this.commonTopData.commonrightbtn = [{
+						name: "添加举报分类",
+						id: "right1",
+						url: ""
+					}];
+				}
 			},
 			getData(pg) {
 				//获取子组件表格数据

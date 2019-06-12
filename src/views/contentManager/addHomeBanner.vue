@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">编辑banner素材</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -40,6 +40,7 @@
 				banner_pic:"",
 				jump_url:"",
 				rows: "",
+				currentpageName:"",
 			}
 		},
 		methods: {
@@ -138,6 +139,10 @@
 				this.banner_pic = this.rows.banner_pic;
 				this.jump_url = this.rows.jump_url;
 			}
+		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
 		}
 	}
 </script>

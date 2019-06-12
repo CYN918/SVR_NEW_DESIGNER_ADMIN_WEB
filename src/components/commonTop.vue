@@ -162,7 +162,20 @@
 						    })
 						};
 					break;
-						
+					case "feedback":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/otherInformation/feedback/newfeedback"
+						    })
+						};
+					break;
+					case "reportInfo":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/otherInformation/reportInfo/newreportInfo"
+						    })
+						};
+					break;
 				}
 				const shownum = {
 					num: idIndex,

@@ -1225,24 +1225,14 @@ const screenData = {
 			],
 			action:{
 				morebtns:{
-					name:"更多",
+					name:"删除",
 					Ishow:true,
 					page:"feedback",
-					child:[
-						{
-							name:"修改文件名"
-						},
-						{
-							name:"下载"
-						},
-						{
-							name:"删除"
-						}
-					],
 				},
 				links:{
-					name:"预览",
-					Ishow:false
+					name:"停用",
+					Ishow:true,
+					child:{"1":"启用","0":"停用"}
 				},
 			}
 		},

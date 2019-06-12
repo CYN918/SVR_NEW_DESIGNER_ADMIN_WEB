@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">banner方案</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh" v-if="edit != 'edit'">
 			<ul>
 				<li class="margint13 ofh" style="line-height: 40px;">
@@ -107,6 +107,7 @@
 	import DataScreen from "@/assets/DataScreen.js"
 	
 	export default {
+		
 		components: {
 			commonTop,
 			commonTable,
@@ -114,7 +115,8 @@
 		data() {
 			return {
 				edit:this.$route.query.edit,
-				datadetial:{}
+				datadetial:{},
+				currentpageName:""
 			}
 		},
 		methods: {
@@ -152,6 +154,10 @@
 		created() {
 			this.getinfo();
 		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
+		}
 	}
 </script>
 
