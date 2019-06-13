@@ -62,7 +62,7 @@
 					<div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('视频',item.fid)">
-								<div class="material relative">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}">
 									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>

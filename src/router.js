@@ -632,6 +632,14 @@ export default new Router({
 					component: () => import('@/views/noticeManager/newsRelease.vue'),
 				},
 				{
+					path:"newsRelease/addrelease",
+					name: 'addrelease',
+					meta: {
+						title: "发布通知 / 新建通知"
+					},
+					component: () => import('@/views/noticeManager/addrelease.vue'),
+				},
+				{
 					path:"noticetemplate",
 					name: 'noticetemplate',
 					meta: {

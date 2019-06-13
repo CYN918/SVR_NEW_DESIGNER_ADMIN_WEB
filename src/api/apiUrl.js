@@ -262,6 +262,9 @@ export default {
 	bannerprogramdefault:{
 		url:'/admin/bannerprogram/default',method:'post'
 	},
+	applyList:{
+		url:'/admin/income/applyList',method:'post'
+	},
 	
 	
 }

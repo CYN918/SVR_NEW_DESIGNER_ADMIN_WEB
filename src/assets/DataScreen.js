@@ -7,7 +7,7 @@ const screenData = {
 				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
 				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
@@ -362,16 +362,15 @@ const screenData = {
 		},
 		embodyRecord:{
 			filterFields:[
-				{name:"提现单ID",id:"id"},
-				{name:"提现用户ID",id:"hire_order_name"},
-				{name:"提现用户昵称",id:"work_id"},
-				{name:"提现金额",id:"work_name",},
-				{name:"账号主体",id:"open_id"},
-				{name:"状态",id:"username"},
-				{name:"审核时间（开始）",id:"start_date",type:"time"},
-				{name:"审核时间（结束）",id:"start_date",type:"time"},
-				{name:"处理时间（开始）",id:"start_date",type:"time"},
-				{name:"处理时间（结束）",id:"start_date",type:"time"},
+				{name:"提现单ID",id:"apply_id"},
+				{name:"提现用户ID",id:"open_id"},
+				{name:"提现用户昵称",id:"account_name"},
+				{name:"提现金额",type:"two",child:[{name:'提现金额（起始）',id:'cash_money_start'},{name:'提现金额（截止）',id:'cash_money_end'}]},
+				{name:"账号主体",id:"contributor_type",child:[{name:"个人",id:"1"},{name:"企业",id:"2"}]},
+				{name:"状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核中",id:"1"},{name:"审核通过",id:"2"},{name:"已付款",id:"3"},{name:"审核不通过",id:"-1"},{name:"申请已撤销",id:"-2"}]},
+				{name:"审核时间（开始）",type:"time",child:[{name:'审核时间(开始)',id:'check_time_start'},{name:'审核时间(结束)',id:'check_time_end'}]},
+				{name:"处理时间（开始）",type:"time",child:[{name:'处理时间(开始)',id:'apply_time_start'},{name:'处理时间(结束)',id:'apply_time_end'}]},
+				{name:"",type:"display"},
 			]
 		},
 		presetReason:{
@@ -452,7 +451,7 @@ const screenData = {
 				{prop:'vocation',lable:'职位'},
 				{prop:'address',lable:'所在地'},
 				{prop:'personal_sign',lable:'个性签名'},
-				{prop:'works_num',lable:'作品数量'},
+				{prop:'work_num',lable:'作品数量'},
 				{prop:'follow_num',lable:'关注人数'},
 				{prop:'fans_num',lable:'粉丝人数'},
 				{prop:'education_school',lable:'学校名称'},
@@ -464,10 +463,10 @@ const screenData = {
 				{prop:'create_time',lable:'注册时间'},
 				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'is_recommend',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
-				{prop:'recommend_level',lable:'平台推荐等级',width:150},
+				{prop:'recommend_level',lable:'平台推荐等级',type:"novalue",width:150,novalue:"不推荐"},
 			],
 			defaults:[
-				'open_id','username','size','address','works_num','follow_num','fans_num','weixin_visible',
+				'open_id','username','size','address','work_num','follow_num','fans_num','weixin_visible',
 				'qq_visible','create_time','contributor_type','is_recommend','recommend_level'
 			],
 			action:{
@@ -691,7 +690,7 @@ const screenData = {
 				{prop:'labels',lable:'作品标签'},
 				{prop:'is_platform_work',lable:'是否为平台投稿作品',width:200,type:"keyvalue",child:{"0":"否","1":"是"}},
 				{prop:'is_hired',lable:'是否已被录用',width:200,type:"keyvalue",child:{"0":"否","1":"是"}},
-				{prop:'hire_type',lable:'录用方式',type:"keyvalue",child:{"1":"买断式","2":"分成式","":"未录用"}},
+				{prop:'hire_type',lable:'录用方式',type:"keyvalue",child:{"1":"买断式","2":"分成式","no":"未录用"}},
 				{prop:'activity_id',lable:'录用活动ID'},
 				{prop:'activity_name',lable:'录用活动名称'},
 				{prop:'hire_id',lable:'录用订单ID'},
@@ -1167,16 +1166,14 @@ const screenData = {
 		},
 		embodyRecord:{
 			bts:[
-				{lable:"提现ID",prop:"ids"},
+				{lable:"提现ID",prop:"apply_id"},
 				{lable:"提现用户ID",prop:"order_id"},
-				{lable:"提现用户昵称",prop:"ids"},
-				{lable:"提现金额",prop:"ids"},
-				{lable:"账号主体",prop:"ids",type:"keyvalue",child:{"1":"待结算","0":"已结算"}},
-				{lable:"状态",prop:"ids"},
-				{lable:"申请时间",prop:"ids"},
-				{lable:"处理时间",prop:"ids"},
-				{lable:"当前状态",prop:"ids",type:"status",},
-				{lable:"最近更新时间",prop:"ids"}
+				{lable:"提现用户昵称",prop:"account_name"},
+				{lable:"提现金额",prop:"cash_money"},
+				{lable:"账号主体",prop:"contributor_type",type:"keyvalue",child:{"1":"个人","2":"企业"}},
+				{lable:"状态",prop:"check_status",type:"status",child:{"0":"待审核","1":"审核中","2":"审核通过","3":"已付款","-1":"审核不通过","-2":"申请已撤销"}},
+				{lable:"处理时间",prop:"check_time"},
+				{lable:"申请时间",prop:"apply_time"},
 			],
 			action:{
 				morebtns:{

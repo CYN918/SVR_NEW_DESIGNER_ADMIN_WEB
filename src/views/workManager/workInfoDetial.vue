@@ -5,11 +5,14 @@
 				查看作品
 			</span>
 			<div class="textcenter">
-				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+				<span v-for="(item,index) in tabData" v-if="index < 2" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 				 @click="tabsChange(index,item.name)">
 					<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 					{{ item.name }}
 				</span>
+				<span v-else-if="index == 2 && work_info.hire_id == 0" tag="span" style="color:rgba(153,153,153,1);">{{ item.name }}</span>
+				<span v-else-if="index == 2 && work_info.hire_id != 0" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+				 @click="tabsChange(index,item.name)">{{ item.name }}</span>
 			</div>
 			<div class="materialdownload" v-if="tabsnum == 1">
 				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="showselectwork()">选择下载</button>

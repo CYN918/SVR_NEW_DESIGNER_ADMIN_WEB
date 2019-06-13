@@ -23,7 +23,8 @@
 							</span>
 							<!-- <span>{{ scope.row['is_del'] }}</span> -->
 						</div>
-						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] }}</span></span>
+						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] ? item.child[scope.row[item.prop]] : item.child.no }}</span></span>
+						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
@@ -509,7 +510,7 @@
 					    noSelectIds.push(row[this.pageid]);
 					}
 				})
-				///console.log(noSelectIds)
+				console.log(noSelectIds)
 				noSelectIds.forEach(id=>{
 				    if (selectAllIds.indexOf(id) >= 0) {
 				        for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
@@ -520,7 +521,7 @@
 				        }
 				    }
 				})
-               // console.log(this.multipleSelectionAll);
+                console.log(this.multipleSelectionAll);
 				
 				this.selected = this.multipleSelectionAll.length;
 				if(this.$parent.selectData){
@@ -637,6 +638,9 @@
 				break;
 				case "workInfo":
 					this.pageid = "work_id";
+				break;
+				case "worksShelves":
+					this.pageid = "open_id";
 				break;
 			}
 		}

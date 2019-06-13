@@ -78,7 +78,7 @@
 					data = sreenData;
 				}
 
-				this.api.getContributorList(data).then((da) => {
+				this.api.applyList(data).then((da) => {
 					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
@@ -129,7 +129,25 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
@@ -140,7 +158,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/userCompanyInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/otherInformation/embodyRecord',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
 					this.getData({pageCurrent:1,pageSize:50});
 				}
