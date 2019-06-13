@@ -150,7 +150,7 @@
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				//console.log(this.tableConfig.list);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [{
@@ -230,7 +230,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -309,7 +309,7 @@
 						activity_id: val.id,
 						access_token: 2,
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}) 
 					
 				}).catch(() => {
@@ -333,7 +333,7 @@
 						access_token:localStorage.getItem("access_token"),
 						id: val.id,
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					})
 					
 				}).catch(() => {
@@ -366,7 +366,7 @@
 						is_default:1,
 						id:id
 					}).then(da =>{
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}).catch(da =>{
 						
 					})
@@ -408,7 +408,7 @@
 						access_token:localStorage.getItem("access_token"),
 						id:id
 					}).then(da =>{
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}).catch(da =>{
 						
 					})
@@ -434,7 +434,7 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.$parent.tabchange(1);
 			if(this.$route.query.tabsnum){
 				this.tabsChange(this.$route.query.tabsnum);
@@ -444,7 +444,7 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

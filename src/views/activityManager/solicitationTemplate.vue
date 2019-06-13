@@ -150,7 +150,7 @@
 				console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -194,7 +194,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id) {
@@ -300,7 +300,7 @@
 						template_file_id: val.template_file_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					})
 
 				}).catch(() => {
@@ -316,7 +316,7 @@
 					file_name: this.file_name,
 					access_token: localStorage.getItem("access_token"),
 				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
 						type: 'info',
@@ -356,7 +356,7 @@
 				}
 				
 				this.api.templateadd(data).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
 						type: 'info',
@@ -373,14 +373,14 @@
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.$parent.tabchange(1);
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 		

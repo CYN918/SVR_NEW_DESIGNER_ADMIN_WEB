@@ -139,7 +139,7 @@
 				this.filterFields = DataScreen.screenShow.feedback["filterFields" + num];
 				this.tableAction = DataScreen.screenShow.feedback["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.$parent.tabchange(num+1);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [];
@@ -205,10 +205,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id) {
@@ -263,10 +260,7 @@
 						}
 					});
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:50});
 				}
 			},
 			delete(val) {
@@ -334,7 +328,7 @@
 		created() {
 			this.getData({
 				pageCurrent: 1,
-				pageSize: 10
+				pageSize: 50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();

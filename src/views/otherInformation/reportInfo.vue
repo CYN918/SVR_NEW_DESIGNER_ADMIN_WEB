@@ -139,7 +139,7 @@
 				this.filterFields = DataScreen.screenShow.reportInfo["filterFields" + num];
 				this.tableAction = DataScreen.screenShow.reportInfo["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.$parent.tabchange(num+1);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [];
@@ -207,7 +207,7 @@
 					this.getcommonrightbtn();
 					this.getData({
 						pageCurrent: 1,
-						pageSize: 10
+						pageSize: 50
 					});
 				})
 			},
@@ -265,7 +265,7 @@
 					this.getcommonrightbtn();
 					this.getData({
 						pageCurrent: 1,
-						pageSize: 10
+						pageSize: 50
 					});
 				}
 			},
@@ -327,14 +327,14 @@
 					classify_id:row.id,
 					status:status
 				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch()
 			}
 		},
 		created() {
 			this.getData({
 				pageCurrent: 1,
-				pageSize:10
+				pageSize:50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();

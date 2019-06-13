@@ -217,7 +217,7 @@
 			screenreach(){
 				eventBus.$on("sreenData",(data) =>{
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id){
@@ -381,13 +381,13 @@
 		mounted(){
 			console.log(1);
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.getScreenShowData();
 			}
 		}

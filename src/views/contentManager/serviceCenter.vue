@@ -180,10 +180,7 @@
 						id: val.id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.$message({
-							type: 'info',
-							message: '删除成功'
-						});
+						this.getData({pageCurrent:1,pageSize:50});
 					}) 
 					
 				}).catch(() => {
@@ -199,13 +196,13 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

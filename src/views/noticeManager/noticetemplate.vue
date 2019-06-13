@@ -90,7 +90,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -126,14 +126,14 @@
 					//console.log(tag);
 					this.$router.push({path:'/noticeManager/noticetemplate',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:50});
 				}
 			}
 		},
 		created() {},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.screenreach();
 			//this.getcommonrightbtn();
 		}
