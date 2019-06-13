@@ -376,10 +376,16 @@ const screenData = {
 		presetReason:{
 			filterFields:[
 				{name:"驳回理由预设ID",id:"id"},
-				{name:"审核类型",id:"work_id"},
-				{name:"驳回理由",id:"work_name",},
-				{name:"状态",id:"username"},
-				{name:'创建时间',type:"time",child:["create_time_start","create_time_end"]},
+				{name:"审核类型",id:"type",child:[
+					{name:"作品发布 ",id:"1"},
+					{name:"作品入围 ",id:"2"},
+					{name:"作品审核 ",id:"3"},
+					{name:"平台供稿人 ",id:"4"},
+				]},
+				{name:"驳回理由",id:"content",},
+				{name:"状态",id:"status"},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
+				{name:"",type:"display"},
 			]
 		},
 		feedback:{
@@ -520,7 +526,7 @@ const screenData = {
 				{prop:'email',lable:'邮箱'},
 				{prop:'name',lable:'身份证姓名'},
 				{prop:'id_card',lable:'身份证号码'},
-				{prop:'front_photo',lable:'身份证照片',type:"img"},
+				{prop:'front_photo',lable:'身份证照片',type:"img",width:200},
 			],
 			action:{
 				morebtns:{
@@ -684,7 +690,7 @@ const screenData = {
 				{prop:'face_pic',lable:'封面图',type:"img",width:150},
 				{prop:'open_id',lable:'用户ID'},
 				{prop:'username',lable:'用户昵称',type:"url"},
-				{prop:'avatar',lable:'用户头像',type:"img",width:150},
+				{prop:'avatar',lable:'用户头像',type:"img",width:200},
 				{prop:'classify',lable:'作品类型',width:200},
 				{prop:'copyright',lable:'版权说明'},
 				{prop:'labels',lable:'作品标签'},
@@ -862,7 +868,7 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'活动ID'},
 				{prop:'activity_name',lable:'活动名称'},
-				{prop:'banner',lable:'banner',type:"img",width:150},
+				{prop:'banner',lable:'banner',type:"img",width:200},
 				{prop:'category_name',lable:'主题分类'},
 				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}},
@@ -902,7 +908,7 @@ const screenData = {
 			bts:[
 				{prop:'id',lable:'活动ID'},
 				{prop:'activity_name',lable:'活动名称'},
-				{prop:'banner',lable:'banner',type:"img",width:150},
+				{prop:'banner',lable:'banner',type:"img",width:200},
 				{prop:'category_name',lable:'主题分类'},
 				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}},
@@ -947,8 +953,8 @@ const screenData = {
 				{lable:"活动名称",prop:"activity_name"},
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"用户名称",prop:"username",},
-				{lable:"用户头像",prop:"avatar",type:"img",width:150},
-				{lable:"作品封面图",prop:"face_pic",type:"img",width:150},
+				{lable:"用户头像",prop:"avatar",type:"img",width:200},
+				{lable:"作品封面图",prop:"face_pic",type:"img",width:200},
 				{lable:"活动banner",prop:"banner"},
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"},
@@ -1021,7 +1027,7 @@ const screenData = {
 			bts:[
 				{lable:"banner素材ID",prop:"id"},
 				{lable:"banner素材名称",prop:"banner_name"},
-				{lable:"banner图片",prop:"banner_pic",type:"img"},
+				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
 				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
@@ -1205,7 +1211,7 @@ const screenData = {
 				links:{
 					name:"停用",
 					Ishow:true,
-					child:{"1":"启用","0":"停用"}
+					child:{"0":"启用","1":"停用"}
 				},
 			}
 		},
@@ -1215,7 +1221,7 @@ const screenData = {
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"分类ID",prop:"classify_id"},
 				{lable:"用户昵称",prop:"file_type"},
-				{lable:"截图",prop:"pic",type:"img"},
+				{lable:"截图",prop:"pic",type:"img",width:200},
 				{lable:"问题类型",prop:"classify_name"},
 				{lable:"问题描述",prop:"detail"},
 				{lable:"联系方式类型",prop:"link_type"},

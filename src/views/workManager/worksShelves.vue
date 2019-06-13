@@ -505,7 +505,7 @@
 	}
 	
 	.sel-dialog  {
-		width: 1000px;
+		width: 1100px;
 	}
 	
 	.shelves .el-message-box__content{

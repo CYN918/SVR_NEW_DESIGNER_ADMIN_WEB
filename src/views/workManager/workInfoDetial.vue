@@ -53,7 +53,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_list['附件']">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
@@ -68,7 +68,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_list['图片']">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
@@ -81,8 +81,8 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_list['视频']">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
@@ -97,7 +97,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_list['音频']">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">

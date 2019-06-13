@@ -467,6 +467,15 @@
 							
 						}
 					break;
+					case "newsRelease":
+						if(!setid){
+							this.router.push({path:"/noticeManager/newsRelease/addsRelease", query:{row: JSON.stringify(row)}})
+						}
+						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
 				};
 			},
 			handleSizeChange(val) {
@@ -604,6 +613,12 @@
 					this.$parent.seltotal = 0;
 					this.toggleSelection();
 				};
+			},
+			setinit(){
+				this.sel = true;
+				this.selected = 0;
+				this.$parent.seltotal = 0;
+				this.toggleSelection();
 			},
 			toggleSelection(rows) {
 				if (rows) {

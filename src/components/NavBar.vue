@@ -51,12 +51,20 @@
 				eventBus.$on("reviewnum",(data) =>{
 					this.reviewnum  = data;
 				})
+			},
+			getuserinfo(){
+				this.api.selfInfo({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					
+				})
 			}
 			
 		},
 		created() {
 			this.getBreadcrumb();
 			this.getbus();
+			this.getuserinfo()
 		},
 		mounted() {}
 	}

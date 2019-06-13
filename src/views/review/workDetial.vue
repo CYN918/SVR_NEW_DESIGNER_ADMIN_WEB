@@ -195,57 +195,9 @@
 						<span class="fleft Dialogkey">
 							驳回理由
 						</span>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 1">
-							<div class="w  sel-radio">
-								<el-radio label="存在侵权">存在侵权</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="存在负面影响的言语或图片">存在负面影响的言语或图片</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品类型选择与内容不符">作品类型选择与内容不符</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 2">
-							<div class="w  sel-radio">
-								<el-radio label="作品质量有所欠缺">作品质量有所欠缺</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="未按照活动要求提供内容">未按照活动要求提供内容</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品内容与活动主题无关">作品内容与活动主题无关</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 3">
-							<div class="w  sel-radio">
-								<el-radio label="作品质量有所欠缺">作品质量有所欠缺</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="未按照活动要求提供内容">未按照活动要求提供内容</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品内容与活动主题无关">作品内容与活动主题无关</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 4">
-							<div class="w  sel-radio">
-								<el-radio label="身份不明">身份不明</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="违规操作">违规操作</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="信息欠缺">信息欠缺</el-radio>
+						<el-radio-group v-model="radio1" class="sel-dialog-content fleft">
+							<div class="w  sel-radio" v-for="(item,index) in tableData" :key="item.id">
+								<el-radio :label="item.content">{{ item.content }}</el-radio>
 							</div>
 							<div class="w sel-radio">
 								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
@@ -404,6 +356,7 @@
 				hire_type:"",
 				contributor_type:parseInt(this.$route.query.contribute_type),
 				font_size:0,
+				tableData:[]
 			}
 		},
 		methods: {
@@ -641,7 +594,7 @@
 					type: this.$route.query.type,
 					id: this.$route.query.id,
 				}).then(da => {
-					console.log(da)
+					//console.log(da)
 					this.apply_info = da.apply_info;
 					this.check_info = da.check_info;
 					this.material_info = da.material_info;
@@ -684,11 +637,29 @@
 			},
 			linksee(){
 				window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + this.$route.query.work_id);   
-			}
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 100,
+					type:this.pagetype
+				}
+				this.api.reviewreason(data).then((da) => {
+					
+					this.tableData = da.data;
+					console.log(this.tableData	)
+					
+				}).catch(() => {
+					
+				});
+			},
 
 		},
 		created() {
 			this.getreviewInfo();
+			this.getData();
 		},
 		mounted() {
 			

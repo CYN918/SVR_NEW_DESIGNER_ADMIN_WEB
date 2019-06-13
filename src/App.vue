@@ -136,11 +136,11 @@ input{
 	border-color: #ff5121;
 }
 
-/* #app .defaultbtn:hover{
+#app .defaultbtn:hover{
 	background: #ff5121;
 	color: #ffffff;
 	border-color: #ff5121;
-} */
+}
 
 .borderb{
 	border-bottom: #f8f8f8 solid 3px;

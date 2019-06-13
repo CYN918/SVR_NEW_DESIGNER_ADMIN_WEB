@@ -292,16 +292,16 @@
 						} 
 						
 						this.api.setRecommendLevel(data).then(da=>{
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 						}).catch(da=>{
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 						})
 					}).catch(() => {
 						this.$message({
 						  type: 'info',
 						  message: '已经取消'
 						});
-						this.$refs.Tabledd.setall();
+						this.$refs.Tabledd.setinit();
 					});
 				})
 				

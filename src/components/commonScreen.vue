@@ -20,6 +20,28 @@
 								<el-checkbox>{{ childitem }}</el-checkbox>
 							</el-option>
 						</el-select>
+						
+						<!-- <div v-else-if="item.child && item.type == 'more'">
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" 
+							 clearable></el-input>
+							 <el-checkbox-group v-model="form[item.id]">
+							 	<el-checkbox   v-for="(childitem,index) in item.child" :key="index" :label="childitem">{{childitem}}</el-checkbox>
+							 	
+							 </el-checkbox-group>
+						</div> -->
+						
+						<!-- <el-dropdown trigger="click" >
+						  
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="form[item.id]"
+							 clearable></el-input>
+						    <el-dropdown-menu slot="dropdown" style="width: 140px;">
+								<el-checkbox-group v-model="form[item.id]">
+									<el-dropdown-item v-for="(childitem,index) in item.child" :key="index">
+										<el-checkbox  :label="childitem">{{childitem}}</el-checkbox>
+									</el-dropdown-item>
+								</el-checkbox-group>
+						    </el-dropdown-menu>
+						</el-dropdown> -->
 						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
 							<el-option value="" label="全部"></el-option>
 							 <el-radio-group v-model="form[item.id]">

@@ -260,10 +260,16 @@ export default {
 		url:'/admin/report/addClassify',method:'post',baseURL:0
 	},
 	bannerprogramdefault:{
-		url:'/admin/bannerprogram/default',method:'post'
+		url:'/admin/bannerprogram/default',method:'post',baseURL:0
 	},
 	applyList:{
-		url:'/admin/income/applyList',method:'post'
+		url:'/admin/income/applyList',method:'post',baseURL:0
+	},
+	addnotice:{
+		url:'/admin/notice/add',method:'post',isType:{suktip:true},baseURL:0
+	},
+	selfInfo:{
+		url:'/admin/adminuser/selfInfo',method:'post',baseURL:0
 	},
 	
 	
