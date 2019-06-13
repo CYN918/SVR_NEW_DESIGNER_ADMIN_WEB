@@ -12,7 +12,7 @@ const screenData = {
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
 				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
 				{name:'用户名',id:'username'},
-				{name:'用户手机号',id:'phone'},
+				{name:'手机号',id:'mobile'},
 				{name:'邮箱',id:'email'},
 				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","三维设计师","网页设计师","UI设计师","动画师","产品设计师","室内设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","概念设计师","特效设计师","建筑师","服装设计师","手工艺人","艺人工作者","教育工作者"]},
 				{name:'所在地',id:'address'},
@@ -28,7 +28,7 @@ const screenData = {
 			filterFields:[
 				{name:"用户ID",id:"open_id"},
 				{name:"用户昵称",id:"username"},
-				{name:"手机号",id:"phone"},
+				{name:"手机号",id:"mobile"},
 				{name:"邮箱",id:"email"},
 				{name:"企业/机构名称",id:"company_name"},
 				{name:"统一信用代码",id:"code",}, 
@@ -44,7 +44,7 @@ const screenData = {
 			filterFields:[
 				{name:"用户ID",id:"open_id"},
 				{name:"用户昵称",id:"username"},
-				{name:"手机号",id:"phone"},
+				{name:"手机号",id:"mobile"},
 				{name:"邮箱",id:"email"},
 				{name:"身份证姓名",id:"real_name"},
 				{name:"身份证号码",id:"id_card"},
@@ -60,7 +60,7 @@ const screenData = {
 		roleManager:{
 			filterFields:[
 				{name:"角色ID",id:"id"},
-				{name:"角色名称",id:"role_name"},
+				{name:"文本框搜索",id:"role_name"},
 				{name:'创建时间',id:'register_time',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
 			]
 		},
@@ -483,7 +483,7 @@ const screenData = {
 		userCompanyInfo:{
 			bts:[
 				{prop:'open_id',lable:'用户ID',width:200},
-				{prop:'name',lable:'用户昵称'},
+				{prop:'username',lable:'用户昵称'},
 				{prop:'mobile',lable:'手机号',width:200},
 				{prop:'email',lable:'邮箱',width:200},
 				{prop:'company_name',lable:'企业/机构名称',width:150},
@@ -1223,7 +1223,7 @@ const screenData = {
 				{lable:"该类型反馈数",prop:"used_num"},
 				{lable:"创建时间",prop:"created_at"},
 			],
-			action:{
+			action1:{
 				morebtns:{
 					name:"删除",
 					Ishow:true,
@@ -1233,6 +1233,17 @@ const screenData = {
 					name:"停用",
 					Ishow:true,
 					child:{"1":"启用","0":"停用"}
+				},
+			},
+			action0:{
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"feedback",
+				},
+				links:{
+					name:"查看",
+					Ishow:true,
 				},
 			}
 		},
@@ -1244,7 +1255,7 @@ const screenData = {
 				{lable:"举报类型",prop:"classify_name"},
 				{lable:"举报对象ID",prop:"accused_open_id"},
 				{lable:"举报对象昵称",prop:"accused_username"},
-				{lable:"举报位置",prop:"position"},
+				{lable:"举报位置",prop:"position",type:"keyvalue",child:{work:"作品举报",comment:"评论举报",user:"用户中心举报",message:"私信举报"},},
 				{lable:"详细说明",prop:"detail"},
 				{lable:"提交时间",prop:"create_time"},
 				
@@ -1256,7 +1267,7 @@ const screenData = {
 				{lable:"该分类举报数",prop:"used_num"},
 				{lable:"创建时间",prop:"created_at"},
 			],
-			action:{
+			action1:{
 				morebtns:{
 					name:"删除",
 					Ishow:true,
@@ -1266,6 +1277,17 @@ const screenData = {
 					name:"停用",
 					Ishow:true,
 					child:{"1":"启用","0":"停用"}
+				},
+			},
+			action0:{
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"reportInfo",
+				},
+				links:{
+					name:"查看",
+					Ishow:true
 				},
 			}
 		},

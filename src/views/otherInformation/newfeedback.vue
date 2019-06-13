@@ -34,7 +34,12 @@
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1)
+				this.router.push({
+					path:"/otherInformation/feedback",
+					query:{
+						tabsnum:1
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -44,14 +49,19 @@
 				}
 			},
 			add(){
-				this.api.reviewaddReason({
+				this.api.addClassify({
 					access_token:localStorage.getItem("access_token"),
-					content:this.content,
+					classify_name:this.content,
 					status:this.status
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
-						this.$router.go(-1);
+						this.router.push({
+							path:"/otherInformation/feedback",
+							query:{
+								tabsnum:1
+							}
+						})
 					}
 				}).catch(() => {
 					

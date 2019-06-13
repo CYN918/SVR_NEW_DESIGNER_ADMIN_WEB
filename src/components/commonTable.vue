@@ -280,7 +280,6 @@
 					case "presetReason":
 						if(!setid){
 							if(event.target.innerHTML == "启用"){
-								
 								this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
 									confirmButtonText: '确定',
 									cancelButtonText: '取消',
@@ -319,8 +318,145 @@
 							}
 						}
 						if(setid == "contributor"){
+							this.$confirm('确认删除该驳回理由', '确认修改', {
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								dangerouslyUseHTMLString: true,
+								type: '',
+								center: true
+							}).then(() => {
+								this.$parent.update(row,-1,"删除");
+							}).catch(() => {
+								this.$message({
+									type: 'info',
+									message: '已经取消'
+								});
+							});
+						}
+					break;
+					case "feedback":
+						if(!setid){
+							if(this.$parent.tabsnum == 0){
+								this.router.push({path:"/otherInformation/feedback/seefeedback", query:{feedback_id:row.feedback_id}})
+							} else {
+								if(event.target.innerHTML == "启用"){
+									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+										confirmButtonText: '确定',
+										cancelButtonText: '取消',
+										dangerouslyUseHTMLString: true,
+										type: '',
+										center: true
+									}).then(() => {
+										this.$parent.update(row,1,"启用");
+										event.target.innerHTML = "停用"
+									}).catch(() => {
+										this.$message({
+											type: 'info',
+											message: '已经取消'
+										});
+									});
+								} else{
+									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+										confirmButtonText: '确定',
+										cancelButtonText: '取消',
+										dangerouslyUseHTMLString: true,
+										type: '',
+										center: true
+									}).then(() => {
+										this.$parent.update(row,0,"停用");
+										event.target.innerHTML = "启用"
+									}).catch(() => {
+										this.$message({
+											type: 'info',
+											message: '已经取消'
+										});
+									});
+								}
+							}
 							
-							this.$parent.update(row,-1,"删除");
+							
+						}
+						if(setid == "contributor"){
+							
+							this.$confirm('确认删除该驳回理由', '确认修改', {
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								dangerouslyUseHTMLString: true,
+								type: '',
+								center: true
+							}).then(() => {
+								this.$parent.update(row,-1,"删除");
+							}).catch(() => {
+								this.$message({
+									type: 'info',
+									message: '已经取消'
+								});
+							});
+							
+							
+						}
+					break;
+					case "reportInfo":
+						if(!setid){
+							if(this.$parent.tabsnum == 0){
+								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.id}})
+							} else {
+								this.$parent.update(row,1,"启用");
+								if(event.target.innerHTML == "启用"){
+									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+										confirmButtonText: '确定',
+										cancelButtonText: '取消',
+										dangerouslyUseHTMLString: true,
+										type: '',
+										center: true
+									}).then(() => {
+										this.$parent.update(row,1,"启用");
+										event.target.innerHTML = "停用"
+									}).catch(() => {
+										this.$message({
+											type: 'info',
+											message: '已经取消'
+										});
+									});
+								} else{
+									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
+										confirmButtonText: '确定',
+										cancelButtonText: '取消',
+										dangerouslyUseHTMLString: true,
+										type: '',
+										center: true
+									}).then(() => {
+										this.$parent.update(row,0,"停用");
+										event.target.innerHTML = "启用"
+									}).catch(() => {
+										this.$message({
+											type: 'info',
+											message: '已经取消'
+										});
+									});
+								}
+							}
+							
+							
+						}
+						if(setid == "contributor"){
+							
+							this.$confirm('确认删除该驳回理由', '确认修改', {
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								dangerouslyUseHTMLString: true,
+								type: '',
+								center: true
+							}).then(() => {
+								this.$parent.update(row,-1,"删除");
+							}).catch(() => {
+								this.$message({
+									type: 'info',
+									message: '已经取消'
+								});
+							});
+							
+							
 						}
 					break;
 				};

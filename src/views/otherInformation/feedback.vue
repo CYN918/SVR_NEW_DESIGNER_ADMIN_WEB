@@ -119,7 +119,7 @@
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.feedback.action,
+				tableAction: DataScreen.screenShow.feedback.action0,
 				detailData: "",
 				IsDetail: false,
 				filterFields: DataScreen.screen.feedback.filterFields0,
@@ -137,6 +137,7 @@
 				this.tabsnum = num;
 				this.tableConfig.list = DataScreen.screenShow.feedback["bts" + num];
 				this.filterFields = DataScreen.screenShow.feedback["filterFields" + num];
+				this.tableAction = DataScreen.screenShow.feedback["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
 				this.getData({pageCurrent:1,pageSize:10});
 				this.$parent.tabchange(num+1);
@@ -144,9 +145,8 @@
 					this.commonTopData.commonrightbtn = [];
 				} else {
 					this.commonTopData.commonrightbtn = [{
-						name: "添加类型问题",
+						name: "新建问题类型",
 						id: "right1",
-						url: ""
 					}];
 				}
 			},
@@ -313,6 +313,15 @@
 				})
 				this.centerDialogVisible = false;
 			},
+			update(row,status,name){
+				this.api.updateClassify({
+					access_token:localStorage.getItem("access_token"),
+					classify_id:row.id,
+					status:status
+				}).then(da => {
+					this.getData({pageCurrent:1,pageSize:10});
+				}).catch()
+			},
 			showmaskload1(){
 				this.showmask = false;
 				this.showmask2 = true;
@@ -324,14 +333,16 @@
 		},
 		created() {
 			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
+				pageCurrent: 1,
+				pageSize: 10
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-
+			if(this.$route.query.tabsnum){
+				this.tabsChange(1);
+			}
 		}
 	}
 </script>

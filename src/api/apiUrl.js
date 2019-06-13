@@ -241,6 +241,24 @@ export default {
 	recommendactivityinfo:{
 		url:'/admin/recommendactivity/info',method:'post',baseURL:0
 	},
+	addClassify:{
+		url:'/admin/feedback/addClassify',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	updateClassify:{
+		url:'/admin/feedback/updateClassify',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	feedbackinfo:{
+		url:'/admin/feedback/info',method:'post',baseURL:0
+	},
+	reportinfo:{
+		url:'/admin/report/info',method:'post',baseURL:0
+	},
+	reportupdateClassify:{
+		url:'/admin/report/updateClassify',method:'post',baseURL:0
+	},
+	reportaddClassify:{
+		url:'/admin/report/addClassify',method:'post',baseURL:0
+	},
 	
 	
 }

@@ -581,12 +581,28 @@ export default new Router({
 					component: () => import('@/views/otherInformation/newfeedback.vue'),
 				},
 				{
+					path: "feedback/seefeedback",
+					name: 'seefeedback',
+					meta: {
+						title: "意见反馈 / 反馈内容 / 查看页面"
+					},
+					component: () => import('@/views/otherInformation/seefeedback.vue'),
+				},
+				{
 					path: "reportInfo",
 					name: 'reportInfo',
 					meta: {
 						title: "举报信息"
 					},
 					component: () => import('@/views/otherInformation/reportInfo.vue'),
+				},
+				{
+					path: "reportInfo/seereportInfo",
+					name: 'seereportInfo',
+					meta: {
+						title: "举报信息 / 举报内容 / 查看页面"
+					},
+					component: () => import('@/views/otherInformation/seereportInfo.vue'),
 				},
 				{
 					path: "reportInfo/newreportInfo",
