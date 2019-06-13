@@ -45,7 +45,12 @@
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1);
+				this.router.push({
+					path:"/contentManager/homeBanner",
+					query:{
+						tabsnum:0
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {

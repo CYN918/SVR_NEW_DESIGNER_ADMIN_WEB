@@ -7,8 +7,9 @@
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
-						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="">
+						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
 						<div v-else-if="item.type == 'merge'">
 							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
@@ -61,6 +62,10 @@
 			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 			</el-pagination>
 		</div>
+		
+		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
+			<img :src="imgurl" alt="暂无图片">
+		</div>
 	</div>
 </template>
 <!-- :total="tableConfig.total" -->
@@ -79,7 +84,9 @@
 				sel:true,
 				multipleSelectionAll:[],
 				multipleSelection:[],
-				pageid:""
+				pageid:"",
+				imgurl:"",
+				isimgurl:false,
 			}
 		},
 		methods: {
@@ -271,7 +278,7 @@
 					break;
 					case "employmentorder":
 						if(!setid){
-							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id}})
+							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id,check_admin_name:row.check_admin_name,hire_time:row.hire_time}})
 						}
 						if(setid == "contributor"){
 							this.$parent.delect(row);
@@ -609,6 +616,13 @@
 			getRowKeys(row) {
 				return row.id;
 			},
+			getimgulr(url){
+				this.imgurl = url;
+				this.isimgurl = !this.isimgurl
+			},
+			openwindow(url){
+				window.open(url)
+			}
 			
 		},
 		mounted() {
@@ -646,6 +660,16 @@
 	}
 	.status10{
 		color:#52C41A;
+	}
+	
+	.maskimg{
+		position: fixed;
+		top:0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5);
+		z-index: 2005;
 	}
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;

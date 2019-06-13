@@ -49,6 +49,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			if(isType.suktip){
 				Message({message: '操作成功',type: 'success'});
 			}
+			
 			if(isType.reload){	
 				location.reload();	
 			}
@@ -57,7 +58,14 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				localStorage.setItem("access",JSON.stringify(data));
 				router.push({path:"/userManager/userBaseInfo"});
 			}
-			return data
+			
+			if(isType.isok){
+				return response.data
+			} else {
+				return data
+			}
+			
+			
 		} else if(result == 201) {
 			window.location.href = data;
 		} else {

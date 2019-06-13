@@ -31,6 +31,9 @@
 			<div class="w textcenter sel-radio">
 				<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 			</div>
+			<div class="w textcenter sel-radio">
+				<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
+			</div>
 		</el-radio-group>
 	  </div>
 	  <span slot="footer" class="dialog-footer sel-footer">
@@ -64,6 +67,9 @@
 					</div>
 					<div class="w textcenter sel-radio">
 						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+					</div>
+					<div class="w textcenter sel-radio">
+						<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
 					</div>
 				</el-radio-group>
 			</li>
@@ -124,7 +130,7 @@
 				},
 				tableData:[],
 				detailData:{},
-				radioS:"C",
+				radioS:"",
 				selectData:[],
 				selectOne:{},
 				isajax:0,

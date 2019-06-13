@@ -14,19 +14,19 @@
 						<!-- form.selct[item.a] -->
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
-						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && (!item.type)">
-							<el-option value="" label="全部"></el-option>
-							 <el-radio-group v-model="form[item.id]">
-								<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-									<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
-								</el-option>
-							</el-radio-group>
-						</el-select>
 						<el-select v-model="form[item.id]" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
 							<el-option value="" label="全部"></el-option>
 							<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
 								<el-checkbox>{{ childitem }}</el-checkbox>
 							</el-option>
+						</el-select>
+						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
+							<el-option value="" label="全部"></el-option>
+							 <el-radio-group v-model="form[item.id]">
+								<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name">
+									<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
+								</el-option>
+							</el-radio-group>
 						</el-select>
 						 <el-date-picker
 						  v-if="item.type == 'time'"
@@ -44,6 +44,9 @@
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 14px;">至</span>
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+						</div>
+						<div v-if="item.type == 'text'">
+							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
 							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>

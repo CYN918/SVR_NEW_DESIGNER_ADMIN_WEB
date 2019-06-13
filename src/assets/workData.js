@@ -225,21 +225,6 @@ const workData = {
 				id:"hire_type",
 				type:"keyvalue",
 				child:{"1":"买断式","2":"分成式"}
-			},
-			{
-				name:"录用时间",
-				id:"check_time",
-				type:"text"
-			},
-			{
-				name:"录用审核人",
-				id:"check_admin",
-				type:"text"
-			},
-			{
-				name:"订单状态",
-				id:"ads",
-				type:"text"
 			}
 		]
 			

@@ -98,7 +98,7 @@ export default {
 		url:'/admin/activity/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	activityadd:{
-		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	activityedit:{
 		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true}
@@ -258,6 +258,9 @@ export default {
 	},
 	reportaddClassify:{
 		url:'/admin/report/addClassify',method:'post',baseURL:0
+	},
+	bannerprogramdefault:{
+		url:'/admin/bannerprogram/default',method:'post'
 	},
 	
 	

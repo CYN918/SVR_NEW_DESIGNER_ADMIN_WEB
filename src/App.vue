@@ -814,6 +814,10 @@ input{
 	z-index: 2003;
 }
 
+.commonbg > div{
+	margin-left:0; 
+}
+
 @media screen and (max-width: 1400px) {
 	.screenMidden{
 		height: 220px;

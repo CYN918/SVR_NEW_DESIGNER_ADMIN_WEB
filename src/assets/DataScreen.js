@@ -36,8 +36,8 @@ const screenData = {
 				{name:"企业银行卡号",id:"bank_card_no"},
 				{name:"所属开户银行",id:"bank_name"},
 				{name:"所属开户支行",id:"branch_bank"},
-				{name:'累积收益', type:'two',child:[{id:'profit_max'},{id:'profit_min'}]},
-				{name:'累积录用作品数', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
+				{name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
+				{name:'累积录用作品数', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
 			]
 		},
 		userPersonalInfo:{
@@ -53,14 +53,14 @@ const screenData = {
 				{name:"银行预留手机号",id:"reserve_phone"},
 				{name:"所属开户银行",id:"bank_name"},
 				{name:"所属开户支行",id:"branch_bank"},
-				{name:'累积收益', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
-				{name:'累积录用作品数量', type:'two',child:[{id:'hire_num_max'},{id:'hire_num_min'}]},
+				{name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
+				{name:'累积录用作品数量', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
 			]
 		},
 		roleManager:{
 			filterFields:[
 				{name:"角色ID",id:"id"},
-				{name:"文本框搜索",id:"role_name"},
+				{name:"角色名称",id:"role_name",type:"text"},
 				{name:'创建时间',id:'register_time',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
 			]
 		},
@@ -205,14 +205,15 @@ const screenData = {
 		activityEmploy:{
 			filterFields:[
 				{name:"活动ID",id:"activity_id"},
-				{name:"活动名称",id:"activity_name"},
+				{name:"活动名称",id:"activity_name" },
 				{name:"活动类型",id:"type"},
-				{name:"主题分类",id:"category_id"},
+				{name:"主题分类",id:"category_id",child:(localStorage.getItem("child") ? JSON.parse(localStorage.getItem("child")) : [])},
 				/* {name:"活动时间",id:"id",type:"time"}, */
 				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
-				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
-				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min"},{id:"hire_num_max"}]},
+				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min",name:"入围作品数量下限"},{id:"shortlisted_num_max",name:"入围作品数量上限"}]},
+				{name:"录用作品数量",id:"ids",type:"two",child:[{id:"hire_num_min",name:"录用作品数量下限"},{id:"hire_num_max",name:"录用作品数量下限"}]},
+				{name:"",type:"display"},
 			]
 		},
 		newrecommendedActivities:{
@@ -224,8 +225,8 @@ const screenData = {
 				/* {name:"活动时间",id:"id",type:"time"}, */
 				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
-				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min"},{id:"shortlisted_num_max"}]},
-				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min"},{id:"hire_num_max"}]},
+				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min",name:"入围作品数量下限"},{id:"shortlisted_num_max",name:"入围作品数量上限"}]},
+				{name:"录用作品数量",id:"id",type:"two",child:[{id:"hire_num_min",name:"录用作品数量下限"},{id:"hire_num_max",name:"录用作品数量下限"}]},
 			]
 		},
 		labels:{
@@ -249,11 +250,20 @@ const screenData = {
 			]
 		},
 		solicitationTemplate:{
-			filterFields:[
+			filterFields0:[
 				{name:"模板文件ID",id:"template_file_id"},
 				{name:"文件名称",id:"file_name"},
 				{name:"文件格式",id:"file_type",},
 				{name:"文件大小",id:"file_size_type",child:[{name:"小于10M",id:"1"},{name:"10M-100M",id:"2"},{name:"100M-1GB",id:"3"},{name:"大于1GB",id:"4"}]},
+				{name:'在用活动数', type:'two',child:[{name:'在用活动数下限',id:'processing_activity_min'},{name:'在用活动数上限',id:'processing_activity_max'}]},
+				{name:"上传人",id:"admin_name"},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:'update_time_start'},{name:'最近更新时间(开始)',id:'update_time_end'}]},
+				{name:'上传时间',type:"time",child:[{name:'上传时间(开始)',id:'create_time_start'},{name:'上传时间(开始)',id:'create_time_end'}]},
+				{name:"",type:"display"},
+			],
+			filterFields1:[
+				{name:"模板文件ID",id:"template_file_id"},
+				{name:"文件名称",id:"file_name"},
 				{name:'在用活动数', type:'two',child:[{name:'在用活动数下限',id:'processing_activity_min'},{name:'在用活动数上限',id:'processing_activity_max'}]},
 				{name:"上传人",id:"admin_name"},
 				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:'update_time_start'},{name:'最近更新时间(开始)',id:'update_time_end'}]},
@@ -683,10 +693,10 @@ const screenData = {
 				{prop:'is_hired',lable:'是否已被录用',width:200,type:"keyvalue",child:{"0":"否","1":"是"}},
 				{prop:'hire_type',lable:'录用方式',type:"keyvalue",child:{"1":"买断式","2":"分成式","":"未录用"}},
 				{prop:'activity_id',lable:'录用活动ID'},
-				{prop:'ids',lable:'录用活动名称'},
+				{prop:'activity_name',lable:'录用活动名称'},
 				{prop:'hire_id',lable:'录用订单ID'},
 				{prop:'hire_order_name',lable:'录用订单名称',width:200},
-				{prop:'ids',lable:'作品预览链接',width:200},
+				{prop:'http://dev-web-ndesigner.idatachain.cn/#/conts?id=',lable:'作品预览链接',type:"urlopen",width:200},
 				{prop:'status',lable:'当前状态',type:"statustwo",child:{
 					is_del:{"1":"用户删除","2":"系统下架"},
 					status:{"0":"待审核","1":"审核中","2":"审核通过","-1":"草稿","-2":"未通过"}

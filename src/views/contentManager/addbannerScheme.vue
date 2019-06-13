@@ -12,7 +12,7 @@
 					<div class="fleft status">
 						<el-radio v-model="is_default" label="1" class="fleft">是</el-radio>
 						<el-radio v-model="is_default" label="0" class="fleft">否</el-radio>
-						<span>将替换当前默认展示方案：<span style="color: #FF5121;">-----</span></span>
+						<span>将替换当前默认展示方案：<span style="color: #FF5121;">{{ bannerprogramdefault.banner_program_name }}</span></span>
 					</div>
 				</li>
 				
@@ -38,13 +38,14 @@
 						<!-- <div class="detailtitle">Banner-1</div> -->
 						<li class="margint23 ofh">
 							<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
-							<el-upload action="454535" :http-request="httprequest" :show-file-list="false">
+							<!-- <el-upload action="454535" :http-request="httprequest" :show-file-list="false">
 								<div style="overflow: hidden;">
 									<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
 								</div>
 								<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
-							</el-upload>
-							<img :src="item.banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
+							</el-upload> -->
+							<!-- <img :src="item.banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;"> -->
+							<img :src="item.banner_pic" alt="" width="340px" height="110px">
 						</li>
 						<li class="margint13 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">banner素材活动</span>
@@ -144,12 +145,18 @@
 				program_begin_time:"",
 				program_end_time:"",
 				is_default:"0",
-				currentpageName:""
+				currentpageName:"",
+				bannerprogramdefault:{}
 			}
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1);
+				this.router.push({
+					path:"/contentManager/homeBanner",
+					query:{
+						tabsnum:1
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -181,7 +188,12 @@
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
-						this.$router.go(-1);
+						this.router.push({
+							path:"/contentManager/homeBanner",
+							query:{
+								tabsnum:1
+							}
+						})
 					}
 				}).catch(() => {
 					
@@ -333,12 +345,20 @@
 			},
 			select(){
 				this.dialogTableVisible = !this.dialogTableVisible
+			},
+			getbannerprogramdefault(){
+				this.api.bannerprogramdefault({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					this.bannerprogramdefault = da;
+				})
 			}
 		},
 		created() {
 			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getbannerprogramdefault();
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];

@@ -13,7 +13,7 @@
 					</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;" v-show="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -24,8 +24,16 @@
 				<ul class="screenContent" style="flex-wrap: wrap">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
-							<div class="bannerlisttag0 defaultbtn" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;"></div>
-							<el-carousel height="190px" style="background: gray;">
+							<div style="position: absolute;top: 0;left: 0;z-index: 999;">
+								<div>
+									<button style="margin-left: 0;" :class="['defaultbtn','bannerstatus'+item.status] "> {{ getstatus(item.status)  }}</button>
+								</div>
+							    <div>
+									<button style="margin-left: 0;margin-top:8px" v-if="item.is_default == '1'" class="defaultbtn bannerstatusdefa">默认展示</button>
+								</div>
+								
+							</div>
+							<el-carousel height="190px" style="background: gray;border-radius: 5px;">
 							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
 								<img :src="citem.banner_pic" width="100%" height="100%" alt="">
 							  </el-carousel-item>
@@ -40,7 +48,6 @@
 									</div>
 								</div>
 								<div class="fright" style="padding: 20px;margin: 0;">
-									<button class="defaultbtn" @click="isdefault(item.id)">默认展示</button>
 									<el-dropdown :hide-on-click="false">
 									  <button class="defaultbtn">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
@@ -412,6 +419,14 @@
 					});
 				});
 				
+			},
+			getstatus(num){
+				let status = {
+					"-1":"已过期",
+					"0":"待使用",
+					"1":"线上展示"
+				}
+				return status[num];
 			}
 		},
 		created() {
@@ -421,6 +436,9 @@
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:10});
 			this.$parent.tabchange(1);
+			if(this.$route.query.tabsnum){
+				this.tabsChange(this.$route.query.tabsnum);
+			}
 		},
 		watch:{
 			"$route":function(){
@@ -440,6 +458,23 @@
 	.work .el-button--primary{
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	#app .bannerstatus-1{
+		background:lightgray;
+		border-color:lightgray;
+	}
+	#app .bannerstatus1{
+		background:rgba(81,197,20,1);
+		border-color:rgba(81,197,20,1);
+	}
+	#app .bannerstatus0{
+		background:rgba(255,154,0,1);
+		border-color:rgba(255,154,0,1);
+	}
+	
+	#app .bannerstatusdefa{
+		background:rgba(255,81,33,1);
+		border-color:rgba(255,81,33,1);
 	}
 	
 </style>
@@ -740,5 +775,6 @@
 		width: 200px;
 		height: 100%;
 		margin-left: 5px;
+		
 	}
 </style>

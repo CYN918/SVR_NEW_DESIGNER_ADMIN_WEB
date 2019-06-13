@@ -472,7 +472,10 @@
 			},
 			createdactivity(){
 				this.api.activityadd(this.form).then(da =>{
-					console.log(da);
+					console.log(da)
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(da =>{
 					
 				})

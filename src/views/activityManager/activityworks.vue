@@ -224,6 +224,7 @@
 					this.$router.push({ path: '/activityManager/activityworks', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
+			
 		},
 		created() {
 			this.getScreenShowData();

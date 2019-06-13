@@ -15,16 +15,19 @@
 				</div>
 				<el-radio-group v-model="radioS" class="sel-dialog-content">
 					<div class="w textcenter sel-radio">
-						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
+						<el-radio label="S">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
+						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
+						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="S">D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+					</div>
+					<div class="w textcenter sel-radio">
+						<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
 					</div>
 				</el-radio-group>
 			</div>
@@ -140,6 +143,9 @@
 							<div class="w textcenter sel-radio">
 								<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 							</div>
+							<div class="w textcenter sel-radio">
+								<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
+							</div>
 						</el-radio-group>
 					</li>
 				</ul>
@@ -219,7 +225,7 @@
 				},
 				tableData: [],
 				detailData: {},
-				radioS: "C",
+				radioS: "",
 				selectData: [],
 				selectOne: {},
 				Isnextshow:false,
