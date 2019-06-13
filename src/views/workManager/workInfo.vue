@@ -69,7 +69,7 @@
 					<div v-if="tabsnum1 == 0">
 						<div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
-							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price">单位：元</span>
+							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" type="text" v-model="price"> <span style="color: #DCDFE6;">单位：元</span></span>
 						</div>
 					</div>
 					<div v-if="tabsnum1 == 1">
@@ -185,9 +185,9 @@
 				tabsnum1:0,
 				tabData1:[{
 					name: "买断式"
-				},{
+				}/* {
 					name: "分成式"
-				}],
+				} */],
 				commonTopData: {
 					"pageName": "workInfo",
 					"commonleftbtn": [{

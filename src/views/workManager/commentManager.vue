@@ -161,7 +161,7 @@
 							message: da
 						});
 						this.getData({pageCurrent:1,pageSize:10});
-						
+						this.$refs.Tabledd.currentpage = 1;
 					})
 					
 				}).catch(() => {

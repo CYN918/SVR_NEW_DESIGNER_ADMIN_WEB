@@ -195,7 +195,8 @@
 				this.$confirm('确认下架作品?', '', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
-					center: true
+					center: true,
+					customClass:"shelves"
 				}).then(() => {
 					this.api.offShelve({
 						access_token:localStorage.getItem("access_token"),
@@ -204,6 +205,9 @@
 						notice_ids:this.getnoticeids(),
 					}).then(da =>{
 						console.log(da);
+						if(da == "下架成功"){
+							this.$router.go(-1);
+						}
 					})
 					//alert(22);
 				}).catch(() => {
@@ -503,6 +507,10 @@
 	.sel-dialog  {
 		width: 1000px;
 	}
+	
+	.shelves .el-message-box__content{
+		border-top:0 !important;
+	}
 </style>
 
 <style scoped>
@@ -783,4 +791,6 @@
 		height: 100%;
 		margin-left: 5px;
 	}
+	
+	
 </style>

@@ -231,6 +231,7 @@
 			},
 			setContributor(val){
 				this.selectOne = val;
+				this.radioS = val.recommend_level;
 				this.centerDialogVisible1 = true;
 			},
 			contributor1(){

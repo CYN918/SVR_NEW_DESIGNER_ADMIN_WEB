@@ -46,10 +46,10 @@
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'text'">
-							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+							<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
 						</div>
 						<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
-							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+							<button class="ipt"></button>
 						</div>
 					</li>
 					<!-- <li>

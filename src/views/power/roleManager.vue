@@ -67,11 +67,11 @@
 					limit: 100
 				}).then((da) => {
 					//console.log(da);
-					DataScreen.screen.roleManager.filterFields.forEach(item =>{
+					/* DataScreen.screen.roleManager.filterFields.forEach(item =>{
 						if(item.id == "role_name"){
 							item.child = da.data;
 						}
-					})
+					}) */
 				}).catch(() => {
 					
 				});

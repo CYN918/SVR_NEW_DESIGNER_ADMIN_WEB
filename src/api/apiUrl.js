@@ -71,7 +71,7 @@ export default {
 		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	offShelve:{
-		url:'/admin/work/offShelve',method:'post',baseURL:0
+		url:'/admin/work/offShelve',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	getLevelCount:{
 		url:'/admin/work/getLevelCount',method:'post',baseURL:0

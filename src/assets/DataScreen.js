@@ -69,7 +69,7 @@ const screenData = {
 				{name:"账号ID",id:"id"},
 				{name:"角色ID",id:"role_id"},
 				{name:"账户名",id:"name"},
-				{name:"邮箱",id:"email"}
+				{name:"邮箱",id:"email"},
 			]
 		},
 		publishWork:{
@@ -463,12 +463,12 @@ const screenData = {
 				{prop:'qq',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
 				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
-				{prop:'is_contributor',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
+				{prop:'is_recommend',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'recommend_level',lable:'平台推荐等级',width:150},
 			],
 			defaults:[
 				'open_id','username','size','address','works_num','follow_num','fans_num','weixin_visible',
-				'qq_visible','create_time','contributor_type','is_contributor','recommend_level'
+				'qq_visible','create_time','contributor_type','is_recommend','recommend_level'
 			],
 			action:{
 				morebtns:{
