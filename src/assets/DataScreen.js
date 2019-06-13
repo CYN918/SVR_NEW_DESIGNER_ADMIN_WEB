@@ -436,7 +436,7 @@ const screenData = {
 		userBaseInfo:{
 			bts:[
 				{prop:'open_id',lable:'用户ID',width:150},
-				{prop:'avatar',lable:'用户头像',type:"img",width:150},
+				{prop:'avatar',lable:'用户头像',type:"img",width:200},
 				{prop:'username',lable:'用户昵称'},
 				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"无"}},
 				{prop:'vocation',lable:'职位'},
