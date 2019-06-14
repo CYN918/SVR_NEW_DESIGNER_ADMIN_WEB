@@ -43,7 +43,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -57,9 +57,9 @@
 					<div v-if="material_info['图片']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['图片']" :key = "item.fid">
+							<li v-for="(item,index) in material_info['图片']" :key="item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
@@ -73,7 +73,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -88,7 +88,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -623,7 +623,8 @@
 				//console.log(val
 				this.font_size = 0;
 				val.forEach((item,index) =>{
-					this.font_size += Number(item)
+					console.log(item.split(",")[1])
+					this.font_size += Number(item.split(",")[1])
 				});
 			},
 			linksee(){

@@ -24,17 +24,17 @@
 		</div>
 		<div class="detailContent1 ofh" style="height: calc(100% - 328px);" v-loading="setLoding">
 			<div class="paddinglr40 ofh" v-if="tabsnum == 0">
-				<el-checkbox-group v-model="checkList">
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('附件',item.fid)">
+							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size }}</span>
+									<span class="fleft" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
+									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
 							
@@ -43,32 +43,32 @@
 				</el-checkbox-group>
 			</div>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
-				<el-checkbox-group v-model="checkList">
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
-						<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('图片',item.fid)">
+						<li v-for="(item,index) in materialdata" :key="item.fid">
 							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}">
-								<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
+								<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
 							</div>
 							<div class="color66">
-								<span class="fleft">{{ item.file_name }}</span>
-								<span class="fright">{{ item.file_size }}</span>
+								<span class="fleft" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
+								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
 						</li>
 					</ul>
 				</el-checkbox-group>
 			</div>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 2">
-				<el-checkbox-group v-model="checkList">
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('视频',item.fid)">
+							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size }}</span>
+									<span class="fleft" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
+									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
 						</ul>
@@ -76,17 +76,17 @@
 				</el-checkbox-group>
 			</div>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 3">
-				<el-checkbox-group v-model="checkList">
+				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in materialdata" :key="item.fid" @click="gotodetail('音频',item.fid)">
+							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size }}</span>
+									<span class="fleft" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
+									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
 						</ul>
@@ -105,7 +105,7 @@
 		<div class="screenContent detailbtn"  v-if="workselect">
 			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downfile">下载 {{ checkList.length }}
-				个选项（{{ 11 }}）</button>
+				个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
 		</div>
 	</div>
 </template>
@@ -145,7 +145,7 @@
 				work_info:{},
 				material_list:{},
 				hire_info:{},
-				font_size:'',
+				font_size:0,
 				commonTopData: {
 					"pageName": "materialBank",
 					"commonleftbtn": [{
@@ -224,7 +224,9 @@
 				this.detailbtn=true;
 				this.workselect=false;
 				this.file_type = id;
-				this.getData(this.currentpage,this.pagesize)
+				this.getData(this.currentpage,this.pagesize);
+				this.checkList=[];
+				this.font_size = 0;
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
@@ -313,7 +315,15 @@
 					a.click()
 				}
 				x.send();
-			}
+			},
+			handleCheckedCitiesChange(val){
+				//console.log(val
+				this.font_size = 0;
+				val.forEach((item,index) =>{
+					console.log(item.split(",")[1])
+					this.font_size += Number(item.split(",")[1])
+				});
+			},
 			
 		},
 		created() {
