@@ -78,9 +78,19 @@
 			},
 			tabchange(val){
 				this.tabnum = val;
-			}
+			},
+			getaccess() {
+				this.api.access({
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {
+					
+				}).catch(da => {
+					
+				})
+			},
 		},
 		created() {
+			this.getaccess();
 		},
 		mounted() {
 			this.eventbus();

@@ -17,11 +17,12 @@ const screenData = {
 				{name:'邮箱',id:'email'},
 				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","三维设计师","网页设计师","UI设计师","动画师","产品设计师","室内设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","概念设计师","特效设计师","建筑师","服装设计师","手工艺人","艺人工作者","教育工作者"]},
 				{name:'所在地',id:'address'},
-				{name:'非认证微信',id:'weixin_visible'},
-				{name:'认证微信',id:'weixin'},
-				{name:'非认证QQ',id:'qq_visible'},
-				{name:'认证qq',id:'qq'},
-				{name:'认证微博',id:'weibo'}
+				{name:'非认证微信',id:'weixin'},
+				{name:'认证微信',id:'weixin_name'},
+				{name:'非认证QQ',id:'qq'},
+				{name:'认证qq',id:'qq_name'},
+				{name:'非认证微博',id:'weibo'},
+				{name:'认证微博',id:'weibo_name'}
 			],
 			
 		},
@@ -462,19 +463,19 @@ const screenData = {
 				{prop:'follow_num',lable:'关注人数'},
 				{prop:'fans_num',lable:'粉丝人数'},
 				{prop:'education_school',lable:'学校名称'},
-				{prop:'weixin_visible',lable:'非认证-微信号',width:150},
-				{prop:'qq_visible',lable:'非认证-QQ号',width:150},
+				{prop:'weixin',lable:'非认证-微信号',width:150,type:"nocon",name:"--"},
+				{prop:'qq',lable:'非认证-QQ号',width:150,type:"nocon",name:"--"},
 				{prop:'home_page',lable:'主页链接'},
-				{prop:'weixin',lable:'授权认证-微信',width:150},
-				{prop:'qq',lable:'授权认证-QQ',width:150},
+				{prop:'weixin_name',lable:'授权认证-微信',width:150},
+				{prop:'qq_name',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
 				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'is_recommend',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'recommend_level',lable:'平台推荐等级',type:"novalue",width:150,novalue:"不推荐"},
 			],
 			defaults:[
-				'open_id','username','size','address','work_num','follow_num','fans_num','weixin_visible',
-				'qq_visible','create_time','contributor_type','is_recommend','recommend_level'
+				'open_id','username','size','address','work_num','follow_num','fans_num','weixin',
+				'qq','create_time','contributor_type','is_recommend','recommend_level'
 			],
 			action:{
 				morebtns:{

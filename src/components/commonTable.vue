@@ -26,6 +26,7 @@
 						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] ? item.child[scope.row[item.prop]] : item.child.no }}</span></span>
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
+						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
