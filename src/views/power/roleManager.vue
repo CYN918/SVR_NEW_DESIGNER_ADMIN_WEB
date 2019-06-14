@@ -182,12 +182,30 @@
 				}
 			},
 			delect(id){
-				this.api.deleteRole({
-					access_token:localStorage.getItem("access_token"),
-					id:id
-				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:50});
-				}).catch()
+				//this.centerDialogVisible = true;
+				this.$confirm('确认删除该角色？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.api.deleteRole({
+						access_token:localStorage.getItem("access_token"),
+						id:id
+					}).then(da => {
+						this.getData({pageCurrent:1,pageSize:50});
+					}).catch()
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
+				
+				
 			},
 			
 		},

@@ -205,7 +205,7 @@
 	}
 
 	#app .el-menu-item {
-		text-indent: 11px;
+		text-indent: 23px;
 	}
 
 	.userlog {

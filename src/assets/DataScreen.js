@@ -135,7 +135,14 @@ const screenData = {
 				{name:"作品标题",id:"work_name"},
 				{name:"用户ID",id:"open_id"},
 				{name:"用户昵称",id:"username"},
-				{name:"作品类型",id:"classify_1",type:"cascader"},
+				{name:"作品类型",id:"classify",type:"cascader",
+					optionProps: {
+						value: 'id',
+						label: 'classify_name',
+						children: 'sub_data'
+					},
+					child:JSON.parse(localStorage.getItem("cascader"))
+				},
 				{name:"版权说明",id:"copyright",child:[{name:" 禁止匿名转载；禁止商业使用；禁止个人使用",id:" 禁止匿名转载；禁止商业使用；禁止个人使用"},{name:"禁止匿名转载；禁止商业使用",id:"禁止匿名转载；禁止商业使用"},{name:"不限制作品用途",id:"不限制作品用途"}]},
 				{name:"作品标签",id:"labels"},
 				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
@@ -178,7 +185,7 @@ const screenData = {
 				{name:"举报类型",id:"classify_id",child:[{name:"垃圾广告信息",id:"1"},{name:"涉黄涉暴等违法信息",id:"2"},{name:"侮辱、恶意及辱骂等行为",id:"3"},{name:"作品侵犯原作者权益",id:"4"},{name:"其他",id:"5"}]},
 				{name:"举报对象ID",id:"accused_open_id"},
 				{name:"举报对象昵称",id:"accused_username"},
-				{name:"举报位置",id:"position"},
+				{name:"举报位置",id:"position",child:[{name:"作品举报",id:"work"},{name:"评论举报",id:"comment"},{name:"用户中心举报",id:"user"},{name:"私信举报",id:"message"}]},
 				{name:"详细说明",id:"hire_order_name"},
 				{name:'举报时间',type:"time",child:[{name:'举报时间(开始)',id:'create_time_start'},{name:'举报时间(开始)',id:'create_time_end'}]},
 				
@@ -297,8 +304,7 @@ const screenData = {
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
-					{name:"第四位",id:"4"},
-					{name:"第五位",id:"5"}
+					{name:"第四位",id:"4"}
 				]},
 				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
 				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
@@ -314,8 +320,7 @@ const screenData = {
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
-					{name:"第四位",id:"4"},
-					{name:"第五位",id:"5"}
+					{name:"第四位",id:"4"}
 				]},
 				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
 				{name:'干预时间',type:"time",child:[{name:'更新时间(开始)',id:'update_time_start'},{name:'更新时间(开始)',id:'update_time_end'}]},
@@ -330,8 +335,7 @@ const screenData = {
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
-					{name:"第四位",id:"4"},
-					{name:"第五位",id:"5"}
+					{name:"第四位",id:"4"}
 				]},
 				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
 				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
@@ -746,7 +750,7 @@ const screenData = {
 				{lable:"举报类型",prop:"classify_name",width:200},
 				{lable:"举报对象ID",prop:"accused_open_id",width:200},
 				{lable:"举报对象昵称",prop:"accused_username",width:200},
-				{lable:"举报位置",prop:"position",width:200},
+				{lable:"举报位置",prop:"position",type:"keyvalue",child:{work:"作品举报",comment:"评论举报",user:"用户中心举报",message:"私信举报"}},
 				{lable:"详细说明",prop:"detail",width:200},
 				{lable:"提交时间",prop:"create_time",width:200},
 			],
@@ -1050,7 +1054,7 @@ const screenData = {
 			bts:[
 				{lable:"任务ID",prop:"id"},
 				{lable:"调文案",prop:"word"},
-				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位","5":"第五位"}},
+				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","-2":"已删除"}}
 			],
@@ -1101,7 +1105,7 @@ const screenData = {
 			bts:[
 				{lable:"任务ID",prop:"id"},
 				{lable:"干预活动",prop:"activity_name"},
-				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位","5":"第五位"}},
+				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
 			],
@@ -1270,7 +1274,7 @@ const screenData = {
 				{lable:"举报类型",prop:"classify_name"},
 				{lable:"举报对象ID",prop:"accused_open_id"},
 				{lable:"举报对象昵称",prop:"accused_username"},
-				{lable:"举报位置",prop:"position",type:"keyvalue",child:{work:"作品举报",comment:"评论举报",user:"用户中心举报",message:"私信举报"},},
+				{lable:"举报位置",prop:"position",type:"keyvalue",child:{work:"作品举报",comment:"评论举报",user:"用户中心举报",message:"私信举报"}},
 				{lable:"详细说明",prop:"detail"},
 				{lable:"提交时间",prop:"create_time"},
 				

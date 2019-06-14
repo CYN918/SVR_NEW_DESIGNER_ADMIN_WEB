@@ -44,7 +44,13 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						</el-date-picker>
+						<el-cascader v-if="item.type == 'cascader'"
+							expand-trigger="hover"
+							:options="item.child"
+							:props="item.optionProps"
+							v-model="selectedOptions"
+							@change="handleChange">
+						</el-cascader>
 						<div v-if="item.type == 'two'">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 14px;">至</span>
@@ -57,7 +63,6 @@
 							<button class="ipt"></button>
 						</div>
 					</li>
-					
 					
 				</ul>
 			</div>
@@ -77,9 +82,7 @@
 		props: ["pageName","tabnum"],
 		data() {
 			return {
-				form: {
-					
-				},
+				form: {},
 				vocation:[],
 				texts: '',
 				options: [],
@@ -87,6 +90,7 @@
 				value2:[],
 				currentpageName:"",
 				times:[],
+				selectedOptions:[],
 			}
 		},
 		methods: {
@@ -95,7 +99,14 @@
 					//console.log()
 					if(this.vocation != ""){
 						this.form['vocation'] = this.vocation;
+					};
+					
+					if(this.selectedOptions.length != 0){
+						this.form['classify_1'] = this.selectedOptions[0];
+						this.form['classify_2'] = this.selectedOptions[1];
+						this.form['classify_3'] = this.selectedOptions[2];
 					}
+					
 					
 					this.$router.push({
 						path: this.$route.matched[this.$route.matched.length - 1].path,
@@ -138,7 +149,10 @@
 				this.form[time[0].id] = this.times[0];
 				this.form[time[1].id] = this.times[1];
 				//console.log(this.form)
-			}
+			},
+			handleChange(value) {
+				console.log(value);
+			 }
 		},
 		watch: {
 			"$route":function(){

@@ -233,6 +233,7 @@
 				workid:"",
 				price:"",
 				seltotal:"",
+				isajax:0
 			}
 		},
 		methods: {
@@ -259,6 +260,11 @@
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
+				
+				if(this.isajax==1){
+					return
+				}
+				this.isajax=1;
 
 				this.api.workList(data).then((da) => {
 					if (!da) {
@@ -273,7 +279,9 @@
 						this.$refs.Tabledd.change(da.data);
 					}
 					this.setLoding(false);
+					this.isajax=0;
 				}).catch(() => {
+					this.isajax=0;
 					this.setLoding(false);
 				});
 
@@ -450,7 +458,15 @@
 							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
 							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
 							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
-						}
+						};
+						if (item.type == "cascader") {
+							/* let  cascader = JSON.parse(localStorage.getItem('cascader'));
+							//console.log(cascader);
+							let classify_1 = this.getval(cascader,urldata["classify_1"]);
+							let classify_2 = this.getval(cascader,urldata["classify_2"]); 
+							let classify_3 = this.getval(cascader,urldata["classify_3"]);
+							console.log(classify_1,classify_2,classify_3) */
+						};
 					})
 				}
 
@@ -525,12 +541,44 @@
 						message: '已经取消'
 					});
 				});
+			},
+			getWorkclassify(){
+				this.api.Workclassify({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					console.log(da);
+					localStorage.setItem("cascader",JSON.stringify(da))
+				})
+			},
+			getval(item,classify){
+				var name = "";
+				item.forEach(item=>{
+					if(item.id == classify){
+						name = item.classify_name;
+					} else {
+						console.log(item)
+						item.forEach(item1=>{
+							if(item1.id == classify){
+								name = item1.classify_name;
+							} else {
+								item.forEach(item2=>{
+									if(item2.id == classify){
+										name = item2.classify_name;
+									}
+								})
+								
+							}
+						})
+					}
+				})
+				return name;
 			}
 		},
 		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getWorkclassify()
 		},
 		mounted() {
 			//console.log(this.tableConfig)
