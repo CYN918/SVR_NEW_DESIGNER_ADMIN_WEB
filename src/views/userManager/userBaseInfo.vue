@@ -329,8 +329,9 @@
 					//console.log(urldata);
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if(urldata[item.id]){
+						if(urldata[item.id] && !item.type){
 							var val = urldata[item.id];
+							//alert(val)
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
@@ -342,7 +343,13 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
-						} 
+						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:urldata[item.id],id:item.id})
+							}
+								
+						}
 						if(item.type == "two"){
 							if(item.child){
 								item.child.forEach(citem=>{

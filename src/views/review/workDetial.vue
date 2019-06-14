@@ -41,34 +41,25 @@
 					<div v-if="material_info['附件']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="2" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
+							
 						</ul>
 					</div>
 					<div v-if="material_info['图片']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['图片']" :key = "item.url">
+							<li v-for="(item,index) in material_info['图片']" :key = "item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
@@ -80,14 +71,14 @@
 					<div v-if="material_info['视频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="5" v-if="workselect"></el-checkbox>
+							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
@@ -95,14 +86,14 @@
 					<div v-if="material_info['音频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="6" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 
@@ -594,7 +585,7 @@
 					type: this.$route.query.type,
 					id: this.$route.query.id,
 				}).then(da => {
-					//console.log(da)
+					console.log(da)
 					this.apply_info = da.apply_info;
 					this.check_info = da.check_info;
 					this.material_info = da.material_info;
