@@ -334,6 +334,7 @@
 						id: val.id,
 					}).then(da => {
 						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					})
 					
 				}).catch(() => {

@@ -216,7 +216,7 @@ const screenData = {
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name" },
 				{name:"活动类型",id:"type"},
-				{name:"主题分类",id:"category_id",child:(localStorage.getItem("child") ? JSON.parse(localStorage.getItem("child")) : [])},
+				{name:"主题分类",id:"category_name",child:(localStorage.getItem("child") ? JSON.parse(localStorage.getItem("child")) : [])},
 				/* {name:"活动时间",id:"id",type:"time"}, */
 				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
@@ -370,7 +370,7 @@ const screenData = {
 			filterFields:[
 				{name:"提现单ID",id:"apply_id"},
 				{name:"提现用户ID",id:"open_id"},
-				{name:"提现用户昵称",id:"account_name"},
+				{name:"提现用户账户名",id:"account_name"},
 				{name:"提现金额",type:"two",child:[{name:'提现金额（起始）',id:'cash_money_start'},{name:'提现金额（截止）',id:'cash_money_end'}]},
 				{name:"账号主体",id:"contributor_type",child:[{name:"个人",id:"1"},{name:"企业",id:"2"}]},
 				{name:"状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核中",id:"1"},{name:"审核通过",id:"2"},{name:"已付款",id:"3"},{name:"审核不通过",id:"-1"},{name:"申请已撤销",id:"-2"}]},
@@ -479,7 +479,7 @@ const screenData = {
 			],
 			defaults:[
 				'open_id','username','size','address','work_num','follow_num','fans_num','weixin',
-				'qq','create_time','contributor_type','is_recommend','recommend_level'
+				'qq','create_time','contributor_type','is_recommend','recommend_level',"avatar"
 			],
 			action:{
 				morebtns:{
@@ -1122,7 +1122,7 @@ const screenData = {
 			}
 		},
 		employmentorder:{
-			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type','status',"username","hire_time"],
+			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type',"username","hire_time"],
 			bts:[
 				{lable:"录用订单ID",prop:"order_id"},
 				{lable:"订单名称",prop:"hire_order_name",type:"url"},
@@ -1131,8 +1131,7 @@ const screenData = {
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"录用时间",prop:"hire_time"},
 				{lable:"用户昵称",prop:"username",type:"url"},
-				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}},
-				{lable:"状态",prop:"status",type:"status",child:{"1":"待结算","0":"已结算"}},
+				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}}
 			],
 			action:{
 				morebtns:{
@@ -1179,8 +1178,8 @@ const screenData = {
 		embodyRecord:{
 			bts:[
 				{lable:"提现ID",prop:"apply_id"},
-				{lable:"提现用户ID",prop:"order_id"},
-				{lable:"提现用户昵称",prop:"account_name"},
+				{lable:"提现用户ID",prop:"open_id"},
+				{lable:"提现用户账号名",prop:"username"},
 				{lable:"提现金额",prop:"cash_money"},
 				{lable:"账号主体",prop:"contributor_type",type:"keyvalue",child:{"1":"个人","2":"企业"}},
 				{lable:"状态",prop:"check_status",type:"status",child:{"0":"待审核","1":"审核中","2":"审核通过","3":"已付款","-1":"审核不通过","-2":"申请已撤销"}},

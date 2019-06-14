@@ -210,8 +210,6 @@
 					console.log(da)
 					this.materialdata = da.data
 					this.total = da.total;
-					this.currentpage = da.currentpage;
-					this.pagesize = da.pagesize;
 					this.setLoding = false;
 				}).catch(() => {
 					this.setLoding = false;
@@ -224,7 +222,7 @@
 				this.detailbtn=true;
 				this.workselect=false;
 				this.file_type = id;
-				this.getData(this.currentpage,this.pagesize);
+				this.getData(1,10);
 				this.checkList=[];
 				this.font_size = 0;
 			},
@@ -335,7 +333,7 @@
 		watch:{
 			"$route":function(){
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData(1,10);
 			}
 		}
 	}

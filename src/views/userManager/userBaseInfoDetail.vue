@@ -77,11 +77,11 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-微信号</span>
-					<span class="fleft detailValue">{{ getValue(detailData.weixin)  }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.weixin_name)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-QQ号</span>
-					<span class="fleft detailValue">{{ getValue(detailData.qq)  }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.qq_name)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-微博</span>

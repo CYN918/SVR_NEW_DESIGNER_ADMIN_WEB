@@ -354,7 +354,7 @@
 					}).then(() => {
 						
 						let data = {
-							work_ids: work_ids,
+							work_id: work_ids,
 							recommend_level: this.radioS,
 							access_token: localStorage.getItem("access_token"),
 						};
@@ -394,7 +394,7 @@
 					type: '',
 					center: true
 				}).then(() => {
-					this.getData({pageCurrent:1,pageSize:10},1);
+					this.getData({pageCurrent:1,pageSize:50},1);
 				}).catch(() => {
 					this.$message({
 						type: 'info',
@@ -582,13 +582,13 @@
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.getScreenShowData();
 			}
 		}

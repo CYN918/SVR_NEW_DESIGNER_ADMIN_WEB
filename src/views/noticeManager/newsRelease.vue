@@ -123,7 +123,7 @@
 			},
 			delect(val) {
 				//this.centerDialogVisible = true;
-				this.$confirm('确认删除该任务？', '确认修改', {
+				this.$confirm('确认删除该通知？', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,
@@ -135,11 +135,9 @@
 						id: val.id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.$message({
-							type: 'info',
-							message: '删除成功'
-						});
+						
 						this.getData({pageCurrent:1,pageSize:10})
+						this.$refs.Tabledd.currentpage = 1;
 					}) 
 					
 				}).catch(() => {

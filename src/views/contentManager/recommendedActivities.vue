@@ -174,6 +174,7 @@
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
 						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					}) 
 					
 				}).catch(() => {

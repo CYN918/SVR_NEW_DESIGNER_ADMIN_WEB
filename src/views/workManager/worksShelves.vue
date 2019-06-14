@@ -41,7 +41,7 @@
 					</li>
 					<li class="margint13 ofh" style="margin-left: 102px;">
 						<div>
-							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">通知举报者</span>
+							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">下架原因详情</span>
 							<div class="fleft defaultbtnworkbg">
 								<div>
 									<textarea name="" id="" cols="60" rows="10" v-model="textarea" Maxlength="100" class="defaultbtnwork"></textarea>

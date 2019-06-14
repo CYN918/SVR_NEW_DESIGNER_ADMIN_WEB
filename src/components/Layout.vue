@@ -88,9 +88,37 @@
 					
 				})
 			},
+			categoryList() {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 10000,
+					status:1
+				}
+			
+				this.api.categoryList(data).then((da) => {
+					var child=[
+						
+					];
+					console.log(da.data);
+					da.data.forEach(item =>{
+						child.push({
+							name:item.category_name,
+							id:item.id
+						})
+					})
+					
+					localStorage.setItem("child",JSON.stringify(child))
+					console.log(localStorage.getItem("child"))
+				}).catch(() => {
+			
+				});
+			},
 		},
 		created() {
 			this.getaccess();
+			this.categoryList()
 		},
 		mounted() {
 			this.eventbus();

@@ -217,7 +217,7 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					console.log(tag);
+					//console.log(tag);
 					this.$router.push({
 						path: '/workManager/commentManager',
 						query: {

@@ -137,7 +137,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
-			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow && rows" @click="edit()">确定</button>
+			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">确定</button>
 			
 		</div>
 	</div>
