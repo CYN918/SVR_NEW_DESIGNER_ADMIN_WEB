@@ -140,6 +140,7 @@
 				typewen:1,
 				online_disk_info:"",
 				filename:'',
+				filetype:""
 			}
 		},
 		methods: {
@@ -232,6 +233,7 @@
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response.data.data);
 					_this.file_url = response.data.data.url;
+					_this.filetype = response.data.data.file_type;
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -340,7 +342,7 @@
 				if(type == 1){
 					data = {
 						file_name:this.file_info.name,
-						file_type:this.file_info.type,
+						file_type:this.filetype,
 						file_size:this.file_info.size,
 						template_url:this.file_url,
 						online_disk_info:this.online_disk_info,

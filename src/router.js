@@ -14,25 +14,6 @@ export default new Router({
 			component: loading,
 		},
 		{
-			path: '/userinfo',
-			name: 'Layout',
-			component: Layout,
-			meta: {
-				title: "首页"
-			},
-			children:[
-				{
-					path: 'user',
-					name: 'user',
-					meta: {
-						title: "账号信息"
-					},
-					component: () => import('@/components/userinfo.vue')
-				}
-			]
-			
-		},
-		{
 			path: '/userManager',
 			name: 'Layout',
 			component: Layout,
@@ -667,6 +648,25 @@ export default new Router({
 					component: () => import('@/views/noticeManager/noticetemplate.vue'),
 				},
 			]
-		}
+		},
+		{
+			path: '/userinfo',
+			name: 'Layout',
+			component: Layout,
+			meta: {
+				title: "首页"
+			},
+			children:[
+				{
+					path: 'user',
+					name: 'user',
+					meta: {
+						title: "账号信息"
+					},
+					component: () => import('@/components/userinfo.vue')
+				}
+			]
+			
+		},
 	]
 })

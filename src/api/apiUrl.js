@@ -277,6 +277,10 @@ export default {
 	Workclassify:{
 		url:'/admin/Work/classify',method:'post'
 	},
+	activityinfo:{
+		url:'/admin/activity/info',method:'post'
+	},
+	
 	
 	
 }
