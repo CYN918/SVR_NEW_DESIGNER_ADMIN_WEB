@@ -280,6 +280,28 @@ const screenData = {
 				{name:"",type:"display"},
 			]
 		},
+		newActivity:{
+			filterFields0:[
+				{name:"模板文件ID",id:"template_file_id"},
+				{name:"文件名称",id:"file_name"},
+				{name:"文件格式",id:"file_type",},
+				{name:"文件大小",id:"file_size_type",child:[{name:"小于10M",id:"1"},{name:"10M-100M",id:"2"},{name:"100M-1GB",id:"3"},{name:"大于1GB",id:"4"}]},
+				{name:'在用活动数', type:'two',child:[{name:'在用活动数下限',id:'processing_activity_min'},{name:'在用活动数上限',id:'processing_activity_max'}]},
+				{name:"上传人",id:"admin_name"},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:'update_time_start'},{name:'最近更新时间(开始)',id:'update_time_end'}]},
+				{name:'上传时间',type:"time",child:[{name:'上传时间(开始)',id:'create_time_start'},{name:'上传时间(开始)',id:'create_time_end'}]},
+				{name:"",type:"display"},
+			],
+			filterFields1:[
+				{name:"模板文件ID",id:"template_file_id"},
+				{name:"文件名称",id:"file_name"},
+				{name:'在用活动数', type:'two',child:[{name:'在用活动数下限',id:'processing_activity_min'},{name:'在用活动数上限',id:'processing_activity_max'}]},
+				{name:"上传人",id:"admin_name"},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:'update_time_start'},{name:'最近更新时间(开始)',id:'update_time_end'}]},
+				{name:'上传时间',type:"time",child:[{name:'上传时间(开始)',id:'create_time_start'},{name:'上传时间(开始)',id:'create_time_end'}]},
+				{name:"",type:"display"},
+			]
+		},
 		homeBanner:{
 			filterFields0:[
 				{name:"banner素材ID",id:"id"},
@@ -1021,6 +1043,41 @@ const screenData = {
 						{
 							name:"删除"
 						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:false
+				},
+			}
+		},
+		newActivity:{
+			bts1:[
+				{lable:"模板文件ID",prop:"template_file_id"},
+				{lable:"文件名称",prop:"file_name"},
+				{lable:"网盘链接",prop:"online_disk_info"},
+				{lable:"在用活动数",prop:"processing_activity_num"},
+				{lable:"上传人",prop:"admin_name"},
+				{lable:"更新时间",prop:"updated_at"},
+				{lable:"上传时间",prop:"created_at"}
+			],
+			bts0:[
+				{lable:"模板文件ID",prop:"template_file_id"},
+				{lable:"文件名称",prop:"file_name"},
+				{lable:"文件格式",prop:"file_type"},
+				{lable:"文件大小",prop:"file_size_format"},
+				{lable:"在线活动数",prop:"processing_activity_num"},
+				{lable:"上传人",prop:"admin_name"},
+				{lable:"更新时间",prop:"updated_at"},
+				{lable:"上传时间",prop:"created_at"}
+			],
+			action:{
+				morebtns:{
+					name:"更多",
+					Ishow:false,
+					page:"newActivity",
+					child:[
+						
 					],
 				},
 				links:{

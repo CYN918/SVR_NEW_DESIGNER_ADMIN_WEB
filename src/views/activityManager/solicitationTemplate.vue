@@ -335,7 +335,6 @@
 			showmaskload(){
 				this.showmask = false;
 				this.showmask1 = true;
-				
 			},
 			templateadds(type){
 				var data = {};

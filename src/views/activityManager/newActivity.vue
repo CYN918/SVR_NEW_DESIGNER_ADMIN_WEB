@@ -37,7 +37,7 @@
 					<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
 					<el-select v-model="form['category_id']" placeholder="请选择">
 						<el-radio-group v-model="form['category_id']">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.category_name">
+							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name">
 								<el-radio :label="item.id">{{ item.category_name }}</el-radio>
 							</el-option>
 						</el-radio-group>
@@ -87,8 +87,8 @@
 					</el-radio-group>
 				</li>
 				<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
-					<span class="fleft detailKey" style="line-height: 40px;">模板文件</span>
-					<div><button class="defaultbtn" style="margin-left: 0;">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
+					<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
+					<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
 					<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
 				</li>
 				<li class="margint13 ofh">
@@ -132,6 +132,42 @@
 				</div>
 			</div>
 		</div>
+		
+		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+			<div class="textcenter">
+				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+				 @click="tabsChange(index,item.name)">
+					<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+					{{ item.name }}
+				</span>
+			</div>
+			<div>
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="resetSave(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205">
+					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+					 ref="Tabledd"></common-table>
+				</div>
+				<div class="w textcenter">
+					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
+				</div>
+			</div>
+			
+		</el-dialog>
+		
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
@@ -145,7 +181,10 @@
 
 <script>
 	import VueUeditorWrap from 'vue-ueditor-wrap'
-
+	import commonTop from '@/components/commonTop.vue'
+	import commonTable from '@/components/commonTable.vue'
+	import DataScreen from "@/assets/DataScreen.js"
+	
 	export default {
 		data() {
 			return {
@@ -178,13 +217,57 @@
 					serverUrl:'http://139.129.221.123/File/File/insert'
 				},
 				imageUrl: "",
-				tableData: [],
+				tableData1: [],
 				ifBjType:0,
-				currentpageName:""
+				currentpageName:"",
+				
+				pageName: "newActivity",
+				tableAction:DataScreen.screenShow.newActivity.action,
+				filterFields: DataScreen.screen.newActivity.filterFields0,
+				dialogTableVisible: false,
+				textarea: '',
+				commonTopData: {
+					"pageName": "newActivity",
+					"commonleftbtn": [{
+							name: "筛选",
+							id: "left1",
+							url: ""
+						}
+					],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					"IsShow": true,
+				},
+				screenConfig: [],
+				tableConfig: {
+					"pageName": "newActivity",
+					total: 0,
+					currentpage: 1,
+					pagesize: 10,
+					list: DataScreen.screenShow.newActivity.bts0,
+					ischeck: true,
+					loading:true
+				
+				},
+				tableData: [],
+				IsScreen: "Off",
+				work_info: {},
+				selectData:[],
+				tabData: [{
+						name: "本地文件"
+					},
+					{
+						name: "网盘链接"
+					}
+				],
+				tabsnum:0,
+				type:1,
+				
 			}
 		},
 		components: {
-			VueUeditorWrap
+			VueUeditorWrap,
+			commonTable
 		},
 		methods: {
 			getparent() {
@@ -196,6 +279,15 @@
 				} else {
 					return "--"
 				}
+			},
+			tabsChange(num) {
+				this.tabsnum = num;
+				this.type = num + 1;
+				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + num];
+				//console.log(this.tableConfig.list);
+				this.$parent.tabchange(num+1);
+				this.$router.push({ path: '/activityManager/activityEmploy/newActivity', query: {urlDate: ''}});
+				this.getData({pageCurrent:1,pageSize:50});
 			},
 			add() {
 				const id = this.$route.query.open_id;
@@ -371,7 +463,7 @@
 				});
 
 			},
-			getData(pg) {
+			getData1() {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -385,8 +477,8 @@
 					if (!da) {
 						this.$message('数据为空');
 					}
-					this.tableData = da.data;
-					console.log(da.data)
+					this.tableData1 = da.data;
+					//console.log(da.data)
 					da.data.forEach(item =>{
 						if(this.rows.category_name == item.category_name){
 							this.form.category_id = item.id
@@ -471,6 +563,7 @@
 				});
 			},
 			createdactivity(){
+				this.form.template_file_id=this.getworkids();
 				this.api.activityadd(this.form).then(da =>{
 					console.log(da)
 					if(da.result == 0){
@@ -487,10 +580,174 @@
 				}).then(da=>{
 					this.form = da;
 				})
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize,
+					type: this.type,
+				}
+			
+				//获取筛选的条件
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					sreenData.type = this.type;
+					data = sreenData;
+				}
+			
+				this.api.templateList(data).then((da) => {
+					console.log(da.data)
+					if (!da) {
+						this.$message('数据为空');
+					}
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+					/* if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					} */
+				}).catch(() => {
+				});
+			},
+			
+			
+			getScreenShowData() {
+				//获取字段展示-筛选修改
+				eventBus.$on("screenShowDataChange", (data) => {
+					this.tableConfig.list = [];
+					this.forshowkey(data)
+				});
+			
+				//获取字段展示-筛选初始化
+				if (localStorage.getItem("screenShowDataChange")) {
+					this.forshowkey(localStorage.getItem("screenShowDataChange").split(','))
+				} else {
+					this.forshowkey(this.defaultbts);
+				}
+			},
+			forshowkey(data) {
+				//筛选展示字段
+				this.bts.forEach(item => {
+					const val = item;
+					data.forEach(item1 => {
+						if (val.prop == item1) {
+							this.tableConfig.list.push(val)
+						}
+					})
+				})
+			},
+			screenreach() {
+				eventBus.$on("sreenData", (data) => {
+					this.getcommonrightbtn();
+					this.getData({
+						pageCurrent: 1,
+						pageSize: 50
+					});
+				})
+			},
+			linkDetail(id) {
+				//alert(id);
+				this.IsDetail = true;
+				this.api.getUserInfo({
+					open_id: id
+				}).then(da => {
+					this.detailData = da;
+				}).catch(() => {
+			
+				})
+			},
+			setContributor(val) {
+				this.selectOne = val;
+				this.centerDialogVisible1 = true;
+			},
+			getworkids() {
+				//console.log(this.selectData);
+				var workids = '';
+				this.selectData.forEach((item, index) => {
+					workids += (index == (this.selectData.length - 1)) ? item.template_file_id : item.template_file_id + ",";
+				})
+				if (this.centerDialogVisible) {
+					workids = workids
+				};
+			
+				if (this.centerDialogVisible1) {
+					workids = this.selectOne.work_id;
+				}
+				return workids;
+			},
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item=>{
+						//console.log(item);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+			},
+			resetSave(tag){
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate)
+					delete urldata[tag];
+					this.$router.push({path:'/activityManager/activityEmploy/newActivity',query:{urlDate:JSON.stringify(urldata)}});
+				}
+			},
+			dialogTable(){
+				this.dialogTableVisible = !this.dialogTableVisible;
+				/* if(this.dialogTableVisible == true){
+					this.setLoding(false);
+				} */
+				//this.$refs.Tabledd.loading = false;	
 			}
 		},
 		created() {
-			this.getData();
+			this.getData({
+				pageCurrent: 1,
+				pageSize: 50
+			});
+			this.screenreach();
+			this.getcommonrightbtn();
+			this.getData1();
+			this.$parent.tabchange(1);
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
 				/* this.form['activity_name'] = this.rows.activity_name;
@@ -509,15 +766,26 @@
 				//console.log(this.form);
 				this.getactivityinfo();
 			}
+			
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			console.log(this.$route.matched);
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>
 
 <style>
+	.sel-dialog  {
+		width: 1100px;
+	}
+	
 	.Detail {
 		background: white;
 	}

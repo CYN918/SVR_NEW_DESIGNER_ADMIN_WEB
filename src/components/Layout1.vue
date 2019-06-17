@@ -14,7 +14,6 @@
 					</transition>
 				</keep-alive>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="screenbg" v-if="IsScreen == 'No'">
 			<common-screen :pageName="pageName" :tabnum="tabnum"></common-screen>

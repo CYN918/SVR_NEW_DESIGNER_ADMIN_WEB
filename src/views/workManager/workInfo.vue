@@ -55,6 +55,9 @@
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
+					<span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
+						分成式
+					</span>
 					<div class="textcenter employipt" v-if="false">
 						<span style="display: inline-block;margin-right: 60px;">选择需求</span>
 						<!-- <el-select v-model="value" placeholder="请选择" multiple  style="width: 357px;">
@@ -185,7 +188,7 @@
 				tabsnum1:0,
 				tabData1:[{
 					name: "买断式"
-				}/* {
+				}/* , {
 					name: "分成式"
 				} */],
 				commonTopData: {

@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
-		<div class="tabtop" ref="elememt" id="table">
-			<el-table :height="tableHeight" ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
+			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
@@ -63,9 +63,7 @@
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
@@ -578,7 +576,7 @@
 			autoTableHeight() {
 				//设置table标签
 				setTimeout(() => {
-					this.tableHeight = this.$refs.elememt.offsetHeight;
+					//this.tableHeight = this.$refs.elememt.offsetHeight;
 				}, 100)
 				//此处需要通过延迟方法来设置值，不然会出现值已更新，但页面没更新的问题
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度

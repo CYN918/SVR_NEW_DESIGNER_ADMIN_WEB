@@ -549,6 +549,14 @@ export default new Router({
 					component: () => import('@/views/otherInformation/embodyRecord.vue'),
 				},
 				{
+					path: "embodyRecord/seeembodyRecord",
+					name: 'seeembodyRecord',
+					meta: {
+						title: "提现记录表"
+					},
+					component: () => import('@/views/otherInformation/seeembodyRecord.vue'),
+				},
+				{
 					path: "presetReason",
 					name: 'presetReason',
 					meta: {
