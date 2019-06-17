@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">查看页面</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">角色名称</span>
@@ -23,6 +23,7 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -93,23 +94,26 @@
 					//console.log(da)
 					this.data2 = da;
 					//this.data2 = this.tickMenuIdFilter().filter(da);
+					console.log(this.data2)
+					console.log(data)
 				}).catch(da => {
 
 				})
 			},
-			/* tickMenuIdFilter: function() {
+			tickMenuIdFilter: function() {
 				var resultArr = new Array();
 				var getTickMenuId = function(obj) {
-					if (undefined == obj || null == obj || !obj instanceof Object) {
+					/* if (undefined == obj || null == obj || !obj instanceof Object) {
 						return;
-					}
+					} */
 					//if (obj.fs > 0) {
 						// console.log('obj',obj)
 						obj.disabled = true;
-						resultArr.push(obj.id);
+						resultArr.push(obj);
+						//console.log(obj);
 					//}
-					if (null != obj.children && obj.children instanceof Array) {
-						for (let child of obj.children) {
+					if (null != obj.child && obj.child instanceof Array) {
+						for (let child of obj.child) {
 							getTickMenuId(child);
 						}
 					}
@@ -117,6 +121,7 @@
 
 				return {
 					filter: function(arr) {
+						console.log(arr)
 						if (!arr instanceof Array) {
 							return false;
 						}
@@ -127,7 +132,7 @@
 						return resultArr;
 					}
 				};
-			} */
+			}
 		},
 		created() {
 			this.seeroles();

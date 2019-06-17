@@ -70,6 +70,7 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="workfixed" v-show="IsScreen == 'No'">
 			<common-screen :pageName="pageName"></common-screen>
 		</div>

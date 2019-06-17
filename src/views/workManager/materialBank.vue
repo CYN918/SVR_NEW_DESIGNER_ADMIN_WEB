@@ -22,7 +22,7 @@
 			</div>
 			
 		</div>
-		<div class="detailContent1 ofh" style="height: calc(100% - 328px);" v-loading="setLoding">
+		<div class="detailContent ofh" style="height: calc(100% - 285px);" v-loading="setLoding">
 			<div class="paddinglr40 ofh" v-if="tabsnum == 0">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
@@ -93,20 +93,21 @@
 					</div>
 				</el-checkbox-group>
 			</div>
-		</div>
-		<div class="w" style="text-align: right;background: #FFFFFF;" v-if="!workselect">
-			<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-				 <span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
+			<div class="w" style="text-align: right;background: #FFFFFF;" v-if="!workselect">
+				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+					 <span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
+				</div>
+				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
+				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
+				</el-pagination>
 			</div>
-			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-			 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
-			</el-pagination>
+			<div class="screenContent detailbtn"  v-if="workselect">
+				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
+				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downfile">下载 {{ checkList.length }}
+					个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
+			</div>
 		</div>
-		<div class="screenContent detailbtn"  v-if="workselect">
-			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downfile">下载 {{ checkList.length }}
-				个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
-		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -349,6 +350,9 @@
 		border-color: #FF5121;
 	}
 	
+	.sel-pagin ul{
+		padding: 0 !important;
+	}
 </style>
 
 <style scoped>

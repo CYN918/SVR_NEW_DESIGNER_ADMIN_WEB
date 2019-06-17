@@ -124,10 +124,12 @@
 					<span class="fleft detailValue">{{ getValue(detailData.follow_num) }}</span>
 				</li>
 			</ul>
+			<div class="screenContent detailbtn">
+				<button class="defaultbtn"  @click="getparent()">返回</button>
+			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		<div class="screenContent detailbtn">
-			<button class="defaultbtn"  @click="getparent()">返回</button>
-		</div>
+		
 	</div>
 </template>
 
@@ -187,7 +189,7 @@
 	}
 	
 	.detailContent{
-		height: calc(100% - 139px);
+		height: calc(100% - 18px);
 		overflow-y: auto;
 	}
 	

@@ -90,6 +90,14 @@ input{
 	color: #999999 !important;
 }
 
+.mainContentMiddenBottom {
+	font-size: 14px;
+	color: #999999;
+	padding: 25px 0 28px;
+	text-align: center;
+	background: #f0f2f5;
+}
+
 .dp{
 	display: inline-block;
 }
@@ -301,7 +309,27 @@ input{
 }
 
 .calc205{
-	height: calc(100% - 205px);
+	height: calc(100% - 180px);
+}
+
+.detailContent1 {
+	height: calc(100% - 194px) !important;
+	overflow-y: auto;
+}
+
+.detailContent {
+	height: calc(100% - 139px) !important;
+	overflow-y: auto;
+}
+
+.detailContent ul {
+	padding-left: 132px;
+	padding-top: 64px;
+}
+
+.detailContent1 ul {
+	padding-left: 132px;
+	padding-top: 64px;
 }
 
 #app .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{

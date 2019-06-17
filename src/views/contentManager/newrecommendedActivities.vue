@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail" v-loading="loading">
 		<div class="detailtitle">编辑干预任务</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">选择干预活动</span>
@@ -41,7 +41,6 @@
 						</el-date-picker>
 					</div>
 				</li>
-				
 			</ul>
 		</div>
 		<div class="screenContent detailbtn">
@@ -49,6 +48,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog title="请选择干预的活动" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
@@ -342,12 +342,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 139px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

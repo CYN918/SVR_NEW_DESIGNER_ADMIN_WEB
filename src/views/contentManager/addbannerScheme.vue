@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">banner方案名称</span>
@@ -64,7 +64,7 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
 		</div>
-		
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
@@ -90,7 +90,7 @@
 					<button class="defaultbtn defaultbtnactive" @click="select()">确定（{{selectData.length}}）</button>
 				</div>
 			</div>
-			
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</el-dialog>
 	</div>
 </template>
@@ -377,12 +377,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 139px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

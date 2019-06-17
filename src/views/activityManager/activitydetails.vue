@@ -404,7 +404,7 @@
 	}
 
 	.detailContent {
-		height: calc(100% - 145px);
+		height: calc(100% - 18px);
 		overflow-y: auto;
 	}
 

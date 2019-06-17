@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
-		<div class="detailContent ofh" v-if="edit != 'edit'">
+		<div class="detailContent1 ofh" v-if="edit != 'edit'">
 			<ul>
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey">banner展示方案ID</span>
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="detailContent ofh" v-if="edit == 'edit'">
+		<div class="detailContent1 ofh" v-if="edit == 'edit'">
 			<ul>
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey">banner展示方案ID</span>
@@ -98,6 +98,7 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="edit == 'edit'" @click="editp()">确定</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -171,12 +172,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 139px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

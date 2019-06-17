@@ -15,123 +15,134 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh" v-show="!Isnextshow">
-			<ul>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
-					<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
-					<el-input placeholder="请输入内容" v-model="form['remark']" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">banner</span>
-					<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
-						<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-						<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
-					</el-upload>
-					<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
-					<el-select v-model="form['category_id']" placeholder="请选择">
-						<el-radio-group v-model="form['category_id']">
-							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name">
-								<el-radio :label="item.id">{{ item.category_name }}</el-radio>
-							</el-option>
+		<div class="detailContent ofh">
+			<div v-show="!Isnextshow">
+				<ul>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
+						<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
+						<el-input placeholder="请输入内容" v-model="form['remark']" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
+						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
+							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
+							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+						</el-upload>
+						<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
+						<el-select v-model="form['category_id']" placeholder="请选择">
+							<el-radio-group v-model="form['category_id']">
+								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name">
+									<el-radio :label="item.id">{{ item.category_name }}</el-radio>
+								</el-option>
+							</el-radio-group>
+						</el-select>
+					</li>
+					<li class="margint23 ofh">
+						<div>
+							<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
+							 placeholder="开始时间">
+							</el-date-picker>
+							<span class="fleft" style="line-height: 40px;">
+								&nbsp;至&nbsp;
+							</span>
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
+							 placeholder="结束时间">
+							</el-date-picker>
+						</div>
+					</li>
+					<!-- <li class="margint23 ofh">
+						<span class="fleft detailKey">活动类型</span>
+						<el-radio-group v-model="form['type']" style="width:357px;float: left;">
+							
+							<el-radio label="1">普通活动</el-radio>
+							<el-radio label="2">征集活动</el-radio>
 						</el-radio-group>
-					</el-select>
-				</li>
-				<li class="margint23 ofh">
-					<div>
-						<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
-						 placeholder="开始时间">
-						</el-date-picker>
-						<span class="fleft" style="line-height: 40px;">
-							&nbsp;至&nbsp;
-						</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
-						 placeholder="结束时间">
-						</el-date-picker>
-					</div>
-				</li>
-				<!-- <li class="margint23 ofh">
-					<span class="fleft detailKey">活动类型</span>
-					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
-						
-						<el-radio label="1">普通活动</el-radio>
-						<el-radio label="2">征集活动</el-radio>
-					</el-radio-group>
-				</li> -->
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">作品上传和展示</span>
-					<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
-						<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
-						<el-radio label="1">不支持上传</el-radio>
-						<el-radio label="2">支持上传，不支持展示作品</el-radio>
-						<el-radio label="3">支持上传，仅展示入围作品</el-radio>
-						<div class="fontcolorg font12" style="line-height: 20px">征集活动</div>
-						<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">是否提供模板文件</span>
-					<el-radio-group v-model="form['is_provide_template']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
-						<el-radio label="0">不提供</el-radio>
-						<el-radio label="1">提供</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
-					<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
-					<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
-					<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft detailKey">是否关联综合平台需求</span>
-					<div class="fleft status">
-						<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
-							<el-radio label="1" class="fleft">启用</el-radio>
-							<el-radio label="0" class="fleft">停用</el-radio>
+					</li> -->
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">作品上传和展示</span>
+						<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
+							<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
+							<el-radio label="1">不支持上传</el-radio>
+							<el-radio label="2">支持上传，不支持展示作品</el-radio>
+							<el-radio label="3">支持上传，仅展示入围作品</el-radio>
+							<div class="fontcolorg font12" style="line-height: 20px">征集活动</div>
+							<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
 						</el-radio-group>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">是否提供模板文件</span>
+						<el-radio-group v-model="form['is_provide_template']" style="width:357px;float: left;">
+							<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+								<el-radio :label="childitem.name"></el-radio>
+							</el-option> -->
+							<el-radio label="0">不提供</el-radio>
+							<el-radio label="1">提供</el-radio>
+						</el-radio-group>
+					</li>
+					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
+						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
+						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
+						<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
+					</li>
+					<li class="margint13 ofh">
+						<span class="fleft detailKey">是否关联综合平台需求</span>
+						<div class="fleft status">
+							<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
+								<el-radio label="1" class="fleft">启用</el-radio>
+								<el-radio label="0" class="fleft">停用</el-radio>
+							</el-radio-group>
+						</div>
+					</li>
+					<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
+						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
+						<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+				</ul>
+			</div>
+			<div v-show="Isnextshow">
+				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
+				<div class="ueditoruploadul">
+					<div class="fleft">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
+								 alt=""></div>
+							<div>上传图片</div>
+						</el-upload>
 					</div>
-				</li>
-				<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
-					<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
-					<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-			</ul>
-		</div>
-		<div class="detailContent ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
-			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
-			<div class="ueditoruploadul">
-				<div class="fleft">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
-							 alt=""></div>
-						<div>上传图片</div>
-					</el-upload>
-				</div>
-				<div class="fleft marginlr30">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
-							 alt=""></div>
-						<div>上传视频</div>
-					</el-upload>
-				</div>
-				<div class="fleft" style="margin-right: 10px;">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
-							 alt=""></div>
-						<div>上传音频</div>
-					</el-upload>
+					<div class="fleft marginlr30">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
+								 alt=""></div>
+							<div>上传视频</div>
+						</el-upload>
+					</div>
+					<div class="fleft" style="margin-right: 10px;">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
+								 alt=""></div>
+							<div>上传音频</div>
+						</el-upload>
+					</div>
 				</div>
 			</div>
+			<div class="screenContent detailbtn">
+				<button class="defaultbtn" @click="getparent()">返回</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
+				<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
+			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
+		
 		
 		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div class="textcenter">
@@ -167,15 +178,6 @@
 			</div>
 			
 		</el-dialog>
-		
-		<div class="screenContent detailbtn">
-			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
-			
-		</div>
 	</div>
 </template>
 

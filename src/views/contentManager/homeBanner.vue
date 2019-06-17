@@ -15,12 +15,12 @@
 			</div>
 			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;" v-show="tabsnum == 0">
+		<div style="height: calc(100% - 205px);margin-top: 20px;" v-show="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
-			<div style="height: calc(100% - 100px);margin-top: 20px;background-color: white;overflow: auto;">
+			<div style="height: calc(100% - 70px);margin-top: 20px;background-color: white;overflow: auto;">
 				<ul class="screenContent" style="flex-wrap: wrap">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
@@ -65,16 +65,16 @@
 						
 					</li>
 				</ul>
-			</div>
-			<div style="text-align: right;">
-				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+				<div style="text-align: right;">
+					<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+						<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+					</div>
+					<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpagec"
+					 :page-sizes="[10, 20, 30, 40]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+					</el-pagination>
 				</div>
-				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpagec"
-				 :page-sizes="[10, 20, 30, 40]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
-				</el-pagination>
 			</div>
-			
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
 		  <div style="position: relative;overflow: auto;">

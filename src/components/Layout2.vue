@@ -14,6 +14,7 @@
 					</transition>
 				</keep-alive>
 			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="screenbg" v-if="IsScreen == 'No'">
 			<common-screen :pageName="pageName" :tabnum="tabnum"></common-screen>
@@ -141,10 +142,18 @@
 
 	.mainContentMidden {
 		width: calc(100% - 40px);
-		height: calc(100% - 100px);
+		height: calc(100% - 175px);
 		background: #f0f2f5;
 		padding: 20px;
 		overflow: hidden;
+	}
+
+	.mainContentMiddenBottom {
+		font-size: 14px;
+		color: #999999;
+		padding: 25px 0 28px;
+		text-align: center;
+		background: #f0f2f5;
 	}
 
 	.screenbg {

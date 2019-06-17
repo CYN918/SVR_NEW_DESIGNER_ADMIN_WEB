@@ -19,7 +19,7 @@
 				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="handleCheckAllChange()">全部下载</button>
 			</div>
 		</div>
-		<div class="detailContent1 ofh">
+		<div class="detailContent ofh">
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
@@ -168,15 +168,17 @@
 					</li>
 				</ul>
 			</div>
+			<div class="screenContent detailbtn" v-if="detailbtn">
+				<button class="defaultbtn" @click="getparent()">返回</button>
+			</div>
+			<div class="screenContent detailbtn" v-if="!detailbtn">
+				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
+				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
+					个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB" }}）</button>
+			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		<div class="screenContent detailbtn" v-if="detailbtn">
-			<button class="defaultbtn" @click="getparent()">返回</button>
-		</div>
-		<div class="screenContent detailbtn" v-if="!detailbtn">
-			<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;">下载 {{ checkList.length }}
-				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB" }}）</button>
-		</div>
+		
 	</div>
 </template>
 
@@ -299,16 +301,6 @@
 	.detailtitle {
 		padding-left: 40px;
 		padding-top: 18px;
-	}
-
-	.detailContent1 {
-		height: calc(100% - 139px);
-		overflow-y: auto;
-	}
-
-	.detailContent1>ul {
-		padding-left: 132px;
-		padding-top: 64px;
 	}
 
 	.margint13 {
