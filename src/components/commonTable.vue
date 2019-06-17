@@ -80,7 +80,7 @@
 				IsMoreShow: false,
 				tableHeight: 150,
 				currentpage: 1,
-				pagesize: 10,
+				pagesize: 50,
 				selected:0,
 				loading:true,
 				allselect:false,
@@ -408,7 +408,7 @@
 					case "reportInfo":
 						if(!setid){
 							if(this.$parent.tabsnum == 0){
-								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.id}})
+								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.report_id}})
 							} else {
 								this.$parent.update(row,1,"启用");
 								if(event.target.innerHTML == "启用"){

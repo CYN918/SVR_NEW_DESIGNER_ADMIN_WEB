@@ -33,7 +33,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">被举报作品ID</span>
-					<span>{{ "--" }}</span>
+					<span>{{ detailData.link_id }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">被举报作品名称</span>

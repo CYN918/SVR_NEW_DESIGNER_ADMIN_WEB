@@ -13,7 +13,7 @@
 					</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="feed"></common-top>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -136,7 +136,7 @@
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.tableConfig.list = DataScreen.screenShow.feedback["bts" + num];
-				this.filterFields = DataScreen.screenShow.feedback["filterFields" + num];
+				/* this.filterFields = DataScreen.screenShow.feedback["filterFields" + num]; */
 				this.tableAction = DataScreen.screenShow.feedback["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
 				this.getData({pageCurrent:1,pageSize:50});
@@ -254,7 +254,7 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({
-						path: '/userCompanyInfo',
+						path: '/otherInformation/feedback',
 						query: {
 							urlDate: JSON.stringify(urldata)
 						}
@@ -337,6 +337,7 @@
 			if(this.$route.query.tabsnum){
 				this.tabsChange(1);
 			}
+			this.$parent.tabchange(1);
 		}
 	}
 </script>
@@ -349,6 +350,10 @@
 	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	
+	.feed > div{
+		margin-left: 0;
 	}
 </style>
 

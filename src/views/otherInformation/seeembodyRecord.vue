@@ -13,7 +13,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">提现用户账号名</span>
-					<span>{{ getValue(detailData.account_name) }}</span>
+					<span>{{ getValue(detailData.username) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">提现金额</span>
@@ -25,7 +25,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">收款账户名</span>
-					<span>{{ getValue(detailData.accused_username) }}</span>
+					<span>{{ getValue(detailData.account_name) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">银行卡号</span>

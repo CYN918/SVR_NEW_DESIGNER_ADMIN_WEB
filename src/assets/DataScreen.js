@@ -420,18 +420,18 @@ const screenData = {
 				]},
 				{name:"驳回理由",id:"content",},
 				{name:"状态",id:"status"},
-				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(结束)',id:'create_time_end'}]},
 				{name:"",type:"display"},
 			]
 		},
 		feedback:{
 			filterFields0:[
 				{name:"意见反馈ID",id:"feedback_id"},
-				{name:"",id:"username"},
+				{name:"用户昵称",id:"username"},
 				{name:"驳回理由",id:"classify_id",child:[{name:"功能问题",id:"1"},{name:"设计问题",id:"2"},{name:"作品问题",id:"3"},{name:"未知问题",id:"4"},{name:"其他",id:"5"}]},
 				{name:"联系方式",id:"link"},
-				{name:"反馈时间（开始）",id:"create_time_start",type:"time"},
-				{name:"反馈时间（结束）",id:"create_time_end",type:"time"},
+				{name:'反馈时间',type:"time",child:[{name:'反馈时间(开始)',id:'create_time_start'},{name:'反馈时间(结束)',id:'create_time_end'}]},
+				{name:"",type:"display"},
 			],
 			filterFields1:[
 				/* {name:"驳回理由预设ID",id:"id"},
@@ -440,16 +440,19 @@ const screenData = {
 				{name:"状态",id:"username"},
 				{name:"创建时间（开始）",id:"ids",type:"time"},
 				{name:"创建时间（结束）",id:"ids1",type:"time"}, */
-				{}
 			]
 		},
 		reportInfo:{
 			filterFields0:[
-				{name:"意见反馈ID",id:"feedback_id"},
-				{name:"",id:"username"},
-				{name:"驳回理由",id:"classify_id",child:[{name:"功能问题",id:"1"},{name:"设计问题",id:"2"},{name:"作品问题",id:"3"},{name:"未知问题",id:"4"},{name:"其他",id:"5"}]},
-				{name:"联系方式",id:"link"},
-				{name:'反馈时间',type:"time",child:["create_time_start","create_time_end"]},
+				{name:"举报ID",id:"report_id"},
+				{name:"举报用户ID",id:"open_id"},
+				{name:"举报对象ID",id:"accused_open_id"},
+				{name:"用户昵称",id:"username"},
+				{name:"举报对象昵称",id:"accused_username"},
+				{name:"举报位置",id:"position",child:[{name:"作品举报",id:"work"},{name:"评论举报",id:"comment"},{name:"用户中心举报",id:"user"},{name:"私信举报",id:"message"}]},
+				{name:"举报类别",id:"classify_id",child:[{name:"垃圾广告信息",id:"1"},{name:"涉黄涉暴等违法信息",id:"2"},{name:"侮辱、恶意及辱骂等行为",id:"3"},{name:"作品侵犯原作者权益",id:"4"},{name:"其他",id:"5"}]},
+				{name:'举报时间',type:"time",child:[{name:'举报时间(开始)',id:'create_time_start'},{name:'举报时间(结束)',id:'create_time_end'}]},
+				{name:"",type:"display"},
 			],
 			filterFields1:[
 				/* {name:"驳回理由预设ID",id:"id"},
@@ -1330,7 +1333,7 @@ const screenData = {
 				{lable:"反馈单ID",prop:"feedback_id"},
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"分类ID",prop:"classify_id"},
-				{lable:"用户昵称",prop:"file_type"},
+				{lable:"用户昵称",prop:"username"},
 				{lable:"截图",prop:"pic",type:"img",width:200},
 				{lable:"问题类型",prop:"classify_name"},
 				{lable:"问题描述",prop:"detail"},
@@ -1418,7 +1421,7 @@ const screenData = {
 			bts:[
 				{lable:"通知ID",prop:"id"},
 				{lable:"通知标题",prop:"title"},
-				{lable:"预发用户数",prop:"content"},
+				{lable:"预发用户数",prop:"send_num"},
 				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},width:320},
 				{lable:"当前状态",prop:"status",type:"status",child:{"0":"停用","1":"启用","-1":"已删除"}},
 				{lable:"发送成功数",prop:"send_num"},

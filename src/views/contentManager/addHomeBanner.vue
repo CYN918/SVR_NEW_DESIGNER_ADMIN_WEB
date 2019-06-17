@@ -13,7 +13,7 @@
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
 						</div>
-						<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+						<div class="fontcolorg">1300*328px，格式jpg，jpeg，png，大小不超过10M</div>
 					</el-upload>
 					<img :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
 				</li>

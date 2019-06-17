@@ -123,7 +123,7 @@
 					"pageName":"userBaseInfo",
 					total:0,
 					currentpage:1,
-					pagesize:10,
+					pagesize:50,
 					list:[],
 					ischeck:true,
 					
