@@ -578,7 +578,7 @@
 							canvas.height = img.height;
 							var context = canvas.getContext('2d');
 							context.drawImage(img, 0, 0, img.width, img.height);
-							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+							canvas.getContext('2d').drawImage(imAg, 0, 0, img.width, img.height);
 							canvas.toBlob((blob)=>{
 								let link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
@@ -591,7 +591,7 @@
 					}
 					
 					if(item.name == "附件"){
-						alert(1);
+						//alert(1);
 						window.open(item.id);
 					}
 					
@@ -680,11 +680,13 @@
 			handleCheckedCitiesChange(val){
 				//console.log(val
 				this.font_size = 0;
+				this.openurls = [];
 				val.forEach((item,index) =>{
 					//console.log(item.split(",")[1])
 					this.font_size += Number(item.split(",")[2]);
 					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});
+				console.log(this.openurls);
 			},
 			linksee(){
 				window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + this.$route.query.work_id);   
