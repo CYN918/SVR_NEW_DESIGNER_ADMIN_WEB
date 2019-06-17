@@ -90,7 +90,6 @@
 					<button class="defaultbtn defaultbtnactive" @click="select()">确定（{{selectData.length}}）</button>
 				</div>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</el-dialog>
 	</div>
 </template>

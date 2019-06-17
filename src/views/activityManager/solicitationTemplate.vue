@@ -124,7 +124,7 @@
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.solicitationTemplate.action,
+				tableAction: DataScreen.screenShow.solicitationTemplate.action0,
 				detailData: "",
 				IsDetail: false,
 				filterFields: DataScreen.screen.solicitationTemplate.filterFields,
@@ -148,6 +148,7 @@
 				this.tabsnum = num;
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
+				this.tableAction = DataScreen.screenShow.solicitationTemplate["action" + num],
 				console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});

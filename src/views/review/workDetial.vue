@@ -43,7 +43,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -59,7 +59,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['图片']" :key="item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
@@ -73,7 +73,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -88,7 +88,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
 								<div class="color66">
@@ -174,12 +174,12 @@
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="agree()">审核通过</button>
 			<button class="defaultbtn" v-if="pagetype != 4" @click="linksee">预览作品</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="screenContent detailbtn" v-if="!detailbtn">
 			<button class="defaultbtn" @click="cancel">取消选项</button>
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks">下载 {{ checkList.length }}
 				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
 			<div style="position: relative;">
 				<ul>
@@ -348,7 +348,8 @@
 				hire_type:"",
 				contributor_type:parseInt(this.$route.query.contribute_type),
 				font_size:0,
-				tableData:[]
+				tableData:[],
+				openurls:[],
 			}
 		},
 		methods: {
@@ -540,7 +541,63 @@
 				this.workselect = !this.workselect;
 			},
 			downWorks() {
-				console.log(this.checkList);
+				
+				
+				
+				/* let src = 'http://zk-new-designer.oss-cn-beijing.aliyuncs.com/cc9ffb0627ebba9c79b83507f0a0acf4.png';
+				var canvas = document.createElement('canvas');
+				var img = document.createElement('img');
+				img.onload = function(e) {
+					canvas.width = img.width;
+					canvas.height = img.height;
+					var context = canvas.getContext('2d');
+					context.drawImage(img, 0, 0, img.width, img.height);
+					canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+					canvas.toBlob((blob)=>{
+						let link = document.createElement('a');
+						link.href = window.URL.createObjectURL(blob);
+						link.download = 'aaa'; 
+						link.click();  
+					}, "image/jpeg");
+				}
+				img.setAttribute("crossOrigin",'Anonymous');
+				img.src = src; */
+		
+				
+				
+				
+				
+				this.openurls.forEach(item =>{
+					console.log(item);
+					if(item.name == "图片"){
+						let src = item.id;
+						var canvas = document.createElement('canvas');
+						var img = document.createElement('img');
+						img.onload = function(e) {
+							canvas.width = img.width;
+							canvas.height = img.height;
+							var context = canvas.getContext('2d');
+							context.drawImage(img, 0, 0, img.width, img.height);
+							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+							canvas.toBlob((blob)=>{
+								let link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob);
+								link.download = item; 
+								link.click();  
+							}, "image/jpeg");
+						}
+						img.setAttribute("crossOrigin",'Anonymous');
+						img.src = src;
+					}
+					
+					if(item.name == "附件"){
+						alert(1);
+						window.open(item.id);
+					}
+					
+					
+					
+				})
 			},
 			handleCheckAllChange(val) {
 				this.checkList = this.checkAll;
@@ -624,8 +681,9 @@
 				//console.log(val
 				this.font_size = 0;
 				val.forEach((item,index) =>{
-					console.log(item.split(",")[1])
-					this.font_size += Number(item.split(",")[1])
+					//console.log(item.split(",")[1])
+					this.font_size += Number(item.split(",")[2]);
+					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});
 			},
 			linksee(){

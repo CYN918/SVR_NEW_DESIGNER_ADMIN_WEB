@@ -1028,7 +1028,7 @@ const screenData = {
 				{lable:"更新时间",prop:"updated_at"},
 				{lable:"上传时间",prop:"created_at"}
 			],
-			action:{
+			action0:{
 				morebtns:{
 					name:"更多",
 					Ishow:true,
@@ -1039,6 +1039,25 @@ const screenData = {
 						},
 						{
 							name:"下载"
+						},
+						{
+							name:"删除"
+						}
+					],
+				},
+				links:{
+					name:"预览",
+					Ishow:false
+				},
+			},
+			action1:{
+				morebtns:{
+					name:"更多",
+					Ishow:true,
+					page:"solicitationTemplate",
+					child:[
+						{
+							name:"修改文件名"
 						},
 						{
 							name:"删除"
