@@ -83,7 +83,7 @@
 					<span class="fleft detailKey">授权认证-QQ号</span>
 					<span class="fleft detailValue">{{ getValue(detailData.qq_name)  }}</span>
 				</li>
-				<li class="margint13 ofh">
+				<li class="margint13 ofh">A
 					<span class="fleft detailKey">授权认证-微博</span>
 					<span class="fleft detailValue">{{ getValue(detailData.weibo_name)  }}</span>
 				</li>
@@ -116,12 +116,12 @@
 					</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">平台供稿人</span>
-					<span class="fleft detailValue">{{ getValue(detailData.follow_num) }}</span>
+					<span class="fleft detailKey">是否平台供稿人</span>
+					<span class="fleft detailValue">{{ getValue2(detailData.is_contributor) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">供稿人认证账号主体</span>
-					<span class="fleft detailValue">{{ getValue(detailData.follow_num) }}</span>
+					<span class="fleft detailValue">{{ getValue1(detailData.contributor_type) }}</span>
 				</li>
 			</ul>
 			<div class="screenContent detailbtn">
@@ -147,6 +147,20 @@
 				} else{
 					return "--"
 				}
+			},
+			getValue1(n){
+				let child={
+					"1":"个人",
+					"2":"企业"
+				};
+				return child[n];
+			},
+			getValue2(n){
+				let child={
+					"0":"否",
+					"2":"是"
+				};
+				return child[n];
 			},
 			getparent(){
 				//this.$parent.IsDetail = false;

@@ -1,8 +1,9 @@
 <template>
 	<div class="wh">
-		<div class="w hnav username">
-			<span class="fleft userlog"></span>
-			<span class="fleft fontsize24">狮大大</span>
+		<div class="w hnav username ofh">
+			<!-- <span class="fleft userlog"></span>
+			<span class="fleft fontsize24">狮大大</span> -->
+			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px auto;">
 		</div>
 		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
 		 active-text-color="#FF5121">
@@ -213,7 +214,8 @@
 		height: 25px;
 		margin: 17.5px 40px;
 		margin-right: 0;
-		background: red;
+		background: url(../assets/img/houtai_logo.svg) center center no-repeat;
+		background-size: 100% 100%;
 	}
 
 	#app .el-submenu__title:hover i,
