@@ -6,11 +6,15 @@
 					首页banner
 				</span>
 				<div class="textcenter">
-					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+					<!-- <span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange(index,item.name)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+						
 						{{ item.name }}
-					</span>
+					</span> -->
+					 <span :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
+					 @click="tabsChange(1)">展示方案</span>
+					<span :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
+					 @click="tabsChange(0)">banner素材</span>
 				</div>
 			</div>
 			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>

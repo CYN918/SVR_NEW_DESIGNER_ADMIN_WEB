@@ -114,7 +114,7 @@
 				radio2:"1",
 				dialogTableVisible:false,
 				commonTopData: {
-					"pageName": "homeBanner",
+					"pageName": "addbannerScheme",
 					"commonleftbtn": [{
 							name: "筛选",
 							id: "left1",
@@ -127,17 +127,16 @@
 				},
 				screenConfig: [],
 				tableConfig: {
-					"pageName": "homeBanner",
+					"pageName": "addbannerScheme",
 					total: 0,
 					currentpage: 1,
 					pagesize: 10,
-					list: DataScreen.screenShow.homeBanner.bts,
-					ischeck: true,
+					list: DataScreen.screenShow.addbannerScheme.bts,
 					loading:true
 				
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.homeBanner.action,
+				tableAction: DataScreen.screenShow.addbannerScheme.action,
 				selectData:[],
 				banner_material_ids:"",
 				banner_program_name:"",
@@ -186,7 +185,8 @@
 					is_default:this.is_default,
 				}).then(da => {
 					//console.log(da)
-					if(da = "添加成功"){
+					
+					if(da.result == 0){
 						this.router.push({
 							path:"/contentManager/homeBanner",
 							query:{
@@ -433,5 +433,6 @@
 	
 	.sel-dialog  {
 		width: 1000px;
+		overflow-y: scroll;
 	}
 </style>

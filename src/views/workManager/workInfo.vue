@@ -269,6 +269,13 @@
 				}
 				this.isajax=1;
 
+				/* if(is_export == 1){
+					let form = document.createElement('form');
+					
+					
+					
+				} */
+				
 				this.api.workList(data).then((da) => {
 					if (!da) {
 						this.$message('数据为空');

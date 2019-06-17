@@ -568,7 +568,7 @@
 				
 				
 				this.openurls.forEach(item =>{
-					console.log(item);
+					//console.log(item);
 					if(item.name == "图片"){
 						let src = item.id;
 						var canvas = document.createElement('canvas');
@@ -578,11 +578,11 @@
 							canvas.height = img.height;
 							var context = canvas.getContext('2d');
 							context.drawImage(img, 0, 0, img.width, img.height);
-							canvas.getContext('2d').drawImage(imAg, 0, 0, img.width, img.height);
+							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
 							canvas.toBlob((blob)=>{
 								let link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
-								link.download = item; 
+								link.download = '图片文件'; 
 								link.click();  
 							}, "image/jpeg");
 						}
@@ -595,8 +595,53 @@
 						window.open(item.id);
 					}
 					
+					if(item.name == "视频"){
+						//alert(1);
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '视频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
 					
-					
+					if(item.name == "音频"){
+						//alert(1);
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '音频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
 				})
 			},
 			handleCheckAllChange(val) {
@@ -606,6 +651,7 @@
 			},
 			cancel() {
 				this.checkList = [];
+				this.font_size = 0;
 			},
 			getreviewInfo() {
 				if(this.pagetype == 4){

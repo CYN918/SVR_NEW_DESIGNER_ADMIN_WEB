@@ -308,6 +308,9 @@
 				this.form.activity_id = this.rows.id;
 				this.api.activityedit(this.form).then(da => {
 					console.log(da)
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(() => {
 
 				})

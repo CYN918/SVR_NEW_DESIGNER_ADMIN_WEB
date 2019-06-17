@@ -169,8 +169,8 @@
 					center: true
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
-					 this.api.hotworddelete({
-						id: val.id,
+					 this.api.activitydelete({
+						activity_id: val.activity_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
 						this.getData({pageCurrent:1,pageSize:50});

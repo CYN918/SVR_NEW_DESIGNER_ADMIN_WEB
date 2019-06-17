@@ -101,7 +101,7 @@ export default {
 		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	activityedit:{
-		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	insertFile:{
 		url:'/File/File/insert',method:'post',baseURL:0
@@ -141,7 +141,7 @@ export default {
 		url:'/admin/banner/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	bannerprogramadd:{
-		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	bannerprogramlist:{
 		url:'/admin/bannerprogram/list',method:'post',baseURL:0

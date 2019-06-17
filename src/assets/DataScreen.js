@@ -318,6 +318,14 @@ const screenData = {
 				{name:"",type:"display"},
 			]
 		},
+		addbannerScheme:{
+			filterFields:[
+				{name:"banner素材ID",id:"id"},
+				{name:"banner素材名称",id:"banner_name"},
+				{name:'创建时间',type:"time",child:[{name:'创建时间(开始)',id:'create_time_start'},{name:'创建时间(开始)',id:'create_time_end'}]},
+				{name:"当前状态",id:"status",child:[{name:"待使用",id:"1"},{name:" 未使用",id:"0"},{name:"线上展示中",id:"2"}]},
+			]
+		},
 		hotWordSearch:{
 			filterFields:[
 				{name:"热门搜索词ID",id:"id"},
@@ -1122,6 +1130,27 @@ const screenData = {
 				},
 				links:{
 					name:"修改",
+					Ishow:true
+				},
+			}
+		},
+		addbannerScheme:{
+			bts:[
+				{lable:"banner素材ID",prop:"id"},
+				{lable:"banner素材名称",prop:"banner_name"},
+				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
+				{lable:"跳转链接",prop:"jump_url",type:"url"},
+				{lable:"创建时间",prop:"create_time"},
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"addbannerScheme",
+				},
+				links:{
+					name:"选择",
 					Ishow:true
 				},
 			}
