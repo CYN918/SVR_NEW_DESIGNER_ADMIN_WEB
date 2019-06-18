@@ -57,8 +57,11 @@
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da);
-					this.user = da;
+					if(da.result == 0){
+						//alert(11)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						//this.router.push({path:"/userManager/userBaseInfo"});
+					}
 					
 				})
 			},
@@ -80,7 +83,7 @@
 					type: '',
 					center: true
 				}).then(() => {
-					this.logout({
+					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
 						console.log(da)

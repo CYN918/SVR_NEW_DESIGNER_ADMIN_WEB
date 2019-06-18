@@ -987,9 +987,9 @@ const screenData = {
 			defaults:['work_id','work_name','activity_id','activity_name','open_id','username','status'],
 			bts:[
 				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name",type:"url",url:"/activityManager/activityEmploy"},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/activityManager/workInfo"},
 				{lable:"活动ID",prop:"activity_id"},
-				{lable:"活动名称",prop:"activity_name",type:"url",url:"/workManager/workInfo"},
+				{lable:"活动名称",prop:"activity_name",type:"url",url:"/workManager/activityEmploy"},
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"用户名称",prop:"username",type:"url",url:"/userManager/userBaseInfo"},
 				{prop:'avatar',lable:'用户头像',type:"imgtou"},
@@ -1123,7 +1123,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
+				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":"未使用","2":"线上展示中"}}
 			],
 			action:{
 				morebtns:{

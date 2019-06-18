@@ -100,7 +100,7 @@
 					var child=[
 						
 					];
-					console.log(da.data);
+					//console.log(da.data);
 					da.data.forEach(item =>{
 						child.push({
 							name:item.category_name,
@@ -109,7 +109,7 @@
 					})
 					
 					localStorage.setItem("child",JSON.stringify(child))
-					console.log(localStorage.getItem("child"))
+					//console.log(localStorage.getItem("child"))
 				}).catch(() => {
 			
 				});

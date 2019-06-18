@@ -263,6 +263,10 @@
 						if(setid == "contributor1"){
 							this.$parent.delect(row);
 						}
+						
+						if(setid == "contributor2"){
+							this.$parent.edit(row);
+						}
 					break;
 					case "recommendedActivities":
 						if(!setid){

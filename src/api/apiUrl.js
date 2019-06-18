@@ -44,7 +44,7 @@ export default {
 		url:'/admin/Review/list',method:'post',baseURL:0
 	},
 	access:{
-		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{login:true}
+		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{isok:true}
 	},
 	
 	setRole:{
@@ -282,8 +282,5 @@ export default {
 	},
 	noticedelete:{
 		url:'/admin/notice/delete',method:'post'
-	},
-	
-	
-	
+	}
 }

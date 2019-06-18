@@ -10,12 +10,16 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				console.log(access_token)
+				//console.log(access_token)
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
 				}).then(da => {
-					
+					if(da.result == 0){
+						//alert(11)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						this.router.push({path:"/userManager/userBaseInfo"});
+					}
 				}).catch(da => {
 					
 				})
