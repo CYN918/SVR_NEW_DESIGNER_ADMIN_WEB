@@ -161,7 +161,8 @@
 					position:this.position
 				}).then(da => {
 					//console.log(da)
-					if(da = "添加成功"){
+					
+					if(da.result==0){
 						this.$router.go(-1);
 					}
 					this.loading = false;
@@ -174,13 +175,13 @@
 				this.api.recommendactivityedit({
 					access_token:localStorage.getItem("access_token"),
 					id: this.row.id,
-					activity_id: this.activitiesrows.id,
+					activity_id: this.activity_id,
 					start_time:this.start_time,
 					end_time:this.end_time,
 					position:this.position
 				}).then(da => {
 					//console.log(da)
-					if(da = "修改成功"){
+					if(da.result==0){
 						this.$router.go(-1);
 					}
 					this.loading = false

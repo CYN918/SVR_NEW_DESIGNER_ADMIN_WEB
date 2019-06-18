@@ -253,7 +253,7 @@ const screenData = {
 				{name:"作品名称",id:"work_name"},
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name"},
-				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
+				{name:"当前状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"待入围审核",id:"0"},{name:"待录用审核",id:"1"},{name:"已录用",id:"2"},{name:"已入围",id:"11"},{name:"已参加",id:"10"}]},
 				{name:'录用时间',type:"time",child:[{name:'录用时间(开始)',id:'hire_time_start'},{name:'录用时间(开始)',id:'hire_time_end'}]},
 				{name:'入围时间',type:"time",child:[{name:'入围时间(开始)',id:'shortlisted_time_start'},{name:'入围时间(开始)',id:'shortlisted_time_end'}]},
 			]

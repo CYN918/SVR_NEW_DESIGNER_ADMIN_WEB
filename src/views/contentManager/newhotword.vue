@@ -73,7 +73,6 @@
 				}
 			},
 			add(){
-				const id = this.$route.query.open_id;
 				this.api.hotwordadd({
 					access_token:localStorage.getItem("access_token"),
 					word: this.word,
@@ -92,6 +91,7 @@
 			edit(){
 				this.api.hotwordedit({
 					access_token:localStorage.getItem("access_token"),
+					id:this.row.id,
 					word: this.word,
 					start_time:this.start_time,
 					end_time:this.end_time,

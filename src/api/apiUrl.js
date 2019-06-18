@@ -172,10 +172,10 @@ export default {
 		url:'/admin/recommendactivity/list',method:'post',baseURL:0
 	},
 	recommendactivityadd:{
-		url:'/admin/recommendactivity/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/recommendactivity/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	recommendactivityedit:{
-		url:'/admin/recommendactivity/edit',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/recommendactivity/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	documentadd:{
 		url:'/admin/document/add',method:'post',baseURL:0,isType:{suktip:true}
