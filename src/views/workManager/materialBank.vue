@@ -29,7 +29,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox"  :label=" item.file_url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
@@ -47,7 +47,7 @@
 					<ul class="materiallist">
 						<li v-for="(item,index) in materialdata" :key="item.fid">
 							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}">
-								<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
+								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
 							</div>
 							<div class="color66">
 								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
@@ -63,7 +63,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
@@ -81,7 +81,7 @@
 						<ul class="materiallist">
 							<li v-for="(item,index) in materialdata" :key="item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">
@@ -103,7 +103,7 @@
 			</div>
 			<div class="screenContent detailbtn"  v-if="workselect">
 				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downfile">下载 {{ checkList.length }}
+				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks()">下载 {{ checkList.length }}
 					个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
 			</div>
 		</div>
@@ -165,7 +165,8 @@
 				file_type:"zip",
 				setLoding:true,
 				materialdata:"",
-				filterFields:DataScreen.screen.materialBank.filterFields
+				filterFields:DataScreen.screen.materialBank.filterFields,
+				openurls:[],
 			}
 		},
 		methods: {
@@ -226,10 +227,14 @@
 				this.getData(1,50);
 				this.checkList=[];
 				this.font_size = 0;
+				this.openurls = [];
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
 				this.workselect = !this.workselect;
+				this.font_size = 0;
+				this.openurls = [];
+				this.checkList=[];
 			},
 			handleCheckAllChange(val) {
 				this.checkList = this.checkAll;
@@ -318,10 +323,88 @@
 			handleCheckedCitiesChange(val){
 				//console.log(val
 				this.font_size = 0;
+				this.openurls = [];
 				val.forEach((item,index) =>{
-					console.log(item.split(",")[1])
-					this.font_size += Number(item.split(",")[1])
+					//console.log(item.split(",")[1])
+					this.font_size += Number(item.split(",")[2]);
+					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});
+				console.log(this.openurls);
+			},
+			downWorks() {
+				this.openurls.forEach(item =>{
+					//console.log(item.id);
+					if(item.name == "图片"){
+						let src = item.id;
+						var canvas = document.createElement('canvas');
+						var img = document.createElement('img');
+						img.onload = function(e) {
+							canvas.width = img.width;
+							canvas.height = img.height;
+							var context = canvas.getContext('2d');
+							context.drawImage(img, 0, 0, img.width, img.height);
+							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+							canvas.toBlob((blob)=>{
+								let link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob);
+								link.download = '图片文件'; 
+								link.click();  
+							}, "image/jpeg");
+						}
+						img.setAttribute("crossOrigin",'Anonymous');
+						img.src = src;
+					}
+					
+					if(item.name == "附件"){
+						window.open(item.id);
+					}
+					
+					if(item.name == "视频"){
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '视频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
+					
+					if(item.name == "音频"){
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '音频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
+				})
 			},
 			
 		},

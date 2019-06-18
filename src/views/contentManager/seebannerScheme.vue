@@ -25,8 +25,8 @@
 				<li class="margint13 ofh" style="line-height: 40px;">
 					<span class="fleft detailKey">是否设为默认展示方案</span>
 					<div class="fleft status">
-						<el-radio v-model="datadetial.is_default" label="1" class="fleft" style="height: 40px;line-height: 40px;">是</el-radio>
-						<el-radio v-model="datadetial.is_default" label="0" class="fleft" style="height: 40px;line-height: 40px;">否</el-radio>
+						<el-radio disabled v-model="datadetial.is_default" label="1" class="fleft disabled" style="height: 40px;line-height: 40px;">是</el-radio>
+						<el-radio disabled v-model="datadetial.is_default" label="0" class="fleft disabled" style="height: 40px;line-height: 40px;">否</el-radio>
 					</div>
 				</li>
 			</ul>
@@ -163,6 +163,15 @@
 </script>
 
 <style>
+	.disabled .el-radio__input.is-checked .el-radio__inner{
+		background-color: #C0C4CC !important;
+        border-color: #C0C4CC !important;
+	}
+	
+	.disabled .el-radio__input.is-checked + .el-radio__label{
+		color: #C0C4CC !important;
+	}
+	
 	.Detail {
 		background: white;
 	}

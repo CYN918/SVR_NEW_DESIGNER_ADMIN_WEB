@@ -3,7 +3,7 @@
 		<div class="w hnav username ofh">
 			<!-- <span class="fleft userlog"></span>
 			<span class="fleft fontsize24">狮大大</span> -->
-			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px auto;">
+			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px 15px;">
 		</div>
 		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
 		 active-text-color="#FF5121">

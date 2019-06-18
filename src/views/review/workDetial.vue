@@ -541,32 +541,6 @@
 				this.workselect = !this.workselect;
 			},
 			downWorks() {
-				
-				
-				
-				/* let src = 'http://zk-new-designer.oss-cn-beijing.aliyuncs.com/cc9ffb0627ebba9c79b83507f0a0acf4.png';
-				var canvas = document.createElement('canvas');
-				var img = document.createElement('img');
-				img.onload = function(e) {
-					canvas.width = img.width;
-					canvas.height = img.height;
-					var context = canvas.getContext('2d');
-					context.drawImage(img, 0, 0, img.width, img.height);
-					canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-					canvas.toBlob((blob)=>{
-						let link = document.createElement('a');
-						link.href = window.URL.createObjectURL(blob);
-						link.download = 'aaa'; 
-						link.click();  
-					}, "image/jpeg");
-				}
-				img.setAttribute("crossOrigin",'Anonymous');
-				img.src = src; */
-		
-				
-				
-				
-				
 				this.openurls.forEach(item =>{
 					//console.log(item);
 					if(item.name == "图片"){
