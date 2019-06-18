@@ -58,7 +58,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="addzu pointer" @click="select">添加banner素材</div>
+			<div class="addzu pointer" @click="select">+添加一组</div>
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -157,8 +157,7 @@
 				})
 			},
 			getactivitiesrows(row){
-				console.log(row);
-				this.selectData = [];
+				//console.log(row);
 				this.selectData.push(row);
 			},
 			getValue(val) {

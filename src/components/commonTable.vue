@@ -498,10 +498,16 @@
 			handleSizeChange(val) {
 				this.pagesize = val;
 				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
 			},
 			handleCurrentChange(val) {
 				this.currentpage = val;
 				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
 			},
 			handleSelectionChange(val) {
 				
