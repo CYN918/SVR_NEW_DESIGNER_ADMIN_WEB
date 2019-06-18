@@ -107,7 +107,7 @@
 					</li>
 				</ul>
 			</div>
-			<div v-show="Isnextshow">
+			<div v-show="Isnextshow" class="relative">
 				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 				<div class="ueditoruploadul">
 					<div class="fleft">
@@ -568,6 +568,14 @@
 				});
 			},
 			createdactivity(){
+				
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				this.form.template_file_id=this.getworkids();
 				this.api.activityadd(this.form).then(da =>{
 					console.log(da)
@@ -742,6 +750,47 @@
 					this.setLoding(false);
 				} */
 				//this.$refs.Tabledd.loading = false;	
+			},
+			alertmask(){
+				
+				if(!this.form['activity_name']){
+					
+					return "请填写活动名称！！";
+				}
+				if(!this.form['remark']){
+					
+					return "请填写活动备注！！";
+				}
+				if(!this.form['banner']){
+					
+					return "请上传活动banner！！";
+				}
+				if(!this.form['category_id']){
+					
+					return "请选择主题分类！！";
+				}
+				if(!this.form['start_time']){
+					
+					return "请填写活动时间！！";
+				}
+				if(!this.form['end_time']){
+					
+					return "请填写活动时间！！";
+				}
+				
+				if(!this.form['setting_type']){
+					
+					return "设置状态！！";
+				}
+				if(!this.form['is_provide_template']){
+					
+					return "请选择模板状态！！";
+				}
+				
+				if(!this.form['is_related_needs']){
+					return "请选择关联平台需求状态！！";
+				}
+				return true;
 			}
 		},
 		created() {

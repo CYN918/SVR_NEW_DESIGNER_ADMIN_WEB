@@ -12,7 +12,7 @@
 					<span>{{  getValue(detailData.open_id)}}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">提现用户账号名</span>
+					<span class="fleft detailKey">用户昵称</span>
 					<span>{{ getValue(detailData.username) }}</span>
 				</li>
 				<li class="margint13 ofh">
@@ -21,7 +21,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">账号主体</span>
-					<span>{{ getValue(detailData.contributor_type) }}</span>
+					<span>{{ detailData.contributor_type == "1" ? "个人" : "企业" }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">收款账户名</span>

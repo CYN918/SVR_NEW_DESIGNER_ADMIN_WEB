@@ -18,12 +18,12 @@
 				</div>
 			</div>
 			<div>
-				<common-top :commonTopData="commonTopData"></common-top>
+				<common-top :commonTopData="commonTopData" class="commontop"></common-top>
 			</div>
 			
 		</div>
-		<div class="detailContent ofh" style="height: calc(100% - 285px);" v-loading="setLoding">
-			<div class="paddinglr40 ofh" v-if="tabsnum == 0">
+		<div class="paddinglr30 ofh" style="height: calc(100% - 285px);overflow-y: scroll;" v-loading="setLoding">
+			<div class="ofh" v-if="tabsnum == 0">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
@@ -33,7 +33,7 @@
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
+									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
@@ -50,7 +50,7 @@
 								<el-checkbox class="material-checkbox" :label="item.fid+','+item.file_size" v-if="workselect" @click.stop.native></el-checkbox>
 							</div>
 							<div class="color66">
-								<span class="fleft" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
+								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
 								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
 						</li>
@@ -67,7 +67,7 @@
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
+									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
@@ -85,7 +85,7 @@
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
 								<div class="color66">
-									<span class="fleft" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
+									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
@@ -98,7 +98,7 @@
 					 <span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
 				</div>
 				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[10, 20, 30, 40]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
+				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
 				</el-pagination>
 			</div>
 			<div class="screenContent detailbtn"  v-if="workselect">
@@ -158,7 +158,7 @@
 					"commonbottombtn": [],
 					"IsShow":true
 				},
-				pagesize:10,
+				pagesize:50,
 				total:0,
 				currentpage:1,
 				selected:0,
@@ -223,7 +223,7 @@
 				this.detailbtn=true;
 				this.workselect=false;
 				this.file_type = id;
-				this.getData(1,10);
+				this.getData(1,50);
 				this.checkList=[];
 				this.font_size = 0;
 			},
@@ -329,12 +329,12 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData(1,10);
+			this.getData(1,50);
 		},
 		watch:{
 			"$route":function(){
 				this.getcommonrightbtn();
-				this.getData(1,10);
+				this.getData(1,50);
 			}
 		}
 	}
@@ -343,6 +343,10 @@
 <style>
 	.materiallist .el-checkbox__label {
 		display: none;
+	}
+	
+	.commontop > div {
+		margin-left: 0;
 	}
 	
 	.work .el-button--primary{

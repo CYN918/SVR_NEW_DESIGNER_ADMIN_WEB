@@ -280,6 +280,9 @@ export default {
 	activityinfo:{
 		url:'/admin/activity/info',method:'post'
 	},
+	noticedelete:{
+		url:'/admin/notice/delete',method:'post'
+	},
 	
 	
 	

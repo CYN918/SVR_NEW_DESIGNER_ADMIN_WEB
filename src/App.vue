@@ -565,6 +565,12 @@ input{
 		margin-top: -34px;
 		margin-left: -30px;
 	}
+	
+	.textover{
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+	}
 
 	.material-bo {
 		width: 32px;

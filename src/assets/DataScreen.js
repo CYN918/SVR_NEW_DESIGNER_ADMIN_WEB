@@ -313,7 +313,7 @@ const screenData = {
 				{name:"banner展示方案ID",id:"id"},
 				{name:"banner展示方案名称",id:"banner_program_name"},
 				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'program_begin_time'},{name:'干预时间(开始)',id:'program_end_time'}]},
-				{name:"当前状态",id:"status"},
+				{name:"当前状态",id:"status",child:[{name:"待使用",id:"1"},{name:" 未使用",id:"0"},{name:"线上展示中",id:"2"}]},
 				{name:"是否为默认展示方案",id:"is_default",child:[{name:"是",id:"1"},{name:" 否",id:"0"}]},
 				{name:"",type:"display"},
 			]
@@ -1123,7 +1123,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
+				{lable:"当前状态",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
 			],
 			action:{
 				morebtns:{
@@ -1212,7 +1212,7 @@ const screenData = {
 		recommendedActivities:{
 			bts:[
 				{lable:"任务ID",prop:"id"},
-				{lable:"干预活动",prop:"activity_name"},
+				{lable:"干预活动",prop:"activity_name",type:"url",url:"/activityManager/activityEmploy"},
 				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
@@ -1230,16 +1230,16 @@ const screenData = {
 			}
 		},
 		employmentorder:{
-			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type',"username","hire_time"],
+			defaults:['order_id','hire_order_name','work_id','work_name','open_id','hire_type',"username","price"],
 			bts:[
 				{lable:"录用订单ID",prop:"order_id"},
-				{lable:"订单名称",prop:"hire_order_name",type:"url"},
+				{lable:"订单名称",prop:"hire_order_name"},
 				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name"},
+				{lable:"作品名称",prop:"work_name",type:"url"},
 				{lable:"用户ID",prop:"open_id"},
-				{lable:"录用时间",prop:"hire_time"},
 				{lable:"用户昵称",prop:"username",type:"url"},
-				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}}
+				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}},
+				{lable:"录用价格及评估值",prop:"price",type:"price"},
 			],
 			action:{
 				morebtns:{
