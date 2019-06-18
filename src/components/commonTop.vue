@@ -148,6 +148,13 @@
 						    })
 						};
 					break;
+					case "listAd":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/newlistAd"
+						    })
+						};
+					break;
 					case "presetReason":
 						if(idIndex == "right3"){
 						    this.router.push({

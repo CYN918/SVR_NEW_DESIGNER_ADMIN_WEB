@@ -7,7 +7,7 @@
 		</div>
 		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
 		 active-text-color="#FF5121">
-			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id" >
+			<!-- <el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id" >
 				<template slot="title">
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
@@ -15,8 +15,8 @@
 				<router-link v-if="item.child && item.child.length != 0"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
 					<el-menu-item :index="citem.id" >{{ citem.title }}</el-menu-item>
 				</router-link>
-			</el-submenu>
-			<!-- <el-submenu index="7">
+			</el-submenu> -->
+			<el-submenu index="7">
 				<template slot="title">
 					<i class="iconfont">&#xe781;</i>
 					<span style="padding:15px;">作品管理</span>
@@ -70,6 +70,9 @@
 				<router-link to="/contentManager/serviceCenter">
 					<el-menu-item index="10-5">文档服务中心</el-menu-item>
 				</router-link>
+				<router-link to="/contentManager/listAd">
+					<el-menu-item index="10-6">首页列表干预</el-menu-item>
+				</router-link>
 			</el-submenu>
 			<el-submenu index="11">
 				<template slot="title">
@@ -113,7 +116,7 @@
 					<el-menu-item index="12-2">系统通知模板</el-menu-item>
 				</router-link>
 				
-			</el-submenu> -->
+			</el-submenu>
 		</el-menu>
 	</div>
 </template>
