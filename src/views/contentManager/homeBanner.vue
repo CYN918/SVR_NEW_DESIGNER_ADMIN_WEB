@@ -114,7 +114,7 @@
 					{
 						name: "展示方案"
 					}],
-				tabsnum: 0,
+				tabsnum: 1,
 				commonTopData: {
 					"pageName": "homeBanner",
 					"commonleftbtn": [{
@@ -123,9 +123,8 @@
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "新建banner素材",
-						id: "right1",
-						url: ""
+						name: "新建展示方案",
+						id: "right0",
 					}],
 					"commonbottombtn":[],
 					"IsShow":true,
@@ -145,7 +144,7 @@
 				tableAction: DataScreen.screenShow.homeBanner.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.homeBanner.filterFields0,
+				filterFields:DataScreen.screen.homeBanner.filterFields1,
 				centerDialogVisible:false,
 				showmask:false,
 				bannerprogramlists:[],
@@ -440,7 +439,7 @@
 		},
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
-			this.$parent.tabchange(1);
+			this.$parent.tabchange(2);
 			if(this.$route.query.tabsnum){
 				this.tabsChange(this.$route.query.tabsnum);
 			}

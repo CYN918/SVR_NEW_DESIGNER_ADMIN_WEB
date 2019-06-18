@@ -58,7 +58,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="addzu pointer" @click="select">+添加一组</div>
+			<div class="addzu pointer" @click="select">添加banner素材</div>
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -144,7 +144,7 @@
 				program_end_time:"",
 				is_default:"0",
 				currentpageName:"",
-				bannerprogramdefault:{}
+				bannerprogramdefault:{},
 			}
 		},
 		methods: {
@@ -155,6 +155,11 @@
 						tabsnum:1
 					}
 				})
+			},
+			getactivitiesrows(row){
+				console.log(row);
+				this.selectData = [];
+				this.selectData.push(row);
 			},
 			getValue(val) {
 				if (val) {

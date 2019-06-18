@@ -728,7 +728,7 @@ const screenData = {
 				{prop:'work_name',lable:'作品标题',width:200},
 				{prop:'face_pic',lable:'封面图',type:"img",width:150},
 				{prop:'open_id',lable:'用户ID'},
-				{prop:'username',lable:'用户昵称',type:"url"},
+				{prop:'username',lable:'用户昵称',type:"url",url:"/userManager/userBaseInfo"},
 				{prop:'avatar',lable:'用户头像',type:"imgtou"},
 				{prop:'classify',lable:'作品类型',width:200},
 				{prop:'copyright',lable:'版权说明'},
