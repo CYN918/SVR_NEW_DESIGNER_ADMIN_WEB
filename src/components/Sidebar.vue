@@ -153,7 +153,7 @@
 					"37":"/otherInformation/reportInfo",
 					"38":"/noticeManager/newsRelease",
 					"39":"/noticeManager/noticetemplate",
-					
+					"40":"/contentManager/listAd"
 					
 				},
 				iconfont:{
