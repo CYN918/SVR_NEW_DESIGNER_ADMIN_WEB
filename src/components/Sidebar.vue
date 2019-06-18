@@ -138,6 +138,7 @@
 					"31":"/contentManager/serviceCenter",
 					"9":"/contentManager/homeBanner",
 					"10":"/contentManager/hotWordSearch",
+					"11":"/contentManager/listAd",
 					"22":"/workManager/workInfo",
 					"23":"/workManager/materialBank",
 					"24":"/workManager/labels",

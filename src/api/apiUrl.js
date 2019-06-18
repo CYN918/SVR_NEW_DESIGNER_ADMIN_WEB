@@ -241,7 +241,7 @@ export default {
 	recommendactivityinfo:{
 		url:'/admin/recommendactivity/info',method:'post',baseURL:0
 	},
-<<<<<<< HEAD
+
 	
 	taskList:{
 		url:'/admin/Homerec/taskList',method:'post',baseURL:0
@@ -257,7 +257,7 @@ export default {
 	Homerec_edit:{
 		url:'/admin/Homerec/edit',method:'post',baseURL:0
 	},
-=======
+
 	addClassify:{
 		url:'/admin/feedback/addClassify',method:'post',baseURL:0,isType:{suktip:true}
 	},
@@ -300,5 +300,5 @@ export default {
 	noticedelete:{
 		url:'/admin/notice/delete',method:'post'
 	}
->>>>>>> a9f16a47d29df29b252cc8ba75483ce813643809
+
 }
