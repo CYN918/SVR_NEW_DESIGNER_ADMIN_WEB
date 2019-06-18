@@ -65,6 +65,7 @@
 			getparent(id,name) {
 				//alert(name);
 				var idIndex = id;
+				console.log(name)
 				switch (name)
 				{
 					case "userBaseInfo":
@@ -145,6 +146,13 @@
 						if(idIndex == "right1"){
 						    this.router.push({
 						    	path:"/contentManager/recommendedActivities/newrecommendedActivities"
+						    })
+						};
+					break;
+					case "listAd":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/contentManager/newlistAd"
 						    })
 						};
 					break;

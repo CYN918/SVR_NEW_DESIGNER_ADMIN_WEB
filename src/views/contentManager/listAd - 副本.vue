@@ -156,7 +156,7 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({ path: '/contentManager/listAd', query: {urlDate: JSON.stringify(urldata)}});
+					this.$router.push({ path: '/contentManager/recommendedActivities', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			delect(val) {

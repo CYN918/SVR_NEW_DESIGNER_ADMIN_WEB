@@ -494,6 +494,22 @@ export default new Router({
 					},
 					component: () => import('@/views/contentManager/newserviceCenter.vue'),
 				},
+				{
+					path: "listAd",
+					name: 'serviceCenter_listAd',
+					meta: {
+						title: "推荐干预"
+					},
+					component: () => import('@/views/contentManager/listAd.vue'),
+				},
+				{
+					path: "newlistAd",
+					name: 'serviceCenter_newlistAd',
+					meta: {
+						title: "推荐干预"
+					},
+					component: () => import('@/views/contentManager/newlistAd.vue'),
+				},
 			]
 		},
 		{

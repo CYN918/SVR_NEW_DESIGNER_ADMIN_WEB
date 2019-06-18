@@ -84,7 +84,7 @@
 		},
 		methods: {
 			handleClick(row, setid, page,event) {
-				console.log(page,setid)
+				
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -257,6 +257,15 @@
 					case "recommendedActivities":
 						if(!setid){
 							this.router.push({path:"/contentManager/recommendedActivities/editrecommendedActivities", query:{row: JSON.stringify(row)}})
+						}
+						
+						if(setid == "contributor"){
+							this.$parent.delect(row);
+						}
+					break;
+					case "listAd":
+						if(!setid){
+							this.router.push({path:"/contentManager/newlistAd", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){
