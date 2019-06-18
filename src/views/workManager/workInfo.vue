@@ -15,16 +15,19 @@
 				</div>
 				<el-radio-group v-model="radioS" class="sel-dialog-content">
 					<div class="w textcenter sel-radio">
-						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
+						<el-radio label="S">S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大神级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
+						<el-radio label="A">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专家级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
+						<el-radio label="B">B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通级</el-radio>
 					</div>
 					<div class="w textcenter sel-radio">
-						<el-radio label="S">D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+					</div>
+					<div class="w textcenter sel-radio">
+						<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
 					</div>
 				</el-radio-group>
 			</div>
@@ -52,6 +55,9 @@
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
+					<span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
+						分成式
+					</span>
 					<div class="textcenter employipt" v-if="false">
 						<span style="display: inline-block;margin-right: 60px;">选择需求</span>
 						<!-- <el-select v-model="value" placeholder="请选择" multiple  style="width: 357px;">
@@ -66,7 +72,7 @@
 					<div v-if="tabsnum1 == 0">
 						<div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
-							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price">单位：元</span>
+							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" type="text" v-model="price"> <span style="color: #DCDFE6;">单位：元</span></span>
 						</div>
 					</div>
 					<div v-if="tabsnum1 == 1">
@@ -140,6 +146,9 @@
 							<div class="w textcenter sel-radio">
 								<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 							</div>
+							<div class="w textcenter sel-radio">
+								<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
+							</div>
 						</el-radio-group>
 					</li>
 				</ul>
@@ -179,9 +188,9 @@
 				tabsnum1:0,
 				tabData1:[{
 					name: "买断式"
-				},{
+				}/* , {
 					name: "分成式"
-				}],
+				} */],
 				commonTopData: {
 					"pageName": "workInfo",
 					"commonleftbtn": [{
@@ -219,7 +228,7 @@
 				},
 				tableData: [],
 				detailData: {},
-				radioS: "C",
+				radioS: "",
 				selectData: [],
 				selectOne: {},
 				Isnextshow:false,
@@ -227,6 +236,7 @@
 				workid:"",
 				price:"",
 				seltotal:"",
+				isajax:0
 			}
 		},
 		methods: {
@@ -253,7 +263,19 @@
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
+				
+				if(this.isajax==1){
+					return
+				}
+				this.isajax=1;
 
+				/* if(is_export == 1){
+					let form = document.createElement('form');
+					
+					
+					
+				} */
+				
 				this.api.workList(data).then((da) => {
 					if (!da) {
 						this.$message('数据为空');
@@ -267,7 +289,9 @@
 						this.$refs.Tabledd.change(da.data);
 					}
 					this.setLoding(false);
+					this.isajax=0;
 				}).catch(() => {
+					this.isajax=0;
 					this.setLoding(false);
 				});
 
@@ -340,7 +364,7 @@
 					}).then(() => {
 						
 						let data = {
-							work_ids: work_ids,
+							work_id: work_ids,
 							recommend_level: this.radioS,
 							access_token: localStorage.getItem("access_token"),
 						};
@@ -356,16 +380,16 @@
 						} 
 						
 						this.api.setRecommendLevelwork(data).then(da => {
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 						}).catch(() => {
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 					    });
 					}).catch(() => {
 						this.$message({
 							type: 'info',
 							message: '已经取消'
 						});
-						this.$refs.Tabledd.setall();
+						this.$refs.Tabledd.setinit();
 					});
 				}).catch(da => {
 					
@@ -380,7 +404,7 @@
 					type: '',
 					center: true
 				}).then(() => {
-					this.getData({pageCurrent:1,pageSize:10},1);
+					this.getData({pageCurrent:1,pageSize:50},1);
 				}).catch(() => {
 					this.$message({
 						type: 'info',
@@ -444,7 +468,15 @@
 							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
 							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
 							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
-						}
+						};
+						if (item.type == "cascader") {
+							/* let  cascader = JSON.parse(localStorage.getItem('cascader'));
+							//console.log(cascader);
+							let classify_1 = this.getval(cascader,urldata["classify_1"]);
+							let classify_2 = this.getval(cascader,urldata["classify_2"]); 
+							let classify_3 = this.getval(cascader,urldata["classify_3"]);
+							console.log(classify_1,classify_2,classify_3) */
+						};
 					})
 				}
 
@@ -519,22 +551,54 @@
 						message: '已经取消'
 					});
 				});
+			},
+			getWorkclassify(){
+				this.api.Workclassify({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					console.log(da);
+					localStorage.setItem("cascader",JSON.stringify(da))
+				})
+			},
+			getval(item,classify){
+				var name = "";
+				item.forEach(item=>{
+					if(item.id == classify){
+						name = item.classify_name;
+					} else {
+						console.log(item)
+						item.forEach(item1=>{
+							if(item1.id == classify){
+								name = item1.classify_name;
+							} else {
+								item.forEach(item2=>{
+									if(item2.id == classify){
+										name = item2.classify_name;
+									}
+								})
+								
+							}
+						})
+					}
+				})
+				return name;
 			}
 		},
 		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getWorkclassify()
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.getScreenShowData();
 			}
 		}

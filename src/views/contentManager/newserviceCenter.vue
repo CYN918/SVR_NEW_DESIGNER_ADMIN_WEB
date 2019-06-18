@@ -15,7 +15,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh" v-show="!Isnextshow">
+		<div class="detailContent1 ofh" v-show="!Isnextshow">
 			<ul>
 				<li class="margint23 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">文档备注</span>
@@ -42,7 +42,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="detailContent ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
+		<div class="detailContent1 ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
 			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 			<div class="ueditoruploadul">
 				<div class="fleft">
@@ -75,6 +75,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows.id" @click="edit()">确 定</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -373,12 +374,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 145px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

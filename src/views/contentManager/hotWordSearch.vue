@@ -96,7 +96,7 @@
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -177,7 +177,8 @@
 							type: 'info',
 							message: '删除成功'
 						});
-						this.getData({pageCurrent:1,pageSize:10})
+						this.getData({pageCurrent:1,pageSize:50})
+						this.$refs.Tabledd.currentpage = 1;
 					}) 
 					
 				}).catch(() => {
@@ -193,13 +194,13 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

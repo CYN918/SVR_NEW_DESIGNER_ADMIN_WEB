@@ -176,14 +176,12 @@
 					center: true
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
-					 this.api.hotworddelete({
+					 this.api.documentdelete({
 						id: val.id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.$message({
-							type: 'info',
-							message: '删除成功'
-						});
+						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					}) 
 					
 				}).catch(() => {
@@ -193,19 +191,48 @@
 					});
 				});
 			},
+			edit(val) {
+				this.$confirm('确认设为线上展示？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.api.documentedit({
+						access_token: localStorage.getItem("access_token"),
+						id:val.id,
+						status:1,
+						type:val.type
+					}).then(da => {
+						this.getData({pageCurrent:1,pageSize:50});
+					}).catch(() => {
+						
+					})
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
+				
+				
+			},
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

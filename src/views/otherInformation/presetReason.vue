@@ -154,7 +154,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -164,7 +164,8 @@
 					id:row.id,
 					status:status
 				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
+					this.$refs.Tabledd.currentpage = 1;
 				}).catch()
 			},
 		},
@@ -181,7 +182,7 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

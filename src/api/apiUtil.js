@@ -49,15 +49,23 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			if(isType.suktip){
 				Message({message: '操作成功',type: 'success'});
 			}
+			
 			if(isType.reload){	
 				location.reload();	
 			}
-			if(isType.login) {
+			/* if(isType.login) {
 				//alert(2)
 				localStorage.setItem("access",JSON.stringify(data));
-				router.push({path:"/userManager/userBaseInfo"});
+				//router.push({path:"/userManager/userBaseInfo"});
+			} */
+			
+			if(isType.isok){
+				return response.data
+			} else {
+				return data
 			}
-			return data
+			
+			
 		} else if(result == 201) {
 			window.location.href = data;
 		} else {

@@ -41,34 +41,25 @@
 					<div v-if="material_info['附件']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="1" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect"></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="2" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
-								</div>
-								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
-								</div>
-							</li>
+							
 						</ul>
 					</div>
 					<div v-if="material_info['图片']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['图片']" :key = "item.url">
+							<li v-for="(item,index) in material_info['图片']" :key="item.fid">
 								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.file_size" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect"></el-checkbox>
 								</div>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
@@ -80,14 +71,14 @@
 					<div v-if="material_info['视频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
-							<li class="">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="5" v-if="workselect"></el-checkbox>
+							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 						</ul>
@@ -95,14 +86,14 @@
 					<div v-if="material_info['音频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
-							<li class="">
+							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
 								<div class="material relative">
-									<el-checkbox class="material-checkbox" label="6" v-if="workselect"></el-checkbox>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
 								<div class="color66">
-									<span class="fleft">新概念</span>
-									<span class="fright">新概念</span>
+									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
 
@@ -188,6 +179,7 @@
 			<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks">下载 {{ checkList.length }}
 				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
 			<div style="position: relative;">
 				<ul>
@@ -195,57 +187,9 @@
 						<span class="fleft Dialogkey">
 							驳回理由
 						</span>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 1">
-							<div class="w  sel-radio">
-								<el-radio label="存在侵权">存在侵权</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="存在负面影响的言语或图片">存在负面影响的言语或图片</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品类型选择与内容不符">作品类型选择与内容不符</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 2">
-							<div class="w  sel-radio">
-								<el-radio label="作品质量有所欠缺">作品质量有所欠缺</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="未按照活动要求提供内容">未按照活动要求提供内容</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品内容与活动主题无关">作品内容与活动主题无关</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 3">
-							<div class="w  sel-radio">
-								<el-radio label="作品质量有所欠缺">作品质量有所欠缺</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="未按照活动要求提供内容">未按照活动要求提供内容</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="作品内容与活动主题无关">作品内容与活动主题无关</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
-							</div>
-						</el-radio-group>
-						<el-radio-group v-model="radio1" class="sel-dialog-content fleft" v-if="pagetype == 4">
-							<div class="w  sel-radio">
-								<el-radio label="身份不明">身份不明</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="违规操作">违规操作</el-radio>
-							</div>
-							<div class="w sel-radio">
-								<el-radio label="信息欠缺">信息欠缺</el-radio>
+						<el-radio-group v-model="radio1" class="sel-dialog-content fleft">
+							<div class="w  sel-radio" v-for="(item,index) in tableData" :key="item.id">
+								<el-radio :label="item.content">{{ item.content }}</el-radio>
 							</div>
 							<div class="w sel-radio">
 								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
@@ -404,6 +348,8 @@
 				hire_type:"",
 				contributor_type:parseInt(this.$route.query.contribute_type),
 				font_size:0,
+				tableData:[],
+				openurls:[],
 			}
 		},
 		methods: {
@@ -595,7 +541,82 @@
 				this.workselect = !this.workselect;
 			},
 			downWorks() {
-				console.log(this.checkList);
+				this.openurls.forEach(item =>{
+					//console.log(item);
+					if(item.name == "图片"){
+						let src = item.id;
+						var canvas = document.createElement('canvas');
+						var img = document.createElement('img');
+						img.onload = function(e) {
+							canvas.width = img.width;
+							canvas.height = img.height;
+							var context = canvas.getContext('2d');
+							context.drawImage(img, 0, 0, img.width, img.height);
+							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+							canvas.toBlob((blob)=>{
+								let link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob);
+								link.download = '图片文件'; 
+								link.click();  
+							}, "image/jpeg");
+						}
+						img.setAttribute("crossOrigin",'Anonymous');
+						img.src = src;
+					}
+					
+					if(item.name == "附件"){
+						//alert(1);
+						window.open(item.id);
+					}
+					
+					if(item.name == "视频"){
+						//alert(1);
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '视频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
+					
+					if(item.name == "音频"){
+						//alert(1);
+						let src = item.id;
+						/* var a = document.createElement('a');
+						  a.href = src; //图片地址
+						  a.download = src; //图片名及格式
+						  document.body.appendChild(a);
+						  a.click(); */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '音频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						  });
+					}
+				})
 			},
 			handleCheckAllChange(val) {
 				this.checkList = this.checkAll;
@@ -604,6 +625,7 @@
 			},
 			cancel() {
 				this.checkList = [];
+				this.font_size = 0;
 			},
 			getreviewInfo() {
 				if(this.pagetype == 4){
@@ -678,17 +700,39 @@
 			handleCheckedCitiesChange(val){
 				//console.log(val
 				this.font_size = 0;
+				this.openurls = [];
 				val.forEach((item,index) =>{
-					this.font_size += Number(item)
+					//console.log(item.split(",")[1])
+					this.font_size += Number(item.split(",")[2]);
+					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});
+				console.log(this.openurls);
 			},
 			linksee(){
 				window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + this.$route.query.work_id);   
-			}
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 100,
+					type:this.pagetype
+				}
+				this.api.reviewreason(data).then((da) => {
+					
+					this.tableData = da.data;
+					console.log(this.tableData	)
+					
+				}).catch(() => {
+					
+				});
+			},
 
 		},
 		created() {
 			this.getreviewInfo();
+			this.getData();
 		},
 		mounted() {
 			

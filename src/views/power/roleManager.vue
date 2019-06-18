@@ -67,11 +67,11 @@
 					limit: 100
 				}).then((da) => {
 					//console.log(da);
-					DataScreen.screen.roleManager.filterFields.forEach(item =>{
+					/* DataScreen.screen.roleManager.filterFields.forEach(item =>{
 						if(item.id == "role_name"){
 							item.child = da.data;
 						}
-					})
+					}) */
 				}).catch(() => {
 					
 				});
@@ -116,7 +116,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -182,12 +182,30 @@
 				}
 			},
 			delect(id){
-				this.api.deleteRole({
-					access_token:localStorage.getItem("access_token"),
-					id:id
-				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
-				}).catch()
+				//this.centerDialogVisible = true;
+				this.$confirm('确认删除该角色？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.api.deleteRole({
+						access_token:localStorage.getItem("access_token"),
+						id:id
+					}).then(da => {
+						this.getData({pageCurrent:1,pageSize:50});
+					}).catch()
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
+				
+				
 			},
 			
 		},
@@ -197,13 +215,13 @@
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

@@ -96,7 +96,7 @@
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -169,11 +169,12 @@
 					center: true
 				}).then(() => {
 					//console.log({work_ids:workids,level:this.radioS})
-					 this.api.hotworddelete({
-						id: val.id,
+					 this.api.activitydelete({
+						activity_id: val.activity_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					}) 
 					
 				}).catch(() => {
@@ -189,13 +190,13 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

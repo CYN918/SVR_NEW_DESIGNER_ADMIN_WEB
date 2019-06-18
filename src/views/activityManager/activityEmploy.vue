@@ -82,10 +82,6 @@
 				}
 
 				this.api.activitylist(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -97,7 +93,7 @@
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -177,7 +173,7 @@
 						activity_id: val.id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}) 
 					
 				}).catch(() => {
@@ -187,20 +183,48 @@
 					});
 				});
 			},
+			categoryList() {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 10000,
+					status:1
+				}
+			
+				this.api.categoryList(data).then((da) => {
+					var child=[
+						
+					];
+					console.log(da.data);
+					da.data.forEach(item =>{
+						child.push({
+							name:item.category_name,
+							id:item.id
+						})
+					})
+					
+					localStorage.setItem("child",JSON.stringify(child))
+					console.log(localStorage.getItem("child"))
+				}).catch(() => {
+			
+				});
+			},
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.categoryList();
 		},
 		mounted() {
 			//console.log(DataScreen.screenShow.activityClass.bts)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}

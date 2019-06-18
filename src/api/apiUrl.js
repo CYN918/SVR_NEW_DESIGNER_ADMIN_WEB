@@ -44,7 +44,7 @@ export default {
 		url:'/admin/Review/list',method:'post',baseURL:0
 	},
 	access:{
-		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{login:true}
+		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{isok:true}
 	},
 	
 	setRole:{
@@ -71,7 +71,7 @@ export default {
 		url:'/admin/work/setRecommendLevel',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	offShelve:{
-		url:'/admin/work/offShelve',method:'post',baseURL:0
+		url:'/admin/work/offShelve',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	getLevelCount:{
 		url:'/admin/work/getLevelCount',method:'post',baseURL:0
@@ -98,10 +98,10 @@ export default {
 		url:'/admin/activity/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	activityadd:{
-		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/activity/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	activityedit:{
-		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/activity/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	insertFile:{
 		url:'/File/File/insert',method:'post',baseURL:0
@@ -141,7 +141,7 @@ export default {
 		url:'/admin/banner/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	bannerprogramadd:{
-		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/bannerprogram/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	bannerprogramlist:{
 		url:'/admin/bannerprogram/list',method:'post',baseURL:0
@@ -172,10 +172,10 @@ export default {
 		url:'/admin/recommendactivity/list',method:'post',baseURL:0
 	},
 	recommendactivityadd:{
-		url:'/admin/recommendactivity/add',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/recommendactivity/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	recommendactivityedit:{
-		url:'/admin/recommendactivity/edit',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/recommendactivity/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	documentadd:{
 		url:'/admin/document/add',method:'post',baseURL:0,isType:{suktip:true}
@@ -241,6 +241,7 @@ export default {
 	recommendactivityinfo:{
 		url:'/admin/recommendactivity/info',method:'post',baseURL:0
 	},
+<<<<<<< HEAD
 	
 	taskList:{
 		url:'/admin/Homerec/taskList',method:'post',baseURL:0
@@ -256,4 +257,48 @@ export default {
 	Homerec_edit:{
 		url:'/admin/Homerec/edit',method:'post',baseURL:0
 	},
+=======
+	addClassify:{
+		url:'/admin/feedback/addClassify',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	updateClassify:{
+		url:'/admin/feedback/updateClassify',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	feedbackinfo:{
+		url:'/admin/feedback/info',method:'post',baseURL:0
+	},
+	reportinfo:{
+		url:'/admin/report/info',method:'post',baseURL:0
+	},
+	reportupdateClassify:{
+		url:'/admin/report/updateClassify',method:'post',baseURL:0
+	},
+	reportaddClassify:{
+		url:'/admin/report/addClassify',method:'post',baseURL:0
+	},
+	bannerprogramdefault:{
+		url:'/admin/bannerprogram/default',method:'post',baseURL:0
+	},
+	applyList:{
+		url:'/admin/income/applyList',method:'post',baseURL:0
+	},
+	addnotice:{
+		url:'/admin/notice/add',method:'post',isType:{suktip:true},baseURL:0
+	},
+	selfInfo:{
+		url:'/admin/adminuser/selfInfo',method:'post',baseURL:0
+	},
+	logout:{
+		url:'/sso/login/logout',method:'post',baseURL:0
+	},
+	Workclassify:{
+		url:'/admin/Work/classify',method:'post'
+	},
+	activityinfo:{
+		url:'/admin/activity/info',method:'post'
+	},
+	noticedelete:{
+		url:'/admin/notice/delete',method:'post'
+	}
+>>>>>>> a9f16a47d29df29b252cc8ba75483ce813643809
 }

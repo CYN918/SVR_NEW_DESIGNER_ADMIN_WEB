@@ -6,26 +6,38 @@
 					首页banner
 				</span>
 				<div class="textcenter">
-					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+					<!-- <span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange(index,item.name)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+						
 						{{ item.name }}
-					</span>
+					</span> -->
+					 <span :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
+					 @click="tabsChange(1)">展示方案</span>
+					<span :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
+					 @click="tabsChange(0)">banner素材</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;" v-show="tabsnum == 0">
+		<div style="height: calc(100% - 205px);margin-top: 20px;" v-show="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
-			<div style="height: calc(100% - 100px);margin-top: 20px;background-color: white;overflow: auto;">
+			<div style="height: calc(100% - 70px);margin-top: 20px;background-color: white;overflow: auto;">
 				<ul class="screenContent" style="flex-wrap: wrap">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
-							<div class="bannerlisttag0 defaultbtn" style="position: absolute;top: 0;left: 0;z-index: 999;margin: 0;"></div>
-							<el-carousel height="190px" style="background: gray;">
+							<div style="position: absolute;top: 0;left: 0;z-index: 999;">
+								<div>
+									<button style="margin-left: 0;color: white;" :class="['defaultbtn','bannerstatus'+item.status] "> {{ getstatus(item.status)  }}</button>
+								</div>
+							    <div>
+									<button style="margin-left: 0;margin-top:8px" v-if="item.is_default == '1'" class="defaultbtn bannerstatusdefa">默认展示</button>
+								</div>
+								
+							</div>
+							<el-carousel height="190px" style="background: gray;border-radius: 5px;">
 							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
 								<img :src="citem.banner_pic" width="100%" height="100%" alt="">
 							  </el-carousel-item>
@@ -40,7 +52,6 @@
 									</div>
 								</div>
 								<div class="fright" style="padding: 20px;margin: 0;">
-									<button class="defaultbtn" @click="isdefault(item.id)">默认展示</button>
 									<el-dropdown :hide-on-click="false">
 									  <button class="defaultbtn">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
@@ -58,16 +69,16 @@
 						
 					</li>
 				</ul>
-			</div>
-			<div style="text-align: right;">
-				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+				<div style="text-align: right;">
+					<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+						<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span>
+					</div>
+					<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpagec"
+					 :page-sizes="[10, 20, 30, 40]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+					</el-pagination>
 				</div>
-				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpagec"
-				 :page-sizes="[10, 20, 30, 40]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
-				</el-pagination>
 			</div>
-			
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
 		  <div style="position: relative;overflow: auto;">
@@ -103,7 +114,7 @@
 					{
 						name: "展示方案"
 					}],
-				tabsnum: 0,
+				tabsnum: 1,
 				commonTopData: {
 					"pageName": "homeBanner",
 					"commonleftbtn": [{
@@ -112,9 +123,8 @@
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "新建banner素材",
-						id: "right1",
-						url: ""
+						name: "新建展示方案",
+						id: "right0",
 					}],
 					"commonbottombtn":[],
 					"IsShow":true,
@@ -134,7 +144,7 @@
 				tableAction: DataScreen.screenShow.homeBanner.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.homeBanner.filterFields0,
+				filterFields:DataScreen.screen.homeBanner.filterFields1,
 				centerDialogVisible:false,
 				showmask:false,
 				bannerprogramlists:[],
@@ -143,7 +153,7 @@
 		methods: {
 			tabsChange(num) {
 				this.tabsnum = num;
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				//console.log(this.tableConfig.list);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [{
@@ -223,7 +233,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -302,7 +312,7 @@
 						activity_id: val.id,
 						access_token: 2,
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}) 
 					
 				}).catch(() => {
@@ -326,7 +336,8 @@
 						access_token:localStorage.getItem("access_token"),
 						id: val.id,
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					})
 					
 				}).catch(() => {
@@ -359,7 +370,7 @@
 						is_default:1,
 						id:id
 					}).then(da =>{
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}).catch(da =>{
 						
 					})
@@ -401,7 +412,7 @@
 						access_token:localStorage.getItem("access_token"),
 						id:id
 					}).then(da =>{
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
 					}).catch(da =>{
 						
 					})
@@ -412,6 +423,14 @@
 					});
 				});
 				
+			},
+			getstatus(num){
+				let status = {
+					"-1":"已过期",
+					"0":"待使用",
+					"1":"线上展示"
+				}
+				return status[num];
 			}
 		},
 		created() {
@@ -419,14 +438,17 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
-			this.$parent.tabchange(1);
+			this.getData({pageCurrent:1,pageSize:50});
+			this.$parent.tabchange(2);
+			if(this.$route.query.tabsnum){
+				this.tabsChange(this.$route.query.tabsnum);
+			}
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 	}
@@ -440,6 +462,23 @@
 	.work .el-button--primary{
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	#app .bannerstatus-1{
+		background:lightgray;
+		border-color:lightgray;
+	}
+	#app .bannerstatus1{
+		background:rgba(81,197,20,1);
+		border-color:rgba(81,197,20,1);
+	}
+	#app .bannerstatus0{
+		background:rgba(255,154,0,1);
+		border-color:rgba(255,154,0,1);
+	}
+	
+	#app .bannerstatusdefa{
+		background:rgba(255,81,33,1);
+		border-color:rgba(255,81,33,1);
 	}
 	
 </style>
@@ -740,5 +779,6 @@
 		width: 200px;
 		height: 100%;
 		margin-left: 5px;
+		
 	}
 </style>

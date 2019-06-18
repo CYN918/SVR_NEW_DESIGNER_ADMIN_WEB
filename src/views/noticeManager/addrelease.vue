@@ -2,59 +2,45 @@
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
-				作品下架
+				{{ currentpageName }}
 			</span>
 		</div>
 		<div class="detailContent1 ofh">
 			<ul>
-				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
-					<span v-if="!item.type">{{ work_info[item.id] }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="work_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="work_info[item.id]" alt="">
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ work_info[item.id] }}</span>
-					</router-link>
+				<li class="margint13 ofh">
+					<span class="fleft roles-input fontcolorg" style="margin-right: 20px;">通知标题</span>
+					<div class="el-input__inner roles-input width500">
+						<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" @input="getleng(10)" v-model="text10">
+						<span class="fright">{{ text10.length }}/10</span>
+					</div>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;">下架原因</span>
+					<div class="fleft defaultbtnworkbg">
+						<div>
+							<textarea name="" id="" cols="69" rows="10" v-model="text100" Maxlength="100" class="defaultbtnwork"></textarea>
+						</div>
+						<span class="fright fontcolorg">{{ text100.length }}/100</span>
+					</div>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;">发送用户</span>
+					<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择通知用户</button>
+					<div>
+						<span class="fleft fontcolorg" style="margin-right: 20px;width: 56px;height: 40px;"></span>
+						<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数：{{ this.selectData.length }}</span>
+					</div>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;">发布时间</span>
+					<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="send_time" type="datetime"
+					 placeholder="开始时间">
+					</el-date-picker>
 				</li>
 			</ul>
-			<div class="marginlr30">
-				<ul class="margint13">
-					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
-						<span class="fleft fontcolorg">选择 “下架作品” 需通知到举报用户</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<div>
-							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;line-height: 40px;">通知举报者</span>
-							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择通知用户</button>
-						</div>
-						<div>
-							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;height: 40px;"></span>
-							<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数：{{ this.selectData.length }}</span>
-						</div>
-					</li>
-					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
-						<span class="fleft fontcolorg">下架原因说明</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<div>
-							<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">下架原因详情</span>
-							<div class="fleft defaultbtnworkbg">
-								<div>
-									<textarea name="" id="" cols="60" rows="10" v-model="textarea" Maxlength="100" class="defaultbtnwork"></textarea>
-								</div>
-								<span class="fright fontcolorg">{{ textarea.length }}/100</span>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
 		</div>
 		<el-dialog title="请选择 “作品下架” 需通知到的举报者" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
-			<div>
+			<div>	
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
@@ -82,8 +68,9 @@
 		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn defaultbtnactive" @click="shelves()">下架</button>
+			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="workfixed" v-show="IsScreen == 'No'">
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
@@ -102,6 +89,7 @@
 		},
 		data() {
 			return {
+				currentpageName:"",
 				pageName: "worksShelves",
 				baseInfo: workData.worksShelves,
 				tableAction: DataScreen.screenShow.worksShelves.action,
@@ -135,6 +123,9 @@
 				IsScreen: "Off",
 				work_info: {},
 				selectData:[],
+				text10:"",
+				text100:"",
+				send_time:""
 			}
 		},
 		methods: {
@@ -142,6 +133,13 @@
 				//alert(parseInt(this.$route.query.type))
 				this.$router.go(-1);
 
+			},
+			getleng(n) {
+				if (n == 10) {
+					this.length10 = this.text10.length
+				} else if (n == 30) {
+					this.length30 = this.text30.length
+				}
 			},
 			getValue(val) {
 				if (val) {
@@ -184,33 +182,6 @@
 					openids += (index == (this.selectData.length - 1)) ? item.open_id : item.open_id + ",";
 				})
 				return openids;
-			},
-			shelves(){
-				
-				this.$confirm('确认下架作品?', '', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					center: true,
-					customClass:"shelves"
-				}).then(() => {
-					this.api.offShelve({
-						access_token:localStorage.getItem("access_token"),
-						work_ids:this.$route.query.id,
-						reason:this.textarea,
-						notice_ids:this.getnoticeids(),
-					}).then(da =>{
-						console.log(da);
-						if(da == "下架成功"){
-							this.$router.go(-1);
-						}
-					})
-					//alert(22);
-				}).catch(() => {
-					this.$message({
-						type: 'info',
-						message: '已经取消'
-					});
-				});
 			},
 			setLoding(type){
 				//alert(2);
@@ -302,49 +273,6 @@
 				this.selectOne = val;
 				this.centerDialogVisible1 = true;
 			},
-			contributor() {
-				//console.log(workids)
-				//console.log(this.selectData);
-				var work_ids = this.getworkids();
-				this.centerDialogVisible = false;
-				this.centerDialogVisible1 = false;
-				this.api.getLevelCount({
-					access_token:localStorage.getItem("access_token"),
-					recommend_level:this.radioS,
-				}).then(da => {
-					console.log(da)
-					this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						dangerouslyUseHTMLString: true,
-						type: '',
-						customClass:"",
-						center: true
-					}).then(() => {
-						//console.log({work_ids:workids,level:this.radioS})
-						this.api.setRecommendLevelwork({
-							work_ids: work_ids,
-							recommend_level: this.radioS,
-							access_token: localStorage.getItem("access_token"),
-						}).then(da => {
-							
-							this.$message({
-								type: 'success',
-								message: '修改成功'
-							});
-							
-						})
-					}).catch(() => {
-						this.$message({
-							type: 'info',
-							message: '已经取消'
-						});
-					});
-				}).catch(da => {
-					
-				})
-				
-			},
 			getworkids() {
 				//console.log(this.selectData);
 				var workids = '';
@@ -411,16 +339,25 @@
 			},
 			dialogTable(){
 				this.dialogTableVisible = !this.dialogTableVisible;
-				/* if(this.dialogTableVisible == true){
-					this.setLoding(false);
-				} */
-				//this.$refs.Tabledd.loading = false;	
+			},
+			add(){
+				this.api.addnotice({
+					access_token:localStorage.getItem("access_token"),
+					title:this.text10,
+					content:this.text100,
+					to_open_ids:this.getnoticeids(),
+					send_time:this.send_time,
+				}).then(da => {
+					this.$router.go(-1);
+				}).catch(() => {
+							
+				})
 			}
 			
 
 		},
 		created() {
-			this.getworkdetial();
+			//this.getworkdetial();
 			this.getData({
 				pageCurrent: 1,
 				pageSize: 10
@@ -428,8 +365,9 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
-		mounted() {
-
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			console.log(this.$route.matched);
 		}
 	}
 </script>
@@ -505,7 +443,7 @@
 	}
 	
 	.sel-dialog  {
-		width: 1100px;
+		width: 1000px;
 	}
 	
 	.shelves .el-message-box__content{

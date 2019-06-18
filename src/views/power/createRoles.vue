@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">添加角色</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft roles-input" style="margin-right: 20px;">角色名称</span>
@@ -34,6 +34,7 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn" @click="addrole()">添加</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

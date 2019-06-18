@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail" v-loading="loading">
 		<div class="detailtitle">编辑干预任务</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">选择干预活动</span>
@@ -41,7 +41,6 @@
 						</el-date-picker>
 					</div>
 				</li>
-				
 			</ul>
 		</div>
 		<div class="screenContent detailbtn">
@@ -49,6 +48,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog title="请选择干预的活动" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
@@ -161,7 +161,8 @@
 					position:this.position
 				}).then(da => {
 					//console.log(da)
-					if(da = "添加成功"){
+					
+					if(da.result==0){
 						this.$router.go(-1);
 					}
 					this.loading = false;
@@ -174,13 +175,13 @@
 				this.api.recommendactivityedit({
 					access_token:localStorage.getItem("access_token"),
 					id: this.row.id,
-					activity_id: this.activitiesrows.id,
+					activity_id: this.activity_id,
 					start_time:this.start_time,
 					end_time:this.end_time,
 					position:this.position
 				}).then(da => {
 					//console.log(da)
-					if(da = "修改成功"){
+					if(da.result==0){
 						this.$router.go(-1);
 					}
 					this.loading = false
@@ -281,7 +282,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
@@ -315,14 +316,14 @@
 			this.getcommonrightbtn();
 		},
 		mounted() {
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.$parent.tabchange(1);
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 		
@@ -342,12 +343,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 139px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

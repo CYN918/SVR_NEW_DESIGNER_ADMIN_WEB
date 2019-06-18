@@ -565,6 +565,14 @@ export default new Router({
 					component: () => import('@/views/otherInformation/embodyRecord.vue'),
 				},
 				{
+					path: "embodyRecord/seeembodyRecord",
+					name: 'seeembodyRecord',
+					meta: {
+						title: "提现记录表"
+					},
+					component: () => import('@/views/otherInformation/seeembodyRecord.vue'),
+				},
+				{
 					path: "presetReason",
 					name: 'presetReason',
 					meta: {
@@ -597,12 +605,28 @@ export default new Router({
 					component: () => import('@/views/otherInformation/newfeedback.vue'),
 				},
 				{
+					path: "feedback/seefeedback",
+					name: 'seefeedback',
+					meta: {
+						title: "意见反馈 / 反馈内容 / 查看页面"
+					},
+					component: () => import('@/views/otherInformation/seefeedback.vue'),
+				},
+				{
 					path: "reportInfo",
 					name: 'reportInfo',
 					meta: {
 						title: "举报信息"
 					},
 					component: () => import('@/views/otherInformation/reportInfo.vue'),
+				},
+				{
+					path: "reportInfo/seereportInfo",
+					name: 'seereportInfo',
+					meta: {
+						title: "举报信息 / 举报内容 / 查看页面"
+					},
+					component: () => import('@/views/otherInformation/seereportInfo.vue'),
 				},
 				{
 					path: "reportInfo/newreportInfo",
@@ -632,6 +656,14 @@ export default new Router({
 					component: () => import('@/views/noticeManager/newsRelease.vue'),
 				},
 				{
+					path:"newsRelease/addrelease",
+					name: 'addrelease',
+					meta: {
+						title: "发布通知 / 新建通知"
+					},
+					component: () => import('@/views/noticeManager/addrelease.vue'),
+				},
+				{
 					path:"noticetemplate",
 					name: 'noticetemplate',
 					meta: {
@@ -640,6 +672,25 @@ export default new Router({
 					component: () => import('@/views/noticeManager/noticetemplate.vue'),
 				},
 			]
-		}
+		},
+		{
+			path: '/userinfo',
+			name: 'Layout',
+			component: Layout,
+			meta: {
+				title: "首页"
+			},
+			children:[
+				{
+					path: 'user',
+					name: 'user',
+					meta: {
+						title: "账号信息"
+					},
+					component: () => import('@/components/userinfo.vue')
+				}
+			]
+			
+		},
 	]
 })

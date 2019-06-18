@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">banner素材活动</span>
@@ -13,7 +13,7 @@
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
 						</div>
-						<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+						<div class="fontcolorg">1300*328px，格式jpg，jpeg，png，大小不超过10M</div>
 					</el-upload>
 					<img :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
 				</li>
@@ -28,6 +28,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!rows" @click="add()">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="rows"  @click="edit()">确定</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -45,7 +46,12 @@
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1);
+				this.router.push({
+					path:"/contentManager/homeBanner",
+					query:{
+						tabsnum:0
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -157,12 +163,12 @@
 		padding-top: 18px;
 	}
 
-	.detailContent {
-		height: calc(100% - 139px);
+	.detailContent1 {
+		height: calc(100% - 194px);
 		overflow-y: auto;
 	}
 
-	.detailContent ul {
+	.detailContent1 ul {
 		padding-left: 132px;
 		padding-top: 64px;
 	}

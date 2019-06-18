@@ -9,31 +9,17 @@
 	export default{
 		methods:{
 			getaccess() {
-				//console.log(access_token,this.getQueryString("access_token"));
-				/* if(this.getQueryString("access_token")){
-					let access_token = this.getQueryString("access_token");
-					localStorage.setItem("access_token",access_token);
-					this.api.access({
-						access_token:access_token
-					}).then(da => {
-						
-					}).catch(da => {
-						
-					})
-				} else {
-					this.$message({
-						message:"access_token请求失败，请重新登录"
-					});
-					///window.history.go(-1)
-				} */
-				
 				let access_token = this.$route.query.access_token;
-				console.log(access_token)
+				//console.log(access_token)
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
 				}).then(da => {
-					
+					if(da.result == 0){
+						//alert(11)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						this.router.push({path:"/userManager/userBaseInfo"});
+					}
 				}).catch(da => {
 					
 				})

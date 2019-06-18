@@ -13,7 +13,7 @@
 					</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="feed"></common-top>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -119,7 +119,7 @@
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.feedback.action,
+				tableAction: DataScreen.screenShow.feedback.action0,
 				detailData: "",
 				IsDetail: false,
 				filterFields: DataScreen.screen.feedback.filterFields0,
@@ -136,17 +136,17 @@
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.tableConfig.list = DataScreen.screenShow.feedback["bts" + num];
-				this.filterFields = DataScreen.screenShow.feedback["filterFields" + num];
+				/* this.filterFields = DataScreen.screenShow.feedback["filterFields" + num]; */
+				this.tableAction = DataScreen.screenShow.feedback["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.$parent.tabchange(num+1);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [];
 				} else {
 					this.commonTopData.commonrightbtn = [{
-						name: "添加类型问题",
+						name: "新建问题类型",
 						id: "right1",
-						url: ""
 					}];
 				}
 			},
@@ -205,10 +205,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id) {
@@ -257,16 +254,13 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({
-						path: '/userCompanyInfo',
+						path: '/otherInformation/feedback',
 						query: {
 							urlDate: JSON.stringify(urldata)
 						}
 					});
 					this.getcommonrightbtn();
-					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
-					});
+					this.getData({pageCurrent:1,pageSize:50});
 				}
 			},
 			delete(val) {
@@ -313,6 +307,15 @@
 				})
 				this.centerDialogVisible = false;
 			},
+			update(row,status,name){
+				this.api.updateClassify({
+					access_token:localStorage.getItem("access_token"),
+					classify_id:row.id,
+					status:status
+				}).then(da => {
+					this.getData({pageCurrent:1,pageSize:10});
+				}).catch()
+			},
 			showmaskload1(){
 				this.showmask = false;
 				this.showmask2 = true;
@@ -324,14 +327,17 @@
 		},
 		created() {
 			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
+				pageCurrent: 1,
+				pageSize: 50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-
+			if(this.$route.query.tabsnum){
+				this.tabsChange(1);
+			}
+			this.$parent.tabchange(1);
 		}
 	}
 </script>
@@ -344,6 +350,10 @@
 	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	
+	.feed > div{
+		margin-left: 0;
 	}
 </style>
 

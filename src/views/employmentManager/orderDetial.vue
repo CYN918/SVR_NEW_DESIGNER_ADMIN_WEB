@@ -23,6 +23,18 @@
 						<span class="routerLink">{{ orderinfo[item.id] }}</span>
 					</router-link>
 				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">录用时间</span>
+					<span>{{ hire_time }}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">录用审核人</span>
+					<span>{{ check_admin_name }}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">订单状态</span>
+					<span>已结算</span>
+				</li>
 			</ul>
 			<div class="marginlr30">
 				<ul class="margint13">
@@ -74,6 +86,7 @@
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -90,7 +103,10 @@
 				hire_info:{},
 				font_size:0,
 				orderinfo:{},
-				workData:workData.orderDetial
+				workData:workData.orderDetial,
+				check_admin_name:"",
+				hire_time:""
+				
 			}
 		},
 		methods: {
@@ -141,7 +157,8 @@
 			this.getworkdetial();
 		},
 		mounted() {
-			
+			this.hire_time = this.$route.query.hire_time;
+			this.check_admin_name = this.$route.query.check_admin_name;
 		}
 	}
 </script>

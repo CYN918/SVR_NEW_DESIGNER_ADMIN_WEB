@@ -13,7 +13,7 @@
 					</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="feed"></common-top>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -119,7 +119,7 @@
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.reportInfo.action,
+				tableAction: DataScreen.screenShow.reportInfo.action0,
 				detailData: "",
 				IsDetail: false,
 				filterFields: DataScreen.screen.reportInfo.filterFields0,
@@ -136,9 +136,10 @@
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.tableConfig.list = DataScreen.screenShow.reportInfo["bts" + num];
-				this.filterFields = DataScreen.screenShow.reportInfo["filterFields" + num];
+				/* this.filterFields = DataScreen.screenShow.reportInfo["filterFields" + num]; */
+				this.tableAction = DataScreen.screenShow.reportInfo["action"+num];
 				//console.log(DataScreen.screenShow.solicitationTemplate["bts" + num])
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.$parent.tabchange(num+1);
 				if(num == 0){
 					this.commonTopData.commonrightbtn = [];
@@ -146,7 +147,6 @@
 					this.commonTopData.commonrightbtn = [{
 						name: "添加举报分类",
 						id: "right1",
-						url: ""
 					}];
 				}
 			},
@@ -206,8 +206,8 @@
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
 					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
+						pageCurrent: 1,
+						pageSize: 50
 					});
 				})
 			},
@@ -257,15 +257,15 @@
 					delete urldata[tag];
 					//console.log(tag);
 					this.$router.push({
-						path: '/userCompanyInfo',
+						path: '/otherInformation/reportInfo',
 						query: {
 							urlDate: JSON.stringify(urldata)
 						}
 					});
 					this.getcommonrightbtn();
 					this.getData({
-						pageCurrent: this.tableConfig.currentpage,
-						pageSize: this.tableConfig.pagesize
+						pageCurrent: 1,
+						pageSize: 50
 					});
 				}
 			},
@@ -278,7 +278,7 @@
 					center: true
 				}).then(() => {
 					console.log(val.template_file_id)
-					this.api.templateDelete({
+					this.api.reportupdateClassify({
 						template_file_id: val.template_file_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
@@ -320,18 +320,30 @@
 			showmaskload(){
 				this.showmask = false;
 				this.showmask1 = true;
+			},
+			update(row,status,name){
+				this.api.reportupdateClassify({
+					access_token:localStorage.getItem("access_token"),
+					classify_id:row.id,
+					status:status
+				}).then(da => {
+					this.getData({pageCurrent:1,pageSize:50});
+				}).catch()
 			}
 		},
 		created() {
 			this.getData({
-				pageCurrent: this.tableConfig.currentpage,
-				pageSize: this.tableConfig.pagesize
+				pageCurrent: 1,
+				pageSize:50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
 		},
 		mounted() {
-
+			if(this.$route.query.tabsnum){
+				this.tabsChange(1);
+			}
+			this.$parent.tabchange(1);
 		}
 	}
 </script>
@@ -344,6 +356,10 @@
 	.work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	
+	.feed > div{
+		margin-left: 0;
 	}
 </style>
 

@@ -15,137 +15,178 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh" v-show="!Isnextshow">
-			<ul>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
-					<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
-					<el-input placeholder="请输入内容" v-model="form['remark']" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">banner</span>
-					<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
-						<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-						<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
-					</el-upload>
-					<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
-					<el-select v-model="form['category_id']" placeholder="请选择">
-						<el-radio-group v-model="form['category_id']">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.category_name">
-								<el-radio :label="item.id">{{ item.category_name }}</el-radio>
-							</el-option>
+		<div class="detailContent ofh">
+			<div v-show="!Isnextshow">
+				<ul>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
+						<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
+						<el-input placeholder="请输入内容" v-model="form['remark']" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
+						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
+							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
+							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+						</el-upload>
+						<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
+						<el-select v-model="form['category_id']" placeholder="请选择">
+							<el-radio-group v-model="form['category_id']">
+								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name">
+									<el-radio :label="item.id">{{ item.category_name }}</el-radio>
+								</el-option>
+							</el-radio-group>
+						</el-select>
+					</li>
+					<li class="margint23 ofh">
+						<div>
+							<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
+							 placeholder="开始时间">
+							</el-date-picker>
+							<span class="fleft" style="line-height: 40px;">
+								&nbsp;至&nbsp;
+							</span>
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
+							 placeholder="结束时间">
+							</el-date-picker>
+						</div>
+					</li>
+					<!-- <li class="margint23 ofh">
+						<span class="fleft detailKey">活动类型</span>
+						<el-radio-group v-model="form['type']" style="width:357px;float: left;">
+							
+							<el-radio label="1">普通活动</el-radio>
+							<el-radio label="2">征集活动</el-radio>
 						</el-radio-group>
-					</el-select>
-				</li>
-				<li class="margint23 ofh">
-					<div>
-						<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
-						 placeholder="开始时间">
-						</el-date-picker>
-						<span class="fleft" style="line-height: 40px;">
-							&nbsp;至&nbsp;
-						</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
-						 placeholder="结束时间">
-						</el-date-picker>
-					</div>
-				</li>
-				<!-- <li class="margint23 ofh">
-					<span class="fleft detailKey">活动类型</span>
-					<el-radio-group v-model="form['type']" style="width:357px;float: left;">
-						
-						<el-radio label="1">普通活动</el-radio>
-						<el-radio label="2">征集活动</el-radio>
-					</el-radio-group>
-				</li> -->
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">作品上传和展示</span>
-					<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
-						<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
-						<el-radio label="1">不支持上传</el-radio>
-						<el-radio label="2">支持上传，不支持展示作品</el-radio>
-						<el-radio label="3">支持上传，仅展示入围作品</el-radio>
-						<div class="fontcolorg font12" style="line-height: 20px">征集活动</div>
-						<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh">
-					<span class="fleft detailKey">是否提供模板文件</span>
-					<el-radio-group v-model="form['is_provide_template']" style="width:357px;float: left;">
-						<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
-							<el-radio :label="childitem.name"></el-radio>
-						</el-option> -->
-						<el-radio label="0">不提供</el-radio>
-						<el-radio label="1">提供</el-radio>
-					</el-radio-group>
-				</li>
-				<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
-					<span class="fleft detailKey" style="line-height: 40px;">模板文件</span>
-					<div><button class="defaultbtn" style="margin-left: 0;">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
-					<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft detailKey">是否关联综合平台需求</span>
-					<div class="fleft status">
-						<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
-							<el-radio label="1" class="fleft">启用</el-radio>
-							<el-radio label="0" class="fleft">停用</el-radio>
+					</li> -->
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">作品上传和展示</span>
+						<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
+							<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
+							<el-radio label="1">不支持上传</el-radio>
+							<el-radio label="2">支持上传，不支持展示作品</el-radio>
+							<el-radio label="3">支持上传，仅展示入围作品</el-radio>
+							<div class="fontcolorg font12" style="line-height: 20px">征集活动</div>
+							<el-radio label="4">支持上传，并展示入围作品及录用作品</el-radio>
 						</el-radio-group>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">是否提供模板文件</span>
+						<el-radio-group v-model="form['is_provide_template']" style="width:357px;float: left;">
+							<!-- <el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+								<el-radio :label="childitem.name"></el-radio>
+							</el-option> -->
+							<el-radio label="0">不提供</el-radio>
+							<el-radio label="1">提供</el-radio>
+						</el-radio-group>
+					</li>
+					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
+						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
+						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
+						<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
+					</li>
+					<li class="margint13 ofh">
+						<span class="fleft detailKey">是否关联综合平台需求</span>
+						<div class="fleft status">
+							<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
+								<el-radio label="1" class="fleft">启用</el-radio>
+								<el-radio label="0" class="fleft">停用</el-radio>
+							</el-radio-group>
+						</div>
+					</li>
+					<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
+						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
+						<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
+					</li>
+				</ul>
+			</div>
+			<div v-show="Isnextshow" class="relative">
+				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
+				<div class="ueditoruploadul">
+					<div class="fleft">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
+								 alt=""></div>
+							<div>上传图片</div>
+						</el-upload>
 					</div>
-				</li>
-				<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
-					<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
-					<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
-				</li>
-			</ul>
-		</div>
-		<div class="detailContent ofh relative" v-show="Isnextshow" style="margin-top: 52px;height: calc(100% - 197px);">
-			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
-			<div class="ueditoruploadul">
-				<div class="fleft">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
-							 alt=""></div>
-						<div>上传图片</div>
-					</el-upload>
-				</div>
-				<div class="fleft marginlr30">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
-							 alt=""></div>
-						<div>上传视频</div>
-					</el-upload>
-				</div>
-				<div class="fleft" style="margin-right: 10px;">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
-						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
-							 alt=""></div>
-						<div>上传音频</div>
-					</el-upload>
+					<div class="fleft marginlr30">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
+								 alt=""></div>
+							<div>上传视频</div>
+						</el-upload>
+					</div>
+					<div class="fleft" style="margin-right: 10px;">
+						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
+							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
+								 alt=""></div>
+							<div>上传音频</div>
+						</el-upload>
+					</div>
 				</div>
 			</div>
+			<div class="screenContent detailbtn">
+				<button class="defaultbtn" @click="getparent()">返回</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
+				<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
+				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
+			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		<div class="screenContent detailbtn">
-			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow" @click="prev()">上一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
-			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
-			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow && rows" @click="edit()">确定</button>
+		
+		
+		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+			<div class="textcenter">
+				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+				 @click="tabsChange(index,item.name)">
+					<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+					{{ item.name }}
+				</span>
+			</div>
+			<div>
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="resetSave(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205">
+					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+					 ref="Tabledd"></common-table>
+				</div>
+				<div class="w textcenter">
+					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
+				</div>
+			</div>
 			
-		</div>
+		</el-dialog>
 	</div>
 </template>
 
 <script>
 	import VueUeditorWrap from 'vue-ueditor-wrap'
-
+	import commonTop from '@/components/commonTop.vue'
+	import commonTable from '@/components/commonTable.vue'
+	import DataScreen from "@/assets/DataScreen.js"
+	
 	export default {
 		data() {
 			return {
@@ -178,13 +219,57 @@
 					serverUrl:'http://139.129.221.123/File/File/insert'
 				},
 				imageUrl: "",
-				tableData: [],
+				tableData1: [],
 				ifBjType:0,
-				currentpageName:""
+				currentpageName:"",
+				
+				pageName: "newActivity",
+				tableAction:DataScreen.screenShow.newActivity.action,
+				filterFields: DataScreen.screen.newActivity.filterFields0,
+				dialogTableVisible: false,
+				textarea: '',
+				commonTopData: {
+					"pageName": "newActivity",
+					"commonleftbtn": [{
+							name: "筛选",
+							id: "left1",
+							url: ""
+						}
+					],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					"IsShow": true,
+				},
+				screenConfig: [],
+				tableConfig: {
+					"pageName": "newActivity",
+					total: 0,
+					currentpage: 1,
+					pagesize: 10,
+					list: DataScreen.screenShow.newActivity.bts0,
+					ischeck: true,
+					loading:true
+				
+				},
+				tableData: [],
+				IsScreen: "Off",
+				work_info: {},
+				selectData:[],
+				tabData: [{
+						name: "本地文件"
+					},
+					{
+						name: "网盘链接"
+					}
+				],
+				tabsnum:0,
+				type:1,
+				
 			}
 		},
 		components: {
-			VueUeditorWrap
+			VueUeditorWrap,
+			commonTable
 		},
 		methods: {
 			getparent() {
@@ -196,6 +281,15 @@
 				} else {
 					return "--"
 				}
+			},
+			tabsChange(num) {
+				this.tabsnum = num;
+				this.type = num + 1;
+				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + num];
+				//console.log(this.tableConfig.list);
+				this.$parent.tabchange(num+1);
+				this.$router.push({ path: '/activityManager/activityEmploy/newActivity', query: {urlDate: ''}});
+				this.getData({pageCurrent:1,pageSize:50});
 			},
 			add() {
 				const id = this.$route.query.open_id;
@@ -214,6 +308,9 @@
 				this.form.activity_id = this.rows.id;
 				this.api.activityedit(this.form).then(da => {
 					console.log(da)
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(() => {
 
 				})
@@ -371,7 +468,7 @@
 				});
 
 			},
-			getData(pg) {
+			getData1() {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -385,8 +482,8 @@
 					if (!da) {
 						this.$message('数据为空');
 					}
-					this.tableData = da.data;
-					console.log(da.data)
+					this.tableData1 = da.data;
+					//console.log(da.data)
 					da.data.forEach(item =>{
 						if(this.rows.category_name == item.category_name){
 							this.form.category_id = item.id
@@ -471,15 +568,240 @@
 				});
 			},
 			createdactivity(){
+				
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
+				this.form.template_file_id=this.getworkids();
 				this.api.activityadd(this.form).then(da =>{
-					console.log(da);
+					console.log(da)
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(da =>{
 					
 				})
+			},
+			getactivityinfo(){
+				this.api.activityinfo({
+					activity_id:this.rows.id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					this.form = da;
+				})
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize,
+					type: this.type,
+				}
+			
+				//获取筛选的条件
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					sreenData.type = this.type;
+					data = sreenData;
+				}
+			
+				this.api.templateList(data).then((da) => {
+					console.log(da.data)
+					if (!da) {
+						this.$message('数据为空');
+					}
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+					/* if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					} */
+				}).catch(() => {
+				});
+			},
+			
+			
+			getScreenShowData() {
+				//获取字段展示-筛选修改
+				eventBus.$on("screenShowDataChange", (data) => {
+					this.tableConfig.list = [];
+					this.forshowkey(data)
+				});
+			
+				//获取字段展示-筛选初始化
+				if (localStorage.getItem("screenShowDataChange")) {
+					this.forshowkey(localStorage.getItem("screenShowDataChange").split(','))
+				} else {
+					this.forshowkey(this.defaultbts);
+				}
+			},
+			forshowkey(data) {
+				//筛选展示字段
+				this.bts.forEach(item => {
+					const val = item;
+					data.forEach(item1 => {
+						if (val.prop == item1) {
+							this.tableConfig.list.push(val)
+						}
+					})
+				})
+			},
+			screenreach() {
+				eventBus.$on("sreenData", (data) => {
+					this.getcommonrightbtn();
+					this.getData({
+						pageCurrent: 1,
+						pageSize: 50
+					});
+				})
+			},
+			linkDetail(id) {
+				//alert(id);
+				this.IsDetail = true;
+				this.api.getUserInfo({
+					open_id: id
+				}).then(da => {
+					this.detailData = da;
+				}).catch(() => {
+			
+				})
+			},
+			setContributor(val) {
+				this.selectOne = val;
+				this.centerDialogVisible1 = true;
+			},
+			getworkids() {
+				//console.log(this.selectData);
+				var workids = '';
+				this.selectData.forEach((item, index) => {
+					workids += (index == (this.selectData.length - 1)) ? item.template_file_id : item.template_file_id + ",";
+				})
+				if (this.centerDialogVisible) {
+					workids = workids
+				};
+			
+				if (this.centerDialogVisible1) {
+					workids = this.selectOne.work_id;
+				}
+				return workids;
+			},
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item=>{
+						//console.log(item);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							//console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+			},
+			resetSave(tag){
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate)
+					delete urldata[tag];
+					this.$router.push({path:'/activityManager/activityEmploy/newActivity',query:{urlDate:JSON.stringify(urldata)}});
+				}
+			},
+			dialogTable(){
+				this.dialogTableVisible = !this.dialogTableVisible;
+				/* if(this.dialogTableVisible == true){
+					this.setLoding(false);
+				} */
+				//this.$refs.Tabledd.loading = false;	
+			},
+			alertmask(){
+				
+				if(!this.form['activity_name']){
+					
+					return "请填写活动名称！！";
+				}
+				if(!this.form['remark']){
+					
+					return "请填写活动备注！！";
+				}
+				if(!this.form['banner']){
+					
+					return "请上传活动banner！！";
+				}
+				if(!this.form['category_id']){
+					
+					return "请选择主题分类！！";
+				}
+				if(!this.form['start_time']){
+					
+					return "请填写活动时间！！";
+				}
+				if(!this.form['end_time']){
+					
+					return "请填写活动时间！！";
+				}
+				
+				if(!this.form['setting_type']){
+					
+					return "设置状态！！";
+				}
+				if(!this.form['is_provide_template']){
+					
+					return "请选择模板状态！！";
+				}
+				
+				if(!this.form['is_related_needs']){
+					return "请选择关联平台需求状态！！";
+				}
+				return true;
 			}
 		},
 		created() {
-			this.getData();
+			this.getData({
+				pageCurrent: 1,
+				pageSize: 50
+			});
+			this.screenreach();
+			this.getcommonrightbtn();
+			this.getData1();
+			this.$parent.tabchange(1);
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
 				/* this.form['activity_name'] = this.rows.activity_name;
@@ -494,18 +816,30 @@
 				this.form.info = this.rows.activity_name;
 				this.form.related_needs_id = this.rows.activity_name;
 				this.form.template_file_id = this.rows.activity_name; */
-				this.form = this.rows
+				//this.form = this.rows
 				//console.log(this.form);
+				this.getactivityinfo();
 			}
+			
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			console.log(this.$route.matched);
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>
 
 <style>
+	.sel-dialog  {
+		width: 1100px;
+	}
+	
 	.Detail {
 		background: white;
 	}

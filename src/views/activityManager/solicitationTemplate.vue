@@ -124,7 +124,7 @@
 					ischeck: false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.solicitationTemplate.action,
+				tableAction: DataScreen.screenShow.solicitationTemplate.action0,
 				detailData: "",
 				IsDetail: false,
 				filterFields: DataScreen.screen.solicitationTemplate.filterFields,
@@ -140,6 +140,7 @@
 				typewen:1,
 				online_disk_info:"",
 				filename:'',
+				filetype:""
 			}
 		},
 		methods: {
@@ -147,10 +148,11 @@
 				this.tabsnum = num;
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
+				this.tableAction = DataScreen.screenShow.solicitationTemplate["action" + num],
 				console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -194,7 +196,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id) {
@@ -232,6 +234,7 @@
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response.data.data);
 					_this.file_url = response.data.data.url;
+					_this.filetype = response.data.data.file_type;
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -300,7 +303,8 @@
 						template_file_id: val.template_file_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
-						this.getData({pageCurrent:1,pageSize:10});
+						this.getData({pageCurrent:1,pageSize:50});
+						this.$refs.Tabledd.currentpage = 1;
 					})
 
 				}).catch(() => {
@@ -316,7 +320,7 @@
 					file_name: this.file_name,
 					access_token: localStorage.getItem("access_token"),
 				}).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
 						type: 'info',
@@ -332,14 +336,13 @@
 			showmaskload(){
 				this.showmask = false;
 				this.showmask1 = true;
-				
 			},
 			templateadds(type){
 				var data = {};
 				if(type == 1){
 					data = {
 						file_name:this.file_info.name,
-						file_type:this.file_info.type,
+						file_type:this.filetype,
 						file_size:this.file_info.size,
 						template_url:this.file_url,
 						online_disk_info:this.online_disk_info,
@@ -356,7 +359,7 @@
 				}
 				
 				this.api.templateadd(data).then(da => {
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
 						type: 'info',
@@ -373,14 +376,14 @@
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.$parent.tabchange(1);
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}
 		

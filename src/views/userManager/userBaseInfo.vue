@@ -31,6 +31,9 @@
 			<div class="w textcenter sel-radio">
 				<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
 			</div>
+			<div class="w textcenter sel-radio">
+				<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
+			</div>
 		</el-radio-group>
 	  </div>
 	  <span slot="footer" class="dialog-footer sel-footer">
@@ -64,6 +67,9 @@
 					</div>
 					<div class="w textcenter sel-radio">
 						<el-radio label="C">C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业余级</el-radio>
+					</div>
+					<div class="w textcenter sel-radio">
+						<el-radio label="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不推荐</el-radio>
 					</div>
 				</el-radio-group>
 			</li>
@@ -117,14 +123,14 @@
 					"pageName":"userBaseInfo",
 					total:0,
 					currentpage:1,
-					pagesize:10,
+					pagesize:50,
 					list:[],
 					ischeck:true,
 					
 				},
 				tableData:[],
 				detailData:{},
-				radioS:"C",
+				radioS:"",
 				selectData:[],
 				selectOne:{},
 				isajax:0,
@@ -211,7 +217,7 @@
 			screenreach(){
 				eventBus.$on("sreenData",(data) =>{
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id){
@@ -225,6 +231,7 @@
 			},
 			setContributor(val){
 				this.selectOne = val;
+				this.radioS = val.recommend_level;
 				this.centerDialogVisible1 = true;
 			},
 			contributor1(){
@@ -285,16 +292,16 @@
 						} 
 						
 						this.api.setRecommendLevel(data).then(da=>{
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 						}).catch(da=>{
-							this.$refs.Tabledd.setall();
+							this.$refs.Tabledd.setinit();
 						})
 					}).catch(() => {
 						this.$message({
 						  type: 'info',
 						  message: '已经取消'
 						});
-						this.$refs.Tabledd.setall();
+						this.$refs.Tabledd.setinit();
 					});
 				})
 				
@@ -322,8 +329,9 @@
 					//console.log(urldata);
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if(urldata[item.id]){
+						if(urldata[item.id] && !item.type){
 							var val = urldata[item.id];
+							//alert(val)
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
@@ -335,7 +343,13 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
-						} 
+						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:urldata[item.id],id:item.id})
+							}
+								
+						}
 						if(item.type == "two"){
 							if(item.child){
 								item.child.forEach(citem=>{
@@ -374,13 +388,13 @@
 		mounted(){
 			console.log(1);
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:10});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.getScreenShowData();
 			}
 		}

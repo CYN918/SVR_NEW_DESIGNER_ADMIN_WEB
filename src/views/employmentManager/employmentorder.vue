@@ -192,7 +192,7 @@
 			screenreach(){
 				eventBus.$on("sreenData",(data) =>{
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id){
@@ -293,13 +293,13 @@
 					console.log(tag);
 					this.$router.push({path:'/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:50});
 				}
 			}
 		},
 		mounted(){
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+			this.getData({pageCurrent:1,pageSize:50});
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();

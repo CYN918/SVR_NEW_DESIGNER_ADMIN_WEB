@@ -27,17 +27,17 @@
 					<span class="fleft detailKey">邮箱</span>
 					<span class="fleft detailValue">{{ getValue(detailData.email) }}</span>
 				</li>
-				<li class="margint13 ofh">
+				<!-- <li class="margint13 ofh">
 					<span class="fleft detailKey">目前状态</span>
 					<span class="fleft detailValue">{{ "--" }}</span>
-				</li>
+				</li> -->
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">性别</span>
-					<span class="fleft detailValue">{{  getValue(detailData.username) }}</span>
+					<span class="fleft detailValue">{{  getsex(detailData.sex) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">职业</span>
-					<span class="fleft detailValue">{{ detailData.vocation }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.vocation) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">所在地</span>
@@ -45,13 +45,13 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">个性签名</span>
-					<span class="fleft detailValue">{{ detailData.personal_sign }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.personal_sign)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">作品数量</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.works_num }}
+							{{ getValue(detailData.works_num) }}
 						</router-link>
 					</span>
 				</li>
@@ -59,7 +59,7 @@
 					<span class="fleft detailKey">关注人数</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.follow_num }}
+							{{ getValue(detailData.follow_num)  }}
 						</router-link>
 					</span>
 				</li>
@@ -67,42 +67,42 @@
 					<span class="fleft detailKey">粉丝人数</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.fans_num }}
+							{{ getValue(detailData.fans_num)  }}
 						</router-link>
 					</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">学校名称</span>
-					<span class="fleft detailValue">{{ detailData.education_school }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.education_school)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-微信号</span>
-					<span class="fleft detailValue">{{ detailData.weixin }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.weixin_name)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-QQ号</span>
-					<span class="fleft detailValue">{{ detailData.qq }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.qq_name)  }}</span>
 				</li>
-				<li class="margint13 ofh">
+				<li class="margint13 ofh">A
 					<span class="fleft detailKey">授权认证-微博</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.weibo_name)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">主页链接</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.home_page }}
+							{{ getValue(detailData.home_page)  }}
 						</router-link>
 					</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">注册时间</span>
-					<span class="fleft detailValue">{{  detailData.create_time }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.create_time)   }}</span>
 				</li>
-				<li class="margint13 ofh">
+				<!-- <li class="margint13 ofh">
 					<span class="fleft detailKey">上次登录时间</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
-				</li>
+					<span class="fleft detailValue">{{ getValue(detailData.follow_num)}}</span>
+				</li> -->
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">是否为平台推荐创作者</span>
 					<span class="fleft detailValue">{{ detailData.is_contributor==1 ? "是" : "否" }}</span>
@@ -111,23 +111,25 @@
 					<span class="fleft detailKey">平台推荐等级</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.recommend_level }}
+							{{ getValue(detailData.recommend_level)  }}
 						</router-link>
 					</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">平台供稿人</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailKey">是否平台供稿人</span>
+					<span class="fleft detailValue">{{ getValue2(detailData.is_contributor) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">供稿人认证账号主体</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getValue1(detailData.contributor_type) }}</span>
 				</li>
 			</ul>
+			<div class="screenContent detailbtn">
+				<button class="defaultbtn"  @click="getparent()">返回</button>
+			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		<div class="screenContent detailbtn">
-			<button class="defaultbtn"  @click="getparent()">返回</button>
-		</div>
+		
 	</div>
 </template>
 
@@ -146,6 +148,20 @@
 					return "--"
 				}
 			},
+			getValue1(n){
+				let child={
+					"1":"个人",
+					"2":"企业"
+				};
+				return child[n];
+			},
+			getValue2(n){
+				let child={
+					"0":"否",
+					"2":"是"
+				};
+				return child[n];
+			},
 			getparent(){
 				//this.$parent.IsDetail = false;
 				this.$router.go(-1);
@@ -158,6 +174,17 @@
 				}).catch(()=>{
 					
 				})
+			},
+			getsex(id){
+				var child={
+					"1":"男",
+					"2":"女",
+				}
+				if(id){
+					return child[id]
+				} else {
+					return "未填"
+				}
 			}
 		},
 		mounted(){
@@ -176,7 +203,7 @@
 	}
 	
 	.detailContent{
-		height: calc(100% - 139px);
+		height: calc(100% - 18px);
 		overflow-y: auto;
 	}
 	

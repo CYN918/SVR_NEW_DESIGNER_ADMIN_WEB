@@ -184,6 +184,13 @@
 						    })
 						};
 					break;
+					case "newsRelease":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/noticeManager/newsRelease/addrelease"
+						    })
+						};
+					break;
 				}
 				const shownum = {
 					num: idIndex,

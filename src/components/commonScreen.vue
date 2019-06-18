@@ -14,19 +14,24 @@
 						<!-- form.selct[item.a] -->
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
-						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && (!item.type)">
+						<el-dropdown trigger="click" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="vocation.join(',')" suffix-icon="el-icon-arrow-down"
+							 clearable></el-input>
+						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+								<el-checkbox-group v-model="vocation">
+									<el-dropdown-item v-for="(citem,index) in item.child" :key="index" >
+										<el-checkbox  :label="citem" >{{citem}}</el-checkbox>
+									</el-dropdown-item>
+								</el-checkbox-group>
+						    </el-dropdown-menu>
+						</el-dropdown>
+						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
 							<el-option value="" label="全部"></el-option>
 							 <el-radio-group v-model="form[item.id]">
-								<el-option v-for="(childitem,index) in item.child" :key="childitem.id" :value="childitem.id" :label="childitem.name">
+								<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name">
 									<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
 								</el-option>
 							</el-radio-group>
-						</el-select>
-						<el-select v-model="form[item.id]" placeholder="请选择" multiple v-else-if="item.child && item.type == 'more'">
-							<el-option value="" label="全部"></el-option>
-							<el-option v-for="(childitem,index) in item.child" :key="index" :label="childitem" :value="childitem">
-								<el-checkbox>{{ childitem }}</el-checkbox>
-							</el-option>
 						</el-select>
 						 <el-date-picker
 						  v-if="item.type == 'time'"
@@ -39,195 +44,25 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						</el-date-picker>
+						<el-cascader v-if="item.type == 'cascader'"
+							expand-trigger="hover"
+							:options="item.child"
+							:props="item.optionProps"
+							v-model="selectedOptions"
+							@change="handleChange">
+						</el-cascader>
 						<div v-if="item.type == 'two'">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 14px;">至</span>
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
+						<div v-if="item.type == 'text'">
+							<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
+						</div>
 						<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
-							<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
+							<button class="ipt"></button>
 						</div>
 					</li>
-					<!-- <li>
-						<div>用户ID</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>用户名字</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>手机号</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>邮箱</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>性别</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-option value="12">
-								<el-checkbox>备选项1</el-checkbox>
-							</el-option>
-							<el-option value="13">
-								<el-checkbox >备选项2</el-checkbox>
-							</el-option>
-					    </el-select>
-					</li>
-					<li>
-						<div>职业</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-input class="checkboxipt" placeholder="请输入内容" clearable></el-input>
-							<div>
-								<el-option class="sel-zhiye" value="12">
-									<el-checkbox>备选项1</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="13">
-									<el-checkbox >备选项2</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="12">
-									<el-checkbox>备选项1</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="13">
-									<el-checkbox >备选项2</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="12">
-									<el-checkbox>备选项1</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="13">
-									<el-checkbox >备选项2</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="12">
-									<el-checkbox>备选项1</el-checkbox>
-								</el-option>
-								<el-option class="sel-zhiye" value="13">
-									<el-checkbox >备选项2</el-checkbox>
-								</el-option>
-							</div>
-						</el-select>
-					</li>
-					<li>
-						<div>所在地</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>作品数量</div>
-						<div>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-							<span style="padding: 0 14px;">至</span>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-						</div>
-					</li>
-					<li>
-						<div>关注人数</div>
-						<div>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-							<span style="padding: 0 14px;">至</span>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-						</div>
-					</li>
-					<li>
-						<div>粉丝人数</div>
-						<div>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-							<span style="padding: 0 14px;">至</span>
-							<el-input class="ipt90" placeholder="请输入内容" clearable></el-input>
-						</div>
-					</li>
-					<li>
-						<div>非认证-微信号</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>非认证-QQ号</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>授权认证-微信号</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>授权认证-QQ号</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>授权认证-微博</div>
-						<el-input class="ipt" placeholder="请输入内容" clearable></el-input>
-					</li>
-					<li>
-						<div>平台投稿人</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-option value="12">
-								<el-checkbox>备选项1</el-checkbox>
-							</el-option>
-							<el-option value="13">
-								<el-checkbox >备选项2</el-checkbox>
-							</el-option>
-						</el-select>
-					</li>
-					<li>
-						<div>供稿人认证账号主体</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-option value="12">
-								<el-checkbox>备选项1</el-checkbox>
-							</el-option>
-							<el-option value="13">
-								<el-checkbox >备选项2</el-checkbox>
-							</el-option>
-						</el-select>
-					</li>
-					<li>
-						<div>是否为平台推荐创作者</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-option value="12">
-								<el-checkbox>备选项1</el-checkbox>
-							</el-option>
-							<el-option value="13">
-								<el-checkbox >备选项2</el-checkbox>
-							</el-option>
-						</el-select>
-					</li>
-					<li>
-						<div>平台推荐等级</div>
-						<el-select class="ipt" v-model="value" placeholder="请选择"  multiple>
-							<el-option value="12">
-								<el-checkbox>备选项1</el-checkbox>
-							</el-option>
-							<el-option value="13">
-								<el-checkbox >备选项2</el-checkbox>
-							</el-option>
-						</el-select>
-					</li>
-					<li>
-						<div>注册时间</div>
-						<el-date-picker
-						:value="1"
-						  type="date"
-						  placeholder="选择日期">
-						</el-date-picker>
-					</li>
-					<li>
-						<div>上次登录时间</div>
-						 <el-date-picker
-						 :value="1"
-						  type="date"
-						  placeholder="选择日期">
-						</el-date-picker>
-					</li> -->
-					<!-- <li>
-						<div>上次登录时间</div>
-						 <el-date-picker
-						   class="ipt"
-						   v-model="times"
-						   type="daterange"
-						   value-format="yyyy-MM-dd HH-mm-ss"
-						   start-placeholder="开始日期"
-						   end-placeholder="结束日期"
-						   default-value="2010-10-01">
-						 </el-date-picker>
-					</li> -->
 					
 				</ul>
 			</div>
@@ -248,33 +83,31 @@
 		data() {
 			return {
 				form: {},
+				vocation:[],
 				texts: '',
-				options: [{
-					  value: '选项1',
-					  label: '黄金糕'
-					}, {
-					  value: '选项2',
-					  label: '双皮奶'
-					}, {
-					  value: '选项3',
-					  label: '蚵仔煎'
-					}, {
-					  value: '选项4',
-					  label: '龙须面'
-					}, {
-					  value: '选项5',
-					  label: '北京烤鸭'
-				}],
+				options: [],
 				value: '',
 				value2:[],
 				currentpageName:"",
 				times:[],
+				selectedOptions:[],
 			}
 		},
 		methods: {
 			getparent(data) {
 				if (data == "reach") {
 					//console.log()
+					if(this.vocation != ""){
+						this.form['vocation'] = this.vocation;
+					};
+					
+					if(this.selectedOptions.length != 0){
+						this.form['classify_1'] = this.selectedOptions[0];
+						this.form['classify_2'] = this.selectedOptions[1];
+						this.form['classify_3'] = this.selectedOptions[2];
+					}
+					
+					
 					this.$router.push({
 						path: this.$route.matched[this.$route.matched.length - 1].path,
 						query: {
@@ -316,7 +149,10 @@
 				this.form[time[0].id] = this.times[0];
 				this.form[time[1].id] = this.times[1];
 				//console.log(this.form)
-			}
+			},
+			handleChange(value) {
+				console.log(value);
+			 }
 		},
 		watch: {
 			"$route":function(){
@@ -390,5 +226,8 @@
 		border-radius: 4px;
 		position: relative;
 		z-index: 9999;
+	}
+	#app .el-dropdown-link{
+		padding: 0;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">编辑干预任务</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">词干预</span>
@@ -39,6 +39,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -56,8 +57,7 @@
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
-					{name:"第四位",id:"4"},
-					{name:"第五位",id:"5"}
+					{name:"第四位",id:"4"}
 				]
 			}
 		},
@@ -73,7 +73,6 @@
 				}
 			},
 			add(){
-				const id = this.$route.query.open_id;
 				this.api.hotwordadd({
 					access_token:localStorage.getItem("access_token"),
 					word: this.word,
@@ -92,6 +91,7 @@
 			edit(){
 				this.api.hotwordedit({
 					access_token:localStorage.getItem("access_token"),
+					id:this.row.id,
 					word: this.word,
 					start_time:this.start_time,
 					end_time:this.end_time,
@@ -127,17 +127,6 @@
 		padding-left: 40px;
 		padding-top: 18px;
 	}
-
-	.detailContent {
-		height: calc(100% - 139px);
-		overflow-y: auto;
-	}
-
-	.detailContent ul {
-		padding-left: 132px;
-		padding-top: 64px;
-	}
-
 	.margint13 {
 		margin-bottom: 13px;
 	}

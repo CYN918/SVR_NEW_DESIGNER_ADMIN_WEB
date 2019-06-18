@@ -1,15 +1,14 @@
 <template>
 	<div class="wh">
-		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
-			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+		<div class="tabtop" ref="elememt" id="table">
+			<el-table :height="tableHeight" ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
-						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
+						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
 						<div v-else-if="item.type == 'merge'">
@@ -28,7 +27,6 @@
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
-						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop] }}</span>
 						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
 					</template>	
 				</el-table-column>
@@ -65,8 +63,9 @@
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
+			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
+		
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
@@ -81,7 +80,7 @@
 				IsMoreShow: false,
 				tableHeight: 150,
 				currentpage: 1,
-				pagesize: 50,
+				pagesize: 10,
 				selected:0,
 				loading:true,
 				allselect:false,
@@ -95,7 +94,7 @@
 		},
 		methods: {
 			handleClick(row, setid, page,event) {
-				
+				console.log(page,setid)
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -229,7 +228,8 @@
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor1"){
-							window.open(row.template_url);
+							///this.$parent.delete(row);
+							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor2"){
 							this.$parent.delete(row);
@@ -263,23 +263,10 @@
 						if(setid == "contributor1"){
 							this.$parent.delect(row);
 						}
-						
-						if(setid == "contributor2"){
-							this.$parent.edit(row);
-						}
 					break;
 					case "recommendedActivities":
 						if(!setid){
 							this.router.push({path:"/contentManager/recommendedActivities/editrecommendedActivities", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "listAd":
-						if(!setid){
-							this.router.push({path:"/contentManager/newlistAd", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){
@@ -298,12 +285,6 @@
 						}
 						if(setid == "contributor"){
 							this.$parent.delect(row);
-						}
-					break;
-					case "addbannerScheme":
-						if(!setid){
-							this.$parent.$parent.getactivitiesrows(row);
-							this.$parent.$parent.dialogTableVisible = false;
 						}
 					break;
 					case "presetReason":
@@ -428,7 +409,7 @@
 					case "reportInfo":
 						if(!setid){
 							if(this.$parent.tabsnum == 0){
-								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.report_id}})
+								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.id}})
 							} else {
 								this.$parent.update(row,1,"启用");
 								if(event.target.innerHTML == "启用"){
@@ -507,16 +488,10 @@
 			handleSizeChange(val) {
 				this.pagesize = val;
 				this.getTabData();
-				this.$nextTick(() => {
-					this.$refs.elememt.scrollTo(0,'34px');
-				})
 			},
 			handleCurrentChange(val) {
 				this.currentpage = val;
 				this.getTabData();
-				this.$nextTick(() => {
-					this.$refs.elememt.scrollTo(0,'34px');
-				})
 			},
 			handleSelectionChange(val) {
 				
@@ -603,7 +578,7 @@
 			autoTableHeight() {
 				//设置table标签
 				setTimeout(() => {
-					//this.tableHeight = this.$refs.elememt.offsetHeight;
+					this.tableHeight = this.$refs.elememt.offsetHeight;
 				}, 100)
 				//此处需要通过延迟方法来设置值，不然会出现值已更新，但页面没更新的问题
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度
@@ -670,10 +645,6 @@
 			},
 			openwindow(url){
 				window.open(url)
-			},
-			openwindowrouter(url){
-				 const {href} = this.$router.resolve({ path: url})
-				window.open(href, '_blank')
 			}
 			
 		},

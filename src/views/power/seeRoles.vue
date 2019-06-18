@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">查看页面</div>
-		<div class="detailContent ofh">
+		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">角色名称</span>
@@ -14,12 +14,7 @@
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">查看权限</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" 
-						show-checkbox
-						node-key="id" 
-						check-strictly
-						:default-checked-keys="permissions"
-						:props="defaultProps">
+						<el-tree :data="data2" show-checkbox node-key="id" check-strictly :default-checked-keys="permissions" :props="defaultProps">
 						</el-tree>
 					</div>
 				</li>
@@ -28,12 +23,13 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
 <script>
 	export default {
-		props: ['detailData','roles'],
+		props: ['detailData', 'roles'],
 		data() {
 			return {
 				text10: '',
@@ -45,9 +41,9 @@
 					children: 'child',
 					label: 'title'
 				},
-				rolename:"--",
-				roleintroduce:"--",
-				permissions:[],
+				rolename: "--",
+				roleintroduce: "--",
+				permissions: [],
 			}
 		},
 		methods: {
@@ -70,43 +66,79 @@
 					this.length30 = this.text30.length
 				}
 			},
-			seeroles(){
+			seeroles() {
 				this.api.infoRole({
-					access_token:localStorage.getItem("access_token"),
-					id:this.$route.query.id
-				}).then(da =>{
+					access_token: localStorage.getItem("access_token"),
+					id: this.$route.query.id
+				}).then(da => {
 					console.log(da);
 					this.rolename = da.name;
 					this.roleintroduce = da.description;
 					//console.log(da.permissions.split(","));
-					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme)){
+					da.permissions.split(",").forEach((itme) => {
+						if (parseInt(itme)) {
 							this.permissions.push(parseInt(itme));
 						}
-						
+
 					})
 					this.getMenu();
 				}).catch(da => {
-					
+
 				})
 			},
-			getMenu(){
+			getMenu() {
 				const data = {
-					_token:1
+					_token: 1
 				}
 				this.api.getMenuList(data).then(da => {
 					//console.log(da)
 					this.data2 = da;
-				}).catch(da =>{
-					
+					//this.data2 = this.tickMenuIdFilter().filter(da);
+					console.log(this.data2)
+					console.log(data)
+				}).catch(da => {
+
 				})
+			},
+			tickMenuIdFilter: function() {
+				var resultArr = new Array();
+				var getTickMenuId = function(obj) {
+					/* if (undefined == obj || null == obj || !obj instanceof Object) {
+						return;
+					} */
+					//if (obj.fs > 0) {
+						// console.log('obj',obj)
+						obj.disabled = true;
+						resultArr.push(obj);
+						//console.log(obj);
+					//}
+					if (null != obj.child && obj.child instanceof Array) {
+						for (let child of obj.child) {
+							getTickMenuId(child);
+						}
+					}
+				};
+
+				return {
+					filter: function(arr) {
+						console.log(arr)
+						if (!arr instanceof Array) {
+							return false;
+						}
+						resultArr = new Array();
+						for (let rootMenu of arr) {
+							getTickMenuId(rootMenu);
+						}
+						return resultArr;
+					}
+				};
 			}
 		},
 		created() {
 			this.seeroles();
 		},
 		mounted() {
-			
+
 		}
 	}
 </script>
