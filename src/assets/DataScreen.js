@@ -372,17 +372,6 @@ const screenData = {
 				{name:"",type:"display"},
 			]
 		},
-		listAd:{
-			filterFields:[
-				{name:"任务ID",id:"id"},
-				{name:"作品ID",id:"work_id"},
-				{name:"作品名称",id:"work_name"},
-				{name:"干预位置",id:"position"},
-				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
-				{name:"当前状态",id:"status",child:[{name:"已过期",id:"-1"},{name:"待上线",id:"0"},{name:"干预中",id:"1"}]},				
-				{name:"",type:"display"},
-			]
-		},
 		employmentorder:{
 			filterFields:[
 				{name:"录用订单ID",id:"id"},
@@ -620,43 +609,6 @@ const screenData = {
 				page:'roleManager'
 			}
 		},
-		newlistAd:{
-			bts:[
-				{prop:'work_id',lable:'作品ID'},
-				{prop:'work_name',lable:'作品标题'},
-				{prop:'face_pic',lable:'封面图',type:"img",width:150},
-				{prop:'username',lable:'用户昵称'},
-				{prop:'classify',lable:'作品类型'},
-				{prop:'recommend_level',lable:'平台推荐评级'},
-				{prop:'is_platform_work',lable:'是否为平台投稿作品'},
-				{prop:'is_hired',lable:'是否为录用作品'},
-		
-			],
-			action:{
-				morebtns:{
-					name:"更多",
-					Ishow:false,
-					page:"newrecommendedActivities",
-					filterField:["0","1"],
-					child:[
-						{
-							name:"删除",
-							filterField:["0"],
-							id:"top0"
-						},
-						{
-							name:"编辑",
-							filterField:["0","1"],
-							id:"top1"
-						}
-					],
-				},
-				links:{
-					name:"选择",
-					Ishow:true
-				}
-			}
-		},
 		accountManager:{
 			bts:[
 				{prop:'id',lable:'账户ID'},
@@ -683,9 +635,9 @@ const screenData = {
 				{prop:'work_id',lable:'作品ID'},
 				{prop:'work_name',lable:'作品标题',type:"url",url:"/workManager/workInfo"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'用户昵称',type:"url",url:"/userManager/userBaseInfo"},
-				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
-				{prop:'check_admin_name',lable:'审核人'},
+				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:300},
+				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
 				morebtns:{
@@ -707,9 +659,9 @@ const screenData = {
 				{prop:"activity_id",lable:"活动ID"},
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'用户昵称',type:"url",url:"/userManager/userBaseInfo"},
+				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
-				{prop:'check_admin_name',lable:'审核人'},
+				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
 				morebtns:{
@@ -731,9 +683,9 @@ const screenData = {
 				{prop:"activity_id",lable:"活动ID"},
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'用户昵称',type:"url",url:"/userManager/userBaseInfo"},
+				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
-				{prop:'check_admin_name',lable:'审核人'},
+				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
 				morebtns:{
@@ -753,9 +705,9 @@ const screenData = {
 				{prop:'contributor_type',lable:'账号主体',type:"keyvalue",child:{"1":"个体","2":"企业"}},
 				{prop:'check_type',lable:'提交类型',type:"keyvalue",child:{"1":"初次申请","2":"驳回复审申请","3":"修改信息申请"}},
 				{prop:'open_id',lable:'提审用户ID',width:200},
-				{prop:'username',lable:'用户昵称',type:"url",url:"/userManager/userBaseInfo"},
+				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
-				{prop:'check_admin_name',lable:'审核人'},
+				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
 				morebtns:{
@@ -1270,28 +1222,6 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"recommendedActivities",
-				},
-				links:{
-					name:"编辑",
-					Ishow:true
-				},
-			}
-		},
-		listAd:{
-			bts:[
-				
-				{lable:"任务ID",prop:"id"},
-				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name"},
-				{lable:"干预位置",prop:"position"},
-				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"干预中","0":" 待上线","-1":"已过期"}}
-			],
-			action:{
-				morebtns:{
-					name:"删除",
-					Ishow:true,
-					page:"listAd",
 				},
 				links:{
 					name:"编辑",

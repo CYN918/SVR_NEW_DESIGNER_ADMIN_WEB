@@ -87,7 +87,7 @@ const workData = {
 		},
 		{
 			name:"作品预览链接",
-			id:"http://dev-web-ndesigner.idatachain.cn/#/cont?id=",
+			id: localStorage.getItem("URL")+"/#/cont?id=",
 			type:"urlopen"
 		},
 		{

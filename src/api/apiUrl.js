@@ -241,23 +241,6 @@ export default {
 	recommendactivityinfo:{
 		url:'/admin/recommendactivity/info',method:'post',baseURL:0
 	},
-
-	
-	taskList:{
-		url:'/admin/Homerec/taskList',method:'post',baseURL:0
-	},
-	Homerec_delete:{
-		url:'/admin/Homerec/delete',method:'post',baseURL:0
-	},
-	
-	Homerec_add:{
-		url:'/admin/Homerec/add',method:'post',baseURL:0
-	},
-	
-	Homerec_edit:{
-		url:'/admin/Homerec/edit',method:'post',baseURL:0
-	},
-
 	addClassify:{
 		url:'/admin/feedback/addClassify',method:'post',baseURL:0,isType:{suktip:true}
 	},
@@ -300,5 +283,4 @@ export default {
 	noticedelete:{
 		url:'/admin/notice/delete',method:'post'
 	}
-
 }

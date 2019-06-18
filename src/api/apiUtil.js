@@ -13,7 +13,9 @@ const generateApiMap = (map) => {
 // PASSPORT_HOST = 139.129.221.123;
 // API_HOST = 139.129.221.123;
 // UPLOAD_HOST = 139.129.221.123 ;
+//const baseURLs = ['http://shiquaner.zookingsoft.com',];
 const baseURLs = ['http://dev-api-ndesigner-admin.idatachain.cn',];
+localStorage.setItem("URL","http://dev-web-ndesigner.idatachain.cn")
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
