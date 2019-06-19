@@ -1,5 +1,5 @@
 <template>
-	<div class="wh Detail">
+	<div class="wh Detail" ref="height">
 		<div class="detailtitle">
 			<span class="fleft">{{ currentpageName }}</span>
 			<div class="employment" style="text-align: center;">
@@ -15,7 +15,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh">
+		<div class="detailContent ofh" style="height: calc(100% - 47px) !important;">
 			<div v-show="!Isnextshow">
 				<ul>
 					<li class="margint23 ofh">
@@ -213,7 +213,7 @@
 				Isnextshow: false,
 				myConfig: {
 					autoHeightEnabled: false,
-					initialFrameHeight: 200,
+					initialFrameHeight: 300,
 					initialFrameWidth: '100%',
 					UEDITOR_HOME_URL: '/UEditor/',
 					serverUrl:'http://139.129.221.123/File/File/insert'
@@ -264,7 +264,7 @@
 				],
 				tabsnum:0,
 				type:1,
-				uptype:"img"
+				uptype:"img",
 				
 			}
 		},
@@ -608,6 +608,10 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form = da;
+					if(this.form.info){
+						this.ifBjType=1;
+					}
+					
 				})
 			},
 			getData(pg) {
@@ -840,6 +844,7 @@
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
 			"$route":function(){
