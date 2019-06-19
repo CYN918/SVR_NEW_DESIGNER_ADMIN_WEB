@@ -140,10 +140,10 @@
 				this.api.bannerprogramedit({
 					access_token:localStorage.getItem("access_token"),
 					id:this.datadetial.id,
+					banner_program_name:this.datadetial.banner_program_name,
 					is_default:this.datadetial.is_default,
 					program_begin_time:this.datadetial.program_begin_time,
 					program_end_time:this.datadetial.program_end_time,
-					jump_url:this.datadetial.jump_url,
 					banner_material_ids:  JSON.parse(this.datadetial.banner_material_ids).join(",")
 				}).then(da=>{
 					if(da.result == 0){
