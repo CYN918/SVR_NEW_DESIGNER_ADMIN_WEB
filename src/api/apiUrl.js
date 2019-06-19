@@ -301,5 +301,9 @@ export default {
 	
 	noticeedit:{
 		url:'/admin/notice/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
-	}
+	},
+	recommendactivitydelete:{
+		url:'/admin/recommendactivity/delete',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 }
