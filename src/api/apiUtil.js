@@ -14,8 +14,17 @@ const generateApiMap = (map) => {
 // API_HOST = 139.129.221.123;
 // UPLOAD_HOST = 139.129.221.123 ;
 //const baseURLs = ['http://shiquaner.zookingsoft.com',];
-const baseURLs = ['http://dev-api-ndesigner-admin.idatachain.cn',];
-localStorage.setItem("URL","http://dev-web-ndesigner.idatachain.cn")
+
+//const baseURLs = ['http://shiquaner-admin-api.zookingsoft.com',];
+//localStorage.setItem("URL","http://shiquaner.zookingsoft.com");
+
+var baseURLs = ['http://dev-api-ndesigner-admin.idatachain.cn'];
+localStorage.setItem("URL","http://dev-web-ndesigner.idatachain.cn");
+console.log(window.location.host);
+if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+   baseURLs = ['http://shiquaner-admin-api.zookingsoft.com',];
+   localStorage.setItem("URL","http://shiquaner.zookingsoft.com")
+}
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
