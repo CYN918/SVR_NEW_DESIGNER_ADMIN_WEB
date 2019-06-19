@@ -264,6 +264,7 @@
 				],
 				tabsnum:0,
 				type:1,
+				uptype:"img"
 				
 			}
 		},
@@ -351,17 +352,33 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-				var _this = this
+				var _this = this;
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					if (_this.ifBjType == 0) {
-						_this.form.info = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.info += '<img src="' + response.data.data.url + '" alt="111111">';
+					_this.$parent.setpercentage("end",response.data.data.url,"con");
+					_this.uptype = "img"
 				}).catch(function (error) {
 					console.log(error);
 				});
 				 
+			},
+			setcontent(url,coverurl){
+				if (this.ifBjType == 0) {
+					this.form.info = "";
+					this.ifBjType = 1;
+				}
+				
+				if(this.uptype == "img"){
+					this.form.info += '<img src="' + url + '" alt="图片">';
+				}
+				if(this.uptype == "video"){
+					/* <img src="' + coverurl + '" alt="视频图片"> */
+					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
+				}
+				if(this.uptype == "audio"){
+					/* <img src="' + coverurl + '" alt="音频图片"> */
+					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
+				}
 			},
 			handleAvatarSuccessvideo(params) {
 				//console.log(params);
@@ -384,14 +401,11 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-				var _this = this
+				var _this = this;
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response)
-					if (_this.ifBjType == 0) {
-						_this.form.info = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><video src="'+ response.data.data.url +'" controls="controls"></video>';
+					_this.uptype = "video";
+					_this.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -415,17 +429,15 @@
 				formData.append("file", _file);
 				formData.append('app_id', 1003);
 				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
-				formData.append('user', open_id)
-				formData.append('relation_type', 'activity')
-				formData.append('timestamp', times)
-				var _this = this
+				formData.append('user', open_id);
+				formData.append('relation_type', 'activity');
+				formData.append('timestamp', times);
+				var _this = this;
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response)
-					if (_this.ifBjType == 0) {
-						_this.form.info = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.info += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><audio src="'+ response.data.data.url +'" controls="controls"></audio>';
+					_this.uptype = "audio";
+					_this.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
+					
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -522,14 +534,18 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-			    var _this = this
+			    var _this = this;
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					//console.log(response.data.data.url);
-					_this.form.banner = response.data.data.url
+					_this.$parent.setpercentage("end",response.data.data.url);
+					//_this.form.banner = response.data.data.url
 				}).catch(function (error) {
 					console.log(error);
 				});
 				//console.log(this.form.banner = url)
+			},
+			setimgurl(url){
+				this.form.banner = url;
 			},
 			filechange(params){
 				//console.log("params",params)

@@ -28,7 +28,7 @@
 					<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择通知用户</button>
 					<div>
 						<span class="fleft fontcolorg" style="margin-right: 20px;width: 56px;height: 40px;"></span>
-						<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数：{{ this.selectData.length }}</span>
+						<span class="fleft fontcolorg" style="margin-top: 10px;">已选择的通知用户数：{{ sendnum }}</span>
 					</div>
 				</li>
 				<li class="margint13 ofh">
@@ -39,7 +39,7 @@
 				</li>
 			</ul>
 		</div>
-		<el-dialog title="请选择 “作品下架” 需通知到的举报者" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+		<el-dialog title="请选择通知人员" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>	
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
@@ -61,14 +61,15 @@
 					 ref="Tabledd"></common-table>
 				</div>
 				<div class="w textcenter">
-					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
+					<button class="defaultbtn defaultbtnactive" @click="setchange()">确定({{ this.selectData.length }})</button>
 				</div>
 			</div>
 			
 		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="!rows.id" @click="add()">创建</button>
+			<button class="defaultbtn defaultbtnactive" v-if="rows.id" @click="edit()">保存</button>
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="workfixed" v-show="IsScreen == 'No'">
@@ -90,14 +91,13 @@
 		data() {
 			return {
 				currentpageName:"",
-				pageName: "worksShelves",
-				baseInfo: workData.worksShelves,
-				tableAction: DataScreen.screenShow.worksShelves.action,
-				filterFields: DataScreen.screen.worksShelves.filterFields,
+				pageName: "userBaseInfo",
+				tableAction: DataScreen.screenShow.userBaseInfo.action,
+				filterFields: DataScreen.screen.userBaseInfo.filterFields,
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
-					"pageName": "worksShelves",
+					"pageName": "userBaseInfo",
 					"commonleftbtn": [{
 							name: "筛选",
 							id: "left1",
@@ -110,11 +110,11 @@
 				},
 				screenConfig: [],
 				tableConfig: {
-					"pageName": "worksShelves",
+					"pageName": "userBaseInfo",
 					total: 0,
 					currentpage: 1,
 					pagesize: 10,
-					list: DataScreen.screenShow.worksShelves.bts,
+					list: DataScreen.screenShow.userBaseInfo.bts,
 					ischeck: true,
 					loading:true
 
@@ -125,7 +125,10 @@
 				selectData:[],
 				text10:"",
 				text100:"",
-				send_time:""
+				send_time:"",
+				rows:{},
+				sendnum:0,
+				to_open_ids:'',
 			}
 		},
 		methods: {
@@ -193,7 +196,6 @@
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					work_id:this.$route.query.id
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -202,12 +204,11 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.work_id = this.$route.query.id;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
 			
-				this.api.reportlist(data).then((da) => {
+				this.api.getUserList(data).then((da) => {
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -254,7 +255,7 @@
 					this.getcommonrightbtn();
 					this.getData({
 						pageCurrent: 1,
-						pageSize: 10
+						pageSize: 50
 					});
 				})
 			},
@@ -334,7 +335,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/workManager/workInfo/worksShelves',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/newsRelease/editrelease',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(){
@@ -345,13 +346,45 @@
 					access_token:localStorage.getItem("access_token"),
 					title:this.text10,
 					content:this.text100,
-					to_open_ids:this.getnoticeids(),
+					to_open_ids:this.to_open_ids,
 					send_time:this.send_time,
 				}).then(da => {
 					this.$router.go(-1);
 				}).catch(() => {
 							
 				})
+			},
+			edit(){
+				let data ={
+					access_token:localStorage.getItem("access_token"),
+					id:this.rows.id
+				}
+				
+				if(this.text10){
+					data.title=this.text10;
+				}
+				if(this.text100){
+					data.content=this.text100;
+				}
+				if(this.to_open_ids){
+					data.to_open_ids=this.to_open_ids;
+				}
+				if(this.send_time){
+					data.send_time=this.send_time;
+				}
+				
+				this.api.noticeedit(data).then(da => {
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
+				}).catch(() => {
+							
+				})
+			},
+			setchange(){
+				this.dialogTableVisible=false;
+				this.sendnum=this.selectData.length;
+				this.to_open_ids = this.getnoticeids();
 			}
 			
 
@@ -360,14 +393,26 @@
 			//this.getworkdetial();
 			this.getData({
 				pageCurrent: 1,
-				pageSize: 10
+				pageSize: 50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
+			
+			if(this.$route.query.row){
+				this.rows = JSON.parse(this.$route.query.row);
+				this.text10 = this.rows.title;
+				this.text100 = this.rows.content;
+				this.send_time=this.rows.send_time;
+				this.sendnum = this.rows.send_num;
+				this.to_open_ids = this.rows.to_open_ids
+			}
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			console.log(this.$route.matched);
+		},
+		watch:{
+			
 		}
 	}
 </script>

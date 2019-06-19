@@ -283,7 +283,7 @@
 					this.getcommonrightbtn();
 					this.getData({
 						pageCurrent: 1,
-						pageSize: 10
+						pageSize: 50
 					});
 				})
 			},
@@ -423,7 +423,7 @@
 			this.getworkdetial();
 			this.getData({
 				pageCurrent: 1,
-				pageSize: 10
+				pageSize: 50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();

@@ -288,15 +288,18 @@ export default {
 		url:'/admin/Homerec/taskList',method:'post',baseURL:0
 	},
 	Homerec_delete:{
-		url:'/admin/Homerec/delete',method:'post',baseURL:0
+		url:'/admin/Homerec/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	
 	Homerec_add:{
-		url:'/admin/Homerec/add',method:'post',baseURL:0
+		url:'/admin/Homerec/add',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	
 	Homerec_edit:{
-		url:'/admin/Homerec/edit',method:'post',baseURL:0
+		url:'/admin/Homerec/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	
+	noticeedit:{
+		url:'/admin/notice/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	}
 }

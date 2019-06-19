@@ -22,13 +22,13 @@
 								<span :class="'status'+scope.row['status']">●</span><span>{{ item.child.status[scope.row['status']] }}</span>
 							</span>
 							<span v-else-if="scope.row['is_del'] != '0'">
-								<!-- <span :class="'status'+scope.row['is_del']">●</span> --><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
+								<span class="status-1">●</span><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
 							</span>
 							<!-- <span>{{ scope.row['is_del'] }}</span> -->
 						</div>
 						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] ? item.child[scope.row[item.prop]] : item.child.no }}</span></span>
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
-						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
+						<span v-else-if="item.type == 'status'"><span :class="item.statusclass+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
 						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop] }}</span>
 						<div v-else-if="item.type == 'hiretime'">
@@ -508,7 +508,7 @@
 					break;
 					case "newsRelease":
 						if(!setid){
-							this.router.push({path:"/noticeManager/newsRelease/addsRelease", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/noticeManager/newsRelease/editrelease", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){
@@ -720,22 +720,68 @@
 </script>
 <style>
 	.status-2{
-		color: #F5222D;
+		color: #f72522;
 	}
 	.status-1{
-		color: #000000;
+		color: #f72522;
 	}
 	.status0{
-		color:#52C41A;
+		color:#fcae00;
 	}
 	.status1{
-		color:#52C41A;
+		color:#fcae00;
 	}
 	.status2{
-		color:#52C41A;
+		color:#4dc600;
 	}
 	.status10{
-		color:#52C41A;
+		color:#4dc600;
+	}
+	.status11{
+		color:#4dc600;
+	}
+	
+	.presetReasonstatus0{
+		color:#f72522;
+	}
+	
+	.presetReasonstatus1{
+		color:#4dc600;
+	}
+	
+	.newsReleasestatus0{
+		color:#bfbfbf;
+	}
+	
+	.newsReleasestatus1{
+		color:#008dff;
+	}
+	
+	.newsReleasestatus2{
+		color:#4dc600;
+	}
+	
+	.activityEmploystatus-1{
+		color:#bfbfbf;
+	}
+	.activityEmploystatus0{
+		color:#bfbfbf;
+	}
+	.activityEmploystatus1{
+		color:#008dff;
+	}
+	
+	.recommendedActivitiesstatus0{
+		color:#bfbfbf;
+	}
+	.recommendedActivitiesstatus1{
+		color:#008dff;
+	}
+	.recommendedActivitiesstatus-1{
+		color:#f72522;
+	}
+	.recommendedActivitiesstatus-2{
+		color:#f72522;
 	}
 	
 	.maskimg{

@@ -468,6 +468,13 @@
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
 			},
 			contributor() {
+				if(!this.radio1){
+					this.$message({
+						message:"请选择驳回理由"
+					})
+					return;
+				}
+				
 				let data = {
 					access_token: localStorage.getItem("access_token"),
 					type: this.$route.query.type,
@@ -709,7 +716,7 @@
 				console.log(this.openurls);
 			},
 			linksee(){
-				window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + this.$route.query.work_id);   
+				window.open( localStorage.getItem("URL")+"/#/conts?id=" + this.$route.query.work_id);   
 			},
 			getData(pg) {
 				//获取子组件表格数据

@@ -218,7 +218,7 @@ const screenData = {
 				{name:"活动类型",id:"type"},
 				{name:"主题分类",id:"category_name",child:(localStorage.getItem("child") ? JSON.parse(localStorage.getItem("child")) : [])},
 				/* {name:"活动时间",id:"id",type:"time"}, */
-				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"},{name:"已删除",id:"-2"}]},
+				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
 				{name:"入围作品数量",id:"id",type:"two",child:[{id:"shortlisted_num_min",name:"入围作品数量下限"},{id:"shortlisted_num_max",name:"入围作品数量上限"}]},
 				{name:"录用作品数量",id:"ids",type:"two",child:[{id:"hire_num_min",name:"录用作品数量下限"},{id:"hire_num_max",name:"录用作品数量下限"}]},
@@ -908,7 +908,7 @@ const screenData = {
 				{prop:'category_name',lable:'主题分类名称',width:150},
 				{prop:'processing_activity_num',lable:'进行中活动数'},
 				{prop:'updated_at',lable:'更新时间'},
-				{prop:'status',lable:'当前状态',type:"keyvalue",child:{"1":"启用","0":"停用"}}
+				{prop:'status',lable:'当前状态',type:"status",child:{"1":"启用","0":"停用"},statusclass:"presetReasonstatus"}
 			],
 			action:{
 				morebtns:{
@@ -958,7 +958,7 @@ const screenData = {
 				{prop:'banner',lable:'banner',type:"img",width:200},
 				{prop:'category_name',lable:'主题分类'},
 				{prop:'time',type:"merge",lable:'活动时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束","-2":"已删除"}},
+				{prop:'status',lable:'当前状态',width:150,type:"status",child:{"0":"未开始","1":"进行中","-1":"已结束"},statusclass:"activityEmploystatus"},
 				{prop:'setting_type',lable:'作品上传和展示',type:"keyvalue",width:250,child:{"1":"不支持上传","2":"支持上传，不支持展示作品","3":"支持上传，仅展示入围作品","4":"支持上传，并展示入围和录用作品"}},
 				{prop:'shortlisted_num',lable:'入围作品数量',width:250},
 				{prop:'hire_num',lable:'录用作品数量',width:250},
@@ -1045,7 +1045,7 @@ const screenData = {
 				{lable:"活动banner",prop:"banner"},
 				{lable:"入围时间",prop:"shortlisted_time"},
 				{lable:"录用时间",prop:"hire_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"-2":"入围未录用","-1":"未入围","0":"参与活动","11":"已入围","2":"已录用","10":"已参加","1":"入围待审核"}},
+				{lable:"当前状态",prop:"status",type:"status",child:{"-1":"未入围","1":"入围待审核","-2":"入围未录用","11":"已入围","0":"参与活动","10":"已参加","2":"已录用"},statusclass:"status"},
 			],
 			action:{
 				morebtns:{
@@ -1171,7 +1171,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":"未使用","2":"线上展示中"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1192,7 +1192,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"待使用","0":" 未使用","2":"线上展示中"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1212,7 +1212,7 @@ const screenData = {
 				{lable:"调文案",prop:"word"},
 				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","-2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1232,7 +1232,7 @@ const screenData = {
 				{lable:"文档备注",prop:"remark"},
 				{lable:"文档类型",prop:"type",type:"keyvalue",child:{"1":"关于我们","2":"用户协议","3":"授权协议","4":"帮助中心"}},
 				{lable:'更新时间',prop:"updated_at"},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待使用","-1":"已过期","-2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1263,7 +1263,7 @@ const screenData = {
 				{lable:"干预活动",prop:"activity_name",type:"url",url:"/activityManager/activityEmploy"},
 				{lable:"干预位置",prop:"position",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"线上展示中","0":" 待用方案内","-1":"未使用","2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1285,7 +1285,7 @@ const screenData = {
 				{lable:"作品名称",prop:"work_name"},
 				{lable:"干预位置",prop:"position"},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"1":"干预中","0":" 待上线","-1":"已过期"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
 			action:{
 				morebtns:{
@@ -1381,7 +1381,7 @@ const screenData = {
 				{lable:"驳回理由预设ID",prop:"id"},
 				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请"}},
 				{lable:"驳回理由",prop:"content"},
-				{lable:"状态",prop:"status",type:"status",child:{"0":"停用","1":"启用","-1":"已删除"}},
+				{lable:"状态",prop:"status",type:"status",child:{"0":"停用","1":"启用"},statusclass:"presetReasonstatus"},
 				{lable:"该理由驳回数",prop:"reject_num"},
 				{lable:"创建时间",prop:"created_at"}
 			],
@@ -1493,7 +1493,7 @@ const screenData = {
 				{lable:"通知标题",prop:"title"},
 				{lable:"预发用户数",prop:"send_num"},
 				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},width:320},
-				{lable:"当前状态",prop:"status",type:"status",child:{"0":"停用","1":"启用","-1":"已删除"}},
+				{lable:"当前状态",prop:"status",type:"status",child:{"0":"未发送","1":"进行中","2":"已完成"},statusclass:"newsReleasestatus"},
 				{lable:"发送成功数",prop:"send_num"},
 				{lable:"创建人",prop:"admin_username"},
 			],
@@ -1504,9 +1504,8 @@ const screenData = {
 					page:"newsRelease",
 				},
 				links:{
-					name:"停用",
+					name:"编辑",
 					Ishow:true,
-					child:{"1":"启用","0":"停用"}
 				},
 			}
 		},

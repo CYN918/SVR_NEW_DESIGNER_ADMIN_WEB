@@ -10,7 +10,7 @@
 			<div class="mainContentMidden">
 				<keep-alive>
 					<transition name="fade-transform" mode="out-in">
-						<router-view />
+						<router-view ref="mychild" />
 					</transition>
 				</keep-alive>
 			</div>
@@ -20,6 +20,9 @@
 		</div>
 		<div class="screenbg" v-if="IsScreenShow == 'No'">
 			<common-screen-show :pageName="pageName"></common-screen-show>
+		</div>
+		<div class="masku screenContent" style="background: rgba(0,0,0,0.4);" v-if="pressage">
+			<el-progress type="circle" :percentage="percentage" class="prossage"></el-progress>
 		</div>
 	</div>
 </template>
@@ -40,7 +43,10 @@
 				pageName: "",
 				menulist: "",
 				parentnum:"",
-				tabnum:""
+				tabnum:"",
+				pressage:false,
+				percentage:50,
+				
 			}
 		},
 		watch: {},
@@ -82,7 +88,11 @@
 				this.api.access({
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					
+					if(da.result == 0){
+						//alert(11)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						//this.router.push({path:"/userManager/userBaseInfo"});
+					}
 				}).catch(da => {
 					
 				})
@@ -114,6 +124,30 @@
 			
 				});
 			},
+			setpercentage(status,url,id,coverurl){
+				var time = "";
+				if(status == "end"){
+					this.percentage = 100;
+					if(id == "con"){
+						this.$refs.mychild.setcontent(url,coverurl);
+					}else {
+						this.$refs.mychild.setimgurl(url);
+					}
+					
+					this.pressage=false;
+					this.percentage = 50;
+				}
+				if(status == "start"){
+					this.pressage=true;
+					clearInterval(time);
+					time = setInterval(()=>{
+						if(this.percentage > 95){
+							clearInterval(time);
+						}
+						this.percentage++;
+					},0)
+				}
+			}
 		},
 		created() {
 			this.getaccess();
@@ -124,6 +158,9 @@
 		}
 	}
 </script>
+<style>
+	
+</style>
 <style lang="scss" scoped>
 	$sideBarWidt: 280px;
 

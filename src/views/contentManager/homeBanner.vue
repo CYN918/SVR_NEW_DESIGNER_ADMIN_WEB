@@ -440,8 +440,11 @@
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
 			this.$parent.tabchange(2);
-			if(this.$route.query.tabsnum){
-				this.tabsChange(this.$route.query.tabsnum);
+			if(this.$route.query.tabsnum == 0){
+				this.tabsChange(0);
+			}
+			if(this.$route.query.tabsnum == 1) {
+				this.tabsChange(1);
 			}
 		},
 		watch:{

@@ -258,6 +258,10 @@ input{
 	overflow: hidden;
 }
 
+.prossage .el-progress__text{
+	color: white !important;
+}
+
 .screenTop {
 	height: 75px;
 	line-height: 75px;

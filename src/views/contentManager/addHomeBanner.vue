@@ -128,15 +128,20 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-			    var _this = this
+			    var _this = this;
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					//console.log(response.data.data.url);
-					_this.banner_pic = response.data.data.url
+					
+					_this.$parent.setpercentage("end",response.data.data.url);
 				}).catch(function (error) {
 					console.log(error);
 				});
 				//console.log(this.form.banner = url)
 			},
+			setimgurl(url){
+				this.banner_pic = url;
+			}
 		},
 		created() {
 			if(this.$route.query.row){
