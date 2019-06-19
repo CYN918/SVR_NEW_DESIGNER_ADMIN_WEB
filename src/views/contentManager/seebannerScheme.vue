@@ -64,14 +64,6 @@
 					<el-input style="width:357px;height:40px;" v-model="datadetial.banner_program_name"></el-input>
 				</li>
 				<li class="margint23 ofh" style="line-height: 40px;">
-					<!-- <div>
-						<span class="fleft detailKey" >展示时间段</span>
-						<span class="fleft">{{ datadetial.program_begin_time }}</span>
-						<span class="fleft" >
-							&nbsp;至&nbsp;
-						</span>
-						<span class="fleft">{{ datadetial.program_end_time }}</span>
-					</div> -->
 					<div>
 						<span class="fleft detailKey" style="line-height: 40px;">展示时间段</span>
 						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="datadetial.program_begin_time" type="datetime"
@@ -132,6 +124,7 @@
 				}
 			},
 			getinfo(){
+				
 				this.api.bannerprograminfo({
 					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id
@@ -143,10 +136,19 @@
 				})
 			},
 			editp(){
-				this.datadetial.access_token = localStorage.getItem("access_token");
-				this.api.bannerprogramedit(this.datadetial).then(da=>{
-					//console.log(da);
-					//this.data = da;
+				console.log(this.datadetial)
+				this.api.bannerprogramedit({
+					access_token:localStorage.getItem("access_token"),
+					id:this.datadetial.id,
+					is_default:this.datadetial.is_default,
+					program_begin_time:this.datadetial.program_begin_time,
+					program_end_time:this.datadetial.program_end_time,
+					jump_url:this.datadetial.jump_url,
+					banner_material_ids:  JSON.parse(this.datadetial.banner_material_ids).join(",")
+				}).then(da=>{
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(da=>{
 					
 				})

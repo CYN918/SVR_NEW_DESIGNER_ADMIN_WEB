@@ -147,7 +147,7 @@ export default {
 		url:'/admin/bannerprogram/list',method:'post',baseURL:0
 	},
 	bannerprogramedit:{
-		url:'/admin/bannerprogram/edit',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/bannerprogram/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	bannerprogramdelete:{
 		url:'/admin/bannerprogram/delete',method:'post',baseURL:0,isType:{suktip:true}
