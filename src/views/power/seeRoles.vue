@@ -48,9 +48,7 @@
 		},
 		methods: {
 			getparent() {
-				this.router.push({
-					path: "/power/roleManager"
-				})
+				this.$router.go(-1)
 			},
 			getValue(val) {
 				if (val) {

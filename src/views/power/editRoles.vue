@@ -59,9 +59,7 @@
 		},
 		methods: {
 			getparent() {
-				this.router.push({
-					path:"/power/roleManager"
-				})
+				this.$router.go(-1)
 			},
 			getValue(val) {
 				if (val) {
@@ -95,9 +93,7 @@
 					description:this.text30
 				}).then(da =>{
 					if(da == "修改成功"){
-						this.router.push({
-							path:"/power/roleManager"
-						})
+						this.$router.go(-1)
 					}
 					
 					/* this.router.push({

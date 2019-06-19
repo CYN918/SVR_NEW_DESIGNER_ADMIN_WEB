@@ -355,7 +355,7 @@
 		methods: {
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				 switch (this.pagetype){
+				/* switch (this.pagetype){
 					case 1:
 						this.router.push({
 							path: "/review/publishWork"
@@ -378,7 +378,8 @@
 						break;
 					default:
 						break;
-				}
+				} */
+				this.$router.go(-1);
 				
 			},
 			getValue(val) {

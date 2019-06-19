@@ -56,9 +56,7 @@
 		},
 		methods: {
 			getparent() {
-			    this.router.push({
-					path:"/power/roleManager"
-				})
+			    this.$router.go(-1)
 			},
 			getValue(val) {
 				if (val) {
@@ -92,10 +90,7 @@
 					permissions:rolesString,
 					description:this.text30
 				}).then(da =>{
-					
-					this.router.push({
-						path:"/power/roleManager"
-					})
+					this.$router.go(-1)
 				}).catch(da => {})
 			},
 			getMenu(){

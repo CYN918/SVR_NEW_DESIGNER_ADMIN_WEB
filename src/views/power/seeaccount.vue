@@ -66,9 +66,7 @@
 		},
 		methods: {
 			getparent() {
-				this.router.push({
-					path: "/power/accountManager"
-				})
+				this.$router.go(-1)
 			},
 			getValue(val) {
 				if (val) {
