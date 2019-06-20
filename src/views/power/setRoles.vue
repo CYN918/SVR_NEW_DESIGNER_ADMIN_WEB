@@ -40,6 +40,7 @@
 					<span class="fleft" style="margin-right: 20px;width:84px">权限设置</span>
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" 
+						ref="tree"
 						show-checkbox
 						node-key="id" 
 						check-strictly
@@ -80,7 +81,8 @@
 				Islist:false,
 				rolesData:[],
 				role_ids:[],
-				rows:JSON.parse(this.$route.query.row)
+				rows:JSON.parse(this.$route.query.row),
+				checkedKeys:[]
 			}
 		},
 		methods: {
@@ -106,9 +108,9 @@
 					access_token:localStorage.getItem("access_token"),
 					id:this.rows.id
 				}).then(da =>{
-					console.log(da)
+					//console.log(da)
 					this.roleintroduce = da;
-					console.log(da.role);
+					//console.log(da.role);
 					for(var itme in da.role){
 						this.checkedroles.push(da.role[itme])
 					}
@@ -129,7 +131,7 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					console.log(da)
+					//console.log(da)
 					this.data2 = da;
 				}).catch(da =>{
 					
@@ -140,6 +142,7 @@
 			},
 			handleClose(tag) {
 				//console.log(this.checkedroles)
+				this.checkedKeys = [];
 				this.checkedroles.forEach((item,index)=>{
 					if(tag == item){
 						this.checkedroles.splice(index,1);
@@ -184,7 +187,7 @@
 				})
 			},
 			checkedrole(val){
-				console.log(val)
+				//console.log(val)
 				this.role_ids = []
 				this.rolesData.forEach((item,index)=>{
 					val.forEach(citem=>{
@@ -192,8 +195,25 @@
 							this.role_ids.push(item.id);
 						}
 					})
+					this.role_ids.forEach(citem=>{
+						//console.log(citem,item.id)
+						if(item.id == citem){
+							let permission = item.permissions.split(",");
+							//console.log(item.permissions.split(","))
+							for(var i=0;i<permission.length;i++){
+								//console.log(this.checkedKeys.indexOf(permission[i]));
+								if(this.checkedKeys.indexOf(permission[i]) == -1){
+									this.checkedKeys.push(permission[i]);
+								}
+							}
+							//this.permissions.concat(item.permissions.split(","));
+						}
+					})
+					
+					//console.log(this.checkedKeys);
+					this.$refs.tree.setCheckedKeys(this.checkedKeys);
 				})
-				//console.log(this.role_ids);
+				
 			}
 		},
 		created(){
