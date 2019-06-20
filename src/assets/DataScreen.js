@@ -684,7 +684,7 @@ const screenData = {
 				{prop:'work_name',lable:'作品标题',type:"url",url:"/workManager/workInfo"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
 				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
-				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:300},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
@@ -708,7 +708,7 @@ const screenData = {
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
 				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
-				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
@@ -732,7 +732,7 @@ const screenData = {
 				{prop:"activity_name",lable:"活动标题",type:"url"},
 				{prop:'open_id',lable:'提审用户ID',width:200},
 				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
-				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
@@ -754,7 +754,7 @@ const screenData = {
 				{prop:'check_type',lable:'提交类型',type:"keyvalue",child:{"1":"初次申请","2":"驳回复审申请","3":"修改信息申请"}},
 				{prop:'open_id',lable:'提审用户ID',width:200},
 				{prop:'username',lable:'用户昵称',type:"hiretime",url:"/userManager/userBaseInfo",time:"create_time",width:200},
-				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:150},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
