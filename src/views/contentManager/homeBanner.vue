@@ -197,6 +197,7 @@
 						}
 						this.tableData = da.data;
 						this.tableConfig.total = da.total;
+						
 						this.tableConfig.currentpage = da.page;
 						this.tableConfig.pagesize = da.page_size;
 						this.setLoding(false);
@@ -221,6 +222,7 @@
 								
 					this.api.bannerprogramlist(data).then((da) => {
 						this.bannerprogramlists = da.data;
+						this.tableConfig.total = da.total;
 						if (!da) {
 							this.$message('数据为空');
 						}
