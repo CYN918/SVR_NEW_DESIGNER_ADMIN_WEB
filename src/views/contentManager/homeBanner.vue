@@ -24,8 +24,9 @@
 			 ref="Tabledd"></common-table>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
-			<div style="height: calc(100% - 70px);margin-top: 20px;background-color: white;overflow: auto;">
-				<ul class="screenContent" style="flex-wrap: wrap">
+			<div class="w" style="height: 20px;"></div>
+			<div class="scrollbar" style="">
+				<ul class="screenContent1" style="">
 					<li class="bannerlistg relative" v-for="(item,index) in bannerprogramlists" :key="item.id">
 						<div class="wh">
 							<div style="position: absolute;top: 0;left: 0;z-index: 999;">
@@ -35,7 +36,6 @@
 							    <div>
 									<button style="margin-left: 0;margin-top:8px" v-if="item.is_default == '1'" class="defaultbtn bannerstatusdefa">默认展示</button>
 								</div>
-								
 							</div>
 							<el-carousel height="190px" style="background: gray;border-radius: 5px;">
 							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
@@ -51,9 +51,9 @@
 										<span>展示时间段: </span><span>{{ item.program_begin_time + " 至 " + item.program_end_time}}  </span>
 									</div>
 								</div>
-								<div class="fright" style="padding: 20px;margin: 0;">
+								<div class="fright" style="padding: 20px 0;margin: 0;">
 									<el-dropdown :hide-on-click="false">
-									  <button class="defaultbtn">更多操作</button>
+									  <button class="defaultbtn defaultbtn1400" style="">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
 										<el-dropdown-item @click.native="delectprogram(item.id)">删除</el-dropdown-item>
 										<el-dropdown-item @click.native="editprogram(item.id,'edit')">编辑</el-dropdown-item>
@@ -493,8 +493,59 @@
 		height:270px;
 		border-radius:5px;
 		border: 1px solid #E6E6E6;
-		margin-top: 20px;
+		margin-bottom: 20px;
+		
 	}
+	
+	.screenContent1{
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		flex-wrap: wrap;
+		justify-content:space-between;
+		padding:0 20px;
+	}
+	
+	#app .defaultbtn1400{
+		margin-right: 20px;
+	}
+	
+	@media screen and (max-width: 1400px) {
+		.bannerlistg{
+			width:calc(50% - 8px);
+			height:270px;
+			border-radius:5px;
+			border: 1px solid #E6E6E6;
+			margin:0 1;
+			margin-bottom: 20px;
+			
+		}
+		
+		.screenContent1{
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+			flex-wrap: wrap;
+			justify-content:space-between;
+			
+		}
+		
+		#app .defaultbtn1400{
+			width: 80px;
+			margin-left: 0;
+			margin-right: 5px;
+		}
+	}
+	
+	
+	
+	.scrollbar{
+		height: calc(100% - 90px);
+		background-color: white;
+		overflow-y: auto;
+	}
+	
+	/* width:calc(50% - 8px); */
 	
 	.bannerlisttag0 {
 		width:100px;

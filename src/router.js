@@ -283,7 +283,7 @@ export default new Router({
 					path: "labels",
 					name: 'labels',
 					meta: {
-						title: "评论回复管理"
+						title: "作品标签"
 					},
 					component: () => import('@/views/workManager/labels.vue'),
 				},

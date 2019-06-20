@@ -217,6 +217,11 @@ input{
 	color: #FF5121 !important;
 }
 
+#app .is_default .el-submenu__title,#app .is_default .el-menu-item, #app .is_default .el-menu-item{
+	background-color: #ffede8 !important;
+	color: #FF5121 !important;
+}
+
 /* .sel-footer .el-button:focus,.sel-footer .el-button:hover,.sel-footer .el-button:active{
 	background: #FFF;
     border: 1px solid #DCDFE6;
@@ -854,6 +859,23 @@ input{
 
 .commonbg > div{
 	margin-left:0; 
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+	width:5px;
+	border-radius:5px;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+	border-radius:5px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+	border-radius:5px;
+	background:#E6E6E6;
 }
 
 @media screen and (max-width: 1400px) {

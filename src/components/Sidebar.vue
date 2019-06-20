@@ -5,10 +5,10 @@
 			<span class="fleft fontsize24">狮大大</span> -->
 			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px 15px;">
 		</div>
-		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
+		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="'2'" :default-openeds="defaultopeneds"
 		 active-text-color="#FF5121">
-			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id" >
-				<template slot="title">
+			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id">
+				<template slot="title" class="is_default">
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
@@ -165,8 +165,8 @@
 					"20": "&#xe730;",
 					"21": "&#xe730;",
 					"8": "&#xe730;",
-					
-				}
+				},
+				defaultopeneds:['2'],
 			}
 		},
 		watch: {},
