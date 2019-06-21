@@ -208,6 +208,15 @@ Vue.prototype.MD5 = function(string){
     return temp.toLowerCase();
 }
 
+//路由跳转前做判断
+router.beforeEach((to, from, next) => {
+	if (to.meta.pagetitle) {
+		document.title = to.meta.pagetitle;
+    } 
+	
+	next();
+})
+
 new Vue({
   router,
   store,

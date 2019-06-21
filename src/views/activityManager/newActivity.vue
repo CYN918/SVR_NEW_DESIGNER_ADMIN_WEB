@@ -15,7 +15,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent ofh" style="height: calc(100% - 47px) !important;">
+		<div class="detailContent" ref="scroll" style="height: calc(100% - 47px) !important;">
 			<div v-show="!Isnextshow">
 				<ul>
 					<li class="margint23 ofh">
@@ -32,8 +32,18 @@
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
 							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
-						<img :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
+					
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">活动封面</span>
+						<el-upload class="upload" action="454535" :http-request="httprequestcover" :show-file-list="false">
+							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
+							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+						</el-upload>
+						<img v-if="form['cover_img']" :src="form['cover_img']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+					</li>
+					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
 						<el-select v-model="form['category_id']" placeholder="请选择">
@@ -107,7 +117,7 @@
 					</li>
 				</ul>
 			</div>
-			<div v-show="Isnextshow" class="relative">
+			<div v-show="Isnextshow" class="relative" >
 				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 				<div class="ueditoruploadul">
 					<div class="fleft">
@@ -201,7 +211,8 @@
 					is_related_needs: "0",
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
-					type:'1'
+					type:'1',
+					cover_img:""
 				},
 				fileList: [{
 					name: 'food.jpeg',
@@ -213,8 +224,8 @@
 				Isnextshow: false,
 				myConfig: {
 					autoHeightEnabled: false,
-					initialFrameHeight: 300,
-					initialFrameWidth: '100%',
+					initialFrameHeight: 7000,
+					initialFrameWidth: '99%',
 					UEDITOR_HOME_URL: '/UEditor/',
 					serverUrl:'http://139.129.221.123/File/File/insert'
 				},
@@ -459,6 +470,7 @@
 			},
 			nxet() {
 				this.Isnextshow = true;
+				this.$refs.scroll.scrollTop = 0;
 			},
 			prev() {
 				this.Isnextshow = false;
@@ -507,15 +519,7 @@
 				});
 			},
 			httprequest(params) {
-				//console.log("params",params)
 				const _file = params.file;
-				//const isLt2M = _file.size / 1024 / 1024 < 2;
-
-				/* if (!isLt2M) {
-					this.$message.error("请上传2M以下是的文件");
-					return false;
-				} */
-
 				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
 				let open_id = 7;
 				let times = (Date.parse(new Date()) / 1000);
@@ -537,6 +541,38 @@
 			    var _this = this;
 				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					_this.uptype = "banner";
+					_this.$parent.setpercentage("end",response.data.data.url);
+					//_this.form.banner = response.data.data.url
+				}).catch(function (error) {
+					console.log(error);
+				});
+				//console.log(this.form.banner = url)
+			},
+			httprequestcover(params) {
+				const _file = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+			
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+			    var _this = this;
+				this.$parent.setpercentage("start");
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					_this.uptype = "cover";
 					_this.$parent.setpercentage("end",response.data.data.url);
 					//_this.form.banner = response.data.data.url
 				}).catch(function (error) {
@@ -545,7 +581,14 @@
 				//console.log(this.form.banner = url)
 			},
 			setimgurl(url){
-				this.form.banner = url;
+				if(this.uptype == 'banner'){
+					
+					this.form.banner = url;
+				}
+				
+				if(this.uptype == 'cover'){
+					this.form.cover_img = url;
+				}
 			},
 			filechange(params){
 				//console.log("params",params)
@@ -844,7 +887,7 @@
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
+			//this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
 			"$route":function(){

@@ -23,7 +23,7 @@
 			
 		</div>
 		<div class="paddinglr30 ofh" style="height: calc(100% - 285px);overflow-y: scroll;" v-loading="setLoding">
-			<div class="ofh" v-if="tabsnum == 0">
+			<div class="ofh" v-show="tabsnum == 0">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
@@ -37,16 +37,15 @@
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li>
-							
 						</ul>
 					</div>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
+			<div class="paddinglr40 ofh" v-show="tabsnum == 1">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
 						<li v-for="(item,index) in materialdata" :key="item.fid">
-							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}">
+							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)">
 								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
 							</div>
 							<div class="color66">
@@ -57,15 +56,16 @@
 					</ul>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-if="tabsnum == 2">
+			<div class="paddinglr40 ofh" v-show="tabsnum == 2">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in materialdata" :key="item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}">
+							<li class="relative" v-for="(item,index) in materialdata" :key="item.fid">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)">
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 								</div>
+								<video v-show="videofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
 									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
@@ -75,15 +75,16 @@
 					</div>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-if="tabsnum == 3">
+			<div class="paddinglr40 ofh" v-show="tabsnum == 3">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
-						<ul class="materiallist">
+						<ul class="materiallist relative">
 							<li v-for="(item,index) in materialdata" :key="item.fid">
-								<div class="material relative">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)">
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 								</div>
+								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
 									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
@@ -106,6 +107,9 @@
 				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks()">下载 {{ checkList.length }}
 					个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
 			</div>
+		</div>
+		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
+			<img :src="imgurl" alt="暂无图片">
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
@@ -167,6 +171,9 @@
 				materialdata:"",
 				filterFields:DataScreen.screen.materialBank.filterFields,
 				openurls:[],
+				isimgurl:"",
+				videofid:"",
+				audiofid:"",
 			}
 		},
 		methods: {
@@ -420,7 +427,24 @@
 					}
 				})
 			},
-			
+			getimgulr(url){
+				this.imgurl = url;
+				this.isimgurl = !this.isimgurl
+			},
+			showvideo(fid){
+				if(this.videofid){
+					document.getElementById(this.videofid).pause();
+				}
+				this.videofid = fid;
+				document.getElementById(fid).play();
+			},
+			showaudio(fid){
+				if(this.audiofid){
+					document.getElementById(this.audiofid).pause();
+				}
+				this.audiofid = fid;
+				document.getElementById(fid).play();
+			}
 		},
 		created() {
 			this.getcommonrightbtn();

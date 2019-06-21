@@ -4,7 +4,7 @@ import Layout from '@/components/Layout.vue'
 import loading from '@/components/loading.vue'
 Vue.use(Router)
 
-export default new Router({
+var router = new Router({
 	//mode: 'history',
 	//base: process.env.BASE_URL,
 	routes: [
@@ -25,7 +25,8 @@ export default new Router({
 					path: 'userBaseInfo',
 					name: 'userBaseInfo',
 					meta: {
-						title: "用户基本信息"
+						title: "用户基本信息",
+						pagetitle: "用户基本信息-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/userManager/userBaseInfo.vue')
 				},
@@ -33,7 +34,7 @@ export default new Router({
 					path: 'userBaseInfo/userBaseInfoDetail',
 					name: 'userBaseInfoDetail',
 					meta: {
-						title: "用户基本信息 / 查看用户信息"
+						title: "用户基本信息 / 查看用户信息",
 					},
 					component: () => import('@/views/userManager/userBaseInfoDetail.vue')
 				},
@@ -41,7 +42,8 @@ export default new Router({
 					path: 'userPersonalInfo',
 					name: 'userPersonalInfo',
 					meta: {
-						title: "供稿人信息表-个人"
+						title: "供稿人信息表-个人",
+						pagetitle: "供稿人信息表个人-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/userManager/userPersonalInfo.vue')
 				},
@@ -57,7 +59,8 @@ export default new Router({
 					path: 'userCompanyInfo',
 					name: 'userCompanyInfo',
 					meta: {
-						title: "供稿人信息表-企业-机构"
+						title: "供稿人信息表-企业-机构",
+						pagetitle: "供稿人信息表企业/机构-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/userManager/userCompanyInfo.vue')
 				},
@@ -83,7 +86,8 @@ export default new Router({
 					path: 'publishWork',
 					name: 'publishWork',
 					meta: {
-						title: "作品发布"
+						title: "作品发布",
+						pagetitle: "作品发布-审核台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/review/publishWork.vue')
 				},
@@ -99,7 +103,8 @@ export default new Router({
 					path: 'finalistsWork',
 					name: 'finalistsWork',
 					meta: {
-						title: "作品入围"
+						title: "作品入围",
+						pagetitle: "作品入围-审核台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/review/finalistsWork.vue')
 				},
@@ -115,7 +120,8 @@ export default new Router({
 					path: 'employWork',
 					name: 'employWork',
 					meta: {
-						title: "作品录用"
+						title: "作品录用",
+						pagetitle: "作品录用-审核台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/review/employWork.vue')
 				},
@@ -131,7 +137,8 @@ export default new Router({
 					path: 'applyPerson',
 					name: 'applyPerson',
 					meta: {
-						title: "供稿人申请"
+						title: "供稿人申请",
+						pagetitle: "供稿人申请-审核台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/review/applyPerson.vue')
 				},
@@ -158,7 +165,8 @@ export default new Router({
 					path: 'roleManager',
 					name: 'roleManager',
 					meta: {
-						title: "角色管理"
+						title: "角色管理",
+						pagetitle: "角色管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/power/roleManager.vue'),
 				},
@@ -190,7 +198,8 @@ export default new Router({
 					path: 'accountManager',
 					name: 'accountManager',
 					meta: {
-						title: "账号管理"
+						title: "账号管理",
+						pagetitle: "账号管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/power/accountManager.vue')
 				},
@@ -226,7 +235,8 @@ export default new Router({
 					path: "workInfo",
 					name: 'workInfo',
 					meta: {
-						title: "作品信息表"
+						title: "作品信息表",
+						pagetitle: "作品信息表-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/workManager/workInfo.vue'),
 				},
@@ -258,7 +268,8 @@ export default new Router({
 					path: "materialBank",
 					name: 'materialBank',
 					meta: {
-						title: "素材库"
+						title: "素材库",
+						pagetitle: "素材库-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/workManager/materialBank.vue'),
 				},
@@ -275,7 +286,8 @@ export default new Router({
 					path: "commentManager",
 					name: 'commentManager',
 					meta: {
-						title: "评论回复管理"
+						title: "评论回复管理",
+						pagetitle: "评论回复管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/workManager/commentManager.vue'),
 				},
@@ -283,7 +295,8 @@ export default new Router({
 					path: "labels",
 					name: 'labels',
 					meta: {
-						title: "作品标签"
+						title: "作品标签",
+						pagetitle: "作品标签-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/workManager/labels.vue'),
 				},
@@ -303,7 +316,8 @@ export default new Router({
 					path: "activityClass",
 					name: 'activityClass',
 					meta: {
-						title: "主题分类管理"
+						title: "主题分类管理",
+						pagetitle: "主题分类管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/activityManager/activityClass.vue'),
 				},
@@ -327,7 +341,8 @@ export default new Router({
 					path: "activityEmploy",
 					name: 'activityEmploy',
 					meta: {
-						title: "发布活动"
+						title: "发布活动",
+						pagetitle: "发布活动-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/activityManager/activityEmploy.vue'),
 				},
@@ -351,7 +366,8 @@ export default new Router({
 					path: "activityworks",
 					name: 'activityworks',
 					meta: {
-						title: "活动作品"
+						title: "活动作品",
+						pagetitle: "活动作品-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/activityManager/activityworks.vue'),
 				},
@@ -359,7 +375,8 @@ export default new Router({
 					path: "solicitationTemplate",
 					name: 'solicitationTemplate',
 					meta: {
-						title: "征集模板文件"
+						title: "征集模板文件",
+						pagetitle: "征集模板文件-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
 				}
@@ -378,7 +395,8 @@ export default new Router({
 					path: "homeBanner",
 					name: 'homeBanner',
 					meta: {
-						title: "首页banner"
+						title: "首页banner",
+						pagetitle: "首页banner-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/contentManager/homeBanner.vue'),
 				},
@@ -426,7 +444,8 @@ export default new Router({
 					path: "hotWordSearch",
 					name: 'hotWordSearch',
 					meta: {
-						title: "热门搜素词"
+						title: "热门搜素词",
+						pagetitle: "热门搜素词-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/contentManager/hotWordSearch.vue'),
 				},
@@ -450,7 +469,8 @@ export default new Router({
 					path: "recommendedActivities",
 					name: 'recommendedActivities',
 					meta: {
-						title: "我的收益-推荐活动"
+						title: "我的收益-推荐活动",
+						pagetitle: "我的收益-推荐活动-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/contentManager/recommendedActivities.vue'),
 				},
@@ -474,7 +494,8 @@ export default new Router({
 					path: "serviceCenter",
 					name: 'serviceCenter',
 					meta: {
-						title: "文档服务中心"
+						title: "文档服务中心",
+						pagetitle: "文档服务中心-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/contentManager/serviceCenter.vue'),
 				},
@@ -498,7 +519,8 @@ export default new Router({
 					path: "listAd",
 					name: 'serviceCenter_listAd',
 					meta: {
-						title: "推荐干预"
+						title: "首页推荐干预",
+						pagetitle: "首页推荐干预-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/contentManager/listAd.vue'),
 				},
@@ -506,7 +528,7 @@ export default new Router({
 					path: "newlistAd",
 					name: 'serviceCenter_newlistAd',
 					meta: {
-						title: "推荐干预"
+						title: "新建推荐干预"
 					},
 					component: () => import('@/views/contentManager/newlistAd.vue'),
 				},
@@ -525,7 +547,8 @@ export default new Router({
 					path: "employmentorder",
 					name: 'employmentorder',
 					meta: {
-						title: "录用订单"
+						title: "录用订单",
+						pagetitle: "录用订单-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/employmentManager/employmentorder.vue'),
 				},
@@ -541,7 +564,8 @@ export default new Router({
 					path: "channel",
 					name: 'channel',
 					meta: {
-						title: "分享收益表"
+						title: "分享收益表",
+						pagetitle: "分享收益表-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/employmentManager/channel.vue'),
 				},
@@ -560,7 +584,8 @@ export default new Router({
 					path: "embodyRecord",
 					name: 'embodyRecord',
 					meta: {
-						title: "提现记录表"
+						title: "提现记录表",
+						pagetitle: "提现记录表-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/otherInformation/embodyRecord.vue'),
 				},
@@ -568,7 +593,7 @@ export default new Router({
 					path: "embodyRecord/seeembodyRecord",
 					name: 'seeembodyRecord',
 					meta: {
-						title: "提现记录表"
+						title: "提现记录表 / 提现记录详情"
 					},
 					component: () => import('@/views/otherInformation/seeembodyRecord.vue'),
 				},
@@ -576,7 +601,8 @@ export default new Router({
 					path: "presetReason",
 					name: 'presetReason',
 					meta: {
-						title: "审核驳回理由预设"
+						title: "审核驳回理由预设",
+						pagetitle: "审核驳回理由预设-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/otherInformation/presetReason.vue'),
 				},
@@ -592,7 +618,8 @@ export default new Router({
 					path: "feedback",
 					name: 'feedback',
 					meta: {
-						title: "意见反馈"
+						title: "意见反馈",
+						pagetitle: "意见反馈-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/otherInformation/feedback.vue'),
 				},
@@ -616,7 +643,8 @@ export default new Router({
 					path: "reportInfo",
 					name: 'reportInfo',
 					meta: {
-						title: "举报信息"
+						title: "举报信息",
+						pagetitle: "举报信息-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/otherInformation/reportInfo.vue'),
 				},
@@ -651,7 +679,8 @@ export default new Router({
 					path:"newsRelease",
 					name: 'newsRelease',
 					meta: {
-						title: "发布通知"
+						title: "发布通知",
+						pagetitle: "发布通知-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/newsRelease.vue'),
 				},
@@ -675,7 +704,8 @@ export default new Router({
 					path:"noticetemplate",
 					name: 'noticetemplate',
 					meta: {
-						title: "系统通知模板"
+						title: "系统通知模板",
+						pagetitle: "系统通知模板-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/noticetemplate.vue'),
 				},
@@ -693,7 +723,8 @@ export default new Router({
 					path: 'user',
 					name: 'user',
 					meta: {
-						title: "账号信息"
+						title: "账号信息",
+						pagetitle: "账号信息-狮圈儿运营管理平台"
 					},
 					component: () => import('@/components/userinfo.vue')
 				}
@@ -702,3 +733,6 @@ export default new Router({
 		},
 	]
 })
+
+export default router
+

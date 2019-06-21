@@ -793,6 +793,16 @@ input{
 	#app .el-checkbox__inner:hover {
 		border-color: #FF5121;
 	}
+	
+	.maskimg{
+		position: fixed;
+		top:0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5);
+		z-index: 2005;
+	}
 
 	.el-checkbox__input.is-checked .el-checkbox__inner,
 	.el-checkbox__input.is-indeterminate .el-checkbox__inner {

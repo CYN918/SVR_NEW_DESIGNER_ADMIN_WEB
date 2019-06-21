@@ -72,10 +72,11 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)">
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 								</div>
+								<video v-show="videofid == item.fid" :id="item.fid" :src="item.url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
@@ -87,10 +88,11 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
-								<div class="material relative">
+								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)">
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect"></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 								</div>
+								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
 									<span class="fleft">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
@@ -170,7 +172,8 @@
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject()">审核驳回</button>
+			<button v-if="getstatusinfo() && pagetype==3" class="defaultbtn" @click="reject3">发送修改通知</button>
+			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">审核驳回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="agree()">审核通过</button>
 			<button class="defaultbtn" v-if="pagetype != 4" @click="linksee">预览作品</button>
 		</div>
@@ -180,6 +183,7 @@
 				个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</button>
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
+
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
 			<div style="position: relative;">
 				<ul>
@@ -285,6 +289,29 @@
 				<el-button size="medium" type="primary" @click="contributor1('lu')">确定并通过</el-button>
 			</span>
 		</el-dialog>
+		<el-dialog :title="title + '-发送修改通知'" :visible.sync="centerDialogVisible3" width="738px">
+			<div style="position: relative;">
+				<ul>
+					
+					<li class="w ofh">
+						<span class="fleft Dialogkey">
+							修改内容
+						</span>
+						<div class="fleft defaultbtnworkbg">
+							<div>
+								<textarea name="" id="" cols="60" rows="10" v-model="content" class="defaultbtnwork"></textarea>
+							</div>
+							<!-- <span class="fright fontcolorg">{{ content.length }}/300</span> -->
+						</div>
+					</li>
+				</ul>
+		
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="reject3">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="sendmessage">发送通知</button>
+			</span>
+		</el-dialog>
 	</div>
 </template>
 
@@ -310,6 +337,7 @@
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
 				centerDialogVisible2: false,
+				centerDialogVisible3: false,
 				radio1: '',
 				radio2: "",
 				workselect: false,
@@ -350,6 +378,9 @@
 				font_size:0,
 				tableData:[],
 				openurls:[],
+				videofid:"",
+				audiofid:"",
+				content:"",
 			}
 		},
 		methods: {
@@ -468,6 +499,9 @@
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
 			},
+			reject3() {
+				this.centerDialogVisible3 = !this.centerDialogVisible3;
+			},
 			contributor() {
 				if(!this.radio1){
 					this.$message({
@@ -519,6 +553,34 @@
 					}
 					
 					this.submint(data)
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
+			sendmessage(){
+				this.centerDialogVisible3 = false;
+				this.$confirm('确定发送修改通知', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					customClass:"work",
+					center: true
+				}).then(() => {
+					this.api.noticesend({
+						access_token: localStorage.getItem("access_token"),
+						content: this.content,
+						activity_id: this.apply_info.activity_id,
+						work_id:this.apply_info.work_id,
+						open_id:this.apply_info.open_id
+					}).then(da => {
+						
+					}).catch(da => {
+					
+					})
 				}).catch(() => {
 					this.$message({
 						type: 'info',
@@ -736,6 +798,20 @@
 					
 				});
 			},
+			showvideo(fid){
+				if(this.videofid){
+					document.getElementById(this.videofid).pause();
+				}
+				this.videofid = fid;
+				document.getElementById(fid).play();
+			},
+			showaudio(fid){
+				if(this.audiofid){
+					document.getElementById(this.audiofid).pause();
+				}
+				this.audiofid = fid;
+				document.getElementById(fid).play();
+			}
 
 		},
 		created() {

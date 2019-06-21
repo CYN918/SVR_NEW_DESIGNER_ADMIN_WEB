@@ -305,5 +305,8 @@ export default {
 	recommendactivitydelete:{
 		url:'/admin/recommendactivity/delete',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	noticesend:{
+		url:'/admin/notice/send',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	
 }
