@@ -1,5 +1,5 @@
 <template>
-	<div class="wh Detail">
+	<div class="wh Detail" ref="height">
 		<div class="detailtitle">
 			<span class="fleft">编辑文档</span>
 			<div class="employment" style="text-align: center;">
@@ -119,6 +119,7 @@
 				],
 				ifBjType:0,
 				rows:{},
+				uptype:"img"
 				
 			}
 		},
@@ -182,12 +183,10 @@
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
 				var _this = this
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					if (_this.ifBjType == 0) {
-						_this.form.content = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.content += '<img src="' + response.data.data.url + '" alt="111111">';
+					_this.$parent.setpercentage("end",response.data.data.url,"con");
+					_this.uptype = "img"
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -215,13 +214,10 @@
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
 				var _this = this
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response)
-					if (_this.ifBjType == 0) {
-						_this.form.content = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.content += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><video src="'+ response.data.data.url +'" controls="controls"></video>';
+					_this.uptype = "video";
+					_this.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -249,13 +245,11 @@
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
 				var _this = this
+				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response)
-					if (_this.ifBjType == 0) {
-						_this.form.content = "";
-						_this.ifBjType = 1;
-					}
-					_this.form.content += '<img src="' + response.data.data.cover_img + '" alt="视频图片"><audio src="'+ response.data.data.url +'" controls="controls"></audio>';
+					_this.uptype = "audio";
+					_this.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
+					
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -350,7 +344,25 @@
 				}).catch(da =>{
 					
 				})
-			}
+			},
+			setcontent(url,coverurl){
+				if (this.ifBjType == 0) {
+					this.form.info = "";
+					this.ifBjType = 1;
+				}
+				
+				if(this.uptype == "img"){
+					this.form.info += '<img src="' + url + '" alt="图片">';
+				}
+				if(this.uptype == "video"){
+					/* <img src="' + coverurl + '" alt="视频图片"> */
+					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
+				}
+				if(this.uptype == "audio"){
+					/* <img src="' + coverurl + '" alt="音频图片"> */
+					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
+				}
+			},
 		},
 		mounted() {
 			if(this.$route.query.row){
@@ -358,8 +370,12 @@
 				this.form['remark'] = this.rows.remark;
 				this.form['type'] = this.rows.type;
 				this.form['status'] = this.rows.status;
-				this.form['content'] = this.rows.content
+				this.form['content'] = this.rows.content;
+				if(this.form['content']){
+					this.ifBjType=1;
+				}
 			}
+			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		}
 	}
 </script>

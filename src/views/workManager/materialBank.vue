@@ -336,7 +336,7 @@
 					//console.log(item.id);
 					if(item.name == "图片"){
 						let src = item.id;
-						var canvas = document.createElement('canvas');
+						/* var canvas = document.createElement('canvas');
 						var img = document.createElement('img');
 						img.onload = function(e) {
 							canvas.width = img.width;
@@ -352,7 +352,21 @@
 							}, "image/jpeg");
 						}
 						img.setAttribute("crossOrigin",'Anonymous');
-						img.src = src;
+						img.src = src; */
+						fetch(item.id).then(res => res.blob()).then(blob => {
+							const a = document.createElement('a');
+							document.body.appendChild(a)
+							a.style.display = 'none'
+							// 使用获取到的blob对象创建的url
+							const url = window.URL.createObjectURL(blob);
+							a.href = url;
+							// 指定下载的文件名
+							a.download = '视频文件';
+							a.click();
+							document.body.removeChild(a)
+							// 移除blob对象的url
+							window.URL.revokeObjectURL(url);
+						});
 					}
 					
 					if(item.name == "附件"){
@@ -379,7 +393,7 @@
 							document.body.removeChild(a)
 							// 移除blob对象的url
 							window.URL.revokeObjectURL(url);
-						  });
+						});
 					}
 					
 					if(item.name == "音频"){

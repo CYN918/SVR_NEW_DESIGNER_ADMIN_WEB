@@ -50,7 +50,15 @@ parallel: require('os').cpus().length > 1,
 
     // PWA 插件相关配置
     // see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
-    pwa: {},
+    pwa: {
+		iconPaths:{
+            favicon32: 'favicon.ico',
+            favicon16: 'favicon.ico',
+            appleTouchIcon: 'favicon.ico',
+            maskIcon: 'favicon.ico',
+            msTileImage: 'favicon.ico'
+        }
+	},
 // webpack-dev-server 相关配置
 devServer: {
 //模拟数据开始
