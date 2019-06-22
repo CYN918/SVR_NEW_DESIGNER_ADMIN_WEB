@@ -224,7 +224,7 @@
 				Isnextshow: false,
 				myConfig: {
 					autoHeightEnabled: false,
-					initialFrameHeight: 7000,
+					initialFrameHeight: 300,
 					initialFrameWidth: '99%',
 					UEDITOR_HOME_URL: '/UEditor/',
 					serverUrl:'http://139.129.221.123/File/File/insert'
@@ -887,7 +887,7 @@
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			//this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
+			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
 			"$route":function(){
