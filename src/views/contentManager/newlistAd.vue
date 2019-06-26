@@ -12,7 +12,6 @@
 						<div>
 							<span v-html="activitiesrows.work_name"></span>
 						</div>
-						
 					</div>
 				</li>
 				<li class="margint13 ofh">

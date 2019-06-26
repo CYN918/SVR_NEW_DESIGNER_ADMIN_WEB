@@ -308,5 +308,18 @@ export default {
 	noticesend:{
 		url:'/admin/notice/send',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	operateedit:{
+		url:'/admin/operate/edit',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	operatelist:{
+		url:'/admin/operate/list',method:'post',baseURL:0
+	},
+	operaterecord:{
+		url:'/admin/operate/record',method:'post',baseURL:0
+	},
+	demandlist:{
+		url:'/admin/demand/list',method:'post',baseURL:0
+	},
+	
 	
 }

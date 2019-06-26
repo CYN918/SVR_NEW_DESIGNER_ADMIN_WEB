@@ -102,19 +102,21 @@
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
 						<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
 					</li>
-					<li class="margint13 ofh">
-						<span class="fleft detailKey">是否关联综合平台需求</span>
-						<div class="fleft status">
-							<el-radio-group v-model="form['is_related_needs']" style="width:357px;float: left;">
-								<el-radio label="1" class="fleft">启用</el-radio>
-								<el-radio label="0" class="fleft">停用</el-radio>
-							</el-radio-group>
-						</div>
-					</li>
-					<li class="margint23 ofh" v-if="form['is_related_needs'] == '1'">
+					
+					<!-- <li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
-						<el-input placeholder="请输入内容" v-model="input10" style="width:357px;height:40px;" clearable></el-input>
-					</li>
+						<el-dropdown trigger="click" :hide-on-click="false">
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="demand_names.join(',')" suffix-icon="el-icon-arrow-down"
+							 clearable></el-input>
+						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+								<el-checkbox-group v-model="dids" @change="getdemand_names">
+									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
+										<el-checkbox  :label="item.did" >{{ item.demand_name ? item.demand_name : item.did }}</el-checkbox>
+									</el-dropdown-item>
+								</el-checkbox-group>
+						    </el-dropdown-menu>
+						</el-dropdown>
+					</li> -->
 				</ul>
 			</div>
 			<div v-show="Isnextshow" class="relative" >
@@ -208,7 +210,6 @@
 				form: {
 					is_provide_template: "0",
 					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
-					is_related_needs: "0",
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
 					type:'1',
@@ -276,7 +277,9 @@
 				tabsnum:0,
 				type:1,
 				uptype:"img",
-				
+				dids:[],
+				demandlist:[],
+				demand_names:[]
 			}
 		},
 		components: {
@@ -327,15 +330,7 @@
 
 				})
 			},
-			onSubmit() {
-				console.log('submit!');
-			},
-			handleRemove(file, fileList) {
-				console.log(file, fileList);
-			},
-			handlePreview(file) {
-				console.log(file);
-			},
+			
 			handleExceed(files, fileList) {
 				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
 			},
@@ -369,7 +364,7 @@
 					_this.$parent.setpercentage("end",response.data.data.url,"con");
 					_this.uptype = "img"
 				}).catch(function (error) {
-					console.log(error);
+					//console.log(error);
 				});
 				 
 			},
@@ -450,12 +445,12 @@
 					_this.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
 					
 				}).catch(function (error) {
-					console.log(error);
+					//console.log(error);
 				});
 				 
 			},
 			beforeAvatarUpload(file) {
-				console.log(file);
+				//console.log(file);
 				const isJPG = file.type === 'image/jpeg';
 				const ispng = file.type === 'image/jpeg';
 				//const isLt2M = file.size / 300 / 200 < 2;
@@ -502,7 +497,7 @@
 				}
 
 				this.api.categoryList(data).then((da) => {
-					console.log(da.data)
+					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -576,7 +571,7 @@
 					_this.$parent.setpercentage("end",response.data.data.url);
 					//_this.form.banner = response.data.data.url
 				}).catch(function (error) {
-					console.log(error);
+					//console.log(error);
 				});
 				//console.log(this.form.banner = url)
 			},
@@ -619,11 +614,11 @@
 				formData.append('timestamp', times)
 				var _this = this
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response.data.data);
+					//console.log(response.data.data);
 					_this.filename = response.data.data.file_name;
 					_this.form.template_file_id = response.data.data.fid
 				}).catch(function (error) {
-					console.log(error);
+					//console.log(error);
 				});
 			},
 			createdactivity(){
@@ -637,7 +632,7 @@
 				
 				this.form.template_file_id=this.getworkids();
 				this.api.activityadd(this.form).then(da =>{
-					console.log(da)
+					//console.log(da)
 					if(da.result == 0){
 						this.$router.go(-1);
 					}
@@ -678,7 +673,7 @@
 				}
 			
 				this.api.templateList(data).then((da) => {
-					console.log(da.data)
+					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -854,6 +849,30 @@
 					return "请选择关联平台需求状态！！";
 				}
 				return true;
+			},
+			getdemandlist(){
+				this.api.demandlist({
+					access_token:localStorage.getItem("access_token"),
+					is_activity:1
+				}).then(da=>{
+					console.log(da);
+					this.demandlist = da
+				})
+			},
+			getdemand_names(){
+				//console.log(this.dids)
+				this.dids.forEach(item =>{
+					this.demandlist.forEach(ditem=>{
+						if(item == ditem.did){
+							if(ditem.demand_name){
+								this.demand_names.push(ditem.demand_name)
+							} else {
+								this.demand_names.push(ditem.did)
+							}
+						}
+					})
+				})
+				return 
 			}
 		},
 		created() {
@@ -882,8 +901,8 @@
 				//this.form = this.rows
 				//console.log(this.form);
 				this.getactivityinfo();
-			}
-			
+			};
+			this.getdemandlist();
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];

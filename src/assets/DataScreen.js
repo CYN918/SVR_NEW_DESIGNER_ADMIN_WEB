@@ -494,6 +494,16 @@ const screenData = {
 				{name:"通知内容",id:"content"},
 			]
 		},
+		holdAlltab:{
+			filterFields:[
+				{name:"用户ID",id:"open_id"},
+				{name:"用户昵称",id:"username"},
+				{name:'作品名称',id:"work_name"},
+				{name:'注册时间',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(结束)',id:'register_time_end'}]},
+				{name:'收益发放时间',type:"time",child:[{name:'收益发放时间(开始)',id:'issue_reward_time_start'},{name:'收益发放时间(结束)',id:'issue_reward_time_start'}]},
+				{name:"",type:"display"}
+			]
+		},
 	},
 	screenShow:{
 		//用户基础信心展示字段筛选字段
@@ -623,7 +633,7 @@ const screenData = {
 		newlistAd:{
 			bts:[
 				{prop:'work_id',lable:'作品ID'},
-				{prop:'work_name',lable:'作品标题'},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
 				{prop:'face_pic',lable:'封面图',type:"img",width:150},
 				{prop:'username',lable:'用户昵称'},
 				{prop:'classify',lable:'作品类型'},
@@ -1035,7 +1045,7 @@ const screenData = {
 			defaults:['work_id','work_name','activity_id','activity_name','open_id','username','status'],
 			bts:[
 				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name",type:"url",url:"/activityManager/workInfo"},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
 				{lable:"活动ID",prop:"activity_id"},
 				{lable:"活动名称",prop:"activity_name",type:"url",url:"/workManager/activityEmploy"},
 				{lable:"用户ID",prop:"open_id"},
@@ -1282,7 +1292,7 @@ const screenData = {
 				
 				{lable:"任务ID",prop:"id"},
 				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name"},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
 				{lable:"干预位置",prop:"position"},
 				{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
 				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
@@ -1305,7 +1315,7 @@ const screenData = {
 				{lable:"录用订单ID",prop:"order_id"},
 				{lable:"订单名称",prop:"hire_order_name"},
 				{lable:"作品ID",prop:"work_id"},
-				{lable:"作品名称",prop:"work_name",type:"url"},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"用户名称",prop:"username",type:"url",url:"/userManager/userBaseInfo"},
 				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}},
@@ -1516,6 +1526,28 @@ const screenData = {
 				{lable:"通知触发场景说明",prop:"condition",width:300},
 				{lable:"通知内容",prop:"content",width:300},
 				{lable:"最近更新时间",prop:"updated_at",width:300},
+			],
+			action:{
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"noticetemplate",
+				},
+				links:{
+					name:"停用",
+					Ishow:false,
+					child:{"1":"启用","0":"停用"}
+				},
+			}
+		},
+		holdAlltab:{
+			bts:[
+				{lable:"用户ID",prop:"open_id",width:200},
+				{lable:"用户昵称",prop:"username"},
+				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
+				{lable:"注册时间",prop:"register_time"},
+				{lable:"收益发放时间",prop:"issue_reward_time"},
+				{lable:"收益金额",prop:"reward_value",type:"price"},
 			],
 			action:{
 				morebtns:{

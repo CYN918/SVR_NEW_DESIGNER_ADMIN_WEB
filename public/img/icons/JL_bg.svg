@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="288px" height="150px" viewBox="0 0 288 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>YYGJX/JL_bg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="288" height="150" rx="5"></rect>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FCBF39" offset="0%"></stop>
+            <stop stop-color="#EC671D" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="24.2001775%" x2="50%" y2="99.325217%" id="linearGradient-4">
+            <stop stop-color="#FBB837" offset="0%"></stop>
+            <stop stop-color="#ED6E1F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="YYGJX/JL" transform="translate(0.000000, -0.000000)">
+            <g id="Group-6">
+                <g transform="translate(0.000000, 0.000000)">
+                    <g id="YYGJX/JL_bg" transform="translate(0.000000, 0.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#000000" opacity="0.03" xlink:href="#path-1"></use>
+                        <path d="M-22,0 L290,0 C301.045695,-2.02906125e-15 310,8.954305 310,20 L310,130 C310,141.045695 301.045695,150 290,150 L-22,150 L-22,0 Z" id="Mask" fill="url(#linearGradient-3)" mask="url(#mask-2)"></path>
+                        <circle id="Oval" fill="#F7A330" opacity="0.200000003" mask="url(#mask-2)" cx="211" cy="102" r="16"></circle>
+                        <path d="M290,131.969105 C262.31013,116.711783 217.297257,136.438661 193.14573,131.309659 C168.253736,126.023405 155.14349,110.606281 134.931787,106.401833 C118.769519,103.03975 83.6242538,106.32079 60.8358981,109.984595 C37.8293078,113.683487 2.929389,110.565618 0.20904277,107.881494 C-2.51130346,105.197505 0.20904277,152 0.20904277,152 L290,152 L290,131.969105 Z" id="Fill-6" fill="url(#linearGradient-4)" opacity="0.5" mask="url(#mask-2)"></path>
+                        <path d="M73.1531904,-7.39590123 C91.3095884,28.8928899 114.758525,46.8534988 143.5,46.4859253 C186.612213,45.9345651 203.80536,28.5899448 227.360356,46.4859253 C243.063687,58.416579 269.077925,63.2546039 305.40307,61 L296.67421,-29.4381912 L73.1531904,-7.39590123 Z" id="Path" fill="#F6992D" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

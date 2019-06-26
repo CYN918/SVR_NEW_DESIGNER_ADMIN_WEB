@@ -401,6 +401,24 @@ var router = new Router({
 					component: () => import('@/views/contentManager/homeBanner.vue'),
 				},
 				{
+					path: "holdAll",
+					name: 'holdAll',
+					meta: {
+						title: "运营工具箱",
+						pagetitle: "工具箱-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/holdAll.vue'),
+				},
+				{
+					path: "holdAll/holdAlltab",
+					name: 'holdAlltab',
+					meta: {
+						title: "运营工具箱 / 首次上传原创作品+认证奖励",
+						pagetitle: "运营工具箱-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/holdAlltab.vue'),
+				},
+				{
 					path: "homeBanner/addHomeBanner",
 					name: 'addHomeBanner',
 					meta: {

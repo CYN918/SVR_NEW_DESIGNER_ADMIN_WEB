@@ -117,6 +117,15 @@
 				</router-link>
 				
 			</el-submenu> -->
+			<!-- <el-submenu index="101">
+				<template slot="title">
+					<i class="iconfont">&#xe730;</i>
+					<span style="padding:15px;">内容管理</span>
+				</template>
+				<router-link to="/contentManager/holdAll">
+					<el-menu-item index="101-6">工具箱</el-menu-item>
+				</router-link>
+			</el-submenu> -->
 		</el-menu>
 	</div>
 </template>
@@ -153,7 +162,8 @@
 					"37":"/otherInformation/reportInfo",
 					"38":"/noticeManager/newsRelease",
 					"39":"/noticeManager/noticetemplate",
-					"40":"/contentManager/listAd"
+					"40":"/contentManager/listAd",
+					"41":"/contentManager/holdAll"
 					
 				},
 				iconfont:{

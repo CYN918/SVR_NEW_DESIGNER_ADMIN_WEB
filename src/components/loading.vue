@@ -10,7 +10,7 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				//console.log(access_token)
+				console.log(access_token)
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token

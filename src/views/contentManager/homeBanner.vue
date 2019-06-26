@@ -510,7 +510,7 @@
 		margin-right: 20px;
 	}
 	
-	@media screen and (max-width: 1400px) {
+	@media screen and (max-width: 1860px) {
 		.bannerlistg{
 			width:calc(50% - 8px);
 			height:270px;

@@ -362,7 +362,7 @@
 						type: '',
 						center: true
 					}).then(() => {
-						
+						console.log(this.radioS)
 						let data = {
 							work_id: work_ids,
 							recommend_level: this.radioS,
