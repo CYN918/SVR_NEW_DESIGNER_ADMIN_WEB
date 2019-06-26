@@ -119,7 +119,7 @@
 	import workData from "../../assets/workData.js"
 	import commonTop from '@/components/commonTop.vue'
 	import DataScreen from "@/assets/DataScreen.js"
-	
+	import downloadImg from "@/views/workManager/downloadImg.js"
 	export default {
 		components: {
 			commonTop
@@ -343,7 +343,9 @@
 					//console.log(item.id);
 					if(item.name == "图片"){
 						let src = item.id;
-						/* var canvas = document.createElement('canvas');
+						downloadImg(src,"1")
+						/* let src = item.id;
+						var canvas = document.createElement('canvas');
 						var img = document.createElement('img');
 						img.onload = function(e) {
 							canvas.width = img.width;
@@ -360,7 +362,7 @@
 						}
 						img.setAttribute("crossOrigin",'Anonymous');
 						img.src = src; */
-						fetch(item.id).then(res => res.blob()).then(blob => {
+						/* fetch(item.id).then(res => res.blob()).then(blob => {
 							const a = document.createElement('a');
 							document.body.appendChild(a)
 							a.style.display = 'none'
@@ -373,7 +375,8 @@
 							document.body.removeChild(a)
 							// 移除blob对象的url
 							window.URL.revokeObjectURL(url);
-						});
+						}); */
+						
 					}
 					
 					if(item.name == "附件"){

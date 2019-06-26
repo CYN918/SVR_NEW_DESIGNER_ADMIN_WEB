@@ -163,7 +163,7 @@
 					"38":"/noticeManager/newsRelease",
 					"39":"/noticeManager/noticetemplate",
 					"40":"/contentManager/listAd",
-					"41":"/contentManager/holdAll"
+					"41":"/contentManager/holdAll",
 					
 				},
 				iconfont:{

@@ -342,6 +342,7 @@
 			},
 			setContributor(val) {
 				this.selectOne = val;
+				this.radioS = this.selectOne.recommend_level
 				this.centerDialogVisible1 = true;
 			},
 			contributor() {

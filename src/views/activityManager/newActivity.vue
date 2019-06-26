@@ -103,7 +103,7 @@
 						<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
 					</li>
 					
-					<!-- <li class="margint23 ofh">
+					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
 						<el-dropdown trigger="click" :hide-on-click="false">
 							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="demand_names.join(',')" suffix-icon="el-icon-arrow-down"
@@ -116,7 +116,7 @@
 								</el-checkbox-group>
 						    </el-dropdown-menu>
 						</el-dropdown>
-					</li> -->
+					</li>
 				</ul>
 			</div>
 			<div v-show="Isnextshow" class="relative" >
@@ -306,36 +306,25 @@
 				this.$router.push({ path: '/activityManager/activityEmploy/newActivity', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:50});
 			},
-			add() {
-				const id = this.$route.query.open_id;
-				this.api.categoryAdd({
-					access_token: localStorage.getItem("access_token"),
-					category_name: this.input10,
-					status: this.radio2
-				}).then(da => {
-					console.log(da)
-				}).catch(() => {
-
-				})
-			},
 			edit() {
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				this.form.access_token = localStorage.getItem("access_token");
 				this.form.activity_id = this.rows.id;
+				this.form.related_needs_id = this.demand_names.join(',')
 				this.api.activityedit(this.form).then(da => {
-					console.log(da)
+					//console.log(da)
 					if(da.result == 0){
 						this.$router.go(-1);
 					}
 				}).catch(() => {
 
 				})
-			},
-			
-			handleExceed(files, fileList) {
-				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-			},
-			beforeRemove(file, fileList) {
-				//return this.$confirm(`确定移除 ${ file.name }？`);
 			},
 			handleAvatarSuccess(params) {
 				//console.log(params);
@@ -631,6 +620,7 @@
 				}
 				
 				this.form.template_file_id=this.getworkids();
+				this.form.related_needs_id = this.demand_names.join(',')
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -649,7 +639,7 @@
 					if(this.form.info){
 						this.ifBjType=1;
 					}
-					
+					this.demand_names = da.related_needs_id.split(",")
 				})
 			},
 			getData(pg) {
@@ -845,9 +835,10 @@
 					return "请选择模板状态！！";
 				}
 				
-				if(!this.form['is_related_needs']){
-					return "请选择关联平台需求状态！！";
+				if(this.demand_names.length == 0){
+					return "请选择关联平台需求！！";
 				}
+				
 				return true;
 			},
 			getdemandlist(){
@@ -860,7 +851,8 @@
 				})
 			},
 			getdemand_names(){
-				//console.log(this.dids)
+				//console.log(this.dids);
+				this.demand_names = [];
 				this.dids.forEach(item =>{
 					this.demandlist.forEach(ditem=>{
 						if(item == ditem.did){
