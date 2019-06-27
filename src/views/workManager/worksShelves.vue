@@ -70,7 +70,7 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div style="width: 100%:height:500px;overflow-y:scroll;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
@@ -135,6 +135,7 @@
 				IsScreen: "Off",
 				work_info: {},
 				selectData:[],
+				workid:""
 			}
 		},
 		methods: {
@@ -168,7 +169,7 @@
 			},
 			getworkdetial() {
 				this.api.workInfo({
-					work_id: this.$route.query.id,
+					work_id: this.workid,
 					access_token: localStorage.getItem("access_token")
 				}).then(da => {
 					//console.log(da)
@@ -195,7 +196,7 @@
 				}).then(() => {
 					this.api.offShelve({
 						access_token:localStorage.getItem("access_token"),
-						work_ids:this.$route.query.id,
+						work_ids:this.workid,
 						reason:this.textarea,
 						notice_ids:this.getnoticeids(),
 					}).then(da =>{
@@ -222,7 +223,7 @@
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					work_id:this.$route.query.id
+					work_id:this.workid
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -231,7 +232,7 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.work_id = this.$route.query.id;
+					sreenData.work_id = this.workid;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
@@ -420,21 +421,44 @@
 
 		},
 		created() {
-			this.getworkdetial();
+			
 			this.getData({
 				pageCurrent: 1,
 				pageSize: 50
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
+			
+			if(this.$route.query.id){
+				this.workid = this.$route.query.id;
+				this.getworkdetial();
+				localStorage.setItem("worksShelvesid",this.$route.query.id)
+			} else {
+				if(localStorage.getItem("worksShelvesid")){
+					this.getworkdetial();
+					this.workid = localStorage.getItem("worksShelvesid");
+				}
+			}
 		},
 		mounted() {
 
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>
 
 <style>
+	
+	.el-select-dropdown,.el-picker-panel{
+		z-index:2014 !important;
+	}
+	
 	.materiallist .el-checkbox__label {
 		display: none;
 	}
@@ -499,7 +523,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 9999;
+		z-index: 2013;
 		display: fixed;
 		background: rgba(0,0,0,0.5);
 	}

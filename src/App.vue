@@ -238,6 +238,18 @@ input{
     outline: 0;
 } */
 
+.hoverload{
+	position: absolute;
+	top:0;
+	left: 0;
+	width:40px;
+	height: 40px;
+	background: url(./assets/img/loading.png) center center no-repeat;
+	background-size:50% 50%;
+	background-color: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+}
+
 .sel-footer .el-button:focus,.sel-footer .el-button:active{
 	background: #FFF;
     border: 1px solid #DCDFE6;

@@ -37,7 +37,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">被举报作品名称</span>
-					<span>{{ "--" }}</span>
+					<span>{{  getValue(detailData.work_name) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">提交时间</span>

@@ -42,12 +42,13 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect"></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,'附件')">
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fleft" @click="gotodetail('附件',item.fid,0)">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
@@ -57,12 +58,13 @@
 					<div v-if="material_info['图片']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['图片']" :key="item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect"></el-checkbox>
+							<li v-for="(item,index) in material_info['图片']" :key="item.fid+index+index+index">
+								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fleft" @click="gotodetail('图片',item.fid,1)">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
@@ -71,14 +73,15 @@
 					<div v-if="material_info['视频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['视频']" :key = "item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect"></el-checkbox>
+							<li class="relative" v-for="(item,index) in material_info['视频']" :key = "item.fid+index+index">
+								<div class="material relative" @mouseover="hover(item.fid,item.url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<video v-show="videofid == item.fid" :id="item.fid" :src="item.url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fleft" @click="gotodetail('视频',item.fid,2)">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
@@ -87,14 +90,15 @@
 					<div v-if="material_info['音频']">
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
-							<li v-for="(item,index) in material_info['音频']" :key = "item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect"></el-checkbox>
+							<li class="relative" v-for="(item,index) in material_info['音频']" :key = "item.fid+index">
+								<div class="material relative" @mouseover="hover(item.fid,item.url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
+									<span class="fleft" @click="gotodetail('音频',item.fid,3)">{{ item.file_name }}</span>
 									<span class="fright">{{ item.file_size_format }}</span>
 								</div>
 							</li>
@@ -316,7 +320,6 @@
 		<el-dialog :title="title + '-选择需求ID'" :visible.sync="centerDialogVisible4" width="738px">
 			<div style="position: relative;">
 				<ul>
-					
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span style="display: inline-block;margin-right: 60px;">选择需求</span>
@@ -330,7 +333,6 @@
 						</div>
 					</li>
 				</ul>
-		
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="reject4">取消</button>
@@ -338,6 +340,28 @@
 			</span>
 		</el-dialog>
 		
+		<el-dialog :title="title + '确定全部下载'" :visible.sync="centerDialogVisible5" width="738px">
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span>
+								<span style="width: auto;padding: 0 5px;" @click="downWorks">一共 {{ openurls.length }}
+									个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
+							</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="downWorks">确定</button>
+			</span>
+		</el-dialog>
+		
+		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
+			<img :src="imgurl" alt="暂无图片">
+		</div>
 	</div>
 </template>
 
@@ -364,6 +388,7 @@
 				centerDialogVisible1: false,
 				centerDialogVisible2: false,
 				centerDialogVisible3: false,
+				centerDialogVisible5: false,
 				radio1: '',
 				radio2: "",
 				workselect: false,
@@ -434,10 +459,17 @@
 						"need_num": 0
 					}
 				],
-				did:''
+				did:'',
+				fid:"",
+				isimgurl:false,
+				imgurl:""
 			}
 		},
 		methods: {
+			getimgulr(url){
+				this.imgurl = url;
+				this.isimgurl = !this.isimgurl
+			},
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
 				/* switch (this.pagetype){
@@ -747,11 +779,37 @@
 						  });
 					}
 				})
+				this.centerDialogVisible5 = false;
 			},
-			handleCheckAllChange(val) {
-				this.checkList = this.checkAll;
-				this.detailbtn = false;
-				this.workselect = true;
+			handleCheckAllChange() {
+				//this.checkList = this.checkAll;
+				this.font_size = 0;
+				console.log(this.material_info)
+				if(this.material_info['视频']){
+					this.material_info['视频'].forEach(item =>{
+						this.openurls.push({name:"视频",id:item.url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.material_info['音频']){
+					this.material_info['音频'].forEach(item =>{
+						this.openurls.push({name:"音频",id:item.url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.material_info['附件']){
+					this.material_info['附件'].forEach(item =>{
+						this.openurls.push({name:"附件",id:item.url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.material_info['图片']){
+					this.material_info['图片'].forEach(item =>{
+						this.openurls.push({name:"图片",id:item.url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				this.centerDialogVisible5 = !this.centerDialogVisible5
 			},
 			cancel() {
 				this.checkList = [];
@@ -793,7 +851,7 @@
 					type: this.$route.query.type,
 					id: this.$route.query.id,
 				}).then(da => {
-					console.log(da)
+					//console.log(da)
 					this.apply_info = da.apply_info;
 					this.check_info = da.check_info;
 					this.material_info = da.material_info;
@@ -889,6 +947,18 @@
 				this.reject4();
 				this.reject2();
 				
+			},
+			gotodetail(name,fid,num){
+				this.router.push({
+					path:"/workManager/materialBank/materialBankdetail",
+					query:{tabsnum:num,name:name,fid:fid}
+				})
+			},
+			hover(fid,url,na){
+				this.fid = fid;
+				this.openurls=[
+					{name:na,id:url}
+				]
 			}
 		},
 		created() {

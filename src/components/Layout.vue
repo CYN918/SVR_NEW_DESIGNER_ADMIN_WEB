@@ -159,7 +159,9 @@
 	}
 </script>
 <style>
-	
+	.el-picker-panel{
+		z-index:2013 !important;
+	}
 </style>
 <style lang="scss" scoped>
 	$sideBarWidt: 280px;
@@ -183,6 +185,8 @@
 		padding: 20px;
 		overflow: hidden;
 	}
+	
+	
 
 	.screenbg {
 		position: absolute;
@@ -191,6 +195,6 @@
 		background: rgba(0, 0, 0, 0.5);
 		width: 100%;
 		height: 100%;
-		z-index: 999;
+		z-index: 2013;
 	}
 </style>

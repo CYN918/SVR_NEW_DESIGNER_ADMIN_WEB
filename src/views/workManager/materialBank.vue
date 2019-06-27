@@ -25,34 +25,34 @@
 		<div class="paddinglr30 ofh" style="height: calc(100% - 285px);overflow-y: scroll;" v-loading="setLoding">
 			<div class="ofh" v-show="tabsnum == 0">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in materialdata" :key="item.fid">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox"  :label=" item.file_url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								</div>
-								<div class="color66">
-									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
-									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
+					<ul class="materiallist">
+						 <li v-for="(item,index) in materialdata" :key="index">
+							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'附件')">
+								<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
+								<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
+								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
+							</div>
+							<div class="color66">
+								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
+								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+							</div>
+						</li> 
+					</ul>
 				</el-checkbox-group>
 			</div>
 			<div class="paddinglr40 ofh" v-show="tabsnum == 1">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
-						<li v-for="(item,index) in materialdata" :key="item.fid">
-							<div class="material relative" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)">
+						<li v-for="(item,index) in materialdata" :key="index+item.fid">
+							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'图片')" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
 								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 							</div>
 							<div class="color66">
 								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
 								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
-						</li>
+						</li> 
 					</ul>
 				</el-checkbox-group>
 			</div>
@@ -60,17 +60,18 @@
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
-							<li class="relative" v-for="(item,index) in materialdata" :key="item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)">
+							<li class="relative" v-for="(item,index) in materialdata" :key="item.fid+index">
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<video v-show="videofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
 									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
-							</li>
+							</li> 
 						</ul>
 					</div>
 				</el-checkbox-group>
@@ -79,17 +80,18 @@
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist relative">
-							<li v-for="(item,index) in materialdata" :key="item.fid">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)">
+							 <li v-for="(item,index) in materialdata" :key="item.fid+index+index">
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
 								</div>
 								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
 									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
-							</li>
+							</li> 
 						</ul>
 					</div>
 				</el-checkbox-group>
@@ -111,6 +113,24 @@
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
+		<el-dialog title="确定全部下载" :visible.sync="centerDialogVisible5" width="738px">
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span>
+								<span style="width: auto;padding: 0 5px;" @click="downWorks">一共 {{ openurls.length }}
+									个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
+							</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="downWorks">确定</button>
+			</span>
+		</el-dialog>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
@@ -174,6 +194,8 @@
 				isimgurl:"",
 				videofid:"",
 				audiofid:"",
+				fid:"",
+				centerDialogVisible5:false
 			}
 		},
 		methods: {
@@ -242,11 +264,6 @@
 				this.font_size = 0;
 				this.openurls = [];
 				this.checkList=[];
-			},
-			handleCheckAllChange(val) {
-				this.checkList = this.checkAll;
-				this.detailbtn = false;
-				this.workselect = true;
 			},
 			handleSizeChange(val) {
 				this.getData(this.currentpage,val)
@@ -339,44 +356,12 @@
 				console.log(this.openurls);
 			},
 			downWorks() {
+				//console.log(this.openurls)
 				this.openurls.forEach(item =>{
 					//console.log(item.id);
 					if(item.name == "图片"){
 						let src = item.id;
 						downloadImg(src,"1")
-						/* let src = item.id;
-						var canvas = document.createElement('canvas');
-						var img = document.createElement('img');
-						img.onload = function(e) {
-							canvas.width = img.width;
-							canvas.height = img.height;
-							var context = canvas.getContext('2d');
-							context.drawImage(img, 0, 0, img.width, img.height);
-							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-							canvas.toBlob((blob)=>{
-								let link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob);
-								link.download = '图片文件'; 
-								link.click();  
-							}, "image/jpeg");
-						}
-						img.setAttribute("crossOrigin",'Anonymous');
-						img.src = src; */
-						/* fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '视频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						}); */
-						
 					}
 					
 					if(item.name == "附件"){
@@ -447,7 +432,43 @@
 				}
 				this.audiofid = fid;
 				document.getElementById(fid).play();
-			}
+			},
+			hover(fid,url,na){
+				this.fid = fid;
+				this.openurls=[
+					{name:na,id:url}
+				]
+			},
+			handleCheckAllChange() {
+				//this.checkList = this.checkAll;
+				this.font_size = 0;
+				console.log(this.materialdata)
+				if(this.tabsnum == 2){
+					this.materialdata.forEach(item =>{
+						this.openurls.push({name:"视频",id:item.file_url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.tabsnum == 3){
+					this.materialdata.forEach(item =>{
+						this.openurls.push({name:"音频",id:item.file_url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.tabsnum == 0){
+					this.materialdata.forEach(item =>{
+						this.openurls.push({name:"附件",id:item.file_url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				if(this.tabsnum == 1){
+					this.materialdata.forEach(item =>{
+						this.openurls.push({name:"图片",id:item.file_url});
+						this.font_size += Number(item.file_size);
+					})
+				}
+				this.centerDialogVisible5 = !this.centerDialogVisible5
+			},
 		},
 		created() {
 			this.getcommonrightbtn();

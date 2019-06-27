@@ -15,7 +15,7 @@
 					</div>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft fontcolorg" style="margin-right: 20px;">下架原因</span>
+					<span class="fleft fontcolorg" style="margin-right: 20px;">通知内容</span>
 					<div class="fleft defaultbtnworkbg">
 						<div>
 							<textarea name="" id="" cols="69" rows="10" v-model="text100" Maxlength="100" class="defaultbtnwork"></textarea>
@@ -91,13 +91,13 @@
 		data() {
 			return {
 				currentpageName:"",
-				pageName: "userBaseInfo",
-				tableAction: DataScreen.screenShow.userBaseInfo.action,
-				filterFields: DataScreen.screen.userBaseInfo.filterFields,
+				pageName: "addrelease",
+				tableAction: DataScreen.screenShow.addrelease.action,
+				filterFields: DataScreen.screen.addrelease.filterFields,
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
-					"pageName": "userBaseInfo",
+					"pageName": "addrelease",
 					"commonleftbtn": [{
 							name: "筛选",
 							id: "left1",
@@ -110,11 +110,11 @@
 				},
 				screenConfig: [],
 				tableConfig: {
-					"pageName": "userBaseInfo",
+					"pageName": "addrelease",
 					total: 0,
 					currentpage: 1,
 					pagesize: 10,
-					list: DataScreen.screenShow.userBaseInfo.bts,
+					list: DataScreen.screenShow.addrelease.bts,
 					ischeck: true,
 					loading:true
 
@@ -335,7 +335,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/newsRelease/editrelease',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/noticeManager/newsRelease/editrelease',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(){
@@ -398,6 +398,10 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			
+			
+		},
+		mounted(){
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
 				this.text10 = this.rows.title;
@@ -405,14 +409,28 @@
 				this.send_time=this.rows.send_time;
 				this.sendnum = this.rows.send_num;
 				this.to_open_ids = this.rows.to_open_ids
+				localStorage.setItem("addrelease",this.$route.query.row);
+			} else {
+				if(this.currentpageName == "新建通知"){
+					if(localStorage.getItem("addrelease")){
+						this.rows = JSON.parse(localStorage.getItem("addrelease"));
+						this.text10 = this.rows.title;
+						this.text100 = this.rows.content;
+						this.send_time=this.rows.send_time;
+						this.sendnum = this.rows.send_num;
+						this.to_open_ids = this.rows.to_open_ids
+					}
+				}
+				
 			}
-		},
-		mounted(){
-			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			console.log(this.$route.matched);
 		},
 		watch:{
-			
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>
@@ -482,13 +500,17 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 9999;
+		z-index: 2013;
 		display: fixed;
 		background: rgba(0,0,0,0.5);
 	}
 	
 	.sel-dialog  {
 		width: 1000px;
+	}
+	
+	 .el-picker-panel,.el-select-dropdown{
+		z-index: 2014 !important;
 	}
 	
 	.shelves .el-message-box__content{

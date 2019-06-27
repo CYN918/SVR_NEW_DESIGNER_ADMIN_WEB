@@ -63,7 +63,6 @@
 				this.$parent.resetSave(tag)
 			},
 			getparent(id,name) {
-				//alert(name);
 				var idIndex = id;
 				switch (name)
 				{
@@ -191,6 +190,7 @@
 						};
 					break;
 				}
+				
 				const shownum = {
 					num: idIndex,
 					showmask: "No",

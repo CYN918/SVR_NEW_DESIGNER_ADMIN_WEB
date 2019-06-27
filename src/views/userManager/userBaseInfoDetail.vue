@@ -83,16 +83,14 @@
 					<span class="fleft detailKey">授权认证-QQ号</span>
 					<span class="fleft detailValue">{{ getValue(detailData.qq_name)  }}</span>
 				</li>
-				<li class="margint13 ofh">A
+				<li class="margint13 ofh">
 					<span class="fleft detailKey">授权认证-微博</span>
 					<span class="fleft detailValue">{{ getValue(detailData.weibo_name)  }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">主页链接</span>
-					<span class="fleft detailValue routerLink pointer">
-						<router-link to="/userPersonalInfo" tag="div">
-							{{ getValue(detailData.home_page)  }}
-						</router-link>
+					<span class="fleft detailValue routerLink pointer" @click="openwindow(detailData.home_page)">
+						{{ getValue(detailData.home_page)  }}
 					</span>
 				</li>
 				<li class="margint13 ofh">
@@ -141,6 +139,9 @@
 			}
 		},
 		methods:{
+			openwindow(url){
+				window.open(url);
+			},
 			getValue(val){
 				if(val) {
 					return val

@@ -10,12 +10,19 @@
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(scope.row[item.prop])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<div v-else-if="item.type == 'btn'">
 							<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]" >{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
 						</div>
 						<div v-else-if="item.type == 'merge'">
-							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+							<span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
+								{{ "--" }}
+							</span>
+							<span v-else>
+								<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+							</span>
+							<!-- <span v-else-if="!item.is_success">{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span> -->
 						</div>
 						<div v-else-if="item.type == 'statustwo'">
 							<span v-if="scope.row['is_del'] == '0'">
@@ -33,7 +40,7 @@
 						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop]  }}</span>
 						<div v-else-if="item.type == 'hiretime'">
 							<div style="color: #FF5121;" @click="openwindowrouter(item.url)">
-								{{ scope.row[item.prop] }}
+								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
 							</div>
 							<div>
 								{{ scope.row[item.time] }} 
@@ -41,16 +48,30 @@
 						</div>
 						<div v-else-if="item.type == 'hiretime1'">
 							<div>
-								{{ scope.row[item.prop] }}
+								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
 							</div>
 							<div>
 								{{ scope.row[item.time] }} 
 							 </div>
 						</div>
-						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
+						<span v-else-if="item.type == 'address'">
+							<span>{{
+								scope.row[item.child[0]]+scope.row[item.child[1]]+scope.row[item.child[2]]
+							}}</span>
+						</span>
+						<span v-else-if="!item.type">
+						    <span>
+								<span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
+									{{ item.is_hidden.namevalue }}
+								</span>
+								<span v-else>
+									{{ scope.row[item.prop] }}
+								</span>
+						    </span>
+						</span>
 					</template>	
 				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="150">
+				<el-table-column fixed="right" label="操作" width="150" v-if="!tableAction.is_hidden">
 					<template slot-scope="scope">
 						<div v-if="!tableAction.pagefilterField">
 							<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 12px;" v-if="tableAction.links.Ishow">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>

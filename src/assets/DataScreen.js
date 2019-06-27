@@ -22,6 +22,33 @@ const screenData = {
 				{name:'非认证QQ',id:'qq'},
 				{name:'认证qq',id:'qq_name'},
 				{name:'非认证微博',id:'weibo'},
+				{name:'认证微博',id:'weibo_name'},
+				{name:"",type:"display"}
+			],
+			
+		},
+		addrelease:{
+			filterFields:[
+				{name:'用户id',id:'open_id'},
+				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
+				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
+				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
+				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
+				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
+				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
+				{name:'用户名',id:'username'},
+				{name:'手机号',id:'mobile'},
+				{name:'邮箱',id:'email'},
+				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","三维设计师","网页设计师","UI设计师","动画师","产品设计师","室内设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","概念设计师","特效设计师","建筑师","服装设计师","手工艺人","艺人工作者","教育工作者"]},
+				{name:'所在地',id:'address'},
+				{name:'非认证微信',id:'weixin'},
+				{name:'认证微信',id:'weixin_name'},
+				{name:'非认证QQ',id:'qq'},
+				{name:'认证qq',id:'qq_name'},
+				{name:'非认证微博',id:'weibo'},
 				{name:'认证微博',id:'weibo_name'}
 			],
 			
@@ -143,7 +170,7 @@ const screenData = {
 					},
 					child:JSON.parse(localStorage.getItem("cascader"))
 				},
-				{name:"版权说明",id:"copyright",child:[{name:" 禁止匿名转载；禁止商业使用；禁止个人使用。",id:" 禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
+				{name:"版权说明",id:"copyright",child:[{name:"禁止匿名转载；禁止商业使用；禁止个人使用。",id:"禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
 				{name:"作品标签",id:"labels"},
 				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
@@ -515,7 +542,7 @@ const screenData = {
 				{prop:'username',lable:'用户昵称'},
 				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"无"}},
 				{prop:'vocation',lable:'职位'},
-				{prop:'address',lable:'所在地'},
+				{prop:'address',lable:'所在地',type:"address",child:["country","province","city"],width:"200"},
 				{prop:'personal_sign',lable:'个性签名'},
 				{prop:'work_num',lable:'作品数量'},
 				{prop:'follow_num',lable:'关注人数'},
@@ -523,7 +550,7 @@ const screenData = {
 				{prop:'education_school',lable:'学校名称'},
 				{prop:'weixin',lable:'非认证-微信号',width:150,type:"nocon",name:"--"},
 				{prop:'qq',lable:'非认证-QQ号',width:150,type:"nocon",name:"--"},
-				{prop:'home_page',lable:'主页链接'},
+				{prop:'home_page',lable:'主页链接',type:"url1",width:300},
 				{prop:'weixin_name',lable:'授权认证-微信',width:150},
 				{prop:'qq_name',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
@@ -553,6 +580,33 @@ const screenData = {
 					name:"查看",
 					Ishow:true
 				}
+			}
+		},
+		addrelease:{
+			bts:[
+				{prop:'open_id',lable:'用户ID',width:150},
+				{prop:'avatar',lable:'用户头像',type:"imgtou"},
+				{prop:'username',lable:'用户昵称'},
+				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"无"}},
+				{prop:'vocation',lable:'职位'},
+				{prop:'address',lable:'所在地'},
+				{prop:'personal_sign',lable:'个性签名'},
+				{prop:'work_num',lable:'作品数量'},
+				{prop:'follow_num',lable:'关注人数'},
+				{prop:'fans_num',lable:'粉丝人数'},
+				{prop:'education_school',lable:'学校名称'},
+				{prop:'weixin',lable:'非认证-微信号',width:150,type:"nocon",name:"--"},
+				{prop:'qq',lable:'非认证-QQ号',width:150,type:"nocon",name:"--"},
+				{prop:'home_page',lable:'主页链接'},
+				{prop:'weixin_name',lable:'授权认证-微信',width:150},
+				{prop:'qq_name',lable:'授权认证-QQ',width:150},
+				{prop:'create_time',lable:'注册时间'},
+				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
+				{prop:'is_recommend',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
+				{prop:'recommend_level',lable:'平台推荐等级',type:"novalue",width:150,novalue:"不推荐"},
+			],
+			action:{
+				is_hidden:true
 			}
 		},
 		userCompanyInfo:{
@@ -846,30 +900,7 @@ const screenData = {
 				{lable:"提交时间",prop:"create_time",width:200},
 			],
 			action:{
-				morebtns:{
-					name:"更多",
-					Ishow:false,
-					page:"worksShelves",
-					child:[
-						{
-							name:"预览"
-						},
-						{
-							name:"下架"
-						},
-						{
-							name:"录用"
-						},
-						{
-							name:"修改平台推荐等级"
-						},
-						
-					],
-				},
-				links:{
-					name:"查看",
-					Ishow:false
-				},
+				is_hidden:true
 			}
 		},
 		commentManager:{
@@ -946,19 +977,7 @@ const screenData = {
 				{prop:'count',lable:'作品标注数'}
 			],
 			action:{
-				morebtns:{
-					name:"更多",
-					Ishow:false,
-					page:"labels",
-					child:[	
-						
-						
-					],
-				},
-				links:{
-					name:"修改",
-					Ishow:false
-				},
+				is_hidden:true
 			}
 		},
 		activityEmploy:{
@@ -1160,18 +1179,7 @@ const screenData = {
 				{lable:"上传时间",prop:"created_at"}
 			],
 			action:{
-				morebtns:{
-					name:"更多",
-					Ishow:false,
-					page:"newActivity",
-					child:[
-						
-					],
-				},
-				links:{
-					name:"预览",
-					Ishow:false
-				},
+				is_hidden:true
 			}
 		},
 		homeBanner:{
@@ -1501,10 +1509,21 @@ const screenData = {
 			bts:[
 				{lable:"通知ID",prop:"id"},
 				{lable:"通知标题",prop:"title"},
-				{lable:"预发用户数",prop:"send_num"},
-				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},width:320},
+				{lable:"预发用户数",prop:"send_num",is_hidden:{
+					"name":"status",
+					"value":"0",
+					"namevalue":"0"
+				}},
+				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},is_hidden:{
+					"name":"status",
+					"value":"0"
+				},width:320},
 				{lable:"当前状态",prop:"status",type:"status",child:{"0":"未发送","1":"进行中","2":"已完成"},statusclass:"newsReleasestatus"},
-				{lable:"发送成功数",prop:"send_num"},
+				{lable:"发送成功数",prop:"send_num",is_hidden:{
+					"name":"status",
+					"value":"0",
+					"namevalue":"0"
+				}},
 				{lable:"创建人",prop:"admin_username"},
 			],
 			action:{
@@ -1528,16 +1547,7 @@ const screenData = {
 				{lable:"最近更新时间",prop:"updated_at",width:300},
 			],
 			action:{
-				morebtns:{
-					name:"删除",
-					Ishow:false,
-					page:"noticetemplate",
-				},
-				links:{
-					name:"停用",
-					Ishow:false,
-					child:{"1":"启用","0":"停用"}
-				},
+				is_hidden:true
 			}
 		},
 		holdAlltab:{

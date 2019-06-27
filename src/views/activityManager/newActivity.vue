@@ -639,7 +639,8 @@
 					if(this.form.info){
 						this.ifBjType=1;
 					}
-					this.demand_names = da.related_needs_id.split(",")
+					this.dids = da.related_needs_id.split(",");
+					this.getdemandlist();
 				})
 			},
 			getData(pg) {
@@ -846,8 +847,9 @@
 					access_token:localStorage.getItem("access_token"),
 					is_activity:1
 				}).then(da=>{
-					console.log(da);
-					this.demandlist = da
+					//console.log(da);
+					this.demandlist = da;
+					this.getdemand_names()
 				})
 			},
 			getdemand_names(){
@@ -864,6 +866,14 @@
 						}
 					})
 				})
+			},
+			screen(){
+				const shownum = {
+					num: "left1",
+					showmask: "No",
+					pageName: "newActivity",
+				}
+				eventBus.$emit("screenshow", shownum);
 			}
 		},
 		created() {
@@ -875,28 +885,23 @@
 			this.getcommonrightbtn();
 			this.getData1();
 			this.$parent.tabchange(1);
-			if(this.$route.query.row){
-				this.rows = JSON.parse(this.$route.query.row);
-				/* this.form['activity_name'] = this.rows.activity_name;
-				this.form['remark'] = this.rows.remark;
-				this.form['banner'] = this.rows.banner;
-				this.form['category_id'] = this.rows.activity_name;
-				this.form['start_time'] = this.rows.activity_name;
-				this.form['end_time'] = this.rows.activity_name;
-				this.form['setting_type'] = this.rows.activity_name;
-				this.form['is_provide_template'] = this.rows.activity_name;
-				this.form['is_related_needs'] = this.rows.activity_name;
-				this.form.info = this.rows.activity_name;
-				this.form.related_needs_id = this.rows.activity_name;
-				this.form.template_file_id = this.rows.activity_name; */
-				//this.form = this.rows
-				//console.log(this.form);
-				this.getactivityinfo();
-			};
-			this.getdemandlist();
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			if(this.$route.query.row){
+				this.rows = JSON.parse(this.$route.query.row);
+				this.getactivityinfo();
+				localStorage.setItem("newActivity",this.$route.query.row);
+				
+			}else{
+				if(this.currentpageName == "新建活动"){
+					if(localStorage.getItem("newActivity")){
+						this.rows = JSON.parse(localStorage.getItem("newActivity"));
+						this.getactivityinfo();
+					}
+				}
+				
+			};
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
