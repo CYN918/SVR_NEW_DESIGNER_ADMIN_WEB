@@ -31,10 +31,10 @@
 						<div class="wh">
 							<div style="position: absolute;top: 0;left: 0;z-index: 999;">
 								<div>
-									<button style="margin-left: 0;color: white;" :class="['defaultbtn','bannerstatus'+item.status] "> {{ getstatus(item.status)  }}</button>
+									<button style="margin-left: 0;color: white;" :class="['defaultbtnno','bannerstatus'+item.status] "> {{ getstatus(item.status)  }}</button>
 								</div>
 							    <div>
-									<button style="margin-left: 0;margin-top:8px" v-if="item.is_default == '1'" class="defaultbtn bannerstatusdefa">默认展示</button>
+									<button style="margin-left: 0;margin-top:8px;color: white;" v-if="item.is_default == '1'" class="defaultbtn bannerstatusdefa">默认展示</button>
 								</div>
 							</div>
 							<el-carousel height="190px" style="background: gray;border-radius: 5px;">

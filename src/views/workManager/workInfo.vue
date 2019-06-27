@@ -38,7 +38,7 @@
 		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible2" width="520px">
 			<div style="position: relative;">
 				<div class="textcenter">
-					<!-- <div class="employment">
+					<div class="employment">
 						<span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">绑定综合平台需求</span>
@@ -46,36 +46,37 @@
 						<span :class="['centerline',{'centerlineactive': Isnextshow}]"></span>
 						<span>
 							<span :class="['number',{'numberactive':Isnextshow}]">2</span>
-							<span :class="{'fontactive': Isnextshow}">绑定综合平台需求</span>
+							<span :class="{'fontactive': Isnextshow}">选择录用方案</span>
 						</span>
-						<span>录用方式</span>
-					</div> -->
-					<span style="margin-right:0;height: auto;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange1(index,item.name)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-						{{ item.name }}
-					</span>
-					<span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
-						分成式
-					</span>
-					<div class="textcenter employipt" v-if="false">
-						<span style="display: inline-block;margin-right: 60px;">选择需求</span>
-						<!-- <el-select v-model="value" placeholder="请选择" multiple  style="width: 357px;">
-							<el-option
-							  v-for="item in options"
-							  :key="item.value"
-							  :label="item.label"
-							  :value="item.value">
-							</el-option>
-						  </el-select> -->
 					</div>
-					<div v-if="tabsnum1 == 0">
+					<div v-if="Isnextshow" style="padding-top: 30px;">
+						<span style="margin-right:0;height: auto;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
+						 @click="tabsChange1(index,item.name)">
+							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+							{{ item.name }}
+						</span>
+						<span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
+							分成式
+						</span>
+					</div>
+					
+					<div class="textcenter employipt" v-if="!Isnextshow">
+						<span style="display: inline-block;margin-right: 60px;">选择需求</span>
+						<el-select v-model="did" placeholder="请选择">
+							 <el-radio-group v-model="did">
+								<el-option v-for="(item,index) in demandlist" :key="index" :value="item.did" :label="item.demand_name">
+									<el-radio :value="item.did" :label="item.did">{{ item.demand_name }}</el-radio>
+								</el-option>
+							</el-radio-group>
+						</el-select>
+					</div>
+					<div v-if="tabsnum1 == 0 && Isnextshow">
 						<div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
 							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" type="text" v-model="price"> <span style="color: #DCDFE6;">单位：元</span></span>
 						</div>
 					</div>
-					<div v-if="tabsnum1 == 1">
+					<div v-if="tabsnum1 == 1 && Isnextshow">
 						暂无
 						<!-- <div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
@@ -97,13 +98,13 @@
 				</div>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
-				<!-- <button class="defaultbtn" @click="prev()" v-show="Isnextshow">上一步</button> -->
+				<button class="defaultbtn" @click="prev()" v-show="Isnextshow">上一步</button>
 				<button class="defaultbtn" @click="reject2()">取消</button>
-				<!-- <button class="defaultbtn defaultbtnactive" @click="next()"  v-show="!Isnextshow">下一步</button> -->
-				<button class="defaultbtn defaultbtnactive" @click="workhire">确认</button>
+				<button class="defaultbtn defaultbtnactive" @click="next()"  v-show="!Isnextshow">下一步</button>
+				<button class="defaultbtn defaultbtnactive" v-show="Isnextshow" @click="workhire">确认</button>
 			</span>
 		</el-dialog>
-		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible3" custom-class="width610">
+		<el-dialog title="合同ID" :visible.sync="centerDialogVisible3" custom-class="width610">
 			<div style="position: relative;">
 				<div class="textcenter">
 					<div class="textcenter employipt">
@@ -236,7 +237,10 @@
 				workid:"",
 				price:"",
 				seltotal:"",
-				isajax:0
+				isajax:0,
+				did:'',
+				demandlist:[],
+				demand_names:[]
 			}
 		},
 		methods: {
@@ -342,7 +346,7 @@
 			},
 			setContributor(val) {
 				this.selectOne = val;
-				this.radioS = this.selectOne.recommend_level
+				this.radioS = this.selectOne.recommend_level;
 				this.centerDialogVisible1 = true;
 			},
 			contributor() {
@@ -381,6 +385,7 @@
 						} 
 						
 						this.api.setRecommendLevelwork(data).then(da => {
+							this.getData({pageCurrent:1,pageSize:50});
 							this.$refs.Tabledd.setinit();
 						}).catch(() => {
 							this.$refs.Tabledd.setinit();
@@ -542,9 +547,11 @@
 						work_id: this.workid,
 						hire_type: 1,
 						price:this.price,
+						demand_id:this.did,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
 						
+						this.centerDialogVisible2=!this.centerDialogVisible2;
 					})
 				}).catch(() => {
 					this.$message({
@@ -577,19 +584,51 @@
 										name = item2.classify_name;
 									}
 								})
-								
 							}
 						})
 					}
 				})
 				return name;
-			}
+			},
+			getdemandlist(){
+				this.api.demandlist({
+					access_token:localStorage.getItem("access_token"),
+					is_activity:0
+				}).then(da=>{
+					console.log(da);
+					this.demandlist = da
+				})
+			},
+			/* getdemandcheck(){
+				this.api.demandcheck({
+					access_token:localStorage.getItem("access_token"),
+					demand_ids:""
+				}).then(da=>{
+					
+				})
+			}, */
+			/* getdemand_names(){
+				//console.log(this.dids);
+				this.demand_names = [];
+				this.dids.forEach(item =>{
+					this.demandlist.forEach(ditem=>{
+						if(item == ditem.did){
+							if(ditem.demand_name){
+								this.demand_names.push(ditem.demand_name)
+							} else {
+								this.demand_names.push(ditem.did)
+							}
+						}
+					})
+				})
+			} */
 		},
 		created() {
 			this.getScreenShowData();
 			this.screenreach();
 			this.getcommonrightbtn();
-			this.getWorkclassify()
+			this.getWorkclassify();
+			this.getdemandlist();
 		},
 		mounted() {
 			//console.log(this.tableConfig)

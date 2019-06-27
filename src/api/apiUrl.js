@@ -320,6 +320,8 @@ export default {
 	demandlist:{
 		url:'/admin/demand/list',method:'post',baseURL:0
 	},
-	
+	demandcheck:{
+		url:'/admin/demand/check',method:'post',baseURL:0
+	},
 	
 }

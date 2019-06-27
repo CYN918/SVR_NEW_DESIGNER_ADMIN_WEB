@@ -196,6 +196,7 @@
 						}
 						if(setid == "contributor2"){
 							this.$parent.centerDialogVisible2 = true;
+							this.$parent.Isnextshow = false;
 							this.$parent.workid = row.work_id;
 						}
 						if(setid == "contributor3"){

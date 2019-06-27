@@ -248,7 +248,7 @@
 					access_token:localStorage.getItem("access_token")
 				};
 				this.api.setRecommendLevel(data).then(da=>{
-					
+					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da=>{
 					
 				})

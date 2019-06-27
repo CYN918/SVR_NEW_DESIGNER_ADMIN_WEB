@@ -39,7 +39,7 @@
 						<span class="fleft detailKey" style="line-height: 40px;">活动封面</span>
 						<el-upload class="upload" action="454535" :http-request="httprequestcover" :show-file-list="false">
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+							<div class="fontcolorg">640px*360px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
 						<img v-if="form['cover_img']" :src="form['cover_img']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
@@ -316,7 +316,7 @@
 				
 				this.form.access_token = localStorage.getItem("access_token");
 				this.form.activity_id = this.rows.id;
-				this.form.related_needs_id = this.demand_names.join(',')
+				this.form.related_needs_id = this.dids.join(',')
 				this.api.activityedit(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -620,7 +620,7 @@
 				}
 				
 				this.form.template_file_id=this.getworkids();
-				this.form.related_needs_id = this.demand_names.join(',')
+				this.form.related_needs_id = this.dids.join(',');
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -864,7 +864,6 @@
 						}
 					})
 				})
-				return 
 			}
 		},
 		created() {

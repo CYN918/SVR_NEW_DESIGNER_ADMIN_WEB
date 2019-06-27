@@ -312,6 +312,32 @@
 				<button class="defaultbtn defaultbtnactive" @click="sendmessage">发送通知</button>
 			</span>
 		</el-dialog>
+		
+		<el-dialog :title="title + '-选择需求ID'" :visible.sync="centerDialogVisible4" width="738px">
+			<div style="position: relative;">
+				<ul>
+					
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span style="display: inline-block;margin-right: 60px;">选择需求</span>
+							<el-select v-model="did" placeholder="请选择">
+								 <el-radio-group v-model="did">
+									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did" :label="item.demand_name">
+										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name ? item.demand_name : item.did  }}</el-radio>
+									</el-option>
+								</el-radio-group>
+							</el-select>
+						</div>
+					</li>
+				</ul>
+		
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="reject4">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="setdemand">确定</button>
+			</span>
+		</el-dialog>
+		
 	</div>
 </template>
 
@@ -381,6 +407,34 @@
 				videofid:"",
 				audiofid:"",
 				content:"",
+				centerDialogVisible4:false,
+				demandlist:[
+					{
+						"did": "SDE_000016",
+						"num": 1,
+						"hire_num": 0,
+						"need_num": 1
+					},
+					{
+						"did": "SDE_000017",
+						"num": 1,
+						"hire_num": 0,
+						"need_num": 0
+					},
+					{
+						"did": "SDE_000018",
+						"num": 1,
+						"hire_num": 0,
+						"need_num": 1
+					},
+					{
+						"did": "SDE_000019",
+						"num": 1,
+						"hire_num": 0,
+						"need_num": 0
+					}
+				],
+				did:''
 			}
 		},
 		methods: {
@@ -502,6 +556,9 @@
 			reject3() {
 				this.centerDialogVisible3 = !this.centerDialogVisible3;
 			},
+			reject4() {
+				this.centerDialogVisible4 = !this.centerDialogVisible4;
+			},
 			contributor() {
 				if(!this.radio1){
 					this.$message({
@@ -537,7 +594,10 @@
 						type: this.$route.query.type,
 						id: this.$route.query.id,
 						check_status: 1,
-						level: this.radio2
+					}
+					
+					if(this.radio2) {
+						data.level = this.radio2
 					}
 					
 					if(n == "lu"){
@@ -549,9 +609,8 @@
 							data.price = this.price2;
 							data.channel= this.channel;
 						}
-						
+						data.demand_id = this.did
 					}
-					
 					this.submint(data)
 				}).catch(() => {
 					this.$message({
@@ -597,7 +656,8 @@
 						this.contributor1();
 						break;
 					case 3:
-						this.centerDialogVisible2 = !this.centerDialogVisible2;
+						this.centerDialogVisible4 = !this.centerDialogVisible4;
+						
 						break;
 					case 4:
 						this.contributor1();
@@ -745,6 +805,10 @@
 					/* if(da.check_info.contributor_type){
 						this.contributor_type = da.apply_info.contributor_type;
 					} */
+					
+					if(this.pagetype == 3){
+						this.getdemandcheck();
+					}
 					this.getkey();
 				}).catch(da => {
 
@@ -811,8 +875,21 @@
 				}
 				this.audiofid = fid;
 				document.getElementById(fid).play();
+			},
+			getdemandcheck(){
+				this.api.demandcheck({
+					access_token:localStorage.getItem("access_token"),
+					demand_ids:this.apply_info.related_needs_id
+				}).then(da=>{
+					this.demandlist = da;
+					//console.log(da)
+				})
+			}, 
+			setdemand(){
+				this.reject4();
+				this.reject2();
+				
 			}
-
 		},
 		created() {
 			this.getreviewInfo();

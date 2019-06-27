@@ -4,10 +4,10 @@
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">选择干预活动</span>
+					<span class="fleft detailKey" style="line-height: 40px;">选择干预作品</span>
 					<div class="fleft">	
 						<div>
-							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择活动</button>
+							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择作品</button>
 						</div>
 						<div>
 							<span v-html="activitiesrows.work_name"></span>
@@ -41,7 +41,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
-		<el-dialog title="请选择干预的活动" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+		<el-dialog title="请选择干预的作品" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">

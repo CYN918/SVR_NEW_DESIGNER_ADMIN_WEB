@@ -3,17 +3,17 @@
 		<div class="w hnav username ofh">
 			<!-- <span class="fleft userlog"></span>
 			<span class="fleft fontsize24">狮大大</span> -->
-			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px 15px;">
+			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px 40px;">
 		</div>
-		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="'2'" :default-openeds="defaultopeneds"
+		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="defaultactive" :default-openeds="defaultopeneds"
 		 active-text-color="#FF5121">
 			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id">
-				<template slot="title" class="is_default">
+				<template slot="title">
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
 				<router-link v-if="item.child && item.child.length != 0"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
-					<el-menu-item :index="citem.id" >{{ citem.title }}</el-menu-item>
+					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
 			<!-- <el-submenu index="7">
@@ -176,25 +176,33 @@
 					"21": "&#xe730;",
 					"8": "&#xe730;",
 				},
-				defaultopeneds:['2'],
+				defaultopeneds:[],
+				fid:"",
+				defaultactive:""
 			}
 		},
 		watch: {},
 		computed: {},
 		methods: {
 			handleOpen(key, keyPath) {
-				console.log(key, keyPath);
+				//console.log(key, keyPath);
 			},
 			handleClose(key, keyPath) {
-				console.log(key, keyPath);
+				//console.log(key, keyPath);
+			},
+			setfid(id){
+				this.fid = id
+				return id
 			}
 		},
 		created() {
 			if(localStorage.getItem("access")){
 				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
-				console.log(this.menuAccess);
+				//console.log(this.menuAccess);
 			}
-			
+			//this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			this.defaultactive=this.$route.matched[this.$route.matched.length-1].path;
+			//console.log(this.$route.matched[this.$route.matched.length-1].path)
 		},
 		mounted() {}
 	}
@@ -219,7 +227,16 @@
 	}
 
 	#app .el-menu-item {
-		text-indent: 23px;
+		text-indent: 48px;
+	}
+	
+	#app .is-active .el-submenu__title {
+		background: #ffede8 !important;
+		color: #FF5121;
+	}
+	
+	#app .iconfont{
+		padding-left: 24px;
 	}
 
 	.userlog {
@@ -236,4 +253,6 @@
 	#app .el-menu-item:hover i {
 		color: #FF5121;
 	}
+	
+	
 </style>

@@ -1318,7 +1318,7 @@ const screenData = {
 				{lable:"作品名称",prop:"work_name",type:"url",url:"/workManager/workInfo"},
 				{lable:"用户ID",prop:"open_id"},
 				{lable:"用户名称",prop:"username",type:"url",url:"/userManager/userBaseInfo"},
-				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分发式"}},
+				{lable:"录用方式",prop:"hire_type",type:"keyvalue",child:{"1":"买断式","2":"分成式"}},
 				{lable:"录用价格及评估值",prop:"price",type:"price"},
 			],
 			action:{

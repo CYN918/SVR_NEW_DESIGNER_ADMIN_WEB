@@ -291,7 +291,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					console.log(tag);
-					this.$router.push({path:'/userBaseInfo',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/employmentManager/employmentorder',query:{urlDate:JSON.stringify(urldata)}});
 					this.getcommonrightbtn();
 					this.getData({pageCurrent:1,pageSize:50});
 				}
