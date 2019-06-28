@@ -171,6 +171,10 @@ input{
 	margin-right:14px;
 }
 
+.el-cascader-menus,.el-select-dropdown{
+		z-index: 2018 !important;
+}
+
 #app .btntag{
 	height: 40px;
 	line-height: 40px;

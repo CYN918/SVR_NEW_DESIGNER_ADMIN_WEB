@@ -127,6 +127,7 @@ const screenData = {
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
 				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
+				{name:"",type:"display"}
 			]
 		},
 		employWork:{
@@ -141,7 +142,8 @@ const screenData = {
 				{name:'提审时间',type:"time",child:[{name:'提审时间(开始)',id:'create_time_start'},{name:'提审时间(开始)',id:'create_time_end'}]},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
-				{name:"审核人",id:"reviewer"}
+				{name:"审核人",id:"reviewer"},
+				{name:"",type:"display"}
 			]
 		},
 		applyPerson:{
@@ -154,6 +156,7 @@ const screenData = {
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"审核人",id:"reviewer"},
 				{name:'审核时间',type:"time",child:[{name:'审核时间(开始)',id:'review_time_start'},{name:'审核时间(开始)',id:'review_time_end'}]},
+				{name:"",type:"display"}
 			]
 		},
 		workInfo:{
@@ -589,7 +592,7 @@ const screenData = {
 				{prop:'username',lable:'用户昵称'},
 				{prop:'sex',lable:'性别',type:'keyvalue',child:{'1':"男","2":"女","0":"无"}},
 				{prop:'vocation',lable:'职位'},
-				{prop:'address',lable:'所在地'},
+				{prop:'address',lable:'所在地',type:"address",child:["country","province","city"],width:"200"},
 				{prop:'personal_sign',lable:'个性签名'},
 				{prop:'work_num',lable:'作品数量'},
 				{prop:'follow_num',lable:'关注人数'},
@@ -1509,11 +1512,7 @@ const screenData = {
 			bts:[
 				{lable:"通知ID",prop:"id"},
 				{lable:"通知标题",prop:"title"},
-				{lable:"预发用户数",prop:"send_num",is_hidden:{
-					"name":"status",
-					"value":"0",
-					"namevalue":"0"
-				}},
+				{lable:"预发用户数",prop:"send_num"},
 				{lable:"发送完成时间",type:"merge",child:{id1:"send_start_time",id2:"send_end_time"},is_hidden:{
 					"name":"status",
 					"value":"0"

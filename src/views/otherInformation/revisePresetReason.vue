@@ -43,10 +43,10 @@
 				content: '',
 				status:"1",
 				tableData:[
-					{name:"作品发布 ",id:"1"},
-					{name:"作品入围 ",id:"2"},
-					{name:"作品审核 ",id:"3"},
-					{name:"平台供稿人-认证申请 ",id:"4"},
+					{name:"作品发布",id:"1"},
+					{name:"作品入围",id:"2"},
+					{name:"作品录用",id:"3"},
+					{name:"平台供稿人",id:"4"},
 				],
 				type:"1",
 			}

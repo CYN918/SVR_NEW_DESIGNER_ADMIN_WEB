@@ -640,7 +640,7 @@
 						this.ifBjType=1;
 					}
 					this.dids = da.related_needs_id.split(",");
-					this.getdemandlist();
+					this.getdemand_names()
 				})
 			},
 			getData(pg) {
@@ -849,7 +849,20 @@
 				}).then(da=>{
 					//console.log(da);
 					this.demandlist = da;
-					this.getdemand_names()
+					
+					if(this.$route.query.row){
+						this.rows = JSON.parse(this.$route.query.row);
+						localStorage.setItem("newActivity",this.$route.query.row);
+						this.getactivityinfo();
+					}else{
+						if(this.currentpageName == "编辑活动"){
+							if(localStorage.getItem("newActivity")){
+								this.rows = JSON.parse(localStorage.getItem("newActivity"));
+							}
+						}
+						
+					};
+					
 				})
 			},
 			getdemand_names(){
@@ -887,21 +900,9 @@
 			this.$parent.tabchange(1);
 		},
 		mounted(){
+			
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			if(this.$route.query.row){
-				this.rows = JSON.parse(this.$route.query.row);
-				this.getactivityinfo();
-				localStorage.setItem("newActivity",this.$route.query.row);
-				
-			}else{
-				if(this.currentpageName == "新建活动"){
-					if(localStorage.getItem("newActivity")){
-						this.rows = JSON.parse(localStorage.getItem("newActivity"));
-						this.getactivityinfo();
-					}
-				}
-				
-			};
+			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{

@@ -254,7 +254,7 @@
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					is_export:is_export
+					
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -263,9 +263,13 @@
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.is_export = is_export;
+					/* sreenData.is_export = is_export; */
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
+				}
+				
+				if(is_export){
+					data.is_export = is_export;
 				}
 				
 				if(this.isajax==1){

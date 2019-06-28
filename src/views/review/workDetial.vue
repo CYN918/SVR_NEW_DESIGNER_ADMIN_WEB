@@ -263,6 +263,9 @@
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
+					<span style="margin-right:0;color:gainsboro" class="tabs">
+						分成式
+					</span>
 					<div class="textcenter employipt" v-if="tabsnum1 == 0">
 						<span style="display: inline-block;">录用价格</span>
 						<span class="defaultbtn0 employmonre"><input class="w fleft" type="text" v-model="price1">单位：元</span>
@@ -271,19 +274,6 @@
 						<div class="textcenter employipt">
 							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
 							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price2">单位：元</span>
-						</div>
-						<div class="textcenter employipt">
-							<span style="display: inline-block;width: 84px;text-align: right;">预计投放渠道</span>
-							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="channel"><span style="color: transparent;">1</span></span>
-							<!-- <el-select v-model="value" class="employmonre" placeholder="请选择" multiple>
-								<el-option
-								  v-for="item in options"
-								  :key="item.value"
-								  :label="item.label"
-								  :value="item.value">
-								</el-option>
-							  </el-select> -->
-							<!-- <span class="defaultbtn0 employmonre"><input class="w fleft" type="text">单位：元</span> -->
 						</div>
 					</div>
 				</div>
@@ -378,8 +368,6 @@
 				tabData: [{}],
 				tabData1:[{
 						name: "买断式"
-					},{
-						name: "分成式"
 					}],
 				tabsnum: 0,
 				tabsnum1: 0,
@@ -883,7 +871,7 @@
 				})
 			},
 			getstatusinfo(){
-				if(this.status_info == -1 || this.status_info == 1){
+				if(this.status_info == -1 || this.status_info == 1 || this.status_info == -2){
 					return false;
 				} else{
 					return true;
@@ -944,6 +932,13 @@
 				})
 			}, 
 			setdemand(){
+				if(this.demandlist.length  == 0){
+					this.$message({
+						message:"需求ID不能为空"
+					});
+					return;
+				}
+				
 				this.reject4();
 				this.reject2();
 				

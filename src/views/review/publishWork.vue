@@ -198,5 +198,8 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style>
+	.el-select-dropdown{
+		z-index: 2014 !important;
+	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="wh screenContent" style="position: relative;z-index: 9999;">
+	<div class="wh screenContent" style="position: relative; z-index: 2013;">
 		<div class="screenborder">
 			<div class="screenTop paddinglr30">
 				<span class="fleft">{{ currentpageName }}-筛选</span>
@@ -63,7 +63,9 @@
 							<button class="ipt"></button>
 						</div>
 					</li>
-					
+					<!-- <li>
+						<city></city>
+					</li> -->
 				</ul>
 			</div>
 			<div class="screenBottom paddinglr30">
@@ -78,6 +80,8 @@
 
 <script>
 	import DataScreen from "@/assets/DataScreen.js"
+	import city from "@/components/citys.vue"
+	
 	export default {
 		props: ["pageName","tabnum"],
 		data() {
@@ -91,7 +95,11 @@
 				currentpageName:"",
 				times:[],
 				selectedOptions:[],
+				citye:["中国","北京市","东城区"]
 			}
+		},
+		components:{
+			city
 		},
 		methods: {
 			getparent(data) {
@@ -225,7 +233,7 @@
 		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 		border-radius: 4px;
 		position: relative;
-		z-index: 9999;
+		z-index: 2013;
 	}
 	#app .el-dropdown-link{
 		padding: 0;

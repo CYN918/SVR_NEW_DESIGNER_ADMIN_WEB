@@ -112,9 +112,9 @@
 						{name:"筛选",id:"left1",url:""},
 				    ],
 				    "commonrightbtn":[
-						{name:'批量操作',id:"right1",url:''},
-						{name:'展示字筛选',id:"right2",url:''},
-						{name:'导出数据',id:"right3",url:''}
+						{name:'批量操作',id:"right1"},
+						{name:'展示字筛选',id:"right2"},
+						{name:'导出数据',id:"right3"}
 					],
 					"commonbottombtn":[],
 				},
