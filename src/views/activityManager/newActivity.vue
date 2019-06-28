@@ -57,13 +57,13 @@
 					<li class="margint23 ofh">
 						<div>
 							<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
-							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="form['start_time']" type="datetime"
 							 placeholder="开始时间">
 							</el-date-picker>
 							<span class="fleft" style="line-height: 40px;">
 								&nbsp;至&nbsp;
 							</span>
-							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="form['end_time']" type="datetime"
 							 placeholder="结束时间">
 							</el-date-picker>
 						</div>
@@ -316,7 +316,9 @@
 				
 				this.form.access_token = localStorage.getItem("access_token");
 				this.form.activity_id = this.rows.id;
-				this.form.related_needs_id = this.dids.join(',')
+				if(this.dids.length != 0){
+					this.form.related_needs_id = this.dids.join(',')
+				}
 				this.api.activityedit(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -620,7 +622,9 @@
 				}
 				
 				this.form.template_file_id=this.getworkids();
-				this.form.related_needs_id = this.dids.join(',');
+				if(this.dids.length != 0){
+					this.form.related_needs_id = this.dids.join(',')
+				}
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -835,11 +839,6 @@
 					
 					return "请选择模板状态！！";
 				}
-				
-				if(this.demand_names.length == 0){
-					return "请选择关联平台需求！！";
-				}
-				
 				return true;
 			},
 			getdemandlist(){

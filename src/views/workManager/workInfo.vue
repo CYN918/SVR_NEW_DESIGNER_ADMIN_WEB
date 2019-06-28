@@ -248,7 +248,7 @@
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	
 			},
-			getData(pg,is_export) {
+			getData(pg) {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -266,10 +266,6 @@
 					/* sreenData.is_export = is_export; */
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
-				}
-				
-				if(is_export){
-					data.is_export = is_export;
 				}
 				
 				if(this.isajax==1){
@@ -414,13 +410,59 @@
 					type: '',
 					center: true
 				}).then(() => {
-					this.getData({pageCurrent:1,pageSize:50},1);
+					this.setexport({pageCurrent:1,pageSize:50},1);
+					
 				}).catch(() => {
 					this.$message({
 						type: 'info',
 						message: '已经取消'
 					});
 				});
+			},
+			setexport(pg,is_export){
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize,
+					is_export:is_export
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.is_export = is_export;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				
+				console.log(data);
+				
+				/* if(this.isajax==1){
+					return
+				}
+				this.isajax=1; */
+				/* this.api.workList(data).then((da) => {
+					if (!da) {
+						this.$message('数据为空');
+					}
+					
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+					if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					}
+					this.setLoding(false);
+					this.isajax=0;
+				}).catch(() => {
+					this.isajax=0;
+					this.setLoding(false);
+				}); */
 			},
 			getworkids() {
 				//console.log(this.selectData);
@@ -603,29 +645,6 @@
 					this.demandlist = da
 				})
 			},
-			/* getdemandcheck(){
-				this.api.demandcheck({
-					access_token:localStorage.getItem("access_token"),
-					demand_ids:""
-				}).then(da=>{
-					
-				})
-			}, */
-			/* getdemand_names(){
-				//console.log(this.dids);
-				this.demand_names = [];
-				this.dids.forEach(item =>{
-					this.demandlist.forEach(ditem=>{
-						if(item == ditem.did){
-							if(ditem.demand_name){
-								this.demand_names.push(ditem.demand_name)
-							} else {
-								this.demand_names.push(ditem.did)
-							}
-						}
-					})
-				})
-			} */
 		},
 		created() {
 			this.getScreenShowData();

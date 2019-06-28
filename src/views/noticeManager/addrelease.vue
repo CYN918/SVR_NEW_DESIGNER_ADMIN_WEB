@@ -33,7 +33,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft fontcolorg" style="margin-right: 20px;">发布时间</span>
-					<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="send_time" type="datetime"
+					<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="send_time" type="datetime"
 					 placeholder="开始时间">
 					</el-date-picker>
 				</li>

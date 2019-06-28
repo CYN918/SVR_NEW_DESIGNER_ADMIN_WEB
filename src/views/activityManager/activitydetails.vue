@@ -46,13 +46,13 @@
 				<li class="margint23 ofh">
 					<div>
 						<span class="fleft detailKey" style="line-height: 40px;">活动时间</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['start_time']" type="datetime"
+						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="form['start_time']" type="datetime"
 						 placeholder="开始时间">
 						</el-date-picker>
 						<span class="fleft" style="line-height: 40px;">
 							&nbsp;至&nbsp;
 						</span>
-						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="form['end_time']" type="datetime"
+						<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="form['end_time']" type="datetime"
 						 placeholder="结束时间">
 						</el-date-picker>
 					</div>

@@ -46,13 +46,13 @@
 						<li class="ofh textcenter" style="margin: 10px 0;margin-left: 100px;">
 							
 							<span class="fleft detailKey" style="line-height: 40px;padding-right: 40px;">使用时段</span>
-							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="start_time" type="datetime"
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="start_time" type="datetime"
 							 placeholder="开始时间">
 							</el-date-picker>
 							<span class="fleft" style="line-height: 40px;">
 								&nbsp;至&nbsp;
 							</span>
-							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH-mm-ss" v-model="end_time" type="datetime"
+							<el-date-picker class="fleft" value-format="yyyy-MM-dd HH:mm:ss" v-model="end_time" type="datetime"
 							 placeholder="结束时间">
 							</el-date-picker>
 						</li>
