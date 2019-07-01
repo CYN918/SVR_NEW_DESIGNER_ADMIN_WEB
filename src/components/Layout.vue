@@ -165,7 +165,7 @@
 			this.getadminuseraccess();
 		},
 		mounted() {
-			//this.eventbus();
+			this.eventbus();
 		}
 	}
 </script>

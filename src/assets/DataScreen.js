@@ -171,7 +171,7 @@ const screenData = {
 						label: 'classify_name',
 						children: 'sub_data'
 					},
-					child:JSON.parse(localStorage.getItem("cascader")) ? JSON.parse(localStorage.getItem("cascader")) : []
+					child:(localStorage.getItem("cascader")) ? JSON.parse(localStorage.getItem("cascader")) : []
 				},
 				{name:"版权说明",id:"copyright",child:[{name:"禁止匿名转载；禁止商业使用；禁止个人使用。",id:"禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
 				{name:"作品标签",id:"labels"},

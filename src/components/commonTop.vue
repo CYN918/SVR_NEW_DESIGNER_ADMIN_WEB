@@ -75,6 +75,7 @@
 				this.$parent.resetSave(tag)
 			},
 			getparent(id,name) {
+				//alert(name)
 				var idIndex = id;
 				switch (name)
 				{
