@@ -107,7 +107,7 @@
 					"commonrightbtn": [{
 						name: "上传模板文件",
 						id: "right1",
-						url: ""
+						accessid: "200340"
 					}],
 					"commonbottombtn": [],
 					"IsShow": true,
@@ -149,7 +149,7 @@
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
 				this.tableAction = DataScreen.screenShow.solicitationTemplate["action" + num],
-				console.log(this.tableConfig.list);
+				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:50});

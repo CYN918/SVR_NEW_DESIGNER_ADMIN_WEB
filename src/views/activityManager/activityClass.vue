@@ -33,7 +33,7 @@
 					"commonrightbtn": [{
 						name: "添加主题分类",
 						id: "right1",
-						url: ""
+						accessid: "200330"
 					}],
 					"commonbottombtn":[],
 				},

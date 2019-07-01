@@ -1005,6 +1005,7 @@ const screenData = {
 					name:"修改",
 					Ishow:true,
 					filterField:[0],
+					accessid:"200332"
 				},
 				pagefilterField:true,
 				pagefilterFieldid:"processing_activity_num"
@@ -1042,12 +1043,14 @@ const screenData = {
 						{
 							name:"删除",
 							filterField:["0"],
-							id:"top0"
+							id:"top0",
+							accessid:"200328"
 						},
 						{
 							name:"编辑",
 							filterField:["0","1"],
-							id:"top1"
+							id:"top1",
+							accessid:"200327"
 						}
 					],
 				},
@@ -1132,7 +1135,8 @@ const screenData = {
 				},
 				links:{
 					name:"预览",
-					Ishow:true
+					Ishow:true,
+					accessid:"200335"
 				},
 			}
 		},
@@ -1163,13 +1167,16 @@ const screenData = {
 					page:"solicitationTemplate",
 					child:[
 						{
-							name:"修改文件名"
+							name:"修改文件名",
+							accessid:"200342"
 						},
 						{
-							name:"下载"
+							name:"下载",
+							accessid:"200342"
 						},
 						{
-							name:"删除"
+							name:"删除",
+							accessid:"200343"
 						}
 					],
 				},

@@ -14,7 +14,7 @@
 			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
 				<div>{{ this.user.name }}</div>
 				<div @click="getuser()"><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
-				<div @click="out()"><i class="iconfont" style="margin-right: 8.2px;">&#xe67f;</i>退出登录</div>
+				<div @click="out()"><i class="iconfont" style="margin-right: 8.2px;padding-left: 0;">&#xe67f;</i>退出登录</div>
 			</div>
 			<div class="masku" v-if="IsSign" @click="signOut"></div>
 		
@@ -83,7 +83,11 @@
 					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
-						console.log(da)
+						if(da.result == 0){
+							this.router.push({
+								path:"/"
+							})
+						}
 					})
 					
 				}).catch(() => {

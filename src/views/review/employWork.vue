@@ -70,6 +70,7 @@
 				filterFields:DataScreen.screen.employWork.filterFields,
 				IsDetail:1,
 				roles:{},
+				top_banner:[]
 			}
 		},
 		watch: {},
@@ -169,9 +170,15 @@
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			if(localStorage.getItem("access")){
+				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
+			}
 		},
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
+			if(localStorage.getItem("access")){
+				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
+			}
 		},
 		watch:{
 			"$route":function(){

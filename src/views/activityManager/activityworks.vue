@@ -42,7 +42,7 @@
 						{
 							name: '展示字筛选',
 							id: "right2",
-							url: ''
+							accessid: '200335'
 						},
 					],
 					"commonbottombtn": [],

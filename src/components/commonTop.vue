@@ -67,7 +67,7 @@
 				currentpageName:'',
 				doCount:{},
 				operations:[],
-				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess"))
+				adminuseraccess: []
 			};
 		},
 		methods: {
@@ -295,6 +295,10 @@
 			var access = [];
 			if(localStorage.getItem("access")){
 				access = JSON.parse(localStorage.getItem("access"));
+			}
+			
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 			
 		},

@@ -9,17 +9,22 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				console.log(access_token)
+				//let access_token = "c4169ddaeb51e0517ac06fedd51ba10c"
+				//console.log(access_token)
+				
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
-				}).then(da => {
+				}).then((da) => {
 					if(da.result == 0){
 						//alert(11)
 						localStorage.setItem("access",JSON.stringify(da.data));
 						this.router.push({path:"/userManager/userBaseInfo"});
+					} else {
 					}
-				}).catch(da => {
+				}).catch((da) => {
+					console.log(da);
+					//alert(4)
 					
 				})
 			},

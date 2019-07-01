@@ -149,7 +149,7 @@
 				centerDialogVisible:false,
 				showmask:false,
 				bannerprogramlists:[],
-				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess"))
+				adminuseraccess: []
 			}
 		},
 		methods: {
@@ -450,6 +450,10 @@
 			}
 			if(this.$route.query.tabsnum == 1) {
 				this.tabsChange(1);
+			}
+			
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 		},
 		watch:{

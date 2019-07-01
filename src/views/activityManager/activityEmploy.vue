@@ -34,7 +34,7 @@
 					"commonrightbtn": [{
 						name: "新建活动",
 						id: "right1",
-						url: ""
+						accessid: "200326"
 					}],
 					"commonbottombtn":[],
 				},

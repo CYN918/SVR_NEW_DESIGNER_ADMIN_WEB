@@ -301,7 +301,7 @@ export default {
 		url:'/admin/adminuser/selfInfo',method:'post',baseURL:0
 	},
 	logout:{
-		url:'/sso/login/logout',method:'post',baseURL:0
+		url:'/sso/login/logout',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	Workclassify:{
 		url:'/admin/Work/classify',method:'post'

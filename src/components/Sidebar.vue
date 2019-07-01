@@ -196,15 +196,17 @@
 			}
 		},
 		created() {
-			if(localStorage.getItem("access")){
-				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
-				//console.log(this.menuAccess);
-			}
+			
 			//this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			this.defaultactive=this.$route.matched[this.$route.matched.length-1].path;
 			//console.log(this.$route.matched[this.$route.matched.length-1].path)
 		},
-		mounted() {}
+		mounted() {
+			if(localStorage.getItem("access")){
+				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
+				//console.log(this.menuAccess);
+			}
+		}
 	}
 </script>
 <style lang="scss">

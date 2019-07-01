@@ -141,7 +141,7 @@
 				pageid:"",
 				imgurl:"",
 				isimgurl:false,
-				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess")) 
+				adminuseraccess: []
 			}
 		},
 		methods: {
@@ -738,7 +738,10 @@
 		mounted() {
 			this.autoTableHeight();
 			//console.log(this.tableConfig)
-			this.init()
+			this.init();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		created() {
 			switch(this.tableAction.morebtns.page){
