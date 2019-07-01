@@ -124,7 +124,7 @@ const workData = {
 				},
 				{
 					name:"录用订单ID",
-					id:"order_id",
+					id:"id",
 					type:"text"
 				},
 				{

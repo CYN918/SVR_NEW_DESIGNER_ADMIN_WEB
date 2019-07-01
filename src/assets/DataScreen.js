@@ -572,16 +572,19 @@ const screenData = {
 					child:[
 						{
 							name:"设为平台推荐创作者",
+							accessid:"200044"
 						},
 						{
 							name:"添加至黑名单",
+							accessid:"200044"
 						}	
 					],
 					page:'userBaseInfo'
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200042"
 				}
 			}
 		},
@@ -630,7 +633,8 @@ const screenData = {
 				},
 				links:{
 					name:"查看详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200052"
 				},
 				
 			}
@@ -653,7 +657,8 @@ const screenData = {
 				},
 				links:{
 					name:"查看详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200047"
 				},
 				
 			}
@@ -672,17 +677,21 @@ const screenData = {
 					Ishow:true,
 					child:[
 						{
-							name:"编辑"
+							name:"编辑",
+							accessid:"200059"
+							
 						},
 						{
-							name:"删除"
+							name:"删除",
+							accessid:"200060"
 						}
 					],
 					page:"roleManager"
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200057"
 				},
 				page:'roleManager'
 			}
@@ -736,11 +745,13 @@ const screenData = {
 				morebtns:{
 					name:"设置角色",
 					Ishow:true,
-					page:"accountManager"
+					page:"accountManager",
+					accessid:"200064"
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200062"
 				}
 			}
 		},
@@ -758,11 +769,13 @@ const screenData = {
 				morebtns:{
 					name:"设置角色",
 					Ishow:false,
-					page:"publishWork"
+					page:"publishWork",
+					
 				},
 				links:{
 					name:"详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200077"
 				}
 			},
 		},
@@ -786,7 +799,8 @@ const screenData = {
 				},
 				links:{
 					name:"详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200082"
 				}
 			},
 		},
@@ -810,7 +824,8 @@ const screenData = {
 				},
 				links:{
 					name:"详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200087"
 				}
 			},
 		},
@@ -832,7 +847,8 @@ const screenData = {
 				},
 				links:{
 					name:"详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200092"
 				}
 			},
 		},
@@ -868,25 +884,31 @@ const screenData = {
 					page:"workInfo",
 					child:[
 						{
-							name:"预览"
+							name:"预览",
+							accessid:"200305"
 						},
 						{
-							name:"下架"
+							name:"下架",
+							accessid:"200307"
 						},
 						{
-							name:"录用"
+							name:"录用",
+							accessid:"200307"
 						},
 						{
-							name:"修改平台推荐等级"
+							name:"修改平台推荐等级",
+							accessid:"200307"
 						},
 						{
-							name:"绑定补充合同"
+							name:"绑定补充合同",
+							accessid:"200307"
 						}
 					],
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200305"
 				}
 			},
 		},
@@ -942,7 +964,8 @@ const screenData = {
 				},
 				links:{
 					name:"删除",
-					Ishow:true
+					Ishow:true,
+					accessid:"200323"
 				},
 			}
 		},
@@ -1182,7 +1205,15 @@ const screenData = {
 				{lable:"上传时间",prop:"created_at"}
 			],
 			action:{
-				is_hidden:true
+				morebtns:{
+					name:"删除",
+					Ishow:false,
+					page:"addbannerScheme",
+				},
+				links:{
+					name:"选择",
+					Ishow:true
+				},
 			}
 		},
 		homeBanner:{
@@ -1199,10 +1230,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"homeBanner",
+					accessid:"200070"
 				},
 				links:{
 					name:"修改",
-					Ishow:true
+					Ishow:true,
+					accessid:"200069"
 				},
 			}
 		},
@@ -1240,10 +1273,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"hotWordSearch",
+					accessid:"200075"
 				},
 				links:{
 					name:"编辑",
-					Ishow:true
+					Ishow:true,
+					accessid:"200074"
 				},
 			}
 		},
@@ -1262,13 +1297,16 @@ const screenData = {
 					page:"serviceCenter",
 					child:[
 						{
-							name:"编辑"
+							name:"编辑",
+							accessid:"200352",
 						},
 						{
-							name:"删除"
+							name:"删除",
+							accessid:"200353"
 						},
 						{
-							name:"设为线上展示"
+							name:"设为线上展示",
+							accessid:"200352"
 						}
 					]
 				},
@@ -1291,10 +1329,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"recommendedActivities",
+					accessid:"200348"  
 				},
 				links:{
 					name:"编辑",
-					Ishow:true
+					Ishow:true,
+					accessid:"200347"
 				},
 			}
 		},
@@ -1337,10 +1377,12 @@ const screenData = {
 					name:"预览",
 					Ishow:true,
 					page:"employmentorder",
+					accessid:"200355"
 				},
 				links:{
 					name:"详情",
-					Ishow:true
+					Ishow:true,
+					accessid:"200355"
 				},
 			}
 		},
@@ -1393,7 +1435,8 @@ const screenData = {
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200365"
 				},
 			}
 		},
@@ -1411,11 +1454,14 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"presetReason",
+					accessid:"200373"
 				},
 				links:{
 					name:"停用",
 					Ishow:true,
-					child:{"0":"启用","1":"停用"}
+					child:{"0":"启用","1":"停用"},
+					accessid:"200372"
+					
 				},
 			}
 		},
@@ -1445,11 +1491,13 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"feedback",
+					accessid:"200378"
 				},
 				links:{
 					name:"停用",
 					Ishow:true,
-					child:{"1":"启用","0":"停用"}
+					child:{"1":"启用","0":"停用"},
+					accessid:"200377"
 				},
 			},
 			action0:{
@@ -1461,6 +1509,7 @@ const screenData = {
 				links:{
 					name:"查看",
 					Ishow:true,
+					accessid:"200375"
 				},
 			}
 		},
@@ -1489,11 +1538,13 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"reportInfo",
+					accessid:"200383"
 				},
 				links:{
 					name:"停用",
 					Ishow:true,
-					child:{"1":"启用","0":"停用"}
+					child:{"1":"启用","0":"停用"},
+					accessid:"200382"
 				},
 			},
 			action0:{
@@ -1504,7 +1555,8 @@ const screenData = {
 				},
 				links:{
 					name:"查看",
-					Ishow:true
+					Ishow:true,
+					accessid:"200380"
 				},
 			}
 		},
@@ -1530,10 +1582,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"newsRelease",
+					accessid:"200388"
 				},
 				links:{
 					name:"编辑",
 					Ishow:true,
+					accessid:"200387"
 				},
 			}
 		},
@@ -1559,19 +1613,9 @@ const screenData = {
 				{lable:"收益金额",prop:"reward_value",type:"price"},
 			],
 			action:{
-				morebtns:{
-					name:"删除",
-					Ishow:false,
-					page:"noticetemplate",
-				},
-				links:{
-					name:"停用",
-					Ishow:false,
-					child:{"1":"启用","0":"停用"}
-				},
+				is_hidden:true
 			}
 		},
-		
 	}
 }
 

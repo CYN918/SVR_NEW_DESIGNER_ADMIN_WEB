@@ -34,7 +34,7 @@
 					"commonrightbtn": [{
 						name: "新建文档",
 						id: "right1",
-						url: ""
+						accessid: "200351"
 					}],
 					"commonbottombtn":[],
 				},

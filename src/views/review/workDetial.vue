@@ -176,9 +176,9 @@
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button v-if="getstatusinfo() && pagetype==3" class="defaultbtn" @click="reject3">发送修改通知</button>
-			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">审核驳回</button>
-			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="agree()">审核通过</button>
+			<button v-if="getstatusinfo() && pagetype==3 && getaccessid()" class="defaultbtn" @click="reject3">发送修改通知</button>
+			<button v-if="getstatusinfo() && getaccessid()" class="defaultbtn" @click="reject">审核驳回</button>
+			<button v-if="getstatusinfo() && getaccessid()" class="defaultbtn defaultbtnactive" @click="agree()">审核通过</button>
 			<button class="defaultbtn" v-if="pagetype != 4" @click="linksee">预览作品</button>
 		</div>
 		<div class="screenContent detailbtn" v-if="!detailbtn">
@@ -450,7 +450,8 @@
 				did:'',
 				fid:"",
 				isimgurl:false,
-				imgurl:""
+				imgurl:"",
+				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 		},
 		methods: {
@@ -833,8 +834,7 @@
 					}];
 				}
 				
-				
-				this.api.reviewInfo({
+				this.api["reviewInfo"+this.pagetype]({
 					access_token: localStorage.getItem("access_token"),
 					type: this.$route.query.type,
 					id: this.$route.query.id,
@@ -863,7 +863,7 @@
 			
 			submint(data){
 				//console.log(data);
-				this.api.reviewCheck(data).then(da => {
+				this.api["reviewCheck"+this.pagetype](data).then(da => {
 					//getparent()
 					this.getreviewInfo();
 				}).catch(da => {
@@ -875,6 +875,25 @@
 					return false;
 				} else{
 					return true;
+				}
+			},
+			getaccessid(){
+				let id = "";
+				
+				if(this.pagetype == 1){
+					id = "200079";
+				} else if(this.pagetype == 2){
+					id = "200084";
+				} else if(this.pagetype == 3){
+					id = "200089";
+				} else if(this.pagetype == 4){
+					id = "200094";
+				}
+				
+				if(this.adminuseraccess.indexOf(id) > -1){
+					return true;
+				} else{
+					return false;
 				}
 			},
 			handleCheckedCitiesChange(val){

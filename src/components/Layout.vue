@@ -22,6 +22,7 @@
 			<common-screen-show :pageName="pageName"></common-screen-show>
 		</div>
 		<div class="masku screenContent" style="background: rgba(0,0,0,0.4);" v-if="pressage">
+			
 			<el-progress type="circle" :percentage="percentage" class="prossage"></el-progress>
 		</div>
 	</div>
@@ -90,6 +91,7 @@
 				}).then(da => {
 					if(da.result == 0){
 						//alert(11)
+						console.log(da)
 						localStorage.setItem("access",JSON.stringify(da.data));
 						//this.router.push({path:"/userManager/userBaseInfo"});
 					}
@@ -147,11 +149,20 @@
 						this.percentage++;
 					},0)
 				}
+			},
+			getadminuseraccess(){
+				this.api.adminuseraccess({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					console.log(da);
+					localStorage.setItem("adminuseraccess",JSON.stringify(da));
+				})
 			}
 		},
 		created() {
 			this.getaccess();
-			this.categoryList()
+			this.categoryList();
+			this.getadminuseraccess();
 		},
 		mounted() {
 			this.eventbus();

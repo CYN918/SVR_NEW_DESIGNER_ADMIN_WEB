@@ -109,12 +109,12 @@
 				commonTopData:{
 					"pageName":"userBaseInfo",
 					"commonleftbtn":[
-						{name:"筛选",id:"left1",url:""},
+						{name:"筛选",id:"left1"},
 				    ],
 				    "commonrightbtn":[
-						{name:'批量操作',id:"right1"},
+						{name:'批量操作',id:"right1",accessid:"200044"},
 						{name:'展示字筛选',id:"right2"},
-						{name:'导出数据',id:"right3"}
+						{name:'导出数据',id:"right3",accessid:"200046"}
 					],
 					"commonbottombtn":[],
 				},
@@ -304,8 +304,59 @@
 						this.$refs.Tabledd.setinit();
 					});
 				})
-				
-			    
+			},
+			export(){
+				this.$confirm('确认导出', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.setexport({pageCurrent:1,pageSize:50},1);
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
+			setexport(pg,is_export){
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize,
+					is_export:is_export
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.is_export = is_export;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				let form = document.createElement("form");
+				for(let key in data){
+					let dom =document.createElement("input");
+					dom.setAttribute("name",key);
+					dom.setAttribute("value",data[key]);
+					form.appendChild(dom);
+				};
+				form.setAttribute("style", "display:none");
+				form.setAttribute("target", "");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/User/getUserList")
+				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/User/getUserList")
+				}
+				document.body.appendChild(form);
+				form.submit();
 			},
 			getopenids(){
 				//console.log(this.selectData);

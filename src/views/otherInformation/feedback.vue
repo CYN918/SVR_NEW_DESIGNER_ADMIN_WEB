@@ -147,6 +147,7 @@
 					this.commonTopData.commonrightbtn = [{
 						name: "新建问题类型",
 						id: "right1",
+						accessid:"200376"
 					}];
 				}
 			},

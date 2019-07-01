@@ -70,6 +70,7 @@
 				filterFields:DataScreen.screen.publishWork.filterFields,
 				IsDetail:1,
 				roles:{},
+				top_banner: JSON.parse(localStorage.getItem("access")).top_banner
 			}
 		},
 		watch: {},
@@ -100,10 +101,14 @@
 					sreenData.type = 1
 					data = sreenData;
 				}
+				/* this.axios.post(localStorage.getItem("adminURL")+"/admin/Review/list?type=1", data).then(function (response) {
+					console.log(response);
+				}).catch(function (error) {
+					console.log(error);
+				}); */
 				
-				
-				this.api.reviewList(data).then((da) => {
-					console.log(da.data)
+				this.api.reviewList1(data).then((da) => {
+					//console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
 					}
@@ -153,7 +158,7 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							//console.log(this.commonTopData.commonbottombtn);
 						}
 					})
 				}
@@ -172,7 +177,7 @@
 					access_token:localStorage.getItem("access_token"),
 					id:id
 				}).then(da => {
-					console.log(da);
+					//console.log(da);
 					this.$message({
 						type:"waring",
 						message:da
@@ -185,6 +190,7 @@
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			console.log(this.top_banner)
 		},
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
@@ -199,7 +205,5 @@
 	}
 </script>
 <style>
-	.el-select-dropdown{
-		z-index: 2014 !important;
-	}
+	
 </style>

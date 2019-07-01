@@ -36,7 +36,7 @@
 					"commonrightbtn": [{
 						name: "添加角色",
 						id: "right1",
-						url: ""
+						accessid: "200057"
 					}],
 					"commonbottombtn":[],
 				},
@@ -203,15 +203,33 @@
 						message: '已经取消'
 					});
 				});
-				
-				
-				
 			},
-			
+			getadminuseraccess(){
+				this.api.adminuseraccess({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					console.log(da);
+					localStorage.setItem("adminuseraccess",JSON.stringify(da));
+				})
+			},
+			getaccess() {
+				this.api.access({
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {
+					if(da.result == 0){
+						//alert(11)
+						console.log(da)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						//this.router.push({path:"/userManager/userBaseInfo"});
+					}
+				}).catch(da => {})
+			}
 		},
 		created() {
 			this.getcommonrightbtn();
 			this.getDataAll();
+			this.getadminuseraccess();
+			this.getaccess();
 		},
 		mounted() {
 			//console.log(this.tableConfig)

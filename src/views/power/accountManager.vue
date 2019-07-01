@@ -156,11 +156,35 @@
 					this.$router.push({path:'/power/accountManager',query:{urlDate:JSON.stringify(urldata)}});
 					
 				}
+			},
+			getadminuseraccess(){
+				this.api.adminuseraccess({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					console.log(da);
+					localStorage.setItem("adminuseraccess",JSON.stringify(da));
+				})
+			},
+			getaccess() {
+				this.api.access({
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {
+					if(da.result == 0){
+						//alert(11)
+						console.log(da)
+						localStorage.setItem("access",JSON.stringify(da.data));
+						//this.router.push({path:"/userManager/userBaseInfo"});
+					}
+				}).catch(da => {
+					
+				})
 			}
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getadminuseraccess();
+			this.getaccess();
 		},
 		mounted() {
 			//console.log(this.tableConfig)

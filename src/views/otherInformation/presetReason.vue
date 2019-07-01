@@ -33,7 +33,7 @@
 					"commonrightbtn": [{
 						name: "添加驳回理由",
 						id: "right3",
-						url: ""
+						accessid: "200371"
 					}],
 					"commonbottombtn":[],
 				},

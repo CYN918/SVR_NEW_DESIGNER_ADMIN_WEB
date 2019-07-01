@@ -21,12 +21,23 @@
 				</div>
 				<div class="fright">
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
-						<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-						<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
-							<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
+						<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
+							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+							<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+								<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
+							</div>
+							<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
+							<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 						</div>
-						<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-						<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+						<div v-if="!item.accessid">
+							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+							<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+								<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
+							</div>
+							<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
+							<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -56,6 +67,7 @@
 				currentpageName:'',
 				doCount:{},
 				operations:[],
+				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess"))
 			};
 		},
 		methods: {
@@ -79,12 +91,30 @@
 							this.Istooltip = !this.Istooltip;
 							return;
 						}
+						if(idIndex == "right3"){
+							this.$parent.export()
+						}
 					break;
 					case "roleManager":
 						if(idIndex == "right1"){
 							this.router.push({
 								path:"/power/roleManager/createRoles"
 							})
+						};
+					break;
+					case "employmentorder":
+						if(idIndex == "right3"){
+							this.$parent.export()
+						};
+					break;
+					case "holdAlltab":
+						if(idIndex == "right3"){
+							this.$parent.export()
+						};
+					break;
+					case "embodyRecord":
+						if(idIndex == "right3"){
+							this.$parent.export()
 						};
 					break;
 					case "workInfo":

@@ -100,10 +100,10 @@
 					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ filename }}</span>
+						<span class="fontcolorg" style="margin-left: 160px;">{{ selectData1.file_name+"&nbsp;&nbsp;&nbsp;&nbsp;"+selectData1.file_size_format }}</span>
 					</li>
 					
-					<li class="margint23 ofh">
+					<li class="margint23 ofh" v-if="form['setting_type'] == '4'">
 						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
 						<el-dropdown trigger="click" :hide-on-click="false">
 							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="demand_names.join(',')" suffix-icon="el-icon-arrow-down"
@@ -184,9 +184,9 @@
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<div class="w textcenter">
+				<!-- <div class="w textcenter">
 					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
-				</div>
+				</div> -->
 			</div>
 			
 		</el-dialog>
@@ -259,7 +259,7 @@
 					currentpage: 1,
 					pagesize: 10,
 					list: DataScreen.screenShow.newActivity.bts0,
-					ischeck: true,
+					ischeck: false,
 					loading:true
 				
 				},
@@ -279,7 +279,8 @@
 				uptype:"img",
 				dids:[],
 				demandlist:[],
-				demand_names:[]
+				demand_names:[],
+				selectData1:{}
 			}
 		},
 		components: {
@@ -296,6 +297,10 @@
 				} else {
 					return "--"
 				}
+			},
+			getactivitiesrows(row){
+				//console.log(row);
+				this.selectData1=row;
 			},
 			tabsChange(num) {
 				this.tabsnum = num;
@@ -316,9 +321,21 @@
 				
 				this.form.access_token = localStorage.getItem("access_token");
 				this.form.activity_id = this.rows.id;
-				if(this.dids.length != 0){
-					this.form.related_needs_id = this.dids.join(',')
+				if(this.selectData1.template_file_id){
+					this.form.template_file_id = this.selectData1.template_file_id
 				}
+				if(this.form['setting_type'] == '4'){
+					if(!this.dids.join(',')){
+						this.$message({
+							message:"需求ID不能为空"
+						});
+						return;
+					}
+					this.form.related_needs_id = this.dids.join(',')
+				} else {
+					this.form.related_needs_id = "";
+				}
+				
 				this.api.activityedit(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -576,42 +593,6 @@
 					this.form.cover_img = url;
 				}
 			},
-			filechange(params){
-				//console.log("params",params)
-				//const isLt2M = _file.size / 1024 / 1024 < 2;
-				const _file = params.file;
-				/* if (!isLt2M) {
-					this.$message.error("请上传2M以下是的文件");
-					return false;
-				} */
-				
-				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
-				let open_id = 7;
-				let times = (Date.parse(new Date()) / 1000);
-				let arr = [
-					1003,
-					app_secret,
-					open_id,
-					times
-				];
-				
-				// 通过 FormData 对象上传文件
-				var formData = new FormData();
-				formData.append("file", _file);
-				formData.append('app_id', 1003);
-				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
-				formData.append('user', open_id)
-				formData.append('relation_type', 'activity')
-				formData.append('timestamp', times)
-				var _this = this
-				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					//console.log(response.data.data);
-					_this.filename = response.data.data.file_name;
-					_this.form.template_file_id = response.data.data.fid
-				}).catch(function (error) {
-					//console.log(error);
-				});
-			},
 			createdactivity(){
 				
 				if(this.alertmask() != true){
@@ -621,10 +602,19 @@
 					return;
 				}
 				
-				this.form.template_file_id=this.getworkids();
-				if(this.dids.length != 0){
+				//this.form.template_file_id=this.getworkids();
+				this.form.template_file_id = this.selectData1.template_file_id
+				if(this.form['setting_type'] == '4'){
+					if(!this.dids.join(',')){
+						this.$message({
+							message:"需求ID不能为空"
+						});
+						return;
+					}
 					this.form.related_needs_id = this.dids.join(',')
-				}
+				} else {
+					this.form.related_needs_id = "";
+				}	
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){

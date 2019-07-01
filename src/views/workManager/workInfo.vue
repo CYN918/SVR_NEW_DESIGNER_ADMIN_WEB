@@ -202,17 +202,16 @@
 					"commonrightbtn": [{
 							name: '批量操作',
 							id: "right1",
-							url: ''
+							accessid: '200307'
 						},
 						{
 							name: '展示字筛选',
 							id: "right2",
-							url: ''
 						},
 						{
 							name: '导出数据',
 							id: "right3",
-							url: ''
+							accessid: '200309'
 						}
 					],
 					"commonbottombtn": [],
@@ -438,31 +437,22 @@
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
-				
-				console.log(data);
-				
-				/* if(this.isajax==1){
-					return
+				let form = document.createElement("form");
+				for(let key in data){
+					let dom =document.createElement("input");
+					dom.setAttribute("name",key);
+					dom.setAttribute("value",data[key]);
+					form.appendChild(dom);
+				};
+				form.setAttribute("style", "display:none");
+				form.setAttribute("target", "");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/work/list")
+				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/work/list")
 				}
-				this.isajax=1; */
-				/* this.api.workList(data).then((da) => {
-					if (!da) {
-						this.$message('数据为空');
-					}
-					
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-					if(this.tableConfig.ischeck){
-						this.$refs.Tabledd.change(da.data);
-					}
-					this.setLoding(false);
-					this.isajax=0;
-				}).catch(() => {
-					this.isajax=0;
-					this.setLoding(false);
-				}); */
+				document.body.appendChild(form);
+				form.submit();
 			},
 			getworkids() {
 				//console.log(this.selectData);
@@ -581,7 +571,7 @@
 				})
 			},
 			workhire(){
-				this.$confirm('确定录用改作品', '确认修改', {
+				this.$confirm('确定录用该作品', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,

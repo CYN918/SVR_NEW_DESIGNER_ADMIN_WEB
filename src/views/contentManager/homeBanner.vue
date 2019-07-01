@@ -55,9 +55,9 @@
 									<el-dropdown :hide-on-click="false">
 									  <button class="defaultbtn defaultbtn1400" style="">更多操作</button>
 									  <el-dropdown-menu slot="dropdown">
-										<el-dropdown-item @click.native="delectprogram(item.id)">删除</el-dropdown-item>
-										<el-dropdown-item @click.native="editprogram(item.id,'edit')">编辑</el-dropdown-item>
-										<el-dropdown-item @click.native="seeprogram(item.id)">查看</el-dropdown-item>
+										<el-dropdown-item v-if="adminuseraccess.indexOf('200070') > -1" @click.native="delectprogram(item.id)">删除</el-dropdown-item>
+										<el-dropdown-item v-if="adminuseraccess.indexOf('200069') > -1" @click.native="editprogram(item.id,'edit')">编辑</el-dropdown-item>
+										<el-dropdown-item v-if="adminuseraccess.indexOf('200067') > -1" @click.native="seeprogram(item.id)">查看</el-dropdown-item>
 									  </el-dropdown-menu>
 									</el-dropdown>
 								</div>
@@ -125,6 +125,7 @@
 					"commonrightbtn": [{
 						name: "新建展示方案",
 						id: "right0",
+						accessid:"200068"
 					}],
 					"commonbottombtn":[],
 					"IsShow":true,
@@ -148,6 +149,7 @@
 				centerDialogVisible:false,
 				showmask:false,
 				bannerprogramlists:[],
+				adminuseraccess: JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 		},
 		methods: {
@@ -159,11 +161,13 @@
 					this.commonTopData.commonrightbtn = [{
 						name: "新建banner素材",
 						id: "right1",
+						accessid:"200068"
 					}];
 				} else {
 					this.commonTopData.commonrightbtn = [{
 						name: "新建展示方案",
 						id: "right0",
+						accessid:"200068"
 					}];
 				}
 				this.$parent.tabchange(num+1);

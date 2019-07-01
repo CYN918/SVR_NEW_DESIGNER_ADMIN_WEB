@@ -1,3 +1,4 @@
+
 export default {
 /*需求相关*/
 	getUserList:{
@@ -40,8 +41,17 @@ export default {
 	getMenuList:{
 		url:'/admin/menu/getMenuList',method:'post',baseURL:0
 	},
-	reviewList:{
-		url:'/admin/Review/list',method:'post',baseURL:0
+	reviewList1:{
+		url:'/admin/Review/list?type=1',method:'post',baseURL:0
+	},
+	reviewList2:{
+		url:'/admin/Review/list?type=2',method:'post',baseURL:0
+	},
+	reviewList3:{
+		url:'/admin/Review/list?type=3',method:'post',baseURL:0
+	},
+	reviewList4:{
+		url:'/admin/Review/list?type=4',method:'post',baseURL:0
 	},
 	access:{
 		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{isok:true}
@@ -51,13 +61,32 @@ export default {
 		url:'/admin/AdminUser/setRole',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	
-	reviewInfo:{
-		url:'/admin/Review/info',method:'post',baseURL:0
+	reviewInfo1:{
+		url:'/admin/Review/info?type=1',method:'post',baseURL:0
+	},
+	reviewInfo2:{
+		url:'/admin/Review/info?type=2',method:'post',baseURL:0
+	},
+	reviewInfo3:{
+		url:'/admin/Review/info?type=3',method:'post',baseURL:0
+	},
+	reviewInfo4:{
+		url:'/admin/Review/info?type=4',method:'post',baseURL:0
 	},
 	
-	reviewCheck:{
-		url:'/admin/Review/check',method:'post',baseURL:0,isType:{suktip:true}
+	reviewCheck1:{
+		url:'/admin/Review/check?type=1',method:'post',baseURL:0,isType:{suktip:true}
 	},
+	reviewCheck2:{
+		url:'/admin/Review/check?type=2',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	reviewCheck3:{
+		url:'/admin/Review/check?type=3',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	reviewCheck4:{
+		url:'/admin/Review/check?type=4',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	
 	todoCount:{
 		url:'/admin/Review/todoCount',method:'post',baseURL:0
 	},
@@ -322,6 +351,9 @@ export default {
 	},
 	demandcheck:{
 		url:'/admin/demand/check',method:'post',baseURL:0
+	},
+	adminuseraccess:{
+		url:'/admin/adminuser/access',method:'post',baseURL:0
 	},
 	
 }

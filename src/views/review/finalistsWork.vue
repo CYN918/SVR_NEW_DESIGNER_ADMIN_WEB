@@ -100,7 +100,7 @@
 					data = sreenData;
 				}
 
-				this.api.reviewList(data).then((da) => {
+				this.api.reviewList2(data).then((da) => {
 					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');
@@ -186,7 +186,5 @@
 	}
 </script>
 <style>
-	.el-select-dropdown{
-		z-index: 2014 !important;
-	}
+	
 </style>

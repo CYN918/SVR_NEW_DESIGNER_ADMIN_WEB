@@ -94,7 +94,7 @@
 					data = sreenData;
 				}
 
-				this.api.reviewList(data).then((da) => {
+				this.api.reviewList4(data).then((da) => {
 					console.log(da.data)
 					if (!da) {
 						this.$message('数据为空');

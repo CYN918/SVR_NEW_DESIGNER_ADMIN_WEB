@@ -101,13 +101,12 @@
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
-						url: ""
+						accessid: "200381"
 					}],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 					"IsShow": true,
 					upload: true
-
 				},
 				screenConfig: [],
 				tableConfig: {

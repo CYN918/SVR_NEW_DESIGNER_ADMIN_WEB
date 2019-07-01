@@ -20,10 +20,12 @@ const generateApiMap = (map) => {
 
 var baseURLs = ['http://dev-api-ndesigner-admin.idatachain.cn'];
 localStorage.setItem("URL","http://dev-web-ndesigner.idatachain.cn");
-console.log(window.location.host);
+localStorage.setItem("adminURL","http://dev-api-ndesigner-admin.idatachain.cn")
+//console.log(window.location.host);
 if(window.location.host=='shiquaner-admin.zookingsoft.com'){
    baseURLs = ['http://shiquaner-admin-api.zookingsoft.com',];
    localStorage.setItem("URL","http://shiquaner.zookingsoft.com")
+   localStorage.setItem("adminURL","http://shiquaner-admin-api.zookingsoft.com");
 }
 const toMethod = (options) => {
 	options.method = options.method || 'post'

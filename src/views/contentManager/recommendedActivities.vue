@@ -27,14 +27,13 @@
 					"pageName": "recommendedActivities",
 					"commonleftbtn": [{
 						name: "筛选",
-						id: "left1",
-						url: ""
+						id: "left1"
 					}],
 					
 					"commonrightbtn": [{
 						name: "新建干预任务",
 						id: "right1",
-						url: ""
+						accessid: "200346"
 					}],
 					"commonbottombtn":[],
 				},
