@@ -355,5 +355,8 @@ export default {
 	adminuseraccess:{
 		url:'/admin/adminuser/access',method:'post',baseURL:0
 	},
+	getRecommendCount:{
+		url:'/admin/User/getRecommendCount',method:'post',baseURL:0
+	},
 	
 }

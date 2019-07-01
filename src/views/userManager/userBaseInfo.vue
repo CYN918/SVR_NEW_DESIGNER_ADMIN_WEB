@@ -263,9 +263,9 @@
 			    this.centerDialogVisible = false;
 				this.centerDialogVisible1 = false;
 				
-				this.api.usergetLevelCount({
+				this.api.getRecommendCount({
 					access_token:localStorage.getItem("access_token"),
-					recommend_level:this.radioS
+					open_ids:open_ids
 				}).then(da =>{
 					//console.log(da);
 					this.$confirm('有'+ da +'位用已经是平台推荐创作者</br>是否统一将推荐评级修改为' + this.radioS, '确认修改', {

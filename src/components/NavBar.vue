@@ -83,10 +83,9 @@
 					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
+						console.log(da)
 						if(da.result == 0){
-							this.router.push({
-								path:"/"
-							})
+							window.location.href = da.data;
 						}
 					})
 					
