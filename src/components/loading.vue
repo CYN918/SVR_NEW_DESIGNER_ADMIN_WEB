@@ -16,7 +16,7 @@
 				}).then(da => {
 					if(da.result == 0){
 						//alert(11)
-						localStorage.setItem("access",da.data);
+						localStorage.setItem("access",JSON.stringify(da.data));
 						this.router.push({path:"/userManager/userBaseInfo"});
 					}
 				}).catch(da => {
