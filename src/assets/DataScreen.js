@@ -171,7 +171,13 @@ const screenData = {
 						label: 'classify_name',
 						children: 'sub_data'
 					},
-					child:(localStorage.getItem("cascader") ? JSON.parse(localStorage.getItem("cascader")) : [])
+					child:()=>{
+						let a = localStorage.getItem("cascader") ;
+						if(!a){
+							a = [];
+						}
+						return JSON.parse(a);
+					}
 				},
 				{name:"版权说明",id:"copyright",child:[{name:"禁止匿名转载；禁止商业使用；禁止个人使用。",id:"禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
 				{name:"作品标签",id:"labels"},
@@ -246,7 +252,15 @@ const screenData = {
 				{name:"活动ID",id:"activity_id"},
 				{name:"活动名称",id:"activity_name" },
 				{name:"活动类型",id:"type"},
-				{name:"主题分类",id:"category_name",child:(localStorage.getItem("child") ? JSON.parse(localStorage.getItem("child")) : [])},
+				{name:"主题分类",id:"category_name",
+					child:()=>{
+						let a = localStorage.getItem("child") ;
+						if(!a){
+							a = [];
+						}
+						return JSON.parse(a);
+					}
+				},
 				/* {name:"活动时间",id:"id",type:"time"}, */
 				{name:"当前状态",id:"status",child:[{name:"未开始",id:"0"},{name:"进行中",id:"1"},{name:"已结束",id:"-1"}]},
 				{name:"作品上传和展示",id:"setting_type",child:[{name:"不支持上传",id:"1"},{name:"支持上传，不支持展示作品",id:"2"},{name:"支持上传，仅展示入围作品",id:"3"},{name:"支持上传，并展示入围和录用作品",id:"4"}]},
