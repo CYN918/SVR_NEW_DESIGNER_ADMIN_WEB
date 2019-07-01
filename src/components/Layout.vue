@@ -154,18 +154,18 @@
 				this.api.adminuseraccess({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da);
+					//console.log(da);
 					localStorage.setItem("adminuseraccess",JSON.stringify(da));
 				})
 			}
 		},
 		created() {
 			this.getaccess();
-			this.categoryList();
+			//this.categoryList();
 			this.getadminuseraccess();
 		},
 		mounted() {
-			this.eventbus();
+			//this.eventbus();
 		}
 	}
 </script>

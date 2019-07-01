@@ -146,8 +146,7 @@
 					work_name:this.activitiesrows.work_name,
 					start_time:this.start_time,
 					end_time:this.end_time,
-					position:this.position,
-					
+					position:this.position
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
