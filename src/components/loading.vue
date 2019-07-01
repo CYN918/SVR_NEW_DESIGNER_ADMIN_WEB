@@ -1,7 +1,6 @@
 <template>
 	<div class="wh">
 		<div class="wh" v-loading="true"></div>
-		
 	</div>
 </template>
 
@@ -17,7 +16,7 @@
 				}).then(da => {
 					if(da.result == 0){
 						//alert(11)
-						localStorage.setItem("access",JSON.stringify(da.data));
+						localStorage.setItem("access",da.data);
 						this.router.push({path:"/userManager/userBaseInfo"});
 					}
 				}).catch(da => {
