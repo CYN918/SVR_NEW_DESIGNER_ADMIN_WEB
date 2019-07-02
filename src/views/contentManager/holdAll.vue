@@ -23,11 +23,22 @@
 	export default {
 		data(){
 			return{
-				operatelist:{}
+				operatelist:{},
+				adminuseraccess:[]
 			}
 		},
 		methods:{
 			goto(id){
+				
+				
+				if(this.adminuseraccess.indexOf("200396") == -1){
+					this.$message({
+						message:"没有查看权限"
+					})
+					return;
+				}
+				
+				
 				this.router.push({
 					path:"/contentManager/holdAll/holdAlltab",
 					query:{
@@ -40,7 +51,7 @@
 					access_token:localStorage.getItem("access_token	")
 				}).then(da=>{
 					this.operatelist= da;
-					console.log(this.operatelist)
+					//console.log(this.operatelist)
 				})
 			}
 		},
@@ -48,7 +59,9 @@
 			this.getoperatelist()
 		},
 		mounted(){
-			
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		}
 	}
 </script>

@@ -65,7 +65,7 @@
 					</ul>
 					<div class="w textcenter" style="margin-top: 200px;">
 						<button class="defaultbtn" @click="getparent()">返回</button>
-						<button class="defaultbtn defaultbtnactive" @click="edit()">保存</button>
+						<button class="defaultbtn defaultbtnactive" @click="edit()" v-if="adminuseraccess.indexOf('200397') > -1">保存</button>
 					</div>
 				</div>
 			</div>
@@ -98,6 +98,7 @@
 					commonrightbtn:[{
 						name: "导出数据",
 						id: "right3",
+						accessid:"200420"
 					}],
 					"commonbottombtn":[
 						
@@ -123,7 +124,8 @@
 				start_time:"",
 				end_time:"",
 				status:"",
-				desc:""
+				desc:"",
+				adminuseraccess:[]
 				
 			}
 		},
@@ -329,6 +331,9 @@
 		},
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		watch:{
 			"$route":function(){

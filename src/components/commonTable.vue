@@ -482,7 +482,6 @@
 							if(this.$parent.tabsnum == 0){
 								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.report_id}})
 							} else {
-								this.$parent.update(row,1,"启用");
 								if(event.target.innerHTML == "启用"){
 									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
 										confirmButtonText: '确定',

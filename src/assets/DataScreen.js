@@ -1198,10 +1198,12 @@ const screenData = {
 					page:"solicitationTemplate",
 					child:[
 						{
-							name:"修改文件名"
+							name:"修改文件名",
+							accessid:"200342"
 						},
 						{
-							name:"删除"
+							name:"删除",
+							accessid:"200343"
 						}
 					],
 				},
