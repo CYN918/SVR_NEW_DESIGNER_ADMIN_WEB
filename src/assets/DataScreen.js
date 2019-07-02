@@ -254,10 +254,14 @@ const screenData = {
 				{name:"活动类型",id:"type"},
 				{name:"主题分类",id:"category_name",
 					child:()=>{
-						let a = localStorage.getItem("child") ;
-						if(!a){
-							a = [];
-						}
+						
+						//setTimeout(function(){
+							let a = localStorage.getItem("child") ;
+							if(!a){
+								a = [];
+							}
+						//},500)
+						
 						return JSON.parse(a);
 					}
 				},
@@ -1126,10 +1130,12 @@ const screenData = {
 					page:"activityworks",
 					child:[
 						{
-							name:"删除"
+							name:"删除",
+							accessid:"200343"
 						},
 						{
-							name:"编辑"
+							name:"编辑",
+							accessid:"200342"
 						}
 					],
 				},

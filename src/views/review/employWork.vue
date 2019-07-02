@@ -37,22 +37,22 @@
 						{
 							name:"作品发布",
 							linkTo:"/review/publishWork",
-							publishWorks:"",
+							/* accessid:"12", */
 						},
 						{
 							name:"作品入围",
 							linkTo:"/review/finalistsWork",
-							publishWorks:"",
+							/* accessid:"13", */
 						},
 						{
 							name:"作品录用",
 							linkTo:"/review/employWork",
-							publishWorks:"",
+							/* accessid:"14", */
 						},
 						{
 							name:"供稿人申请",
 							linkTo:"/review/applyPerson",
-							publishWorks:"",
+							/* accessid:"15", */
 						}
 					],
 					'tabnums':2,

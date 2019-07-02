@@ -205,7 +205,8 @@
 					})
 					
 					localStorage.setItem("child",JSON.stringify(child))
-					console.log(localStorage.getItem("child"))
+					DataScreen.screen.activityEmploy.filterFields[3].child=child;
+					//console.log(localStorage.getItem("child"))
 				}).catch(() => {
 			
 				});

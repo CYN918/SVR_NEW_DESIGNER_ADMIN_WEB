@@ -283,10 +283,10 @@ export default {
 		url:'/admin/report/info',method:'post',baseURL:0
 	},
 	reportupdateClassify:{
-		url:'/admin/report/updateClassify',method:'post',baseURL:0
+		url:'/admin/report/updateClassify',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	reportaddClassify:{
-		url:'/admin/report/addClassify',method:'post',baseURL:0
+		url:'/admin/report/addClassify',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	bannerprogramdefault:{
 		url:'/admin/bannerprogram/default',method:'post',baseURL:0
@@ -301,16 +301,16 @@ export default {
 		url:'/admin/adminuser/selfInfo',method:'post',baseURL:0
 	},
 	logout:{
-		url:'/sso/login/logout',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url:'/sso/login/logout',method:'post',baseURL:0,isType:{isok:true}
 	},
 	Workclassify:{
-		url:'/admin/Work/classify',method:'post'
+		url:'/admin/Work/classify',method:'post',baseURL:0,
 	},
 	activityinfo:{
-		url:'/admin/activity/info',method:'post'
+		url:'/admin/activity/info',method:'post',baseURL:0,
 	},
 	noticedelete:{
-		url:'/admin/notice/delete',method:'post'
+		url:'/admin/notice/delete',method:'post',baseURL:0,isType:{isok:true}
 	},
 	
 	taskList:{
@@ -358,5 +358,9 @@ export default {
 	getRecommendCount:{
 		url:'/admin/User/getRecommendCount',method:'post',baseURL:0
 	},
+	getRecommendCountwork:{
+		url:'/admin/work/getRecommendCount',method:'post',baseURL:0
+	},
+	
 	
 }

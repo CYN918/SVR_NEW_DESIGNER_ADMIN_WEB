@@ -354,9 +354,9 @@
 				var work_ids = this.getworkids();
 				this.centerDialogVisible = false;
 				this.centerDialogVisible1 = false;
-				this.api.getLevelCount({
+				this.api.getRecommendCountwork({
 					access_token:localStorage.getItem("access_token"),
-					recommend_level:this.radioS,
+					work_ids:work_ids,
 				}).then(da => {
 					console.log(da)
 					this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
