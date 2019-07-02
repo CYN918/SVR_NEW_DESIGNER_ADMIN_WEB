@@ -1382,10 +1382,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"listAd",
+					accessid:"200422"
 				},
 				links:{
 					name:"编辑",
-					Ishow:true
+					Ishow:true,
+					accessid:"200423"
 				},
 			}
 		},

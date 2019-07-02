@@ -34,7 +34,7 @@
 					"commonrightbtn": [{
 						name: "新建干预任务",
 						id: "right1",
-						url: ""
+						accessid: "200424"
 					}],
 					"commonbottombtn":[],
 				},

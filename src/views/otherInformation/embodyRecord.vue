@@ -136,7 +136,6 @@
 					form.appendChild(dom);
 					console.log(key,data[key]);
 				};
-				return;
 				
 				form.setAttribute("style", "display:none");
 				form.setAttribute("target", "");

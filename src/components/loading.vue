@@ -18,8 +18,45 @@
 				}).then((da) => {
 					if(da.result == 0){
 						//alert(11)
+						
 						localStorage.setItem("access",JSON.stringify(da.data));
-						this.router.push({path:"/userManager/userBaseInfo"});
+						let url = {
+							"2":"/userManager/userBaseInfo",
+							"3":"/userManager/userPersonalInfo",
+							"4":"/userManager/userCompanyInfo",
+							"6":"/power/roleManager",
+							"7":"/power/accountManager",
+							"30":"/contentManager/recommendedActivities",
+							"31":"/contentManager/serviceCenter",
+							"9":"/contentManager/homeBanner",
+							"10":"/contentManager/hotWordSearch",
+							"22":"/workManager/workInfo",
+							"23":"/workManager/materialBank",
+							"24":"/workManager/labels",
+							"25":"/workManager/commentManager",
+							"26":"/activityManager/activityEmploy",
+							"27":"/activityManager/activityClass",
+							"28":"/activityManager/activityworks",
+							"29":"/activityManager/solicitationTemplate",
+							"32":"/employmentManager/employmentorder",
+							"34":"/otherInformation/embodyRecord",
+							"35":"/otherInformation/presetReason",
+							"36":"/otherInformation/feedback",
+							"37":"/otherInformation/reportInfo",
+							"38":"/noticeManager/newsRelease",
+							"39":"/noticeManager/noticetemplate",
+							"40":"/contentManager/listAd",
+							"41":"/contentManager/holdAll",
+						}
+						
+						
+						for(var i = 0; i<da.data.menu_banner.length;i++){
+							if(da.data.menu_banner[i].child.length != 0){
+								this.router.push({path: url[da.data.menu_banner[i].child[0].id]});
+								break;
+							}
+						}
+						
 					} else {
 					}
 				}).catch((da) => {

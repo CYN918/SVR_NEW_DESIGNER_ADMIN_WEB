@@ -98,7 +98,7 @@
 					commonrightbtn:[{
 						name: "导出数据",
 						id: "right3",
-						accessid:"200420"
+						accessid:"200398"
 					}],
 					"commonbottombtn":[
 						

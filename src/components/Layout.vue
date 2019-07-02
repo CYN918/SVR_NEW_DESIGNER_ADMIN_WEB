@@ -94,7 +94,7 @@
 						//alert(11)
 						//console.log(da)
 						localStorage.setItem("access",JSON.stringify(da.data));
-						//this.router.push({path:"/userManager/userBaseInfo"});
+						//console.log(localStorage.getItem("access"))
 					} 
 				}).catch(da => {
 					
@@ -155,7 +155,7 @@
 				this.api.adminuseraccess({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da);
+					//console.log(da);
 					localStorage.setItem("adminuseraccess",JSON.stringify(da));
 				})
 			}
