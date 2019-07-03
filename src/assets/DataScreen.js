@@ -53,6 +53,31 @@ const screenData = {
 			],
 			
 		},
+		newlistAd:{
+			filterFields:[
+				{name:"作品ID",id:"work_id"},
+				{name:"作品标题",id:"work_name"},
+				{name:"用户ID",id:"open_id"},
+				{name:"用户昵称",id:"username"},
+				{name:"作品类型",id:"classify",type:"cascader",
+					optionProps: {
+						value: 'id',
+						label: 'classify_name',
+						children: 'sub_data'
+					},
+					child:()=>{
+						let a = localStorage.getItem("cascader") ;
+						if(!a){
+							a = [];
+						}
+						return JSON.parse(a);
+					}
+				},
+				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
+				{name:"当前状态",id:"status",child:[{name:"草稿",id:"-1"},{name:"待审核",id:"0"},{name:"审核驳回",id:"-2"},{name:" 审核通过",id:"2"},{name:"下架",id:"-3"},{name:" 用户删除",id:"-4"}]},
+			],
+		},
 		userCompanyInfo:{
 			filterFields:[
 				{name:"用户ID",id:"open_id"},

@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail" v-loading="loading">
-		<div class="detailtitle">新建干预任务</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
@@ -65,6 +65,9 @@
 			</div>
 			
 		</el-dialog>
+		<div class="workfixed" v-show="IsScreen == 'No'">
+			<common-screen :pageName="pageName"></common-screen>
+		</div>
 	</div>
 </template>
 
@@ -86,15 +89,14 @@
 				end_time:'',
 				position:'',
 				row: '',
-
 				loading:false,
-				pageName: "newrecommendedActivities",
-				tableAction: DataScreen.screenShow.newrecommendedActivities.action,
-				filterFields: DataScreen.screen.newrecommendedActivities.filterFields,
+				pageName: "newlistAd",
+				tableAction: DataScreen.screenShow.newlistAd.action,
+				filterFields: DataScreen.screen.newlistAd.filterFields,
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
-					"pageName": "newrecommendedActivities",
+					"pageName": "newlistAd",
 					"commonleftbtn": [{
 							name: "筛选",
 							id: "left1",
@@ -117,7 +119,9 @@
 				
 				},
 				tableData: [],
-				activitiesrows:{}
+				activitiesrows:{},
+				IsScreen:"off",
+				currentpageName:""
 			}
 		},
 		
@@ -139,6 +143,13 @@
 				}
 			},
 			add(){
+				if(this.settime()){
+					this.$message({
+						message:"结束时间必须大于开始时间"
+					})
+					return;
+				}
+				
 				this.loading = true;
 				this.api.Homerec_add({
 					access_token:localStorage.getItem("access_token"),
@@ -158,6 +169,13 @@
 				})
 			},
 			edit(){
+				if(this.settime()){
+					this.$message({
+						message:"结束时间必须大于开始时间"
+					})
+					return;
+				}
+				
 				this.loading = true;
 				this.api.Homerec_edit({
 					access_token:localStorage.getItem("access_token"),
@@ -176,6 +194,17 @@
 				}).catch(() => {
 					this.loading = false
 				})
+			},
+			settime(){
+				let s= this.start_time.replace(new RegExp("-","gm"),"/");
+				s = (new Date(s)).getTime(); //得到毫秒数
+				let e= this.end_time.replace(new RegExp("-","gm"),"/");
+				e = (new Date(e)).getTime(); //得到毫秒数
+				if(e > s){
+					return false;
+				} else {
+					return true;
+				}
 			},
 			dialogTable(){
 				this.dialogTableVisible = !this.dialogTableVisible;
@@ -275,13 +304,26 @@
 					
 				})
 			},
+			screen(id) {
+				if (id = "left1") {
+					this.IsScreen = "No";
+				}
+			},
+			screenmask(data, n) {
+				this.pageName = "";
+				switch (n) {
+					case "left1":
+						this.IsScreen = data;
+						break;
+					default:
+						break;
+				}
+			
+			},
 		},
 		created() {
 			//console.log(this.row)
 			if(this.$route.query.row){
-				
-				
-				
 				this.row = JSON.parse(this.$route.query.row)
 				this.activitiesrows.work_name = this.row.work_name;
 				this.activitiesrows.work_id = this.row.work_id;
@@ -289,9 +331,22 @@
 				this.start_time = this.row.start_time;
 				this.end_time = this.row.end_time;
 				this.position = this.row.position;
+				localStorage.setItem("newlistAd",this.$route.query.row);
+			} else {
+				if(this.currentpageName == "新建干预任务"){
+					if(localStorage.getItem("newlistAd")){
+						this.rows = JSON.parse(localStorage.getItem("newlistAd"));
+						this.text10 = this.rows.title;
+						this.text100 = this.rows.content;
+						this.send_time=this.rows.send_time;
+						this.sendnum = this.rows.send_num;
+						this.to_open_ids = this.rows.to_open_ids
+					}
+				}
 			}
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 		},
 		mounted() {
 			this.getData({pageCurrent:1,pageSize:10});
@@ -372,5 +427,15 @@
 	}
 	.newlistAdin{
 		width: 270px;
+	}
+	.workfixed {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 2013;
+		display: fixed;
+		background: rgba(0,0,0,0.5);
 	}
 </style>

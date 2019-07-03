@@ -331,7 +331,7 @@
 					break;
 					case "listAd":
 						if(!setid){
-							this.router.push({path:"/contentManager/newlistAd", query:{row: JSON.stringify(row)}})
+							this.router.push({path:"/contentManager/editlistAd", query:{row: JSON.stringify(row)}})
 						}
 						
 						if(setid == "contributor"){
@@ -344,6 +344,12 @@
 							this.$parent.$parent.dialogTableVisible = false;
 						}
 					break;
+					/* case "newlistAd":
+						if(!setid){
+							this.$parent.$parent.getactivitiesrows(row);
+							this.$parent.$parent.dialogTableVisible = false;
+						}
+					break; */
 					case "employmentorder":
 						if(!setid){
 							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id,check_admin_name:row.check_admin_name,hire_time:row.hire_time}})
@@ -625,7 +631,7 @@
 				if(this.$parent.selectData){
 					this.$parent.selectData = this.multipleSelectionAll;
 				};
-				if(this.$parent.$parent){
+				if(this.$parent.$parent.selectData){
 					this.$parent.$parent.selectData = this.multipleSelectionAll;
 				};
 				
@@ -655,7 +661,13 @@
 					pageCurrent: this.currentpage,
 					pageSize: this.pagesize
 				};
-				this.$parent.getData(data)
+				
+				if(this.$parent.getData){
+					this.$parent.getData(data);
+				}
+				if(this.$parent.$parent.getData){
+					this.$parent.$parent.getData(data);
+				}
 			},
 			autoTableHeight() {
 				//设置table标签
@@ -729,7 +741,7 @@
 				window.open(url)
 			},
 			openwindowrouter(url){
-				 const {href} = this.$router.resolve({ path: url})
+				const {href} = this.$router.resolve({ path: url})
 				window.open(href, '_blank')
 			}
 			

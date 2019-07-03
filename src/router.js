@@ -546,7 +546,15 @@ var router = new Router({
 					path: "newlistAd",
 					name: 'serviceCenter_newlistAd',
 					meta: {
-						title: "新建推荐干预"
+						title: "首页推荐干预 / 新建推荐干预"
+					},
+					component: () => import('@/views/contentManager/newlistAd.vue'),
+				},
+				{
+					path: "editlistAd",
+					name: 'serviceCenter_editlistAd',
+					meta: {
+						title: "首页推荐干预 / 编辑推荐干预"
 					},
 					component: () => import('@/views/contentManager/newlistAd.vue'),
 				},
