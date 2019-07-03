@@ -100,8 +100,8 @@
 					//console.log(da)
 					//this.data2 = da;
 					this.data2 = this.tickMenuIdFilter().filter(da);
-					console.log(this.data2)
-					console.log(data)
+					//console.log(this.data2)
+					//console.log(data)
 				}).catch(da => {
 
 				})

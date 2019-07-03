@@ -25,11 +25,14 @@
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 84px;">所持有的权限</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" 
+						<el-tree 
+						:data="data2" 
+						class="seerole"
 						show-checkbox
 						node-key="id" 
 						check-strictly
 						:default-checked-keys="permissions"
+						:default-expand-all ="true"
 						:props="defaultProps">
 						</el-tree>
 					</div>
@@ -109,14 +112,41 @@
 				}
 				this.api.getMenuList(data).then(da => {
 					//console.log(da)
-					this.data2 = da;
+					this.data2 = this.tickMenuIdFilter().filter(da);
 					
 				}).catch(da =>{
 					
 				})
 			},
-			children(item){
-				
+			tickMenuIdFilter: function() {
+				var resultArr = new Array();
+				var getTickMenuId = function(obj) {
+					if (undefined == obj || null == obj || !obj instanceof Object) {
+						return;
+					} 
+					
+					obj.disabled = true;
+						
+					if (null != obj.child && obj.child instanceof Array) {
+						for (let child of obj.child) {
+							getTickMenuId(child);
+						}
+					}
+				};
+			
+				return {
+					filter: function(arr) {
+						//console.log(arr)
+						if (!arr instanceof Array) {
+							return false;
+						}
+						resultArr = new Array();
+						for (let rootMenu of arr) {
+							getTickMenuId(rootMenu);
+						}
+						return arr;
+					}
+				};
 			}
 		},
 		mounted() {
@@ -127,6 +157,13 @@
 		}
 	}
 </script>
+
+<style>
+	.seerole .el-checkbox__input.is-checked .el-checkbox__inner{
+		background-color: darkgray !important;
+		border-color: darkgray !important;
+	}
+</style>
 
 <style scoped>
 	.Detail {
