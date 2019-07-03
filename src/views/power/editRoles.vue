@@ -23,11 +23,12 @@
 						<el-tree :data="data2" 
 						show-checkbox
 						node-key="id" 
-						check-strictly
 						:default-checked-keys="permissions"
+						check-strictly
 						ref="tree"
 						:props="defaultProps">
 						</el-tree>
+						<!--  -->
 					</div>
 				</li>
 			</ul>

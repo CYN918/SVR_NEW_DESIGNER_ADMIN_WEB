@@ -74,6 +74,7 @@ const screenData = {
 				{name:"用户ID",id:"open_id"},
 				{name:"用户昵称",id:"username"},
 				{name:"手机号",id:"mobile"},
+				{name:"手机号",id:"reserve_phone"},
 				{name:"邮箱",id:"email"},
 				{name:"身份证姓名",id:"real_name"},
 				{name:"身份证号码",id:"id_card"},

@@ -14,7 +14,15 @@
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;">查看权限</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" show-checkbox node-key="id" check-strictly :default-checked-keys="permissions" :props="defaultProps">
+						<el-tree 
+						class="seerole"
+						:data="data2" 
+						show-checkbox 
+						node-key="id" 
+						check-strictly 
+						:default-checked-keys="permissions"
+						:default-expand-all ="true"
+						:props="defaultProps">
 						</el-tree>
 					</div>
 				</li>
@@ -90,8 +98,8 @@
 				}
 				this.api.getMenuList(data).then(da => {
 					//console.log(da)
-					this.data2 = da;
-					//this.data2 = this.tickMenuIdFilter().filter(da);
+					//this.data2 = da;
+					this.data2 = this.tickMenuIdFilter().filter(da);
 					console.log(this.data2)
 					console.log(data)
 				}).catch(da => {
@@ -101,15 +109,12 @@
 			tickMenuIdFilter: function() {
 				var resultArr = new Array();
 				var getTickMenuId = function(obj) {
-					/* if (undefined == obj || null == obj || !obj instanceof Object) {
+					if (undefined == obj || null == obj || !obj instanceof Object) {
 						return;
-					} */
-					//if (obj.fs > 0) {
-						// console.log('obj',obj)
-						obj.disabled = true;
-						resultArr.push(obj);
-						//console.log(obj);
-					//}
+					} 
+					
+					obj.disabled = true;
+						
 					if (null != obj.child && obj.child instanceof Array) {
 						for (let child of obj.child) {
 							getTickMenuId(child);
@@ -119,7 +124,7 @@
 
 				return {
 					filter: function(arr) {
-						console.log(arr)
+						//console.log(arr)
 						if (!arr instanceof Array) {
 							return false;
 						}
@@ -127,7 +132,7 @@
 						for (let rootMenu of arr) {
 							getTickMenuId(rootMenu);
 						}
-						return resultArr;
+						return arr;
 					}
 				};
 			}
@@ -136,10 +141,17 @@
 			this.seeroles();
 		},
 		mounted() {
-
+			
 		}
 	}
 </script>
+
+<style>
+	.seerole .el-checkbox__input.is-checked .el-checkbox__inner{
+		background-color: darkgray !important;
+		border-color: darkgray !important;
+	}
+</style>
 
 <style scoped>
 	.Detail {

@@ -193,7 +193,7 @@
 			setfid(id){
 				this.fid = id
 				return id
-			}
+			},
 		},
 		created() {
 			
@@ -205,7 +205,6 @@
 			if(localStorage.getItem("access")){
 				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
 				//console.log(localStorage.getItem("access"));
-				
 			}
 		}
 	}

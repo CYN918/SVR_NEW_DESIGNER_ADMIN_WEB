@@ -4,21 +4,22 @@
 		<div class="detailContent ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">用户ID</span>
+					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户ID</span>
 					<span>{{ userinfo.user_id }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">用户名</span>
+					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户名</span>
 					<span>{{ userinfo.name }}</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">邮箱</span>
+					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">邮箱</span>
 					<span>{{ userinfo.email }}</span>
 				</li>
-				<!-- <li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;">权限角色</span>
-					<span>{{ roleintroduce }}</span>
-				</li> -->
+				<li class="margint13 ofh">
+					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;line-height: 40px;">权限角色</span>
+					<button v-for="(item,index) in userinfo.roles" :key="index" class="defaultbtnno" style="margin: 0;margin-right: 10px;">{{ item }}</button>
+					
+				</li>
 			</ul>
 		</div>
 		<div class="screenContent detailbtn">

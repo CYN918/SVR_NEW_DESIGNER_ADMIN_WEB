@@ -22,6 +22,7 @@
 					<div class="roles-input width500 roletree">
 						<el-tree :data="data2" 
 						show-checkbox
+						check-strictly
 						node-key="id" 
 						ref="tree"
 						:props="defaultProps">

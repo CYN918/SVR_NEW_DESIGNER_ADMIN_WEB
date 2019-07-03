@@ -10,7 +10,7 @@
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<span class="fright marginleft60 usertou pointer" @click="signOut"></span>
+			<span class="fright marginleft60 usertou pointer" :style="{'background':'url('+userimg+')'}" @click="signOut"></span>
 			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
 				<div>{{ this.user.name }}</div>
 				<div @click="getuser()"><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
@@ -32,6 +32,7 @@
 				IsSign: false,
 				reviewnum:0,
 				user:"",
+				userimg:'../assets/img/MRTX.svg'
 			}
 		},
 		watch: {
@@ -59,7 +60,7 @@
 				}).then(da=>{
 					//console.log(da)
 					this.user = da;
-					
+					this.userimg = da.avatar? da.avatar : require('../assets/img/MRTX.svg');
 				})
 			},
 			getuser(){
@@ -67,6 +68,7 @@
 					path:"/userinfo/user",
 					query:{
 						info:JSON.stringify(this.user)
+						
 					}
 				});
 				this.signOut();
@@ -134,7 +136,6 @@
 		margin: 14px 0;
 		margin-left: 58px;
 		border-radius: 50%;
-		background: #FF0000;
 	}
 
 	.userinfobtn {
