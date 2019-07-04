@@ -30,7 +30,6 @@
 						class="seerole"
 						show-checkbox
 						node-key="id" 
-						check-strictly
 						:default-checked-keys="permissions"
 						:default-expand-all ="true"
 						:props="defaultProps">
@@ -96,7 +95,7 @@
 					this.roleintroduce = da; 
 					//console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme)){
+						if(parseInt(itme) > 1000){
 							this.permissions.push(parseInt(itme));
 						}
 					})

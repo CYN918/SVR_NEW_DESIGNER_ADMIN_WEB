@@ -24,11 +24,10 @@
 						show-checkbox
 						node-key="id" 
 						:default-checked-keys="permissions"
-						check-strictly
 						ref="tree"
 						:props="defaultProps">
 						</el-tree>
-						<!--  -->
+						<!-- check-strictly -->
 					</div>
 				</li>
 			</ul>
@@ -114,7 +113,7 @@
 					this.roleintroduce = da.description;
 					//console.log(da.permissions.split(","));
 					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme)){
+						if(parseInt(itme) > 1000){
 							this.permissions.push(parseInt(itme));
 						}
 						

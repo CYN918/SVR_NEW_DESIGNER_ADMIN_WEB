@@ -42,8 +42,7 @@
 						<el-tree :data="data2" 
 						ref="tree"
 						show-checkbox
-						node-key="id" 
-						check-strictly
+						node-key="id"
 						:default-checked-keys="permissions"
 						:props="defaultProps">
 						</el-tree>
@@ -117,7 +116,7 @@
 					this.checkedrole(this.checkedroles);
 					
 					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme)){
+						if(parseInt(itme) > 1000){
 							this.permissions.push(parseInt(itme));
 						}
 					})
@@ -132,7 +131,7 @@
 				}
 				this.api.getMenuList(data).then(da => {
 					//console.log(da)
-					this.data2 = da;
+					this.data2 = this.tickMenuIdFilter().filter(da);
 				}).catch(da =>{
 					
 				})
@@ -213,7 +212,36 @@
 					//console.log(this.checkedKeys);
 					this.$refs.tree.setCheckedKeys(this.checkedKeys);
 				})
-				
+			},
+			tickMenuIdFilter: function() {
+				var resultArr = new Array();
+				var getTickMenuId = function(obj) {
+					if (undefined == obj || null == obj || !obj instanceof Object) {
+						return;
+					} 
+					
+					obj.disabled = true;
+						
+					if (null != obj.child && obj.child instanceof Array) {
+						for (let child of obj.child) {
+							getTickMenuId(child);
+						}
+					}
+				};
+			
+				return {
+					filter: function(arr) {
+						//console.log(arr)
+						if (!arr instanceof Array) {
+							return false;
+						}
+						resultArr = new Array();
+						for (let rootMenu of arr) {
+							getTickMenuId(rootMenu);
+						}
+						return arr;
+					}
+				};
 			}
 		},
 		created(){
