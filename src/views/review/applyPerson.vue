@@ -96,10 +96,7 @@
 				}
 
 				this.api.reviewList4(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -135,7 +132,7 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							//console.log(this.commonTopData.commonbottombtn);
 						}
 					})
 				}
@@ -154,7 +151,7 @@
 					access_token:localStorage.getItem("access_token"),
 					id:id
 				}).then(da => {
-					console.log(da);
+					//console.log(da);
 					this.$message({
 						type:"waring",
 						message:da

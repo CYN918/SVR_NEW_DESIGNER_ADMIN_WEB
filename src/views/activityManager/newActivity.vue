@@ -78,7 +78,7 @@
 					</li> -->
 					<li class="margint23 ofh">
 						<span class="fleft detailKey">作品上传和展示</span>
-						<el-radio-group v-model="form['setting_type']" style="width:357px;float: left;">
+						<el-radio-group v-model="form['setting_type']" @change="getclass(form['setting_type'])" style="width:357px;float: left;">
 							<div class="fontcolorg font12" style="line-height: 20px">普通活动</div>
 							<el-radio label="1">不支持上传</el-radio>
 							<el-radio label="2">支持上传，不支持展示作品</el-radio>
@@ -325,12 +325,6 @@
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
 				if(this.form['setting_type'] == '4'){
-					if(!this.dids.join(',')){
-						this.$message({
-							message:"需求ID不能为空"
-						});
-						return;
-					}
 					this.form.related_needs_id = this.dids.join(',')
 				} else {
 					this.form.related_needs_id = "";
@@ -506,9 +500,7 @@
 
 				this.api.categoryList(data).then((da) => {
 					//console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData1 = da.data;
 					//console.log(da.data)
 					da.data.forEach(item =>{
@@ -605,12 +597,6 @@
 				//this.form.template_file_id=this.getworkids();
 				this.form.template_file_id = this.selectData1.template_file_id
 				if(this.form['setting_type'] == '4'){
-					if(!this.dids.join(',')){
-						this.$message({
-							message:"需求ID不能为空"
-						});
-						return;
-					}
 					this.form.related_needs_id = this.dids.join(',')
 				} else {
 					this.form.related_needs_id = "";
@@ -659,9 +645,7 @@
 			
 				this.api.templateList(data).then((da) => {
 					//console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -789,10 +773,10 @@
 			},
 			dialogTable(){
 				this.dialogTableVisible = !this.dialogTableVisible;
-				/* if(this.dialogTableVisible == true){
-					this.setLoding(false);
-				} */
-				//this.$refs.Tabledd.loading = false;	
+				this.getData({
+					pageCurrent: 1,
+					pageSize: 50
+				});	
 			},
 			alertmask(){
 				
@@ -876,16 +860,18 @@
 					pageName: "newActivity",
 				}
 				eventBus.$emit("screenshow", shownum);
+			},
+			getclass(id){
+				if(id == "4"){
+					this.getData1();
+				}
 			}
 		},
 		created() {
-			this.getData({
-				pageCurrent: 1,
-				pageSize: 50
-			});
+			
 			this.screenreach();
 			this.getcommonrightbtn();
-			this.getData1();
+			
 			this.$parent.tabchange(1);
 		},
 		mounted(){
