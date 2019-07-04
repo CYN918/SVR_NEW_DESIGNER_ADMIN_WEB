@@ -10,9 +10,10 @@
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<span class="fright marginleft60 usertou pointer" :style="{'background':'url('+userimg+')'}" @click="signOut"></span>
+			<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
+			<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
 			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
-				<div>{{ this.user.name }}</div>
+				
 				<div @click="getuser()"><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
 				<div @click="out()"><i class="iconfont" style="margin-right: 8.2px;padding-left: 0;">&#xe67f;</i>退出登录</div>
 			</div>

@@ -864,8 +864,8 @@
 			submint(data){
 				//console.log(data);
 				this.api["reviewCheck"+this.pagetype](data).then(da => {
-					//getparent()
-					this.getreviewInfo();
+					this.getparent()
+					//this.getreviewInfo();
 				}).catch(da => {
 				
 				})
