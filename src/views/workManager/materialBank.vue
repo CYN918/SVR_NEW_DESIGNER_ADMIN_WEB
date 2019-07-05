@@ -235,10 +235,7 @@
 				}
 			
 				this.api.Workmaterial(data).then((da) => {
-					if (!da) {
-						this.$message('数据为空');
-					}
-					console.log(da)
+					
 					this.materialdata = da.data
 					this.total = da.total;
 					this.setLoding = false;

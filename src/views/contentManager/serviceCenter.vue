@@ -87,10 +87,7 @@
 				this.isajax=1;
 				this.api.documentlist(data).then((da) => {
 					this.isajax = 0;
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;

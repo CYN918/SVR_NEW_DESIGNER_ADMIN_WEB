@@ -163,9 +163,7 @@
 				
 				this.api.getRoleList(data).then((da) => {
 					//console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.rolesData = da.data;
 					this.seeroles();
 					///console.log(this.rolesData);

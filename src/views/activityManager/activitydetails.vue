@@ -313,10 +313,7 @@
 				}
 
 				this.api.categoryList(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData = da.data;
 
 				}).catch(() => {

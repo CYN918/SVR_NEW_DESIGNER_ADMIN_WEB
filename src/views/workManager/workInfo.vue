@@ -280,9 +280,6 @@
 				} */
 				
 				this.api.workList(data).then((da) => {
-					if (!da) {
-						this.$message('数据为空');
-					}
 					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;

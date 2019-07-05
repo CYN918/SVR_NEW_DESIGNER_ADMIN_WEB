@@ -150,10 +150,7 @@
 				}
 				
 				this.api.orderprofit(data).then((da)=>{
-					if(!da){
-						this.$message('数据为空');
-					}
-					//console.log(da.data)
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;

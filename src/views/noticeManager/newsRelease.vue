@@ -81,10 +81,7 @@
 				}
 
 				this.api.noticelist(data).then((da) => {
-					console.log(da.data)
-					if (!da) {
-						this.$message('数据为空');
-					}
+					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;

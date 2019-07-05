@@ -169,9 +169,7 @@
 				
 				this.api.getUserList(data).then((da)=>{
 					this.isajax=0;
-					if(!da){
-						this.$message('数据为空');
-					}
+					
 					//console.log(da.data)
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
