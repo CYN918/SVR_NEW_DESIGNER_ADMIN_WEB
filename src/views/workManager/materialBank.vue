@@ -30,7 +30,7 @@
 							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'附件')">
 								<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
 								<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
+								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
 							</div>
 							<div class="color66">
 								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
@@ -46,7 +46,7 @@
 						<li v-for="(item,index) in materialdata" :key="index+item.fid">
 							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'图片')" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
 								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
-								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
+								<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
 							</div>
 							<div class="color66">
 								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
@@ -64,7 +64,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<video v-show="videofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
@@ -84,7 +84,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks()" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
@@ -106,7 +106,7 @@
 			</div>
 			<div class="screenContent detailbtn"  v-if="workselect">
 				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks()">下载 {{ checkList.length }}
+				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks('')">下载 {{ checkList.length }}
 					个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
 			</div>
 		</div>
@@ -119,7 +119,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span>
-								<span style="width: auto;padding: 0 5px;" @click="downWorks">一共 {{ openurls.length }}
+								<span style="width: auto;padding: 0 5px;" @click="downWorks('')">一共 {{ openurls.length }}
 									个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
 							</span>
 						</div>
@@ -128,7 +128,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="downWorks">确定</button>
+				<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
 			</span>
 		</el-dialog>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
@@ -195,7 +195,8 @@
 				videofid:"",
 				audiofid:"",
 				fid:"",
-				centerDialogVisible5:false
+				centerDialogVisible5:false,
+				oneload:{}
 			}
 		},
 		methods: {
@@ -352,7 +353,12 @@
 				});
 				console.log(this.openurls);
 			},
-			downWorks() {
+			downWorks(type) {
+				if(type == "one"){
+					this.openurls = [
+						this.oneload
+					]
+				}
 				//console.log(this.openurls)
 				this.openurls.forEach(item =>{
 					//console.log(item.id);
@@ -446,9 +452,10 @@
 			},
 			hover(fid,url,na){
 				this.fid = fid;
-				this.openurls=[
-					{name:na,id:url}
-				]
+				this.oneload = {
+					name:na,
+					id:url
+				}
 			},
 			handleCheckAllChange() {
 				//this.checkList = this.checkAll;
