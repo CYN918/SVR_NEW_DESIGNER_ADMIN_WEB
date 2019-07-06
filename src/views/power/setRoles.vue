@@ -115,8 +115,8 @@
 					}
 					this.checkedrole(this.checkedroles);
 					
-					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme) > 1000){
+					da.permissions.forEach((itme)=>{
+						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
 					})

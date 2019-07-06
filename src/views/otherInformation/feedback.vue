@@ -7,7 +7,7 @@
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.name)">
+					 @click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
@@ -89,10 +89,12 @@
 		data() {
 			return {
 				tabData: [{
-						name: "反馈内容"
+						name: "反馈内容",
+						accessid:"42"
 					},
 					{
-						name: "问题类型预设"
+						name: "问题类型预设",
+						accessid:"43"
 					}
 				],
 				tabsnum: 0,
@@ -129,10 +131,19 @@
 				rowdata: "",
 				file_name: "",
 				showmask1: false,
-				showmask2:false
+				showmask2:false,
+				adminuseraccess:[]
 			}
 		},
 		methods: {
+			gettab(id){
+				if(this.adminuseraccess.indexOf(id) > -1){
+					return true;
+				} else {
+					return false;
+				}
+				
+			},
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.tableConfig.list = DataScreen.screenShow.feedback["bts" + num];
@@ -147,7 +158,7 @@
 					this.commonTopData.commonrightbtn = [{
 						name: "新建问题类型",
 						id: "right1",
-						accessid:"200376"
+						accessid:"200432"
 					}];
 				}
 			},
@@ -327,6 +338,9 @@
 			});
 			this.screenreach();
 			this.getcommonrightbtn();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		mounted() {
 			if(this.$route.query.tabsnum){

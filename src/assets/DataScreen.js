@@ -933,19 +933,19 @@ const screenData = {
 						},
 						{
 							name:"下架",
-							accessid:"200307"
+							accessid:"200461"
 						},
 						{
 							name:"录用",
-							accessid:"200307"
+							accessid:"200462"
 						},
 						{
 							name:"修改平台推荐等级",
-							accessid:"200307"
+							accessid:"200463"
 						},
 						{
 							name:"绑定补充合同",
-							accessid:"200307"
+							accessid:"200464"
 						}
 					],
 				},
@@ -1200,15 +1200,15 @@ const screenData = {
 					child:[
 						{
 							name:"修改文件名",
-							accessid:"200342"
+							accessid:"200443"
 						},
 						{
 							name:"下载",
-							accessid:"200342"
+							accessid:"200449"
 						},
 						{
 							name:"删除",
-							accessid:"200343"
+							accessid:"200444"
 						}
 					],
 				},
@@ -1225,11 +1225,11 @@ const screenData = {
 					child:[
 						{
 							name:"修改文件名",
-							accessid:"200342"
+							accessid:"200446"
 						},
 						{
 							name:"删除",
-							accessid:"200343"
+							accessid:"200447"
 						}
 					],
 				},
@@ -1285,12 +1285,12 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"homeBanner",
-					accessid:"200070"
+					accessid:"200440"
 				},
 				links:{
 					name:"修改",
 					Ishow:true,
-					accessid:"200069"
+					accessid:"200439"
 				},
 			}
 		},
@@ -1548,13 +1548,13 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"feedback",
-					accessid:"200378"
+					accessid:"200430"
 				},
 				links:{
 					name:"停用",
 					Ishow:true,
 					child:{"1":"启用","0":"停用"},
-					accessid:"200377"
+					accessid:"200431"
 				},
 			},
 			action0:{
@@ -1566,7 +1566,7 @@ const screenData = {
 				links:{
 					name:"查看",
 					Ishow:true,
-					accessid:"200375"
+					accessid:"200426"
 				},
 			}
 		},
@@ -1595,13 +1595,13 @@ const screenData = {
 					name:"删除",
 					Ishow:true,
 					page:"reportInfo",
-					accessid:"200383"
+					accessid:"200457"
 				},
 				links:{
 					name:"停用",
 					Ishow:true,
 					child:{"1":"启用","0":"停用"},
-					accessid:"200382"
+					accessid:"200458"
 				},
 			},
 			action0:{
@@ -1613,7 +1613,7 @@ const screenData = {
 				links:{
 					name:"查看",
 					Ishow:true,
-					accessid:"200380"
+					accessid:"200456"
 				},
 			}
 		},

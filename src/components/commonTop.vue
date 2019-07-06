@@ -38,9 +38,9 @@
 								<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 							</div>
 							<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-							<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+							<button v-if="commonTopData.upload && !item.two" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+							<button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2)" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -74,6 +74,13 @@
 			};
 		},
 		methods: {
+			settrue(id1,id2){
+				if(this.adminuseraccess.indexOf(id1)>-1 && this.adminuseraccess.indexOf(id2)>-1) {
+					return true;
+				} else {
+					return false;
+				}
+			},
 			handleClose(tag) {
 				this.$parent.resetSave(tag)
 			},

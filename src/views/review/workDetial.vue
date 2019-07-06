@@ -958,12 +958,12 @@
 				})
 			}, 
 			setdemand(){
-				if(this.demandlist.length  == 0){
+				/* if(this.demandlist.length  == 0){
 					this.$message({
 						message:"需求ID不能为空"
 					});
 					return;
-				}
+				} */
 				
 				this.reject4();
 				this.reject2();

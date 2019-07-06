@@ -326,7 +326,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({pageCurrent:1,pageSize:10});
+					this.getData({pageCurrent:1,pageSize:50});
 				})
 			},
 			linkDetail(id) {

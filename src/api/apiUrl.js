@@ -144,21 +144,32 @@ export default {
 	activitywork:{
 		url:'/admin/activity/work',method:'post',baseURL:0
 	},
-	templateList:{
-		url:'/admin/template/list',method:'post',baseURL:0
+	templateList1:{
+		url:'/admin/template/list?type=1',method:'post',baseURL:0
 	},
-	templateDelete:{
-		url:'/admin/template/delete',method:'post',baseURL:0,isType:{suktip:true}
+	templateList2:{
+		url:'/admin/template/list?type=2',method:'post',baseURL:0
 	},
-	templateadd:{
-		url:'/admin/template/add',method:'post',baseURL:0,isType:{suktip:true}
+	templateDelete1:{
+		url:'/admin/template/delete?type=1',method:'post',baseURL:0,isType:{suktip:true}
 	},
-	
+	templateDelete2:{
+		url:'/admin/template/delete?type=2',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	templateadd2:{
+		url:'/admin/template/add?type=2',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	templateadd1:{
+		url:'/admin/template/add?type=1',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	templateedit1:{
+		url:'/admin/template/edit?type=1',method:'post',baseURL:0,isType:{suktip:true}
+	},
+	templateedit2:{
+		url:'/admin/template/edit?type=2',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	bannerlist:{
 		url:'/admin/banner/list',method:'post',baseURL:0
-	},
-	templateedit:{
-		url:'/admin/template/edit',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	bannerdelete:{
 		url:'/admin/banner/delete',method:'post',baseURL:0,isType:{suktip:true}

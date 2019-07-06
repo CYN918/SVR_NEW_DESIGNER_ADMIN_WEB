@@ -7,7 +7,7 @@
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.name)">
+					 @click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
@@ -35,8 +35,8 @@
 		</el-dialog>
 		<el-dialog title="上传模板文件" :visible.sync="showmask">
 			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="showmaskload">本地文件</button>
-				<button class="defaultbtn" @click="showmaskload1">网盘链接</button>
+				<button v-if="gettab('200442')" class="defaultbtn" @click="showmaskload">本地文件</button>
+				<button v-if="gettab('200445')" class="defaultbtn" @click="showmaskload1">网盘链接</button>
 			</span>
 		</el-dialog>
 		<el-dialog title="本地文件" :visible.sync="showmask1">
@@ -90,10 +90,12 @@
 		data() {
 			return {
 				tabData: [{
-						name: "本地文件"
+						name: "本地文件",
+						accessid:"46"
 					},
 					{
-						name: "网盘链接"
+						name: "网盘链接",
+						accessid:"47"
 					}
 				],
 				tabsnum: 0,
@@ -107,7 +109,10 @@
 					"commonrightbtn": [{
 						name: "上传模板文件",
 						id: "right1",
-						accessid: "200340"
+						two:{
+							id1:'200442',
+							id2:'200445'
+						}
 					}],
 					"commonbottombtn": [],
 					"IsShow": true,
@@ -173,9 +178,8 @@
 					sreenData.type = this.type;
 					data = sreenData;
 				}
-
-				this.api.templateList(data).then((da) => {
-					
+				
+				this.api['templateList'+this.type](data).then((da) => {	
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -204,7 +208,7 @@
 					contribute_type: 2
 				}).then(da => {
 					this.detailData = da;
-					console.log(da);
+					//console.log(da);
 				}).catch(() => {})
 			},
 			httprequest(params) {
@@ -296,7 +300,7 @@
 					center: true
 				}).then(() => {
 					//console.log(val.template_file_id)
-					this.api.templateDelete({
+					this.api['templateDelete'+this.type]({
 						template_file_id: val.template_file_id,
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
@@ -312,7 +316,7 @@
 				});
 			},
 			newname() {
-				this.api.templateedit({
+				this.api['templateedit'+this.type]({
 					template_file_id: this.rowdata.template_file_id,
 					file_name: this.file_name,
 					access_token: localStorage.getItem("access_token"),
@@ -355,7 +359,7 @@
 					}
 				}
 				
-				this.api.templateadd(data).then(da => {
+				this.api['templateadd'+type](data).then(da => {
 					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
@@ -365,11 +369,22 @@
 				})
 				this.showmask1 = false;
 				this.showmask2 = false;
+			},
+			gettab(id){
+				if(this.adminuseraccess.indexOf(id) > -1){
+					return true;
+				} else {
+					return false;
+				}
+				
 			}
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		mounted() {
 			//console.log(this.tableConfig)
