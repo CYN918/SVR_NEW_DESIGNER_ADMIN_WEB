@@ -336,21 +336,34 @@
 			}
 		},
 		created() {
-			this.getData({
-				pageCurrent: 1,
-				pageSize:50
-			});
+			
 			this.screenreach();
 			this.getcommonrightbtn();
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
+			if(!this.gettab('48') && this.gettab('49')){
+				this.$parent.tabchange(2);
+				this.tabsChange(1);
+			}
+			if(!this.gettab('49') && this.gettab('48')){
+				this.$parent.tabchange(1);
+				this.tabsChange(0);
+			}
 		},
 		mounted() {
 			if(this.$route.query.tabsnum){
+				this.$parent.tabchange(2);
 				this.tabsChange(1);
 			}
-			this.$parent.tabchange(1);
+			if(this.gettab('48') && this.gettab('49')){
+				this.$parent.tabchange(1);
+			}
+			
+			this.getData({
+				pageCurrent: 1,
+				pageSize:50
+			});
 		}
 	}
 </script>

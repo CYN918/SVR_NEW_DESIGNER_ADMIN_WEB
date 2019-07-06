@@ -385,11 +385,23 @@
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
+			if(!this.gettab('46') && this.gettab('47')){
+				this.$parent.tabchange(2);
+				this.tabsChange(1);
+			}
+			if(!this.gettab('47') && this.gettab('46')){
+				this.$parent.tabchange(1);
+				this.tabsChange(0);
+			}
 		},
 		mounted() {
 			//console.log(this.tableConfig)
 			this.getData({pageCurrent:1,pageSize:50});
-			this.$parent.tabchange(1);
+			if(this.gettab('46') && this.gettab('47')){
+				this.$parent.tabchange(1);
+			}
+			
+			
 		},
 		watch:{
 			"$route":function(){

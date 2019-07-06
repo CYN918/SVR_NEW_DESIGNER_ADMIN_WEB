@@ -75,10 +75,11 @@
 		},
 		methods: {
 			settrue(id1,id2){
-				if(this.adminuseraccess.indexOf(id1)>-1 && this.adminuseraccess.indexOf(id2)>-1) {
-					return true;
-				} else {
+				console.log(id1,id2)
+				if((this.adminuseraccess.indexOf(id1) == -1) && (this.adminuseraccess.indexOf(id2) == -1)) {
 					return false;
+				} else {
+					return true;
 				}
 			},
 			handleClose(tag) {

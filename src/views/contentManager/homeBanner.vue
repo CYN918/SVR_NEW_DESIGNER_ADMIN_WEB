@@ -431,25 +431,49 @@
 					"1":"线上展示"
 				}
 				return status[num];
+			},
+			gettab(id){
+				if(this.adminuseraccess.indexOf(id) > -1){
+					return true;
+				} else {
+					return false;
+				}
+				
 			}
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
-		},
-		mounted() {
-			this.getData({pageCurrent:1,pageSize:50});
-			this.$parent.tabchange(2);
-			if(this.$route.query.tabsnum == 0){
-				this.tabsChange(0);
-			}
-			if(this.$route.query.tabsnum == 1) {
-				this.tabsChange(1);
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"));
+				console.log(this.adminuseraccess.indexOf('45') > -1)
 			}
 			
-			if(localStorage.getItem("adminuseraccess")){
-				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			if(!this.gettab('45') && this.gettab('44')){
+				this.$parent.tabchange(2);
+				this.tabsChange(1);
+				
 			}
+			if(!this.gettab('44') && this.gettab('45')){
+				this.$parent.tabchange(1);
+				this.tabsChange(0);
+			}
+		},
+		mounted() {
+			
+			if(this.gettab('47') && this.gettab('46')){
+				if(this.$route.query.tabsnum == 0){
+					this.$parent.tabchange(1);
+					this.tabsChange(0);
+				}
+				if(this.$route.query.tabsnum == 1) {
+					this.$parent.tabchange(2);
+					this.tabsChange(1);
+					
+				}
+			}
+			
+			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{
 			"$route":function(){
