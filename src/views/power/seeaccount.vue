@@ -94,8 +94,8 @@
 					//console.log(da)
 					this.roleintroduce = da; 
 					//console.log(da.permissions.split(","));
-					da.permissions.split(",").forEach((itme)=>{
-						if(parseInt(itme) > 1000){
+					da.permissions.forEach((itme)=>{
+						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
 					})
