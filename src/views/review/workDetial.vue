@@ -11,7 +11,7 @@
 					{{ item.name }}
 				</span>
 			</div>
-			<div class="materialdownload" v-if="tabsnum == 1 && pagetype != 4">
+			<div class="materialdownload" v-if="tabsnum == 1 && pagetype != 4 && getpower()">
 				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="showselectwork()">选择下载</button>
 				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="handleCheckAllChange()">全部下载</button>
 			</div>
@@ -45,7 +45,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.url,'附件')">
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<div class="color66">
 									<span class="fleft" @click="gotodetail('附件',item.fid,0)">{{ item.file_name }}</span>
@@ -61,7 +61,7 @@
 							<li v-for="(item,index) in material_info['图片']" :key="item.fid+index+index+index">
 								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<div class="color66">
 									<span class="fleft" @click="gotodetail('图片',item.fid,1)">{{ item.file_name }}</span>
@@ -77,7 +77,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<video v-show="videofid == item.fid" :id="item.fid" :src="item.url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
 								<div class="color66">
@@ -94,7 +94,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect" @click="downWorks('one')" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
@@ -459,6 +459,27 @@
 			getimgulr(url){
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
+			},
+			getpower(){
+				let a = false
+				switch (this.pagetype) {
+					case 1:
+						if(this.adminuseraccess.indexOf("200466")> -1){
+							a = true;
+						}
+						break;
+					case 2:
+						if(this.adminuseraccess.indexOf("200467")> -1){
+							a = true;
+						}
+						break;
+					case 3:
+						if(this.adminuseraccess.indexOf("200468")> -1){
+							a = true;
+						}
+						break;
+				};
+				return a;
 			},
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
