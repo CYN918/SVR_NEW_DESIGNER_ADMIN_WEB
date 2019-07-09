@@ -597,8 +597,7 @@
 				this.api.Workclassify({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da);
-					localStorage.setItem("cascader",JSON.stringify(da))
+					DataScreen.screen.workInfo.filterFields[4].child = da
 				})
 			},
 			getval(item,classify){

@@ -99,6 +99,11 @@ const reviewData = {
 					type:"text"
 				},
 				{
+					name:"AI审核描述",
+					id:"ai_check_desc",
+					type:"text"
+				},
+				{
 					name:"审核时间",
 					id:"check_time",
 					type:"text"
