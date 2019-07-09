@@ -416,7 +416,7 @@
 						  a.download = src; //图片名及格式
 						  document.body.appendChild(a);
 						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
+						  fetch(item.id).then(res => res.blob()).then(blob => {
 							const a = document.createElement('a');
 							document.body.appendChild(a)
 							a.style.display = 'none'

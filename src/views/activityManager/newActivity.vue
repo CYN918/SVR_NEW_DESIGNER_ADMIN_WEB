@@ -111,7 +111,7 @@
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
 								<el-checkbox-group v-model="dids" @change="getdemand_names">
 									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
-										<el-checkbox  :label="item.did" >{{ item.demand_name ? item.demand_name : item.did }}</el-checkbox>
+										<el-checkbox  :label="item.did" >{{  item.demand_name + " " + item.did }}</el-checkbox>
 									</el-dropdown-item>
 								</el-checkbox-group>
 						    </el-dropdown-menu>
@@ -619,7 +619,18 @@
 					if(this.form.info){
 						this.ifBjType=1;
 					}
-					this.dids = da.related_needs_id.split(",");
+					console.log(da.related_needs_id)
+					
+					
+					da.related_needs_id.split(",").forEach(item=>{
+						this.demandlist.forEach(ditem =>{
+							if(item == ditem.did){
+								this.dids.push(item)
+							}
+						})
+					});
+					
+					console.log(this.dids);
 					this.getdemand_names()
 				})
 			},
@@ -850,6 +861,7 @@
 								this.demand_names.push(ditem.did)
 							}
 						}
+						
 					})
 				})
 			},

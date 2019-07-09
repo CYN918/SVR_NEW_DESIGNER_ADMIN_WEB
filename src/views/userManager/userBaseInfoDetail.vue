@@ -1,8 +1,8 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">查看用户信息</div>
-		<div class="detailContent ofh">
-			<ul>
+		<div style="overflow-y: auto;height: 100%;width: 100%;">
+			<ul style="padding-left: 132px;">
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户ID</span>
 					<span class="fleft detailValue">{{ getValue(detailData.open_id) }}</span>
