@@ -22,6 +22,7 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ getValue(apply_info[item.id])  }}</span>
 					<span v-if="!item.type">{{ title }}</span>
+					<span v-if="item.type == 'recommend'">{{ apply_info[item.id] ? apply_info[item.id] : "不推荐" }}</span>
 					<span v-else-if="item.type == 'arr'">
 						<span v-for="(item,index) in apply_info.labels" :key = "item">{{ item + (index == (apply_info.labels.length - 1) ? "" : "/")  }}</span>
 					</span>

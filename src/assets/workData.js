@@ -58,7 +58,8 @@ const workData = {
 		{
 			name:"作品推荐等级",
 			id:"recommend_level",
-			type:"text"
+			type:"recommend",
+			
 		},
 		{
 			name:"是否为平台投稿作品",

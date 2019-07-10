@@ -24,6 +24,7 @@
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
+					<span v-if="item.type == 'recommend'">{{ work_info[item.id] ? work_info[item.id] : "不推荐" }}</span>
 					<span v-if="!item.type">{{ work_info[item.id] }}</span>
 					<span v-else-if="item.type == 'isnum'"> {{ work_info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
@@ -116,68 +117,6 @@
 						</ul>
 					</div>
 					
-					
-					
-					<!-- <div v-if="material_list['附件']">
-						<div  style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['附件']">
-								<div class="material relative">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-if="material_list['图片']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['图片']">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
-								</div>
-								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-if="material_list['视频']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['视频']">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-if="material_list['音频']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['音频']">
-								<div class="material relative" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}">
-									<el-checkbox class="material-checkbox" :label="item.fid" v-if="workselect"></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
-								</div>
-								<div class="color66">
-									<span class="fleft">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-
-						</ul>
-					</div> -->
 				</el-checkbox-group>
 			</div>
 			<ul v-if="tabsnum == 2">

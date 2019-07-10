@@ -118,7 +118,7 @@ const reviewData = {
 				{
 					name:"作品推荐等级",
 					id:"recommend_level",
-					type:"text"
+					type:"recommend"
 				}
 			],
 			status_1:[
