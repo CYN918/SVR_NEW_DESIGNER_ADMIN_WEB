@@ -94,7 +94,7 @@
 					//console.log(da)
 					this.roleintroduce = da; 
 					//console.log(da.permissions.split(","));
-					da.permissions.split(",").forEach((itme)=>{
+					da.permissions.forEach((itme)=>{
 						if(parseInt(itme)){
 							this.permissions.push(parseInt(itme));
 						}
@@ -106,11 +106,12 @@
 				})
 			},
 			getMenu(){
+				//alert(2);
 				const data = {
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					//console.log(da)
+					console.log(da)
 					this.data2 = this.tickMenuIdFilter().filter(da);
 					
 				}).catch(da =>{

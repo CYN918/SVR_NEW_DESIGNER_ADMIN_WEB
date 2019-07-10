@@ -76,10 +76,10 @@
 					access_token: localStorage.getItem("access_token"),
 					id: this.$route.query.id
 				}).then(da => {
-					console.log(da);
+					//console.log(da);
 					this.rolename = da.name;
 					this.roleintroduce = da.description;
-					//console.log(da.permissions.split(","));
+				    console.log(da.permissions);
 					da.permissions.forEach((itme) => {
 						if (parseInt(itme)) {
 							this.permissions.push(parseInt(itme));
