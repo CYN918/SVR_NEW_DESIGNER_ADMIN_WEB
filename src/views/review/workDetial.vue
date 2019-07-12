@@ -280,7 +280,7 @@
 				</div>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
-				<el-button size="medium" @click="reject2()">取消</el-button>
+				<el-button size="medium" @click="setdemand()">上一步</el-button>
 				<el-button size="medium" type="primary" @click="contributor1('lu')">确定并通过</el-button>
 			</span>
 		</el-dialog>
@@ -317,7 +317,7 @@
 							<el-select v-model="did" placeholder="请选择">
 								 <el-radio-group v-model="did">
 									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did" :label="item.demand_name">
-										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name ? item.demand_name : item.did  }}</el-radio>
+										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
 									</el-option>
 								</el-radio-group>
 							</el-select>
@@ -327,7 +327,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="reject4">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="setdemand">确定</button>
+				<button class="defaultbtn defaultbtnactive" @click="setdemand">下一步</button>
 			</span>
 		</el-dialog>
 		
@@ -596,6 +596,7 @@
 			},
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
+				this.reject4();
 			},
 			reject3() {
 				this.centerDialogVisible3 = !this.centerDialogVisible3;

@@ -280,10 +280,11 @@
 							this.$parent.rowdata = row;
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
-						if(setid == "contributor1"){
+						if(setid == "contributor2"){
+							
 							window.open(row.template_url);
 						}
-						if(setid == "contributor2"){
+						if(setid == "contributor1"){
 							this.$parent.delete(row);
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}

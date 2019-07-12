@@ -250,7 +250,7 @@
 			tabsChange(num,id) {
 				this.tabsnum = num;
 				this.detailbtn=true;
-				this.workselect=false;
+				this.workselect = false;
 				this.file_type = id;
 				this.getData(1,50);
 				this.checkList=[];

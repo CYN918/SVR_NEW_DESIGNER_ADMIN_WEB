@@ -1203,13 +1203,13 @@ const screenData = {
 							accessid:"200443"
 						},
 						{
+							name:"删除",
+							accessid:"200444"
+						},
+						{
 							name:"下载",
 							accessid:"200449"
 						},
-						{
-							name:"删除",
-							accessid:"200444"
-						}
 					],
 				},
 				links:{
