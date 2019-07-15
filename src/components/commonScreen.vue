@@ -44,13 +44,36 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						<el-cascader v-if="item.type == 'cascader'"
+						<!-- <el-cascader v-if="item.type == 'cascader'"
 							expand-trigger="hover"
 							:options="item.child"
 							:props="item.optionProps"
 							v-model="selectedOptions"
 							@change="handleChange">
-						</el-cascader>
+						</el-cascader> -->
+						
+						
+						<div v-if="item.type == 'cascader'">
+							<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
+							<el-popover
+							  ref="popover"
+							  placement="right"
+							  width="200">
+							  <div style="max-height: 400px;min-height: 200px;overflow-y: auto;">
+								  <el-tree
+								    v-if="item.type == 'cascader'"
+								    :data="item.child"
+								    show-checkbox
+								    node-key="id"
+								    :props="defaultProps">
+								  </el-tree>
+							  </div>
+
+							</el-popover>
+						</div>
+						
+						
+				
 						<div v-if="item.type == 'two'">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 14px;">至</span>
@@ -95,7 +118,11 @@
 				currentpageName:"",
 				times:[],
 				selectedOptions:[],
-				citye:["中国","北京市","东城区"]
+				citye:["中国","北京市","东城区"],
+				defaultProps: {
+				  children: 'sub_data',
+				  label: 'classify_name'
+				}
 			}
 		},
 		components:{

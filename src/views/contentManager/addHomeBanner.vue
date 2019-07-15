@@ -4,11 +4,11 @@
 		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">banner素材活动</span>
+					<span class="fleft detailKey" style="line-height: 40px;">banner素材名称</span>
 					<el-input placeholder="请输入内容" style="width:357px;height:40px;" v-model="banner_name">{{2222 }}</el-input>
 				</li>
 				<li class="margint23 ofh">
-					<span class="fleft detailKey"  style="line-height: 40px;color: #000000;">banner</span>
+					<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
 					<el-upload action="454535" :http-request="httprequest" :show-file-list="false">
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>

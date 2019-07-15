@@ -100,7 +100,7 @@
 					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ selectData1.file_name+"&nbsp;&nbsp;&nbsp;&nbsp;"+selectData1.file_size_format }}</span>
+						<span class="fontcolorg" style="margin-left: 160px;">{{ selectData1.file_name ? selectData1.file_name : "--" +"&nbsp;&nbsp;&nbsp;&nbsp;"+ selectData1.file_size_format ? selectData1.file_size_format : "--" }}</span>
 					</li>
 					
 					<li class="margint23 ofh" v-if="form['setting_type'] == '4'">
@@ -653,17 +653,12 @@
 					sreenData.type = this.type;
 					data = sreenData;
 				}
-			
-				this.api.templateList(data).then((da) => {
-					//console.log(da.data)
-					
+				
+				this.api['templateList'+this.type](data).then((da) => {	
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
-					/* if(this.tableConfig.ischeck){
-						this.$refs.Tabledd.change(da.data);
-					} */
 				}).catch(() => {
 				});
 			},

@@ -210,7 +210,7 @@ input{
 	height: 40px;
 }
 
-#app .el-input.is-active .el-input__inner, #app .el-input__inner:focus,#app .ipt:hover{
+#app .el-input.is-active .el-input__inner,#app .el-input.is-active .iconfont , #app .el-input__inner:focus,#app .ipt:hover{
 	border-color: #ff5121 !important;
 }
 
@@ -222,8 +222,12 @@ input{
 	margin-right: 15px;
 }
 
-#app .el-menu-item.is-active {
+#app .el-menu-item.is-active{
    background-color: #ffede8 !important;
+}
+
+#app .is-active i {
+	color: #FF5121 !important; 
 }
 
 #app .el-submenu__title:hover,#app .el-menu-item:focus, #app .el-menu-item:hover{

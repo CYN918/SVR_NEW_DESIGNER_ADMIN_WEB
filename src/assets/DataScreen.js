@@ -1278,7 +1278,7 @@ const screenData = {
 				{lable:"banner图片",prop:"banner_pic",type:"img",width:200},
 				{lable:"跳转链接",prop:"jump_url",type:"url"},
 				{lable:"创建时间",prop:"create_time"},
-				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
+				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"待使用","0":"未使用","2":"线上展示中"}}
 			],
 			action:{
 				morebtns:{

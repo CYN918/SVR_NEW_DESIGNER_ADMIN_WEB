@@ -233,8 +233,7 @@
 	}
 	
 	#app .is-active .el-submenu__title {
-		background: #ffede8 !important;
-		color: #FF5121;
+		font-weight: 800;
 	}
 	
 	#app .iconfont{
