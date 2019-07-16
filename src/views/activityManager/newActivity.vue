@@ -99,8 +99,8 @@
 					</li>
 					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
-						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer"> 前往上传</span></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ selectData1.file_name ? selectData1.file_name : "--" +"&nbsp;&nbsp;&nbsp;&nbsp;"+ selectData1.file_size_format ? selectData1.file_size_format : "--" }}</span>
+						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer" @click="totem"> 前往上传</span></div>
+						<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span>
 					</li>
 					
 					<li class="margint23 ofh" v-if="form['setting_type'] == '4'">
@@ -288,6 +288,11 @@
 			commonTable
 		},
 		methods: {
+			totem(){
+				this.$router.push({
+					path:"/activityManager/solicitationTemplate"
+				})
+			},
 			getparent() {
 				this.$router.go(-1);
 			},
