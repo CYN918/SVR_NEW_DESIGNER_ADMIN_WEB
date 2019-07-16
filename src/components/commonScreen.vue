@@ -44,16 +44,16 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						<!-- <el-cascader v-if="item.type == 'cascader'"
+						<el-cascader v-if="item.type == 'cascader'"
 							expand-trigger="hover"
 							:options="item.child"
 							:props="item.optionProps"
 							v-model="selectedOptions"
 							@change="handleChange">
-						</el-cascader> -->
+						</el-cascader>
 						
 						
-						<div v-if="item.type == 'cascader'">
+						<!-- <div v-if="item.type == 'cascader'">
 							<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
 							<el-popover
 							  ref="popover"
@@ -70,7 +70,7 @@
 							  </div>
 
 							</el-popover>
-						</div>
+						</div> -->
 						
 						
 				
