@@ -145,7 +145,8 @@
 				typewen:1,
 				online_disk_info:"",
 				filename:'',
-				filetype:""
+				filetype:"",
+				isupload:false
 			}
 		},
 		methods: {
@@ -231,11 +232,13 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-			    var _this = this
+			    var _this = this;
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response.data.data);
 					_this.file_url = response.data.data.url;
 					_this.filetype = response.data.data.file_type;
+					_this.isupload = true;
+					console.log("1111111");
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -350,6 +353,13 @@
 						type:1,
 						access_token: localStorage.getItem("access_token"),
 					}
+					
+					if(this.isupload == false) {
+						this.$message({
+							message:"文件未上传完成"
+						})
+						return;
+					}
 				} else {
 					data = {
 						file_name:this.filename,
@@ -359,6 +369,7 @@
 					}
 				}
 				
+				
 				this.api['templateadd'+type](data).then(da => {
 					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
@@ -366,6 +377,7 @@
 						type: 'info',
 						message: "系统网络故障"
 					})
+					this.isupload =false;
 				})
 				this.showmask1 = false;
 				this.showmask2 = false;

@@ -160,7 +160,6 @@
 				}
 			},
 			getScreen() {
-				
 				if(this.tabnum){
 					if(this.tabnum == 1){
 						this.texts = DataScreen.screen[this.pageName].filterFields0
@@ -173,7 +172,13 @@
 						
 					}
 				} else {
-					this.texts = DataScreen.screen[this.pageName].filterFields
+					if(this.pageName && this.pageName == "addblack"){
+						this.texts = DataScreen.screen.addblack["filterFields"+this.$parent.tabnum];
+						return;
+					} else {
+						this.texts = DataScreen.screen[this.pageName].filterFields;
+					}
+					
 				}
 			},
 			reset() {

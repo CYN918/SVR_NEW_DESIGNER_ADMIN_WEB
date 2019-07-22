@@ -39,6 +39,30 @@ var router = new Router({
 					component: () => import('@/views/userManager/userBaseInfoDetail.vue')
 				},
 				{
+					path: 'blackList',
+					name: 'blackList',
+					meta: {
+						title: "黑名单管理",
+					},
+					component: () => import('@/views/userManager/blackList.vue')
+				},
+				{
+					path: 'blackList/addblack',
+					name: 'addblack',
+					meta: {
+						title: "黑名单管理 / 添加用户",
+					},
+					component: () => import('@/views/userManager/addblack.vue')
+				},
+				{
+					path: 'blackList/editblack',
+					name: 'editblack',
+					meta: {
+						title: "黑名单管理 / 编辑用户",
+					},
+					component: () => import('@/views/userManager/addblack.vue')
+				},
+				{
 					path: 'userPersonalInfo',
 					name: 'userPersonalInfo',
 					meta: {

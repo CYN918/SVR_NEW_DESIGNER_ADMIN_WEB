@@ -47,6 +47,7 @@
 							"39":"/noticeManager/noticetemplate",
 							"40":"/contentManager/listAd",
 							"41":"/contentManager/holdAll",
+							"50":"/userManager/blackList"
 						}
 						
 						

@@ -231,6 +231,14 @@
 						    })
 						};
 					break;
+					case "blackList":
+						if(idIndex == "right1"){
+						    this.router.push({
+						    	path:"/userManager/blackList/addblack"
+						    })
+						};
+					break;
+					
 				}
 				
 				const shownum = {

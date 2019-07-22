@@ -372,6 +372,20 @@ export default {
 	getRecommendCountwork:{
 		url:'/admin/work/getRecommendCount',method:'post',baseURL:0
 	},
-	
+	blacklist:{
+		url:'/admin/user/blacklist',method:'post',baseURL:0
+	},
+	forbiddenAccess:{
+		url:'/admin/user/forbiddenAccess',method:'post',baseURL:0
+	},
+	addBl:{
+		url:'/admin/user/addBl',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	editBl:{
+		url:'/admin/user/editBl',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	BlDetail:{
+		url:'/admin/user/BlDetail',method:'post',baseURL:0
+	},
 	
 }

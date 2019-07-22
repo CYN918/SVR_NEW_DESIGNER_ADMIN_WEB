@@ -120,10 +120,10 @@
 			<!-- <el-submenu index="101">
 				<template slot="title">
 					<i class="iconfont">&#xe730;</i>
-					<span style="padding:15px;">内容管理</span>
+					<span style="padding:15px;">黑名单管理</span>
 				</template>
-				<router-link to="/contentManager/holdAll">
-					<el-menu-item index="101-6">工具箱</el-menu-item>
+				<router-link to="/userManager/blackList">
+					<el-menu-item index="101-6">黑名单</el-menu-item>
 				</router-link>
 			</el-submenu> -->
 		</el-menu>
@@ -164,6 +164,7 @@
 					"39":"/noticeManager/noticetemplate",
 					"40":"/contentManager/listAd",
 					"41":"/contentManager/holdAll",
+					"50":"/userManager/blackList"
 					
 				},
 				iconfont:{

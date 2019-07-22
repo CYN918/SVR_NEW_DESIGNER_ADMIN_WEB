@@ -330,6 +330,11 @@
 							this.$parent.delect(row);
 						}
 					break;
+					case "blackList":
+						if(!setid){
+							this.router.push({path:"/userManager/blackList/editblack", query:{id: row.id}})
+						}
+					break;
 					case "listAd":
 						if(!setid){
 							this.router.push({path:"/contentManager/editlistAd", query:{row: JSON.stringify(row)}})
@@ -588,13 +593,14 @@
 					return;
 				}
 				this.multipleSelection = val
-                this.changePageCoreRecordData (this.multipleSelection)
+                this.changePageCoreRecordData(this.multipleSelection)
 			},
 			changePageCoreRecordData (x) {
                 // 总选择里面的key集合
 				let selectAllIds = [];
 				this.multipleSelectionAll.forEach((row,index)=>{
 				    selectAllIds.push(row[this.pageid]);
+					
 				})
 				
 				let selectIds = [];
@@ -626,15 +632,26 @@
 				        }
 				    }
 				})
-                console.log(this.multipleSelectionAll);
+                //console.log(this.multipleSelectionAll);
+				if( this.$parent.$parent.pageName && this.$parent.$parent.pageName == "addblack"){
+					if(this.$parent.$parent.tabnum == 0) {
+						this.$parent.$parent.selectData = this.multipleSelectionAll;
+					} else {
+						this.$parent.$parent.selectData1 = this.multipleSelectionAll;
+					}
+					return;
+				}
 				
 				this.selected = this.multipleSelectionAll.length;
+				
 				if(this.$parent.selectData){
 					this.$parent.selectData = this.multipleSelectionAll;
 				};
 				if(this.$parent.$parent.selectData){
 					this.$parent.$parent.selectData = this.multipleSelectionAll;
 				};
+				
+				
 				
             },
 			change(data){
@@ -768,6 +785,9 @@
 				break;
 				case "newActivity":
 					this.pageid = "template_file_id";
+				break;
+				case "addrelease":
+					this.pageid = "open_id";
 				break;
 			}
 		}
