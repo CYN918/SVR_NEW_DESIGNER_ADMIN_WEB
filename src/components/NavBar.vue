@@ -39,10 +39,24 @@
 		watch: {
 			$route() {
 				this.getBreadcrumb();
+				this.gettodoCount();
 			}
 		},
 		computed: {},
 		methods: {
+			gettodoCount(){
+				this.api.todoCount({
+					access_token:localStorage.getItem("access_token"),
+				}).then(da =>{
+					//alert(1);
+					console.log(da);
+					this.doCount = da;
+					eventBus.$emit("reviewnum",da.total);
+					//console.log(this.doCount)
+				}).catch(da=>{
+					
+				})
+			},
 			getBreadcrumb() {
 				this.names = this.$route.matched
 				//console.log(this.$route.matched)
@@ -106,7 +120,8 @@
 		created() {
 			this.getBreadcrumb();
 			this.getbus();
-			this.getuserinfo()
+			this.getuserinfo();
+			this.gettodoCount();
 		},
 		mounted() {}
 	}

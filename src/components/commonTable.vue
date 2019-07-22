@@ -789,6 +789,14 @@
 				case "addrelease":
 					this.pageid = "open_id";
 				break;
+				case "addblack":
+					if(this.$parent.$parent.tabnum == 0){
+						this.pageid = "open_id";
+					} else {
+						this.pageid = "accused_open_id";
+					}
+					
+				break;
 			}
 		}
 	}

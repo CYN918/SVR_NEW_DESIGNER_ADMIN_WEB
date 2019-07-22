@@ -745,16 +745,10 @@ const screenData = {
 				{lable:"提交时间",prop:"create_time",width:200},
 			],
 			
-			action0:{
+			action:{
 				is_hidden:true,
 				morebtns:{
-					page:"addrelease"
-				}
-			},
-			action1:{
-				is_hidden:true,
-				morebtns:{
-					page:"worksShelves"
+					page:"addblack"
 				}
 			},
 			page:"addblack"

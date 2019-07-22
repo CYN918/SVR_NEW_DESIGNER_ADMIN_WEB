@@ -22,7 +22,7 @@
 									<span>{{ item.username }}</span>
 								</div>
 							</div>
-							<span class="pointer fontcolorg" style="position: absolute;top:3px;right: 6px;">X</span>
+							<span class="pointer fontcolorg" style="position: absolute;top:3px;right: 6px;" @click="delectsel(item.open_id)">X</span>
 						</div>
 					</div>
 				</li>
@@ -219,7 +219,7 @@
 				times:"",
 				currentpageName:"",
 				pageName: "addblack",
-				tableAction: DataScreen.screenShow.addblack.action0,
+				tableAction: DataScreen.screenShow.addblack.action,
 				filterFields: DataScreen.screen.addblack.filterFields0,
 				dialogTableVisible: false,
 				dialogTableVisible1:false,
@@ -273,6 +273,13 @@
 			}
 		},
 		methods: {
+			delectsel(id){
+				this.selectData.forEach((item,index)=>{
+					if(item.open_id == id) {
+						this.selectData.splice(index,1);
+					}
+				})
+			},
 			addaccess(){
 				this.content.push({
 					access:1,
@@ -339,7 +346,7 @@
 				//console.log(this.selectData);
 				var openids = '';
 				this.selectData1.forEach((item, index) => {
-					openids += (index == (this.selectData.length - 1)) ? item.report_id : item.report_id + ",";
+					openids += (index == (this.selectData.length - 1)) ? item.accused_open_id : item.accused_open_id + ",";
 				})
 				return openids;
 			},
@@ -530,7 +537,6 @@
 					this.dialogTableVisible1 = !this.dialogTableVisible1;
 				} */
 				this.$refs.screen.getScreen()
-				this.tableAction=DataScreen.screenShow.addblack["action"+n];
 				this.tableConfig.list = DataScreen.screenShow.addblack["bts"+n];
 			},
 			add(){

@@ -305,7 +305,7 @@
 			}
 		},
 		created() {
-			this.gettodoCount();
+			//this.gettodoCount();
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
