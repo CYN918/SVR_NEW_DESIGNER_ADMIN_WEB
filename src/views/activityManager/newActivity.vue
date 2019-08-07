@@ -889,7 +889,7 @@
 		mounted(){
 			
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
-			this.getdemandlist();
+			this.getData1();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
