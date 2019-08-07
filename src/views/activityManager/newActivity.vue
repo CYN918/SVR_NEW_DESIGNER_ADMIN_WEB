@@ -875,7 +875,7 @@
 			},
 			getclass(id){
 				if(id == "4"){
-					this.getData1();
+					this.getdemandlist();
 				}
 			}
 		},
