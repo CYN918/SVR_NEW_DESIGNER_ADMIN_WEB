@@ -78,7 +78,7 @@
 				IsMoreShow: false,
 				tableHeight: 150,
 				currentpage: 1,
-				pagesize: 10,
+				pagesize: 50,
 				selected:0,
 				loading:true,
 				allselect:false,

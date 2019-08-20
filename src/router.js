@@ -761,6 +761,73 @@ var router = new Router({
 				},
 			]
 		},
+		
+		{
+			path:"/projectManagement",
+			component: Layout,
+			name: 'Layout',
+			redirect:"/projectManagement/projectclass",
+			meta: {
+				title: "消息通知管理"
+			},
+			children:[
+				{
+					path:"projectclass",
+					name: 'projectclass',
+					meta: {
+						title: "项目发布",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/projectclass.vue'),
+				},
+				{
+					path:"projectclass/newprojectclass",
+					name: 'newprojectclass',
+					meta: {
+						title: "新建项目发布",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newprojectclass.vue'),
+				},
+				{
+					path:"projectclass/editprojectclass",
+					name: 'editprojectclass',
+					meta: {
+						title: "编辑项目发布",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newprojectclass.vue'),
+				},
+				{
+					path:"projectclass/newtemplate",
+					name: 'newtemplate',
+					meta: {
+						title: "新建项目发布",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newtemplate.vue'),
+				},
+				{
+					path:"projectclass/seetemplate",
+					name: 'seetemplate',
+					meta: {
+						title: "查看页面",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/seetemplate.vue'),
+				},
+				{
+					path:"projectList",
+					name: 'projectList',
+					meta: {
+						title: "项目发布",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/projectList.vue'),
+				},
+			]
+		},
+		
 		{
 			path: '/userinfo',
 			name: 'Layout',

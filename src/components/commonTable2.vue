@@ -1,87 +1,275 @@
 <template>
 	<div class="wh">
-		<div class="tabtop" ref="elememt" id="table">
-			<el-table :height="tableHeight" ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+		<div class="w ctcontent">
+			<div v-if="!commonTopData.IsShow">
+				<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
+				<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
+					<span class="fleft" style="width: 84px;">
+						{{ currentpageName }}
+					</span>
+					<div class="textcenter">
+						<span v-for="(item,index) in commonTopData.tabData"  :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+							<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
+						</span>
+						<!-- <span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)" v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
+							<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
+						</span> -->
+					</div>
+				</div>
+			</div>
+			
+			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
+				<div class="ofh">
+					<div class="fleft">
+						<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)">{{ item.name }}</el-button>
+					</div>
+					<div class="fright">
+						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
+							<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
+								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
+								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
+								</div>
+								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
+								<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+							</div>
+							<div v-if="!item.accessid">
+								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
+								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
+								</div>
+								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
+								<button v-if="commonTopData.upload && !item.two" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2)" class="defaultbtn defaultbtnactive" @click="getparent()">{{ item.name }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="margin40" style="height: 60px;">
+				<div class="tagbts">
+					<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+					 :disable-transitions="false" @close="handleClose(item.id)">
+						{{item.btnName + "：" + item.val}}
+					</el-tag>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="transparent"></div>
+		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
+			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
-				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
+				<el-table-column v-for="(item,index) in tableConfiglist" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
-						<img style="width: 120px;height: 50px;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div v-else-if="item.type == 'url'" style="color: #FF5121;" >{{ scope.row[item.prop] }}</div>
+						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(scope.row[item.prop])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
-						<button :class="'defaultbtn0 defaultbtn'+scope.row[item.prop]" v-else-if="item.type == 'btn'">{{ item.child[scope.row[item.prop]] }}</button>
+						<div v-else-if="item.type == 'btn'">
+							<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]" >{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+						</div>
 						<div v-else-if="item.type == 'merge'">
-							<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+							<!-- <span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
+								{{ "--" }}
+							</span> -->
+							<span>
+								<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
+							</span>
 						</div>
 						<div v-else-if="item.type == 'statustwo'">
 							<span v-if="scope.row['is_del'] == '0'">
 								<span :class="'status'+scope.row['status']">●</span><span>{{ item.child.status[scope.row['status']] }}</span>
 							</span>
 							<span v-else-if="scope.row['is_del'] != '0'">
-								<!-- <span :class="'status'+scope.row['is_del']">●</span> --><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
+								<span class="status-1">●</span><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
 							</span>
-							<!-- <span>{{ scope.row['is_del'] }}</span> -->
 						</div>
 						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] ? item.child[scope.row[item.prop]] : item.child.no }}</span></span>
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
-						<span v-else-if="item.type == 'status'"><span :class="'status'+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
+						<span v-else-if="item.type == 'status'"><span :class="item.statusclass+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
-						<span v-else-if="!item.type">{{ scope.row[item.prop] }}</span>
+						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop]  }}</span>
+						<div v-else-if="item.type == 'hiretime'">
+							<div style="color: #FF5121;" @click="openwindowrouter(item.url)">
+								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
+							</div>
+							<div>
+								{{ scope.row[item.time] }} 
+							 </div>
+						</div>
+						<div v-else-if="item.type == 'hiretime1'">
+							<div>
+								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
+							</div>
+							<div>
+								{{ scope.row[item.time] }} 
+							 </div>
+						</div>
+						<span v-else-if="item.type == 'address'">
+							<span>{{
+								scope.row[item.child[0]]+scope.row[item.child[1]]+scope.row[item.child[2]]
+							}}</span>
+						</span>
+						<span v-else-if="!item.type">
+						    <span>
+								<!-- <span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
+									{{ item.is_hidden.namevalue }}
+								</span> -->
+								<span>
+									{{ scope.row[item.prop] }}
+								</span>
+						    </span>
+						</span>
 					</template>	
 				</el-table-column>
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
-						<div v-if="!tableAction.pagefilterField">
-							<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 12px;" v-if="tableAction.links.Ishow">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
-							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
-							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child">
-								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
+						<div>
+							<span v-if="tableActions.links && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#3090F0;font-size: 12px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
+							<el-button @click="handleClick(tableActions.morebtns.fun,scope.row)" type="text" size="small" v-if="tableActions.morebtns && !tableActions.morebtns.child && gettrue(tableActions.morebtns.accessid)">{{ tableActions.morebtns.name(tableActions.morebtns.filterdata ?  scope.row[tableActions.morebtns.filterdata] : '') }}</el-button>
+							<el-dropdown trigger="click" v-if="tableActions.morebtns && tableActions.morebtns.child">
+								<span class="el-dropdown-link">{{ tableActions.morebtns.name }}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+									<el-dropdown-item v-if="gettrue(citem.accessid)" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '') }}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
-						</div>
-						<div  v-else-if="tableAction.pagefilterField">
-							<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true )">{{ tableAction.links.name }}</el-button>
-							<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child">{{ tableAction.morebtns.name }}</el-button>
-							<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)">
-								<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
-								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" v-if="(citem.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)" :key="index" class="comonbtn" @click.native="handleClick(scope.row,citem.id,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
-								</el-dropdown-menu>
-							</el-dropdown>
+							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#3090F0;font-size: 12px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
 						</div>
 					</template>
 				</el-table-column>
 			</el-table>
 			<div class="w" style="text-align: right;background: #FFFFFF;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">选择全部</button>
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">选择全部</button>
 				</div>
 				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
 				</el-pagination>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
-		
+		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
+		
+		
+		<!-- ///// -->
+		<el-dialog :title="tableConfig.title+'-筛选'" :visible.sync="centerDialogVisible">
+			<div>
+				<div class="screenborder">
+					<div class="screenMidden paddinglr30">
+						<ul class="screenMiddenul ofh w">
+							<li v-for="(item,index) in filterFields" :key="item.id">
+								<div>
+									{{ item.name }}
+								</div>
+								<!-- form.selct[item.a] -->
+								<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
+								 clearable></el-input>
+								<el-dropdown trigger="click" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
+									<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="vocation.join(',')" suffix-icon="el-icon-arrow-down"
+									 clearable></el-input>
+								    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+										<el-checkbox-group v-model="vocation">
+											<el-dropdown-item v-for="(citem,index) in item.child" :key="index" >
+												<el-checkbox  :label="citem" >{{citem}}</el-checkbox>
+											</el-dropdown-item>
+										</el-checkbox-group>
+								    </el-dropdown-menu>
+								</el-dropdown>
+								<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
+									<el-option value="" label="全部"></el-option>
+									 <el-radio-group v-model="form[item.id]">
+										<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name">
+											<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
+										</el-option>
+									</el-radio-group>
+								</el-select>
+								 <el-date-picker
+								  v-if="item.type == 'time'"
+								   @change="timetwo(item.child)"
+								  class="ipt"
+								  v-model="times"
+								  type="daterange"
+								  value-format="yyyy-MM-dd HH:mm:ss"
+								  start-placeholder="开始日期"
+								  end-placeholder="结束日期"
+								  >
+								</el-date-picker>
+								<el-cascader v-if="item.type == 'cascader'"
+									expand-trigger="hover"
+									:options="item.child"
+									:props="item.optionProps"
+									v-model="selectedOptions"
+									@change="handleChange">
+								</el-cascader>
+								
+								
+								<!-- <div v-if="item.type == 'cascader'">
+									<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
+									<el-popover
+									  ref="popover"
+									  placement="right"
+									  width="200">
+									  <div style="max-height: 400px;min-height: 200px;overflow-y: auto;">
+										  <el-tree
+										    v-if="item.type == 'cascader'"
+										    :data="item.child"
+										    show-checkbox
+										    node-key="id"
+										    :props="defaultProps">
+										  </el-tree>
+									  </div>
+				
+									</el-popover>
+								</div> -->
+								
+								
+						
+								<div v-if="item.type == 'two'">
+									<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+									<span style="padding: 0 14px;">至</span>
+									<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+								</div>
+								<div v-if="item.type == 'text'">
+									<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
+								</div>
+								<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
+									<button class="ipt"></button>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="screenBottom paddinglr30">
+						<div class="screenBottombtn ofh">
+							<button class="fleft defaultbtn" @click="reset">重置</button>
+							<button class="fright defaultbtn defaultbtnactive" @click="cha">查询</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</el-dialog>
+		
 	</div>
 </template>
-<!-- :total="tableConfig.total" -->
+
 <script>
 	export default {
-		props: ['tableConfig', 'tableDatas','tableAction'],
+		props: ['tableConfig','commonTopData','tableAction','filterFields'],
 		data() {
 			return {
+				tableActions:{},
 				IsMoreShow: false,
 				tableHeight: 150,
 				currentpage: 1,
-				pagesize: 10,
+				pagesize: 50,
 				selected:0,
+				total:0,
 				loading:true,
 				allselect:false,
 				sel:true,
@@ -90,408 +278,80 @@
 				pageid:"",
 				imgurl:"",
 				isimgurl:false,
+				tableDatas:[],
+				inputVisible: false,
+				inputValue: '',
+				Istooltip: false,
+				centerDialogVisible: false,
+				radio2: 3,
+				c:this.commonTopData.commonbottombtn,
+				activeName: 'second',
+				currentpageName:'',
+				doCount:{},
+				operations:[],
+				adminuseraccess: [],
+				tabnums:0,
+				/* ///// */
+				form: {
+					
+				},
+				vocation:[],
+				texts: '',
+				options: [],
+				value: '',
+				value2:[],
+				times:[],
+				selectedOptions:[],
+				citye:["中国","北京市","东城区"],
+				defaultProps: {
+				  children: 'sub_data',
+				  label: 'classify_name'
+				},
+				tableConfiglist:[],
+				commonrightbtn:[],
 			}
 		},
 		methods: {
-			handleClick(row, setid, page,event) {
-				console.log(page,setid)
-				//return;
-				switch(page){
-					case "userBaseInfo":
-						if (setid == "contributor0") {
-							this.$parent.setContributor(row);
-						}
-						if (!setid) {
-							this.router.push({path:"/userManager/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
-							///this.$parent.linkDetail(row.open_id);
-						}
-					break;
-					case "userCompanyInfo":
-						if (!setid) {
-							this.router.push({path:"/userManager/userCompanyInfo/userCompanyInfoDetail",query:{open_id:row.open_id}});
-							///this.$parent.linkDetail(row.open_id);
-						}
-					break;
-					case "userPersonalInfo":
-						if (!setid) {
-							this.router.push({path:"/userManager/userPersonalInfo/userPersonalInfoDetail",query:{open_id:row.open_id}});
-							///this.$parent.linkDetail(row.open_id);
-						}
-					break;
-					case "roleManager":
-						if (setid == "contributor0") {
-							this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id,name:row.name,description:row.description}});
-						}
-						if (setid == "contributor1") {
-							this.$parent.delect(row.id);
-							//this.router.push({path:"/power/roleManager/editRoles",query:{id:row.id}});
-						}
-						if(!setid){
-							this.router.push({path:"/power/roleManager/seeRoles",query:{id:row.id}});
-						}
-					break;
-					case "accountManager":
-						if (setid == "contributor") {
-							this.router.push({path:"/power/accountManager/setRoles",query:{row:JSON.stringify(row)}});
-						}
-						if(!setid){
-							this.router.push({path:"/power/accountManager/seeaccount",query:{row:JSON.stringify(row)}});
-						}
-					break;
-					case "publishWork":
-						if(!setid){
-							this.router.push({path:"/review/publishWork/workDetial",query:{id:row.id,type:1,check_status:row.check_status,work_id:row.work_id}});
-							
-						}
-					break;
-					case "finalistsWork":
-						if(!setid){
-							this.router.push({path:"/review/finalistsWork/workDetial",query:{id:row.id,type:2,check_status:row.check_status,work_id:row.work_id}});
-							
-						}
-					break;
-					case "employWork":
-						if(!setid){
-							this.router.push({path:"/review/employWork/workDetial",query:{id:row.id,type:3,check_status:row.check_status,work_id:row.work_id}});
-							
-						}
-					break;
-					case "applyPerson":
-					//console.log(row);
-						if(!setid){
-							this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status,contribute_type:row.contributor_type}});
-						}
-					break;
-					case "workInfo":
-						this.pageid = "work_id";
-						if(!setid){
-							this.router.push({path:"/workManager/workInfo/workInfoDetial",query:{id:row.work_id}});
-							
-						}
-						if(setid == "contributor0"){
-							window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + row.work_id);
-						}
-						
-						if(setid == "contributor1"){
-							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
-						}
-						if(setid == "contributor2"){
-							this.$parent.centerDialogVisible2 = true;
-							this.$parent.workid = row.work_id;
-						}
-						if(setid == "contributor3"){
-							this.$parent.setContributor(row);
-							//this.router.push({path:"/workManager/workInfo/workEmploy",query:{id:row.work_id}});
-						}
-						if(setid == "contributor4"){
-							this.$parent.centerDialogVisible3 = true;
-							this.$parent.workid = row.work_id;
-						}
-					break;
-					case "commentManager":
-						if(!setid){
-							//this.router.push({path:"/review/applyPerson/workDetial",query:{id:row.id,type:4,check_status:row.check_status}});
-							
-							this.$parent.delect(row);
-						}
-					break;
-					case "activityClass":
-						if(!setid){
-							this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:row.processing_activity_num,name:row.category_name,status:row.status}});
-						}
-					break;
-					case "activityworks":
-						if(!setid){
-							window.open("http://dev-web-ndesigner.idatachain.cn/#/conts?id=" + row.work_id);
-						}
-					break;
-					case "activityEmploy":
-						if(!setid){
-							window.open("http://dev-web-ndesigner.idatachain.cn/#/detailed?id=" + row.id);
-						}
-
-						if(setid == "top0"){
-							this.$parent.delect(row);
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
-						
-						if(setid == "top1"){
-							this.router.push({path:"/activityManager/activityEmploy/editActivity",query:{row:JSON.stringify(row)}});
-						}
-					break;
-					case "solicitationTemplate":
-						
-					
-						if(setid == "contributor0"){
-							this.$parent.centerDialogVisible = true;
-							this.$parent.rowdata = row;
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
-						if(setid == "contributor1"){
-							///this.$parent.delete(row);
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
-						if(setid == "contributor2"){
-							this.$parent.delete(row);
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
-					break;
-					case "homeBanner":
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-						if(!setid){
-							this.router.push({path:"/contentManager/homeBanner/editHomeBanner", query:{row: JSON.stringify(row)}})
-							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
-						}
-						
-					break;
-					case "hotWordSearch":
-						if(!setid){
-							this.router.push({path:"/contentManager/hotWordSearch/edithotword", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "serviceCenter":
-						if(setid == "contributor0"){
-							this.router.push({path:"/contentManager/serviceCenter/editserviceCenter", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor1"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "recommendedActivities":
-						if(!setid){
-							this.router.push({path:"/contentManager/recommendedActivities/editrecommendedActivities", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "newrecommendedActivities":
-						if(!setid){
-							this.$parent.$parent.getactivitiesrows(row);
-							this.$parent.$parent.dialogTableVisible = false;
-						}
-					break;
-					case "employmentorder":
-						if(!setid){
-							this.router.push({path:"/employmentManager/employmentorder/orderDetial", query:{id: row.order_id,check_admin_name:row.check_admin_name,hire_time:row.hire_time}})
-						}
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "presetReason":
-						if(!setid){
-							if(event.target.innerHTML == "启用"){
-								this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-									confirmButtonText: '确定',
-									cancelButtonText: '取消',
-									dangerouslyUseHTMLString: true,
-									type: '',
-									center: true
-								}).then(() => {
-									this.$parent.update(row,1,"启用");
-									event.target.innerHTML = "停用"
-								}).catch(() => {
-									this.$message({
-										type: 'info',
-										message: '已经取消'
-									});
-								});
-								
-								
-							} else{
-								this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-									confirmButtonText: '确定',
-									cancelButtonText: '取消',
-									dangerouslyUseHTMLString: true,
-									type: '',
-									center: true
-								}).then(() => {
-									this.$parent.update(row,0,"停用");
-									event.target.innerHTML = "启用"
-								}).catch(() => {
-									this.$message({
-										type: 'info',
-										message: '已经取消'
-									});
-								});
-								
-								
-							}
-						}
-						if(setid == "contributor"){
-							this.$confirm('确认删除该驳回理由', '确认修改', {
-								confirmButtonText: '确定',
-								cancelButtonText: '取消',
-								dangerouslyUseHTMLString: true,
-								type: '',
-								center: true
-							}).then(() => {
-								this.$parent.update(row,-1,"删除");
-							}).catch(() => {
-								this.$message({
-									type: 'info',
-									message: '已经取消'
-								});
-							});
-						}
-					break;
-					case "feedback":
-						if(!setid){
-							if(this.$parent.tabsnum == 0){
-								this.router.push({path:"/otherInformation/feedback/seefeedback", query:{feedback_id:row.feedback_id}})
-							} else {
-								if(event.target.innerHTML == "启用"){
-									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-										confirmButtonText: '确定',
-										cancelButtonText: '取消',
-										dangerouslyUseHTMLString: true,
-										type: '',
-										center: true
-									}).then(() => {
-										this.$parent.update(row,1,"启用");
-										event.target.innerHTML = "停用"
-									}).catch(() => {
-										this.$message({
-											type: 'info',
-											message: '已经取消'
-										});
-									});
-								} else{
-									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-										confirmButtonText: '确定',
-										cancelButtonText: '取消',
-										dangerouslyUseHTMLString: true,
-										type: '',
-										center: true
-									}).then(() => {
-										this.$parent.update(row,0,"停用");
-										event.target.innerHTML = "启用"
-									}).catch(() => {
-										this.$message({
-											type: 'info',
-											message: '已经取消'
-										});
-									});
-								}
-							}
-							
-							
-						}
-						if(setid == "contributor"){
-							
-							this.$confirm('确认删除该驳回理由', '确认修改', {
-								confirmButtonText: '确定',
-								cancelButtonText: '取消',
-								dangerouslyUseHTMLString: true,
-								type: '',
-								center: true
-							}).then(() => {
-								this.$parent.update(row,-1,"删除");
-							}).catch(() => {
-								this.$message({
-									type: 'info',
-									message: '已经取消'
-								});
-							});
-							
-							
-						}
-					break;
-					case "reportInfo":
-						if(!setid){
-							if(this.$parent.tabsnum == 0){
-								this.router.push({path:"/otherInformation/reportInfo/seereportInfo", query:{report_id:row.id}})
-							} else {
-								this.$parent.update(row,1,"启用");
-								if(event.target.innerHTML == "启用"){
-									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-										confirmButtonText: '确定',
-										cancelButtonText: '取消',
-										dangerouslyUseHTMLString: true,
-										type: '',
-										center: true
-									}).then(() => {
-										this.$parent.update(row,1,"启用");
-										event.target.innerHTML = "停用"
-									}).catch(() => {
-										this.$message({
-											type: 'info',
-											message: '已经取消'
-										});
-									});
-								} else{
-									this.$confirm('确认'+ event.target.innerHTML +'该驳回理由', '确认修改', {
-										confirmButtonText: '确定',
-										cancelButtonText: '取消',
-										dangerouslyUseHTMLString: true,
-										type: '',
-										center: true
-									}).then(() => {
-										this.$parent.update(row,0,"停用");
-										event.target.innerHTML = "启用"
-									}).catch(() => {
-										this.$message({
-											type: 'info',
-											message: '已经取消'
-										});
-									});
-								}
-							}
-							
-							
-						}
-						if(setid == "contributor"){
-							
-							this.$confirm('确认删除该驳回理由', '确认修改', {
-								confirmButtonText: '确定',
-								cancelButtonText: '取消',
-								dangerouslyUseHTMLString: true,
-								type: '',
-								center: true
-							}).then(() => {
-								this.$parent.update(row,-1,"删除");
-							}).catch(() => {
-								this.$message({
-									type: 'info',
-									message: '已经取消'
-								});
-							});
-							
-							
-						}
-					break;
-					case "newsRelease":
-						if(!setid){
-							this.router.push({path:"/noticeManager/newsRelease/addsRelease", query:{row: JSON.stringify(row)}})
-						}
-						
-						if(setid == "contributor"){
-							this.$parent.delect(row);
-						}
-					break;
-					case "embodyRecord":
-						if(!setid){
-							this.router.push({path:"/otherInformation/embodyRecord/seeembodyRecord", query:{row: JSON.stringify(row)}})
-						}
-					break;
-				};
+			gettrue(id){
+				//console.log(this.adminuseraccess)
+				//alert(this.adminuseraccess.hasOwnProperty(id)) 
+				if(this.adminuseraccess.indexOf(id) > -1){
+					return true;
+				} else {
+					return false;
+				}
+			},
+			getparent(fun){
+				this.$parent[fun]();
+			},
+			reset(){
+				this.form ={};
+			},
+			reject(){
+				this.centerDialogVisible = !this.centerDialogVisible;
+			},
+			tabsChange(num){
+				this.tabnums = num;
+				this.gettableConfiglist(this.tabnums);
+				this.getTabData();
+			},
+			
+			handleClick(fun,row,index) {
+				this.$parent[fun](row,index);
 			},
 			handleSizeChange(val) {
 				this.pagesize = val;
 				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
 			},
 			handleCurrentChange(val) {
 				this.currentpage = val;
 				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
 			},
 			handleSelectionChange(val) {
 				
@@ -499,60 +359,72 @@
 					return;
 				}
 				this.multipleSelection = val
-                this.changePageCoreRecordData (this.multipleSelection)
+				this.changePageCoreRecordData(this.multipleSelection)
 			},
 			changePageCoreRecordData (x) {
-                // 总选择里面的key集合
+				// 总选择里面的key集合
 				let selectAllIds = [];
 				this.multipleSelectionAll.forEach((row,index)=>{
-				    selectAllIds.push(row[this.pageid]);
+					selectAllIds.push(row[this.pageid]);
+					
 				})
 				
 				let selectIds = [];
 				// 获取当前页选中的id
 				//console.log(this.pageid);
 				x.forEach((row,index)=>{
-				    selectIds.push(row[this.pageid]);
+					selectIds.push(row[this.pageid]);
 					if (selectAllIds.indexOf(row[this.pageid]) < 0) {
-					    this.multipleSelectionAll.push(row);
+						this.multipleSelectionAll.push(row);
 					}
 				});
 				
 				let pageids = [];
 				let noSelectIds = [];
 				this.tableDatas.forEach((row,index)=>{
-				    pageids.push(row[this.pageid]);
+					pageids.push(row[this.pageid]);
 					if (selectIds.indexOf(row[this.pageid]) < 0) {
-					    noSelectIds.push(row[this.pageid]);
+						noSelectIds.push(row[this.pageid]);
 					}
 				})
 				console.log(noSelectIds)
 				noSelectIds.forEach(id=>{
-				    if (selectAllIds.indexOf(id) >= 0) {
-				        for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
-				            if (this.multipleSelectionAll[i][this.pageid] == id) {
-				                // 如果总选择中有未被选中的，那么就删除这条
-				                this.multipleSelectionAll.splice(i, 1);
-				            }
-				        }
-				    }
+					if (selectAllIds.indexOf(id) >= 0) {
+						for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
+							if (this.multipleSelectionAll[i][this.pageid] == id) {
+								// 如果总选择中有未被选中的，那么就删除这条
+								this.multipleSelectionAll.splice(i, 1);
+							}
+						}
+					}
 				})
-                console.log(this.multipleSelectionAll);
+				//console.log(this.multipleSelectionAll);
+				if( this.$parent.$parent.pageName && this.$parent.$parent.pageName == "addblack"){
+					if(this.$parent.$parent.tabnum == 0) {
+						this.$parent.$parent.selectData = this.multipleSelectionAll;
+					} else {
+						this.$parent.$parent.selectData1 = this.multipleSelectionAll;
+					}
+					return;
+				}
 				
 				this.selected = this.multipleSelectionAll.length;
+				
 				if(this.$parent.selectData){
 					this.$parent.selectData = this.multipleSelectionAll;
 				};
-				if(this.$parent.$parent){
+				if(this.$parent.$parent.selectData){
 					this.$parent.$parent.selectData = this.multipleSelectionAll;
 				};
 				
-            },
+				
+				
+			},
 			change(data){
 				let _this = this
-                for(let i = 0;i<data.length;i++){
+				for(let i = 0;i<data.length;i++){
 					var c = i
-                    for(let x = 0;x<this.multipleSelectionAll.length;x++){     
+					for(let x = 0;x<this.multipleSelectionAll.length;x++){     
 						if(data[i][this.pageid] == this.multipleSelectionAll[x][this.pageid] ){
 							var f = function(a){
 								setTimeout(() => {
@@ -565,20 +437,55 @@
 							//_this.$refs.multipleTable.toggleRowSelection(data[i],true);
 						}
 					}
-                }
-                
-            },
+				}
+				
+			},
+			cha(){
+				this.reject();
+				this.getTabData()
+			},
 			getTabData() {
-				const data = {
-					pageCurrent: this.currentpage,
-					pageSize: this.pagesize
-				};
-				this.$parent.getData(data)
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: this.currentpage,
+					limit:this.pagesize,
+				}
+				
+				//console.log(this.form)
+				//获取筛选的条件
+				if (this.form) {
+					const sreenData = this.form
+					//console.log(sreenData)
+					sreenData.page = this.currentpage;
+					sreenData.limit = this.pagesize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				
+				if(this.tableConfig.data){
+					data[this.tableConfig.data] = this.tabnums;
+				}
+				
+				let url = "";
+				if(this.tableConfig.url) {
+					url = this.tableConfig.url;
+				} else {
+					url = this.tableConfig["url"+ this.tabnums];
+				}
+				
+				this.api[url](data).then((da) => {
+					this.tableDatas = da.data;
+					this.total = da.total;
+					this.loading = false;
+				}).catch(() => {
+					this.loading = false;
+				});
 			},
 			autoTableHeight() {
 				//设置table标签
 				setTimeout(() => {
-					this.tableHeight = this.$refs.elememt.offsetHeight;
+					//this.tableHeight = this.$refs.elememt.offsetHeight;
 				}, 100)
 				//此处需要通过延迟方法来设置值，不然会出现值已更新，但页面没更新的问题
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度
@@ -645,16 +552,51 @@
 			},
 			openwindow(url){
 				window.open(url)
-			}
+			},
+			openwindowrouter(url){
+				const {href} = this.$router.resolve({ path: url})
+				window.open(href, '_blank')
+			},
+			handleClick(fun,row,index) {
+				this.$parent[fun](row,index);
+			},
+			gettableConfiglist(n){
+				if(this.tableConfig.list){
+					this.tableConfiglist = this.tableConfig.list
+				} else {
+					this.tableConfiglist = this.tableConfig['list'+ n];
+					//console.log(this.tableConfiglist)
+				} 
+
+				if(this.tableAction){
+					this.tableActions = this.tableAction;
+				} else {
+					this.tableActions = this.tableAction['tableAction'+ n];
+				}
+				
+				if(this.commonTopData.commonrightbtn){
+					this.commonrightbtn = this.commonTopData.commonrightbtn;
+				} else {
+					
+					this.commonrightbtn = this.commonTopData['commonrightbtn'+ n];
+				}
+			},
 			
 		},
 		mounted() {
+			
+			this.getTabData();
 			this.autoTableHeight();
 			//console.log(this.tableConfig)
-			this.init()
+			this.init();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		created() {
-			switch(this.tableAction.morebtns.page){
+			this.gettableConfiglist(0);
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			/* switch(this.tableAction.morebtns.page){
 				case "userBaseInfo":
 					this.pageid = "open_id";
 				break;
@@ -667,11 +609,27 @@
 				case "newActivity":
 					this.pageid = "template_file_id";
 				break;
-			}
+				case "addrelease":
+					this.pageid = "open_id";
+				break;
+				case "addblack":
+					if(this.$parent.$parent.tabnum == 0){
+						this.pageid = "open_id";
+					} else {
+						this.pageid = "accused_open_id";
+					}
+					
+				break;
+			} */
 		}
 	}
 </script>
 <style>
+	.transparent{
+		width: 100%;
+		height: 20px;
+		background: transparent;
+	}
 	.status-2{
 		color: #F5222D;
 	}
@@ -700,10 +658,117 @@
 		background: rgba(0,0,0,0.5);
 		z-index: 2005;
 	}
-	/* #table .el-table th.is-leaf {
-		border-bottom: 5px solid #545C64;
-	} */
-	/* .el-table__fixed {
-		margin-left: 27px;
-	} */
+	.ctcontent {
+		background: white;
+		margin-bottom: 20px;
+	}
+	
+	.paddingb10 {
+		padding-bottom: 10px;
+	}
+	
+	.padding10 {
+		padding: 10px 0;
+	}
+	
+	.cttitle {
+		line-height: 60px;
+		padding-bottom: 20px;
+	}
+	
+	.tagbts {
+		display: flex;
+		align-items:center;
+		height: 100%;
+		overflow-x: auto;
+	}
+	
+	.lefttit{
+		position: absolute;
+		height: 60px;
+		line-height: 60px;
+		left: 40px;
+	}
+	
+	.tabs{
+		width: 96px;
+		height: 58px;
+		display: inline-block;
+		margin-right: 71px;
+		cursor: pointer;
+	}
+	
+	.tabactive{
+		color: #FF5121;
+		border-bottom: 2px solid #FF5121;
+	}
+	
+	.badge .el-badge__content.is-fixed{
+		top:13px
+	}
+	
+	.marginl0{
+		margin-left: 0;
+	}
+	
+	.screenborder {
+		width: 772px;
+		background: #FFFFFF;
+		border-radius: 5px;
+		margin: auto;
+	}
+	
+	.screenMiddenul {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		flex-flow: row wrap;
+	}
+	
+	.screenMiddenul li {
+		margin-top: 27px;
+	}
+	
+	.el-select-dropdown .checkboxipt {
+		width: 200px;
+		height: 32px;
+		margin: 7px auto 14px;
+		display: block;
+	}
+	
+	.checkboxipt input {
+		display: block;
+		height: 32px;
+		margin: 0 auto;
+	}
+	
+	.el-select-dropdown__item .el-checkbox {
+		width: 100%;
+	}
+	
+	.sel-text .screentext{
+		width: 200px;
+		height: 32px;
+		line-height: 32px;
+		display: block;
+	}
+	
+	.screentext .el-input__inner {
+		height: 32px;
+		line-height: 32px;
+	}
+	
+	.screentextbg{
+		padding:5px 12px;
+		width: 100%;
+		background: #FFFFFF;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+		border-radius: 4px;
+		position: relative;
+		z-index: 2013;
+	}
+	#app .el-dropdown-link{
+		padding: 0;
+	}
 </style>

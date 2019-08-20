@@ -387,5 +387,33 @@ export default {
 	BlDetail:{
 		url:'/admin/user/BlDetail',method:'post',baseURL:0
 	},
+	projectclassifylist:{
+		url:'/admin/projectclassify/list',method:'post',baseURL:0
+	},
+	projectclassifyadd:{
+		url:'/admin/projectclassify/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projectclassifyupdate:{
+		url:'/admin/projectclassify/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projectlist:{
+		url:'/admin/project/list',method:'post',baseURL:0
+	},
+	projecttemplatelist:{
+		url:'/admin/projecttemplate/list',method:'post',baseURL:0
+	},
+	projecttemplateadd:{
+		url:'/admin/projecttemplate/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projecttemplatedetail:{
+		url:'/admin/projecttemplate/detail',method:'post',baseURL:0
+	},
+	projecttemplatedel:{
+		url:'/admin/projecttemplate/del',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projecttemplateupdate:{
+		url:'/admin/projecttemplate/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
 	
 }

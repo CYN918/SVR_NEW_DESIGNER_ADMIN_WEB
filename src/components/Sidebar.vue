@@ -16,6 +16,18 @@
 					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
+			<el-submenu index="7">
+				<template slot="title">
+					<i class="iconfont">&#xe781;</i>
+					<span style="padding:15px;">项目管理</span>
+				</template>
+				<router-link to="/projectManagement/projectclass">
+					<el-menu-item index="3-1" class="">项目分类预设</el-menu-item>
+				</router-link>
+				<router-link to="/projectManagement/projectList">
+					<el-menu-item index="3-2" class="">项目发布</el-menu-item>
+				</router-link>
+			</el-submenu>
 			<!-- <el-submenu index="7">
 				<template slot="title">
 					<i class="iconfont">&#xe781;</i>
