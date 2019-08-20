@@ -164,7 +164,7 @@
 				<div class="screenborder">
 					<div class="screenMidden paddinglr30">
 						<ul class="screenMiddenul ofh w">
-							<li v-for="(item,index) in filterFields" :key="item.id">
+							<li v-for="(item,index) in filterField" :key="item.id">
 								<div>
 									{{ item.name }}
 								</div>
@@ -309,6 +309,7 @@
 				},
 				tableConfiglist:[],
 				commonrightbtn:[],
+				filterField:[]
 			}
 		},
 		methods: {
@@ -567,11 +568,17 @@
 					this.tableConfiglist = this.tableConfig['list'+ n];
 					//console.log(this.tableConfiglist)
 				} 
-
+				
 				if(this.tableAction){
 					this.tableActions = this.tableAction;
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
+				}
+				
+				if(this.filterFields){
+					this.filterField = this.filterFields;
+				} else {
+					this.filterField = this.filterFields['filterFields'+ n];
 				}
 				
 				if(this.commonTopData.commonrightbtn){

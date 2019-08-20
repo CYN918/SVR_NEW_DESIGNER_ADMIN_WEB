@@ -19,9 +19,29 @@
 			<div v-show="!Isnextshow">
 				<ul>
 					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">模板名称</span>
+						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
 						<el-input placeholder="请输入内容" v-model="form['template_name']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
+						<el-select v-model="form['classify_id']" placeholder="请选择">
+							<el-radio-group v-model="form['classify_id']">
+								<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name">
+									<el-radio :label="item.id">{{ item.name }}</el-radio>
+								</el-option>
+							</el-radio-group>
+						</el-select>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">中标规则</span>
+						<el-button-group>
+						  <el-button >全站用户海选</el-button>
+						  <el-button type="primary">制定制作人</el-button>
+						</el-button-group>
+					</li>
+				</ul>
+				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型</span>
 						<el-select v-model="form['classify_id']" placeholder="请选择">
@@ -66,12 +86,49 @@
 						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者制作或报名的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
 					
+					
+				</ul>
+				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
 					<li class="margint23 ofh">
-						<span class="fleft detailKey">状态</span>
-						<div class="fleft status">
-							<el-radio v-model="form['status']" label="1" class="fleft">启用</el-radio>
-							<el-radio v-model="form['status']" label="0" class="fleft">停用</el-radio>
+						<span class="fleft detailKey" style="line-height: 40px;">发布时间</span>
+						<el-date-picker
+						  v-model="value1"
+						  type="datetime"
+						  placeholder="选择日期时间">
+						</el-date-picker>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">截稿时间</span>
+						<el-date-picker
+						  v-model="value1"
+						  type="datetime"
+						  placeholder="选择日期时间">
+						</el-date-picker>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">制作周期</span>
+						<div class="fleft ofh">
+							<div class="fleft">
+								<el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number> 天
+							</div>
+							<div style="margin-left: 40px;" class="fleft">
+								<el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number> 时
+							</div>
 						</div>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
+						<el-dropdown trigger="click" :hide-on-click="false">
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="demand_names.join(',')" suffix-icon="el-icon-arrow-down"
+							 clearable></el-input>
+						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+								<el-checkbox-group v-model="dids" @change="getdemand_names">
+									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
+										<el-checkbox  :label="item.did" >{{  item.demand_name + " " + item.did }}</el-checkbox>
+									</el-dropdown-item>
+								</el-checkbox-group>
+						    </el-dropdown-menu>
+						</el-dropdown>
 					</li>
 				</ul>
 			</div>
@@ -94,6 +151,7 @@
 								</div>
 							</div>
 						</li>
+						
 					</ul>
 				</div>
 				<div class="addDetailContent" @click="addDetailContent()">+</div>
@@ -185,6 +243,25 @@
 				},
 				imageUrl: "",
 				tableData1: [],
+				tableData2:[
+					{
+						id:"1",
+						name:"广告模板"
+					},
+					{
+						id:"2",
+						name:"广告图"
+					},
+					{
+						id:"3",
+						name:"场景锁屏"
+					},
+					{
+						id:"4",
+						name:"主题"
+					}
+					
+				],
 				ifBjType:0,
 				currentpageName:"",
 				

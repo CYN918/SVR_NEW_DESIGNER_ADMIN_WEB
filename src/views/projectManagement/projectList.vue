@@ -34,9 +34,10 @@
 						
 					],
 					"tabData":[
+						{name:"待发布"},
 						{name:"招募期"},
 						{name:"待选标"},
-						{name:"制作器"},
+						{name:"制作期"},
 						{name:"已验收"},
 						{name:"已终止"}
 					],
@@ -82,11 +83,34 @@
 					
 				},
 				detailData: "",
-				filterFields:[
-					{name:"项目名称分类",id:"classify_name"},
-					{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
-					{type:"display",prop:'t',lable:'额外赏金'},
-				],
+				filterFields:{
+					filterFields0:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+					filterFields1:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+					filterFields2:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+					filterFields3:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+					filterFields4:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					]
+				},
+				
 				IsDetail:1,
 				roles:{},
 				top_banner: [],
@@ -103,7 +127,7 @@
 			},
 			add(){
 				this.$router.push({
-					path:"/projectManagement/projectclass/newprojectclass"
+					path:"/projectManagement/projectList/newproject"
 				})
 			},
 			edit(row){
