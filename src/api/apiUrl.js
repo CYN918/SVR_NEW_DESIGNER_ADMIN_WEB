@@ -414,6 +414,22 @@ export default {
 	projecttemplateupdate:{
 		url:'/admin/projecttemplate/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
+	projectadd:{
+		url:'/admin/project/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projectdetail:{
+		url:'/admin/project/detail',method:'post',baseURL:0
+	},
+	selectUser:{
+		url:'/Api/project/selectUser',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projectupdate:{
+		url:'/admin/project/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	projectdel:{
+		url:'/admin/project/del',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
 	
 	
 }

@@ -7,7 +7,6 @@
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 					<span :class="{'fontactive':!Isnextshow}">基本信息</span>
 				</span>
-				<!-- <span :class="['centerline',{'centerlineactive': Isnextshow}]"></span> -->
 				<span class="centerline"></span>
 				<span>
 					<span :class="['number',{'numberactive':Isnextshow}]">2</span>
@@ -20,12 +19,12 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
-						<el-input placeholder="请输入内容" v-model="form['template_name']" style="width:357px;height:40px;" clearable></el-input>
+						<el-input placeholder="请输入内容" v-model="form['name']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
-						<el-select v-model="form['classify_id']" placeholder="请选择">
-							<el-radio-group v-model="form['classify_id']">
+						<el-select v-model="form['business_type']" placeholder="请选择">
+							<el-radio-group v-model="form['business_type']">
 								<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name">
 									<el-radio :label="item.id">{{ item.name }}</el-radio>
 								</el-option>
@@ -35,15 +34,67 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">中标规则</span>
 						<el-button-group>
-						  <el-button >全站用户海选</el-button>
-						  <el-button type="primary">制定制作人</el-button>
+							<el-button :type="typebtn == 0 ? 'primary' : ''" @click="getrule(0)">全站用户海选</el-button>
+							<el-button :type="typebtn == 1 ? 'primary' : ''" @click="getrule(1)">制定制作人</el-button>
 						</el-button-group>
+						<div class="ofv" v-if="typebtn == 1" style="margin-top: 20px;">
+							<span class="fleft detailKey" style="line-height: 40px;color: white;">1111</span>
+							<el-button @click="getruledata()">选择指定创作者</el-button>
+						</div>
+						<div class="ofv" v-if="typebtn == 1" style="margin-top: 20px;">
+							<span class="fleft detailKey" style="line-height: 40px;color: white;">1111</span>
+							<ul class="screenContent" style="justify-content:left;flex-wrap:wrap;overflow-y: scroll;margin: 0;padding: 0;">
+								<li class="yhlist" v-for="(item,index) in selectelists">
+									<div>
+										<div class="ofh">
+											<img class="fleft" :src="item.avatar" width="48px" height="48px" style="border-radius: 50%;" alt="">
+											<div class="fleft" style="margin-left: 8px;">
+												<div>{{ item.username }}</div>
+												<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.vocation + "|" +item.province }}</div>
+											</div>
+											<div class="fleft" style="margin-left: 10px;">
+												<el-button size="mini" style="background: #000000;color: white;">详情</el-button>
+												<el-button size="mini" style="background: #000000;color: white;">主页</el-button>
+											</div>
+										</div>
+										<div class="screenContent" style="margin-top: 10px;">
+											<div style="margin-right: 20px;width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">粉丝 </span>
+												<span>{{ item.fans_num }}</span>
+											</div>
+											<div style="margin-right: 20px;width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">人气 </span>
+												<span>{{ item.popular_num }}</span>
+											</div>
+											<div style="width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">创作 </span>
+												<span>{{ item.work_num }}</span>
+											</div>
+										</div>
+										<div class="screenContent" style="margin-top: 10px;">
+											<div style="margin-right: 20px;width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">接单 </span>
+												<span>--</span>
+											</div>
+											<div style="margin-right: 20px;width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">收益 </span>
+												<span>--</span>
+											</div>
+											<div style="width: 30%;">
+												<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
+												<span>{{ item.recommend_level }}</span>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</li>
 				</ul>
 				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
 					
 					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型</span>
+						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
 						<el-select v-model="form['classify_id']" placeholder="请选择">
 							<el-radio-group v-model="form['classify_id']">
 								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name">
@@ -51,6 +102,10 @@
 								</el-option>
 							</el-radio-group>
 						</el-select>
+						<div class="configbtn">
+							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">11</span>
+							<button @click="reject1" class="defaultbtn" style="width: auto;padding: 0 10px;background: #000000;color: white;margin: 0;margin-top: 10px;">选择模板一建配置</button>
+						</div>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
@@ -85,23 +140,23 @@
 						<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
 						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者制作或报名的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
-					
-					
 				</ul>
 				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">发布时间</span>
 						<el-date-picker
-						  v-model="value1"
+						  v-model="form['publish_time']"
 						  type="datetime"
+						  value-format="yyyy-MM-dd HH:mm:ss"
 						  placeholder="选择日期时间">
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">截稿时间</span>
 						<el-date-picker
-						  v-model="value1"
+						  v-model="form['deadline']"
 						  type="datetime"
+						  value-format="yyyy-MM-dd HH:mm:ss"
 						  placeholder="选择日期时间">
 						</el-date-picker>
 					</li>
@@ -109,10 +164,10 @@
 						<span class="fleft detailKey" style="line-height: 40px;">制作周期</span>
 						<div class="fleft ofh">
 							<div class="fleft">
-								<el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number> 天
+								<el-input-number v-model="form['production_cycle_d']" controls-position="right"></el-input-number> 天
 							</div>
 							<div style="margin-left: 40px;" class="fleft">
-								<el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number> 时
+								<el-input-number v-model="form['production_cycle_h']" controls-position="right"></el-input-number> 时
 							</div>
 						</div>
 					</li>
@@ -130,18 +185,18 @@
 						    </el-dropdown-menu>
 						</el-dropdown>
 					</li>
-				</ul>
+				</ul> 
 			</div>
 			<div v-show="Isnextshow" class="relative" >
 				<div class="detailContent" v-for="(item,index) in detailtext">
 					<div class="modeltitle detailKey" style="margin-left: 50px;">说明模块{{ index+1 }}</div>
 					<ul style="padding-top: 30px;">
 						<li class="margint23 ofh">
-							<span class="fleft detailKey" style="line-height: 40px;">模板标题</span>
+							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
 							<el-input placeholder="请输入内容" v-model="item.title" style="width:357px;height:40px;" clearable></el-input>
 						</li>
 						<li class="margint23 ofh" >
-							<span class="fleft detailKey" style="line-height: 40px;">模板名称</span>
+							<span class="fleft detailKey" style="line-height: 40px;">模块说明</span>
 							<div class=" ofh" style="width: 800px;">
 								<div class="fleft">
 									<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="item.text"></vue-ueditor-wrap>
@@ -166,6 +221,31 @@
 			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		
+		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog">
+			<div style="width:1000px"> 
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="resetSave(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205"  style="width:1200px">
+					<commonTable3 ref="tabs3" :tableDatas="tableData3" :tableConfig="tableConfig" :tableAction="tableAction"></commonTable3>
+				</div>
+				<div class="w textcenter">
+					<button class="defaultbtn defaultbtnactive" @click="reject()">确定</button>
+				</div>
+			</div>
+		</el-dialog>
 		
 		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div class="textcenter">
@@ -199,7 +279,33 @@
 					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
 				</div> -->
 			</div>
+		</el-dialog>
+		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
 			
+			<div>
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="resetSave(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205">
+					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+					 ref="Tabledd"></common-table>
+				</div>
+				<!-- <div class="w textcenter">
+					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
+				</div> -->
+			</div>
 		</el-dialog>
 	</div>
 </template>
@@ -208,31 +314,38 @@
 	import VueUeditorWrap from 'vue-ueditor-wrap'
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
+	import commonTable3 from '@/components/commonTable3.vue'
 	import DataScreen from "@/assets/DataScreen.js"
 	
 	export default {
 		data() {
 			return {
+				typebtn:0,
 				detailData: '',
 				input10: '',
 				radio2: "1",
 				rows: "",
 				filename:"",
 				form: {
-					is_provide_template: "0",
-					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
+					name:'',
+					rule_type : 1,
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
-					type:'1',
-					cover_img:""
+					business_type:"",
+					classify_id:"",
+					fields:"",
+					desc:'',
+					template_file_id:"",
+					expected_profit:"",
+					extra_reward:"",
+					qq:"",
+					publish_time:"",
+					deadline:"",
+					production_cycle_d:"",
+					production_cycle_h:"",
+					demand_id:"",
+					status:""
 				},
-				fileList: [{
-					name: 'food.jpeg',
-					url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-				}, {
-					name: 'food2.jpeg',
-					url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-				}],
 				Isnextshow: false,
 				myConfig: {
 					autoHeightEnabled: false,
@@ -262,11 +375,13 @@
 					}
 					
 				],
+				tableData3:[],
 				ifBjType:0,
 				currentpageName:"",
-				
+				dialogTableVisible1:false,
+				dialogTableVisible2:false,
 				pageName: "newActivity",
-				tableAction:DataScreen.screenShow.newActivity.action,
+				tableAction: DataScreen.screenShow.newActivity.action,
 				filterFields: DataScreen.screen.newActivity.filterFields0,
 				dialogTableVisible: false,
 				textarea: '',
@@ -316,14 +431,60 @@
 						title:'',
 						text:'<p style="color:#999"></p>'
 					},
-				]
+				],
+				yonghudata:{},
+				selectelists3:{},
+				selectelists:[]
 			}
 		},
 		components: {
 			VueUeditorWrap,
-			commonTable
+			commonTable,
+			commonTable3
 		},
 		methods: {
+			reject(){
+				this.selectelists3 = this.$refs.tabs3.selectelistsobj;
+				this.selectelists = this.$refs.tabs3.selectelists
+				console.log(this.selectelists);
+				this.dialogTableVisible1=false;
+			},
+			reject1(){
+				this.tableConfig.list = [
+					{prop:'template_name',lable:'模板名称'},
+					{prop:'classify_name',lable:'所属项目分类'},
+					{prop:'banner',lable:'banner',type:"img"},
+					{prop:'fields',lable:'领域范围'},
+					{prop:'expected_profit',lable:'预计收益'},
+					{prop:'extra_reward',lable:'额外赏金'},
+					{prop:'file_name',lable:'模板文件'},
+				],
+				this.tableAction={
+					morebtns:{
+						name:"设置角色",
+						Ishow:false,
+						page:"newproject",
+						
+					},
+					links:{
+						name:"启用",
+						Ishow:true,
+						accessid:"1"
+					}
+				}
+				
+				this.filterFields = [
+					{name:"项目名称分类",id:"classify_name"},
+					{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+					{type:"display",prop:'t',lable:'额外赏金'},
+				]
+				
+				
+				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				this.dialogTableVisible2=true;
+				this.getData({pageCurrent:1,pageSize:50});
+				
+			},
 			addDetailContent(){
 				this.detailtext.push({
 					title:'',
@@ -353,24 +514,56 @@
 				//console.log(row);
 				this.selectData1=row;
 			},
+			getactivitiesrows1(row){
+				//console.log(row);
+				this.form.classify_id = row.classify_id;
+				this.form.banner = row.banner;
+				this.form.fields = row.fields;
+				this.form.expected_profit = row.expected_profit;
+				this.form.extra_reward = row.extra_reward;
+				this.form.qq = row.qq;
+				this.form.template_file_id = row.template_file_id;
+				this.selectData1.file_name = row.template_file_name;
+				this.selectData1.file_size_format = row.file_size_format;
+				this.detailtext = JSON.parse(row.desc)
+			},
 			tabsChange(num) {
 				this.tabsnum = num;
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + num];
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
-				this.$router.push({ path: '/activityManager/activityEmploy/newActivity', query: {urlDate: ''}});
+				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:50});
 			},
-			edit() {
+			getdatachange(){
 				
+			},
+			getrule(n){
+				this.typebtn = n;
+				if(n== 0){
+					this.form['rule_type'] = 1;
+				} else {
+					this.form['rule_type'] = 2;
+				}
+			},
+			getruledata(){
+				this.dialogTableVisible1 = !this.dialogTableVisible1;
+				this.getDatay({pageCurrent:1,pageSize:50});
+			},
+			edit(){
 				this.form.desc = JSON.stringify(this.detailtext);
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
-				this.form.id = this.rows.id
-				
-				this.api.projecttemplateupdate(this.form).then(da => {
+				if(this.form.rule_type == 1){
+					this.form.status = 0;
+				} else{
+					this.form.status = 3;
+				}
+				this.form.project_id = this.rows.project_id
+				this.form.demand_id = this.dids.join(',');
+				this.api.projectupdate(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
 						this.$router.go(-1);
@@ -624,43 +817,91 @@
 			},
 			createdactivity(){
 				
-				/* if(this.alertmask() != true){
-					this.$message({
-						message:this.alertmask(),
-					})
-					return;
-				} */
+				if(this.form.rule_type == 1){
+					this.form.status = 0;
+				} else{
+					this.form.status = 3;
+				}
 				
+				this.form.demand_id = this.dids.join(',');
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.form.desc = JSON.stringify(this.detailtext);
-				this.api.projecttemplateadd(this.form).then(da =>{
+				this.api.projectadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
-						this.$router.go(-1);
+						if(this.form.rule_type == 2){
+							let openids = ''
+							for(key in this.selectelists3){
+								openids+= key+",";
+							}
+							
+							this.api.selectUser({
+								access_token:localStorage.getItem("access_token"),
+								project_id:'',
+								open_id:openids
+							}).then(da=>{
+								access_token:localStorage.getItem("access_token")
+							}).catch(da=>{
+								
+							})
+						} else {
+							this.$router.go(-1);
+						}
+						
+						
 					}
 				}).catch(da =>{
 					
 				})
 			},
 			getactivityinfo(){
-				this.api.projecttemplatedetail({
-					id:this.rows.id,
+				this.api.projectdetail({
+					project_id:this.rows.project_id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da)
-					this.form = da;
+					this.form.classify_id = da.classify_id;
+					this.form.banner = da.banner;
+					this.form.fields = da.fields;
+					this.form.expected_profit = da.expected_profit;
+					this.form.extra_reward = da.extra_reward;
+					this.form.business_type = da.business_type;
+					this.form.name = da.name;
+					this.form.qq = da.qq;
+					this.form.template_file_id = da.template_file_id;
+					this.selectData1.file_name = da.template_file_name;
+					this.selectData1.file_size_format = da.file_size_format;
+					this.detailtext = JSON.parse(da.desc);
+					this.form['rule_type'] = da.rule_type;
+					if(da.rule_type == "1"){
+						this.typebtn = 0;
+					} else {
+						this.typebtn = 1;
+					}
+					this.form.production_cycle_d = da.production_cycle_d;
+					this.form.production_cycle_h = da.production_cycle_h;
+					this.form.deadline = da.deadline;
+					this.form.publish_time = da.publish_time;
+					
 					if(this.form.desc){
 						this.ifBjType=1;
 					}
+					da.demand_id.split(",").forEach(item=>{
+						this.demandlist.forEach(ditem =>{
+							if(item == ditem.did){
+								this.dids.push(item)
+							}
+						})
+					});
+					this.getdemand_names()
 				})
 			},
+			
 			getData(pg) {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					type: this.type,
 				}
 			
 				//获取筛选的条件
@@ -670,19 +911,63 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
-					sreenData.type = this.type;
+					
 					data = sreenData;
 				}
 				
-				this.api['templateList'+this.type](data).then((da) => {	
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-				}).catch(() => {
-				});
+				if(this.dialogTableVisible){
+					data.type = this.type;
+					this.api['templateList'+this.type](data).then((da) => {	
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+					}).catch(() => {
+						
+					});
+				}
+				if(this.dialogTableVisible2){
+					data.status = 1;
+					this.api.projecttemplatelist(data).then((da) => {	
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+					}).catch(() => {
+						
+					});
+				}
+				
+				
 			},
-			
+			getDatay(pg) {
+				//获取子组件表格数据
+				this.tableData = [];
+				var data = {
+					access_token:localStorage.getItem("access_token"),
+					page:pg.pageCurrent,
+					limit:pg.pageSize
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))\
+				
+				if(this.$route.query.urlDate){
+				    const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+				    sreenData.page = pg.pageCurrent;
+				    sreenData.limit = pg.pageSize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				
+				this.api.getUserList(data).then((da)=>{
+					//console.log(da.data)
+					this.tableData3 = da.data;
+					this.tableConfig.total = da.total;
+					
+				}).catch(()=>{
+				});	 
+			},
 			
 			getScreenShowData() {
 				//获取字段展示-筛选修改
@@ -846,17 +1131,16 @@
 					access_token:localStorage.getItem("access_token"),
 					is_activity:1
 				}).then(da=>{
-					//console.log(da);
+					console.log(da);
 					this.demandlist = da;
-					
 					if(this.$route.query.row){
 						this.rows = JSON.parse(this.$route.query.row);
-						localStorage.setItem("newActivity",this.$route.query.row);
-						
+						localStorage.setItem("newproject",this.$route.query.row);
+						this.getactivityinfo();
 					}else{
 						if(this.currentpageName == "编辑活动"){
-							if(localStorage.getItem("newActivity")){
-								this.rows = JSON.parse(localStorage.getItem("newActivity"));
+							if(localStorage.getItem("newproject")){
+								this.rows = JSON.parse(localStorage.getItem("newproject"));
 							}
 						}
 						
@@ -886,6 +1170,16 @@
 					showmask: "No",
 					pageName: "newActivity",
 				}
+				
+				if(this.dialogTableVisible2 == true){
+					shownum.pageName = "newproject2"
+				}
+				
+				if(this.dialogTableVisible1 == true){
+					shownum.pageName = "newproject1"
+				}
+				
+				
 				eventBus.$emit("screenshow", shownum);
 			},
 			getclass(id){
@@ -898,12 +1192,10 @@
 			
 			this.screenreach();
 			this.getcommonrightbtn();
-			
 			this.$parent.tabchange(1);
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
-				this.getactivityinfo();
-				this.selectData1.file_name = this.rows.file_name;
+				this.selectData1.file_name = this.rows.template_file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				this.detailtext = JSON.parse(this.rows.desc);
 			}
@@ -911,7 +1203,7 @@
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			this.getData1();
-			
+			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
 		},
 		watch:{
@@ -925,6 +1217,11 @@
 </script>
 
 <style>
+	.el-input-number > span {
+		background: transparent !important;
+		line-height: 0 !important;
+		border: 0 !important;
+	}
 	.addDetailContent {
 		font-size: 40px;
 		color: #999999;
@@ -941,7 +1238,7 @@
 		margin:10px;
 	}
 	.sel-dialog  {
-		width: 1100px;
+		width: 1200px;
 	}
 	
 	.Detail {

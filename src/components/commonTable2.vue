@@ -569,22 +569,21 @@
 					//console.log(this.tableConfiglist)
 				} 
 				
-				if(this.tableAction){
+				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
 				}
 				
-				if(this.filterFields){
+				if(!this.tableAction.num){
 					this.filterField = this.filterFields;
 				} else {
 					this.filterField = this.filterFields['filterFields'+ n];
 				}
 				
-				if(this.commonTopData.commonrightbtn){
+				if(!this.tableAction.num){
 					this.commonrightbtn = this.commonTopData.commonrightbtn;
 				} else {
-					
 					this.commonrightbtn = this.commonTopData['commonrightbtn'+ n];
 				}
 			},

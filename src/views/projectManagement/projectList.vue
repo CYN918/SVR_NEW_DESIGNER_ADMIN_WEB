@@ -70,15 +70,42 @@
 				},
 				tableData: [],
 				tableAction: {
+					num:false,
 					morebtns:{
-						
+						name:"更多",
+						child:[
+							{
+								name:(da)=>{
+									return "编辑"
+								},
+								fun:"edit",
+								accessid:"200060",
+							},
+							{
+								name:(da)=>{
+									
+									return '删除';
+									
+								},
+								fun:"delect",
+								accessid:"200062",
+							},
+							{
+								name:(da)=>{
+									return '补充合同ID';
+								},
+							/* 	filterdata:"is_recommend", */
+								fun:"confirm",
+								accessid:"200062",
+							},
+						]
 					},
 					links:{
 						name:(da)=>{
-							return "编辑"
+							return "查看"
 						},
 						accessid:"200058",
-						fun:"edit",
+						fun:"see",
 					},
 					
 				},
@@ -122,8 +149,17 @@
 			ISshow(){
 				this.$refs.Tabledd.reject();
 			},
-			delect(){
-				
+			delect(row){
+				this.api.projectdel({
+					project_id:row.project_id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					if(da.result == 0) {
+						this.$refs.Tabledd.getTabData();
+					}
+				}).catch(da=>{
+					
+				})
 			},
 			add(){
 				this.$router.push({
@@ -132,9 +168,17 @@
 			},
 			edit(row){
 				this.$router.push({
-					path:"/projectManagement/projectclass/editprojectclass",
+					path:"/projectManagement/projectList/editproject",
 					query:{
 						row: JSON.stringify(row)
+					}
+				})
+			},
+			see(row){
+				this.$router.push({
+					path:"/projectManagement/projectList/projectDetial",
+					query:{
+						id: row.id
 					}
 				})
 			}

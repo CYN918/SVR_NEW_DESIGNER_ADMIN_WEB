@@ -834,6 +834,24 @@ var router = new Router({
 					},
 					component: () => import('@/views/projectManagement/newproject.vue'),
 				},
+				{
+					path:"projectList/projectDetial",
+					name: 'projectDetial',
+					meta: {
+						title: "查看页面",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/projectDetial.vue'),
+				},
+				{
+					path:"projectList/editproject",
+					name: 'editproject',
+					meta: {
+						title: "编辑页面",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newproject.vue'),
+				},
 			]
 		},
 		

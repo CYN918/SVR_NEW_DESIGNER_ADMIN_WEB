@@ -635,7 +635,7 @@
 						})
 					});
 					
-					console.log(this.dids);
+					//console.log(this.dids);
 					this.getdemand_names()
 				})
 			},

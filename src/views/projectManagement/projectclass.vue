@@ -70,6 +70,7 @@
 				},
 				tableData: [],
 				tableAction:{
+					num:true,
 					tableAction0: {
 						morebtns:{
 							
@@ -78,7 +79,7 @@
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"200058",
+							accessid:"1",
 							fun:"edit",
 						},
 						
@@ -88,32 +89,42 @@
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"200058",
+							accessid:"1",
 							fun:"edit1",
 						},
 						links:{
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"1",
 							fun:"see",
 						},
 						filterbtn:{
 							name:(da)=>{
 								return "删除"
 							},
-							accessid:"200058",
+							accessid:"1",
 							fun:"delect",
 						}
 					},
 				},
 				
 				detailData: "",
-				filterFields:[
-					{name:"项目名称分类",id:"classify_name"},
-					{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
-					{type:"display",prop:'t',lable:'额外赏金'},
-				],
+				filterFields:{
+					filterFields0:[
+						{name:"项目名称分类",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+					filterFields1:[
+						{name:"模板名称",id:"classify_name"},
+						{name:"所属项目分类",id:"classify_name"},
+						{name:"领域范围",id:"classify_name"},
+						{name:"额外赏金",id:"classify_name"},
+						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+						{type:"display",prop:'t',lable:'额外赏金'},
+					],
+				},
 				IsDetail:1,
 				roles:{},
 				top_banner: [],

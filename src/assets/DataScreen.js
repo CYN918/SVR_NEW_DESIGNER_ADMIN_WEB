@@ -132,6 +132,42 @@ const screenData = {
 				{name:'累积录用作品数', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
 			]
 		},
+		newproject1:{
+			filterFields:[
+				{name:'用户id',id:'open_id'},
+				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
+				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
+				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
+				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
+				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
+				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
+				{name:'用户名',id:'username'},
+				{name:'手机号',id:'mobile'},
+				{name:'邮箱',id:'email'},
+				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","三维设计师","网页设计师","UI设计师","动画师","产品设计师","室内设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","概念设计师","特效设计师","建筑师","服装设计师","手工艺人","艺人工作者","教育工作者"]},
+				{name:'所在地',id:'address'},
+				{name:'非认证微信',id:'weixin'},
+				{name:'认证微信',id:'weixin_name'},
+				{name:'非认证QQ',id:'qq'},
+				{name:'认证qq',id:'qq_name'},
+				{name:'非认证微博',id:'weibo'},
+				{name:'认证微博',id:'weibo_name'},
+				{name:"",type:"display"}
+			]
+		},
+		newproject2:{
+			filterFields:[
+				{name:"模板名称",id:"classify_name"},
+				{name:"所属项目分类",id:"classify_name"},
+				{name:"领域范围",id:"classify_name"},
+				{name:"额外赏金",id:"classify_name"},
+				{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
+				{type:"display",prop:'t',lable:'额外赏金'},
+			]
+		},
 		userPersonalInfo:{
 			filterFields:[
 				{name:"用户ID",id:"open_id"},

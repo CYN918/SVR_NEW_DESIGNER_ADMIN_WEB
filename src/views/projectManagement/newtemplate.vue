@@ -161,20 +161,19 @@
 				rows: "",
 				filename:"",
 				form: {
-					is_provide_template: "0",
-					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
-					type:'1',
-					cover_img:""
+					classify_id:"",
+					banner:"",
+					fields:"",
+					expected_profit:"",
+					extra_reward:"",
+					business_type:"",
+					qq:"",
+					file_id:'',
+					status:"",
 				},
-				fileList: [{
-					name: 'food.jpeg',
-					url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-				}, {
-					name: 'food2.jpeg',
-					url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-				}],
+				fileList: [],
 				Isnextshow: false,
 				myConfig: {
 					autoHeightEnabled: false,
@@ -343,11 +342,9 @@
 					this.form.info += '<img src="' + url + '" alt="图片">';
 				}
 				if(this.uptype == "video"){
-					/* <img src="' + coverurl + '" alt="视频图片"> */
 					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
 				}
 				if(this.uptype == "audio"){
-					/* <img src="' + coverurl + '" alt="音频图片"> */
 					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
 				}
 			},
@@ -570,8 +567,19 @@
 					id:this.rows.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					console.log(da)
-					this.form = da;
+					this.form.classify_id = da.classify_id;
+					this.form.banner = da.banner;
+					this.form.fields = da.fields;
+					this.form.expected_profit = da.expected_profit;
+					this.form.extra_reward = da.extra_reward;
+					this.form.business_type = da.business_type;
+					this.form.name = da.name;
+					this.form.qq = da.qq;
+					this.form.file_id = da.file_id;
+					this.form.template_name = da.template_name;
+					this.selectData1.file_name = da.file_name;
+					this.selectData1.file_size_format = da.file_size_format;
+					this.detailtext = JSON.parse(da.desc);
 					if(this.form.desc){
 						this.ifBjType=1;
 					}

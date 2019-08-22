@@ -571,6 +571,13 @@
 						   this.$parent.$parent.dialogTableVisible = false;
 						};
 					break;
+					case "newproject":
+						if(!setid){
+							alert(2)
+						   this.$parent.$parent.getactivitiesrows1(row);
+						   this.$parent.$parent.dialogTableVisible2 = false;
+						};
+					break;
 				};
 			},
 			handleSizeChange(val) {
