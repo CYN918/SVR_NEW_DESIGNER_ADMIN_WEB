@@ -5,228 +5,399 @@
 				查看作品
 			</span>
 			<div class="textcenter">
-				<span v-for="(item,index) in tabData" v-if="index < 2" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+				<span v-for="(item,index) in tabData" :key="item.name" v-if="index < 2" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span v-else-if="index == 2 && work_info.hire_id == 0" tag="span" style="color:rgba(153,153,153,1);">{{ item.name }}</span>
-				<span v-else-if="index == 2 && work_info.hire_id != 0" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-				 @click="tabsChange(index,item.name)">{{ item.name }}</span>
+				<span  v-else-if="index != 4 && status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span>
+				<span  v-else-if="index == 4 && status > item.status && status < 5" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span>
+				<!-- <span  v-else-if="status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span>
+				<span  v-else-if="status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span> -->
 			</div> 
-			<div class="materialdownload" v-if="tabsnum == 1 && (adminuseraccess.indexOf('200469') > -1)">
-				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="showselectwork()">选择下载</button>
-				<button class="defaultbtn" style="width: 87px;height: 32px;" @click="handleCheckAllChange()">全部下载</button>
-			</div>
 		</div>
 		<div class="detailContent ofh">
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
-					<span v-if="item.type == 'recommend'">{{ work_info[item.id] ? work_info[item.id] : "不推荐" }}</span>
-					<span v-if="!item.type">{{ work_info[item.id] }}</span>
-					<span v-else-if="item.type == 'isnum'"> {{ work_info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="work_info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="work_info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
-					<span v-else-if="item.type == 'keyvalue'">{{item.child[work_info[item.id]]}}</span>
-					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
+					<span v-if="!item.sh" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.sh && (status > item.status)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.sh && (status > item.status && status <5)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.type == 'text' && !item.sh">{{ info[item.id] }}</span>
+					<span v-if="item.type == 'text' && item.sh && status>item.status">{{ info[item.id] }}</span>
+					<span v-if="item.type == 'recommend'">{{ info[item.id] ? info[item.id] : "不推荐" }}</span>
+					<span v-if="!item.type">{{ info[item.id] }}</span>
+					<span v-else-if="item.type == 'isnum'"> {{ info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="info[item.id]" alt="">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="info[item.id]" alt="">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="info[item.id]" alt="">
+					<span v-else-if="item.type == 'imgbanner'"> {{ info[item.id] }} </span>
+					<span v-else-if="item.type == 'keyvalue'">{{item.child[info[item.id]]}}</span>
+					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + info.work_id)">{{ item.id + info.work_id }}</span></span>
 					<span v-else-if="item.type == 'status'"> 
-						<span v-if="work_info['is_del'] == '0'">
-							{{ item.child.status[work_info['status']] }} 
+						<span v-if="info['is_del'] == '0'">
+							{{ item.child.status[info['status']] }} 
 						</span>
-						<span v-else-if="work_info['is_del'] != '0'">
-							{{ item.child.is_del[work_info['is_del']] }}
+						<span v-else-if="info['is_del'] != '0'">
+							{{ item.child.is_del[info['is_del']] }}
 						</span>
 					</span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="work_info[item.id]" alt="">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="info[item.id]" alt="">
 					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ work_info[item.id] }}</span>
+						<span class="routerLink">{{ info[item.id] }}</span>
+					</router-link>
+				</li>
+			</ul>
+			<ul v-if="tabsnum == 4">
+				<li class="margint13 ofh" v-for="(item,index) in yanshou" :key="index" :type="item.type">
+					<span v-if="!item.sh" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.sh && (status > item.status)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.type == 'text' && !item.sh">{{ info[item.id] }}</span>
+					<span v-if="item.type == 'text' && item.sh && status>item.status">{{ info[item.id] }}</span>
+					<span v-if="item.type == 'recommend'">{{ info[item.id] ? info[item.id] : "不推荐" }}</span>
+					<span v-if="!item.type">{{ info[item.id] }}</span>
+					<span v-else-if="item.type == 'isnum'"> {{ info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="info[item.id]" alt="">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="info[item.id]" alt="">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="info[item.id]" alt="">
+					<span v-else-if="item.type == 'imgbanner'"> {{ info[item.id] }} </span>
+					<span v-else-if="item.type == 'keyvalue'">{{item.child[info[item.id]]}}</span>
+					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + info.work_id)">{{ item.id + info.work_id }}</span></span>
+					<span v-else-if="item.type == 'status'"> 
+						<span v-if="info['is_del'] == '0'">
+							{{ item.child.status[info['status']] }} 
+						</span>
+						<span v-else-if="info['is_del'] != '0'">
+							{{ item.child.is_del[info['is_del']] }}
+						</span>
+					</span>
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="info[item.id]" alt="">
+					<router-link to="/" v-else-if="item.type == 'url'">
+						<span class="routerLink">{{ info[item.id] }}</span>
 					</router-link>
 				</li>
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
-				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<div v-if="material_list['附件']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['附件']" :key = "item.fid">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'附件')">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200469') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<div class="color66">
-									<span class="fleft" @click="gotodetail('附件',item.fid,0)">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-							
-						</ul>
-					</div>
-					<div v-if="material_list['图片']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
-						<ul class="materiallist">
-							<li v-for="(item,index) in material_list['图片']" :key="item.fid+index+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200469') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<div class="color66">
-									<span class="fleft" @click="gotodetail('图片',item.fid,1)">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-if="material_list['视频']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
-						<ul class="materiallist">
-							<li class="relative" v-for="(item,index) in material_list['视频']" :key = "item.fid+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200469') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<video v-show="videofid == item.fid" :id="item.fid" :src="item.url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
-								<div class="color66">
-									<span class="fleft" @click="gotodetail('视频',item.fid,2)">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div v-if="material_list['音频']">
-						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
-						<ul class="materiallist">
-							<li class="relative" v-for="(item,index) in material_list['音频']" :key = "item.fid+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200469') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
-								<div class="color66">
-									<span class="fleft" @click="gotodetail('音频',item.fid,3)">{{ item.file_name }}</span>
-									<span class="fright">{{ item.file_size_format }}</span>
-								</div>
-							</li>
-					
-						</ul>
-					</div>
-					
-				</el-checkbox-group>
+				<div v-for ="(item,index) in desc">
+					<div class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
+					<ul style="padding-top: 0px;margin-top: 0px;">
+						<li class="margint13 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
+							<span style="width:357px;height:40px;line-height: 40px;">{{ item.title }}</span>
+						</li>
+						<li class="margint13 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">详细说明</span>
+							<span style="width:357px;height:40px;line-height: 40px;" v-html="item.text"></span>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<ul v-if="tabsnum == 2">
-				<li class="margint13 ofh" v-for="(item,index) in employInfo" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ hire_info[item.id] }}</span>
-					<span v-if="!item.type">{{ hire_info[item.id] }}</span>
-					<button :class="'workbtn defaultbtn0 defaultbtn'+1" v-else-if="item.type == 'btn'">
-						{{  item.child[hire_info[item.id]]}}
-					</button>
-					<span v-else-if="item.type == 'keyvalue'">{{item.child[hire_info[item.id]]}}</span>
-					<span v-else-if="item.type == 'isnum'"> {{ work_info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ hire_info[item.id] }}</span>
-					</router-link>
-				</li>
-			</ul>
-			<div v-if="false" class="marginlr30">
-				<ul class="margint13">
-					<li class="margint13 ofh w" style="border-top: 1px solid #f0f2f5;">
-						<span class="fleft fontcolorg">渠道1</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">分成渠道ID</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">广告位ID</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">投放渠道</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">分成指标</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">录用价格</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">投放效果数据</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">结算收益</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">当前状态</span>
-						<span>{{ 12345 }}</span>
-					</li>
-					<li class="margint13 ofh" style="margin-left: 102px;">
-						<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">最近更新</span>
-						<span>{{ "--" }}</span>
+			<div v-if="tabsnum == 2">
+				<common-table :commonTopData="commonTopData" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields"
+				 ref="Tabledd"></common-table>
+			</div>
+			<div v-if="tabsnum == 3">
+				<ul class="ofh">
+					<li class="ofh signlist" v-for="(item,index) in signupLists">
+						<div class="ofh" style="padding-bottom: 60px;border-bottom: 1px solid rgba(251,252,259,1);">
+							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
+								<div class="fleft" style="width: 100%;height: 100%;">
+									<el-carousel style="width: 100%;height: 100%;">
+									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;">
+										<div class="signlistwork">
+											<img :src="citem.face_pic" width="100%" height="100%">
+										</div>
+										<div class="ofh" style="margin: 10px 10px 0;color: #333333;">
+											<span class="fleft" style="color: #999999;">{{ citem.work_name }}</span> 
+											<span class="fright"><img src="../../assets/img/icon_img.png" width="14px" height="14px"></span>
+										</div>
+										<div class="ofh" style="margin-left: 10px;">
+											<span class="labelbtn textcenter">{{ '--' }}</span>
+											<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+										</div>
+										<div class="ofh" style="margin: 10px 10px 0;">
+											<div class="fleft" style="width: 33.3%;">
+												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
+												<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+											</div>
+											<div class="fleft" style="width: 33.3%;">
+												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
+												<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+											</div>
+											<div class="fleft" style="width: 33.3%;">
+												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
+												<span style="padding: 3px 5px;color: #111111;">{{ '--' }}</span>
+											</div>
+										</div>
+									  </el-carousel-item>
+									</el-carousel>
+								</div>
+							</div>
+							<div class="fleft ofh">
+								<div style="margin-left: 20px;width: 300px;border-bottom: 1px solid rgba(251,252,253,1);">
+									<div class="ofh">
+										<img class="fleft" :src="item.user.avatar" width="48px" height="48px" style="border-radius: 50%;" alt="">
+										<div class="fleft" style="margin-left: 8px;">
+											<div>{{ item.user.username }}</div>
+											<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.user.vocation + "|" +item.user.province }}</div>
+										</div>
+									</div>
+									<div class="screenContent" style="margin-top: 10px;">
+										<div style="margin-right: 20px;width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">粉丝 </span>
+											<span>{{ item.user.fans_num }}</span>
+										</div>
+										<div style="margin-right: 20px;width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">人气 </span>
+											<span>{{ item.user.popular_num }}</span>
+										</div>
+										<div style="width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">创作 </span>
+											<span>{{ item.user.work_num }}</span>
+										</div>
+									</div>
+									<div class="screenContent" style="margin-top: 10px;">
+										<div style="margin-right: 20px;width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">接单 </span>
+											<span>--</span>
+										</div>
+										<div style="margin-right: 20px;width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">收益 </span>
+											<span>--</span>
+										</div>
+										<div style="width: 30%;">
+											<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
+											<span>{{ item.user.recommend_level }}</span>
+										</div>
+									</div>
+								</div>
+								<div style="margin-left: 20px;line-height: 35px;margin-top: 40px;">
+									<div>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">工作现状 </span><span> --</span>
+									</div>
+									<div>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span> --</span>
+									</div>
+									<div>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span> --</span>
+									</div>
+									<div>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span><span> --</span>
+									</div>
+									<div>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span><span> --</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="screenContent">
+							<button class="defaultbtn">用户详情</button>
+							<button class="defaultbtn">个人主页</button>
+							<button v-if="status == 2" class="defaultbtn">中标录用</button>
+							<button class="defaultbtn" @click="feipei(item.user.username)">分配其他项目</button>
+							
+						</div>
 					</li>
 				</ul>
+				<div class="w" id="bottoms" style="text-align: right;background: #FFFFFF;">
+					<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+						<span>共{{tableConfig.total}}条数据</span>
+					</div>
+					<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpage"
+					 :page-sizes="[50, 100, 200, 500]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+					</el-pagination>
+				</div>
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
+				<button class="defaultbtn defaultbtnactive" @click="getparent()">前往选标</button>
 			</div>
-			<div class="screenContent detailbtn" v-if="!detailbtn">
-				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks('')">下载 {{ checkList.length }}
-					个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB" }}）</button>
-			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
+			<div v-if="detailbtn" class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
-		<el-dialog title="确定全部下载" :visible.sync="centerDialogVisible5" width="738px">
-			<div style="position: relative;">
-				<ul>
-					<li class="w ofh">
-						<div class="textcenter employipt">
-							<span>
-								<span style="width: auto;padding: 0 5px;" @click="downWorks('')">一共 {{ openurls.length }}
-									个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
-							</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
-			</span>
-		</el-dialog>
 	</div>
 </template>
 
 <script>
-	import workData from "../../assets/workData.js"
+	import commonTable from '@/components/commonTable2.vue'
+	
 	export default {
+		components:{
+			commonTable
+		},
 		data() {
 			return {
-				tabData: [{
+				tabData: [
+					{
 						name: "基本信息"
 					},
 					{
-						name: "素材预览"
+						name: "项目详情"
 					},
 					{
-						name: "录用信息"
-					}],
+						name: "交稿记录",
+						status:2
+					},
+					{
+						name: "报名列表",
+						status:0
+					},
+					{
+						name: "验收信息",
+						status:3
+					}
+				],
 				tabsnum: 0,
-				baseInfo:workData.workInfo,
-				employInfo:workData.employInfo,
+				desc:[],
+				baseInfo:[
+					{
+						name:"项目ID",
+						id:"project_id",
+						type:"text"
+					},
+					{
+						name:"项目名称",
+						id:"name",
+						type:"text"
+					},
+					{
+						name:"banner",
+						id:"banner",
+						type:"imgfeng"
+					},
+					{
+						name:"业务类型",
+						id:"business_type",
+						type:"text"
+					},
+					{
+						name:"领域范围",
+						id:"fields",
+						type:"url"
+					},
+					{
+						name:"预计收益",
+						id:"expected_profit",
+						type:"imgtou",
+					},
+					{
+						name:"额外赏金",
+						id:"extra_reward",
+						type:"text"
+					},
+					{
+						name:"发布时间",
+						id:"publish_time",
+						type:"text"
+					},
+					{
+						name:"报名截止时间",
+						id:"deadline",
+						type:"text"
+					},
+					{
+						name:"制作周期（天）",
+						id:"production_cycle_d",
+						type:"text"
+					},
+					{
+						name:"制作周期（时）",
+						id:"production_cycle_h",
+						type:"text"
+					},
+					{
+						name:"绑定需求",
+						id:"demand_id",
+						type:"text"
+					},
+					{
+						name:"报名人数",
+						id:"terminate_reason",
+						type:"text",
+						status:0,
+						sh:true
+					},
+					{
+						name:"终止理由",
+						id:"terminate_reason",
+						type:"text",
+						status:0,
+						sh:true
+					},
+					{
+						name:"当前状态",
+						id:"status",
+						type:"keyvalue",
+						child:{
+							"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"
+						}
+					}
+				],
+				yanshou:[
+					{
+						name:"验收价格",
+						id:"project_id",
+						type:"text"
+					},
+					{
+						name:"额外赏金",
+						id:"name",
+						type:"text"
+					},
+					{
+						name:"延期交稿扣减",
+						id:"banner",
+						type:"imgfeng"
+					},
+					{
+						name:"收益加成",
+						id:"business_type",
+						type:"text"
+					},
+					{
+						name:"成交价格",
+						id:"fields",
+						type:"url"
+					},
+					{
+						name:"成交方式",
+						id:"expected_profit",
+						type:"imgtou",
+					},
+					{
+						name:"需求ID",
+						id:"extra_reward",
+						type:"text"
+					},
+					{
+						name:"项目评级",
+						id:"publish_time",
+						type:"text"
+					},
+					{
+						name:"验收时间",
+						id:"deadline",
+						type:"text"
+					},
+					{
+						name:"验收审核人",
+						id:"production_cycle_d",
+						type:"text"
+					}
+				],
+				employInfo:[],
 				detailbtn:true,
 				workselect:false,
 				checkList: [],
@@ -244,10 +415,101 @@
 				fid:"",
 				centerDialogVisible5:false,
 				oneload:{},
-				adminuseraccess:[]
+				adminuseraccess:[],
+				info:[],
+				signupLists:[],
+				tableConfig: {
+					total:0,
+					pagesize:50,
+					currentpage:1,
+				},
+				tableConfig1: {
+					url:"fileRecord",
+					title:"项目发布",
+					list: [
+						{prop:'file_name',lable:'交稿文件'},
+						{prop:'file_size',lable:'文件大小'},
+						{prop:'remark',lable:'备注说明'},
+						{prop:'created_at',lable:'交稿时间'},
+						{prop:'check_status',lable:'验收结果'},
+						
+					],
+					project_id:"project_id"
+				},
+				tableAction:{
+					num:false,
+					tableAction: {
+						morebtns:{
+							name:(da)=>{
+								return "下载"
+							},
+							accessid:"1",
+							fun:"s",
+						},
+						links:{
+							name:(da)=>{
+								return "验收审核"
+							},
+							accessid:"1",
+							fun:"s",
+						},
+						
+					}
+				},
+				filterFields:[
+					{name:"项目ID",id:"classify_name"},
+					{name:"项目名称",id:"classify_name"},
+					{name:"业务类型",id:"classify_name"},
+					{name:"领域范围",id:"classify_name"},
+					{name:"额外赏金",id:"classify_name"},
+					{name:"发布时间",id:"classify_name"},
+					{name:"中标时间",id:"classify_name"},
+					{name:"截稿时间",id:"classify_name"},
+				],
+				commonTopData: {
+					"pageName": "publishWork",
+					"commonleftbtn": [{
+						name: "筛选",
+						fun: "ISshow"
+					}],
+					"commonrightbtn": [{
+						name: "新建项目",
+						id: "right1",
+						fun: "add"
+					}],
+					"commonbottombtn":[
+						
+					],
+					"tabData":[
+						
+					],
+					'tabnums':0,
+					is:true
+				},
+				status:0,
+				project_id:""
+				
+				
 			}
 		},
 		methods: {
+			feipei(name){
+				
+			},
+			handleSizeChange(val) {
+				this.tableConfig.pagesize = val;
+				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
+			},
+			handleCurrentChange(val) {
+				this.tableConfig.currentpage = val;
+				this.getTabData();
+				this.$nextTick(() => {
+					this.$refs.elememt.scrollTo(0,'34px');
+				})
+			},
 			getimgulr(url){
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
@@ -278,127 +540,11 @@
 					return "--"
 				}
 			},
-			handleCheckAllChange() {
-				//this.checkList = this.checkAll;
-				this.font_size = 0;
-				console.log(this.material_info)
-				if(this.material_info['视频']){
-					this.material_info['视频'].forEach(item =>{
-						this.openurls.push({name:"视频",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['音频']){
-					this.material_info['音频'].forEach(item =>{
-						this.openurls.push({name:"音频",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['附件']){
-					this.material_info['附件'].forEach(item =>{
-						this.openurls.push({name:"附件",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['图片']){
-					this.material_info['图片'].forEach(item =>{
-						this.openurls.push({name:"图片",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				this.centerDialogVisible5 = !this.centerDialogVisible5
-			},
-			downWorks(type) {
-				if(type == "one"){
-					this.openurls = [
-						this.oneload
-					]
-				}
-				this.openurls.forEach(item =>{
-					//console.log(item);
-					if(item.name == "图片"){
-						let src = item.id;
-						var canvas = document.createElement('canvas');
-						var img = document.createElement('img');
-						img.onload = function(e) {
-							canvas.width = img.width;
-							canvas.height = img.height;
-							var context = canvas.getContext('2d');
-							context.drawImage(img, 0, 0, img.width, img.height);
-							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-							canvas.toBlob((blob)=>{
-								let link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob);
-								link.download = '图片文件'; 
-								link.click();  
-							}, "image/jpeg");
-						}
-						img.setAttribute("crossOrigin",'Anonymous');
-						img.src = src;
-					}
-					
-					if(item.name == "附件"){
-						//alert(1);
-						window.open(item.id);
-					}
-					
-					if(item.name == "视频"){
-						//alert(1);
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '视频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						  });
-					}
-					
-					if(item.name == "音频"){
-						//alert(1);
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '音频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						  });
-					}
-				})
-				
-				this.centerDialogVisible5 = false;
-			},
 			tabsChange(num) {
 				this.tabsnum = num;
 				//alert(this.tabsnum)
-				if (this.tabsnum != 1) {
-					this.detailbtn = true;
-					this.workselect = false;
+				if (this.tabsnum == 2) {
+					this.detailbtn = false;
 				}
 			},
 			showselectwork() {
@@ -406,14 +552,27 @@
 				this.workselect = !this.workselect;
 			},
 			getworkdetial(){
-				this.api.workInfo({
-					work_id:this.$route.query.id,
+				this.api.projectdetail({
+					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					console.log(da)
-					this.work_info = da.work_info;
-					this.material_list = da.material_list;
-					this.hire_info = da.hire_info;
+					this.info = da;
+					this.desc = JSON.parse(da.desc);
+				}).catch(da =>{
+					
+				})
+			},
+			signupList(){
+				let data={
+					project_id:this.$route.query.id,
+					access_token:localStorage.getItem("access_token"),
+					limit:this.tableConfig.pagesize,
+					page:this.tableConfig.currentpage
+				}
+				
+				this.api.signupList(data).then(da => {
+					this.signupLists = da.data;
+					this.tableConfig.total = da.total;
 				}).catch(da =>{
 					
 				})
@@ -448,9 +607,12 @@
 		},
 		created() {
 			this.getworkdetial();
+			this.signupList();
+			this.status = parseInt(this.$route.query.status);
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
+			this.project_id = this.$route.query.id;
 		},
 		mounted() {
 			
@@ -459,6 +621,44 @@
 </script>
 
 <style>
+	.el-carousel__container {
+		width: 100%;
+		height: 100%;
+	}
+	.el-carousel__indicators {
+		display: none;
+	}
+	.labelbtn{
+		padding: 3px 5px;
+		background:rgba(244,246,249,1);
+		border-radius:5px;
+		display: inline-block;
+		font-weight:400;
+		color:#999999;
+		font-size: 12px;
+	}
+	.signlistwork{
+		width: 310px;
+		height: 232px;
+		border-radius:5px 5px 0px 0px;
+	}
+	.signlist {
+		padding: 20px;
+		border-radius:5px;
+		border:1px solid rgba(153,153,153,1);
+		float: left;
+		margin-top: 10px;
+		margin-left: 10px;
+	}
+	
+	.signl {
+		width:310px;
+		height:327px;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 2px 10px 0px rgba(0,0,0,0.06);
+		border-radius:5px;
+	}
+	
 	.materiallist .el-checkbox__label {
 		display: none;
 	}
@@ -466,6 +666,10 @@
 	.work .el-button--primary{
 		background: #FF5121;
 		border-color: #FF5121;
+	}
+	
+	#bottoms .el-pager{
+		padding: 0;
 	}
 	
 </style>

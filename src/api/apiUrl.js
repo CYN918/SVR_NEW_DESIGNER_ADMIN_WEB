@@ -429,7 +429,11 @@ export default {
 	projectdel:{
 		url:'/admin/project/del',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
-	
-	
+	signupList:{
+		url:'/admin/project/signupList',method:'post',baseURL:0
+	},
+	fileRecord:{
+		url:'/admin/project/fileRecord',method:'post',baseURL:0
+	},
 	
 }

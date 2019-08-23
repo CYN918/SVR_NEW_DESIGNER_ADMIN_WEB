@@ -19,11 +19,11 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
-						<el-input placeholder="请输入内容" v-model="form['name']" style="width:357px;height:40px;" clearable></el-input>
+						<el-input placeholder="请输入内容" :disabled="objstatus > 0" v-model="form['name']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
-						<el-select v-model="form['business_type']" placeholder="请选择">
+						<el-select v-model="form['business_type']" placeholder="请选择" :disabled="objstatus > 0">
 							<el-radio-group v-model="form['business_type']">
 								<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name">
 									<el-radio :label="item.id">{{ item.name }}</el-radio>
@@ -34,8 +34,8 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">中标规则</span>
 						<el-button-group>
-							<el-button :type="typebtn == 0 ? 'primary' : ''" @click="getrule(0)">全站用户海选</el-button>
-							<el-button :type="typebtn == 1 ? 'primary' : ''" @click="getrule(1)">制定制作人</el-button>
+							<el-button :disabled="objstatus > 0" :type="typebtn == 0 ? 'primary' : ''" @click="getrule(0)">全站用户海选</el-button>
+							<el-button :disabled="objstatus > 0" :type="typebtn == 1 ? 'primary' : ''" @click="getrule(1)">制定制作人</el-button>
 						</el-button-group>
 						<div class="ofv" v-if="typebtn == 1" style="margin-top: 20px;">
 							<span class="fleft detailKey" style="line-height: 40px;color: white;">1111</span>
@@ -148,6 +148,7 @@
 						  v-model="form['publish_time']"
 						  type="datetime"
 						  value-format="yyyy-MM-dd HH:mm:ss"
+						  :disabled="objstatus > 0"
 						  placeholder="选择日期时间">
 						</el-date-picker>
 					</li>
@@ -156,8 +157,9 @@
 						<el-date-picker
 						  v-model="form['deadline']"
 						  type="datetime"
+						  :disabled="objstatus > 2 || form['rule_type'] == 2"
 						  value-format="yyyy-MM-dd HH:mm:ss"
-						  placeholder="选择日期时间">
+						  :placeholder="form['rule_type'] == 1 ? '选择日期时间' : '你已制定制作人，项目发布后即进入制作期'" >
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -344,7 +346,7 @@
 					production_cycle_d:"",
 					production_cycle_h:"",
 					demand_id:"",
-					status:""
+					objstatus:""
 				},
 				Isnextshow: false,
 				myConfig: {
@@ -386,6 +388,7 @@
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
+					num:true,
 					"pageName": "newActivity",
 					"commonleftbtn": [{
 							name: "筛选",
@@ -525,7 +528,7 @@
 				this.form.template_file_id = row.template_file_id;
 				this.selectData1.file_name = row.template_file_name;
 				this.selectData1.file_size_format = row.file_size_format;
-				this.detailtext = JSON.parse(row.desc)
+				this.detailtext = JSON.parse(row.desc);
 			},
 			tabsChange(num) {
 				this.tabsnum = num;
@@ -599,7 +602,6 @@
 					_this.$parent.setpercentage("end",response.data.data.url,"con");
 					_this.uptype = "img"
 				}).catch(function (error) {
-					//console.log(error);
 				});
 				 
 			},
@@ -613,11 +615,9 @@
 					this.form.info += '<img src="' + url + '" alt="图片">';
 				}
 				if(this.uptype == "video"){
-					/* <img src="' + coverurl + '" alt="视频图片"> */
 					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
 				}
 				if(this.uptype == "audio"){
-					/* <img src="' + coverurl + '" alt="音频图片"> */
 					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
 				}
 			},
@@ -688,14 +688,6 @@
 				//console.log(file);
 				const isJPG = file.type === 'image/jpeg';
 				const ispng = file.type === 'image/jpeg';
-				//const isLt2M = file.size / 300 / 200 < 2;
-
-				/* if (isJPG || ispng) {
-					this.$message.error('上传图片只能是 jpg，jpeg，png 格式!');
-				}
-				if (!isLt2M) {
-					this.$message.error('上传图片大小不能超过 1MB!');
-				} */
 				return isJPG;
 			},
 			nxet() {
@@ -1198,6 +1190,7 @@
 				this.selectData1.file_name = this.rows.template_file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				this.detailtext = JSON.parse(this.rows.desc);
+				this.objstatus = parseInt(this.rows.status);
 			}
 		},
 		mounted(){

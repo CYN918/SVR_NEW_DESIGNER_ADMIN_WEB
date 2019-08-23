@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<div class="w ctcontent">
-			<div v-if="!commonTopData.IsShow">
+			<div v-if="!commonTopData.is">
 				<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
 				<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
 					<span class="fleft" style="width: 84px;">
@@ -338,7 +338,8 @@
 			},
 			
 			handleClick(fun,row,index) {
-				this.$parent[fun](row,index);
+				console.log(row);
+				this.$parent[fun](row);
 			},
 			handleSizeChange(val) {
 				this.pagesize = val;
@@ -475,6 +476,12 @@
 					url = this.tableConfig["url"+ this.tabnums];
 				}
 				
+				if(this.tableConfig.project_id){
+					data.project_id = this.$parent.project_id;
+				}
+				
+				
+				
 				this.api[url](data).then((da) => {
 					this.tableDatas = da.data;
 					this.total = da.total;
@@ -581,7 +588,7 @@
 					this.filterField = this.filterFields['filterFields'+ n];
 				}
 				
-				if(!this.tableAction.num){
+				if(!this.commonTopData.num){
 					this.commonrightbtn = this.commonTopData.commonrightbtn;
 				} else {
 					this.commonrightbtn = this.commonTopData['commonrightbtn'+ n];
@@ -602,31 +609,6 @@
 		created() {
 			this.gettableConfiglist(0);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
-			/* switch(this.tableAction.morebtns.page){
-				case "userBaseInfo":
-					this.pageid = "open_id";
-				break;
-				case "workInfo":
-					this.pageid = "work_id";
-				break;
-				case "worksShelves":
-					this.pageid = "open_id";
-				break;
-				case "newActivity":
-					this.pageid = "template_file_id";
-				break;
-				case "addrelease":
-					this.pageid = "open_id";
-				break;
-				case "addblack":
-					if(this.$parent.$parent.tabnum == 0){
-						this.pageid = "open_id";
-					} else {
-						this.pageid = "accused_open_id";
-					}
-					
-				break;
-			} */
 		}
 	}
 </script>

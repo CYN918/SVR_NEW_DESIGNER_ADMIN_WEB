@@ -80,7 +80,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			
 			
 		} else if(result == 201) {
-			///window.location.href = data;
+			window.location.href = data;
 		} else {
 			Message({dangerouslyUseHTMLString:true,message: data});
 		} 
