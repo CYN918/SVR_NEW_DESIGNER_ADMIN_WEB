@@ -246,6 +246,16 @@ const screenData = {
 				{name:"",type:"display"}
 			]
 		},
+		projectreview:{
+			filterFields:[
+				{name:"审核ID",id:"id"},
+				{name:"项目名称",id:"work_name"},
+				{name:"项目类型",id:"activity_id"},
+				{name:"业务类型",id:"activity_name"},
+				{name:"提审用户昵称",id:"username"},
+				{name:"",type:"display"}
+			]
+		},
 		applyPerson:{
 			filterFields:[
 				{name:"审核ID",id:"id"},
@@ -995,6 +1005,31 @@ const screenData = {
 					name:"设置角色",
 					Ishow:false,
 					page:"employWork"
+				},
+				links:{
+					name:"详情",
+					Ishow:true,
+					accessid:"200087"
+				}
+			},
+		},
+		projectreview:{
+			bts:[
+				{prop:'id',lable:'审核ID'},
+				{prop:'name',lable:'项目名称'},
+				{prop:'classify_name',lable:'项目类型',},
+				{prop:"business_type",lable:"业务类型"},
+				{prop:"file_name",lable:"交稿文件"},
+				{prop:'desc',lable:'备注说明'},
+				{prop:'username',lable:'提审用户昵称'},
+				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
+				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
+			],
+			action:{
+				morebtns:{
+					name:"设置角色",
+					Ishow:false,
+					page:"projectreview"
 				},
 				links:{
 					name:"详情",

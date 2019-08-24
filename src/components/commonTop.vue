@@ -280,10 +280,12 @@
 						this.router.push({path:"/review/employWork"})
 						break;
 					case 3:
+						this.router.push({path:"/review/projectreview"})
+						break;
+					case 4:
 						this.router.push({path:"/review/applyPerson"})
 						break;
 					default:
-						break;
 				}
 				
 			},

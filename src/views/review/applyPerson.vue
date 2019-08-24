@@ -48,12 +48,17 @@
 							/* accessid:"14", */
 						},
 						{
+							name:"项目验收",
+							linkTo:"/review/projectreview",
+							/* accessid:"14", */
+						},
+						{
 							name:"供稿人申请",
 							linkTo:"/review/applyPerson",
 							/* accessid:"15", */
 						}
 					],
-					'tabnums':3,
+					'tabnums':4,
 				},
 				screenConfig: [],
 				tableConfig: {

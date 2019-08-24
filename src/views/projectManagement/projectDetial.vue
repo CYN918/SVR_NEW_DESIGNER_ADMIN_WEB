@@ -17,14 +17,7 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<!-- <span  v-else-if="status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span>
-				<span  v-else-if="status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span> -->
+				
 			</div> 
 		</div>
 		<div class="detailContent ofh">
@@ -204,8 +197,7 @@
 							<button class="defaultbtn">用户详情</button>
 							<button class="defaultbtn">个人主页</button>
 							<button v-if="status == 2" class="defaultbtn">中标录用</button>
-							<button class="defaultbtn" @click="feipei(item.user.username)">分配其他项目</button>
-							
+							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
 					</li>
 				</ul>
@@ -227,6 +219,29 @@
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
+		
+		<el-dialog title="分配项目" :visible.sync="centerDialogVisible1">
+			<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields"
+			 ref="Tabledd"></common-table>
+		</el-dialog>
+		
+		<el-dialog
+		  title="分配项目"
+		  :visible.sync="centerDialogVisible">
+		  	<ul>
+		  		<li class="w ofh textcenter" style="margin-bottom: 20px;">
+		  			<span>希望给</span>
+		  			<sapn style="color: #FF5121;">{{ username }}</sapn>
+		  			<span>如何分配项目</span>
+		  		</li>
+		  		<li class="textcenter" style="margin-bottom: 20px;">
+		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="centerDialogVisible1=true">成为已创建项目的制作人</button>
+		  		</li>
+		  		<li class="textcenter" style="margin-bottom: 20px;">
+		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="addnewuser()">新建项目并指定TA来制作</button>
+		  		</li>
+		  	</ul>
+		</el-dialog>
 	</div>
 </template>
 
@@ -413,7 +428,8 @@
 				videofid:"",
 				audiofid:"",
 				fid:"",
-				centerDialogVisible5:false,
+				centerDialogVisible:false,
+				centerDialogVisible1:false,
 				oneload:{},
 				adminuseraccess:[],
 				info:[],
@@ -435,6 +451,69 @@
 						
 					],
 					project_id:"project_id"
+				},
+				tableConfig2: {
+					num:true,
+					url:"projectlist",
+					title:"项目发布",
+					list0: [
+						{prop:'project_id',lable:'项目ID'},
+						{prop:'name',lable:'项目分类名称'},
+						{prop:'business_type',lable:'项目类型'},
+						{prop:'template_num',lable:'业务类型'},
+						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'fields',lable:'领域范围'},
+						{prop:'expected_profit',lable:'预计收益'},
+						{prop:'extra_reward',lable:'额外赏金'},
+						{prop:'publish_time',lable:'发布时间'},
+						{prop:'check_time',lable:'中标时间'},
+						{prop:'deadline',lable:'截稿时间'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+					],
+					list1: [
+						{prop:'project_id',lable:'项目ID'},
+						{prop:'name',lable:'项目分类名称'},
+						{prop:'business_type',lable:'项目类型'},
+						{prop:'template_num',lable:'业务类型'},
+						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'fields',lable:'领域范围'},
+						{prop:'expected_profit',lable:'预计收益'},
+						{prop:'extra_reward',lable:'额外赏金'},
+						{prop:'publish_time',lable:'发布时间'},
+						{prop:'check_time',lable:'中标时间'},
+						{prop:'deadline',lable:'截稿时间'},
+						{prop:'deadline',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+					],
+					list2: [
+						{prop:'project_id',lable:'项目ID'},
+						{prop:'name',lable:'项目分类名称'},
+						{prop:'business_type',lable:'项目类型'},
+						{prop:'template_num',lable:'业务类型'},
+						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'fields',lable:'领域范围'},
+						{prop:'expected_profit',lable:'预计收益'},
+						{prop:'extra_reward',lable:'额外赏金'},
+						{prop:'publish_time',lable:'发布时间'},
+						{prop:'check_time',lable:'中标时间'},
+						{prop:'deadline',lable:'截稿时间'},
+						{prop:'deadline',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+					],
+					project_id:"project_id"
+				},
+				tableAction2: {
+					morebtns:{
+						
+					},
+					links:{
+						name:(da)=>{
+							return "添加"
+						},
+						accessid:"1",
+						fun:"adduser",
+					},
+					
 				},
 				tableAction:{
 					num:false,
@@ -486,15 +565,63 @@
 					'tabnums':0,
 					is:true
 				},
+				commonTopData2: {
+					"commonleftbtn": [{
+						name: "筛选",
+						fun: "ISshow"
+					}],
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+					"tabData": [
+						{name:"待发布"},
+						{name:"招募期"},
+						{name:"待选标"},
+					],
+					'tabnums':0,
+				},
 				status:0,
-				project_id:""
-				
-				
+				project_id:"",
+				username:"",
+				usernameitem:""
 			}
 		},
 		methods: {
-			feipei(name){
-				
+			adduser(row){
+				this.$confirm('确认将【'+ this.username +'】定为【' + row.name+'】的中标人', '', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString:true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({open_ids:openids,level:this.radioS})
+					this.$router.push({
+						path:"/projectManagement/projectList/editproject",
+						query:{
+							row: JSON.stringify(row),
+							usernameitem: JSON.stringify(this.usernameitem)
+						}
+					})
+				}).catch(() => {
+					this.$message({
+					  type: 'info',
+					  message: '已经取消'
+					});
+					this.$refs.Tabledd.setinit();
+				});
+			},
+			addnewuser(row){
+				this.$router.push({
+					path:"/projectManagement/projectList/newproject",
+					query:{
+						usernameitem: JSON.stringify(this.usernameitem)
+					}
+				})
+			},
+			feipei(n,item){
+				this.centerDialogVisible = true;
+				this.username = n;
+				this.usernameitem = item; 
 			},
 			handleSizeChange(val) {
 				this.tableConfig.pagesize = val;
@@ -529,9 +656,7 @@
 				document.getElementById(fid).play();
 			},
 			getparent() {
-				//alert(parseInt(this.$route.query.type))
 				this.$router.go(-1)
-				
 			},
 			getValue(val) {
 				if (val) {
@@ -613,6 +738,9 @@
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 			this.project_id = this.$route.query.id;
+			if(this.$route.query.index){
+				this.tabsnum = this.$route.query.index;
+			}
 		},
 		mounted() {
 			

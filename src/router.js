@@ -133,6 +133,23 @@ var router = new Router({
 					component: () => import('@/views/review/finalistsWork.vue')
 				},
 				{
+					path: 'projectreview',
+					name: 'projectreview',
+					meta: {
+						title: "项目验收",
+						pagetitle: "项目验收-审核台-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/review/projectreview.vue')
+				},
+				{
+					path: 'projectreview/projectdetial',
+					name: 'projectdetial',
+					meta: {
+						title: "项目验收 / 审核详情"
+					},
+					component: () => import('@/views/review/projectdetial.vue')
+				},
+				{
 					path: 'finalistsWork/workDetial',
 					name: 'workDetial',
 					meta: {

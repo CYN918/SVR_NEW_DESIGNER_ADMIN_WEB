@@ -323,7 +323,12 @@
 				}
 			},
 			getparent(fun){
-				this.$parent[fun]();
+				if(this.$parent[fun]){
+					this.$parent[fun]();
+				}
+				if(this.$parent.$parent[fun]){
+					this.$parent.$parent[fun]();
+				}
 			},
 			reset(){
 				this.form ={};
@@ -338,8 +343,12 @@
 			},
 			
 			handleClick(fun,row,index) {
-				console.log(row);
-				this.$parent[fun](row);
+				if(this.$parent[fun]){
+					this.$parent[fun](row);
+				}
+				if(this.$parent.$parent[fun]){
+					this.$parent.$parent[fun](row);
+				}
 			},
 			handleSizeChange(val) {
 				this.pagesize = val;
@@ -565,9 +574,6 @@
 				const {href} = this.$router.resolve({ path: url})
 				window.open(href, '_blank')
 			},
-			handleClick(fun,row,index) {
-				this.$parent[fun](row,index);
-			},
 			gettableConfiglist(n){
 				if(this.tableConfig.list){
 					this.tableConfiglist = this.tableConfig.list
@@ -578,6 +584,7 @@
 				
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
+					//console.log(this.tableActions)
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
 				}
@@ -593,6 +600,7 @@
 				} else {
 					this.commonrightbtn = this.commonTopData['commonrightbtn'+ n];
 				}
+				
 			},
 			
 		},

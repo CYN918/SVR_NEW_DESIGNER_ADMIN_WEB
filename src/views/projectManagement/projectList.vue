@@ -6,6 +6,57 @@
 				 ref="Tabledd"></common-table>
 			</div>
 		</div>
+		<el-dialog title="请选择终止理由" :visible.sync="centerDialogVisible" width="738px">
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh">
+						<span class="fleft Dialogkey">
+							终止理由
+						</span>
+						<el-radio-group v-model="reason" class="sel-dialog-content fleft">
+							<div class="w  sel-radio" v-for="(item,index) in tableData" :key="item.id">
+								<el-radio :label="item.content">{{ item.content }}</el-radio>
+							</div>
+							<div class="w sel-radio">
+								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
+							</div>
+						</el-radio-group>
+					</li>
+					<li class="w ofh">
+						<span class="fleft Dialogkey">
+							终止详细说明
+						</span>
+						<div class="fleft defaultbtnworkbg">
+							<div>
+								<textarea name="" id="" cols="60" rows="10" v-model="comment" Maxlength="100" class="defaultbtnwork"></textarea>
+							</div>
+							<span class="fright fontcolorg">{{ comment.length }}/100</span>
+						</div>
+					</li>
+				</ul>
+		
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="reject">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="stop">确定终止</button>
+			</span>
+		</el-dialog>
+		<el-dialog title="补充合同ID" :visible.sync="centerDialogVisible1" width="738px">
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh">
+						<span class="fleft Dialogkey" style="line-height: 40px;">
+							合同ID
+						</span>
+						<el-input style="width: 200px;" v-model="contract_id" placeholder="请输入内容"></el-input>
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="reject1">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="supply()">确定终止</button>
+			</span>
+		</el-dialog>
 	</div>
 </template>
 
@@ -19,6 +70,8 @@
 		},
 		data() {
 			return {
+				reason:"",
+				comment:"",
 				commonTopData: {
 					num:false,
 					"pageName": "publishWork",
@@ -61,7 +114,7 @@
 						{prop:'publish_time',lable:'发布时间'},
 						{prop:'check_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 					],
 					list1: [
 						{prop:'project_id',lable:'项目ID'},
@@ -76,7 +129,7 @@
 						{prop:'check_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 					],
 					list2: [
 						{prop:'project_id',lable:'项目ID'},
@@ -91,7 +144,7 @@
 						{prop:'check_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 					],
 					list3: [
 						{prop:'project_id',lable:'项目ID'},
@@ -107,7 +160,7 @@
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'deadline',lable:'报名人数'},
 						{prop:'deadline',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 					],
 					list4: [
 						{prop:'project_id',lable:'项目ID'},
@@ -131,7 +184,7 @@
 						{prop:'deadline',lable:'成交方式'},
 						{prop:'deadline',lable:'需求ID'},
 						{prop:'deadline',lable:'项目评级'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 					],
 					list5: [
 						{prop:'project_id',lable:'项目ID'},
@@ -147,11 +200,13 @@
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'deadline',lable:'报名人数'},
 						{prop:'deadline',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
 						{prop:'deadline',lable:'终止理由'},
 					],
 					data:'status',
 				},
+				centerDialogVisible:false,
+				centerDialogVisible1:false,
 				tableData: [],
 				tableAction: {
 					num:true,
@@ -229,8 +284,7 @@
 									name:(da)=>{
 										return '选标';
 									},
-								/* 	filterdata:"is_recommend", */
-									fun:"confirm",
+									fun:"selectobj",
 									accessid:"200062",
 								},
 								{
@@ -263,6 +317,15 @@
 						morebtns:{
 							name:"更多",
 							child:[
+								
+								{
+									name:(da)=>{
+										return '验收审核';
+									},
+									fun:"review",
+									/* filterdata:"status", */
+									accessid:"200062",
+								},
 								{
 									name:(da)=>{
 										return "编辑"
@@ -272,26 +335,20 @@
 								},
 								{
 									name:(da)=>{
-										return '验收审核';
+										return '补充合同ID';
 									},
-									fun:"a",
+								/* 	filterdata:"is_recommend", */
+									fun:"reject1",
 									accessid:"200062",
 								},
 								{
 									name:(da)=>{
 										return '终止';
 									},
-									fun:"s",
+									fun:"reject",
 									accessid:"200062",
 								},
-								{
-									name:(da)=>{
-										return '补充合同ID';
-									},
-								/* 	filterdata:"is_recommend", */
-									fun:"confirm",
-									accessid:"200062",
-								},
+								
 							]
 						},
 						links:{
@@ -407,11 +464,78 @@
 				IsDetail:1,
 				roles:{},
 				top_banner: [],
+				crow:{},
+				tableData:{},
+				contract_id:""
 			}
 		},
 		watch: {},
 		computed: {},
 		methods: {
+			reject1(row){
+				this.crow = row;
+				this.centerDialogVisible1 =!this.centerDialogVisible1;
+			},
+			supply(){
+				let row = this.crow;
+				this.api.bindContract({
+					access_token:localStorage.getItem("access_token"),
+					project_id:row.project_id,
+					contract_id:this.contract_id 
+				}).then(da=>{
+					if(da.result == 0){
+						this.$refs.Tabledd.getTabData();
+						this.centerDialogVisible=false;
+					}
+				}).catch(da=>{
+					
+				})
+			},
+			getData() {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 100,
+				}
+				this.api.reviewreason(data).then((da) => {
+					this.tableData = da.data;
+				}).catch(() => {
+					
+				});
+			},
+			reject(row){
+				this.crow = row;
+				this.centerDialogVisible =!this.centerDialogVisible;
+			},
+			stop(){
+				let row = this.crow;
+				this.api.terminate({
+					access_token:localStorage.getItem("access_token"),
+					project_id:row.project_id,
+					reason:this.reason,
+					comment:this.comment
+				}).then(da=>{
+					if(da.result == 0){
+						this.$refs.Tabledd.getTabData();
+						this.centerDialogVisible=false;
+					}
+				}).catch(da=>{
+				})
+			},
+			review(row){
+				
+			},
+			selectobj(row){
+				this.$router.push({
+					path:"/projectManagement/projectList/projectDetial",
+					query:{
+						id: row.project_id,
+						status:row.status,
+						index:3
+					}
+				})
+			},
 			ISshow(){
 				this.$refs.Tabledd.reject();
 			},
@@ -452,7 +576,7 @@
 			}
 		},
 		created() {
-			
+			this.getData()
 		},
 		mounted() {
 			

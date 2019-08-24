@@ -196,6 +196,12 @@
 							
 						}
 					break;
+					case "projectreview":
+						if(!setid){
+							this.router.push({path:"/review/projectreview/projectdetial",query:{id:row.id,type:5,check_status:row.check_status,work_id:row.work_id}});
+							
+						}
+					break;
 					case "finalistsWork":
 						if(!setid){
 							this.router.push({path:"/review/finalistsWork/workDetial",query:{id:row.id,type:2,check_status:row.check_status,work_id:row.work_id}});
@@ -573,7 +579,6 @@
 					break;
 					case "newproject":
 						if(!setid){
-							alert(2)
 						   this.$parent.$parent.getactivitiesrows1(row);
 						   this.$parent.$parent.dialogTableVisible2 = false;
 						};

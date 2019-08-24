@@ -53,6 +53,9 @@ export default {
 	reviewList4:{
 		url:'/admin/Review/list?type=4',method:'post',baseURL:0
 	},
+	reviewList5:{
+		url:'/admin/Review/list',method:'post',baseURL:0
+	},
 	access:{
 		url:'/admin/Menu/access',method:'post',baseURL:0,isType:{isok:true}
 	},
@@ -73,7 +76,9 @@ export default {
 	reviewInfo4:{
 		url:'/admin/Review/info?type=4',method:'post',baseURL:0
 	},
-	
+	reviewInfo5:{
+		url:'/admin/Review/info?type=5',method:'post',baseURL:0
+	},
 	reviewCheck1:{
 		url:'/admin/Review/check?type=1',method:'post',baseURL:0,isType:{suktip:true}
 	},
@@ -435,5 +440,12 @@ export default {
 	fileRecord:{
 		url:'/admin/project/fileRecord',method:'post',baseURL:0
 	},
+	terminate:{
+		url:'/Api/project/terminate',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	bindContract:{
+		url:'/Api/project/bindContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	}
+	
 	
 }

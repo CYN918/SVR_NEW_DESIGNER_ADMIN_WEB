@@ -26,7 +26,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "finalistsWork",
+					"pageName": "projectreview",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
@@ -60,19 +60,19 @@
 							/* accessid:"15", */
 						}
 					],
-					'tabnums':1,
+					'tabnums':3,
 				},
 				screenConfig: [],
 				tableConfig: {
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					list: DataScreen.screenShow.finalistsWork.bts
+					list: DataScreen.screenShow.projectreview.bts
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.finalistsWork.action,
+				tableAction: DataScreen.screenShow.projectreview.action,
 				detailData: "",
-				filterFields:DataScreen.screen.finalistsWork.filterFields,
+				filterFields:DataScreen.screen.projectreview.filterFields,
 				IsDetail:1,
 				roles:{},
 			}
@@ -101,12 +101,11 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
-					sreenData.type = 2
+					sreenData.type = 5
 					data = sreenData;
 				}
 
-				this.api.reviewList2(data).then((da) => {
-					
+				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -153,7 +152,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/review/finalistsWork',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/review/projectreview',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			delect(id){

@@ -157,9 +157,9 @@
 						<el-date-picker
 						  v-model="form['deadline']"
 						  type="datetime"
-						  :disabled="objstatus > 2 || form['rule_type'] == 2"
+						  :disabled="objstatus > 2 || typebtn == 1"
 						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :placeholder="form['rule_type'] == 1 ? '选择日期时间' : '你已制定制作人，项目发布后即进入制作期'" >
+						  :placeholder="typebtn == 1 ? '你已制定制作人，项目发布后即进入制作期':'选择日期时间'" >
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -346,7 +346,7 @@
 					production_cycle_d:"",
 					production_cycle_h:"",
 					demand_id:"",
-					objstatus:""
+					
 				},
 				Isnextshow: false,
 				myConfig: {
@@ -437,7 +437,8 @@
 				],
 				yonghudata:{},
 				selectelists3:{},
-				selectelists:[]
+				selectelists:[],
+				objstatus:0
 			}
 		},
 		components: {
@@ -449,7 +450,7 @@
 			reject(){
 				this.selectelists3 = this.$refs.tabs3.selectelistsobj;
 				this.selectelists = this.$refs.tabs3.selectelists
-				console.log(this.selectelists);
+				//console.log(this.selectelists);
 				this.dialogTableVisible1=false;
 			},
 			reject1(){
@@ -864,10 +865,12 @@
 					this.selectData1.file_size_format = da.file_size_format;
 					this.detailtext = JSON.parse(da.desc);
 					this.form['rule_type'] = da.rule_type;
-					if(da.rule_type == "1"){
-						this.typebtn = 0;
-					} else {
-						this.typebtn = 1;
+					if(!this.$route.query.usernameitem){
+						if(da.rule_type == "1"){
+							this.typebtn = 0;
+						} else {
+							this.typebtn = 1;
+						}
 					}
 					this.form.production_cycle_d = da.production_cycle_d;
 					this.form.production_cycle_h = da.production_cycle_h;
@@ -1123,7 +1126,7 @@
 					access_token:localStorage.getItem("access_token"),
 					is_activity:1
 				}).then(da=>{
-					console.log(da);
+					//console.log(da);
 					this.demandlist = da;
 					if(this.$route.query.row){
 						this.rows = JSON.parse(this.$route.query.row);
@@ -1192,12 +1195,20 @@
 				this.detailtext = JSON.parse(this.rows.desc);
 				this.objstatus = parseInt(this.rows.status);
 			}
+			if(this.$route.query.usernameitem){
+				this.typebtn =1;
+				this.selectelists = []
+				this.selectelists.push(JSON.parse(this.$route.query.usernameitem)) 
+			}
+			
+			
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
 			this.getData1();
 			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
+			
 		},
 		watch:{
 			"$route":function(){

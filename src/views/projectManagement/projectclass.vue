@@ -26,7 +26,7 @@
 						fun: "ISshow"
 					}],
 					"commonrightbtn0": [{
-						name: "新建项目",
+						name: "新建项目分类",
 						id: "right1",
 						fun: "add"
 					}],
@@ -43,6 +43,7 @@
 						{name:"模板预设"},
 					],
 					'tabnums':0,
+					num:true
 				},
 				screenConfig: [],
 				tableConfig: {
@@ -182,7 +183,6 @@
 						id: row.id
 					}
 				})
-				
 			}
 		},
 		created() {

@@ -108,7 +108,7 @@
 			},
 			selectelist(it){
 				
-				if(this.selectelistsobj[it.open_id]){
+				/* if(this.selectelistsobj[it.open_id]){
 					this.selectelists.forEach((item,index)=>{
 						if(it.open_id == item.open_id){
 							this.selectelists.splice(index,1);
@@ -118,7 +118,12 @@
 				} else{
 					this.$set(this.selectelistsobj,it.open_id,it.open_id);
 					this.selectelists.push(it)
-				}
+				} */
+				this.selectelists = []
+				this.selectelistsobj = {};
+				this.$set(this.selectelistsobj,it.open_id,it.open_id);
+				this.selectelists.push(it);
+				
 				
 			},
 			
