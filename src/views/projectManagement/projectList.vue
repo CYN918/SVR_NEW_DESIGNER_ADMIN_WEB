@@ -524,7 +524,9 @@
 				})
 			},
 			review(row){
-				
+				this.$router.push({
+					path:"/review/projectreview",
+				})
 			},
 			selectobj(row){
 				this.$router.push({

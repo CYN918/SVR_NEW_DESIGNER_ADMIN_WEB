@@ -33,11 +33,43 @@
 					</router-link>
 				</li>
 			</ul>
-			<div class="paddinglr40 ofh" v-if="tabsnum == 1 ">
-				
-			</div>
-			<ul v-if="tabsnum == 1">
-				
+			<ul v-if="tabsnum == 1 ">
+				<li class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.type == 'text'">{{ getValue(material_info[item.id])  }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<span v-if="item.type == 'recommend'">{{ material_info[item.id] ? material_info[item.id] : "不推荐" }}</span>
+					<span v-else-if="item.type == 'arr'">
+						<span v-for="(item,index) in material_info.labels" :key = "item">{{ item + (index == (material_info.labels.length - 1) ? "" : "/")  }}</span>
+					</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="material_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="material_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="material_info[item.id]" alt="没有图片">
+					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(material_info[item.id])  }} </span>
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="material_info[item.id]" alt="没有图片">
+					<span v-else-if="item.type == 'child'">{{  getValue(item.child[material_info[item.id]])}}</span>
+					<router-link to="/" v-else-if="item.type == 'url'">
+						<span class="routerLink">{{ getValue(material_info[item.id]) }}</span>
+					</router-link>
+				</li>
+			</ul>
+			<ul v-if="tabsnum == 2">
+				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
+					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="!item.type">{{ title }}</span>
+					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="没有图片">
+					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
+					<button :class="'workbtn defaultbtn0 defaultbtn'+check_info[item.id]" v-else-if="item.type == 'btn'">
+						{{ getValue(item.child[check_info[item.id]]) }}
+					</button>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
+					<router-link to="/" v-else-if="item.type == 'url'">
+						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
+					</router-link>
+				</li>
 			</ul>
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
@@ -45,7 +77,6 @@
 			<button class="defaultbtn" @click="reject3">下载稿件</button>
 			<button class="defaultbtn defaultbtnactive" @click="reject">验收驳回</button>
 			<button class="defaultbtn" @click="agree()">验收通过</button>
-			
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 
@@ -118,29 +149,69 @@
 		</el-dialog>
 		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible2">
 			<div style="position: relative;">
-				<div class="textcenter">
-					<span style="margin-right:0" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange1(index,item.name)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-						{{ item.name }}
-					</span>
-					<span style="margin-right:0;color:gainsboro" class="tabs">
-						分成式
-					</span>
-					<div class="textcenter employipt" v-if="tabsnum1 == 0">
-						<span style="display: inline-block;">录用价格</span>
-						<span class="defaultbtn0 employmonre"><input class="w fleft" type="text" v-model="price1">单位：元</span>
-					</div>
-					<div v-if="tabsnum1 == 1">
+				<ul class="textcenter">
+					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
-							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" style="color: #DCDFE6;" type="text" v-model="price2">单位：元</span>
+							<span class="fleft Dialogkey">项目评级</span>
+							<el-button-group class="sel-dialog-content fleft">
+							  <el-button :type="typebtn==0 ? 'primary' : ''"  @click="getrule(0)">S</el-button>
+							  <el-button :type="typebtn==1 ? 'primary' : ''"  @click="getrule(1)">A</el-button>
+							  <el-button :type="typebtn==2 ? 'primary' : ''"  @click="getrule(2)">B</el-button>
+							  <el-button :type="typebtn==3 ? 'primary' : ''"  @click="getrule(3)">C</el-button>
+							  <el-button :type="typebtn==4 ? 'primary' : ''"  @click="getrule(4)">D</el-button>
+							</el-button-group>
 						</div>
-					</div>
-				</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey">成交方式</span>
+							<el-button-group class="sel-dialog-content fleft">
+							  <el-button :type="typebtn1==0 ? 'primary' : ''"  @click="getrule1(0)">买断式</el-button>
+							  <el-button :type="typebtn1==1 ? 'primary' : ''"  @click="getrule1(1)">分成式</el-button>
+							</el-button-group>
+						</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey">验收价格</span>
+							<el-input 
+							  style="width: 300px"
+							  class="fleft sel-dialog-content"
+							  placeholder="请输入内容"
+							  v-model="input"
+							  clearable>
+							</el-input>
+						</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey">延期交稿扣减</span>
+							
+							<el-input
+							  style="width: 300px"
+							  class="fleft sel-dialog-content"
+							  placeholder="请输入内容"
+							  v-model="input"
+							  clearable>
+							</el-input>
+						</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey">选择需求</span>
+							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content">
+								 <el-radio-group v-model="did">
+									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did" :label="item.demand_name">
+										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
+									</el-option>
+								</el-radio-group>
+							</el-select>
+						</div>
+					</li>
+				</ul>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
-				<el-button size="medium" @click="setdemand()">上一步</el-button>
+				<el-button size="medium" @click="reject2()">取消</el-button>
 				<el-button size="medium" type="primary" @click="contributor1('lu')">确定并通过</el-button>
 			</span>
 		</el-dialog>
@@ -240,7 +311,93 @@
 					}],
 				tabsnum: 0,
 				tabsnum1: 0,
-				workData: '',
+				fileData:[
+					{
+						name:"交稿文件",
+						id:"work_id",
+						type:"text"
+					},
+					{
+						name:"文件大小",
+						id:"work_name",
+						type:"text"
+					},
+					{
+						name:"备注说明",
+						id:"work_name",
+						type:"text"
+					}
+				],
+				workData: [
+					{
+						name:"项目ID",
+						id:"work_id",
+						type:"text"
+					},
+					{
+						name:"项目名称",
+						id:"work_name",
+						type:"text"
+					},
+					{
+						name:"业务类型",
+						id:"work_name",
+						type:"text"
+					},
+					{
+						name:"banner",
+						id:"face_pic",
+						type:"imgfeng"
+					},
+					{
+						name:"领域范围",
+						id:"labels",
+						type:"arr"
+					},
+					{
+						name:"项目需求说明",
+						id:"user_name",
+						type:"text"
+					},
+					
+					{
+						name:"预计收益",
+						id:"classify",
+						type:"text"
+					},
+					{
+						name:"额外赏金",
+						id:"labels",
+						type:"text"
+					},
+					
+					{
+						name:"发布时间",
+						id:"create_time",
+						type:"text"
+					},
+					{
+						name:"中标",
+						id:"update_at",
+						type:"text"
+					},
+					{
+						name:"截稿时间",
+						id:"update_at",
+						type:"text"
+					},
+					{
+						name:"中标人",
+						id:"update_at",
+						type:"text"
+					},
+					{
+						name:"状态",
+						id:"update_at",
+						type:"text"
+					},
+					
+				],
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
 				centerDialogVisible2: false,
@@ -252,14 +409,69 @@
 				detailbtn: true,
 				checkList: [],
 				checkAll: [],
-				reviewinfocommon: [],
+				reviewinfocommon: [
+					{
+						name:"审核ID",
+						id:"id",
+						type:"text"
+					},
+					{
+						name:"提审项",
+					},
+					{
+						name:"提审用户ID",
+						id:"open_id",
+						type:"text"
+					},
+					{
+						name:"提审用户昵称",
+						id:"username",
+						type:"url"
+					},
+					{
+						name:"提审时间",
+						id:"create_time",
+						type:"text"
+					},
+					{
+						name:"当前审核状态",
+						id:"check_status",
+						type:"btn",
+						child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
+					},
+					{
+						name:"审核角色",
+						id:"role",
+						type:"text"
+					},
+					{
+						name:"审核人",
+						id:"check_admin_name",
+						type:"text"
+					},
+					{
+						name:"AI审核描述",
+						id:"ai_check_desc",
+						type:"text"
+					},
+					{
+						name:"审核时间",
+						id:"check_time",
+						type:"text"
+					},
+					{
+						name:"最近更新时间",
+						id:"check_time",
+						type:"text"
+					}
+				],
 				reviewinfostatus: [],
 				/* status_info: parseInt(this.$route.query.check_status), */
 				status_info:"",
 				apply_info: {},
 				check_info:{},
 				material_info:{},
-				title: "作品发布",
+				title: "项目验收",
 				options: [],
 				value: '',
 				channel:"",
@@ -306,10 +518,18 @@
 				isimgurl:false,
 				imgurl:"",
 				adminuseraccess: [],
-				oneload:{}
+				oneload:{},
+				typebtn:"",
+				typebtn1:""
 			}
 		},
 		methods: {
+			getrule(n){
+				this.typebtn = n;
+			},
+			getrule1(n){
+				this.typebtn1 = n;
+			},
 			getimgulr(url){
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
@@ -336,31 +556,7 @@
 				return a;
 			},
 			getparent() {
-				//alert(parseInt(this.$route.query.type))
-				/* switch (this.pagetype){
-					case 1:
-						this.router.push({
-							path: "/review/publishWork"
-						})
-						break;
-					case 2:
-						this.router.push({
-							path: "/review/finalistsWork"
-						})
-						break;
-					case 3:
-						this.router.push({
-							path: "/review/employWork"
-						})
-						break;
-					case 4:
-						this.router.push({
-							path: "/review/applyPerson"
-						})
-						break;
-					default:
-						break;
-				} */
+				
 				this.$router.go(-1);
 				
 			},
@@ -389,67 +585,12 @@
 			tabsChange1(num){
 				this.tabsnum1 = num;
 			},
-			getkey() {
-				//alert(typeof this.status_info)
-				var pagename = "";
-				switch (this.pagetype) {
-					case 1:
-						pagename = "publishWork";
-						this.title = "作品发布"
-						break;
-					case 2:
-						pagename = "finalistsWork";
-						
-						this.title = "作品入围"
-						break;
-					case 3:
-						pagename = "employWork";
-						this.title = "作品录用"
-						break;
-					case 4:
-						pagename = "applyPerson";
-						this.title = "供稿人申请"
-						break;
-				};
-				
-				
-				if(this.pagetype == 4){
-					//alert(this.contributor_type)
-					if(this.contributor_type == 1) {
-						this.workData = reviewData[pagename].contributor_type1;
-					} else {
-						this.workData = reviewData[pagename].contributor_type2;
-					}
-				} else {
-					this.workData = reviewData[pagename].workInfo;
-				}
-				
-				
-				this.reviewinfocommon = reviewData[pagename].reviewinfo.common;
-				if (this.status_info == 1 && this.pagetype != 4) {
-					if (this.pagetype == 3){
-						if(this.hire_type == 1){
-							this.reviewinfostatus = reviewData[pagename].reviewinfo.status1.hire_type1;
-						} else {
-							this.reviewinfostatus = reviewData[pagename].reviewinfo.status1.hire_type2;
-						}
-					} else {
-						this.reviewinfostatus = reviewData[pagename].reviewinfo.status1;
-					}
-					
-					//console.log(this.reviewinfostatus);
-				};
-				if (this.status_info == -1) {
-					//alert(2)
-					this.reviewinfostatus = reviewData[pagename].reviewinfo.status_1;
-				};
-			},
 			reject() {
 				this.centerDialogVisible = !this.centerDialogVisible;
 			},
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
-				this.reject4();
+				
 			},
 			reject3() {
 				this.centerDialogVisible3 = !this.centerDialogVisible3;
@@ -477,9 +618,11 @@
 				this.reject();
 			},
 			contributor1(n) {
-				this.centerDialogVisible1 = false;
-				this.centerDialogVisible2 = false;
-				this.$confirm('确定将该'+ this.title +'审核通过', '确认修改', {
+				
+				
+				/* this.centerDialogVisible1 = false;
+				this.centerDialogVisible2 = false; */
+				this.$confirm('确定将该项目审核通过', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,
@@ -487,7 +630,7 @@
 					customClass:"work",
 					center: true
 				}).then(() => {
-					var data = {
+					/* var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: this.$route.query.type,
 						id: this.$route.query.id,
@@ -509,7 +652,9 @@
 						}
 						data.demand_id = this.did
 					}
-					this.submint(data)
+					this.submint(data) */
+					
+					this.reject2()
 				}).catch(() => {
 					this.$message({
 						type: 'info',
@@ -546,23 +691,7 @@
 				});
 			},
 			agree() {
-				switch (this.pagetype){
-					case 1:
-						this.centerDialogVisible1 = !this.centerDialogVisible1;
-						break;
-					case 2:
-						this.contributor1();
-						break;
-					case 3:
-						this.centerDialogVisible4 = !this.centerDialogVisible4;
-						
-						break;
-					case 4:
-						this.contributor1();
-						break;
-					default:
-						break;
-				}
+				this.contributor1();
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
@@ -653,36 +782,6 @@
 				})
 				this.centerDialogVisible5 = false;
 			},
-			handleCheckAllChange() {
-				//this.checkList = this.checkAll;
-				this.font_size = 0;
-				console.log(this.material_info)
-				if(this.material_info['视频']){
-					this.material_info['视频'].forEach(item =>{
-						this.openurls.push({name:"视频",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['音频']){
-					this.material_info['音频'].forEach(item =>{
-						this.openurls.push({name:"音频",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['附件']){
-					this.material_info['附件'].forEach(item =>{
-						this.openurls.push({name:"附件",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				if(this.material_info['图片']){
-					this.material_info['图片'].forEach(item =>{
-						this.openurls.push({name:"图片",id:item.url});
-						this.font_size += Number(item.file_size);
-					})
-				}
-				this.centerDialogVisible5 = !this.centerDialogVisible5
-			},
 			cancel() {
 				this.checkList = [];
 				this.font_size = 0;
@@ -694,9 +793,9 @@
 					id: this.$route.query.id,
 				}).then(da => {
 					//console.log(da)
-					this.apply_info = da.apply_info;
+					this.apply_info = da.project_info;
 					this.check_info = da.check_info;
-					this.material_info = da.material_info;
+					this.material_info = da.file_info;
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
 					if(da.check_info.hire_type){
@@ -706,10 +805,8 @@
 						this.contributor_type = da.apply_info.contributor_type;
 					} */
 					
-					if(this.pagetype == 3){
-						this.getdemandcheck();
-					}
-					this.getkey();
+					
+					this.getdemandcheck();
 				}).catch(da => {
 
 				})
