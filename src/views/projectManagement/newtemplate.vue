@@ -253,6 +253,19 @@
 				})
 			},
 			swapItems(arr, index1, index2) {
+				if(index2 >= arr.length){
+					this.$message({
+						message:"到底了"
+					});
+					return
+				}
+				
+				if(index2 < 0){
+					this.$message({
+						message:"已经是第一个了"
+					});
+					return
+				}
 				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
 				this.detailtext = arr; 
 			},
@@ -281,7 +294,7 @@
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + num];
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
-				this.$router.push({ path: '/activityManager/activityEmploy/newActivity', query: {urlDate: ''}});
+				this.$router.push({ path: '/projectManagement/projectclass/newtemplate', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			edit() {
@@ -725,7 +738,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/activityManager/activityEmploy/newActivity',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/projectManagement/projectclass/newtemplate',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(){

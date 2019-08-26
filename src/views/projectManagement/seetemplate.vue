@@ -86,7 +86,6 @@
 				}
 			},
 			getinfo(){
-				
 				this.api.projecttemplatedetail({
 					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id

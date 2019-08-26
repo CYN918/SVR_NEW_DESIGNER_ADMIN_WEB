@@ -27,6 +27,9 @@
 				<router-link to="/projectManagement/projectList">
 					<el-menu-item index="3-2" class="">项目发布</el-menu-item>
 				</router-link>
+				<router-link to="/projectManagement/Profit">
+					<el-menu-item index="3-3" class="">收益成长设置</el-menu-item>
+				</router-link>
 			</el-submenu>
 			<!-- <el-submenu index="7">
 				<template slot="title">

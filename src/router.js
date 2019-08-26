@@ -843,6 +843,15 @@ var router = new Router({
 					component: () => import('@/views/projectManagement/projectList.vue'),
 				},
 				{
+					path:"Profit",
+					name: 'Profit',
+					meta: {
+						title: "收益成长设置",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/Profit.vue'),
+				},
+				{
 					path:"projectList/newproject",
 					name: 'newproject',
 					meta: {

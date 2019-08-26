@@ -447,6 +447,12 @@ export default {
 	},
 	bindContract:{
 		url:'/Api/project/bindContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	profitconfiginfo:{
+		url:'/admin/profitconfig/info',method:'post',baseURL:0
+	},
+	profitconfigsave:{
+		url:'/admin/profitconfig/save',method:'post',baseURL:0,isType:{suktip:true}
 	}
 	
 	

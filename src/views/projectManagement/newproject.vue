@@ -496,6 +496,19 @@
 				})
 			},
 			swapItems(arr, index1, index2) {
+				if(index2 >= arr.length){
+					this.$message({
+						message:"到底了"
+					});
+					return
+				}
+				
+				if(index2 < 0){
+					this.$message({
+						message:"已经是第一个了"
+					});
+					return
+				}
 				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
 				this.detailtext = arr; 
 			},
