@@ -91,7 +91,9 @@ export default {
 	reviewCheck4:{
 		url:'/admin/Review/check?type=4',method:'post',baseURL:0,isType:{suktip:true}
 	},
-	
+	reviewCheck:{
+		url:'/admin/Review/check?type=5',method:'post',baseURL:0,isType:{suktip:true}
+	},
 	todoCount:{
 		url:'/admin/Review/todoCount',method:'post',baseURL:0
 	},
@@ -426,7 +428,7 @@ export default {
 		url:'/admin/project/detail',method:'post',baseURL:0
 	},
 	selectUser:{
-		url:'/Api/project/selectUser',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url:'/admin/project/selectUser',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	projectupdate:{
 		url:'/admin/project/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}

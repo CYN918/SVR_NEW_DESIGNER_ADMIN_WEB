@@ -10,7 +10,7 @@
 					{{ item.name }}
 				</span>
 			</div>
-			
+
 		</div>
 		<div class="detailContent1 ofh">
 			<ul v-if="tabsnum == 0">
@@ -20,14 +20,14 @@
 					<span v-if="!item.type">{{ title }}</span>
 					<span v-if="item.type == 'recommend'">{{ apply_info[item.id] ? apply_info[item.id] : "不推荐" }}</span>
 					<span v-else-if="item.type == 'arr'">
-						<span v-for="(item,index) in apply_info.labels" :key = "item">{{ item + (index == (apply_info.labels.length - 1) ? "" : "/")  }}</span>
+						<span v-for="(item,index) in apply_info.labels" :key="item">{{ item + (index == (apply_info.labels.length - 1) ? "" : "/")  }}</span>
 					</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="apply_info[item.id]" alt="没有图片">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="apply_info[item.id]" alt="没有图片">
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="apply_info[item.id]" alt="没有图片">
 					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(apply_info[item.id])  }} </span>
 					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="apply_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'child'">{{  getValue(item.child[apply_info[item.id]])}}</span>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[apply_info[item.id]])}}</span>
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ getValue(apply_info[item.id]) }}</span>
 					</router-link>
@@ -40,14 +40,14 @@
 					<span v-if="!item.type">{{ title }}</span>
 					<span v-if="item.type == 'recommend'">{{ material_info[item.id] ? material_info[item.id] : "不推荐" }}</span>
 					<span v-else-if="item.type == 'arr'">
-						<span v-for="(item,index) in material_info.labels" :key = "item">{{ item + (index == (material_info.labels.length - 1) ? "" : "/")  }}</span>
+						<span v-for="(item,index) in material_info.labels" :key="item">{{ item + (index == (material_info.labels.length - 1) ? "" : "/")  }}</span>
 					</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="material_info[item.id]" alt="没有图片">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="material_info[item.id]" alt="没有图片">
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="material_info[item.id]" alt="没有图片">
 					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(material_info[item.id])  }} </span>
 					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="material_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'child'">{{  getValue(item.child[material_info[item.id]])}}</span>
+					<span v-else-if="item.type == 'child'">{{ getValue(item.child[material_info[item.id]])}}</span>
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ getValue(material_info[item.id]) }}</span>
 					</router-link>
@@ -75,8 +75,8 @@
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn" @click="reject3">下载稿件</button>
-			<button class="defaultbtn defaultbtnactive" @click="reject">验收驳回</button>
-			<button class="defaultbtn" @click="agree()">验收通过</button>
+			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject">验收驳回</button>
+			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject2()">验收通过</button>
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 
@@ -154,11 +154,11 @@
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">项目评级</span>
 							<el-button-group class="sel-dialog-content fleft">
-							  <el-button :type="typebtn==0 ? 'primary' : ''"  @click="getrule(0)">S</el-button>
-							  <el-button :type="typebtn==1 ? 'primary' : ''"  @click="getrule(1)">A</el-button>
-							  <el-button :type="typebtn==2 ? 'primary' : ''"  @click="getrule(2)">B</el-button>
-							  <el-button :type="typebtn==3 ? 'primary' : ''"  @click="getrule(3)">C</el-button>
-							  <el-button :type="typebtn==4 ? 'primary' : ''"  @click="getrule(4)">D</el-button>
+								<el-button :type="typebtn=='S' ? 'primary' : ''" @click="getrule('S')">S</el-button>
+								<el-button :type="typebtn=='A' ? 'primary' : ''" @click="getrule('A')">A</el-button>
+								<el-button :type="typebtn=='B' ? 'primary' : ''" @click="getrule('B')">B</el-button>
+								<el-button :type="typebtn=='C' ? 'primary' : ''" @click="getrule('C')">C</el-button>
+								<el-button :type="typebtn=='D' ? 'primary' : ''" @click="getrule('D')">D</el-button>
 							</el-button-group>
 						</div>
 					</li>
@@ -166,46 +166,85 @@
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">成交方式</span>
 							<el-button-group class="sel-dialog-content fleft">
-							  <el-button :type="typebtn1==0 ? 'primary' : ''"  @click="getrule1(0)">买断式</el-button>
-							  <el-button :type="typebtn1==1 ? 'primary' : ''"  @click="getrule1(1)">分成式</el-button>
+								<el-button :type="typebtn1==1 ? 'primary' : ''" @click="getrule1(1)">买断式</el-button>
+								<el-button :type="typebtn1==2 ? 'primary' : ''" @click="getrule1(2)">分成式</el-button>
 							</el-button-group>
 						</div>
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">验收价格</span>
-							<el-input 
-							  style="width: 300px"
-							  class="fleft sel-dialog-content"
-							  placeholder="请输入内容"
-							  v-model="input"
-							  clearable>
+							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="acceptance_price"
+							 clearable>
 							</el-input>
 						</div>
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">延期交稿扣减</span>
-							
-							<el-input
-							  style="width: 300px"
-							  class="fleft sel-dialog-content"
-							  placeholder="请输入内容"
-							  v-model="input"
-							  clearable>
-							</el-input>
+							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deduction_price"
+							 clearable></el-input>
+						</div>
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="color: transparent;">延期交稿扣减</span>
+							<span class="fleft sel-dialog-content">
+								作者已延期<span>{{ get_time_diff(apply_info.delivery_deadline) }}</span>，理应扣减<span>￥{{ getdeduction_price(apply_info.delivery_deadline) }}</span>（验收价格*10%*延期天数）
+							</span>
 						</div>
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">选择需求</span>
 							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content">
-								 <el-radio-group v-model="did">
-									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did" :label="item.demand_name">
+								<el-radio-group v-model="did">
+									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
+									 :label="item.demand_name">
 										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
 									</el-option>
 								</el-radio-group>
 							</el-select>
+						</div>
+					</li>
+				</ul>
+				<ul>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey">最终价格</span>
+							<span class="fleft sel-dialog-content">
+								<span>
+									￥{{ getdeal_price() }}
+								</span>
+							</span>
+						</div>
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="color: transparent;">111</span>
+							<ul class="ofh sel-dialog-content">
+								<li class="fleft">
+									<div>￥{{ acceptance_price }}</div>
+									<div>验收价格</div>
+								</li>
+								<li class="fleft" style="margin: 0 20px;">
+									<div>-</div>
+								</li>
+								<li class="fleft">
+									<div>￥{{ deduction_price }}</div>
+									<div>延期交稿扣减</div>
+								</li>
+								<li class="fleft" style="margin: 0 20px;">
+									<div>+</div>
+								</li>
+								<li class="fleft">
+									<div>￥{{ apply_info.extra_reward }}</div>
+									<div>额外赏金</div>
+								</li>
+								<li class="fleft" style="margin: 0 20px;">
+									<div>+</div>
+								</li>
+								<li class="fleft">
+									<div>￥{{ acceptance_price * apply_info.gain_share_rate }}</div>
+									<div>收益加成</div>
+								</li>
+							</ul>
 						</div>
 					</li>
 				</ul>
@@ -218,7 +257,7 @@
 		<el-dialog :title="title + '-发送修改通知'" :visible.sync="centerDialogVisible3" width="738px">
 			<div style="position: relative;">
 				<ul>
-					
+
 					<li class="w ofh">
 						<span class="fleft Dialogkey">
 							修改内容
@@ -227,18 +266,17 @@
 							<div>
 								<textarea name="" id="" cols="60" rows="10" v-model="content" class="defaultbtnwork"></textarea>
 							</div>
-							<!-- <span class="fright fontcolorg">{{ content.length }}/300</span> -->
 						</div>
 					</li>
 				</ul>
-		
+
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="reject3">取消</button>
 				<button class="defaultbtn defaultbtnactive" @click="sendmessage">发送通知</button>
 			</span>
 		</el-dialog>
-		
+
 		<el-dialog :title="title + '-选择需求ID'" :visible.sync="centerDialogVisible4" width="738px">
 			<div style="position: relative;">
 				<ul>
@@ -246,8 +284,9 @@
 						<div class="textcenter employipt">
 							<span style="display: inline-block;margin-right: 60px;">选择需求</span>
 							<el-select v-model="did" placeholder="请选择">
-								 <el-radio-group v-model="did">
-									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did" :label="item.demand_name">
+								<el-radio-group v-model="did">
+									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
+									 :label="item.demand_name">
 										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
 									</el-option>
 								</el-radio-group>
@@ -261,7 +300,7 @@
 				<button class="defaultbtn defaultbtnactive" @click="setdemand">下一步</button>
 			</span>
 		</el-dialog>
-		
+
 		<el-dialog :title="title + '确定全部下载'" :visible.sync="centerDialogVisible5" width="738px">
 			<div style="position: relative;">
 				<ul>
@@ -280,7 +319,7 @@
 				<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
 			</span>
 		</el-dialog>
-		
+
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
@@ -305,98 +344,97 @@
 					},
 					{
 						name: "审核信息",
-					}],
-				tabData1:[{
-						name: "买断式"
-					}],
-				tabsnum: 0,
-				tabsnum1: 0,
-				fileData:[
-					{
-						name:"交稿文件",
-						id:"work_id",
-						type:"text"
-					},
-					{
-						name:"文件大小",
-						id:"work_name",
-						type:"text"
-					},
-					{
-						name:"备注说明",
-						id:"work_name",
-						type:"text"
 					}
 				],
-				workData: [
-					{
-						name:"项目ID",
-						id:"work_id",
-						type:"text"
+				tabData1: [{
+					name: "买断式"
+				}],
+				tabsnum: 0,
+				tabsnum1: 0,
+				fileData: [{
+						name: "交稿文件",
+						id: "file_name",
+						type: "text"
 					},
 					{
-						name:"项目名称",
-						id:"work_name",
-						type:"text"
+						name: "文件大小",
+						id: "file_size",
+						type: "text"
 					},
 					{
-						name:"业务类型",
-						id:"work_name",
-						type:"text"
+						name: "备注说明",
+						id: "work_name",
+						type: "remark"
+					}
+				],
+				workData: [{
+						name: "项目ID",
+						id: "project_id",
+						type: "text"
 					},
 					{
-						name:"banner",
-						id:"face_pic",
-						type:"imgfeng"
+						name: "项目名称",
+						id: "name",
+						type: "text"
 					},
 					{
-						name:"领域范围",
-						id:"labels",
-						type:"arr"
+						name: "业务类型",
+						id: "business_type",
+						type: "text"
 					},
 					{
-						name:"项目需求说明",
-						id:"user_name",
-						type:"text"
-					},
-					
-					{
-						name:"预计收益",
-						id:"classify",
-						type:"text"
+						name: "banner",
+						id: "banner",
+						type: "imgfeng"
 					},
 					{
-						name:"额外赏金",
-						id:"labels",
-						type:"text"
-					},
-					
-					{
-						name:"发布时间",
-						id:"create_time",
-						type:"text"
+						name: "领域范围",
+						id: "fields",
+						type: "arr"
 					},
 					{
-						name:"中标",
-						id:"update_at",
-						type:"text"
+						name: "项目需求说明",
+						id: "desc",
+						type: "text"
+					},
+
+					{
+						name: "预计收益",
+						id: "expected_profit",
+						type: "text"
 					},
 					{
-						name:"截稿时间",
-						id:"update_at",
-						type:"text"
+						name: "额外赏金",
+						id: "extra_reward",
+						type: "text"
+					},
+
+					{
+						name: "发布时间",
+						id: "publish_time",
+						type: "text"
 					},
 					{
-						name:"中标人",
-						id:"update_at",
-						type:"text"
+						name: "中标时间",
+						id: "bidding_time",
+						type: "text"
 					},
 					{
-						name:"状态",
-						id:"update_at",
-						type:"text"
+						name: "截稿时间",
+						id: "delivery_deadline",
+						type: "text"
 					},
-					
+					{
+						name: "中标人",
+						id: "update_at",
+						type: "text"
+					},
+					{
+						name: "状态",
+						id: "project_status",
+						type: "text"
+					},
+
 				],
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
@@ -409,86 +447,89 @@
 				detailbtn: true,
 				checkList: [],
 				checkAll: [],
-				reviewinfocommon: [
-					{
-						name:"审核ID",
-						id:"id",
-						type:"text"
+				reviewinfocommon: [{
+						name: "审核ID",
+						id: "id",
+						type: "text"
 					},
 					{
-						name:"提审项",
+						name: "提审项",
 					},
 					{
-						name:"提审用户ID",
-						id:"open_id",
-						type:"text"
+						name: "提审用户ID",
+						id: "open_id",
+						type: "text"
 					},
 					{
-						name:"提审用户昵称",
-						id:"username",
-						type:"url"
+						name: "提审用户昵称",
+						id: "username",
+						type: "url"
 					},
 					{
-						name:"提审时间",
-						id:"create_time",
-						type:"text"
+						name: "提审时间",
+						id: "create_time",
+						type: "text"
 					},
 					{
-						name:"当前审核状态",
-						id:"check_status",
-						type:"btn",
-						child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
+						name: "当前审核状态",
+						id: "check_status",
+						type: "btn",
+						child: {
+							"0": "待审核",
+							"1": "审核通过",
+							"-1": "审核驳回",
+							"-2": "失效或撤回"
+						}
 					},
 					{
-						name:"审核角色",
-						id:"role",
-						type:"text"
+						name: "审核角色",
+						id: "role",
+						type: "text"
 					},
 					{
-						name:"审核人",
-						id:"check_admin_name",
-						type:"text"
+						name: "审核人",
+						id: "check_admin_name",
+						type: "text"
 					},
 					{
-						name:"AI审核描述",
-						id:"ai_check_desc",
-						type:"text"
+						name: "AI审核描述",
+						id: "ai_check_desc",
+						type: "text"
 					},
 					{
-						name:"审核时间",
-						id:"check_time",
-						type:"text"
+						name: "审核时间",
+						id: "check_time",
+						type: "text"
 					},
 					{
-						name:"最近更新时间",
-						id:"check_time",
-						type:"text"
+						name: "最近更新时间",
+						id: "check_time",
+						type: "text"
 					}
 				],
 				reviewinfostatus: [],
 				/* status_info: parseInt(this.$route.query.check_status), */
-				status_info:"",
+				status_info: "",
 				apply_info: {},
-				check_info:{},
-				material_info:{},
+				check_info: {},
+				material_info: {},
 				title: "项目验收",
 				options: [],
 				value: '',
-				channel:"",
-				price1:"",
-				price2:"",
-				pagetype:parseInt(this.$route.query.type),
-				hire_type:"",
-				contributor_type:parseInt(this.$route.query.contribute_type),
-				font_size:0,
-				tableData:[],
-				openurls:[],
-				videofid:"",
-				audiofid:"",
-				content:"",
-				centerDialogVisible4:false,
-				demandlist:[
-					{
+				channel: "",
+				price1: "",
+				price2: "",
+				pagetype: parseInt(this.$route.query.type),
+				hire_type: "",
+				contributor_type: parseInt(this.$route.query.contribute_type),
+				font_size: 0,
+				tableData: [],
+				openurls: [],
+				videofid: "",
+				audiofid: "",
+				content: "",
+				centerDialogVisible4: false,
+				demandlist: [{
 						"did": "SDE_000016",
 						"num": 1,
 						"hire_num": 0,
@@ -513,42 +554,98 @@
 						"need_num": 0
 					}
 				],
-				did:'',
-				fid:"",
-				isimgurl:false,
-				imgurl:"",
+				did: '',
+				fid: "",
+				isimgurl: false,
+				imgurl: "",
 				adminuseraccess: [],
-				oneload:{},
-				typebtn:"",
-				typebtn1:""
+				oneload: {},
+				typebtn: "",
+				typebtn1: "",
+				level: "",
+				deal_type: "",
+				acceptance_price: 0,
+				deduction_price: 0,
+				deal_price: 0
 			}
 		},
 		methods: {
-			getrule(n){
+			get_time_diff(ti) {
+				var time = new Date(ti.replace(/-/g, "/")).getTime();
+				var diff = '';
+				var time_diff = new Date().getTime() - time; //时间差的毫秒数 
+
+				//计算出相差天数 
+				var days = Math.floor(time_diff / (24 * 3600 * 1000));
+				if (days > 0) {
+					diff += days + '天';
+				}
+				//计算出小时数 
+				var leave1 = time_diff % (24 * 3600 * 1000);
+				var hours = Math.floor(leave1 / (3600 * 1000));
+				if (hours > 0) {
+					diff += hours + '小时';
+				} else {
+					if (diff !== '') {
+						diff += hours + '小时';
+					}
+				}
+				
+				return diff;
+			},
+			getdeduction_price(ti) {
+				var time = new Date(ti.replace(/-/g, "/")).getTime();
+				var diff = '';
+				var time_diff = new Date().getTime() - time; //时间差的毫秒数 
+				
+				//计算出相差天数 
+				var days = Math.floor(time_diff / (24 * 3600 * 1000));
+				if (days > 0) {
+					diff += days;
+				}
+				//计算出小时数 
+				var leave1 = time_diff % (24 * 3600 * 1000);
+				var hours = Math.floor(leave1 / (3600 * 1000));
+				if (hours > 0) {
+					diff += hours/24;
+				} else {
+					if (diff !== '') {
+						diff += hours/24;
+					}
+				}
+				this.deduction_price  =  (this.acceptance_price*diff*10/100).toFixed(2) 
+				return (this.acceptance_price*diff*10/100).toFixed(2);
+			},
+			getdeal_price() {
+				return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate).toFixed(2)
+			},
+			getrule(n) {
 				this.typebtn = n;
+				this.level = n
 			},
-			getrule1(n){
+			getrule1(n) {
 				this.typebtn1 = n;
+				this.deal_type = n;
 			},
-			getimgulr(url){
+			getimgulr(url) {
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
 			},
-			getpower(){
+			getpower() {
 				let a = false
 				switch (this.pagetype) {
 					case 1:
-						if(this.adminuseraccess.indexOf("200466")> -1){
+						if (this.adminuseraccess.indexOf("200466") > -1) {
 							a = true;
 						}
 						break;
 					case 2:
-						if(this.adminuseraccess.indexOf("200467")> -1){
+						if (this.adminuseraccess.indexOf("200467") > -1) {
 							a = true;
 						}
 						break;
 					case 3:
-						if(this.adminuseraccess.indexOf("200468")> -1){
+						if (this.adminuseraccess.indexOf("200468") > -1) {
 							a = true;
 						}
 						break;
@@ -556,9 +653,9 @@
 				return a;
 			},
 			getparent() {
-				
+
 				this.$router.go(-1);
-				
+
 			},
 			getValue(val) {
 				if (val) {
@@ -582,7 +679,7 @@
 					this.workselect = false;
 				}
 			},
-			tabsChange1(num){
+			tabsChange1(num) {
 				this.tabsnum1 = num;
 			},
 			reject() {
@@ -590,7 +687,6 @@
 			},
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
-				
 			},
 			reject3() {
 				this.centerDialogVisible3 = !this.centerDialogVisible3;
@@ -599,89 +695,62 @@
 				this.centerDialogVisible4 = !this.centerDialogVisible4;
 			},
 			contributor() {
-				if(!this.radio1){
+				if (!this.radio1) {
 					this.$message({
-						message:"请选择驳回理由"
+						message: "请选择驳回理由"
 					})
 					return;
 				}
-				
+
 				let data = {
 					access_token: localStorage.getItem("access_token"),
-					type: this.$route.query.type,
+					type: 5,
 					id: this.$route.query.id,
 					check_status: -1,
-					reason:this.radio1,
-					comment:this.text100,
+					reason: this.radio1,
+					comment: this.text100,
 				}
 				this.submint(data)
 				this.reject();
 			},
 			contributor1(n) {
-				
-				
-				/* this.centerDialogVisible1 = false;
-				this.centerDialogVisible2 = false; */
-				this.$confirm('确定将该项目审核通过', '确认修改', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					dangerouslyUseHTMLString: true,
-					type: '',
-					customClass:"work",
-					center: true
-				}).then(() => {
-					/* var data = {
-						access_token: localStorage.getItem("access_token"),
-						type: this.$route.query.type,
-						id: this.$route.query.id,
-						check_status: 1,
-					}
+
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					type: 5,
+					id: this.$route.query.id,
+					check_status: 1,
+					project_id: this.$route.query.project_id,
+					level: this.level,
+					deal_type: this.deal_type,
+					acceptance_price: this.acceptance_price,
+					deduction_price: this.deduction_price,
+					deal_price: this.getdeal_price(),
+					demand_id:this.did,
 					
-					if(this.radio2) {
-						data.level = this.radio2
-					}
-					
-					if(n == "lu"){
-						if(this.tabsnum1 == 0){
-							data.hire_type = 1;
-							data.price = this.price1;
-						} else{
-							data.hire_type = 2;
-							data.price = this.price2;
-							data.channel= this.channel;
-						}
-						data.demand_id = this.did
-					}
-					this.submint(data) */
-					
-					this.reject2()
-				}).catch(() => {
-					this.$message({
-						type: 'info',
-						message: '已经取消'
-					});
-				});
+				}
+				this.submint(data);
 			},
-			sendmessage(){
+			sendmessage() {
 				this.centerDialogVisible3 = false;
 				this.$confirm('确定发送修改通知', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,
 					type: '',
-					customClass:"work",
+					customClass: "work",
 					center: true
 				}).then(() => {
 					this.api.noticesend({
 						access_token: localStorage.getItem("access_token"),
 						content: this.content,
 						activity_id: this.apply_info.activity_id,
-						work_id:this.apply_info.work_id,
-						open_id:this.apply_info.open_id
+						work_id: this.apply_info.work_id,
+						open_id: this.apply_info.open_id
 					}).then(da => {
-						
+
 					}).catch(da => {
-					
+
 					})
 				}).catch(() => {
 					this.$message({
@@ -690,23 +759,20 @@
 					});
 				});
 			},
-			agree() {
-				this.contributor1();
-			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
 				this.workselect = !this.workselect;
 			},
 			downWorks(type) {
-				if(type == "one"){
-					this.openurls=[
+				if (type == "one") {
+					this.openurls = [
 						this.oneload
 					]
 				}
 				console.log(this.openurls);
-				this.openurls.forEach(item =>{
+				this.openurls.forEach(item => {
 					console.log(item);
-					if(item.name == "图片"){
+					if (item.name == "图片") {
 						let src = item.id;
 						var canvas = document.createElement('canvas');
 						var img = document.createElement('img');
@@ -716,23 +782,23 @@
 							var context = canvas.getContext('2d');
 							context.drawImage(img, 0, 0, img.width, img.height);
 							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-							canvas.toBlob((blob)=>{
+							canvas.toBlob((blob) => {
 								let link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
-								link.download = '图片文件'; 
-								link.click();  
+								link.download = '图片文件';
+								link.click();
 							}, "image/jpeg");
 						}
-						img.setAttribute("crossOrigin",'Anonymous');
+						img.setAttribute("crossOrigin", 'Anonymous');
 						img.src = src;
 					}
-					
-					if(item.name == "附件"){
+
+					if (item.name == "附件") {
 						//alert(1);
 						window.open(item.id);
 					}
-					
-					if(item.name == "视频"){
+
+					if (item.name == "视频") {
 						//alert(1);
 						let src = item.id;
 						/* var a = document.createElement('a');
@@ -753,10 +819,10 @@
 							document.body.removeChild(a)
 							// 移除blob对象的url
 							window.URL.revokeObjectURL(url);
-						  });
+						});
 					}
-					
-					if(item.name == "音频"){
+
+					if (item.name == "音频") {
 						//alert(1);
 						let src = item.id;
 						/* var a = document.createElement('a');
@@ -777,7 +843,7 @@
 							document.body.removeChild(a)
 							// 移除blob对象的url
 							window.URL.revokeObjectURL(url);
-						  });
+						});
 					}
 				})
 				this.centerDialogVisible5 = false;
@@ -787,9 +853,9 @@
 				this.font_size = 0;
 			},
 			getreviewInfo() {
-				this.api["reviewInfo"+this.pagetype]({
+				this.api["reviewInfo" + this.pagetype]({
 					access_token: localStorage.getItem("access_token"),
-					type: this.$route.query.type,
+					type: 5,
 					id: this.$route.query.id,
 				}).then(da => {
 					//console.log(da)
@@ -798,68 +864,74 @@
 					this.material_info = da.file_info;
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
-					if(da.check_info.hire_type){
+					if (da.check_info.hire_type) {
 						this.hire_type = da.check_info.hire_type;
 					}
 					/* if(da.check_info.contributor_type){
 						this.contributor_type = da.apply_info.contributor_type;
 					} */
-					
-					
+
+
 					this.getdemandcheck();
 				}).catch(da => {
 
 				})
 			},
-			
-			submint(data){
+
+			submint(data) {
 				//console.log(data);
-				this.api["reviewCheck"+this.pagetype](data).then(da => {
-					this.getparent()
+				this.api.reviewCheck(data).then(da => {
+					if(da.result == 0){
+						this.$router.go(-1)
+					}
+					
 					//this.getreviewInfo();
 				}).catch(da => {
-				
+
 				})
 			},
-			getstatusinfo(){
-				if(this.status_info == -1 || this.status_info == 1 || this.status_info == -2){
+			getstatusinfo() {
+				if (this.status_info == -1 || this.status_info == 1 || this.status_info == -2) {
 					return false;
-				} else{
+				} else {
 					return true;
 				}
 			},
-			getaccessid(){
+			getaccessid() {
 				let id = "";
-				
-				if(this.pagetype == 1){
+
+				if (this.pagetype == 1) {
 					id = "200079";
-				} else if(this.pagetype == 2){
+				} else if (this.pagetype == 2) {
 					id = "200084";
-				} else if(this.pagetype == 3){
+				} else if (this.pagetype == 3) {
 					id = "200089";
-				} else if(this.pagetype == 4){
+				} else if (this.pagetype == 4) {
 					id = "200094";
 				}
-				
-				if(this.adminuseraccess.indexOf(id) > -1){
+
+				if (this.adminuseraccess.indexOf(id) > -1) {
 					return true;
-				} else{
+				} else {
 					return false;
 				}
 			},
-			handleCheckedCitiesChange(val){
+			handleCheckedCitiesChange(val) {
 				//console.log(val
 				this.font_size = 0;
 				this.openurls = [];
-				val.forEach((item,index) =>{
+				val.forEach((item, index) => {
 					//console.log(item.split(",")[1])
 					this.font_size += Number(item.split(",")[2]);
-					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
+					this.openurls.push({
+						name: item.split(",")[3],
+						id: item.split(",")[0]
+					});
 				});
 				console.log(this.openurls);
 			},
-			linksee(){
-				window.open( localStorage.getItem("URL")+"/#/conts?id=" + this.$route.query.work_id);   
+			linksee() {
+				window.open(localStorage.getItem("URL") + "/#/conts?id=" + this.$route.query.work_id);
 			},
 			getData(pg) {
 				//获取子组件表格数据
@@ -867,84 +939,88 @@
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100,
-					type:this.pagetype
+					type: this.pagetype
 				}
 				this.api.reviewreason(data).then((da) => {
-					
+
 					this.tableData = da.data;
-					console.log(this.tableData	)
-					
+					console.log(this.tableData)
+
 				}).catch(() => {
-					
+
 				});
 			},
-			showvideo(fid){
-				if(this.videofid){
+			showvideo(fid) {
+				if (this.videofid) {
 					document.getElementById(this.videofid).pause();
 				}
 				this.videofid = fid;
 				document.getElementById(fid).play();
 			},
-			showaudio(fid){
-				if(this.audiofid){
+			showaudio(fid) {
+				if (this.audiofid) {
 					document.getElementById(this.audiofid).pause();
 				}
 				this.audiofid = fid;
 				document.getElementById(fid).play();
 			},
-			getdemandcheck(){
-				this.api.demandcheck({
-					access_token:localStorage.getItem("access_token"),
-					demand_ids:this.apply_info.related_needs_id
-				}).then(da=>{
+			getdemandcheck() {
+				this.api.demandlist({
+					access_token: localStorage.getItem("access_token"),
+					is_activity: 1
+				}).then(da => {
 					this.demandlist = da;
 					//console.log(da)
 				})
-			}, 
-			setdemand(){
+			},
+			setdemand() {
 				/* if(this.demandlist.length  == 0){
 					this.$message({
 						message:"需求ID不能为空"
 					});
 					return;
 				} */
-				
+
 				this.reject4();
 				this.reject2();
-				
+
 			},
-			gotodetail(name,fid,num){
+			gotodetail(name, fid, num) {
 				this.router.push({
-					path:"/workManager/materialBank/materialBankdetail",
-					query:{tabsnum:num,name:name,fid:fid}
+					path: "/workManager/materialBank/materialBankdetail",
+					query: {
+						tabsnum: num,
+						name: name,
+						fid: fid
+					}
 				})
 			},
-			hover(fid,url,na){
+			hover(fid, url, na) {
 				this.fid = fid;
 				this.oneload = {
-					name:na,
-					id:url
+					name: na,
+					id: url
 				}
 			}
 		},
 		created() {
 			this.getreviewInfo();
 			this.getData();
-			if(localStorage.getItem("adminuseraccess")){
+			if (localStorage.getItem("adminuseraccess")) {
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
 		},
 		mounted() {
-			
+
 		}
 	}
 </script>
 
 <style>
-	
-	
+
+
 </style>
 
 <style scoped>
-	
+
 </style>

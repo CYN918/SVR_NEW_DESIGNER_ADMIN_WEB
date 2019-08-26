@@ -196,7 +196,7 @@
 						<div class="screenContent">
 							<button class="defaultbtn">用户详情</button>
 							<button class="defaultbtn">个人主页</button>
-							<button v-if="status == 2" class="defaultbtn">中标录用</button>
+							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
 							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
 					</li>
@@ -586,6 +586,31 @@
 			}
 		},
 		methods: {
+			getselectUser(item){
+				this.$confirm('确定中标', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					customClass:"work",
+					center: true
+				}).then(() => {
+					this.api.selectUser({
+						access_token: localStorage.getItem("access_token"),
+						project_id:item.project_id,
+						open_id:item.user.open_id
+					}).then(da => {
+						
+					}).catch(da => {
+					
+					})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
 			adduser(row){
 				this.$confirm('确认将【'+ this.username +'】定为【' + row.name+'】的中标人', '', {
 					confirmButtonText: '确定',

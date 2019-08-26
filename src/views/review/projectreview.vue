@@ -92,7 +92,7 @@
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					type:2
+					type:5
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
