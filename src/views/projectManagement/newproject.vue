@@ -195,13 +195,13 @@
 					<ul style="padding-top: 30px;">
 						<li class="margint23 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
-							<el-input placeholder="请输入内容" v-model="item.title" style="width:357px;height:40px;" clearable></el-input>
+							<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
 						</li>
 						<li class="margint23 ofh" >
 							<span class="fleft detailKey" style="line-height: 40px;">模块说明</span>
 							<div class=" ofh" style="width: 800px;">
 								<div class="fleft">
-									<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="item.text"></vue-ueditor-wrap>
+									<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="item.module_content"></vue-ueditor-wrap>
 								</div>
 								<div class="fleft uediterspan h relative pointer">
 									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="swapItems(detailtext,index,index-1)">删除</span>
