@@ -103,7 +103,6 @@
 									</el-dropdown-menu>
 								</el-dropdown>
 							</div>
-						
 					</template>
 				</el-table-column>
 			</el-table>

@@ -540,8 +540,9 @@
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
 				this.form.template_file_id = row.template_file_id;
-				this.selectData1.file_name = row.template_file_name;
-				this.selectData1.file_size_format = row.file_size_format;
+				console.log(row);
+				this.selectData1.file_name = row.file_name;
+				this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
 				this.detailtext = JSON.parse(row.desc);
 			},
 			tabsChange(num) {
@@ -919,7 +920,6 @@
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
-					
 					data = sreenData;
 				}
 				
@@ -930,6 +930,7 @@
 						this.tableConfig.total = da.total;
 						this.tableConfig.currentpage = da.page;
 						this.tableConfig.pagesize = da.page_size;
+						
 					}).catch(() => {
 						
 					});
@@ -941,6 +942,7 @@
 						this.tableConfig.total = da.total;
 						this.tableConfig.currentpage = da.page;
 						this.tableConfig.pagesize = da.page_size;
+						
 					}).catch(() => {
 						
 					});
@@ -1091,7 +1093,15 @@
 				}
 			},
 			dialogTable(){
+				this.tableAction=DataScreen.screenShow.newActivity.action,
+				this.type = this.tabsnum + 1;
+				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + this.tabsnum];
+				//console.log(this.tableConfig.list);
+				this.$parent.tabchange(this.tabsnum+1);
+				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				this.getData({pageCurrent:1,pageSize:50});
 				this.dialogTableVisible = !this.dialogTableVisible;
+				this.tableData = [];
 				this.getData({
 					pageCurrent: 1,
 					pageSize: 50
