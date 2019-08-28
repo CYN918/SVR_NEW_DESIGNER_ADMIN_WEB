@@ -476,6 +476,10 @@
 				
 				if(this.tableConfig.data){
 					data[this.tableConfig.data] = this.tabnums;
+					if(this.tabnums == 5){
+						data[this.tableConfig.data] = -1;
+					}
+					
 				}
 				
 				let url = "";
@@ -519,18 +523,6 @@
 				this.loading = type;
 			},
 			cheaxz(id){
-				/* let on = this.ids.indexOf(id);
-				if(on!=-1){
-					this.ids.splice(on,1);
-				}else{
-					this.ids.push(id);
-				}
-				let pok = [];
-				for(let i=0,n=this.ids.length;i<n;i++){
-					pok.push({id:this.ids[i]});
-				}
-				this.multipleSelection = pok;
-				this.$parent.xzFn(this.multipleSelection); */
 				
 			},	
 			setall(){

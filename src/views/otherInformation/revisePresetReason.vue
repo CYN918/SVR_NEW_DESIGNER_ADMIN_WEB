@@ -97,12 +97,7 @@
 				})
 			},
 		},
-		created() {
-			/* if(this.id){
-				this.content = this.name;
-				this.status  = this.status;
-			} */
-		}
+		created() {}
 	}
 </script>
 

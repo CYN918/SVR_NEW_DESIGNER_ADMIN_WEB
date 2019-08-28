@@ -431,8 +431,8 @@
 				selectData1:{},
 				detailtext:[
 					{
-						title:'',
-						text:'<p style="color:#999"></p>'
+						module_title:'',
+						module_content:'<p style="color:#999"></p>'
 					},
 				],
 				yonghudata:{},
@@ -491,8 +491,8 @@
 			},
 			addDetailContent(){
 				this.detailtext.push({
-					title:'',
-					text:'<p style="color:#999"></p>'
+					module_title:'',
+					module_content:'<p style="color:#999"></p>'
 				})
 			},
 			swapItems(arr, index1, index2) {
@@ -900,7 +900,7 @@
 							}
 						})
 					});
-					this.getdemand_names()
+					this.getdemand_names();
 				})
 			},
 			

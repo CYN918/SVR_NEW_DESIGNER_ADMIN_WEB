@@ -86,11 +86,11 @@
 					<ul style="padding-top: 0px;margin-top: 0px;">
 						<li class="margint13 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
-							<span style="width:357px;height:40px;line-height: 40px;">{{ item.title }}</span>
+							<span style="width:357px;height:40px;line-height: 40px;">{{ item.module_title }}</span>
 						</li>
 						<li class="margint13 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">详细说明</span>
-							<span style="width:357px;height:40px;line-height: 40px;" v-html="item.text"></span>
+							<span style="width:357px;height:40px;line-height: 40px;" v-html="item.module_content"></span>
 						</li>
 					</ul>
 				</div>
