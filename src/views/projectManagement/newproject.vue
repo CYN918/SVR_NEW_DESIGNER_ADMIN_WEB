@@ -149,7 +149,7 @@
 						  type="datetime"
 						  value-format="yyyy-MM-dd HH:mm:ss"
 						  :disabled="objstatus > 0"
-						  placeholder="选择日期时间">
+						  placeholder="选择日期时间" @change="databijiao()">
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -159,7 +159,7 @@
 						  type="datetime"
 						  :disabled="objstatus > 2 || typebtn == 1"
 						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :placeholder="typebtn == 1 ? '你已制定制作人，项目发布后即进入制作期':'选择日期时间'" >
+						  :placeholder="typebtn == 1 ? '你已制定制作人，项目发布后即进入制作期':'选择日期时间'" @change="databijiao()">
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -277,9 +277,7 @@
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<!-- <div class="w textcenter">
-					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
-				</div> -->
+				
 			</div>
 		</el-dialog>
 		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
@@ -304,9 +302,6 @@
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<!-- <div class="w textcenter">
-					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
-				</div> -->
 			</div>
 		</el-dialog>
 	</div>
@@ -447,6 +442,18 @@
 			commonTable3
 		},
 		methods: {
+			databijiao(){
+				let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
+				let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
+				console.log(deadline,publish_time);
+				if( publish_time > deadline ){
+					this.$message({
+						message:"截稿时间必须大约发布时间",
+						type:"error"
+					})
+					
+				}
+			},
 			reject(){
 				this.selectelists3 = this.$refs.tabs3.selectelistsobj;
 				this.selectelists = this.$refs.tabs3.selectelists
@@ -539,7 +546,7 @@
 				this.form.expected_profit = row.expected_profit;
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
-				this.form.template_file_id = row.template_file_id;
+				this.selectData1.template_file_id = row.template_file_id;
 				console.log(row);
 				this.selectData1.file_name = row.file_name;
 				this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
@@ -570,6 +577,7 @@
 				this.getDatay({pageCurrent:1,pageSize:50});
 			},
 			edit(){
+				
 				this.form.desc = JSON.stringify(this.detailtext);
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
@@ -582,7 +590,7 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				this.api.projectupdate(this.form).then(da => {
-					//console.log(da)
+					console.log(da)
 					if(da.result == 0){
 						this.$router.go(-1);
 					}
@@ -706,6 +714,17 @@
 				return isJPG;
 			},
 			nxet() {
+				let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
+				let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
+				console.log(deadline,publish_time);
+				if( publish_time > deadline ){
+					this.$message({
+						message:"截稿时间必须大约发布时间",
+						type:"error"
+					})
+					return;
+				}
+				
 				this.Isnextshow = true;
 				this.$refs.scroll.scrollTop = 0;
 			},

@@ -186,7 +186,7 @@
 							 clearable></el-input>
 						</div>
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="color: transparent;">延期交稿扣减</span>
+							<span class="fleft Dialogkey" style="color: transparent;width: 84px;">延期交稿扣减</span>
 							<span class="fleft sel-dialog-content">
 								作者已延期<span>{{ get_time_diff(apply_info.delivery_deadline) }}</span>，理应扣减<span>￥{{ getdeduction_price(apply_info.delivery_deadline) }}</span>（验收价格*10%*延期天数）
 							</span>
@@ -569,6 +569,12 @@
 				deal_price: 0
 			}
 		},
+		computed:{
+			
+		},
+		filters:{
+			
+		},
 		methods: {
 			get_time_diff(ti) {
 				var time = new Date(ti.replace(/-/g, "/")).getTime();
@@ -613,7 +619,7 @@
 						diff += hours/24;
 					}
 				}
-				this.deduction_price  =  (this.acceptance_price*diff*10/100).toFixed(2) 
+				this.deduction_price  =  (this.acceptance_price*diff*10/100).toFixed(2)
 				return (this.acceptance_price*diff*10/100).toFixed(2);
 			},
 			getdeal_price() {
