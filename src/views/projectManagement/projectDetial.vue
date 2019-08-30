@@ -194,7 +194,7 @@
 							</div>
 						</div>
 						<div class="screenContent">
-							<button class="defaultbtn">用户详情</button>
+							<button class="defaultbtn" @click="userdetail(item.user.open_id)">用户详情</button>
 							<button class="defaultbtn">个人主页</button>
 							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
 							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
@@ -339,7 +339,7 @@
 					},
 					{
 						name:"报名人数",
-						id:"terminate_reason",
+						id:"signup_num",
 						type:"text",
 						status:0,
 						sh:true
@@ -458,7 +458,7 @@
 					title:"项目发布",
 					list0: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -466,13 +466,13 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list1: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -480,14 +480,14 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list2: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -495,10 +495,10 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"禁用","1":"启用"}}
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					project_id:"project_id"
 				},
@@ -592,6 +592,14 @@
 			}
 		},
 		methods: {
+			userdetail(open_id){
+				this.$router.push({
+					path:"/userManager/userBaseInfo/userBaseInfoDetail",
+					query:{
+						open_id:open_id
+					}
+				})
+			},
 			check(){
 				this.$router.push({
 					path:"/review/projectreview"

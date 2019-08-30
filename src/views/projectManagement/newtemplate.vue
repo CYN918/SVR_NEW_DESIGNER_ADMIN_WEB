@@ -849,6 +849,7 @@
 				this.selectData1.file_name = this.rows.file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				this.detailtext = JSON.parse(this.rows.desc);
+				this.form.status = this.rows.status
 			}
 		},
 		mounted(){

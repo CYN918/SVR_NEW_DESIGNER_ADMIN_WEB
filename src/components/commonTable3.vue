@@ -12,7 +12,7 @@
 									<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.vocation + "|" +item.province }}</div>
 								</div>
 								<div class="fleft" style="margin-left: 10px;">
-									<el-button size="mini" style="background: #000000;color: white;">详情</el-button>
+									<el-button size="mini" style="background: #000000;color: white;" @click="userdetail(item.open_id)">详情</el-button>
 									<el-button size="mini" style="background: #000000;color: white;">主页</el-button>
 								</div>
 							</div>
@@ -88,6 +88,14 @@
 			}
 		},
 		methods: {
+			userdetail(open_id){
+				this.$router.push({
+					path:"/userManager/userBaseInfo/userBaseInfoDetail",
+					query:{
+						open_id:open_id
+					}
+				})
+			},
 			handleClick(row, setid, page,event) {
 				console.log(page,setid)
 				

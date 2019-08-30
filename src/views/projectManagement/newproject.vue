@@ -875,7 +875,7 @@
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.form.desc = JSON.stringify(this.detailtext);
 				this.api.projectadd(this.form).then(da =>{
-					//console.log(da)
+					console.log(da)
 					if(da.result == 0){
 						this.$router.go(-1);
 					}

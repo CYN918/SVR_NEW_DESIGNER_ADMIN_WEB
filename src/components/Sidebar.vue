@@ -5,7 +5,7 @@
 			<span class="fleft fontsize24">狮大大</span> -->
 			<img src="../assets/img/houtai_logo.svg" alt="" style="display: block;margin: 12px 40px;">
 		</div>
-		<el-menu style="overflow-y: auto;" default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="defaultactive" :default-openeds="defaultopeneds"
+		<el-menu style="overflow-y: auto;" unique-opened default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="defaultactive" :default-openeds="defaultopeneds"
 		 active-text-color="#FF5121">
 			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id">
 				<template slot="title">
