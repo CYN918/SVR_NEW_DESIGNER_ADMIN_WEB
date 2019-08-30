@@ -878,6 +878,15 @@ var router = new Router({
 					},
 					component: () => import('@/views/projectManagement/newproject.vue'),
 				},
+				{
+					path:"projectList/presentation",
+					name: 'presentation',
+					meta: {
+						title: "验收报告",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/presentation.vue'),
+				},
 			]
 		},
 		

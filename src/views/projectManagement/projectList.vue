@@ -380,7 +380,7 @@
 										return '验收报告';
 										
 									},
-									fun:"s",
+									fun:"presentation",
 									accessid:"200062",
 								}
 							]
@@ -476,6 +476,14 @@
 		watch: {},
 		computed: {},
 		methods: {
+			presentation(row){
+				this.$router.push({
+					path:"/projectManagement/projectList/presentation",
+					query:{
+						project_id:row.project_id
+					}
+				})
+			},
 			up(row){
 				//console.log(row.file_url)
 				window.open(row.file_url);

@@ -7,8 +7,14 @@
 					{{ currentpageName }}
 				</span>
 				<div class="textcenter">
-					<span v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+					<span v-if="index < 3" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
+					</span>
+					<span v-if="index == 3" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<el-badge :value="doCount[(index+2)] == 0 ? '' : doCount[(index+2)]" :max="99" class="badge">{{ item.name }}</el-badge>
+					</span>
+					<span v-if="index == 4" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<el-badge :value="doCount[(index+2)] == 0 ? '' : doCount[(index)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
 				</div>
 			</div>
@@ -304,7 +310,7 @@
 			}
 		},
 		created() {
-			//this.gettodoCount();
+			this.gettodoCount();
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
