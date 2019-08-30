@@ -104,7 +104,7 @@
 					title:"项目发布",
 					list0: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -112,13 +112,13 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list1: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -126,14 +126,14 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list2: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -141,14 +141,14 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list3: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -156,15 +156,15 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'deadline',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'username',lable:'中标人'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list4: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -172,23 +172,23 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'deadline',lable:'验收时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'deadline',lable:'中标人'},
-						{prop:'deadline',lable:'验收价格'},
-						{prop:'deadline',lable:'延迟交稿扣减'},
-						{prop:'deadline',lable:'收益加成'},
-						{prop:'deadline',lable:'成交价格'},
-						{prop:'deadline',lable:'成交方式'},
-						{prop:'deadline',lable:'需求ID'},
-						{prop:'deadline',lable:'项目评级'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'username',lable:'中标人'},
+						{prop:'acceptance_price',lable:'验收价格'},
+						{prop:'deduction_price',lable:'延迟交稿扣减'},
+						{prop:'gain_share_price',lable:'收益加成'},
+						{prop:'deal_price',lable:'成交价格'},
+						{prop:'want_deal_type',lable:'成交方式',type:"keyvalue",child:{"1":"买断式","2":"加成式"}},
+						{prop:'demand_id',lable:'需求ID'},
+						{prop:'level',lable:'项目评级'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list5: [
 						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目分类名称'},
+						{prop:'name',lable:'项目名称'},
 						{prop:'business_type',lable:'项目类型'},
 						{prop:'template_num',lable:'业务类型'},
 						{prop:'banner',lable:'banner',type:"img"},
@@ -196,12 +196,12 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
-						{prop:'check_time',lable:'中标时间'},
+						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'deadline',lable:'报名人数'},
-						{prop:'deadline',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","5":"已终止"}},
-						{prop:'deadline',lable:'终止理由'},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'username',lable:'中标人'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{prop:'terminate_reason',lable:'终止理由'},
 					],
 					data:'status',
 				},
@@ -317,15 +317,6 @@
 						morebtns:{
 							name:"更多",
 							child:[
-								
-								{
-									name:(da)=>{
-										return '验收审核';
-									},
-									fun:"review",
-									/* filterdata:"status", */
-									accessid:"200062",
-								},
 								{
 									name:(da)=>{
 										return "编辑"
@@ -348,6 +339,19 @@
 									fun:"reject",
 									accessid:"200062",
 								},
+								{
+									name:(da)=>{
+										if(da == '4'){
+											return '验收审核';
+										} else {
+											return null;
+										}
+										
+									},
+									fun:"review",
+									filterdata:"check_status", 
+									accessid:"200062",
+								},
 								
 							]
 						},
@@ -367,7 +371,7 @@
 									name:(da)=>{
 										return "下载稿件"
 									},
-									fun:"edit",
+									fun:"up",
 									accessid:"200060",
 								},
 								{
@@ -376,7 +380,7 @@
 										return '验收报告';
 										
 									},
-									fun:"delect",
+									fun:"s",
 									accessid:"200062",
 								}
 							]
@@ -472,6 +476,10 @@
 		watch: {},
 		computed: {},
 		methods: {
+			up(row){
+				//console.log(row.file_url)
+				window.open(row.file_url);
+			},
 			reject1(row){
 				this.crow = row;
 				this.centerDialogVisible1 =!this.centerDialogVisible1;
@@ -524,9 +532,12 @@
 				})
 			},
 			review(row){
-				this.$router.push({
-					path:"/review/projectreview",
-				})
+				if(row.check_status == '4'){
+					this.$router.push({
+						path:"/review/projectreview",
+					})
+				}
+				
 			},
 			selectobj(row){
 				this.$router.push({

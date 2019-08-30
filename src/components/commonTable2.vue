@@ -46,7 +46,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="margin40" style="height: 60px;">
+			<div class="margin40" style="height: 60px;" >
 				<div class="tagbts">
 					<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 					 :disable-transitions="false" @close="handleClose(item.id)">
@@ -474,12 +474,18 @@
 					data = sreenData;
 				}
 				
-				if(this.tableConfig.data){
+				
+				if(this.currentpageName == "项目发布"){
 					data[this.tableConfig.data] = this.tabnums;
 					if(this.tabnums == 5){
 						data[this.tableConfig.data] = -1;
 					}
-					
+					if(this.tabnums == 3){
+						data.status = '3,4';
+					}
+					if(this.tabnums == 4){
+						data.status = '5';
+					}
 				}
 				
 				let url = "";

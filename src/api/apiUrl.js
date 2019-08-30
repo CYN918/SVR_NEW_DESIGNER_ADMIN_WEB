@@ -443,10 +443,10 @@ export default {
 		url:'/admin/project/fileRecord',method:'post',baseURL:0
 	},
 	terminate:{
-		url:'/Api/project/terminate',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url:'/admin/project/terminate',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	bindContract:{
-		url:'/Api/project/bindContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url:'/admin/project/bindContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	profitconfiginfo:{
 		url:'/admin/profitconfig/info',method:'post',baseURL:0
@@ -454,6 +454,5 @@ export default {
 	profitconfigsave:{
 		url:'/admin/profitconfig/save',method:'post',baseURL:0,isType:{suktip:true}
 	}
-	
 	
 }

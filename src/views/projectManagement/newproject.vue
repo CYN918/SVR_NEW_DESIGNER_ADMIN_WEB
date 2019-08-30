@@ -19,7 +19,8 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
-						<el-input placeholder="请输入内容" :disabled="objstatus > 0" v-model="form['name']" style="width:357px;height:40px;" clearable></el-input>
+						
+						<el-input type="text" placeholder="请输入内容" :disabled="objstatus > 0" v-model="form['name']" style="width:357px;height:40px;" clearable  maxlength="20" show-word-limit></el-input>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
@@ -138,7 +139,7 @@
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
-						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者制作或报名的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
+						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
 				</ul>
 				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
@@ -153,7 +154,7 @@
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">截稿时间</span>
+						<span class="fleft detailKey" style="line-height: 40px;">报名截止时间</span>
 						<el-date-picker
 						  v-model="form['deadline']"
 						  type="datetime"
@@ -166,10 +167,10 @@
 						<span class="fleft detailKey" style="line-height: 40px;">制作周期</span>
 						<div class="fleft ofh">
 							<div class="fleft">
-								<el-input-number v-model="form['production_cycle_d']" controls-position="right"></el-input-number> 天
+								<el-input-number v-model="form['production_cycle_d']" :min="0" controls-position="right" ></el-input-number> 天
 							</div>
 							<div style="margin-left: 40px;" class="fleft">
-								<el-input-number v-model="form['production_cycle_h']" controls-position="right"></el-input-number> 时
+								<el-input-number v-model="form['production_cycle_h']" controls-position="right" :min="0" :max="23"></el-input-number> 时
 							</div>
 						</div>
 					</li>
@@ -317,6 +318,7 @@
 	export default {
 		data() {
 			return {
+				showWordLimit:true,
 				typebtn:0,
 				detailData: '',
 				input10: '',
@@ -374,7 +376,7 @@
 				],
 				tableData3:[],
 				ifBjType:0,
-				currentpageName:"",
+				currentpageName:"11",
 				dialogTableVisible1:false,
 				dialogTableVisible2:false,
 				pageName: "newActivity",
@@ -443,15 +445,18 @@
 		},
 		methods: {
 			databijiao(){
-				let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
-				let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
-				console.log(deadline,publish_time);
-				if( publish_time > deadline ){
-					this.$message({
-						message:"截稿时间必须大约发布时间",
-						type:"error"
-					})
-					
+				//console.log(this.form['publish_time'],this.form['deadline'])
+				if(this.form['deadline'] && this.form['publish_time']){
+					let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
+					let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
+					console.log(deadline,publish_time);
+					if( publish_time > deadline ){
+						this.$message({
+							message:"截稿时间必须大约发布时间",
+							type:"error"
+						})
+						
+					}
 				}
 			},
 			reject(){
@@ -490,8 +495,11 @@
 					{type:"display",prop:'t',lable:'额外赏金'},
 				]
 				
-				
-				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				if(this.currentpageName == "新建项目"){
+					this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				} else{
+					this.$router.push({ path: '/projectManagement/projectList/editproject', query: {urlDate: ''}});
+				}
 				this.dialogTableVisible2=true;
 				this.getData({pageCurrent:1,pageSize:50});
 				
@@ -558,7 +566,11 @@
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + num];
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
-				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				if(this.currentpageName == "新建项目"){
+					this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				} else{
+					this.$router.push({ path: '/projectManagement/projectList/editproject', query: {urlDate: ''}});
+				}
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			getdatachange(){
@@ -590,7 +602,7 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				this.api.projectupdate(this.form).then(da => {
-					console.log(da)
+					
 					if(da.result == 0){
 						this.$router.go(-1);
 					}
@@ -714,16 +726,20 @@
 				return isJPG;
 			},
 			nxet() {
-				let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
-				let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
-				console.log(deadline,publish_time);
-				if( publish_time > deadline ){
-					this.$message({
-						message:"截稿时间必须大约发布时间",
-						type:"error"
-					})
-					return;
+				//console.log(this.form['deadline'],this.form['publish_time']);
+				if(this.form['deadline'] && this.form['publish_time']){
+					let deadline = new Date(this.form['deadline'].replace(/-/g, "/")).getTime();
+					let publish_time = new Date(this.form['publish_time'].replace(/-/g, "/")).getTime();
+					console.log(deadline,publish_time);
+					if( publish_time > deadline ){
+						this.$message({
+							message:"截稿时间必须大约发布时间",
+							type:"error"
+						})
+						return;
+					}
 				}
+				
 				
 				this.Isnextshow = true;
 				this.$refs.scroll.scrollTop = 0;
@@ -847,6 +863,12 @@
 					this.form.status = 0;
 				} else{
 					this.form.status = 3;
+					let openids = ''
+					console.log(this.selectelists3)
+					for(let key in this.selectelists3){
+						openids+= key;
+					}
+					this.form.open_id = openids;
 				}
 				
 				this.form.demand_id = this.dids.join(',');
@@ -855,26 +877,7 @@
 				this.api.projectadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
-						if(this.form.rule_type == 2){
-							let openids = ''
-							for(key in this.selectelists3){
-								openids+= key+",";
-							}
-							
-							this.api.selectUser({
-								access_token:localStorage.getItem("access_token"),
-								project_id:'',
-								open_id:openids
-							}).then(da=>{
-								access_token:localStorage.getItem("access_token")
-							}).catch(da=>{
-								
-							})
-						} else {
-							this.$router.go(-1);
-						}
-						
-						
+						this.$router.go(-1);
 					}
 				}).catch(da =>{
 					
@@ -956,6 +959,8 @@
 				}
 				if(this.dialogTableVisible2){
 					data.status = 1;
+					console.log(this.form.classify_id);
+					data.classify_id = this.form.classify_id;
 					this.api.projecttemplatelist(data).then((da) => {	
 						this.tableData = da.data;
 						this.tableConfig.total = da.total;
@@ -1117,7 +1122,12 @@
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + this.tabsnum];
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(this.tabsnum+1);
-				this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				if(this.currentpageName == "新建项目"){
+					this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				} else{
+					this.$router.push({ path: '/projectManagement/projectList/editproject', query: {urlDate: ''}});
+				}
+				
 				this.getData({pageCurrent:1,pageSize:50});
 				this.dialogTableVisible = !this.dialogTableVisible;
 				this.tableData = [];
@@ -1226,7 +1236,7 @@
 			}
 		},
 		created() {
-			
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.$parent.tabchange(1);
@@ -1236,6 +1246,13 @@
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				this.detailtext = JSON.parse(this.rows.desc);
 				this.objstatus = parseInt(this.rows.status);
+				localStorage.setItem("editproject",this.$route.query.row)
+			} else {
+				//console.log(this.currentpageName);
+				if(this.currentpageName == "编辑页面"){
+					this.rows = JSON.parse(localStorage.getItem("editproject"));
+					
+				}
 			}
 			if(this.$route.query.usernameitem){
 				this.typebtn =1;
@@ -1246,7 +1263,7 @@
 			
 		},
 		mounted(){
-			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.getData1();
 			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;

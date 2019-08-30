@@ -95,7 +95,7 @@
 					</ul>
 				</div>
 			</div>
-			<div v-if="tabsnum == 2">
+			<div v-if="tabsnum == 2" class="detailContent0">
 				<common-table :commonTopData="commonTopData" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields"
 				 ref="Tabledd"></common-table>
 			</div>
@@ -447,7 +447,7 @@
 						{prop:'file_size',lable:'文件大小'},
 						{prop:'remark',lable:'备注说明'},
 						{prop:'created_at',lable:'交稿时间'},
-						{prop:'check_status',lable:'验收结果'},
+						{prop:'check_status',lable:'验收结果',type:"keyvalue",child:{"-2":"已撤销","-1":"已驳回","0":"待审核","1":"已验收"}},
 						
 					],
 					project_id:"project_id"
@@ -517,23 +517,29 @@
 				},
 				tableAction:{
 					num:false,
-					tableAction: {
-						morebtns:{
-							name:(da)=>{
-								return "下载"
-							},
-							accessid:"1",
-							fun:"s",
+					morebtns:{
+						name:(da)=>{
+							return "下载"
 						},
-						links:{
-							name:(da)=>{
-								return "验收审核"
-							},
-							accessid:"1",
-							fun:"s",
-						},
+						accessid:"1",
+						fun:"up",
 						
-					}
+					},
+					links:{
+						name:(da)=>{
+							if(da == '0'){
+								return "验收审核"
+							} else {
+								return null
+							}
+							
+						},
+						accessid:"1",
+						fun:"check",
+						filterFields:"check_status"
+					},
+						
+					
 				},
 				filterFields:[
 					{name:"项目ID",id:"classify_name"},
@@ -586,6 +592,14 @@
 			}
 		},
 		methods: {
+			check(){
+				this.$router.push({
+					path:"/review/projectreview"
+				})
+			},
+			up(row){
+				window.open(row.file_url);
+			},
 			getselectUser(item){
 				this.$confirm('确定中标', '确认修改', {
 					confirmButtonText: '确定',
@@ -752,7 +766,7 @@
 					this.font_size += Number(item.split(",")[2]);
 					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});
-				console.log(this.openurls);
+				//console.log(this.openurls);
 			},
 		},
 		created() {
@@ -774,6 +788,10 @@
 </script>
 
 <style>
+	.detailContent .detailContent0 ul {
+		padding: 0;
+	}
+	
 	.el-carousel__container {
 		width: 100%;
 		height: 100%;
@@ -1095,4 +1113,6 @@
 		height: 100%;
 		margin-left: 5px;
 	}
+	
+	
 </style>
