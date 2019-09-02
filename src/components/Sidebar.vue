@@ -16,7 +16,7 @@
 					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
-			<el-submenu index="7">
+			<!-- <el-submenu index="7">
 				<template slot="title">
 					<i class="iconfont">&#xe781;</i>
 					<span style="padding:15px;">项目管理</span>
@@ -30,7 +30,7 @@
 				<router-link to="/projectManagement/Profit">
 					<el-menu-item index="3-3" class="">收益成长设置</el-menu-item>
 				</router-link>
-			</el-submenu>
+			</el-submenu> -->
 			<!-- <el-submenu index="7">
 				<template slot="title">
 					<i class="iconfont">&#xe781;</i>
