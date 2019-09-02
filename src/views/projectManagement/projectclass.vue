@@ -118,10 +118,10 @@
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
 					filterFields1:[
-						{name:"模板名称",id:"classify_name"},
+						{name:"模板名称",id:"template_name"},
 						{name:"所属项目分类",id:"classify_name"},
-						{name:"领域范围",id:"classify_name"},
-						{name:"额外赏金",id:"classify_name"},
+						{name:"领域范围",id:"fields"},
+						{name:'额外赏金', type:'two',child:[{name:'作品数量下限',id:'extra_reward_start'},{name:'作品数量上限',id:'extra_reward_end'}]},
 						{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],

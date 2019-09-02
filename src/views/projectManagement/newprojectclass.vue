@@ -1,11 +1,11 @@
 <template>
 	<div class="wh Detail">
-		<div class="detailtitle">新建项目类型</div>
+		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">项目类型名称</span>
-					<el-input placeholder="请输入内容" v-model="content" style="width:357px;height:40px;" clearable></el-input>
+					<el-input :disabled="row.id" placeholder="请输入内容" v-model="content" style="width:357px;height:40px;" clearable></el-input>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">状态</span>
@@ -19,7 +19,7 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive"  v-if="!row.id" @click="add()" >添加</button>
-			<button class="defaultbtn defaultbtnactive" v-if="row.id" @click="edit()" >编辑</button>
+			<button class="defaultbtn defaultbtnactive" v-if="row.id" @click="edit()" >保存</button>
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
@@ -32,7 +32,8 @@
 				detailData: '',
 				content: '',
 				status:"1",
-				row:{}
+				row:{},
+				currentpageName:''
 			}
 		},
 		methods: {
@@ -82,6 +83,7 @@
 				this.content = this.row.classify_name;
 				this.status = this.row.status;
 			}
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 		}
 	}
 </script>

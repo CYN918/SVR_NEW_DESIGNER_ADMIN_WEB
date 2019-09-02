@@ -40,8 +40,7 @@
 						</el-upload>
 						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
-					
-					
+
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
 						<el-input placeholder="请输入内容" v-model="form['fields']" style="width:357px;height:40px;" clearable></el-input>
@@ -87,10 +86,10 @@
 							<span class="fleft detailKey" style="line-height: 40px;">模板名称</span>
 							<div class=" ofh" style="width: 800px;">
 								<div class="fleft">
-									<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="item.module_content"></vue-ueditor-wrap>
+									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
 								<div class="fleft uediterspan h relative pointer">
-									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="swapItems(detailtext,index,index-1)">删除</span>
+									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 								</div>
 							</div>
 						</li>
@@ -147,6 +146,7 @@
 
 <script>
 	import VueUeditorWrap from 'vue-ueditor-wrap'
+	import upload from '@/components/upload.vue'
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
@@ -242,9 +242,13 @@
 		},
 		components: {
 			VueUeditorWrap,
-			commonTable
+			commonTable,
+			upload
 		},
 		methods: {
+			delect(index){
+				this.detailtext.splice(index,1);
+			},
 			addDetailContent(){
 				this.detailtext.push({
 					module_title:'',
@@ -297,8 +301,14 @@
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			edit() {
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
 				
 				this.form.desc = JSON.stringify(this.detailtext);
+				
+				
+				
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
@@ -562,6 +572,10 @@
 					})
 					return;
 				} */
+				
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
 				
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.form.desc = JSON.stringify(this.detailtext);

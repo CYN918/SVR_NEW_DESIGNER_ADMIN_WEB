@@ -2,7 +2,7 @@
 	<div class="wh">
 		<div class="tabtop wh" ref="elememt" id="table">
 			<div style="margin-left: 10px;">
-				<ul class="screenContent" style="justify-content:space-between;flex-wrap:wrap;height: 500px;overflow-y: scroll;">
+				<ul class="screenContent" style="justify-content:space-between;flex-wrap:wrap;height:319px;overflow-y: scroll;">
 					<li :class="item.open_id == selectelistsobj[item.open_id] ? 'yhlist yhlistactive' : 'yhlist'" v-for="(item,index) in tableDatas" @click="selectelist(item)">
 						<div>
 							<div class="ofh">
@@ -13,21 +13,64 @@
 								</div>
 								<div class="fleft" style="margin-left: 10px;">
 									<el-button size="mini" style="background: #000000;color: white;" @click="userdetail(item.open_id)">详情</el-button>
+									<el-button size="mini" style="background: #000000;color: white;" @click="gotoweb(item.open_id)">主页</el-button>
+								</div>
+							</div>
+							<div class="screenContent" style="margin-top: 10px;">
+								<div style="margin-right: 20px;width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">粉丝 </span>
+									<span>{{ item.fans_num ? item.fans_num : 0 }}</span>
+								</div>
+								<div style="margin-right: 20px;width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">人气 </span>
+									<span>{{ item.popular_num ? item.popular_num : 0 }}</span>
+								</div>
+								<div style="width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">创作 </span>
+									<span>{{ item.work_num ? item.work_num : 0 }}</span>
+								</div>
+							</div>
+							<div class="screenContent" style="margin-top: 10px;">
+								<div style="margin-right: 20px;width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">接单 </span>
+									<span>0</span>
+								</div>
+								<div style="margin-right: 20px;width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">收益 </span>
+									<span>0</span>
+								</div>
+								<div style="width: 30%;">
+									<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
+									<span>{{ item.recommend_level ? item.recommend_level : "无" }}</span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="yhlist" style="visibility: hidden;">
+						<div>
+							<div class="ofh">
+								<img class="fleft" src="" width="48px" height="48px" style="border-radius: 50%;" alt="">
+								<div class="fleft" style="margin-left: 8px;">
+									<div></div>
+									<div style="color:rgba(187,187,187,1);font-size: 12px;"></div>
+								</div>
+								<div class="fleft" style="margin-left: 10px;">
+									<el-button size="mini" style="background: #000000;color: white;">详情</el-button>
 									<el-button size="mini" style="background: #000000;color: white;">主页</el-button>
 								</div>
 							</div>
 							<div class="screenContent" style="margin-top: 10px;">
 								<div style="margin-right: 20px;width: 30%;">
 									<span style="color:rgba(187,187,187,1);font-size: 12px;">粉丝 </span>
-									<span>{{ item.fans_num }}</span>
+									<span></span>
 								</div>
 								<div style="margin-right: 20px;width: 30%;">
 									<span style="color:rgba(187,187,187,1);font-size: 12px;">人气 </span>
-									<span>{{ item.popular_num }}</span>
+									<span></span>
 								</div>
 								<div style="width: 30%;">
 									<span style="color:rgba(187,187,187,1);font-size: 12px;">创作 </span>
-									<span>{{ item.work_num }}</span>
+									<span></span>
 								</div>
 							</div>
 							<div class="screenContent" style="margin-top: 10px;">
@@ -41,7 +84,7 @@
 								</div>
 								<div style="width: 30%;">
 									<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
-									<span>{{ item.recommend_level }}</span>
+									<span></span>
 								</div>
 							</div>
 						</div>
@@ -88,6 +131,9 @@
 			}
 		},
 		methods: {
+			gotoweb(id){
+				window.open(localStorage.getItem("URL")+"/#/works?id=" + id);
+			},
 			userdetail(open_id){
 				this.$router.push({
 					path:"/userManager/userBaseInfo/userBaseInfoDetail",

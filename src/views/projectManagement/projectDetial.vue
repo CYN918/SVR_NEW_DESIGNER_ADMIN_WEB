@@ -81,7 +81,7 @@
 				</li>
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
-				<div v-for ="(item,index) in desc">
+				<div v-for ="(item,index) in desc" class="ofh">
 					<div class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
 					<ul style="padding-top: 0px;margin-top: 0px;">
 						<li class="margint13 ofh">
@@ -195,7 +195,7 @@
 						</div>
 						<div class="screenContent">
 							<button class="defaultbtn" @click="userdetail(item.user.open_id)">用户详情</button>
-							<button class="defaultbtn">个人主页</button>
+							<button class="defaultbtn" @click="gotoweb(item.user.open_id)">个人主页</button>
 							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
 							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
@@ -212,7 +212,7 @@
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
-				<button class="defaultbtn defaultbtnactive" @click="getparent()">前往选标</button>
+				<button class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
 			</div>
 			<div v-if="detailbtn" class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
@@ -592,6 +592,12 @@
 			}
 		},
 		methods: {
+			gotouser(){
+				this.tabsnum = 3
+			},
+			gotoweb(id){
+				window.open(localStorage.getItem("URL")+"/#/works?id=" + id);
+			},
 			userdetail(open_id){
 				this.$router.push({
 					path:"/userManager/userBaseInfo/userBaseInfoDetail",

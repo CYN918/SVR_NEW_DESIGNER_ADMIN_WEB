@@ -24,7 +24,7 @@
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
-						<el-select v-model="form['business_type']" placeholder="请选择" :disabled="objstatus > 0">
+						<el-select v-model="form['business_type']" placeholder="请选择" :disabled="objstatus > 0" style="width: 357px;">
 							<el-radio-group v-model="form['business_type']">
 								<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name">
 									<el-radio :label="item.id">{{ item.name }}</el-radio>
@@ -96,7 +96,7 @@
 					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
-						<el-select v-model="form['classify_id']" placeholder="请选择">
+						<el-select v-model="form['classify_id']" placeholder="请选择" style="width: 357px;">
 							<el-radio-group v-model="form['classify_id']">
 								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name">
 									<el-radio :label="item.id">{{ item.classify_name }}</el-radio>
@@ -191,25 +191,24 @@
 				</ul> 
 			</div>
 			<div v-show="Isnextshow" class="relative" >
-				<div class="detailContent" v-for="(item,index) in detailtext">
-					<div class="modeltitle detailKey" style="margin-left: 50px;">说明模块{{ index+1 }}</div>
-					<ul style="padding-top: 30px;">
-						<li class="margint23 ofh">
+				<div class="detailContent ofh" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext">
+					<ul class="fleft" style="padding-top: 30px;margin-left: 50px;">
+						<li class="margint23">
+							<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
 							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
 							<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
 						</li>
 						<li class="margint23 ofh" >
 							<span class="fleft detailKey" style="line-height: 40px;">模块说明</span>
-							<div class=" ofh" style="width: 800px;">
+							<div class="relative ofh" style="width: 800px;">
 								<div class="fleft">
-									<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="item.module_content"></vue-ueditor-wrap>
+									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
-								<div class="fleft uediterspan h relative pointer">
+								<div class="fleft uediterspan h pointer" style="bottom: 0px;position: absolute;right: 0;height: 20px;">
 									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="swapItems(detailtext,index,index-1)">删除</span>
 								</div>
 							</div>
 						</li>
-						
 					</ul>
 				</div>
 				<div class="addDetailContent" @click="addDetailContent()">+</div>
@@ -224,8 +223,8 @@
 			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		
-		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog">
-			<div style="width:1000px"> 
+		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog" >
+			<div style="width: 1200px;"> 
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
@@ -244,7 +243,7 @@
 				<div class="calc205"  style="width:1200px">
 					<commonTable3 ref="tabs3" :tableDatas="tableData3" :tableConfig="tableConfig" :tableAction="tableAction"></commonTable3>
 				</div>
-				<div class="w textcenter">
+				<div class="w textcenter" style="margin: auto;">
 					<button class="defaultbtn defaultbtnactive" @click="reject()">确定</button>
 				</div>
 			</div>
@@ -281,7 +280,7 @@
 				
 			</div>
 		</el-dialog>
-		<el-dialog title="请选择模板文件" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
+		<el-dialog title="请选择模板预设" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
 			
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
@@ -314,7 +313,7 @@
 	import commonTable from '@/components/commonTable.vue'
 	import commonTable3 from '@/components/commonTable3.vue'
 	import DataScreen from "@/assets/DataScreen.js"
-	
+	import upload from '@/components/upload.vue'
 	export default {
 		data() {
 			return {
@@ -441,7 +440,8 @@
 		components: {
 			VueUeditorWrap,
 			commonTable,
-			commonTable3
+			commonTable3,
+			upload
 		},
 		methods: {
 			databijiao(){
@@ -589,7 +589,9 @@
 				this.getDatay({pageCurrent:1,pageSize:50});
 			},
 			edit(){
-				
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
 				this.form.desc = JSON.stringify(this.detailtext);
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
@@ -873,6 +875,9 @@
 				
 				this.form.demand_id = this.dids.join(',');
 				this.form.template_file_id = this.selectData1.template_file_id;
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
 				this.form.desc = JSON.stringify(this.detailtext);
 				this.api.projectadd(this.form).then(da =>{
 					console.log(da)

@@ -910,6 +910,16 @@ var router = new Router({
 			]
 			
 		},
+		
+		{
+			path:"/quan",
+			name: 'quan',
+			meta: {
+				title: "验收报告",
+				pagetitle: "项目发布-狮圈儿运营管理平台"
+			},
+			component: () => import('@/views/quan/quan.vue'),
+		},
 	]
 })
 

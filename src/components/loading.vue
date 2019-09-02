@@ -47,7 +47,10 @@
 							"39":"/noticeManager/noticetemplate",
 							"40":"/contentManager/listAd",
 							"41":"/contentManager/holdAll",
-							"50":"/userManager/blackList"
+							"50":"/userManager/blackList",
+							"200495":"/projectManagement/projectList",
+							"200496":"/projectManagement/projectclass",
+							"200498":"/projectManagement/Profit"
 						}
 						
 						

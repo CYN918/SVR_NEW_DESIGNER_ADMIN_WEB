@@ -172,7 +172,7 @@ input{
 }
 
 .el-cascader-menus,.el-select-dropdown{
-		z-index: 2018 !important;
+		z-index: 2049 !important;
 }
 
 #app .btntag{
@@ -916,6 +916,10 @@ input{
 ::-webkit-scrollbar-thumb {
 	border-radius:5px;
 	background:#E6E6E6;
+}
+
+.edui-default .edui-editor-bottomContainer table{
+	display: none;
 }
 
 @media screen and (max-width: 1400px) {

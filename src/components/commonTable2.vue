@@ -159,7 +159,7 @@
 		
 		
 		<!-- ///// -->
-		<el-dialog :title="tableConfig.title+'-筛选'" :visible.sync="centerDialogVisible">
+		<el-dialog :title="commonTopData.tabData[tabnums].name+'-筛选'" :visible.sync="centerDialogVisible">
 			<div>
 				<div class="screenborder">
 					<div class="screenMidden paddinglr30">
