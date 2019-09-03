@@ -74,8 +74,8 @@
 					</li>
 				</ul>
 			</div>
-			<div v-show="Isnextshow" class="relative" >
-				<div class="detailContent" v-for="(item,index) in detailtext">
+			<div v-if="Isnextshow" class="relative" v-loading="!clear" style="min-height: 85%;">
+				<div class="detailContent" v-for="(item,index) in detailtext" v-if="clear">
 					<div class="modeltitle detailKey" style="margin-left: 50px;">说明模块{{ index+1 }}</div>
 					<ul style="padding-top: 30px;">
 						<li class="margint23 ofh">
@@ -237,7 +237,8 @@
 						module_title:'',
 						module_content:'<p style="color:#999"></p>'
 					},
-				]
+				],
+				clear:true
 			}
 		},
 		components: {
@@ -246,6 +247,11 @@
 			upload
 		},
 		methods: {
+			changedatial(){
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
+			},
 			delect(index){
 				this.detailtext.splice(index,1);
 			},
@@ -262,15 +268,19 @@
 					});
 					return
 				}
-				
 				if(index2 < 0){
 					this.$message({
 						message:"已经是第一个了"
 					});
 					return
 				}
+				this.clear = false;
 				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
-				this.detailtext = arr; 
+				this.detailtext = arr;
+				console.log(this.detailtext);
+				setTimeout(()=>{
+					this.clear = true;
+				},40)
 			},
 			totem(){
 				this.$router.push({
@@ -301,9 +311,7 @@
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			edit() {
-				this.detailtext.forEach((item,index)=>{
-					item.module_content = this.$refs.upload[index].form.content;
-				})
+				
 				
 				this.form.desc = JSON.stringify(this.detailtext);
 				

@@ -248,7 +248,7 @@
 									name:(da)=>{
 										return '预览';
 									},
-									fun:"s",
+									fun:"yulan",
 									accessid:"200062",
 								},
 								{
@@ -289,11 +289,9 @@
 								},
 								{
 									name:(da)=>{
-										
 										return '预览';
-										
 									},
-									fun:"s",
+									fun:"yulan",
 									accessid:"200062",
 								},
 								{
@@ -477,12 +475,17 @@
 		computed: {},
 		methods: {
 			presentation(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectList/presentation",
 					query:{
 						project_id:row.project_id
 					}
 				})
+				
+			},
+			yulan(row){
+				window.open(localStorage.getItem("URL")+"/#/prcent?id=" + row.project_id);
 			},
 			up(row){
 				//console.log(row.file_url)
@@ -540,6 +543,7 @@
 				})
 			},
 			review(row){
+				this.setpage()
 				if(row.check_status == '4'){
 					this.$router.push({
 						path:"/review/projectreview",
@@ -548,6 +552,7 @@
 				
 			},
 			selectobj(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectList/projectDetial",
 					query:{
@@ -556,6 +561,7 @@
 						index:3
 					}
 				})
+				
 			},
 			ISshow(){
 				this.$refs.Tabledd.reject();
@@ -573,19 +579,24 @@
 				})
 			},
 			add(){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectList/newproject"
 				})
+				
 			},
 			edit(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectList/editproject",
 					query:{
 						row: JSON.stringify(row)
 					}
 				})
+				
 			},
 			see(row){
+				this.setpage()
 				//console.log(row);
 				this.$router.push({
 					path:"/projectManagement/projectList/projectDetial",
@@ -594,7 +605,11 @@
 						status:row.status
 					}
 				})
-			}
+				
+			},
+			setpage(){
+				localStorage.setItem("projectlist",this.$refs.Tabledd.tabnums);
+			},
 		},
 		created() {
 			this.getData()

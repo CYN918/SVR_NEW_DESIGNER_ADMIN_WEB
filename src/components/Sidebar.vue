@@ -12,7 +12,7 @@
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
 					<span style="padding:15px;">{{ item.title }}</span>
 				</template>
-				<router-link v-if="item.child && item.child.length != 0"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
+				<router-link v-if="item.child && item.child.length != 0 && url[citem.id]"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
 					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>

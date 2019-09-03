@@ -12,7 +12,6 @@
 				</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
-			
 		</div>
 	</div>
 </template>
@@ -111,6 +110,7 @@ export default {
 		},
 		'form.content'() {
 			this.checkPage1();
+			this.$parent.changedatial()
 		},
 		'form.face_pic'() {
 			this.checkPage2();
@@ -146,10 +146,11 @@ export default {
 	created:function(){
 		this.init();
 		//this.getClassify();
+		//console.log()
 	},
 	mounted: function () {	
-		
-	}, 
+		//this.init();
+	},
 	methods: {
 		/*page2*/
 		seletClassify(name,on){
@@ -238,7 +239,8 @@ export default {
 			this.saveData(dat,'自动保存成功');
 		},
 		init(O){
-			
+			this.form.content = "";
+			//console.log(this.uploaddata)
 			if(this.uploaddata){
 				this.form.content = this.uploaddata
 				this.ifBjType = 1;

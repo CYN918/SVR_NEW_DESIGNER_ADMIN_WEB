@@ -187,11 +187,15 @@
 								</el-checkbox-group>
 						    </el-dropdown-menu>
 						</el-dropdown>
+						<div>
+							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">1111</span>
+						</div>
+						
 					</li>
 				</ul> 
 			</div>
-			<div v-show="Isnextshow" class="relative" >
-				<div class="detailContent ofh" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext">
+			<div v-show="Isnextshow" class="relative" v-loading="!clear">
+				<div class="detailContent ofh" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
 					<ul class="fleft" style="padding-top: 30px;margin-left: 50px;">
 						<li class="margint23">
 							<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
@@ -205,7 +209,7 @@
 									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
 								<div class="fleft uediterspan h pointer" style="bottom: 0px;position: absolute;right: 0;height: 20px;">
-									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="swapItems(detailtext,index,index-1)">删除</span>
+									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 								</div>
 							</div>
 						</li>
@@ -434,7 +438,8 @@
 				yonghudata:{},
 				selectelists3:{},
 				selectelists:[],
-				objstatus:0
+				objstatus:0,
+				clear:true
 			}
 		},
 		components: {
@@ -444,6 +449,14 @@
 			upload
 		},
 		methods: {
+			changedatial(){
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
+			},
+			delect(index){
+				this.detailtext.splice(index,1);
+			},
 			databijiao(){
 				//console.log(this.form['publish_time'],this.form['deadline'])
 				if(this.form['deadline'] && this.form['publish_time']){
@@ -455,7 +468,6 @@
 							message:"截稿时间必须大约发布时间",
 							type:"error"
 						})
-						
 					}
 				}
 			},
@@ -517,15 +529,20 @@
 					});
 					return
 				}
-				
 				if(index2 < 0){
 					this.$message({
 						message:"已经是第一个了"
 					});
 					return
 				}
+				this.clear = false;
 				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
-				this.detailtext = arr; 
+				this.detailtext = arr;
+				console.log(this.detailtext);
+				setTimeout(()=>{
+					this.clear = true;
+				},40)
+				
 			},
 			totem(){
 				this.$router.push({
@@ -533,7 +550,12 @@
 				})
 			},
 			getparent() {
-				this.$router.go(-1);
+				this.$router.push({
+					path:"/projectManagement/projectList",
+					query:{
+						tabsnum:localStorage.getItem('projectlist')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -596,17 +618,30 @@
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
-				if(this.form.rule_type == 1){
+				/* if(this.form.rule_type == 1){
 					this.form.status = 0;
 				} else{
 					this.form.status = 3;
-				}
+				} */
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
+				
+				if(!this.form.demand_id){
+					this.$message({
+						message:"请选择需求文档"
+					})
+					return;
+				}
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
 				this.api.projectupdate(this.form).then(da => {
 					
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent()
 					}
 				}).catch(() => {
 
@@ -879,10 +914,25 @@
 					item.module_content = this.$refs.upload[index].form.content;
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
+				
+				if(!this.form.demand_id){
+					this.$message({
+						message:"请选择需求文档"
+					})
+					return;
+				}
+				
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				this.api.projectadd(this.form).then(da =>{
 					console.log(da)
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent();
 					}
 				}).catch(da =>{
 					
@@ -917,6 +967,7 @@
 					this.form.production_cycle_h = da.production_cycle_h;
 					this.form.deadline = da.deadline;
 					this.form.publish_time = da.publish_time;
+					this.form.status = da.status;
 					
 					if(this.form.desc){
 						this.ifBjType=1;
@@ -1143,38 +1194,55 @@
 			},
 			alertmask(){
 				
-				if(!this.form['activity_name']){
+				if(!this.form['name']){
 					
-					return "请填写活动名称！！";
+					return "请填写项目名称！！";
 				}
-				if(!this.form['remark']){
+				if(!this.form['business_type']){
 					
-					return "请填写活动备注！！";
+					return "请选择业务类型！！";
+				}
+				if(!this.form['classify_id']){
+					
+					return "请选择项目类型！！";
+				}
+				if(!this.form['rule_type']){
+					
+					return "请选择中标规则！！";
 				}
 				if(!this.form['banner']){
 					
-					return "请上传活动banner！！";
-				}
-				if(!this.form['category_id']){
-					
-					return "请选择主题分类！！";
-				}
-				if(!this.form['start_time']){
-					
-					return "请填写活动时间！！";
-				}
-				if(!this.form['end_time']){
-					
-					return "请填写活动时间！！";
+					return "请上传banner！！";
 				}
 				
-				if(!this.form['setting_type']){
+				if(!this.form['fields']){
 					
-					return "设置状态！！";
+					return "请填写领域范围！！";
 				}
-				if(!this.form['is_provide_template']){
+				if(!this.form['expected_profit']){
 					
-					return "请选择模板状态！！";
+					return "请填写预计收益！！";
+				}
+				
+				if(!this.form['extra_reward']){
+					
+					return "请填写额外奖金！！";
+				}
+				if(!this.form['qq']){
+					
+					return "请填写QQ！！";
+				}
+				if(!this.form['publish_time']){
+					
+					return "请填写发布时间！！";
+				}
+				if(!this.form['deadline']){
+					
+					return "请填写报名截止时间！！";
+				}
+				if(!this.form['qq']){
+					
+					return "请填写QQ！！";
 				}
 				return true;
 			},
@@ -1272,7 +1340,6 @@
 			this.getData1();
 			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
-			
 		},
 		watch:{
 			"$route":function(){

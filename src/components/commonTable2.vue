@@ -338,6 +338,7 @@
 			},
 			tabsChange(num){
 				this.tabnums = num;
+				console.log(this.tabnums)
 				this.gettableConfiglist(this.tabnums);
 				this.getTabData();
 			},
@@ -498,10 +499,8 @@
 				if(this.tableConfig.project_id){
 					data.project_id = this.$parent.project_id;
 				}
-				
-				
-				
 				this.api[url](data).then((da) => {
+					console.log(da.data)
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
@@ -604,16 +603,21 @@
 		},
 		mounted() {
 			
-			this.getTabData();
+			
 			this.autoTableHeight();
 			//console.log(this.tableConfig)
 			this.init();
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
+			if(this.$route.query.tabsnum){
+				this.tabsChange(parseInt(this.$route.query.tabsnum));
+			} else {
+				this.gettableConfiglist(0);
+				this.getTabData();
+			}
 		},
 		created() {
-			this.gettableConfiglist(0);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 		}
 	}
