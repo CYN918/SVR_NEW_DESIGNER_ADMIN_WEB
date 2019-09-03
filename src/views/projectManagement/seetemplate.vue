@@ -76,7 +76,12 @@
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1);
+				this.$router.push({
+					path:"/projectManagement/projectclass",
+					query:{
+						tabsnum:localStorage.getItem('projectlist')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {

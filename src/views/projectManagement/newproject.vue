@@ -628,7 +628,14 @@
 				
 				if(!this.form.demand_id){
 					this.$message({
-						message:"请选择需求文档"
+						message:"请选择关联需求"
+					})
+					return;
+				}
+				//console.log(this.form.rule_type)
+				if(this.form['deadline'] && this.form.rule_type == 2){
+					this.$message({
+						message:"请填写报名截止时间"
 					})
 					return;
 				}
@@ -917,7 +924,14 @@
 				
 				if(!this.form.demand_id){
 					this.$message({
-						message:"请选择需求文档"
+						message:"请选择关联需求"
+					})
+					return;
+				}
+				//console.log(this.form.rule_type);
+				if(this.form['deadline'] && this.form.rule_type == 2){
+					this.$message({
+						message:"请填写报名截止时间"
 					})
 					return;
 				}
@@ -1236,14 +1250,16 @@
 					
 					return "请填写发布时间！！";
 				}
-				if(!this.form['deadline']){
-					
-					return "请填写报名截止时间！！";
-				}
 				if(!this.form['qq']){
 					
 					return "请填写QQ！！";
 				}
+				   
+			    if(!this.form.template_file_id){
+				
+					return "请选择模板！！";
+			    }
+			
 				return true;
 			},
 			getdemandlist(){

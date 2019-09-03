@@ -54,7 +54,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="reject1">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="supply()">确定终止</button>
+				<button class="defaultbtn defaultbtnactive" @click="supply()">提交</button>
 			</span>
 		</el-dialog>
 	</div>
@@ -504,7 +504,8 @@
 				}).then(da=>{
 					if(da.result == 0){
 						this.$refs.Tabledd.getTabData();
-						this.centerDialogVisible=false;
+						this.centerDialogVisible1=false;
+						this.contract_id = '';
 					}
 				}).catch(da=>{
 					
