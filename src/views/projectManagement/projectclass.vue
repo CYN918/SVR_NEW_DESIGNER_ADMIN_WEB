@@ -148,11 +148,13 @@
 				})
 			},
 			add(){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/newprojectclass"
 				})
 			},
 			add1(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/newtemplate",
 					query:{
@@ -161,6 +163,7 @@
 				})
 			},
 			edit(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/editprojectclass",
 					query:{
@@ -169,6 +172,7 @@
 				})
 			},
 			edit1(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/newtemplate",
 					query:{
@@ -177,13 +181,17 @@
 				})
 			},
 			see(row){
+				this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/seetemplate",
 					query:{
 						id: row.id
 					}
 				})
-			}
+			},
+			setpage(){
+				localStorage.setItem("projectclass",this.$refs.Tabledd.tabnums);
+			},
 		},
 		created() {
 			

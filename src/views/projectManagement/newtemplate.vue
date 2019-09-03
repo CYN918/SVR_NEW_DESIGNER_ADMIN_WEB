@@ -288,7 +288,12 @@
 				})
 			},
 			getparent() {
-				this.$router.go(-1);
+				this.$router.push({
+					path:"/projectManagement/projectclass",
+					query:{
+						tabsnum:localStorage.getItem('projectclass')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -311,12 +316,7 @@
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			edit() {
-				
-				
 				this.form.desc = JSON.stringify(this.detailtext);
-				
-				
-				
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
@@ -325,7 +325,7 @@
 				this.api.projecttemplateupdate(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent()
 					}
 				}).catch(() => {
 
@@ -590,7 +590,7 @@
 				this.api.projecttemplateadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent()
 					}
 				}).catch(da =>{
 					
