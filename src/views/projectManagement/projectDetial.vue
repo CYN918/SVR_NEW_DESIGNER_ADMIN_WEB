@@ -433,7 +433,7 @@
 					},
 					{
 						name:"验收审核人",
-						id:"username",
+						id:"admin_name",
 						type:"text"
 					}
 				],

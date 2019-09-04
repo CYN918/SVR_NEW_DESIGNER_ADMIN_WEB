@@ -3,21 +3,21 @@
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh">
 			<ul>
-				<li class="margint13 ofh">
+				<li class="margintbt30 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">banner素材名称</span>
 					<el-input placeholder="请输入内容" style="width:357px;height:40px;" v-model="banner_name">{{2222 }}</el-input>
 				</li>
-				<li class="margint23 ofh">
+				<li class="margintbt30 ofh">
 					<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
 					<el-upload action="454535" :http-request="httprequest" :show-file-list="false">
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
 						</div>
-						<div class="fontcolorg">1300*328px，格式jpg，jpeg，png，大小不超过10M</div>
+						<div style="margin: 10px 0;" class="fontcolorg">1920*720px，格式jpg，jpeg，png，大小不超过10M</div>
 					</el-upload>
-					<img :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
+					<img v-if="banner_pic" :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
 				</li>
-				<li class="margint13 ofh">
+				<li class="margintbt30 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>
 					<el-input placeholder="请输入内容" v-model="jump_url" style="width:357px;height:40px;"></el-input>
 				</li>
@@ -166,6 +166,10 @@
 	.detailtitle {
 		padding-left: 40px;
 		padding-top: 18px;
+	}
+	
+	.margintbt30{
+		margin-bottom: 30px;
 	}
 
 	.detailContent1 {

@@ -87,7 +87,7 @@ input{
 }
 
 #app .fontcolorg{
-	color: #999999 !important;
+	color: #bbbbbb !important;
 }
 
 .mainContentMiddenBottom {
@@ -211,7 +211,7 @@ input{
 }
 
 #app .el-input.is-active .el-input__inner,#app .el-input.is-active .iconfont , #app .el-input__inner:focus,#app .ipt:hover{
-	border-color: #ff5121 !important;
+	border-color: #DCDFE6 !important;
 }
 
 #app .ipt90 {
