@@ -13,7 +13,7 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span  v-else-if="index == 4 && status > item.status && status < 5" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				<span  v-else-if="index == 4 && status > item.status && status < 6" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
@@ -96,8 +96,8 @@
 				</div>
 			</div>
 			<div v-if="tabsnum == 2" class="detailContent0">
-				<common-table :commonTopData="commonTopData" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields"
-				 ref="Tabledd"></common-table>
+				<common-table :commonTopData="commonTopData1" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields1"
+				></common-table>
 			</div>
 			<div v-if="tabsnum == 3">
 				<ul class="ofh">
@@ -221,7 +221,7 @@
 		</div>
 		
 		<el-dialog title="分配项目" :visible.sync="centerDialogVisible1">
-			<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields"
+			<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields2"
 			 ref="Tabledd"></common-table>
 		</el-dialog>
 		
@@ -254,6 +254,25 @@
 		},
 		data() {
 			return {
+				tableData2:[
+					{
+						id:"1",
+						name:"广告模板"
+					},
+					{
+						id:"2",
+						name:"广告图"
+					},
+					{
+						id:"3",
+						name:"场景锁屏"
+					},
+					{
+						id:"4",
+						name:"主题"
+					}
+					
+				],
 				tabData: [
 					{
 						name: "基本信息"
@@ -271,7 +290,7 @@
 					},
 					{
 						name: "验收信息",
-						status:3
+						status:4
 					}
 				],
 				tabsnum: 0,
@@ -295,17 +314,19 @@
 					{
 						name:"业务类型",
 						id:"business_type",
-						type:"text"
+						type:"keyvalue",
+						child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}
+						
 					},
 					{
 						name:"领域范围",
 						id:"fields",
-						type:"url"
+						type:"text"
 					},
 					{
 						name:"预计收益",
 						id:"expected_profit",
-						type:"imgtou",
+						type:"text",
 					},
 					{
 						name:"额外赏金",
@@ -363,33 +384,37 @@
 				yanshou:[
 					{
 						name:"验收价格",
-						id:"project_id",
+						id:"acceptance_price",
 						type:"text"
 					},
 					{
 						name:"额外赏金",
-						id:"name",
+						id:"extra_reward",
 						type:"text"
 					},
 					{
 						name:"延期交稿扣减",
-						id:"banner",
-						type:"imgfeng"
+						id:"deduction_price",
+						type:"text"
 					},
 					{
 						name:"收益加成",
-						id:"business_type",
+						id:"gain_share_price",
 						type:"text"
 					},
 					{
 						name:"成交价格",
-						id:"fields",
-						type:"url"
+						id:"deal_price",
+						type:"text"
 					},
 					{
 						name:"成交方式",
-						id:"expected_profit",
-						type:"imgtou",
+						id:"deal_type",
+						type:"keyvalue",
+						child:{
+							"1":"买断式",
+							"2":"分成式"
+						}
 					},
 					{
 						name:"需求ID",
@@ -398,7 +423,7 @@
 					},
 					{
 						name:"项目评级",
-						id:"publish_time",
+						id:"level",
 						type:"text"
 					},
 					{
@@ -408,7 +433,7 @@
 					},
 					{
 						name:"验收审核人",
-						id:"production_cycle_d",
+						id:"username",
 						type:"text"
 					}
 				],
@@ -500,7 +525,8 @@
 						{prop:'signup_num',lable:'报名人数'},
 						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
-					project_id:"project_id"
+					project_id:"project_id",
+					data:'status',
 				},
 				tableAction2: {
 					morebtns:{
@@ -541,7 +567,7 @@
 						
 					
 				},
-				filterFields:[
+				filterFields2:[
 					{name:"项目ID",id:"classify_name"},
 					{name:"项目名称",id:"classify_name"},
 					{name:"业务类型",id:"classify_name"},
@@ -551,7 +577,17 @@
 					{name:"中标时间",id:"classify_name"},
 					{name:"截稿时间",id:"classify_name"},
 				],
-				commonTopData: {
+				filterFields1:[
+					{name:"项目ID",id:"classify_name"},
+					{name:"项目名称",id:"classify_name"},
+					{name:"业务类型",id:"classify_name"},
+					{name:"领域范围",id:"classify_name"},
+					{name:"额外赏金",id:"classify_name"},
+					{name:"发布时间",id:"classify_name"},
+					{name:"中标时间",id:"classify_name"},
+					{name:"截稿时间",id:"classify_name"},
+				],
+				commonTopData1: {
 					"pageName": "publishWork",
 					"commonleftbtn": [{
 						name: "筛选",
@@ -568,7 +604,7 @@
 					"tabData":[
 						
 					],
-					'tabnums':0,
+					tabDatatitle:"交稿记录",
 					is:true
 				},
 				commonTopData2: {
@@ -787,6 +823,7 @@
 				});
 				//console.log(this.openurls);
 			},
+			
 		},
 		created() {
 			this.getworkdetial();

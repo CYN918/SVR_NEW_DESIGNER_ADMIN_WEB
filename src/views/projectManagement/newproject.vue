@@ -1,5 +1,5 @@
 <template>
-	<div class="wh Detail" ref="height">
+	<div class="wh Detail" ref="height" v-loading="loading">
 		<div class="detailtitle">
 			<span class="fleft">{{ currentpageName }}</span>
 			<div class="employment" style="text-align: center;">
@@ -36,7 +36,7 @@
 						<span class="fleft detailKey" style="line-height: 40px;">中标规则</span>
 						<el-button-group>
 							<el-button :disabled="objstatus > 0" :type="typebtn == 0 ? 'primary' : ''" @click="getrule(0)">全站用户海选</el-button>
-							<el-button :disabled="objstatus > 0" :type="typebtn == 1 ? 'primary' : ''" @click="getrule(1)">制定制作人</el-button>
+							<el-button :disabled="objstatus > 0" :type="typebtn == 1 ? 'primary' : ''" @click="getrule(1)">指定制作人</el-button>
 						</el-button-group>
 						<div class="ofv" v-if="typebtn == 1" style="margin-top: 20px;">
 							<span class="fleft detailKey" style="line-height: 40px;color: white;">1111</span>
@@ -227,8 +227,8 @@
 			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		
-		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog" >
-			<div style="width: 1200px;"> 
+		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog">
+			<div style="width: 1200px;overflow-x: scroll;"> 
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
@@ -439,7 +439,8 @@
 				selectelists3:{},
 				selectelists:[],
 				objstatus:0,
-				clear:true
+				clear:true,
+				loading:false
 			}
 		},
 		components: {
@@ -550,6 +551,7 @@
 				})
 			},
 			getparent() {
+				this.loading = false;
 				this.$router.push({
 					path:"/projectManagement/projectList",
 					query:{
@@ -580,7 +582,12 @@
 				console.log(row);
 				this.selectData1.file_name = row.file_name;
 				this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
+				this.clear = false;
 				this.detailtext = JSON.parse(row.desc);
+				console.log(this.detailtext);
+				setTimeout(()=>{
+					this.clear = true;
+				},40)
 			},
 			tabsChange(num) {
 				this.tabsnum = num;
@@ -902,7 +909,7 @@
 				}
 			},
 			createdactivity(){
-				
+				this.loading = true;
 				if(this.form.rule_type == 1){
 					this.form.status = 0;
 				} else{
@@ -946,6 +953,7 @@
 				this.api.projectadd(this.form).then(da =>{
 					console.log(da)
 					if(da.result == 0){
+						
 						this.getparent();
 					}
 				}).catch(da =>{
@@ -1101,7 +1109,7 @@
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
 					this.getcommonrightbtn();
-					this.getData({
+					this.getDatay({
 						pageCurrent: 1,
 						pageSize: 50
 					});
@@ -1141,22 +1149,19 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					//console.log(urldata);
+					this.filterFields =  DataScreen.screen.newproject1.filterFields;
 					this.filterFields.forEach(item=>{
-						//console.log(item);
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
-									//alert(urldata[item.id])
 									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							//console.log(this.commonTopData.commonbottombtn);
 						} 
 						if(item.type == "two"){
 							if(item.child){
@@ -1178,12 +1183,18 @@
 						}
 					})
 				}
+				
 			},
 			resetSave(tag){
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/activityManager/activityEmploy/newActivity',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({
+						path: this.$route.matched[this.$route.matched.length - 1].path,
+						query: {
+							urlDate: JSON.stringify(this.form)
+						}
+					});
 				}
 			},
 			dialogTable(){
@@ -1389,7 +1400,7 @@
 		margin:10px;
 	}
 	.sel-dialog  {
-		width: 1200px;
+		width: 1200px !important;
 	}
 	
 	.Detail {

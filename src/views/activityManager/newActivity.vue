@@ -289,9 +289,8 @@
 		},
 		methods: {
 			totem(){
-				this.$router.push({
-					path:"/activityManager/solicitationTemplate"
-				})
+				const {href} = this.$router.resolve({ path: "/activityManager/solicitationTemplate"})
+				window.open(href, '_blank')
 			},
 			getparent() {
 				this.$router.go(-1);

@@ -1,13 +1,13 @@
 <template>
 	<div class="wh Detail" ref="height">
-		<div class="detailtitle">
+		<div class="detailtitle  ofh" style="margin-bottom: 20px;">
 			<span class="fleft">{{ currentpageName }}</span>
 		</div>
 		<div class="detailContent" ref="scroll" style="height: calc(100% - 47px) !important;">
 			<div class="relative" >
 				<div class="detailContent" v-for="(item,index) in detailtext">
 					<div class="modeltitle ofh" style="margin-left: 50px;">
-						<div class="fleft">说明模块{{ index+1 }}</div>
+						<div class="fleft">成长等级{{ index+1 }}</div>
 						<div class="fright uediterspan h relative pointer" style="margin-right:50%;">
 							<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 						</div>
@@ -107,7 +107,7 @@
 			
 		},
 		mounted(){
-			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.getactivityinfo();
 		},
 		watch:{

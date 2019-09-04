@@ -159,7 +159,7 @@
 		
 		
 		<!-- ///// -->
-		<el-dialog :title="commonTopData.tabData[tabnums].name+'-筛选'" :visible.sync="centerDialogVisible">
+		<el-dialog :title="gettitle() +'-筛选'" :visible.sync="centerDialogVisible">
 			<div>
 				<div class="screenborder">
 					<div class="screenMidden paddinglr30">
@@ -313,6 +313,13 @@
 			}
 		},
 		methods: {
+			gettitle(){
+				if(!this.commonTopData.tabData){
+					return this.commonTopData.tabData[tabnums].name
+				} else {
+					return this.commonTopData.tabDatatitle
+				}
+			},
 			gettrue(id){
 				//console.log(this.adminuseraccess)
 				//alert(this.adminuseraccess.hasOwnProperty(id)) 
@@ -476,7 +483,7 @@
 				}
 				
 				
-				if(this.currentpageName == "项目发布"){
+				if(this.tableConfig.data){
 					data[this.tableConfig.data] = this.tabnums;
 					if(this.tabnums == 5){
 						data[this.tableConfig.data] = -1;

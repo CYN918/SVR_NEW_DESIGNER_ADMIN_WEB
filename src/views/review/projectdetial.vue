@@ -17,17 +17,24 @@
 				<li class="margint13 ofh" v-for="(item,index) in workData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ getValue(apply_info[item.id])  }}</span>
+					<div v-if="item.type == 'text1'">
+						<div style="margin-bottom: 10px;" v-for="(citem,index) in getdes(apply_info[item.id])">
+							<div style="margin-left: 160px;">模块-{{ index }}</div>
+							<div style="margin-left: 160px;" v-html="citem.module_title"></div>
+							<div style="margin-left: 160px;" v-html="citem.module_content"></div>
+						</div>
+					</div>
 					<span v-if="!item.type">{{ title }}</span>
 					<span v-if="item.type == 'recommend'">{{ apply_info[item.id] ? apply_info[item.id] : "不推荐" }}</span>
 					<span v-else-if="item.type == 'arr'">
-						<span v-for="(item,index) in apply_info.labels" :key="item">{{ item + (index == (apply_info.labels.length - 1) ? "" : "/")  }}</span>
+						<span v-for="(citem,index) in getarr(apply_info[item.id])">{{ citem }}</span>
 					</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="apply_info[item.id]" alt="没有图片">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="apply_info[item.id]" alt="没有图片">
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="apply_info[item.id]" alt="没有图片">
 					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(apply_info[item.id])  }} </span>
 					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="apply_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'child'">{{ getValue(item.child[apply_info[item.id]])}}</span>
+					<span v-else-if="item.type == 'keyvalue'">{{ getValue(item.child[apply_info[item.id]])}}</span>
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ getValue(apply_info[item.id]) }}</span>
 					</router-link>
@@ -74,7 +81,7 @@
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn" @click="reject3">下载稿件</button>
+			<button class="defaultbtn" @click="up">下载稿件</button>
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject">验收驳回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject2()">验收通过</button>
 		</div>
@@ -363,8 +370,8 @@
 					},
 					{
 						name: "备注说明",
-						id: "work_name",
-						type: "remark"
+						id: "remark",
+						type: "text"
 					}
 				],
 				workData: [{
@@ -380,7 +387,8 @@
 					{
 						name: "业务类型",
 						id: "business_type",
-						type: "text"
+						type:"keyvalue",
+						child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}
 					},
 					{
 						name: "banner",
@@ -395,7 +403,7 @@
 					{
 						name: "项目需求说明",
 						id: "desc",
-						type: "text"
+						type: "text1"
 					},
 
 					{
@@ -426,13 +434,14 @@
 					},
 					{
 						name: "中标人",
-						id: "update_at",
+						id: "username",
 						type: "text"
 					},
 					{
 						name: "状态",
 						id: "project_status",
-						type: "text"
+						type:"keyvalue",
+						child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}
 					},
 
 				],
@@ -467,7 +476,7 @@
 					},
 					{
 						name: "提审时间",
-						id: "create_time",
+						id: "created_at",
 						type: "text"
 					},
 					{
@@ -488,7 +497,7 @@
 					},
 					{
 						name: "审核人",
-						id: "check_admin_name",
+						id: "admin_name",
 						type: "text"
 					},
 					{
@@ -576,6 +585,15 @@
 			
 		},
 		methods: {
+			up(){
+				window.open(this.material_info.file_url);
+			},
+			getarr(arr){
+				return arr.split(",")
+			},
+			getdes(ds){
+				return JSON.parse(ds);
+			},
 			get_time_diff(ti) {
 				var time = new Date(ti.replace(/-/g, "/")).getTime();
 				var diff = '';

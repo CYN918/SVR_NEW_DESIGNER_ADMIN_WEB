@@ -785,7 +785,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/projectManagement/projectclass",
 			meta: {
-				title: "消息通知管理"
+				title: "项目管理"
 			},
 			children:[
 				{

@@ -93,7 +93,7 @@
 			</div>
 			<div class="w" style="text-align: right;background: #FFFFFF;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span >已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall">选择全部</button>
+					<span>共{{tableConfig.total}}条数据</span>
 				</div>
 				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">

@@ -7,7 +7,7 @@
 				<div class="uploadBoxd2_2_1">
 					<div>{{configData.title}}</div>
 					<div>{{configData.title2}}
-						<span v-if="configData.tip" class="iconfont uploadBoxd2_2_3">&#xe636;
+						<span v-if="configData.tip" class="uploadBoxd2_2_3">
 							<div><div v-for="(el,index) in configData.tip" :key="index">{{el}}</div></div>
 						</span>					
 					</div>

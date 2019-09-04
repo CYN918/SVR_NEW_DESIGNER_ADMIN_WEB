@@ -48,6 +48,13 @@
 				}
 			},
 			add(){
+				if(!this.content){
+					this.$message({
+						message:"项目类型名称不能为空"
+					})
+					return;
+				}
+				
 				this.api.projectclassifyadd({
 					access_token:localStorage.getItem("access_token"),
 					classify_name:this.content,
@@ -62,6 +69,12 @@
 				})
 			},
 			edit(){
+				if(!this.content){
+					this.$message({
+						message:"项目类型名称不能为空"
+					})
+					return;
+				}
 				this.api.projectclassifyupdate({
 					access_token:localStorage.getItem("access_token"),
 					classify_name:this.content,
