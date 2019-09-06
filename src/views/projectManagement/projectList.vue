@@ -41,14 +41,14 @@
 				<button class="defaultbtn defaultbtnactive" @click="stop">确定终止</button>
 			</span>
 		</el-dialog>
-		<el-dialog title="补充合同ID" :visible.sync="centerDialogVisible1" width="738px">
-			<div style="position: relative;">
+		<el-dialog title="补充合同ID" :visible.sync="centerDialogVisible1" width="500px">
+			<div>
 				<ul>
-					<li class="w ofh">
-						<span class="fleft Dialogkey" style="line-height: 40px;">
+					<li class="w ofh textcenter">
+						<span class="Dialogkey" style="display: inline-block;line-height: 40px;margin: 0;">
 							合同ID
 						</span>
-						<el-input style="width: 200px;" v-model="contract_id" placeholder="请输入内容"></el-input>
+						<el-input style="width: 300px;" v-model="contract_id" placeholder="请输入内容"></el-input>
 					</li>
 				</ul>
 			</div>

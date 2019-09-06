@@ -909,7 +909,7 @@
 				}
 			},
 			createdactivity(){
-				this.loading = true;
+				
 				if(this.form.rule_type == 1){
 					this.form.status = 0;
 				} else{
@@ -944,20 +944,21 @@
 				}
 				
 				if(this.alertmask() != true){
+					alert(11);
 					this.$message({
 						message:this.alertmask(),
 					})
 					return;
 				}
-				
+				this.loading = true;
 				this.api.projectadd(this.form).then(da =>{
 					console.log(da)
 					if(da.result == 0){
-						
+						this.loading = false;
 						this.getparent();
 					}
 				}).catch(da =>{
-					
+					this.loading = false;
 				})
 			},
 			getactivityinfo(){

@@ -104,7 +104,7 @@
 					<li class="ofh signlist" v-for="(item,index) in signupLists">
 						<div class="ofh" style="padding-bottom: 60px;border-bottom: 1px solid rgba(251,252,259,1);">
 							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
-								<div class="fleft" style="width: 100%;height: 100%;">
+								<div class="fleft" style="width: 100%;height: 100%;" id="projectDetial">
 									<el-carousel style="width: 100%;height: 100%;">
 									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;">
 										<div class="signlistwork">
@@ -120,15 +120,15 @@
 										</div>
 										<div class="ofh" style="margin: 10px 10px 0;color: #999999;">
 											<div class="fleft ofh" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;" alt="">
+												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;">
 												{{ citem.comment_num  }}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_dz.svg" style="vertical-align: middle;width: 15px;" alt="">
+												<img src="../../assets/img/zs_icon_dz.svg" style="vertical-align: middle;width: 15px;">
 												{{ citem.view_num }}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_xx.svg" style="vertical-align: middle;width: 15px;" alt="">
+												<img src="../../assets/img/zs_icon_xx.svg" style="vertical-align: middle;width: 15px;">
 												{{ citem.like_num }}
 											</div>
 										</div>
@@ -139,7 +139,7 @@
 							<div class="fleft ofh">
 								<div style="margin-left: 20px;width: 300px;border-bottom: 1px solid rgba(251,252,253,1);">
 									<div class="ofh">
-										<img class="fleft" :src="item.user.avatar" width="48px" height="48px" style="border-radius: 50%;" alt="">
+										<img class="fleft" :src="item.user.avatar" width="48px" height="48px" style="border-radius: 50%;">
 										<div class="fleft" style="margin-left: 8px;">
 											<div>{{ item.user.username }}</div>
 											<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.user.vocation + "|" +item.user.province }}</div>
@@ -185,10 +185,20 @@
 										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preferrence_classify ? item.user.preferrence_classify :"--"}}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span><span>{{ item.user.style ? item.user.style :"--"}}</span>
+										<span  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
+										<span class="ofh">
+											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in item.user.style">
+												{{ citem }}
+											</span>
+										</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span><span>{{ item.user.field ? item.user.field :"--"}}</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span>
+										<span class="ofh">
+											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in item.user.field">
+												{{ citem }}
+											</span>
+										</span>
 									</div>
 								</div>
 							</div>
@@ -594,15 +604,8 @@
 				],
 				commonTopData1: {
 					"pageName": "publishWork",
-					"commonleftbtn": [{
-						name: "筛选",
-						fun: "ISshow"
-					}],
-					"commonrightbtn": [{
-						name: "新建项目",
-						id: "right1",
-						fun: "add"
-					}],
+					"commonleftbtn": [],
+					"commonrightbtn": [],
 					"commonbottombtn":[
 						
 					],
@@ -640,12 +643,13 @@
 				window.open(localStorage.getItem("URL")+"/#/works?id=" + id);
 			},
 			userdetail(open_id){
-				this.$router.push({
-					path:"/userManager/userBaseInfo/userBaseInfoDetail",
+				const {href} = this.$router.resolve({ 
+					path: '/userManager/userBaseInfo/userBaseInfoDetail',
 					query:{
 						open_id:open_id
-					}
+				    }
 				})
+				window.open(href, '_blank');
 			},
 			check(){
 				this.$router.push({
@@ -656,7 +660,7 @@
 				window.open(row.file_url);
 			},
 			getselectUser(item){
-				this.$confirm('确定中标', '确认修改', {
+				this.$confirm('确定将<span style="color:#ff5121">'+ item.user.username +'</span>定为<span style="color:#ff5121">'+ this.info.name +'</span>的中标制作人', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,
@@ -903,7 +907,9 @@
 	#bottoms .el-pager{
 		padding: 0;
 	}
-	
+	#projectDetial .el-carousel__arrow{
+		top:37%;
+	}
 </style>
 
 <style scoped>
