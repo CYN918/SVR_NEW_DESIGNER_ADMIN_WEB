@@ -21,14 +21,8 @@
 					<i class="iconfont">&#xe781;</i>
 					<span style="padding:15px;">项目管理</span>
 				</template>
-				<router-link to="/projectManagement/projectclass">
-					<el-menu-item index="3-1" class="">项目分类预设</el-menu-item>
-				</router-link>
-				<router-link to="/projectManagement/projectList">
-					<el-menu-item index="3-2" class="">项目发布</el-menu-item>
-				</router-link>
-				<router-link to="/projectManagement/Profit">
-					<el-menu-item index="3-3" class="">收益成长设置</el-menu-item>
+				<router-link to="/contentManager/projectrecommende">
+					<el-menu-item index="3-1" class="">推荐项目</el-menu-item>
 				</router-link>
 			</el-submenu> -->
 			<!-- <el-submenu index="7">
@@ -182,7 +176,8 @@
 					"50":"/userManager/blackList",
 					"200495":"/projectManagement/projectList",
 					"200496":"/projectManagement/projectclass",
-					"200498":"/projectManagement/Profit"
+					"200498":"/projectManagement/Profit",
+					"51":"/contentManager/projectrecommende"
 					
 				},
 				iconfont:{

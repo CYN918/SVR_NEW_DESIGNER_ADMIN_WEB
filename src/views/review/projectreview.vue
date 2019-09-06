@@ -168,10 +168,33 @@
 					this.getData({pageCurrent:1,pageSize:50});
 				}).catch()
 			},
+			getData1() {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 10000,
+					status:1
+				}
+			
+				this.api.projectclassifylist(data).then((da) => {
+					
+					da.data.forEach(item =>{
+						DataScreen.screen.projectreview.filterFields[2].child.push({
+							name:item.classify_name,
+							id:item.id
+						})
+					})
+			
+				}).catch(() => {
+			
+				});
+			},
 		},
 		created() {
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.getData1();
 		},
 		mounted() {
 			//console.log(this.tableConfig)

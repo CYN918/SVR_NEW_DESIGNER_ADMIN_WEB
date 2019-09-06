@@ -111,25 +111,25 @@
 											<img :src="citem.face_pic" width="100%" height="100%">
 										</div>
 										<div class="ofh" style="margin: 10px 10px 0;color: #333333;">
-											<span class="fleft" style="color: #999999;">{{ citem.work_name }}</span> 
-											<span class="fright"><img src="../../assets/img/icon_img.png" width="14px" height="14px"></span>
+											<span class="fleft" style="color: #999999;font-size: 12px;">{{ citem.work_name }}</span> 
+											<span class="fright"><img src="../../assets/img/zs_icon_tj.svg" width="14px" height="14px"></span>
 										</div>
 										<div class="ofh" style="margin-left: 10px;">
-											<span class="labelbtn textcenter">{{ '--' }}</span>
-											<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+											<span class="labelbtn textcenter">{{  citem.classify_1_name }}</span>
+											<span style="padding: 3px 5px;color: #999999;font-size: 12px;">{{ citem.classify_2_name+'-'+citem.classify_3_name }}</span>
 										</div>
-										<div class="ofh" style="margin: 10px 10px 0;">
-											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
-												<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+										<div class="ofh" style="margin: 10px 10px 0;color: #999999;">
+											<div class="fleft ofh" style="width: 33.3%;">
+												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;" alt="">
+												{{ citem.comment_num  }}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
-												<span style="padding: 3px 5px;color: #999999;">{{ '--' }}</span>
+												<img src="../../assets/img/zs_icon_dz.svg" style="vertical-align: middle;width: 15px;" alt="">
+												{{ citem.view_num }}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/icon_img.png" width="14px" height="14px" alt="">
-												<span style="padding: 3px 5px;color: #111111;">{{ '--' }}</span>
+												<img src="../../assets/img/zs_icon_xx.svg" style="vertical-align: middle;width: 15px;" alt="">
+												{{ citem.like_num }}
 											</div>
 										</div>
 									  </el-carousel-item>
@@ -162,33 +162,33 @@
 									<div class="screenContent" style="margin-top: 10px;">
 										<div style="margin-right: 20px;width: 30%;">
 											<span style="color:rgba(187,187,187,1);font-size: 12px;">接单 </span>
-											<span>--</span>
+											<span>{{ item.user.project_hire_num ? item.user.project_hire_num : 0 }}</span>
 										</div>
 										<div style="margin-right: 20px;width: 30%;">
 											<span style="color:rgba(187,187,187,1);font-size: 12px;">收益 </span>
-											<span>--</span>
+											<span>{{ item.user.project_income ? item.user.project_income : 0 }}</span>
 										</div>
 										<div style="width: 30%;">
 											<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
-											<span>{{ item.user.recommend_level }}</span>
+											<span>{{ item.user.recommend_level ? item.user.recommend_level : '--' }}</span>
 										</div>
 									</div>
 								</div>
 								<div style="margin-left: 20px;line-height: 35px;margin-top: 40px;">
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">工作现状 </span><span> --</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">工作现状 </span><span>{{ item.user.situation ? item.user.situation :"--" }}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span> --</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span>{{ item.user.work_experience ? item.user.work_experience :"--"}}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span> --</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preferrence_classify ? item.user.preferrence_classify :"--"}}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span><span> --</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span><span>{{ item.user.style ? item.user.style :"--"}}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span><span> --</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span><span>{{ item.user.field ? item.user.field :"--"}}</span>
 									</div>
 								</div>
 							</div>
@@ -468,8 +468,8 @@
 					url:"fileRecord",
 					title:"项目发布",
 					list: [
-						{prop:'file_name',lable:'交稿文件'},
-						{prop:'file_size',lable:'文件大小'},
+						{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
+						{prop:{prop1:'file_size',prop2:"access_code"},type:"twokey",filetype:{name:"type",id:'1'},lable:'文件大小/提取密码'},
 						{prop:'remark',lable:'备注说明'},
 						{prop:'created_at',lable:'交稿时间'},
 						{prop:'check_status',lable:'验收结果',type:"keyvalue",child:{"-2":"已撤销","-1":"已驳回","0":"待审核","1":"已验收"}},
@@ -542,14 +542,19 @@
 					
 				},
 				tableAction:{
-					num:false,
 					morebtns:{
 						name:(da)=>{
-							return "下载"
+							console.log("da"+da)
+							if(da == "1"){
+								return "下载"
+							} else {
+								return ""
+							}
+							
 						},
 						accessid:"1",
 						fun:"up",
-						
+						filterdata:"type"
 					},
 					links:{
 						name:(da)=>{
@@ -562,7 +567,7 @@
 						},
 						accessid:"1",
 						fun:"check",
-						filterFields:"check_status"
+						filterdata:"check_status"
 					},
 						
 					

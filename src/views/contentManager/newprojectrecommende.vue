@@ -4,23 +4,23 @@
 		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey" style="line-height: 40px;">选择干预活动</span>
+					<span class="fleft detailKey" style="line-height: 40px;">选择干预项目</span>
 					<div class="fleft">	
 						<div>
-							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择活动</button>
+							<button class="defaultbtn" style="margin: 0;" @click="dialogTable">选择项目</button>
 						</div>
 						<div>
-							<span v-html="activitiesrows.activity_name"></span>
+							<span v-html="activitiesrows.name"></span>
 						</div>
-						<div>
+						<!-- <div>
 							<span class="fontcolorg" style="font-size: 12px;">{{ getValue(activitiesrows.category_name) +" "+ getValue(activitiesrows.start_time)+"至"+ getValue(activitiesrows.end_time) }}</span>	
-						</div>
+						</div> -->
 					</div>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">干预位置</span>
-					<el-select v-model="position" placeholder="请选择" style="width: 217px">
-						<el-radio-group v-model="position" >
+					<el-select v-model="position" placeholder="请选择"  style="width: 217px">
+						<el-radio-group v-model="position">
 							<el-option v-for="(item,index) in tableData1" :key="item.name" :value="item.id" :label="item.name">
 								<el-radio :label="item.id">{{ item.name }}</el-radio>
 							</el-option>
@@ -71,7 +71,6 @@
 					 ref="Tabledd"></common-table>
 				</div>
 			</div>
-			
 		</el-dialog>
 	</div>
 </template>
@@ -89,7 +88,7 @@
 		data() {
 			return {
 				detailData: '',
-				activity_id: '',
+				project_id: '',
 				start_time:'',
 				end_time:'',
 				position:'',
@@ -101,13 +100,33 @@
 					{name:"第四位",id:"4"}
 				],
 				loading:false,
-				pageName: "newrecommendedActivities",
-				tableAction: DataScreen.screenShow.newrecommendedActivities.action,
-				filterFields: DataScreen.screen.newrecommendedActivities.filterFields,
+				pageName: "newprojectrecommende",
+				tableAction: {
+					morebtns:{
+						name:"删除",
+						Ishow:false,
+						page:"newprojectrecommende",
+						accessid:"200348"  
+					},
+					links:{
+						name:"选择",
+						Ishow:true
+					},
+				},
+				filterFields: [
+					{name:"项目ID",id:"classify_name"},
+					{name:"项目名称",id:"classify_name"},
+					{name:"业务类型",id:"classify_name"},
+					{name:"领域范围",id:"classify_name"},
+					{name:"额外赏金",id:"classify_name"},
+					{name:"发布时间",id:"classify_name"},
+					{name:"中标时间",id:"classify_name"},
+					{name:"截稿时间",id:"classify_name"},
+				],
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
-					"pageName": "newrecommendedActivities",
+					"pageName": "newprojectrecommende",
 					"commonleftbtn": [{
 							name: "筛选",
 							id: "left1",
@@ -120,11 +139,25 @@
 				},
 				screenConfig: [],
 				tableConfig: {
-					"pageName": "newrecommendedActivities",
+					"pageName": "newprojectrecommende",
 					total: 0,
 					currentpage: 1,
 					pagesize: 10,
-					list: DataScreen.screenShow.newrecommendedActivities.bts,
+					list: [
+						{prop:'project_id',lable:'项目ID'},
+						{prop:'name',lable:'项目名称'},
+						{prop:'classify_name',lable:'项目类型'},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}},
+						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'fields',lable:'领域范围'},
+						{prop:'expected_profit',lable:'预计收益'},
+						{prop:'extra_reward',lable:'额外赏金'},
+						{prop:'publish_time',lable:'发布时间'},
+						{prop:'bidding_time',lable:'中标时间'},
+						{prop:'deadline',lable:'截稿时间'},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+					],
 					ischeck: false,
 					loading:true
 				
@@ -138,7 +171,7 @@
 		},
 		methods: {
 			getactivitiesrows(row){
-				console.log(row);
+				//console.log(row);
 				this.activitiesrows = row;
 			},
 			getparent() {
@@ -153,15 +186,13 @@
 			},
 			add(){
 				this.loading = true;
-				this.api.recommendactivityadd({
+				this.api.RecommendProjectadd({
 					access_token:localStorage.getItem("access_token"),
-					activity_id: this.activitiesrows.id,
+					project_id: this.activitiesrows.project_id,
 					start_time:this.start_time,
 					end_time:this.end_time,
 					position:this.position
 				}).then(da => {
-					//console.log(da)
-					
 					if(da.result==0){
 						this.$router.go(-1);
 					}
@@ -172,10 +203,10 @@
 			},
 			edit(){
 				this.loading = true;
-				this.api.recommendactivityedit({
+				this.api.RecommendProjectedit({
 					access_token:localStorage.getItem("access_token"),
 					id: this.row.id,
-					activity_id: this.activity_id,
+					project_id: this.project_id,
 					start_time:this.start_time,
 					end_time:this.end_time,
 					position:this.position
@@ -263,9 +294,10 @@
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
+					
 				}
-			
-				this.api.activitylist(data).then((da) => {
+				data.status = 1
+				this.api.projectlist(data).then((da) => {
 					
 					//console.log(da.data)
 					this.tableData = da.data;
@@ -301,14 +333,14 @@
 			//console.log(this.row)
 			if(this.$route.query.row){
 				this.row = JSON.parse(this.$route.query.row);
-				this.activity_id = this.row.activity_id;
+				this.project_id = this.row.project_id;
 				this.start_time = this.row.start_time;
 				this.end_time = this.row.end_time;
 				this.position = this.row.position;
 				//this.recommendactivityinfo();
 				this.activitiesrows.start_time = this.row.activity_start_time;
 				this.activitiesrows.end_time = this.row.activity_end_time;
-				this.activitiesrows.activity_name = this.row.activity_name;
+				this.activitiesrows.name = this.row.name;
 			}
 			this.screenreach();
 			this.getcommonrightbtn();

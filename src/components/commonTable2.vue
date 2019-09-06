@@ -4,7 +4,7 @@
 			<div v-if="!commonTopData.is">
 				<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
 				<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
-					<span class="fleft" style="width: 84px;">
+					<span class="fleft" style="width: 120px;">
 						{{ currentpageName }}
 					</span>
 					<div class="textcenter">
@@ -14,7 +14,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
 				<div class="ofh">
 					<div class="fleft">
@@ -52,8 +51,6 @@
 				</div>
 			</div>
 		</div>
-		
-		
 		<div class="transparent"></div>
 		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
 			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
@@ -70,10 +67,23 @@
 						<div v-else-if="item.type == 'btn'">
 							<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]" >{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
 						</div>
+						<span v-else-if="item.type == 'urlfile'">
+							<span v-if="scope.row[item.filetype.name] == item.filetype.id">
+								{{ scope.row[item.prop.prop1] }}
+							</span>
+							<span v-else>
+								<span class="routerLink pointer" @click="openwindow(scope.row[item.prop.prop2])">{{ scope.row[item.prop.prop2] }}</span>
+							</span>
+						</span>
+						<span v-else-if="item.type == 'twokey'">
+							<span v-if="scope.row[item.filetype.name] == item.filetype.id">
+								{{ scope.row[item.prop.prop1] }}
+							</span>
+							<span v-else>
+								<span>{{ scope.row[item.prop.prop2] }}</span>
+							</span>
+						</span>
 						<div v-else-if="item.type == 'merge'">
-							<!-- <span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
-								{{ "--" }}
-							</span> -->
 							<span>
 								<span>{{ scope.row[item.child.id1] }}</span> 至 <span>{{ scope.row[item.child.id2]}}</span>
 							</span>
@@ -132,7 +142,7 @@
 							<el-dropdown trigger="click" v-if="tableActions.morebtns && tableActions.morebtns.child">
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name }}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-if="gettrue(citem.accessid)" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '') }}</el-dropdown-item>
+									<el-dropdown-item v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '') }}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#3090F0;font-size: 12px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
@@ -311,8 +321,8 @@
 		},
 		methods: {
 			gettitle(){
-				if(!this.commonTopData.tabData){
-					return this.commonTopData.tabData[tabnums].name
+				if(!this.commonTopData.tabDatatitle){
+					return this.commonTopData.tabData[this.tabnums].name
 				} else {
 					return this.commonTopData.tabDatatitle
 				}
@@ -623,6 +633,7 @@
 		},
 		created() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
 		}
 	}
 </script>

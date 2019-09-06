@@ -250,9 +250,10 @@ const screenData = {
 			filterFields:[
 				{name:"审核ID",id:"id"},
 				{name:"项目名称",id:"work_name"},
-				{name:"项目类型",id:"activity_id"},
-				{name:"业务类型",id:"activity_name"},
+				{name:"项目类型",id:"classify_name",child:[]},
+				{name:"业务类型",id:"activity_name",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 				{name:"提审用户昵称",id:"username"},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"",type:"display"}
 			]
 		},
@@ -1671,7 +1672,7 @@ const screenData = {
 		presetReason:{
 			bts:[
 				{lable:"驳回理由预设ID",prop:"id"},
-				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请"}},
+				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请","5":"项目验收"}},
 				{lable:"驳回理由",prop:"content"},
 				{lable:"状态",prop:"status",type:"status",child:{"0":"停用","1":"启用"},statusclass:"presetReasonstatus"},
 				{lable:"该理由驳回数",prop:"reject_num"},

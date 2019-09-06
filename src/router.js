@@ -534,6 +534,34 @@ var router = new Router({
 					component: () => import('@/views/contentManager/recommendedActivities.vue'),
 				},
 				{
+					path: "projectrecommende",
+					name: 'projectrecommende',
+					meta: {
+						title: "我的收益-推荐项目",
+						pagetitle: "我的收益-推荐项目-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/projectrecommende.vue'),
+				},
+				{
+					path: "projectrecommende/newprojectrecommende",
+					name: 'newprojectrecommende',
+					meta: {
+						title: "新建页面",
+						pagetitle: "我的收益-推荐项目-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/newprojectrecommende.vue'),
+				},
+				
+				{
+					path: "projectrecommende/editprojectrecommende",
+					name: 'editprojectrecommende',
+					meta: {
+						title: "编辑页面",
+						pagetitle: "我的收益-推荐项目-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/newprojectrecommende.vue'),
+				},
+				{
 					path: "recommendedActivities/newrecommendedActivities",
 					name: 'newrecommendedActivities',
 					meta: {

@@ -1,11 +1,11 @@
 <template>
 	<div class="wh">
 		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
-			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+			<el-table ref="multipleTable" :reserve-selection="true" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
-				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
+				<el-table-column v-for="(item,index) in tableConfig.list" :key="index+item.prop" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
@@ -571,6 +571,12 @@
 						}
 					break;
 					case "newActivity":
+						if(!setid){
+						   this.$parent.$parent.getactivitiesrows(row);
+						   this.$parent.$parent.dialogTableVisible = false;
+						};
+					break;
+					case "newprojectrecommende":
 						if(!setid){
 						   this.$parent.$parent.getactivitiesrows(row);
 						   this.$parent.$parent.dialogTableVisible = false;

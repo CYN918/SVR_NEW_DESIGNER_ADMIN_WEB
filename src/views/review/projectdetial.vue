@@ -19,7 +19,7 @@
 					<span v-if="item.type == 'text'">{{ getValue(apply_info[item.id])  }}</span>
 					<div v-if="item.type == 'text1'">
 						<div style="margin-bottom: 10px;" v-for="(citem,index) in getdes(apply_info[item.id])">
-							<div style="margin-left: 160px;">模块-{{ index }}</div>
+							<div style="margin-left: 160px;">需求说明-{{ index+1 }}</div>
 							<div style="margin-left: 160px;" v-html="citem.module_title"></div>
 							<div style="margin-left: 160px;" v-html="citem.module_content"></div>
 						</div>
@@ -62,8 +62,10 @@
 			</ul>
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
-					<span class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="!item.status" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.status && item.status == '-1'" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="item.type == 'status'">{{ getValue(check_info[item.id]) }}</span>
 					<span v-if="!item.type">{{ title }}</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
@@ -82,8 +84,8 @@
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn" @click="up">下载稿件</button>
-			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject">验收驳回</button>
-			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject2()">验收通过</button>
+			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
+			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 
@@ -189,13 +191,16 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">延期交稿扣减</span>
-							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deduction_price"
+							<el-input style="width: 300px" :disabled="lflag" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deduction_price"
 							 clearable></el-input>
 						</div>
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="color: transparent;width: 84px;">延期交稿扣减</span>
-							<span class="fleft sel-dialog-content">
+							<span v-if="!lflag" class="fleft sel-dialog-content">
 								作者已延期<span>{{ get_time_diff(apply_info.delivery_deadline) }}</span>，理应扣减<span>￥{{ getdeduction_price(apply_info.delivery_deadline) }}</span>（验收价格*10%*延期天数）
+							</span>
+							<span v-if="lflag" class="fleft sel-dialog-content">
+								作者未延期
 							</span>
 						</div>
 					</li>
@@ -230,10 +235,10 @@
 									<div>￥{{ acceptance_price }}</div>
 									<div>验收价格</div>
 								</li>
-								<li class="fleft" style="margin: 0 20px;">
+								<li v-if="!lflag" class="fleft" style="margin: 0 20px;">
 									<div>-</div>
 								</li>
-								<li class="fleft">
+								<li v-if="!lflag" class="fleft">
 									<div>￥{{ deduction_price }}</div>
 									<div>延期交稿扣减</div>
 								</li>
@@ -248,7 +253,7 @@
 									<div>+</div>
 								</li>
 								<li class="fleft">
-									<div>￥{{ acceptance_price * apply_info.gain_share_rate }}</div>
+									<div>￥{{ acceptance_price * apply_info.gain_share_rate / 100 }}</div>
 									<div>收益加成</div>
 								</li>
 							</ul>
@@ -514,6 +519,18 @@
 						name: "最近更新时间",
 						id: "check_time",
 						type: "text"
+					},
+					{
+						name:"驳回理由",
+						id:"check_reason",
+						type:"status",
+						status:"-1"
+					},
+					{
+						name:"驳回详细说明",
+						id:"check_comment",
+						type:"status",
+						status:"-1"
 					}
 				],
 				reviewinfostatus: [],
@@ -575,7 +592,8 @@
 				deal_type: "",
 				acceptance_price: 0,
 				deduction_price: 0,
-				deal_price: 0
+				deal_price: 0,
+				lflag:false
 			}
 		},
 		computed:{
@@ -614,34 +632,40 @@
 						diff += hours + '小时';
 					}
 				}
-				
+				if(days <= 0){
+					this.lflag = true;
+				} else {
+					this.lflag = false;
+				}
 				return diff;
 			},
 			getdeduction_price(ti) {
 				var time = new Date(ti.replace(/-/g, "/")).getTime();
-				var diff = '';
+				var diff = 0;
 				var time_diff = new Date().getTime() - time; //时间差的毫秒数 
 				
 				//计算出相差天数 
 				var days = Math.floor(time_diff / (24 * 3600 * 1000));
 				if (days > 0) {
 					diff += days;
-				}
+				} 
+				//console.log(diff)
 				//计算出小时数 
 				var leave1 = time_diff % (24 * 3600 * 1000);
 				var hours = Math.floor(leave1 / (3600 * 1000));
 				if (hours > 0) {
-					diff += hours/24;
+					//console.log(hours / 24)
+					diff += (hours / 24);
 				} else {
 					if (diff !== '') {
-						diff += hours/24;
+						diff += (hours / 24);
 					}
 				}
-				this.deduction_price  =  (this.acceptance_price*diff*10/100).toFixed(2)
-				return (this.acceptance_price*diff*10/100).toFixed(2);
+				this.deduction_price  =  (this.acceptance_price * diff * 0.1).toFixed(2)
+				return (this.acceptance_price * 0.1 * diff).toFixed(2);
 			},
 			getdeal_price() {
-				return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate).toFixed(2)
+				return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)
 			},
 			getrule(n) {
 				this.typebtn = n;
@@ -963,7 +987,7 @@
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100,
-					type: this.pagetype
+					type: 5
 				}
 				this.api.reviewreason(data).then((da) => {
 

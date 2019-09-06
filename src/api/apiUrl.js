@@ -453,6 +453,16 @@ export default {
 	},
 	profitconfigsave:{
 		url:'/admin/profitconfig/save',method:'post',baseURL:0,isType:{suktip:true}
-	}
+	},
+	RecommendProjectlist:{
+		url:'/admin/RecommendProject/list',method:'post',baseURL:0
+	},
+	RecommendProjectadd:{
+		url:'/admin/RecommendProject/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	RecommendProjectedit:{
+		url:'/admin/RecommendProject/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
 	
 }
