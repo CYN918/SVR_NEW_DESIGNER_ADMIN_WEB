@@ -103,8 +103,8 @@
 				this.$refs.Tabledd.reject();
 			},
 			delect(row){
-				this.api.projectdel({
-					project_id:row.project_id,
+				this.api.RecommendProjectdelete({
+					id:row.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					if(da.result == 0) {
@@ -118,7 +118,6 @@
 				this.$router.push({
 					path:"/contentManager/projectrecommende/newprojectrecommende"
 				})
-				
 			},
 			edit(row){
 				this.$router.push({

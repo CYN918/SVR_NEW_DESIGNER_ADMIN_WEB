@@ -463,6 +463,8 @@ export default {
 	RecommendProjectedit:{
 		url:'/admin/RecommendProject/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
-	
+	RecommendProjectdelete:{
+		url:'/admin/RecommendProject/delete',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
 	
 }
