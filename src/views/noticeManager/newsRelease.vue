@@ -5,7 +5,7 @@
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
-			</div>
+			</div> 
 		</div>
 	</div>
 </template>
@@ -81,7 +81,6 @@
 				}
 
 				this.api.noticelist(data).then((da) => {
-					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -93,29 +92,65 @@
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+					this.getData({pageCurrent:1,pageSize:50});
 					
 				})
 			},
-			linkDetail(id) {
-				//alert(id);
-				this.IsDetail = 3;
-				this.api.getContributorInfo({
-					open_id: id,
-					contribute_type:2
-				}).then(da => {
-					this.detailData = da;
-					console.log(da);
-				}).catch(() => {})
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					//console.log(urldata);
+					this.filterFields.forEach(item=>{
+						//console.log(item);
+						if(urldata[item.id] && !item.type){
+							var val = urldata[item.id];
+							//alert(val)
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							//console.log(this.commonTopData.commonbottombtn);
+						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:urldata[item.id],id:item.id})
+							}
+								
+						}
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
+					})
+				}
+				
 			},
 			resetSave(tag){
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					//console.log(tag);
 					this.$router.push({path:'/noticeManager/newsRelease',query:{urlDate:JSON.stringify(urldata)}});
-					
-					this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 				}
 			},
 			delect(val) {
@@ -145,11 +180,22 @@
 				});
 			},
 		},
-		created() {},
-		mounted() {
-			//console.log(DataScreen.screenShow.activityClass.bts)
-			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
+		created() {
 			this.screenreach();
+			this.getcommonrightbtn();
+		},
+		mounted(){
+			console.log(1);
+			//console.log(this.tableConfig)
+			this.getData({pageCurrent:1,pageSize:50});
+		},
+		watch:{
+			"$route":function(){
+				this.screenreach();
+				this.getcommonrightbtn();
+				this.getData({pageCurrent:1,pageSize:50});
+				
+			}
 		}
 	}
 </script>
