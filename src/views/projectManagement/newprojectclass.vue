@@ -38,7 +38,12 @@
 		},
 		methods: {
 			getparent() {
-				this.$router.go(-1)
+				this.$router.push({
+					path:"/projectManagement/projectclass",
+					query:{
+						tabsnum:localStorage.getItem('projectclass')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -55,6 +60,7 @@
 					return;
 				}
 				
+				
 				this.api.projectclassifyadd({
 					access_token:localStorage.getItem("access_token"),
 					classify_name:this.content,
@@ -62,7 +68,7 @@
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
-						this.$router.go(-1)
+						this.getparent()
 					}
 				}).catch(() => {
 					
@@ -83,12 +89,13 @@
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
-						this.$router.go(-1)
+						this.getparent();
 					}
 				}).catch(() => {
 					
 				})
-			}
+			},
+			
 		},
 		created() {
 			if(this.$route.query.row){

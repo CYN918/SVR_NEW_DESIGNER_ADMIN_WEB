@@ -61,10 +61,10 @@
 				}
 			},
 			add(){
-				if(!this.banner_name || !this.banner_pic || !this.jump_url){
+				if(!this.banner_name || !this.banner_pic){
 					this.$message({
 						type:"info",
-						message:"banner素材活动*banner图片*跳转链接不能为空！！"
+						message:"banner素材活动*banner图片不能为空！！"
 					});
 					return;
 				}

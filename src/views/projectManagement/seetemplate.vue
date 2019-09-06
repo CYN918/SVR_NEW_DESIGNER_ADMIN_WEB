@@ -79,7 +79,7 @@
 				this.$router.push({
 					path:"/projectManagement/projectclass",
 					query:{
-						tabsnum:localStorage.getItem('projectlist')
+						tabsnum:localStorage.getItem('projectclass')
 					}
 				})
 			},
