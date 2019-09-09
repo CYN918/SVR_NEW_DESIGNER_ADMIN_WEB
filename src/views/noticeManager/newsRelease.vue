@@ -32,7 +32,7 @@
 					}],
 					
 					"commonrightbtn": [{
-						name: "新建干预任务",
+						name: "新建通知",
 						id: "right1",
 						accessid: "200386"
 					}],

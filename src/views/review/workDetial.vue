@@ -201,7 +201,7 @@
 								<el-radio :label="item.content">{{ item.content }}</el-radio>
 							</div>
 							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
+								<el-radio label="其他理由">其他理由（请在详细说明中填写）</el-radio>
 							</div>
 						</el-radio-group>
 					</li>
@@ -618,7 +618,12 @@
 					id: this.$route.query.id,
 					check_status: -1,
 					reason:this.radio1,
-					comment:this.text100,
+				}
+				
+				if (this.radio1 == "其他理由") {
+					data.reason = this.text100;
+				} else {
+					data.comment=this.text100;
 				}
 				this.submint(data)
 				this.reject();

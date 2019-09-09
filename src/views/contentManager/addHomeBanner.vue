@@ -9,7 +9,7 @@
 				</li>
 				<li class="margintbt30 ofh">
 					<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
-					<el-upload action="454535" :http-request="httprequest" :show-file-list="false">
+					<el-upload action="454535" :http-request="httprequest" accept="image/png,image/jpg,image/jpeg" :show-file-list="false">
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
 						</div>
@@ -45,6 +45,32 @@
 			}
 		},
 		methods: {
+			beforeup (file) {
+				let _this = this
+				const is1M = file.size / 1024 / 1024 < 10; // 限制小于1M
+				const isSize = new Promise(function (resolve, reject) {
+				  let width = 1920; // 限制图片尺寸为654X270
+				  let height = 720;
+				  let _URL = window.URL || window.webkitURL;
+				  let img = new Image();
+				  img.onload = function () {
+					let valid = img.width === width && img.height === height;
+					valid ? resolve() : reject();
+				  }
+				  img.src = _URL.createObjectURL(file);
+				}).then(() => {
+				  return file;
+				}, () => {
+					
+				  _this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB');
+				  console.log(Promise.reject())
+				  return false;
+				});
+				if (!is1M) {
+				  _this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB')
+				}
+				return isSize&is1M
+			},
 			getparent() {
 				this.router.push({
 					path:"/contentManager/homeBanner",
@@ -100,16 +126,10 @@
 				})
 			},
 			httprequest(params) {
-				//console.log("params",params)
+				console.log(params)
 				const _file = params.file;
 				this.file = params.file
-				//const isLt2M = _file.size / 1024 / 1024 < 2;
-			
-				/* if (!isLt2M) {
-					this.$message.error("请上传2M以下是的文件");
-					return false;
-				} */
-			
+				let _this = this
 				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
 				let open_id = 7;
 				let times = (Date.parse(new Date()) / 1000);
@@ -128,7 +148,6 @@
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
-			    var _this = this;
 				this.$parent.setpercentage("start");
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					//console.log(response.data.data.url);

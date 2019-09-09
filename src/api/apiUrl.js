@@ -92,7 +92,7 @@ export default {
 		url:'/admin/Review/check?type=4',method:'post',baseURL:0,isType:{suktip:true}
 	},
 	reviewCheck:{
-		url:'/admin/Review/check?type=5',method:'post',baseURL:0,isType:{suktip:true}
+		url:'/admin/Review/check?type=5',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	todoCount:{
 		url:'/admin/Review/todoCount',method:'post',baseURL:0

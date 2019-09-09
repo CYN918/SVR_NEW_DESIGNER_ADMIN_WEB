@@ -19,7 +19,6 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
-						
 						<el-input type="text" placeholder="请输入内容" :disabled="objstatus > 0" v-model="form['name']" style="width:357px;height:40px;" clearable  maxlength="20" show-word-limit></el-input>
 					</li>
 					<li class="margint23 ofh">
@@ -120,7 +119,16 @@
 					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
-						<el-input placeholder="请输入内容" v-model="form['fields']" style="width:357px;height:40px;" clearable></el-input>
+						<div>
+							<el-input placeholder="请输入内容" v-model="fields" style="width:357px;height:40px;margin: 0;" clearable></el-input> 
+							<button class="defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
+							<div style="margin-left: 160px;margin-top: 10px;">
+								<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"
+								 :disable-transitions="false" @close="handleClose(index)">
+									{{item}}
+								</el-tag>
+							</div>
+						</div>
 					</li>
 					
 					<li class="margint23 ofh">
@@ -321,6 +329,10 @@
 	export default {
 		data() {
 			return {
+				checkedroles:[
+					
+				],
+				fields:"",
 				showWordLimit:true,
 				typebtn:0,
 				detailData: '',
@@ -450,6 +462,27 @@
 			upload
 		},
 		methods: {
+			handleClose(index){
+				this.checkedroles.splice(index,1);
+			},
+			addtag(){
+				if(!this.fields){
+					this.$message({
+						message:"领域范围输入框不能为空",
+						type:"error"
+					})
+					return;
+				}
+				
+				if(this.checkedroles.length >= 5){
+					this.$message({
+						message:"领域范围最多可以填写5个",
+						type:"warning"
+					})
+					return;
+				}
+				this.checkedroles.push(this.fields)
+			},
 			changedatial(){
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].form.content;
@@ -575,6 +608,7 @@
 				this.form.classify_id = row.classify_id;
 				this.form.banner = row.banner;
 				this.form.fields = row.fields;
+				this.checkedroles = row.fields.split(",");
 				this.form.expected_profit = row.expected_profit;
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
@@ -625,11 +659,7 @@
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
-				/* if(this.form.rule_type == 1){
-					this.form.status = 0;
-				} else{
-					this.form.status = 3;
-				} */
+				this.form.fields = this.checkedroles.join(",");
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				
@@ -923,6 +953,7 @@
 				}
 				
 				this.form.demand_id = this.dids.join(',');
+				this.form.fields = this.checkedroles.join(",");
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].form.content;
@@ -969,6 +1000,7 @@
 					this.form.classify_id = da.classify_id;
 					this.form.banner = da.banner;
 					this.form.fields = da.fields;
+					this.checkedroles = da.fields.split(',');
 					this.form.expected_profit = da.expected_profit;
 					this.form.extra_reward = da.extra_reward;
 					this.form.business_type = da.business_type;
@@ -1380,6 +1412,14 @@
 </script>
 
 <style>
+	.fieldsbtn{
+		display: inline-block;
+		width: 100px;
+		height: 20px;
+		line-height: 20px;
+		background: #000000;
+		color: white;
+	}
 	.el-input-number > span {
 		background: transparent !important;
 		line-height: 0 !important;

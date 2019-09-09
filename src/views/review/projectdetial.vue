@@ -101,7 +101,7 @@
 								<el-radio :label="item.content">{{ item.content }}</el-radio>
 							</div>
 							<div class="w sel-radio">
-								<el-radio label="其他理由（请在详细说明中填写）">其他理由（请在详细说明中填写）</el-radio>
+								<el-radio label="其他理由">其他理由（请在详细说明中填写）</el-radio>
 							</div>
 						</el-radio-group>
 					</li>
@@ -295,7 +295,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span style="display: inline-block;margin-right: 60px;">选择需求</span>
-							<el-select v-model="did" placeholder="请选择">
+							<el-select v-model="did" placeholder="请选择" style="width: 375px;">
 								<el-radio-group v-model="did">
 									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
 									 :label="item.demand_name">
@@ -755,9 +755,15 @@
 					type: 5,
 					id: this.$route.query.id,
 					check_status: -1,
-					reason: this.radio1,
-					comment: this.text100,
+					reason: this.radio1
 				}
+				
+				if (this.radio1 == "其他理由") {
+					data.reason = this.text100;
+				} else {
+					data.comment=this.text100;
+				}
+				
 				this.submint(data)
 				this.reject();
 			},

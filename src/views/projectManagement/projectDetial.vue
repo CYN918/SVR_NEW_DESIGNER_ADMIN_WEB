@@ -35,6 +35,7 @@
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="info[item.id]" alt="">
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="info[item.id]" alt="">
 					<span v-else-if="item.type == 'imgbanner'"> {{ info[item.id] }} </span>
+					<span v-else-if="item.type == 'two'"> {{ info[item.ids.id0]+"天"+info[item.ids.id1]+"时" }} </span>
 					<span v-else-if="item.type == 'keyvalue'">{{item.child[info[item.id]]}}</span>
 					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + info.work_id)">{{ item.id + info.work_id }}</span></span>
 					<span v-else-if="item.type == 'status'"> 
@@ -354,14 +355,12 @@
 						type:"text"
 					},
 					{
-						name:"制作周期（天）",
-						id:"production_cycle_d",
-						type:"text"
-					},
-					{
-						name:"制作周期（时）",
-						id:"production_cycle_h",
-						type:"text"
+						name:"制作周期",
+						ids:{
+							id0:"production_cycle_d",
+							id1:"production_cycle_h"
+						},
+						type:"two"
 					},
 					{
 						name:"绑定需求",
