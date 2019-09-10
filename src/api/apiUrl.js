@@ -428,7 +428,7 @@ export default {
 		url:'/admin/project/detail',method:'post',baseURL:0
 	},
 	selectUser:{
-		url:'/admin/project/selectUser',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url:'/admin/project/selectUser',method:'post',baseURL:0,isType:{isok:true}
 	},
 	projectupdate:{
 		url:'/admin/project/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}

@@ -662,6 +662,28 @@
 		color:#52C41A;
 	}
 	
+	.projectstatus0{
+		color:#bfbfbf;
+	}
+	.projectstatus1{
+		color:#008dff;
+	}
+	.projectstatus2{
+		color:#008dff;
+	}
+	.projectstatus3{
+		color:#008dff;
+	}
+	.projectstatus4{
+		color:#008dff;
+	}
+	.projectstatus5{
+		color:#4dc600;
+	}
+	.projectstatus-1{
+		color: #f72522;
+	}
+	
 	.maskimg{
 		position: fixed;
 		top:0;

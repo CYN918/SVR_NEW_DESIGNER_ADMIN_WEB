@@ -524,7 +524,8 @@ input{
 
 	.roles-input input {
 		height: 100%;
-		width: 400px;
+		width: 85%;
+		color: #606266;
 	}
 
 	.roletree {

@@ -604,7 +604,21 @@
 		},
 		methods: {
 			up(){
-				window.open(this.material_info.file_url);
+				fetch(this.material_info.file_url).then(res => res.blob()).then(blob => {
+					const a = document.createElement('a');
+					document.body.appendChild(a)
+					a.style.display = 'none'
+					// 使用获取到的blob对象创建的url
+					const url = window.URL.createObjectURL(blob);
+					a.href = url;
+					// 指定下载的文件名
+					a.download = this.material_info.file_name;
+					a.click();
+					document.body.removeChild(a)
+					// 移除blob对象的url
+					window.URL.revokeObjectURL(url);
+				});
+				//window.open();
 			},
 			getarr(arr){
 				return arr.split(",")
@@ -993,7 +1007,8 @@
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100,
-					type: 5
+					type: 5,
+					status:"1"
 				}
 				this.api.reviewreason(data).then((da) => {
 

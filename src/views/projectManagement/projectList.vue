@@ -114,7 +114,7 @@
 						{prop:'publish_time',lable:'发布时间'},
 						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list1: [
 						{prop:'project_id',lable:'项目ID'},
@@ -129,7 +129,7 @@
 						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'signup_num',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list2: [
 						{prop:'project_id',lable:'项目ID'},
@@ -144,7 +144,7 @@
 						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'signup_num',lable:'报名人数'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list3: [
 						{prop:'project_id',lable:'项目ID'},
@@ -160,7 +160,7 @@
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'signup_num',lable:'报名人数'},
 						{prop:'username',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list4: [
 						{prop:'project_id',lable:'项目ID'},
@@ -184,7 +184,7 @@
 						{prop:'want_deal_type',lable:'成交方式',type:"keyvalue",child:{"1":"买断式","2":"加成式"}},
 						{prop:'demand_id',lable:'需求ID'},
 						{prop:'level',lable:'项目评级'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
 					list5: [
 						{prop:'project_id',lable:'项目ID'},
@@ -200,7 +200,7 @@
 						{prop:'deadline',lable:'截稿时间'},
 						{prop:'signup_num',lable:'报名人数'},
 						{prop:'username',lable:'中标人'},
-						{prop:'status',lable:'当前状态',type:"keyvalue",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 						{prop:'terminate_reason',lable:'终止理由'},
 					],
 					data:'status',

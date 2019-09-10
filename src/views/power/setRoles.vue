@@ -310,19 +310,11 @@
 		background: red;
 	}
 
-	.roles-input {
-		height: 40px;
-		line-height: 40px;
-	}
 
 	.width500 {
 		width: 500px;
 	}
 
-	.roles-input input {
-		height: 100%;
-		width: 400px;
-	}
 
 	.roletree {
 		height: 460px;

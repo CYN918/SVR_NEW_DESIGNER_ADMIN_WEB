@@ -20,7 +20,11 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
-						<el-input placeholder="请输入内容" v-model="form['activity_name']" style="width:357px;height:40px;" clearable></el-input>
+						
+						<div class="el-input__inner roles-input width500" style="width: 375px;">
+							<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="50" v-model="form['activity_name']">
+							<span class="fright">{{ form['activity_name'].length }}/50</span>
+						</div>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">活动备注</span>
@@ -208,6 +212,7 @@
 				rows: "",
 				filename:"",
 				form: {
+					activity_name:"",
 					is_provide_template: "0",
 					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
 					banner:'',

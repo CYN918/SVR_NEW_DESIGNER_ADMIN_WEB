@@ -43,7 +43,16 @@
 
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
-						<el-input placeholder="请输入内容" v-model="form['fields']" style="width:357px;height:40px;" clearable></el-input>
+						<div>
+							<el-input placeholder="请输入内容" v-model="fields" style="width:357px;height:40px;margin: 0;" clearable></el-input> 
+							<button class="defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
+							<div style="margin-left: 160px;margin-top: 10px;">
+								<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"
+								 :disable-transitions="false" @close="handleClose(index)">
+									{{item}}
+								</el-tag>
+							</div>
+						</div>
 					</li>
 					
 					<li class="margint23 ofh">
@@ -154,6 +163,7 @@
 	export default {
 		data() {
 			return {
+				checkedroles:[],
 				detailData: '',
 				input10: '',
 				radio2: "1",
@@ -238,7 +248,8 @@
 						module_content:'<p style="color:#999"></p>'
 					},
 				],
-				clear:true
+				clear:true,
+				fields:""
 			}
 		},
 		components: {
@@ -247,6 +258,27 @@
 			upload
 		},
 		methods: {
+			handleClose(index){
+				this.checkedroles.splice(index,1);
+			},
+			addtag(){
+				if(!this.fields){
+					this.$message({
+						message:"领域范围输入框不能为空",
+						type:"error"
+					})
+					return;
+				}
+				
+				if(this.checkedroles.length >= 5){
+					this.$message({
+						message:"领域范围最多可以填写5个",
+						type:"warning"
+					})
+					return;
+				}
+				this.checkedroles.push(this.fields)
+			},
 			changedatial(){
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].form.content;
@@ -321,7 +353,7 @@
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
 				this.form.id = this.rows.id
-				
+				this.form.fields = this.checkedroles.join(",");
 				this.api.projecttemplateupdate(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -584,7 +616,7 @@
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].form.content;
 				})
-				
+				this.form.fields = this.checkedroles.join(",");
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.form.desc = JSON.stringify(this.detailtext);
 				this.api.projecttemplateadd(this.form).then(da =>{
@@ -604,6 +636,7 @@
 					this.form.classify_id = da.classify_id;
 					this.form.banner = da.banner;
 					this.form.fields = da.fields;
+					this.checkedroles =  da.fields.split(",");
 					this.form.expected_profit = da.expected_profit;
 					this.form.extra_reward = da.extra_reward;
 					this.form.business_type = da.business_type;

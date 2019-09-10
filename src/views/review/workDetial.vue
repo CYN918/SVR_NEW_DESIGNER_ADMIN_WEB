@@ -193,7 +193,7 @@
 			<div style="position: relative;">
 				<ul>
 					<li class="w ofh">
-						<span class="fleft Dialogkey">
+						<span class="fleft Dialogkey" style="line-height: 35px;">
 							驳回理由
 						</span>
 						<el-radio-group v-model="radio1" class="sel-dialog-content fleft">
@@ -951,7 +951,8 @@
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100,
-					type:this.pagetype
+					type:this.pagetype,
+					status:"1"
 				}
 				this.api.reviewreason(data).then((da) => {
 					

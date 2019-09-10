@@ -22,12 +22,9 @@
 		</div>
 		<div class="detailContent ofh">
 			<ul v-if="tabsnum == 0">
-				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
-					<span v-if="!item.sh" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.sh && (status > item.status)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.sh && (status > item.status && status <5)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text' && !item.sh">{{ info[item.id] }}</span>
-					<span v-if="item.type == 'text' && item.sh && status>item.status">{{ info[item.id] }}</span>
+				<li class="margint13 ofh" v-if="!item.status" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.type == 'text'">{{ info[item.id] }}</span>
 					<span v-if="item.type == 'recommend'">{{ info[item.id] ? info[item.id] : "不推荐" }}</span>
 					<span v-if="!item.type">{{ info[item.id] }}</span>
 					<span v-else-if="item.type == 'isnum'"> {{ info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
@@ -50,6 +47,14 @@
 					<router-link to="/" v-else-if="item.type == 'url'">
 						<span class="routerLink">{{ info[item.id] }}</span>
 					</router-link>
+				</li>
+				<li class="margint13 ofh" v-else-if="item.status == '2' && status > 1">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '中标人' }}</span>
+					<span>{{ info['username'] }}</span>
+				</li>
+				<li class="margint13 ofh" v-else-if="item.status == '-1' && status == -1">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ "终止理由" }}</span>
+					<span>{{ info['terminate_reason'] }}</span>
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 4">
@@ -188,7 +193,7 @@
 									<div>
 										<span  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
 										<span class="ofh">
-											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in item.user.style">
+											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.style)">
 												{{ citem }}
 											</span>
 										</span>
@@ -196,7 +201,7 @@
 									<div>
 										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span>
 										<span class="ofh">
-											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in item.user.field">
+											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.field)">
 												{{ citem }}
 											</span>
 										</span>
@@ -371,15 +376,18 @@
 						name:"报名人数",
 						id:"signup_num",
 						type:"text",
-						status:0,
-						sh:true
+					},
+					{
+						name:"中标人",
+						id:"username",
+						type:"text",
+						status:'2'
 					},
 					{
 						name:"终止理由",
 						id:"terminate_reason",
 						type:"text",
-						status:0,
-						sh:true
+						status:'-1'
 					},
 					{
 						name:"当前状态",
@@ -635,6 +643,9 @@
 			}
 		},
 		methods: {
+			arrchange(item){
+				return item.split(",")
+			},
 			gotouser(){
 				this.tabsnum = 3
 			},
@@ -672,7 +683,18 @@
 						project_id:item.project_id,
 						open_id:item.user.open_id
 					}).then(da => {
-						
+						if(da.result == 0){
+							this.$message({
+								message:'选标成功',
+								type:"success"
+							});
+							this.$router.push({
+								path:"/projectManagement/projectList",
+								query:{
+									tabsnum:3
+								}
+							})
+						}
 					}).catch(da => {
 					
 					})
