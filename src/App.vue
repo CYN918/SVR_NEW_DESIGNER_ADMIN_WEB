@@ -524,7 +524,7 @@ input{
 
 	.roles-input input {
 		height: 100%;
-		width: 85%;
+		width: 85% !important;
 		color: #606266;
 	}
 
@@ -547,7 +547,7 @@ input{
 		width: 96px;
 		height: 33px;
 		display: inline-block;
-		margin-right: 71px;
+		margin-right: 40px;
 		cursor: pointer;
 	}
 

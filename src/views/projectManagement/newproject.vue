@@ -185,8 +185,8 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
 						<el-dropdown trigger="click" :hide-on-click="false">
-							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="demand_names.join(',')" suffix-icon="el-icon-arrow-down"
-							 clearable></el-input>
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down"
+							 clearable></el-input><!-- v-model="demand_names.join(',')" -->
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
 								<el-checkbox-group v-model="dids" @change="getdemand_names">
 									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
@@ -197,26 +197,29 @@
 						</el-dropdown>
 						<div>
 							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">1111</span>
+							<span style="padding: 8px; background: rgba(245,245,245,1);margin-top: 10px;margin-right:8px;display: inline-block;color: #000000;border-radius: 4px;border:1px solid rgba(217,217,217,1)" v-for="(item,index) in demand_names">
+								{{ item }}
+							</span>
 						</div>
 						
 					</li>
 				</ul> 
 			</div>
 			<div v-show="Isnextshow" class="relative" v-loading="!clear">
-				<div class="detailContent ofh" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
-					<ul class="fleft" style="padding-top: 30px;margin-left: 50px;">
+				<div class="detailContent ofh w" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
+					<ul class="fleft" style="padding-top: 30px;margin-left: 50px;width:calc(100% - 182px)">
 						<li class="margint23">
 							<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
 							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
 							<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
 						</li>
-						<li class="margint23 ofh" >
+						<li class="margint23 ofh w" >
 							<span class="fleft detailKey" style="line-height: 40px;">模块说明</span>
-							<div class="relative ofh" style="width: 800px;">
+							<div class="relative ofh" style="width:calc(100% - 160px)">
 								<div class="fleft">
 									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
-								<div class="fleft uediterspan h pointer" style="bottom: 0px;position: absolute;right: 0;height: 20px;">
+								<div class="fleft uediterspan h pointer" style="bottom: 42px;position: absolute;right: 0;height: 20px;">
 									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 								</div>
 							</div>

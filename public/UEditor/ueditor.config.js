@@ -34,10 +34,10 @@
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
-				'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
-				['bold','italic','underline','source','strikethrough','forecolor','backcolor','|','indent','justifyleft','justifycenter',
-				'justifyright','justifyjustify','indent','rowspacingtop','rowspacingbottom','lineheight','lineheight','insertorderedlist','insertunorderedlist',
-				'imageleft','imageright']
+				'undo','redo', '|','fontsize','link','unlink',
+				'bold','underline','forecolor','|','justifyleft','justifycenter',
+				'justifyright','justifyjustify','lineheight','lineheight'
+				]
 //             'fullscreen', 'source', '|', 'undo', 'redo', '|',
 //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
 //             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',

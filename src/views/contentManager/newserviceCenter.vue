@@ -108,7 +108,14 @@
 					initialFrameHeight: 200,
 					initialFrameWidth: '100%',
 					UEDITOR_HOME_URL: '/UEditor/',
-					serverUrl:'http://139.129.221.123/File/File/insert'
+					serverUrl:'http://139.129.221.123/File/File/insert',
+					toolbars:[
+						[
+								'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
+								['bold','italic','underline','source','strikethrough','forecolor','backcolor','|','indent','justifyleft','justifycenter',
+								'justifyright','justifyjustify','indent','rowspacingtop','rowspacingbottom','lineheight','lineheight','insertorderedlist','insertunorderedlist',
+								'imageleft','imageright']
+					]
 				},
 				imageUrl: "",
 				tableData: [

@@ -6,6 +6,31 @@
 				 ref="Tabledd"></common-table>
 			</div>
 		</div>
+		
+		<el-dialog title="项目类型" :visible.sync="centerDialogVisible" width="480px">
+			<div style="position: relative;">
+				<ul>
+					<li class="w ofh">
+						<span class="fleft Dialogkey" style="line-height: 40px;text-align: right;">项目类型名称</span>
+						<div class="el-input__inner roles-input width500" style="width: 200px;">
+							<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="6" v-model="form['classify_name']">
+							<span class="fright">{{ form['classify_name'].length }}/6</span>
+						</div>
+					</li>
+					<li class="w ofh">
+						<span class="fleft Dialogkey" style="line-height: 30px;text-align: right;">状态</span>
+						<div class="fleft">
+							<el-radio v-model="form.status" label="1" class="fleft" style="width: auto;">启用</el-radio>
+							<el-radio v-model="form.status" label="0" class="fleft" style="width: auto;">停用</el-radio>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<button class="defaultbtn" @click="reject">取消</button>
+				<button class="defaultbtn defaultbtnactive" @click="sendmessage">确定</button>
+			</span>
+		</el-dialog>
 	</div>
 </template>
 
@@ -19,6 +44,11 @@
 		},
 		data() {
 			return {
+				centerDialogVisible:false,
+				form:{
+					status:"1",
+					classify_name:""
+				},
 				commonTopData: {
 					"pageName": "publishWork",
 					"commonleftbtn": [{
@@ -134,6 +164,9 @@
 		watch: {},
 		computed: {},
 		methods: {
+			reject(){
+				this.centerDialogVisible = !this.centerDialogVisible;
+			},
 			ISshow(){
 				this.$refs.Tabledd.reject();
 			},
@@ -148,9 +181,33 @@
 				})
 			},
 			add(){
-				this.setpage()
-				this.$router.push({
-					path:"/projectManagement/projectclass/newprojectclass"
+				this.form = {
+					status:"1",
+					classify_name:""
+				}
+				this.reject();
+			},
+			sendmessage(){
+				if(!this.form.classify_name){
+					this.$message({
+						message:"项目类型名称不能为空"
+					})
+					return;
+				}
+				
+				
+				this.api.projectclassifyadd({
+					access_token:localStorage.getItem("access_token"),
+					classify_name:this.form.classify_name,
+					status:this.form.status
+				}).then(da => {
+					//console.log(da)
+					if(da = "添加成功"){
+						this.$refs.Tabledd.getTabData();
+						this.centerDialogVisible=false;
+					}
+				}).catch(() => {
+					
 				})
 			},
 			add1(row){
@@ -161,15 +218,21 @@
 						row: JSON.stringify(row)
 					}
 				})
+				
 			},
 			edit(row){
-				this.setpage()
+				/* this.setpage()
 				this.$router.push({
 					path:"/projectManagement/projectclass/editprojectclass",
 					query:{
 						row: JSON.stringify(row)
 					}
-				})
+				}) */
+				this.form = {
+					status:row.status,
+					classify_name:row.classify_name
+				}
+				this.reject();
 			},
 			edit1(row){
 				this.setpage()

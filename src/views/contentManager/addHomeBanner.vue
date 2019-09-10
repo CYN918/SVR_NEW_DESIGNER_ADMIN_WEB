@@ -11,11 +11,11 @@
 					<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
 					<el-upload action="454535" :http-request="httprequest" accept="image/png,image/jpg,image/jpeg" :show-file-list="false">
 						<div style="overflow: hidden;">
-							<button class="defaultbtn fleft" style="margin-left: 0;">上传图片</button>
+							<button class="defaultbtn fleft" style="margin-left: 0;">{{ banner_pic != '' ? '重新上传' : '上传图片' }}</button>
 						</div>
 						<div style="margin: 10px 0;" class="fontcolorg">1920*720px，格式jpg，jpeg，png，大小不超过10M</div>
 					</el-upload>
-					<img v-if="banner_pic" :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 156px;">
+					<img v-if="banner_pic" :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 160px;">
 				</li>
 				<li class="margintbt30 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>

@@ -53,7 +53,24 @@ export default {
 			  autoHeightEnabled: false,
 			  initialFrameHeight: 324,
 			  initialFrameWidth: '100%',
-			  UEDITOR_HOME_URL: '/UEditor/'
+			  UEDITOR_HOME_URL: '/UEditor/',
+			  toolbars: [[
+			  				'undo','redo', '|','fontsize','link','unlink',
+			  				'bold','underline','forecolor','|','justifyleft','justifycenter',
+			  				'justifyright','justifyjustify','lineheight','lineheight'
+			  				]
+			  //             'fullscreen', 'source', '|', 'undo', 'redo', '|',
+			  //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+			  //             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+			  //             'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+			  //             'directionalityltr', 'directionalityrtl', 'indent', '|',
+			  //             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+			  //             'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+			  //             'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+			  //             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+			  //             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+			  //             'print', 'preview', 'searchreplace', 'drafts', 'help'
+			          ]
 			},			
 			isshowd:false,
 			upList:[
@@ -689,7 +706,7 @@ export default {
 }
 .upBoxd2>div{
 	text-align: center;
-	margin-top: 30px;
+	margin-top: 23px;
 	cursor: pointer;
 	margin-right: 10px;
 }
@@ -702,7 +719,7 @@ export default {
 	margin-right: 20px;
 }
 .upBoxd1_2{
-	width: 100%;
+	width: 130%;
 	height: 440px;
 }
 .edui-default .edui-editor-toolbarboxouter{

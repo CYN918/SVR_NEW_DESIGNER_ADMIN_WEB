@@ -820,7 +820,7 @@ var router = new Router({
 					path:"projectclass",
 					name: 'projectclass',
 					meta: {
-						title: "项目发布",
+						title: "项目分类预设",
 						pagetitle: "项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/projectclass.vue'),

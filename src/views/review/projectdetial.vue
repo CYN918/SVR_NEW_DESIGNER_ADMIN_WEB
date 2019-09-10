@@ -281,7 +281,6 @@
 						</div>
 					</li>
 				</ul>
-
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class="defaultbtn" @click="reject3">取消</button>
