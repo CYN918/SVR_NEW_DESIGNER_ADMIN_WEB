@@ -272,8 +272,8 @@
 					pagesize: 10,
 					list: DataScreen.screenShow.newActivity.bts0,
 					ischeck: false,
-					loading:true
-				
+					loading:true,
+					masktoast:true,
 				},
 				tableData: [],
 				IsScreen: "Off",

@@ -19,7 +19,10 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目名称</span>
-						<el-input type="text" placeholder="请输入内容" :disabled="objstatus > 0" v-model="form['name']" style="width:357px;height:40px;" clearable  maxlength="20" show-word-limit></el-input>
+						<div class="fleft el-input__inner roles-input width500" style="width: 360px;">
+							<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="20" v-model="form['name']">
+							<span class="fright">{{ form['name'].length }}/20</span>
+						</div>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
@@ -120,8 +123,13 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
 						<div>
-							<el-input placeholder="请输入内容" v-model="fields" style="width:357px;height:40px;margin: 0;" clearable></el-input> 
-							<button class="defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
+							<div class="ofh">
+								<div class="fleft el-input__inner roles-input width500" style="width: 375px;">
+									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
+									<span class="fright">{{ fields.length }}/10</span>
+								</div>
+								<button class="fleft defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
+							</div>
 							<div style="margin-left: 160px;margin-top: 10px;">
 								<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"
 								 :disable-transitions="false" @close="handleClose(index)">
@@ -419,6 +427,7 @@
 				tableConfig: {
 					"pageName": "newActivity",
 					total: 0,
+					masktoast:true,
 					currentpage: 1,
 					pagesize: 10,
 					list: DataScreen.screenShow.newActivity.bts0,

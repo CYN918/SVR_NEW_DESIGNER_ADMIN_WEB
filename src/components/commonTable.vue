@@ -115,7 +115,7 @@
 				</el-pagination>
 			</div>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
+		<div class="mainContentMiddenBottom" v-if="!tableConfig.masktoast">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
