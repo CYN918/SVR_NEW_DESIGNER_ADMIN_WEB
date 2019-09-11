@@ -18,9 +18,9 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;">通知内容</span>
 					<div class="fleft defaultbtnworkbg">
 						<div>
-							<textarea name="" id="" cols="69" rows="10" v-model="text100" Maxlength="100" class="defaultbtnwork"></textarea>
+							<textarea style="padding: 10px;" name="" id="" cols="69" rows="10" v-model="text100"  class="defaultbtnwork"></textarea>
 						</div>
-						<span class="fright fontcolorg">{{ text100.length }}/100</span>
+						<!-- <span class="fright fontcolorg">{{ text100.length }}/100</span> -->
 					</div>
 				</li>
 				<li class="margint13 ofh">

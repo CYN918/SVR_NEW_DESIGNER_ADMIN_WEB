@@ -171,7 +171,7 @@
 							</el-button-group>
 						</div>
 					</li>
-					<li class="w ofh">
+					<!-- <li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">成交方式</span>
 							<el-button-group class="sel-dialog-content fleft">
@@ -179,7 +179,7 @@
 								<el-button :type="typebtn1==2 ? 'primary' : ''" @click="getrule1(2)">分成式</el-button>
 							</el-button-group>
 						</div>
-					</li>
+					</li> -->
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">验收价格</span>
@@ -195,7 +195,6 @@
 							 clearable></el-input>
 						</div>
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="color: transparent;width: 84px;">延期交稿扣减</span>
 							<span v-if="!lflag" class="fleft sel-dialog-content">
 								作者已延期<span>{{ get_time_diff(apply_info.delivery_deadline) }}</span>，理应扣减<span>￥{{ getdeduction_price(apply_info.delivery_deadline) }}</span>（验收价格*10%*延期天数）
 							</span>
@@ -207,7 +206,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey">选择需求</span>
-							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content">
+							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
 								<el-radio-group v-model="did">
 									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
 									 :label="item.demand_name">
@@ -635,16 +634,6 @@
 				if (days > 0) {
 					diff += days + '天';
 				}
-				//计算出小时数 
-				var leave1 = time_diff % (24 * 3600 * 1000);
-				var hours = Math.floor(leave1 / (3600 * 1000));
-				if (hours > 0) {
-					diff += hours + '小时';
-				} else {
-					if (diff !== '') {
-						diff += hours + '小时';
-					}
-				}
 				if(days <= 0){
 					this.lflag = true;
 				} else {
@@ -661,18 +650,6 @@
 				var days = Math.floor(time_diff / (24 * 3600 * 1000));
 				if (days > 0) {
 					diff += days;
-				} 
-				//console.log(diff)
-				//计算出小时数 
-				var leave1 = time_diff % (24 * 3600 * 1000);
-				var hours = Math.floor(leave1 / (3600 * 1000));
-				if (hours > 0) {
-					//console.log(hours / 24)
-					diff += (hours / 24);
-				} else {
-					if (diff !== '') {
-						diff += (hours / 24);
-					}
 				}
 				this.deduction_price  =  (this.acceptance_price * diff * 0.1).toFixed(2)
 				return (this.acceptance_price * 0.1 * diff).toFixed(2);
@@ -789,7 +766,7 @@
 					check_status: 1,
 					project_id: this.$route.query.project_id,
 					level: this.level,
-					deal_type: this.deal_type,
+					deal_type: 1,
 					acceptance_price: this.acceptance_price,
 					deduction_price: this.deduction_price,
 					deal_price: this.getdeal_price(),

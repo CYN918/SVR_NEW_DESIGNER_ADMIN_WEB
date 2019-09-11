@@ -453,6 +453,10 @@ input{
 	border-color: #FF5121;
 }
 
+.el-button--mini, .el-button--small{
+	font-size: 14px
+}
+
 .Detail {
 		background: white;
 	}
@@ -723,7 +727,6 @@ input{
 	.employipt{
 		height: 40px;
 		line-height: 40px;
-		margin: 30px;
 	}
 	
 	.employmonre {
@@ -764,9 +767,7 @@ input{
 
 	#app .el-pagination .number:hover,
 	#app .el-pagination button:hover {
-		border-color: #ff5121;
-		background-color: #ff5121;
-		color: white;
+		color: #ff5121;
 	}
 
 	#app .el-pagination .number:active,
@@ -921,6 +922,12 @@ input{
 
 .edui-default .edui-editor-bottomContainer table{
 	display: none;
+}
+
+input:disabled{
+	background-color: #f5f7fa;
+	border-color: #E4E7ED;
+	color: #C0C4CC;
 }
 
 @media screen and (max-width: 1400px) {

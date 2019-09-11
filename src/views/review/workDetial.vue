@@ -60,7 +60,7 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['图片']" :key="item.fid+index+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{backgroundImage: 'url(' + item.url + ')', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{background: 'url(' + item.url + ') center center no-repeat', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
 									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -351,7 +351,7 @@
 		</el-dialog>
 		
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
-			<img :src="imgurl" alt="暂无图片">
+			<img style="max-height: 700px;" :src="imgurl" alt="暂无图片">
 		</div>
 	</div>
 </template>

@@ -12,8 +12,8 @@
 				<ul>
 					<li class="w ofh">
 						<span class="fleft Dialogkey" style="line-height: 40px;text-align: right;">项目类型名称</span>
-						<div class="el-input__inner roles-input width500" style="width: 200px;">
-							<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="6" v-model="form['classify_name']">
+						<div class="el-input__inner roles-input width500" :style="{width: '200px',backgroundColor: disabled ? '#f5f7fa' : 'rgba(0,0,0,0)'}">
+							<input type="text" placeholder="请输入内容" :disabled="disabled"  class="sel-input fleft" maxlength="6" v-model="form['classify_name']">
 							<span class="fright">{{ form['classify_name'].length }}/6</span>
 						</div>
 					</li>
@@ -44,6 +44,7 @@
 		},
 		data() {
 			return {
+				disabled:true,
 				centerDialogVisible:false,
 				form:{
 					status:"1",
@@ -181,6 +182,7 @@
 				})
 			},
 			add(){
+				this.disabled = false;
 				this.form = {
 					status:"1",
 					classify_name:""
@@ -228,6 +230,7 @@
 						row: JSON.stringify(row)
 					}
 				}) */
+				this.disabled = true;
 				this.form = {
 					status:row.status,
 					classify_name:row.classify_name
@@ -268,5 +271,9 @@
 	}
 </script>
 <style>
-	
+	input:disabled{
+		background-color: #f5f7fa;
+		border-color: #E4E7ED;
+		color: #C0C4CC;
+	}
 </style>
