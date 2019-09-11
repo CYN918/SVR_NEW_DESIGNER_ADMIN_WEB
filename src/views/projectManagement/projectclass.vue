@@ -160,6 +160,7 @@
 				IsDetail:1,
 				roles:{},
 				top_banner: [],
+				projectclassid:""
 			}
 		},
 		watch: {},
@@ -197,20 +198,30 @@
 					return;
 				}
 				
-				
-				this.api.projectclassifyadd({
-					access_token:localStorage.getItem("access_token"),
-					classify_name:this.form.classify_name,
-					status:this.form.status
-				}).then(da => {
-					//console.log(da)
-					if(da = "添加成功"){
-						this.$refs.Tabledd.getTabData();
-						this.centerDialogVisible=false;
-					}
-				}).catch(() => {
-					
-				})
+				if(this.disabled){
+					this.api.projectclassifyupdate({
+						access_token:localStorage.getItem("access_token"),
+						classify_name:this.form.classify_name,
+						status:this.form.status,
+						id:this.projectclassid
+					}).then(da => {
+						//console.log(da)
+						this.reject();
+					}).catch(() => {
+						
+					})
+				} else {
+					this.api.projectclassifyadd({
+						access_token:localStorage.getItem("access_token"),
+						classify_name:this.form.classify_name,
+						status:this.form.status
+					}).then(da => {
+						//console.log(da)
+						this.reject();
+					}).catch(() => {
+						
+					})
+				}
 			},
 			add1(row){
 				this.setpage()
@@ -235,6 +246,7 @@
 					status:row.status,
 					classify_name:row.classify_name
 				}
+				this.projectclassid = row.id
 				this.reject();
 			},
 			edit1(row){
@@ -271,9 +283,5 @@
 	}
 </script>
 <style>
-	input:disabled{
-		background-color: #f5f7fa;
-		border-color: #E4E7ED;
-		color: #C0C4CC;
-	}
+	
 </style>
