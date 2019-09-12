@@ -655,7 +655,12 @@
 				return (this.acceptance_price * 0.1 * diff).toFixed(2);
 			},
 			getdeal_price() {
-				return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)
+				if(((parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+					return 0;
+				} else {
+					return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+				}
+				
 			},
 			getrule(n) {
 				this.typebtn = n;
