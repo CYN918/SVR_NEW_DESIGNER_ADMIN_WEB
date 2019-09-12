@@ -19,7 +19,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
 			<div class="ofh">
 				<div class="fleft">

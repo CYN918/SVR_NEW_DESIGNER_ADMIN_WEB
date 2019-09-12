@@ -190,17 +190,17 @@
 									<div>
 										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preferrence_classify ? item.user.preferrence_classify :"--"}}</span>
 									</div>
-									<div>
-										<span  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
-										<span class="ofh">
+									<div class="ofh">
+										<span class="fleft"  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
+										<span class="ofh fleft" style="width: 230px;">
 											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.style)">
 												{{ citem }}
 											</span>
 										</span>
 									</div>
-									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span>
-										<span class="ofh">
+									<div class="ofh">
+										<span class="fleft" style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span>
+										<span class="ofh fleft" style="width: 230px;">
 											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.field)">
 												{{ citem }}
 											</span>
@@ -644,7 +644,13 @@
 		},
 		methods: {
 			arrchange(item){
-				return item.split(",")
+				console.log(item);
+				if(item){
+					
+					return item.split(",");
+				} else {
+					return [];
+				}
 			},
 			gotouser(){
 				this.tabsnum = 3

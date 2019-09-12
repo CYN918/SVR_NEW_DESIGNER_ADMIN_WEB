@@ -346,7 +346,9 @@
 					to_open_ids:this.to_open_ids,
 					send_time:this.send_time,
 				}).then(da => {
-					this.$router.go(-1);
+					if(da.result == 0){
+						this.$router.go(-1);
+					}
 				}).catch(() => {
 							
 				})

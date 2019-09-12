@@ -206,6 +206,7 @@
 						id:this.projectclassid
 					}).then(da => {
 						//console.log(da)
+						this.$refs.Tabledd.getTabData();
 						this.reject();
 					}).catch(() => {
 						
@@ -217,6 +218,7 @@
 						status:this.form.status
 					}).then(da => {
 						//console.log(da)
+						this.$refs.Tabledd.getTabData();
 						this.reject();
 					}).catch(() => {
 						

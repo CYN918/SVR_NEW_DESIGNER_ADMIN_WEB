@@ -52,28 +52,7 @@
 					return "--"
 				}
 			},
-			add(){
-				if(!this.content){
-					this.$message({
-						message:"项目类型名称不能为空"
-					})
-					return;
-				}
-				
-				
-				this.api.projectclassifyadd({
-					access_token:localStorage.getItem("access_token"),
-					classify_name:this.content,
-					status:this.status
-				}).then(da => {
-					//console.log(da)
-					if(da = "添加成功"){
-						this.getparent()
-					}
-				}).catch(() => {
-					
-				})
-			},
+			
 			edit(){
 				if(!this.content){
 					this.$message({

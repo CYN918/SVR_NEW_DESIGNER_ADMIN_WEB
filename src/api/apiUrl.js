@@ -313,7 +313,7 @@ export default {
 		url:'/admin/income/applyList',method:'post',baseURL:0
 	},
 	addnotice:{
-		url:'/admin/notice/add',method:'post',isType:{suktip:true},baseURL:0
+		url:'/admin/notice/add',method:'post',isType:{suktip:true,isok:true},baseURL:0
 	},
 	selfInfo:{
 		url:'/admin/adminuser/selfInfo',method:'post',baseURL:0

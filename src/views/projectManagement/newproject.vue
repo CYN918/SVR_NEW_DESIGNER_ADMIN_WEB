@@ -304,7 +304,6 @@
 			</div>
 		</el-dialog>
 		<el-dialog title="请选择模板预设" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
-			
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
