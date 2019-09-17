@@ -21,7 +21,6 @@
 			<button class="defaultbtn defaultbtnactive"  v-if="!row.id" @click="add()" >添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row.id" @click="edit()" >保存</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

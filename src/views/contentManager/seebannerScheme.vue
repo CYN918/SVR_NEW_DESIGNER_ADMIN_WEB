@@ -90,7 +90,6 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="edit == 'edit'" @click="editp()">确定</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

@@ -86,7 +86,6 @@
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

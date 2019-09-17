@@ -1414,6 +1414,7 @@ const screenData = {
 		},
 		newActivity:{
 			bts1:[
+				{type:"radio",prop:"template_file_id"},
 				{lable:"模板文件ID",prop:"template_file_id"},
 				{lable:"文件名称",prop:"file_name"},
 				{lable:"网盘链接",prop:"online_disk_info"},
@@ -1423,6 +1424,7 @@ const screenData = {
 				{lable:"上传时间",prop:"created_at"}
 			],
 			bts0:[
+				{type:"radio",prop:"template_file_id"},
 				{lable:"模板文件ID",prop:"template_file_id"},
 				{lable:"文件名称",prop:"file_name"},
 				{lable:"文件格式",prop:"file_type"},
@@ -1433,15 +1435,8 @@ const screenData = {
 				{lable:"上传时间",prop:"created_at"}
 			],
 			action:{
-				morebtns:{
-					name:"删除",
-					Ishow:false,
-					page:"addbannerScheme",
-				},
-				links:{
-					name:"选择",
-					Ishow:true
-				},
+				is_hidden:true, 
+				morebtns:{ page:"newActivity" }
 			}
 		},
 		homeBanner:{

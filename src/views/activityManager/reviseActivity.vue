@@ -25,7 +25,6 @@
 			<button class="defaultbtn defaultbtnactive" @click="add()" v-if="!id">添加</button>
 			<button class="defaultbtn defaultbtnactive" @click="edit()" v-if="id">确认修改</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

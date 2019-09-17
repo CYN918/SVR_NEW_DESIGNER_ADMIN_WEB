@@ -243,7 +243,6 @@
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		
 		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog">
@@ -431,8 +430,8 @@
 					pagesize: 10,
 					list: DataScreen.screenShow.newActivity.bts0,
 					ischeck: false,
-					loading:true
-				
+					loading:true,
+					selectid:"template_file_id"
 				},
 				tableData: [],
 				IsScreen: "Off",
@@ -523,27 +522,25 @@
 				this.dialogTableVisible1=false;
 			},
 			reject1(){
-				this.tableConfig.list = [
-					{prop:'template_name',lable:'模板名称'},
-					{prop:'classify_name',lable:'所属项目分类'},
-					{prop:'banner',lable:'banner',type:"img"},
-					{prop:'fields',lable:'领域范围'},
-					{prop:'expected_profit',lable:'预计收益'},
-					{prop:'extra_reward',lable:'额外赏金'},
-					{prop:'file_name',lable:'模板文件'},
-				],
+				this.tableConfig={
+					ischeck: false,
+					loading:true,
+					masktoast:true,
+					list :[
+						{prop:"id",type:"radio"},
+						{prop:'template_name',lable:'模板名称'},
+						{prop:'classify_name',lable:'所属项目分类'},
+						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'fields',lable:'领域范围'},
+						{prop:'expected_profit',lable:'预计收益'},
+						{prop:'extra_reward',lable:'额外赏金'},
+						{prop:'file_name',lable:'模板文件'},
+					],
+					selectid:"id"
+				}
 				this.tableAction={
-					morebtns:{
-						name:"设置角色",
-						Ishow:false,
-						page:"newproject",
-						
-					},
-					links:{
-						name:"启用",
-						Ishow:true,
-						accessid:"1"
-					}
+					is_hidden:true, 
+					morebtns:{ page:"newproject" }
 				}
 				
 				this.filterFields = [
@@ -986,7 +983,7 @@
 				}
 				
 				if(this.alertmask() != true){
-					alert(11);
+					
 					this.$message({
 						message:this.alertmask(),
 					})
@@ -1244,6 +1241,7 @@
 			dialogTable(){
 				this.tableAction=DataScreen.screenShow.newActivity.action,
 				this.type = this.tabsnum + 1;
+				this.tableConfig.selectid="template_file_id";
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + this.tabsnum];
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(this.tabsnum+1);

@@ -36,7 +36,6 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn" @click="addrole()">提交</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

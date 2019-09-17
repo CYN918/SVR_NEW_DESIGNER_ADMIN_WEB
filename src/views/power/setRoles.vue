@@ -54,7 +54,6 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="setrole()">提交</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

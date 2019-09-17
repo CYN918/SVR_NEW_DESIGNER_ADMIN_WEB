@@ -1,12 +1,13 @@
 <template>
 	<div class="wh">
-		<div class="tabtop wh" ref="elememt" id="table" style="overflow-y: scroll;">
-			<el-table ref="multipleTable" :reserve-selection="true" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+		<div class="tabtop wh" ref="elememt" id="table" style="height:calc(100% - 44px);overflow-y: scroll">
+			<el-table ref="multipleTable" :reserve-selection="true" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange" @row-click="rowclick">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
 					<template slot-scope="scope">
+						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
@@ -114,8 +115,10 @@
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
+			<div class="w textcenter">
+				<button class="defaultbtn" @click="setparenttable">确定</button>
+			</div>
 		</div>
-		<div class="mainContentMiddenBottom" v-if="!tableConfig.masktoast">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
@@ -140,12 +143,42 @@
 				pageid:"",
 				imgurl:"",
 				isimgurl:false,
-				adminuseraccess: []
+				adminuseraccess: [],
+				radio:'',
+				row:{}
 			}
 		},
 		methods: {
+			setparenttable(){
+				switch(this.tableAction.morebtns.page){
+					case "userBaseInfo":
+						
+					break;
+					case "workInfo":
+						
+					break;
+					case "worksShelves":
+						
+					break;
+					case "newActivity":
+						this.$parent.$parent.getactivitiesrows(this.row);
+						this.$parent.$parent.dialogTableVisible = false;
+					break;
+					case "newproject":
+					    this.$parent.$parent.getactivitiesrows1(this.row);
+					    this.$parent.$parent.dialogTableVisible2 = false;
+					break;
+					case "addblack":
+						
+					break;
+				}
+			},
+			rowclick(row){
+				this.row = row;
+				this.radio = row[this.tableConfig.selectid];
+			},
 			handleClick(row, setid, page,event) {
-				console.log(page,setid)
+				//console.log(page,setid)
 				//return;
 				switch(page){
 					case "userBaseInfo":
@@ -606,11 +639,17 @@
 			},
 			handleSelectionChange(val) {
 				
-				if(this.sel == false){
-					return;
+				if(this.tableConfig.masktable){
+					
+				} else {
+					if(this.sel == false){
+						return;
+					}
+					this.multipleSelection = val
+					this.changePageCoreRecordData(this.multipleSelection)
 				}
-				this.multipleSelection = val
-                this.changePageCoreRecordData(this.multipleSelection)
+				
+				
 			},
 			changePageCoreRecordData (x) {
                 // 总选择里面的key集合

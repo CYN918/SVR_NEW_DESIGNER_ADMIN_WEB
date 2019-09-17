@@ -64,7 +64,6 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" @click="add()">创建</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">

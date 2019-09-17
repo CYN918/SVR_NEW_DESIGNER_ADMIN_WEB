@@ -185,7 +185,6 @@
 				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks('')">下载 {{ checkList.length }}
 					个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB" }}）</button>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">

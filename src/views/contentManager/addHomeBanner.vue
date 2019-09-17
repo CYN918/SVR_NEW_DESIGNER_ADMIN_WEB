@@ -28,7 +28,6 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!rows" @click="add()">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="rows"  @click="edit()">确定</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

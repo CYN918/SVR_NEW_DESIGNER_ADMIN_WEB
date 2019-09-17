@@ -69,7 +69,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 	</div>
 </template>

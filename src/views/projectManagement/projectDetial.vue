@@ -230,7 +230,6 @@
 				<button class="defaultbtn" @click="getparent()">返回</button>
 				<button class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
 			</div>
-			<div v-if="detailbtn" class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">

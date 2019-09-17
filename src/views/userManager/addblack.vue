@@ -197,7 +197,6 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!blackid" @click="add()">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="blackid" @click="edit()">保存</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="workfixed" v-show="IsScreen == 'No'">
 			<common-screen ref="screen" :pageName="pageName"></common-screen>
 		</div>

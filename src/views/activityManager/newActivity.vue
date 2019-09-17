@@ -20,7 +20,6 @@
 				<ul>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">活动名称</span>
-						
 						<div class="el-input__inner roles-input width500" style="width: 375px;">
 							<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="50" v-model="form['activity_name']">
 							<span class="fright">{{ form['activity_name'].length }}/50</span>
@@ -156,7 +155,6 @@
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 		
 		
@@ -246,7 +244,6 @@
 				tableData1: [],
 				ifBjType:0,
 				currentpageName:"",
-				
 				pageName: "newActivity",
 				tableAction:DataScreen.screenShow.newActivity.action,
 				filterFields: DataScreen.screen.newActivity.filterFields0,
@@ -274,6 +271,7 @@
 					ischeck: false,
 					loading:true,
 					masktoast:true,
+					selectid:"template_file_id"
 				},
 				tableData: [],
 				IsScreen: "Off",

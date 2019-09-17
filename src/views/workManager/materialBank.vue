@@ -131,7 +131,6 @@
 				<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
 			</span>
 		</el-dialog>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

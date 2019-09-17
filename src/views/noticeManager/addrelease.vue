@@ -40,7 +40,7 @@
 			</ul>
 		</div>
 		<el-dialog title="请选择通知人员" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
-			<div>	
+			<div style="height: 600px;overflow-y: scroll;">	
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
@@ -64,14 +64,12 @@
 					<button class="defaultbtn defaultbtnactive" @click="setchange()">确定({{ this.selectData.length }})</button>
 				</div>
 			</div>
-			
 		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!rows.id" @click="add()">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="rows.id" @click="edit()">保存</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<div class="workfixed" v-show="IsScreen == 'No'">
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
@@ -116,7 +114,8 @@
 					pagesize: 10,
 					list: DataScreen.screenShow.addrelease.bts,
 					ischeck: true,
-					loading:true
+					loading:true,
+					masktoast:true
 
 				},
 				tableData: [],

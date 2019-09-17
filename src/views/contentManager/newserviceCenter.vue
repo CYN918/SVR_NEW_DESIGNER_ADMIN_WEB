@@ -75,7 +75,6 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows.id" @click="edit()">确 定</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

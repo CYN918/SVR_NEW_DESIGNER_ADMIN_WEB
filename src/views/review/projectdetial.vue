@@ -87,7 +87,6 @@
 			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
 			<div style="position: relative;">

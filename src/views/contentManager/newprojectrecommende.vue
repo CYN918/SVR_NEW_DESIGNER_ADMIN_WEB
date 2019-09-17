@@ -48,7 +48,6 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		<el-dialog title="请选择干预的活动" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">

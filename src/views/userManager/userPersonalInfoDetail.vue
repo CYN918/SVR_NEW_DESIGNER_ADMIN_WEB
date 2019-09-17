@@ -1,7 +1,7 @@
 <template>
 	<div class="wh Detail">
 		<div class="detailtitle">查看用户信息</div>
-		<div style="overflow-y: auto;height: 100%;width: 100%;">
+		<div style="overflow-y: auto;height:calc(100% - 40px);width: 100%;">
 			<ul style="padding-left: 132px;">
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户ID</span>
@@ -83,7 +83,6 @@
 			<div class="screenContent detailbtn">
 				<button class="defaultbtn"  @click="getparent()">返回</button>
 			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 		</div>
 	</div>
 </template>

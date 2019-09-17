@@ -39,7 +39,6 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!row" @click="add()">添加</button>
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 

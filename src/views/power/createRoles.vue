@@ -34,7 +34,6 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn" @click="addrole()">添加</button>
 		</div>
-		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
 </template>
 
@@ -167,18 +166,8 @@
 		background: red;
 	}
 
-	.roles-input {
-		height: 40px;
-		line-height: 40px;
-	}
-
 	.width500 {
 		width: 500px;
-	}
-
-	.roles-input input {
-		height: 100%;
-		width: 400px;
 	}
 
 	.roletree {
