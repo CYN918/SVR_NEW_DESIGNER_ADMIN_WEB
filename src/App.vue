@@ -768,6 +768,8 @@ input{
 	#app .el-pagination .number:hover,
 	#app .el-pagination button:hover {
 		color: #ff5121;
+		background: white;
+		border-color:#999999;  
 	}
 
 	#app .el-pagination .number:active,
@@ -790,7 +792,7 @@ input{
 
 	#app .el-pager li.active {
 		border-color: #FF5121;
-		background-color: #FF5121 !important;
+		background-color: #FF5121;
 		color: white;
 	}
 
@@ -907,17 +909,22 @@ input{
 ::-webkit-scrollbar {
 	width:5px;
 	border-radius:5px;
+	height:5px;
+	border: 0;
 }
 
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
 	border-radius:5px;
+	background: white;
+	border: 0;
 }
 
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
 	border-radius:5px;
 	background:#E6E6E6;
+	border-color: transparent;
 }
 
 .edui-default .edui-editor-bottomContainer table{
@@ -928,6 +935,10 @@ input:disabled{
 	background-color: #f5f7fa;
 	border-color: #E4E7ED;
 	color: #C0C4CC;
+}
+
+.el-table th>.cell{
+	font-weight: 700;
 }
 
 @media screen and (max-width: 1400px) {

@@ -475,19 +475,6 @@
 		left: 40px;
 	}
 
-	.tabs {
-		width: 96px;
-		height: 58px;
-		display: inline-block;
-		margin-right: 71px;
-		cursor: pointer;
-	}
-
-	.tabactive {
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
-	}
-
 	.badge .el-badge__content.is-fixed {
 		top: 13px
 	}
@@ -604,40 +591,6 @@
 		text-align: center;
 		border: 1px solid #999999;
 		border-radius: 5px;
-	}
-
-	.tabs {
-		width: 96px;
-		height: 33px;
-		display: inline-block;
-		margin-right: 71px;
-		cursor: pointer;
-	}
-
-	.tabactive {
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
-	}
-
-	.img-top {
-		width: 68px;
-		height: 68px;
-		border-radius: 50%;
-	}
-
-	.img-zheng {
-		width: 160px;
-		height: 100px;
-	}
-
-	.img-fengmian {
-		width: 200px;
-		height: 150px;
-	}
-
-	.img-banner {
-		width: 341px;
-		height: 110px;
 	}
 
 	.materiallist {

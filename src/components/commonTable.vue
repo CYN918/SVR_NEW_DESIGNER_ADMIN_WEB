@@ -10,8 +10,8 @@
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
-						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(scope.row[item.prop])">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;cursor: pointer;" @click="openwindowrouter(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<div v-else-if="item.type == 'btn'">
 							<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]" >{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
@@ -40,7 +40,7 @@
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
 						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop]  }}</span>
 						<div v-else-if="item.type == 'hiretime'">
-							<div style="color: #FF5121;" @click="openwindowrouter(item.url)">
+							<div style="color: #FF5121;" @click="openwindowrouter(item.url,scope.row[item.id])">
 								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
 							</div>
 							<div>
@@ -808,11 +808,11 @@
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
 			},
-			openwindow(url){
-				window.open(url)
+			openwindow(url,id){
+				window.open(localStorage.getItem('URL')+url+id)
 			},
-			openwindowrouter(url){
-				const {href} = this.$router.resolve({ path: url})
+			openwindowrouter(url,id){
+				const {href} = this.$router.resolve({ path: url+id})
 				window.open(href, '_blank')
 			}
 			
