@@ -144,13 +144,13 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<!-- <div class="w textcenter">
-					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
-				</div> -->
+				<div class="w textcenter">
+					<button class="defaultbtn" @click="setparenttable">确定</button>
+				</div>
 			</div>
 			
 		</el-dialog>
@@ -263,6 +263,9 @@
 			upload
 		},
 		methods: {
+			setparenttable(){
+				this.$refs.Tabledd.setparenttable();
+			},
 			handleClose(index){
 				this.checkedroles.splice(index,1);
 			},
@@ -282,7 +285,8 @@
 					})
 					return;
 				}
-				this.checkedroles.push(this.fields)
+				this.checkedroles.push(this.fields);
+				this.fields = "";
 			},
 			changedatial(){
 				this.detailtext.forEach((item,index)=>{

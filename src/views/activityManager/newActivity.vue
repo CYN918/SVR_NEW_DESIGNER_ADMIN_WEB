@@ -182,13 +182,13 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<!-- <div class="w textcenter">
-					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
-				</div> -->
+				<div class="w textcenter">
+					<button class="defaultbtn" @click="setparenttable1">确定</button>
+				</div>
 			</div>
 			
 		</el-dialog>
@@ -298,6 +298,9 @@
 			commonTable
 		},
 		methods: {
+			setparenttable(){
+				this.$refs.Tabledd.setparenttable();
+			},
 			totem(){
 				const {href} = this.$router.resolve({ path: "/activityManager/solicitationTemplate"})
 				window.open(href, '_blank')

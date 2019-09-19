@@ -95,7 +95,6 @@
 					</li>
 				</ul>
 				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
-					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
 						<el-select v-model="form['classify_id']" placeholder="请选择" style="width: 357px;">
@@ -118,8 +117,6 @@
 						</el-upload>
 						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
-					
-					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
 						<div>
@@ -209,7 +206,6 @@
 								{{ item }}
 							</span>
 						</div>
-						
 					</li>
 				</ul> 
 			</div>
@@ -295,11 +291,13 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				
+				<div class="w textcenter">
+					<button class="defaultbtn" @click="setparenttable1">确定</button>
+				</div>
 			</div>
 		</el-dialog>
 		<el-dialog title="请选择模板预设" :visible.sync="dialogTableVisible2" custom-class="sel-dialog">
@@ -319,9 +317,12 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tableddtem"></common-table>
+				</div>
+				<div class="w textcenter">
+					<button class="defaultbtn" @click="setparenttable">确定</button>
 				</div>
 			</div>
 		</el-dialog>
@@ -472,6 +473,12 @@
 			upload
 		},
 		methods: {
+			setparenttable(){
+				this.$refs.Tableddtem.setparenttable();
+			},
+			setparenttable1(){
+				this.$refs.Tabledd.setparenttable();
+			},
 			handleClose(index){
 				this.checkedroles.splice(index,1);
 			},
@@ -491,7 +498,8 @@
 					})
 					return;
 				}
-				this.checkedroles.push(this.fields)
+				this.checkedroles.push(this.fields);
+				this.fields = "";
 			},
 			changedatial(){
 				this.detailtext.forEach((item,index)=>{

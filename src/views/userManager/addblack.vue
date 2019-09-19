@@ -48,7 +48,7 @@
 										禁用权限
 									</div>
 									<div>
-										<el-select v-model="content[index].access" placeholder="请选择" >
+										<el-select v-model="content[index].access" placeholder="请选择" style="width: 375px;">
 											<el-option value="" label=""></el-option>
 											 <el-radio-group v-model="content[index].access">
 												<el-option v-for="(item,index) in forbiddenAccess" :value="item.access" :label="item.msg">
@@ -155,7 +155,7 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
@@ -182,7 +182,7 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>

@@ -70,7 +70,7 @@
 						</el-tag>
 					</div>
 				</div>
-				<div style="width: 100%:height:500px;overflow-y:scroll;">
+				<div style="width: 100%;max-height:300px;overflow-y:scroll;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>

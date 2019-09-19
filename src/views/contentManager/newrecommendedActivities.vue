@@ -65,7 +65,7 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>

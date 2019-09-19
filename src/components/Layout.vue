@@ -172,7 +172,7 @@
 </script>
 <style>
 	.el-picker-panel{
-		z-index:2013 !important;
+		z-index:2045 !important;
 	}
 </style>
 <style lang="scss" scoped>
@@ -207,6 +207,6 @@
 		background: rgba(0, 0, 0, 0.5);
 		width: 100%;
 		height: 100%;
-		z-index: 2013;
+		z-index: 2040;
 	}
 </style>

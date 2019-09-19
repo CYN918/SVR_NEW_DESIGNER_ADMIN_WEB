@@ -75,6 +75,9 @@ export default {
 	}, 	
     methods: {
 		InImg(){
+			/* console.log(this.checIurl);
+			console.log(this.checkin); */
+			
 			this.$parent.inImg(this.checIurl,this.checkin);
 			this.closed(1);
 		},
@@ -84,17 +87,16 @@ export default {
 				return
 			}
 			if(this.checkin.length==0){return}
-			let token = JSON.parse(localStorage.getItem('userT'));
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
-				1001,
-				//token.open_id,
+				1003,
+				7,
 				times
 			];
 			let formData = new FormData();
-			formData.append('app_id',1001);
+			formData.append('app_id',1003);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			//formData.append('user',token.open_id)
+			formData.append('user',7)
 			formData.append('fid',this.checkin)
 			formData.append('timestamp',times)
 			this.deldetType=1;
@@ -103,10 +105,14 @@ export default {
 				this.deldetType=0;
 				if(response.data.result==0){
 					Message({message: '删除成功'});
-                   // this.closed();
+                    //this.closed();
 					for(let i=0,n=this.deletObj.length;i<n;i++){
-						this.deletObj[i].type='none';						
+						this.deletObj[i].type='none';
+						this.checkin.splice(i,1);
+						this.checIurl.splice(i,1);					
 					}
+					console.log(this.checkin);
+					console.log(this.checIurl)
 				}else{
 					Message({message: '删除失败'});	
 				}
@@ -118,7 +124,6 @@ export default {
 			});
 		},
 		closed(on){
-		
 			this.$parent.closed(on);
 		},
 		onxz(obj){

@@ -107,7 +107,7 @@
 			</div>
 			<div v-if="tabsnum == 3">
 				<ul class="ofh">
-					<li class="ofh signlist" v-for="(item,index) in signupLists">
+					<li class="ofh signlist relative" v-for="(item,index) in signupLists">
 						<div class="ofh" style="padding-bottom: 60px;border-bottom: 1px solid rgba(251,252,259,1);">
 							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
 								<div class="fleft" style="width: 100%;height: 100%;" id="projectDetial">
@@ -215,6 +215,7 @@
 							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
 							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
+						<img v-if="index == 0" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
 					</li>
 				</ul>
 				<div class="w" id="bottoms" style="text-align: right;background: #FFFFFF;">

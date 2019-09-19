@@ -155,12 +155,12 @@
 				<el-button type="primary" @click="contributor1('fa')">确 定</el-button>
 			</span>
 		</el-dialog>
-		<el-dialog title="请选择录用方式" :visible.sync="centerDialogVisible2">
+		<el-dialog title="项目验收确认" :visible.sync="centerDialogVisible2">
 			<div style="position: relative;">
 				<ul class="textcenter">
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">项目评级</span>
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">项目评级</span>
 							<el-button-group class="sel-dialog-content fleft">
 								<el-button :type="typebtn=='S' ? 'primary' : ''" @click="getrule('S')">S</el-button>
 								<el-button :type="typebtn=='A' ? 'primary' : ''" @click="getrule('A')">A</el-button>
@@ -170,28 +170,21 @@
 							</el-button-group>
 						</div>
 					</li>
-					<!-- <li class="w ofh">
-						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">成交方式</span>
-							<el-button-group class="sel-dialog-content fleft">
-								<el-button :type="typebtn1==1 ? 'primary' : ''" @click="getrule1(1)">买断式</el-button>
-								<el-button :type="typebtn1==2 ? 'primary' : ''" @click="getrule1(2)">分成式</el-button>
-							</el-button-group>
-						</div>
-					</li> -->
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">验收价格</span>
-							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="acceptance_price"
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">验收价格</span>
+							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" @focus="deductionf(0)" v-model="acceptance_price"
 							 clearable>
 							</el-input>
 						</div>
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">延期交稿扣减</span>
-							<el-input style="width: 300px" :disabled="lflag" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deduction_price"
-							 clearable></el-input>
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">延期交稿扣减</span>
+							<el-input style="width: 300px" v-if="deduction" :disabled="lflag"  class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deductionprice"
+							></el-input>
+							<el-input style="width: 300px" v-if="!deduction" :disabled="lflag" @focus="deductionf(1)" class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deduction_price"
+							></el-input>
 						</div>
 						<div class="textcenter employipt">
 							<span v-if="!lflag" class="fleft sel-dialog-content">
@@ -204,7 +197,7 @@
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">选择需求</span>
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">选择需求</span>
 							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
 								<el-radio-group v-model="did">
 									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
@@ -219,7 +212,7 @@
 				<ul>
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey">最终价格</span>
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">最终价格</span>
 							<span class="fleft sel-dialog-content">
 								<span>
 									￥{{ getdeal_price() }}
@@ -237,7 +230,7 @@
 									<div>-</div>
 								</li>
 								<li v-if="!lflag" class="fleft">
-									<div>￥{{ deduction_price }}</div>
+									<div>￥{{ getdeductions() }}</div>
 									<div>延期交稿扣减</div>
 								</li>
 								<li class="fleft" style="margin: 0 20px;">
@@ -583,14 +576,16 @@
 				imgurl: "",
 				adminuseraccess: [],
 				oneload: {},
-				typebtn: "",
+				typebtn: "S",
 				typebtn1: "",
 				level: "",
 				deal_type: "",
 				acceptance_price: 0,
 				deduction_price: 0,
+				deductionprice: 0,
 				deal_price: 0,
-				lflag:false
+				lflag:false,
+				deduction:false
 			}
 		},
 		computed:{
@@ -600,6 +595,14 @@
 			
 		},
 		methods: {
+			deductionf(n){
+				if(n == 0){
+					this.deduction = false;
+				} else {
+					this.deduction = true;
+				}
+				
+			},
 			up(){
 				fetch(this.material_info.file_url).then(res => res.blob()).then(blob => {
 					const a = document.createElement('a');
@@ -653,11 +656,16 @@
 				this.deduction_price  =  (this.acceptance_price * diff * 0.1).toFixed(2)
 				return (this.acceptance_price * 0.1 * diff).toFixed(2);
 			},
+			getdeductions(){
+				let data = 0;
+				data = this.deductionprice ? this.deductionprice : this.deduction_price
+				return data;
+			},
 			getdeal_price() {
-				if(((parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 					return 0;
 				} else {
-					return (parseInt(this.acceptance_price) - this.deduction_price + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+					return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 				}
 				
 			},

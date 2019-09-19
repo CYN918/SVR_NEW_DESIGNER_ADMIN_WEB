@@ -115,9 +115,6 @@
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
-			<div class="w textcenter">
-				<button class="defaultbtn" @click="setparenttable">确定</button>
-			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
