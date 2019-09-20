@@ -671,7 +671,6 @@
 			},
 			getrule(n) {
 				this.typebtn = n;
-				this.level = n
 			},
 			getrule1(n) {
 				this.typebtn1 = n;
@@ -777,10 +776,10 @@
 					id: this.$route.query.id,
 					check_status: 1,
 					project_id: this.$route.query.project_id,
-					level: this.level,
+					level: this.typebtn,
 					deal_type: 1,
 					acceptance_price: this.acceptance_price,
-					deduction_price: this.deduction_price,
+					deduction_price: this.getdeductions(),
 					deal_price: this.getdeal_price(),
 					demand_id:this.did,
 					

@@ -1241,8 +1241,12 @@
 					this.$router.push({
 						path: this.$route.matched[this.$route.matched.length - 1].path,
 						query: {
-							urlDate: JSON.stringify(this.form)
+							urlDate: JSON.stringify(urldata)
 						}
+					});
+					this.getDatay({
+						pageCurrent: 1,
+						pageSize: 50
 					});
 				}
 			},
