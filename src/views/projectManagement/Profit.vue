@@ -49,8 +49,8 @@
 				
 				detailtext:[
 					{
-						total_income:0,
-						gain_share_rate:0
+						total_income:"0",
+						gain_share_rate:"0"
 					},
 				]
 			}
@@ -60,8 +60,8 @@
 		methods: {
 			addDetailContent(){
 				this.detailtext.push({
-					total_income:0,
-					gain_share_rate:0
+					total_income:"0",
+					gain_share_rate:"0"
 				})
 			},
 			swapItems(arr, index1, index2) {

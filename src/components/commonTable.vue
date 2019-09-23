@@ -16,6 +16,14 @@
 						<div v-else-if="item.type == 'btn'">
 							<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]" >{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
 						</div>
+						<span v-else-if="item.type == 'urlfile'">
+							<span v-if="scope.row[item.filetype.name] == item.filetype.id">
+								{{ scope.row[item.prop.prop1] }}
+							</span>
+							<span v-else>
+								<span class="routerLink pointer" @click="openwindow1(scope.row[item.prop.prop2])">{{ scope.row[item.prop.prop2] }}</span>
+							</span>
+						</span>
 						<div v-else-if="item.type == 'merge'">
 							<span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">
 								{{ "--" }}
@@ -814,7 +822,10 @@
 			openwindowrouter(url,id){
 				const {href} = this.$router.resolve({ path: url+id})
 				window.open(href, '_blank')
-			}
+			},
+			openwindow1(url){
+				window.open(url)
+			},
 			
 		},
 		mounted() {

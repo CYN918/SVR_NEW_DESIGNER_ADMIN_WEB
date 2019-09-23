@@ -1020,12 +1020,12 @@ const screenData = {
 				{prop:'id',lable:'审核ID'},
 				{prop:'name',lable:'项目名称'},
 				{prop:'classify_name',lable:'项目类型',},
-				{prop:"business_type",lable:"业务类型"},
-				{prop:"file_name",lable:"交稿文件"},
+				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}},
+				{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
 				{prop:'remark',lable:'备注说明',width:350},
 				{prop:'username',lable:'提审用户昵称'},
 				{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
-				{prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
+				{prop:'admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 			],
 			action:{
 				morebtns:{

@@ -41,23 +41,14 @@
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 1 ">
-				<li class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
+				<li v-if="material_info.type == '1'" class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ getValue(material_info[item.id])  }}</span>
-					<span v-if="!item.type">{{ title }}</span>
-					<span v-if="item.type == 'recommend'">{{ material_info[item.id] ? material_info[item.id] : "不推荐" }}</span>
-					<span v-else-if="item.type == 'arr'">
-						<span v-for="(item,index) in material_info.labels" :key="item">{{ item + (index == (material_info.labels.length - 1) ? "" : "/")  }}</span>
-					</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="material_info[item.id]" alt="没有图片">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="material_info[item.id]" alt="没有图片">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="material_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(material_info[item.id])  }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="material_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'child'">{{ getValue(item.child[material_info[item.id]])}}</span>
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ getValue(material_info[item.id]) }}</span>
-					</router-link>
+					<span>{{ getValue(material_info[item.id])  }}</span>
+				</li>
+				<li v-if="material_info.type == '2'" class="margint13 ofh" v-for="(item,index) in fileData1" :key="index" :type="item.type">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="!item.type">{{ getValue(material_info[item.id])  }}</span>
+					<span v-if="item.type == 'url'" style="color: #FF5121;" @click="openwindow(material_info[item.id])">{{ getValue(material_info[item.id])  }}</span>
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 2">
@@ -154,9 +145,33 @@
 			<span slot="footer" class="dialog-footer sel-footer">
 				<el-button type="primary" @click="contributor1('fa')">确 定</el-button>
 			</span>
-		</el-dialog>
+		</el-dialog><!-- centerDialogVisible2 -->
 		<el-dialog title="项目验收确认" :visible.sync="centerDialogVisible2">
 			<div style="position: relative;">
+				<div v-if="material_info.type == '2'" style="margin-bottom: 30px;border-bottom: 1px solid #F1F4F5;">
+					<ul>
+						<li class="ofh">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">网盘地址</span>
+							<span @click="openwindow(material_info['online_disk_url'])" style="cursor: pointer;color: #FF5121;">{{ material_info["online_disk_url"] }}</span>
+						</li>
+						<li class="ofh">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">提取密码</span>
+							<span>{{ material_info["access_code"] }}</span>
+						</li>
+						<li class="ofh">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;color: transparent;">提取密码</span>
+							<el-upload
+							  class="upload-demo"
+							  action="111"
+							  :http-request = "httprequest">
+							  
+								  <el-button size="small" type="primary">上传文件</el-button>
+								  <div slot="tip" class="el-upload__tip">上传文件不能超过1G</div>
+							  
+							</el-upload>
+						</li>
+					</ul>
+				</div>
 				<ul class="textcenter">
 					<li class="w ofh">
 						<div class="textcenter employipt">
@@ -220,7 +235,7 @@
 							</span>
 						</div>
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="color: transparent;">111</span>
+							
 							<ul class="ofh sel-dialog-content">
 								<li class="fleft">
 									<div>￥{{ acceptance_price }}</div>
@@ -354,20 +369,34 @@
 				tabsnum: 0,
 				tabsnum1: 0,
 				fileData: [{
-						name: "交稿文件",
+						name: "交稿文件/网盘链接",
 						id: "file_name",
-						type: "text"
 					},
 					{
-						name: "文件大小",
+						name: "文件大小/取件密码",
 						id: "file_size",
-						type: "text"
+					},
+					{
+						name: "备注说明",
+						id: "remark",
+					}
+				],
+				fileData1: [
+					{
+						name: "交稿文件/网盘链接",
+						id: "online_disk_url",
+						type:"url"
+					},
+					{
+						name: "文件大小/取件密码",
+						id: "access_code",
 					},
 					{
 						name: "备注说明",
 						id: "remark",
 						type: "text"
 					}
+					
 				],
 				workData: [{
 						name: "项目ID",
@@ -442,7 +471,7 @@
 				],
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
-				centerDialogVisible2: false,
+				centerDialogVisible2: true,
 				centerDialogVisible3: false,
 				centerDialogVisible5: false,
 				radio1: '',
@@ -585,7 +614,12 @@
 				deductionprice: 0,
 				deal_price: 0,
 				lflag:false,
-				deduction:false
+				deduction:false,
+				file:{
+					file_url:"",
+					file_name:"",
+					file_size:"",
+				}
 			}
 		},
 		computed:{
@@ -595,6 +629,44 @@
 			
 		},
 		methods: {
+			httprequest(params) {
+				const _file = params.file;
+				this.file_info = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+			    var _this = this;
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					console.log(response.data.data);
+					_this.file={
+						file_url:response.data.data.url,
+						file_name:response.data.data.file_name,
+						file_size:response.data.data.file_size,
+					}
+					//_this.isupload = true;
+					//console.log("1111111");
+				}).catch(function (error) {
+					console.log(error);
+				});
+				//console.log(this.form.banner = url)
+			},
+			openwindow(url){
+				window.open(url);
+			},
 			deductionf(n){
 				if(n == 0){
 					this.deduction = false;
@@ -782,7 +854,12 @@
 					deduction_price: this.getdeductions(),
 					deal_price: this.getdeal_price(),
 					demand_id:this.did,
-					
+				}
+				
+				if(this.material_info.type == "2"){
+					data.file_url = this.file.file_url;
+					data.file_name = this.file.file_name
+					data.file_size = this.file.file_size
 				}
 				this.submint(data);
 			},

@@ -88,14 +88,14 @@
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<div v-for ="(item,index) in desc" class="ofh">
-					<div class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
+					<div v-if="false" class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
 					<ul style="padding-top: 0px;margin-top: 0px;">
-						<li class="margint13 ofh">
-							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
-							<span style="width:357px;height:40px;line-height: 40px;">{{ item.module_title }}</span>
+						<li   class="margint13 ofh">
+							<span v-if="false" class="fleft detailKey" style="line-height: 40px;">模块标题</span>
+							<span class="w" style="height:40px;line-height: 40px;text-align: center;display: block;font-size: 22px;color: #909296;border-bottom: 1px solid rgb(242, 242, 245);margin-top: 20px;">{{ item.module_title }}</span>
 						</li>
 						<li class="margint13 ofh">
-							<span class="fleft detailKey" style="line-height: 40px;">详细说明</span>
+							<span  v-if="false" class="fleft detailKey" style="line-height: 40px;">详细说明</span>
 							<span style="width:357px;height:40px;line-height: 40px;" v-html="item.module_content"></span>
 						</li>
 					</ul>
@@ -127,15 +127,15 @@
 										<div class="ofh" style="margin: 10px 10px 0;color: #999999;">
 											<div class="fleft ofh" style="width: 33.3%;">
 												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.comment_num  }}
+												{{ citem.view_num  }}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
 												<img src="../../assets/img/zs_icon_dz.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.view_num }}
+												{{ citem.like_num}}
 											</div>
 											<div class="fleft" style="width: 33.3%;">
 												<img src="../../assets/img/zs_icon_xx.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.like_num }}
+												{{ citem.comment_num }}
 											</div>
 										</div>
 									  </el-carousel-item>
@@ -188,7 +188,7 @@
 										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span>{{ item.user.work_experience ? item.user.work_experience :"--"}}</span>
 									</div>
 									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preferrence_classify ? item.user.preferrence_classify :"--"}}</span>
+										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preference_classify ? item.user.preference_classify :"--"}}</span>
 									</div>
 									<div class="ofh">
 										<span class="fleft"  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
@@ -215,7 +215,7 @@
 							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
 							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
-						<img v-if="index == 0" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
+						<img v-if="index == 0 && item.is_selected == '1'" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
 					</li>
 				</ul>
 				<div class="w" id="bottoms" style="text-align: right;background: #FFFFFF;">
@@ -229,7 +229,7 @@
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
-				<button class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
+				<button v-if="status  == 2" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
 			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">

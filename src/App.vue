@@ -551,7 +551,7 @@ input{
 		width: 96px;
 		height: 33px;
 		display: inline-block;
-		margin-right: 40px;
+		margin-right: 40px !important;
 		cursor: pointer;
 	}
 
