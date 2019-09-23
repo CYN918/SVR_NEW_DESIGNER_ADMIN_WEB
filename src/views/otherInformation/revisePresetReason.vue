@@ -15,7 +15,10 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">驳回理由</span>
-					<el-input placeholder="请输入内容" v-model="content" style="width:357px;height:40px;" clearable></el-input>
+					<div class="fleft el-input__inner roles-input width500" style="width: 360px;">
+						<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="content">
+						<span class="fright">{{ content.length }}/10</span>
+					</div>
 				</li>
 				
 				<li class="margint13 ofh">

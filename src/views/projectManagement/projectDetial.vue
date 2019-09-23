@@ -639,7 +639,8 @@
 				status:0,
 				project_id:"",
 				username:"",
-				usernameitem:""
+				usernameitem:"",
+				form:{}
 			}
 		},
 		methods: {
@@ -720,13 +721,53 @@
 					center: true
 				}).then(() => {
 					//console.log({open_ids:openids,level:this.radioS})
-					this.$router.push({
+					/* this.$router.push({
 						path:"/projectManagement/projectList/editproject",
 						query:{
 							row: JSON.stringify(row),
 							usernameitem: JSON.stringify(this.usernameitem)
 						}
+					}) */
+					/* row.open_id = this.usernameitem.open_id;
+					row.status = 3; */
+					console.log(row);
+					
+					this.form.classify_id = row.classify_id;
+					this.form.banner = row.banner;
+					this.form.fields = row.fields;
+					this.form.expected_profit = row.expected_profit;
+					this.form.extra_reward = row.extra_reward;
+					this.form.business_type = row.business_type;
+					this.form.name = row.name;
+					this.form.qq = row.qq;
+					this.form.template_file_id = row.template_file_id;
+					this.form.file_name = row.template_file_name;
+					this.form.file_size_format = row.file_size_format;
+					this.form.desc = row.desc;
+					this.form.rule_type= 2;
+					this.form.open_id = this.usernameitem.open_id;
+					this.form.production_cycle_d = row.production_cycle_d;
+					this.form.production_cycle_h = row.production_cycle_h;
+					this.form.deadline = row.deadline;
+					this.form.publish_time = row.publish_time;
+					this.form.status = 3;
+					this.form.access_token = localStorage.getItem("access_token");
+					this.form.project_id =  row.id;
+					this.form.demand_id = row.demand_id;
+					this.api.projectupdate(this.form).then(da => {
+						
+						if(da.result == 0){
+							this.$router.push({
+								path:"/projectManagement/projectList",
+								query:{
+									tabsnum:3
+								}
+							})
+						}
+					}).catch(() => {
+					
 					})
+					
 				}).catch(() => {
 					this.$message({
 					  type: 'info',

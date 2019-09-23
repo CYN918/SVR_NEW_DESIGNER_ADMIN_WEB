@@ -629,7 +629,7 @@
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
 				this.selectData1.template_file_id = row.template_file_id;
-				console.log(row);
+				//console.log(row);
 				this.selectData1.file_name = row.file_name;
 				this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
 				this.clear = false;
