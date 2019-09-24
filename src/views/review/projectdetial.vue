@@ -471,7 +471,7 @@
 				],
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
-				centerDialogVisible2: true,
+				centerDialogVisible2: false,
 				centerDialogVisible3: false,
 				centerDialogVisible5: false,
 				radio1: '',
