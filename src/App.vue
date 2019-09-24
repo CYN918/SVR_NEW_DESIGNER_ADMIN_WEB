@@ -548,7 +548,7 @@ input{
 	}
 
 	.tabs {
-		width: 96px;
+		width: auto !important;
 		height: 33px;
 		display: inline-block;
 		margin-right: 40px !important;

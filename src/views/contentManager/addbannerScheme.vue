@@ -12,7 +12,7 @@
 					<div class="fleft status">
 						<el-radio v-model="is_default" label="1" class="fleft">是</el-radio>
 						<el-radio v-model="is_default" label="0" class="fleft">否</el-radio>
-						<span>将替换当前默认展示方案：<span style="color: #FF5121;">{{ bannerprogramdefault.banner_program_name }}</span></span>
+						<span v-if="is_default == '1'">将替换当前默认展示方案：<span style="color: #FF5121;">{{ bannerprogramdefault.banner_program_name }}</span></span>
 					</div>
 				</li>
 				

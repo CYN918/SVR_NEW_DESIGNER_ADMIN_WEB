@@ -5,7 +5,7 @@
 			<ul>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">审核类型</span>
-					<el-select v-model="type" placeholder="请选择">
+					<el-select v-model="type" placeholder="请选择" style="width: 360px;">
 						<el-radio-group v-model="type">
 							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.name">
 								<el-radio :label="item.id">{{ item.name }}</el-radio>
