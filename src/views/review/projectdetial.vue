@@ -699,34 +699,44 @@
 				return JSON.parse(ds);
 			},
 			get_time_diff(ti) {
-				var time = new Date(ti.replace(/-/g, "/")).getTime();
-				var diff = '';
-				var time_diff = new Date().getTime() - time; //时间差的毫秒数 
-
-				//计算出相差天数 
-				var days = Math.floor(time_diff / (24 * 3600 * 1000));
-				if (days > 0) {
-					diff += days + '天';
-				}
-				if(days <= 0){
-					this.lflag = true;
+				if(ti){
+					var time = new Date(ti.replace(/-/g, "/")).getTime();
+					var diff = '';
+					var time_diff = new Date().getTime() - time; //时间差的毫秒数 
+					
+					//计算出相差天数 
+					var days = Math.floor(time_diff / (24 * 3600 * 1000));
+					if (days > 0) {
+						diff += days + '天';
+					}
+					if(days <= 0){
+						this.lflag = true;
+					} else {
+						this.lflag = false;
+					}
+					return diff;
 				} else {
-					this.lflag = false;
+					return "";
 				}
-				return diff;
+				
 			},
 			getdeduction_price(ti) {
-				var time = new Date(ti.replace(/-/g, "/")).getTime();
-				var diff = 0;
-				var time_diff = new Date().getTime() - time; //时间差的毫秒数 
-				
-				//计算出相差天数 
-				var days = Math.floor(time_diff / (24 * 3600 * 1000));
-				if (days > 0) {
-					diff += days;
+				if(ti){
+					var time = new Date(ti.replace(/-/g, "/")).getTime();
+					var diff = 0;
+					var time_diff = new Date().getTime() - time; //时间差的毫秒数 
+					
+					//计算出相差天数 
+					var days = Math.floor(time_diff / (24 * 3600 * 1000));
+					if (days > 0) {
+						diff += days;
+					}
+					this.deduction_price  =  (this.acceptance_price * diff * 0.1).toFixed(2)
+					return (this.acceptance_price * 0.1 * diff).toFixed(2);
+				} else {
+					return 0;
 				}
-				this.deduction_price  =  (this.acceptance_price * diff * 0.1).toFixed(2)
-				return (this.acceptance_price * 0.1 * diff).toFixed(2);
+				
 			},
 			getdeductions(){
 				let data = 0;
