@@ -51,7 +51,7 @@
 					<span class="fleft detailKey">作品数量</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ getValue(detailData.works_num) }}
+							{{ getValue(detailData.work_num) }}
 						</router-link>
 					</span>
 				</li>
@@ -103,7 +103,7 @@
 				</li> -->
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">是否为平台推荐创作者</span>
-					<span class="fleft detailValue">{{ detailData.is_contributor==1 ? "是" : "否" }}</span>
+					<span class="fleft detailValue">{{ detailData.is_contributor=='1' ? "是" : "否" }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">平台推荐等级</span>

@@ -394,7 +394,6 @@
 					{
 						name: "备注说明",
 						id: "remark",
-						type: "text"
 					}
 					
 				],
@@ -864,8 +863,10 @@
 					deduction_price: this.getdeductions(),
 					deal_price: this.getdeal_price(),
 					demand_id:this.did,
+					gain_share_rate:this.apply_info.gain_share_rate,
+					gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100)
 				}
-				
+				///console.log(data)
 				if(this.material_info.type == "2"){
 					data.file_url = this.file.file_url;
 					data.file_name = this.file.file_name
