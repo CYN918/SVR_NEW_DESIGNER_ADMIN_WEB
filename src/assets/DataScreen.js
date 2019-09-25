@@ -249,9 +249,9 @@ const screenData = {
 		projectreview:{
 			filterFields:[
 				{name:"审核ID",id:"id"},
-				{name:"项目名称",id:"work_name"},
+				{name:"项目名称",id:"name"},
 				{name:"项目类型",id:"classify_id",child:[]},
-				{name:"业务类型",id:"activity_name",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+				{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 				{name:"提审用户昵称",id:"username"},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"",type:"display"}

@@ -123,7 +123,7 @@
 				</li>
 			</ul>
 			<div class="screenContent detailbtn">
-				<button class="defaultbtn"  @click="getparent()">返回</button>
+				<button v-if="!hide" class="defaultbtn"  @click="getparent()">返回</button>
 			</div>
 		</div>
 		
@@ -134,7 +134,8 @@
 	export default {
 		data(){
 			return{
-				detailData:''
+				detailData:'',
+				hide:""
 			}
 		},
 		methods:{
@@ -189,6 +190,7 @@
 		},
 		mounted(){
 			this.getdata();
+			this.hide = this.$route.query.hide;
 		}
 	}
 </script>

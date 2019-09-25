@@ -74,7 +74,8 @@
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
-			<button class="defaultbtn" @click="up">下载稿件</button>
+			<button v-if="material_info.type == '1'" class="defaultbtn" @click="up">下载稿件</button>
+			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
 			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
 			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 		</div>

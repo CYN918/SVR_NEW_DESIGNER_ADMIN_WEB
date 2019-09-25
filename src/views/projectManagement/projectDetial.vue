@@ -663,7 +663,8 @@
 				const {href} = this.$router.resolve({ 
 					path: '/userManager/userBaseInfo/userBaseInfoDetail',
 					query:{
-						open_id:open_id
+						open_id:open_id,
+						hide:"hide"
 				    }
 				})
 				window.open(href, '_blank');
@@ -841,6 +842,8 @@
 				//alert(this.tabsnum)
 				if (this.tabsnum == 2) {
 					this.detailbtn = false;
+				} else {
+					this.detailbtn = true;
 				}
 			},
 			showselectwork() {
