@@ -6,8 +6,10 @@
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
 						<div class="fleft" @click="showUp(0)">图片</div>
-						<div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
-						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
+						<div class="fleft" @click="showUp(1)">视频</div>
+						<div class="fleft" @click="showUp(2)">音频</div>
+						<!-- <div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
+						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div> -->
 					</div>
 				</div>
 			</div>
