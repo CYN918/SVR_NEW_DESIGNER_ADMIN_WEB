@@ -11,9 +11,9 @@
 						
 						{{ item.name }}
 					</span> -->
-					<span v-if="adminuseraccess.indexOf('44') > -1" :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
+					<span style="height: 30px;" v-if="adminuseraccess.indexOf('44') > -1" :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange(1)">展示方案</span>
-					<span v-if="adminuseraccess.indexOf('45') > -1" :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
+					<span style="height: 30px;" v-if="adminuseraccess.indexOf('45') > -1" :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange(0)">banner素材</span>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 						</div>
 					</li>
 					
-					<li class="bannerlistg relative" style="visibility: hidden;">
+					<li class="bannerlistg relative" style="visibility: hidden;" v-if="bannerprogramlists%2 != 0">
 						
 					</li>
 				</ul>

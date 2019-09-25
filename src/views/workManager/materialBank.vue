@@ -6,24 +6,23 @@
 					素材库
 				</span>
 				<div class="textcenter">
-					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+					<span style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 					 @click="tabsChange(index,item.id)">
 						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
 						{{ item.name }}
 					</span>
 				</div>
 				<div class="materialdownload" v-if="adminuseraccess.indexOf('200465') > -1">
-					<button class="defaultbtn" style="width: 87px;height: 32px;" @click="showselectwork()">选择下载</button>
-					<button class="defaultbtn" style="width: 87px;height: 32px;" @click="handleCheckAllChange()">全部下载</button>
+					<button class="defaultbtn" style="width: 87px;height: 32px;margin-right: 10px;" @click="showselectwork()">选择下载</button>
+					<button class="defaultbtn" style="width: 87px;height: 32px;margin-left: 0;" @click="handleCheckAllChange()">全部下载</button>
 				</div>
 			</div>
-			<div>
+			<div  class="sucia">
 				<common-top :commonTopData="commonTopData" class="commontop"></common-top>
 			</div>
-			
 		</div>
-		<div class="paddinglr30 ofh" style="height: calc(100% - 285px);overflow-y: scroll;" v-loading="setLoding">
-			<div class="ofh" v-show="tabsnum == 0">
+		<div  ref="bgwidth" class="paddinglr40 ofh" style="height: calc(100% - 285px);overflow-y: scroll;width: calc(100% - 80px);" v-loading="setLoding">
+			<div class="ofh w" v-show="tabsnum == 0" >
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
 						 <li v-for="(item,index) in materialdata" :key="index">
@@ -36,11 +35,12 @@
 								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
 								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
-						</li> 
+						</li>
+						<li v-for="item in buchu" style="visibility: hidden;"></li>
 					</ul>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-show="tabsnum == 1">
+			<div class="ofh" v-show="tabsnum == 1">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
 						<li v-for="(item,index) in materialdata" :key="index+item.fid">
@@ -53,10 +53,11 @@
 								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
 						</li> 
+						<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
 					</ul>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-show="tabsnum == 2">
+			<div class="ofh" v-show="tabsnum == 2">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist">
@@ -72,11 +73,12 @@
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li> 
+							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
 						</ul>
 					</div>
 				</el-checkbox-group>
 			</div>
-			<div class="paddinglr40 ofh" v-show="tabsnum == 3">
+			<div class="ofh" v-show="tabsnum == 3">
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<div>
 						<ul class="materiallist relative">
@@ -84,7 +86,7 @@
 								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
 									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
-									<div class="hoverload" v-if="item.fid == fid && !workselect (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
 								<div class="color66">
@@ -92,6 +94,7 @@
 									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 								</div>
 							</li> 
+							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
 						</ul>
 					</div>
 				</el-checkbox-group>
@@ -196,7 +199,8 @@
 				fid:"",
 				centerDialogVisible5:false,
 				oneload:{},
-				adminuseraccess:[]
+				adminuseraccess:[],
+				buchu:0
 			}
 		},
 		methods: {
@@ -240,6 +244,8 @@
 					this.materialdata = da.data
 					this.total = da.total;
 					this.setLoding = false;
+					//alert(da.data.length)
+					this.setdivnum(da.data.length);
 				}).catch(() => {
 					this.setLoding = false;
 				});
@@ -487,6 +493,21 @@
 				}
 				this.centerDialogVisible5 = !this.centerDialogVisible5
 			},
+			setdivnum(s){
+				
+				let hangmun = parseInt(this.$refs.bgwidth.offsetWidth / 239);
+				let gongnum = parseInt(s);
+				let yunum = gongnum%hangmun;
+				if( gongnum >= hangmun ){
+					this.buchu = parseInt(hangmun - yunum);
+				} else {
+					this.buchu = parseInt(hangmun - gongnum);
+				}
+				
+				
+				console.log(hangmun,gongnum,yunum,this.buchu)
+				
+			}
 		},
 		created() {
 			this.getcommonrightbtn();
@@ -496,6 +517,11 @@
 		},
 		mounted() {
 			this.getData(1,50);
+			let _this = this
+			window.onload=function(){
+				
+			}
+			
 		},
 		watch:{
 			"$route":function(){
@@ -522,6 +548,14 @@
 	
 	.sel-pagin ul{
 		padding: 0 !important;
+	}
+	
+	.sucia .ctcontent{
+		margin-bottom:40px;
+	}
+	
+	.sucia .ta{
+		height: auto;
 	}
 </style>
 
@@ -616,14 +650,20 @@
 	}
 
 	.materiallist {
+		width: 1000x;
 		display: flex;
-		overflow: hidden;
 		flex-wrap: wrap;
-		justify-content: flex-start
+		flex-direction: row;
+		justify-content: space-between !important;
 	}
 
 	.materiallist li {
-		margin: 0 17px 17px 0;
+		margin: 0 0 17px 0;
+	}
+	
+	.materiallist ::after{ 
+		flex: auto;
+		content: "";
 	}
 
 	.material {
@@ -633,6 +673,8 @@
 		border-radius: 5px;
 		background: #F9F9F9;
 	}
+	
+	
 
 	.material-fu {
 		width: 60px;
@@ -769,4 +811,6 @@
 		height: 100%;
 		margin-left: 5px;
 	}
+	
+	
 </style>

@@ -83,8 +83,8 @@
 				<el-table-column fixed="right" label="操作" width="150" v-if="!tableAction.is_hidden">
 					<template slot-scope="scope">
 							<div v-if="!tableAction.pagefilterField">
-								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 12px;" v-if="tableAction.links.Ishow && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
-								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 12px;" v-if="tableAction.links.Ishow && !tableAction.links.accessid">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
+								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 14px;" v-if="tableAction.links.Ishow && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
+								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 14px;" v-if="tableAction.links.Ishow && !tableAction.links.accessid">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
 								
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && tableAction.morebtns.accessid && (adminuseraccess.indexOf(tableAction.morebtns.accessid) > -1)">{{ tableAction.morebtns.name }}</el-button>
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && !tableAction.morebtns.accessid">{{ tableAction.morebtns.name }}</el-button>
@@ -98,8 +98,8 @@
 								</el-dropdown>
 							</div>
 							<div  v-else-if="tableAction.pagefilterField">
-								<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.name }}</el-button>
-								<el-button @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && !tableAction.links.accessid">{{ tableAction.links.name }}</el-button>
+								<el-button style="padding: 0 10px;" @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.name }}</el-button>
+								<el-button style="padding: 0 10px;" @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && !tableAction.links.accessid">{{ tableAction.links.name }}</el-button>
 								
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && tableAction.morebtns.accessid && (adminuseraccess.indexOf(tableAction.morebtns.accessid) > -1)">{{ tableAction.morebtns.name }}</el-button>
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && !tableAction.morebtns.accessid">{{ tableAction.morebtns.name }}</el-button>
@@ -120,7 +120,7 @@
 					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">选择全部</button>
 				</div>
 				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
+				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="prev, pager, next, sizes,jumper" :total="tableConfig.total">
 				</el-pagination>
 			</div>
 		</div>

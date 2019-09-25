@@ -122,6 +122,10 @@ input{
 	color: white;
 }
 
+.el-button--text:focus, .el-button--text:hover{
+	color:#ff5121;
+}
+
 #app .el-select-dropdown__item.hover,#app .el-select-dropdown__item:hover,#app .btnorgle:hover{
 	transition: 0.2;
 	background: #fb8b6c;
@@ -741,7 +745,7 @@ input{
 		margin-left: 5px;
 	}
 	
-.block {
+    .block {
 		height: 100px;
 		line-height: 100px;
 		text-align: center;
@@ -753,16 +757,22 @@ input{
 		overflow: hidden;
 	}	
 	
-#app .el-pagination .number,
+	.el-pagination{
+		padding-right: 41px;
+	}
+	
+    #app .el-pagination .number,
 	#app .el-pagination button {
-		border: 1px #999999 solid;
 		color: #999999;
-		margin-left: 14px;
-		border-radius: 5px;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		margin-top: 29px;
+		margin-left: 8px;
+		width:32px;
+		height:32px;
+		line-height: 33px;
+		background:rgba(255,255,255,1);
+		border-radius:6px;
+		border:1px solid rgba(217,217,217,1);
+		margin-top: 33px;
+		
 	}
 
 	#app .el-pagination .number:hover,
@@ -786,8 +796,11 @@ input{
 
 	#app .el-input--mini .el-input__inner,
 	#app .el-pagination__editor.el-input .el-input__inner {
-		height: 40px;
-		border: 1px #999999 solid;
+		height:32px;
+		background:rgba(255,255,255,1);
+		border-radius:6px;
+		border:1px solid rgba(217,217,217,1);
+		margin-top: 33px;
 	}
 
 	#app .el-pager li.active {

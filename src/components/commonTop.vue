@@ -47,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="margin40" style="height: 60px;">
+		<div class="margin40 ta">
 			<div class="tagbts">
 				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 				 :disable-transitions="false" @close="handleClose(item.id)">
@@ -256,6 +256,7 @@
 
 			},
 			IsShow(index) {
+				this.Istooltip = false;
 				if(index == 0) {
 					console.log(this.$parent.selectData);
 					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
@@ -386,4 +387,10 @@
 	.marginl0{
 		margin-left: 0;
 	}
+	
+	.ta {
+		height: 60px;
+	}
+	
+	
 </style>

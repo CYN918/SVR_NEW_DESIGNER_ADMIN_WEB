@@ -6,8 +6,8 @@
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
 						<div class="fleft" @click="showUp(0)">图片</div>
-						<div class="fleft" @click="showUp(1)">视频</div>
-						<div class="fleft" @click="showUp(2)">音频</div>
+						<div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
+						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
 					</div>
 				</div>
 			</div>
@@ -170,6 +170,39 @@ export default {
 	},
 	methods: {
 		/*page2*/
+		handleAvatarSuccessvideo(params) {
+			const _file = params.target.files[0];
+			let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+			let open_id = 7;
+			let times = (Date.parse(new Date()) / 1000);
+			let arr = [
+				1003,
+				app_secret,
+				open_id,
+				times
+			];
+			
+			// 通过 FormData 对象上传文件
+			var formData = new FormData();
+			formData.append("file", _file);
+			formData.append('app_id', 1003);
+			formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user', open_id)
+			formData.append('relation_type', 'activity')
+			formData.append('timestamp', times)
+			var _this = this;
+			this.$parent.$parent.setpercentage("start");
+			this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+				//_this.uptype = "video";
+				_this.$parent.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
+				 //console.log(response)
+				_this.inImg([response.data.data.url],[response.data.data.fid])
+				///_this.closed(1)
+			}).catch(function (error) {
+				console.log(error);
+			});
+			 
+		},
 		seletClassify(name,on){
 			this.page2[name] = on;
 		},
@@ -302,6 +335,7 @@ export default {
 					}
 			});
 			editorInstance.addListener('blur',(editor)=>{
+				console.log(this.form.content)
 				if(this.ifBjType==1 && this.form.content==''){			
 					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 					this.ifBjType=0;
@@ -328,8 +362,17 @@ export default {
 			}
 			
 		},
+		showUp1(on){
+			this.upConfig = this.upList[on];
+			if(this.ifBjType == 0){
+				this.ifBjType = 1;
+				this.form.content = '';
+			}
+			
+		},
 		inImg(list,ids){
-		
+			/* console.log(list);
+			console.log(ids); */
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
 				list.map((el,index,va)=>{
@@ -343,11 +386,14 @@ export default {
 			
 			if(this.upConfig.type[0]=='video/mp4'){
 				list.map((el,index,va)=>{
-					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
+					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>'
+					//str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				
 				this.uD.execCommand('insertHtml', str);
-				this.uD.execCommand( 'insertparagraph' )
+				this.uD.execCommand('insertparagraph')
+				console.log(str)
+				console.log(this.form.content);
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
