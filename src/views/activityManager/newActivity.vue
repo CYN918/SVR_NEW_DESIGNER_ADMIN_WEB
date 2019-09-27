@@ -187,7 +187,7 @@
 					 ref="Tabledd"></common-table>
 				</div>
 				<div class="w textcenter">
-					<button class="defaultbtn" @click="setparenttable1">确定</button>
+					<button class="defaultbtn" @click="setparenttable">确定</button>
 				</div>
 			</div>
 			
@@ -886,9 +886,9 @@
 				eventBus.$emit("screenshow", shownum);
 			},
 			getclass(id){
-				if(id == "4"){
+				/* if(id == "4"){
 					this.getdemandlist();
-				}
+				} */
 			}
 		},
 		created() {

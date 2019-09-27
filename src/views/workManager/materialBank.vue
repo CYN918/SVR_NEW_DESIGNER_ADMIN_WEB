@@ -36,7 +36,7 @@
 								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
 							</div>
 						</li>
-						<li v-for="item in buchu" style="visibility: hidden;"></li>
+						<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
 					</ul>
 				</el-checkbox-group>
 			</div>
