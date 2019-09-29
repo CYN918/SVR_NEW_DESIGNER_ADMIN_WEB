@@ -615,19 +615,20 @@
 			},
 			createdactivity(){
 				
-				/* if(this.alertmask() != true){
-					this.$message({
-						message:this.alertmask(),
-					})
-					return;
-				} */
-				
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].form.content;
 				})
 				this.form.fields = this.checkedroles.join(",");
 				this.form.template_file_id = this.selectData1.template_file_id;
 				this.form.desc = JSON.stringify(this.detailtext);
+				
+			    if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				this.api.projecttemplateadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -813,38 +814,42 @@
 			},
 			alertmask(){
 				
-				if(!this.form['activity_name']){
+				if(!this.form['template_name']){
 					
-					return "请填写活动名称！！";
+					return "请填写模板名称！！";
 				}
-				if(!this.form['remark']){
+				if(!this.form['classify_id']){
 					
-					return "请填写活动备注！！";
+					return "请填写项目类型！！";
 				}
 				if(!this.form['banner']){
 					
 					return "请上传活动banner！！";
 				}
-				if(!this.form['category_id']){
+				if(!this.form['fields']){
 					
-					return "请选择主题分类！！";
+					return "请填写领域范围！！";
 				}
-				if(!this.form['start_time']){
+				if(!this.form['template_file_id']){
 					
-					return "请填写活动时间！！";
+					return "请选择活动模板！！";
 				}
 				if(!this.form['end_time']){
 					
-					return "请填写活动时间！！";
+					return "请填写预计收益！！";
 				}
 				
 				if(!this.form['setting_type']){
 					
-					return "设置状态！！";
+					return "请填写额外赏金！！";
 				}
 				if(!this.form['is_provide_template']){
 					
-					return "请选择模板状态！！";
+					return "请填写项目顾问QQ！！";
+				}
+				if(!this.form['status']){
+					
+					return "请选择状态！！";
 				}
 				return true;
 			},

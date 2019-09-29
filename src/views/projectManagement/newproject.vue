@@ -976,6 +976,16 @@
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
 				
+				
+				
+				if(this.alertmask() != true){
+					
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				if(!this.form.demand_id){
 					this.$message({
 						message:"请选择关联需求"
@@ -986,14 +996,6 @@
 				if(this.form['deadline'] && this.form.rule_type == 2){
 					this.$message({
 						message:"请填写报名截止时间"
-					})
-					return;
-				}
-				
-				if(this.alertmask() != true){
-					
-					this.$message({
-						message:this.alertmask(),
 					})
 					return;
 				}
