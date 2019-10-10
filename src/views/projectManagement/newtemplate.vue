@@ -318,7 +318,7 @@
 				this.clear = false;
 				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
 				this.detailtext = arr;
-				console.log(this.detailtext);
+				//console.log(this.detailtext);
 				setTimeout(()=>{
 					this.clear = true;
 				},40)
@@ -357,6 +357,7 @@
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			edit() {
+				//console.log(this.detailtext[2].module_content)
 				this.form.desc = JSON.stringify(this.detailtext);
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
@@ -656,7 +657,8 @@
 					this.form.template_name = da.template_name;
 					this.selectData1.file_name = da.file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					this.detailtext = JSON.parse(da.desc);
+					console.log(da.desc)
+					this.detailtext = JSON.parse(da.desc)
 					if(this.form.desc){
 						this.ifBjType=1;
 					}
@@ -830,20 +832,16 @@
 					
 					return "请填写领域范围！！";
 				}
-				if(!this.form['template_file_id']){
-					
-					return "请选择活动模板！！";
-				}
-				if(!this.form['end_time']){
+				if(!this.form['expected_profit']){
 					
 					return "请填写预计收益！！";
 				}
 				
-				if(!this.form['setting_type']){
+				if(!this.form['extra_reward']){
 					
 					return "请填写额外赏金！！";
 				}
-				if(!this.form['is_provide_template']){
+				if(!this.form['qq']){
 					
 					return "请填写项目顾问QQ！！";
 				}
@@ -904,22 +902,23 @@
 				if(id == "4"){
 					this.getdemandlist();
 				}
+			},
+			init(){
+				this.$parent.tabchange(1);
+			    if(this.$route.query.row){
+					this.rows = JSON.parse(this.$route.query.row);
+					this.getactivityinfo();
+					
+					this.form.status = this.rows.status
+				}
 			}
 		},
 		created() {
 			
 			this.screenreach();
 			this.getcommonrightbtn();
+			this.init()
 			
-			this.$parent.tabchange(1);
-			if(this.$route.query.row){
-				this.rows = JSON.parse(this.$route.query.row);
-				this.getactivityinfo();
-				this.selectData1.file_name = this.rows.file_name;
-				this.selectData1.file_size_format = this.rows.file_size_format;
-				this.detailtext = JSON.parse(this.rows.desc);
-				this.form.status = this.rows.status
-			}
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];

@@ -466,4 +466,8 @@ export default {
 	RecommendProjectdelete:{
 		url:'/admin/RecommendProject/delete',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
+	getSkillInfo:{
+		url:'/Admin/User/getUserSkill',method:'post',baseURL:0
+	},
+	
 }

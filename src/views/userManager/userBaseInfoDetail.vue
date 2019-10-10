@@ -2,9 +2,13 @@
 	<div class="wh Detail ofh">
 		<div class="detailtitle">查看用户信息</div>
 		<div style="overflow-y: auto;height:calc(100% - 40px);width: 100%;">
-			<ul style="padding-left: 132px;">
+			<div class="textcenter" style="margin: 10px 0;">
+				<span :class="index == 0 ? 'userchange userchangeactive' : 'userchange'" @click="change(0)">基本资料</span>
+				<span :class="index == 1 ? 'userchange userchangeactive' : 'userchange'" @click="change(1)">能力资料</span>
+			</div> 
+			<ul style="padding-left: 132px;" v-if="index == 0">
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">用户ID</span>
+					<span class="fleft detailKey" >用户ID</span>
 					<span class="fleft detailValue">{{ getValue(detailData.open_id) }}</span>
 				</li>
 				<li class="margint13 ofh">
@@ -122,6 +126,33 @@
 					<span class="fleft detailValue">{{ getValue1(detailData.contributor_type) }}</span>
 				</li>
 			</ul>
+			<ul style="padding-left: 132px;" v-if="index == 1">
+				<li class="margint13 ofh">
+					<span class="fleft detailKey" >工作现状</span>
+					<span class="fleft detailValue">{{ getValue(SkillInfo.situation) }}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey ">每周承接项目时间</span>
+					<span class="fleft detailValue ">{{ getValue(SkillInfo.work_experience) }}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey">设计经验</span>
+					<span class="fleft detailValue">{{ getValue(SkillInfo.design_experience)}}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey">偏好项目类别</span>
+					<span class="fleft detailValue">{{ getValue(SkillInfo.preference_classify)}}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey">擅长风格</span>
+					<span class="fleft detailValue">{{ getValue(SkillInfo.style	) }}</span>
+				</li>
+				<li class="margint13 ofh">
+					<span class="fleft detailKey">擅长领域</span>
+					<span class="fleft detailValue">{{ getValue(SkillInfo.field) }}</span>
+				</li>
+				
+			</ul>
 			<div class="screenContent detailbtn">
 				<button v-if="!hide" class="defaultbtn"  @click="getparent()">返回</button>
 			</div>
@@ -135,10 +166,15 @@
 		data(){
 			return{
 				detailData:'',
-				hide:""
+				hide:"",
+				index:0,
+				SkillInfo:{}
 			}
 		},
 		methods:{
+			change(n){
+				this.index = n; 
+			},
 			openwindow(url){
 				window.open(url);
 			},
@@ -168,8 +204,8 @@
 				this.$router.go(-1);
 			},
 			getdata(){
-				let id = this.$route.query.open_id;
-				this.api.getUserInfo({open_id:id}).then(da => {
+				
+				this.api.getUserInfo({open_id:this.$route.query.open_id}).then(da => {
 					this.detailData = da;
 					console.log(da);
 				}).catch(()=>{
@@ -186,10 +222,22 @@
 				} else {
 					return "未填"
 				}
+			},
+			getSkillInfo(){
+				this.api.getSkillInfo({
+					access_token:localStorage.getItem('access_token'),
+					open_id:this.$route.query.open_id
+				}).then(da=>{
+					console.log(da);
+					this.SkillInfo = da;
+				}).catch(da=>{
+					
+				})
 			}
 		},
 		mounted(){
 			this.getdata();
+			this.getSkillInfo();
 			this.hide = this.$route.query.hide;
 		}
 	}
@@ -241,5 +289,16 @@
 	
 	.detailbtn{
 		height: 100px;
+	}
+	.userchange{
+		margin: 0 20px;
+		display: inline-block;
+		padding-bottom: 10px;
+		cursor: pointer;
+	}
+	
+	.userchangeactive{
+		color: #FF5121;
+		border-bottom: 2px solid #FF5121;
 	}
 </style>

@@ -52,6 +52,7 @@ export default {
 			uD:{},
 			upConfig:'',
 			myConfig: {
+			  maximumWords:100000000,
 			  autoHeightEnabled: false,
 			  initialFrameHeight: 324,
 			  initialFrameWidth: '100%',

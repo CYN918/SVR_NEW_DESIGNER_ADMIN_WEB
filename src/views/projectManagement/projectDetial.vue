@@ -9,7 +9,7 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span  v-else-if="index != 4 && status > item.status" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				<span  v-else-if="index != 4 && status > item.status && info.rule_type=='1'" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>

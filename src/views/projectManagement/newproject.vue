@@ -173,7 +173,7 @@
 						  type="datetime"
 						  :disabled="objstatus > 2 || typebtn == 1"
 						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :placeholder="typebtn == 1 ? '你已制定制作人，项目发布后即进入制作期':'选择日期时间'" @change="databijiao()">
+						  :placeholder="typebtn == 1 ? '你已指定制作人，项目发布后即进入制作期':'选择日期时间'" @change="databijiao()">
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -1027,6 +1027,7 @@
 					this.form.template_file_id = da.template_file_id;
 					this.selectData1.file_name = da.template_file_name;
 					this.selectData1.file_size_format = da.file_size_format;
+					console.log(da.desc)
 					this.detailtext = JSON.parse(da.desc);
 					this.form['rule_type'] = da.rule_type;
 					if(!this.$route.query.usernameitem){
@@ -1321,11 +1322,6 @@
 					
 					return "请填写QQ！！";
 				}
-				   
-			    if(!this.form.template_file_id){
-				
-					return "请选择模板！！";
-			    }
 			
 				return true;
 			},
@@ -1400,7 +1396,9 @@
 				this.rows = JSON.parse(this.$route.query.row);
 				this.selectData1.file_name = this.rows.template_file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
-				this.detailtext = JSON.parse(this.rows.desc);
+				if(this.rows.desc){
+					this.detailtext = JSON.parse(this.rows.desc);
+				}
 				this.objstatus = parseInt(this.rows.status);
 				localStorage.setItem("editproject",this.$route.query.row)
 			} else {

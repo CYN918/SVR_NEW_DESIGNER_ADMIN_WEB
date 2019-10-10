@@ -26,8 +26,8 @@
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
 						 <li v-for="(item,index) in materialdata" :key="index">
-							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'附件')">
-								<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
+							<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)">
+								<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 								<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
 								<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
 							</div>
@@ -44,8 +44,8 @@
 				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 					<ul class="materiallist">
 						<li v-for="(item,index) in materialdata" :key="index+item.fid">
-							<div class="material relative" @mouseover="hover(item.fid,item.file_url,'图片')" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
-								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
+							<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
+								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 								<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
 							</div>
 							<div class="color66">
@@ -62,8 +62,8 @@
 					<div>
 						<ul class="materiallist">
 							<li class="relative" v-for="(item,index) in materialdata" :key="item.fid+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
 									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -83,8 +83,8 @@
 					<div>
 						<ul class="materiallist relative">
 							 <li v-for="(item,index) in materialdata" :key="item.fid+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.file_url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
 									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -367,75 +367,24 @@
 				}
 				//console.log(this.openurls)
 				this.openurls.forEach(item =>{
-					//console.log(item.id);
-					if(item.name == "图片"){
-						//let src = item.id;
-						//downloadImg(src,"1")
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '图片';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						});
-					}
 					
-					if(item.name == "附件"){
-						window.open(item.id);
-					}
+					let src = item.id;
 					
-					if(item.name == "视频"){
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '视频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						});
-					}
+					fetch(item.id).then(res => res.blob()).then(blob => {
+						const a = document.createElement('a');
+						document.body.appendChild(a)
+						a.style.display = 'none'
+						// 使用获取到的blob对象创建的url
+						const url = window.URL.createObjectURL(blob);
+						a.href = url;
+						// 指定下载的文件名
+						a.download = item.name;
+						a.click();
+						document.body.removeChild(a)
+						// 移除blob对象的url
+						window.URL.revokeObjectURL(url);
+					});
 					
-					if(item.name == "音频"){
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						  fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '音频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						  });
-					}
 				})
 			},
 			getimgulr(url){
@@ -469,25 +418,25 @@
 				console.log(this.materialdata)
 				if(this.tabsnum == 2){
 					this.materialdata.forEach(item =>{
-						this.openurls.push({name:"视频",id:item.file_url});
+						this.openurls.push({name:item.file_name,id:item.file_url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.tabsnum == 3){
 					this.materialdata.forEach(item =>{
-						this.openurls.push({name:"音频",id:item.file_url});
+						this.openurls.push({name:item.file_name,id:item.file_url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.tabsnum == 0){
 					this.materialdata.forEach(item =>{
-						this.openurls.push({name:"附件",id:item.file_url});
+						this.openurls.push({name:item.file_name,id:item.file_url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.tabsnum == 1){
 					this.materialdata.forEach(item =>{
-						this.openurls.push({name:"图片",id:item.file_url});
+						this.openurls.push({name:item.file_name,id:item.file_url});
 						this.font_size += Number(item.file_size);
 					})
 				}

@@ -43,8 +43,8 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">附件</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['附件']" :key = "item.fid">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'附件')">
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',附件'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,item.file_name)">
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="没有图片">
 									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -60,8 +60,8 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">图片</div>
 						<ul class="materiallist">
 							<li v-for="(item,index) in material_info['图片']" :key="item.fid+index+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'图片')" :style="{background: 'url(' + item.url + ') center center no-repeat', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',图片'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,item.file_name)" :style="{background: 'url(' + item.url + ') center center no-repeat', backgroundSize:'contain'}" @click="getimgulr(item.url)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
 								<div class="color66">
@@ -75,8 +75,8 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">视频</div>
 						<ul class="materiallist">
 							<li class="relative" v-for="(item,index) in material_info['视频']" :key = "item.fid+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'视频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',视频'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'contain'}" @click="showvideo(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="没有图片">
 									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -92,8 +92,8 @@
 						<div style="font-size: 14px;color: #1E1E1E;margin:46px 0 12px;">音频</div>
 						<ul class="materiallist">
 							<li class="relative" v-for="(item,index) in material_info['音频']" :key = "item.fid+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.url,'音频')" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+',音频'" v-if="workselect" @click.stop.native></el-checkbox>
+								<div class="material relative" @mouseover="hover(item.fid,item.url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
 									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="没有图片">
 									<div class="hoverload" v-if="item.fid == fid && !workselect && getpower()" @click="downWorks('one')" @click.stop></div>
 								</div>
@@ -727,80 +727,23 @@
 				}
 				console.log(this.openurls);
 				this.openurls.forEach(item =>{
-					console.log(item);
-					if(item.name == "图片"){
-						let src = item.id;
-						var canvas = document.createElement('canvas');
-						var img = document.createElement('img');
-						img.onload = function(e) {
-							canvas.width = img.width;
-							canvas.height = img.height;
-							var context = canvas.getContext('2d');
-							context.drawImage(img, 0, 0, img.width, img.height);
-							canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
-							canvas.toBlob((blob)=>{
-								let link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob);
-								link.download = '图片文件'; 
-								link.click();  
-							}, "image/jpeg");
-						}
-						img.setAttribute("crossOrigin",'Anonymous');
-						img.src = src;
-					}
 					
-					if(item.name == "附件"){
-						//alert(1);
-						window.open(item.id);
-					}
+					let src = item.id;
 					
-					if(item.name == "视频"){
-						//alert(1);
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '视频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						  });
-					}
-					
-					if(item.name == "音频"){
-						//alert(1);
-						let src = item.id;
-						/* var a = document.createElement('a');
-						  a.href = src; //图片地址
-						  a.download = src; //图片名及格式
-						  document.body.appendChild(a);
-						  a.click(); */
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = '音频文件';
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						  });
-					}
+					fetch(item.id).then(res => res.blob()).then(blob => {
+						const a = document.createElement('a');
+						document.body.appendChild(a)
+						a.style.display = 'none'
+						// 使用获取到的blob对象创建的url
+						const url = window.URL.createObjectURL(blob);
+						a.href = url;
+						// 指定下载的文件名
+						a.download = item.name;
+						a.click();
+						document.body.removeChild(a)
+						// 移除blob对象的url
+						window.URL.revokeObjectURL(url);
+					});
 				})
 				this.centerDialogVisible5 = false;
 			},
@@ -810,25 +753,25 @@
 				console.log(this.material_info)
 				if(this.material_info['视频']){
 					this.material_info['视频'].forEach(item =>{
-						this.openurls.push({name:"视频",id:item.url});
+						this.openurls.push({name:item.file_name,id:item.url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.material_info['音频']){
 					this.material_info['音频'].forEach(item =>{
-						this.openurls.push({name:"音频",id:item.url});
+						this.openurls.push({name:item.file_name,id:item.url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.material_info['附件']){
 					this.material_info['附件'].forEach(item =>{
-						this.openurls.push({name:"附件",id:item.url});
+						this.openurls.push({name:item.file_name,id:item.url});
 						this.font_size += Number(item.file_size);
 					})
 				}
 				if(this.material_info['图片']){
 					this.material_info['图片'].forEach(item =>{
-						this.openurls.push({name:"图片",id:item.url});
+						this.openurls.push({name:item.file_name,id:item.url});
 						this.font_size += Number(item.file_size);
 					})
 				}
@@ -931,11 +874,9 @@
 				}
 			},
 			handleCheckedCitiesChange(val){
-				//console.log(val
 				this.font_size = 0;
 				this.openurls = [];
 				val.forEach((item,index) =>{
-					//console.log(item.split(",")[1])
 					this.font_size += Number(item.split(",")[2]);
 					this.openurls.push({name:item.split(",")[3],id:item.split(",")[0]});
 				});

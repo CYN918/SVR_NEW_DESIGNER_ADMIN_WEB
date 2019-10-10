@@ -125,7 +125,7 @@
 			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
-			<img :src="imgurl" alt="暂无图片">
+			<img :src="imgurl" alt="暂无图片" style="max-height: 500px;">
 		</div>
 	</div>
 </template>
@@ -154,6 +154,36 @@
 			}
 		},
 		methods: {
+			
+			/* openPostWindow(url,data,name){  //url要跳转到的页面，data要传递的数据，name显示方式（可能任意命名）
+			  var tempForm = document.createElement("form");  
+			  tempForm.id="tempForm1";  
+			  tempForm.method="post";  
+			  tempForm.action=url;  
+			  tempForm.target=name;  
+			  for(var key in data){
+			  
+			  	var hideInput = document.createElement("input");
+			  	hideInput.type="hidden";
+			  	//传入参数名,相当于get请求中的content=
+			  	hideInput.name= key;
+			  	//传入传入数据，只传递了一个参数内容，实际可传递多个。
+			  	hideInput.value= data[key];   
+			  	tempForm.appendChild(hideInput);
+			  }
+			  console.log(tempForm)
+			  tempForm.appendChild(hideInput);   
+			  tempForm.addEventListener("onsubmit",()=>{ 
+				  this.openWindow(name); 
+			  });//必须用name不能只用url，否则无法传值到新页面
+			  document.body.appendChild(tempForm);           
+			  //tempForm.dispatchEvent("onsubmit");
+			  tempForm.submit();
+			  document.body.removeChild(tempForm);
+			},
+			openWindow(name)  {  
+				 window.open('about:blank',name,);  
+			}, */
 			setparenttable(){
 				switch(this.tableAction.morebtns.page){
 					case "userBaseInfo":
@@ -264,7 +294,9 @@
 							
 						}
 						if(setid == "contributor0"){
-							window.open( localStorage.getItem("URL")+"/#/conts?id=" + row.work_id);
+							//this.post(localStorage.getItem("baseURLs")+"/work/preview",{access_token:localStorage.getItem('access_token'),work_id:row.work_id},"newpage");
+							//this.openPostWindow(localStorage.getItem("baseURLs")+"/work/preview",{access_token:localStorage.getItem('access_token'),work_id:row.work_id},"newpage");
+							window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + row.work_id+"&access_token="+localStorage.getItem('access_token'));
 						}
 						
 						if(setid == "contributor1"){
@@ -298,7 +330,7 @@
 					break;
 					case "activityworks":
 						if(!setid){
-							window.open(localStorage.getItem("URL")+"/#/conts?id=" + row.work_id);
+							window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + row.work_id+"&access_token="+localStorage.getItem('access_token'));
 						}
 					break;
 					case "activityEmploy":
@@ -324,8 +356,22 @@
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor2"){
+							fetch(row.template_url).then(res => res.blob()).then(blob => {
+								const a = document.createElement('a');
+								document.body.appendChild(a)
+								a.style.display = 'none'
+								// 使用获取到的blob对象创建的url
+								const url = window.URL.createObjectURL(blob);
+								a.href = url;
+								// 指定下载的文件名
+								a.download = row.file_name;
+								a.click();
+								document.body.removeChild(a)
+								// 移除blob对象的url
+								window.URL.revokeObjectURL(url);
+							});
 							
-							window.open(row.template_url);
+							//window.open(row.template_url);
 						}
 						if(setid == "contributor1"){
 							this.$parent.delete(row);

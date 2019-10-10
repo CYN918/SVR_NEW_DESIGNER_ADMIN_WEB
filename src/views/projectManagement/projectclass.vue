@@ -254,7 +254,7 @@
 			edit1(row){
 				this.setpage()
 				this.$router.push({
-					path:"/projectManagement/projectclass/newtemplate",
+					path:"/projectManagement/projectclass/edittemplate",
 					query:{
 						row: JSON.stringify(row)
 					}

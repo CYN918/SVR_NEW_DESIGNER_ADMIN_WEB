@@ -88,7 +88,7 @@ const workData = {
 		},
 		{
 			name:"作品预览链接",
-			id: localStorage.getItem("URL")+"/#/cont?id=",
+			id: localStorage.getItem("baseURLs")+"/work/preview?access_token="+localStorage.getItem('access_token')+"&work_id=",
 			type:"urlopen"
 		},
 		{
