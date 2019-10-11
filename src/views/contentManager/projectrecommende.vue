@@ -103,16 +103,32 @@
 				this.$refs.Tabledd.reject();
 			},
 			delect(row){
-				this.api.RecommendProjectdelete({
-					id:row.id,
-					access_token:localStorage.getItem("access_token")
-				}).then(da=>{
-					if(da.result == 0) {
-						this.$refs.Tabledd.getTabData();
-					}
-				}).catch(da=>{
+				this.$confirm('确认删除该任务？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					//console.log({work_ids:workids,level:this.radioS})
+					this.api.RecommendProjectdelete({
+						id:row.id,
+						access_token:localStorage.getItem("access_token")
+					}).then(da=>{
+						if(da.result == 0) {
+							this.$refs.Tabledd.getTabData();
+						}
+					}).catch(da=>{
+						
+					})
 					
-				})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
 			},
 			add(){
 				this.$router.push({

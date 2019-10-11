@@ -45,6 +45,7 @@
 				  class="upload-demo textcenter"
 				  drag
 				  action="1111"
+				  ref="upload"
 				  :http-request="httprequest"
 				  :limit = "1"
 				  multiple>
@@ -371,6 +372,9 @@
 				
 				
 				this.api['templateadd'+type](data).then(da => {
+					this.$refs.upload.clearFiles();
+					this.showmask1 = false;
+					this.showmask2 = false;
 					this.getData({pageCurrent:1,pageSize:50});
 				}).catch(da => {
 					this.$message({
@@ -379,8 +383,7 @@
 					})
 					this.isupload =false;
 				})
-				this.showmask1 = false;
-				this.showmask2 = false;
+				
 			},
 			gettab(id){
 				if(this.adminuseraccess.indexOf(id) > -1){

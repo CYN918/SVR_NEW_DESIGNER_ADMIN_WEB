@@ -847,7 +847,7 @@ var router = new Router({
 					path:"projectclass/newtemplate",
 					name: 'newtemplate',
 					meta: {
-						title: "新建项目发布",
+						title: "项目分类预设 / 模板预设 / 新建预设模板",
 						pagetitle: "项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newtemplate.vue'),
@@ -856,7 +856,7 @@ var router = new Router({
 					path:"projectclass/edittemplate",
 					name: 'edittemplate',
 					meta: {
-						title: "编辑项目发布",
+						title: "项目分类预设 / 模板预设 / 编辑项目发布",
 						pagetitle: "项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newtemplate.vue'),

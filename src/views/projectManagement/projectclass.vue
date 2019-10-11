@@ -173,6 +173,7 @@
 				this.$refs.Tabledd.reject();
 			},
 			delect(row){
+				
 				this.api.projecttemplatedel({
 					access_token: localStorage.getItem("access_token"),
 					id:row.id

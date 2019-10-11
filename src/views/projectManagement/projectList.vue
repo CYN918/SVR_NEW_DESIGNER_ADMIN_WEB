@@ -602,16 +602,31 @@
 				this.$refs.Tabledd.reject();
 			},
 			delect(row){
-				this.api.projectdel({
-					project_id:row.project_id,
-					access_token:localStorage.getItem("access_token")
-				}).then(da=>{
-					if(da.result == 0) {
-						this.$refs.Tabledd.getTabData();
-					}
-				}).catch(da=>{
+				this.$confirm('确认删除该项目？', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.api.projectdel({
+						project_id:row.project_id,
+						access_token:localStorage.getItem("access_token")
+					}).then(da=>{
+						if(da.result == 0) {
+							this.$refs.Tabledd.getTabData();
+						}
+					}).catch(da=>{
+						
+					})
 					
-				})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+				
 			},
 			add(){
 				this.setpage()

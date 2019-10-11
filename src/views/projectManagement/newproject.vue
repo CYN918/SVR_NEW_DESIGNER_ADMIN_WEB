@@ -139,7 +139,9 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span>
+						<div class="delect">
+							<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
+						</div>
 					</li>
 					
 					<li class="margint23 ofh">
@@ -173,7 +175,7 @@
 						  type="datetime"
 						  :disabled="objstatus > 2 || typebtn == 1"
 						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :placeholder="typebtn == 1 ? '你已指定制作人，项目发布后即进入制作期':'选择日期时间'" @change="databijiao()">
+						  :placeholder="typebtn == 1 ? '你已指定制作人':'选择日期时间'" @change="databijiao()">
 						</el-date-picker>
 					</li>
 					<li class="margint23 ofh">
@@ -473,6 +475,10 @@
 			upload
 		},
 		methods: {
+			delecttem(){
+				this.selectData1 ={};
+				
+			},
 			setparenttable(){
 				this.$refs.Tableddtem.setparenttable();
 			},
@@ -508,6 +514,7 @@
 			},
 			delect(index){
 				this.detailtext.splice(index,1);
+				
 			},
 			databijiao(){
 				//console.log(this.form['publish_time'],this.form['deadline'])
@@ -631,7 +638,9 @@
 				this.selectData1.template_file_id = row.template_file_id;
 				//console.log(row);
 				this.selectData1.file_name = row.file_name;
-				this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
+				if(row.file_size){
+					this.selectData1.file_size_format =   row.file_size / 1024 >= 1 ? (row.file_size/1024).toFixed(2) +"M" : row.file_size.toFixed(2) + "KB";
+				}
 				this.clear = false;
 				this.detailtext = JSON.parse(row.desc);
 				console.log(this.detailtext);
@@ -1001,10 +1010,22 @@
 				}
 				this.loading = true;
 				this.api.projectadd(this.form).then(da =>{
-					console.log(da)
+					//console.log(da)
 					if(da.result == 0){
 						this.loading = false;
-						this.getparent();
+						let num = 0;
+						if(this.form['rule_type'] == 1){
+							num = 0;
+						} else {
+							num = 2;
+						}
+						this.$router.push({
+							path:"/projectManagement/projectList",
+							query:{
+								tabsnum:num
+							}
+						})
+						
 					}
 				}).catch(da =>{
 					this.loading = false;

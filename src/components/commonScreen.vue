@@ -27,11 +27,7 @@
 						</el-dropdown>
 						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
 							<el-option value="" label="全部"></el-option>
-							 <el-radio-group v-model="form[item.id]">
-								<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name">
-									<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
-								</el-option>
-							</el-radio-group>
+							<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name"></el-option>
 						</el-select>
 						 <el-date-picker
 						  v-if="item.type == 'time'"
