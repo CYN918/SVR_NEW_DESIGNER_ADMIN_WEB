@@ -66,20 +66,6 @@
 		line-height: 60px;
 		left: 40px;
 	}
-	
-	.tabs{
-		width: 96px;
-		height: 58px;
-		display: inline-block;
-		margin-right: 71px;
-		cursor: pointer;
-	}
-	
-	.tabactive{
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
-	}
-	
 	.badge .el-badge__content.is-fixed{
 		top:13px
 	}

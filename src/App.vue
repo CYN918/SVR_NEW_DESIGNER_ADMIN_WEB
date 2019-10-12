@@ -17,7 +17,7 @@ html,body{
 	height: 100%;
 }
 body{
-	font: 14px/150% Arial,"微软雅黑";
+	font: 14px/150%  PingFangSC-Regular,Arial,"微软雅黑";
 }
 
 a{list-style-type: none}
@@ -210,7 +210,7 @@ input{
 }
 
 #app .ipt {
-	width: 224px;
+	width: 217px;
 	height: 40px;
 }
 

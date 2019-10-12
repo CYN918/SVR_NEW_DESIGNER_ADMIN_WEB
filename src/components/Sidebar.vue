@@ -163,7 +163,7 @@
 					"26":"/activityManager/activityEmploy",
 					"27":"/activityManager/activityClass",
 					"28":"/activityManager/activityworks",
-					"29":"/activityManager/solicitationTemplate",
+					"29":"/otherInformation/solicitationTemplate",
 					"32":"/employmentManager/employmentorder",
 					"34":"/otherInformation/embodyRecord",
 					"35":"/otherInformation/presetReason",

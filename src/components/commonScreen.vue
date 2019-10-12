@@ -72,7 +72,7 @@
 				
 						<div v-if="item.type == 'two'">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
-							<span style="padding: 0 14px;">至</span>
+							<span style="padding: 0 11.5px;">至</span>
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'text'">

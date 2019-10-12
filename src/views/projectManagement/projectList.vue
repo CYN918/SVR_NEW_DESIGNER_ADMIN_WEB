@@ -74,6 +74,7 @@
 				comment:"",
 				commonTopData: {
 					num:false,
+					upload:true,
 					"pageName": "publishWork",
 					"commonleftbtn": [{
 						name: "筛选",

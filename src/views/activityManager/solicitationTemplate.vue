@@ -158,7 +158,7 @@
 				this.tableAction = DataScreen.screenShow.solicitationTemplate["action" + num],
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
-				this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: ''}});
+				this.$router.push({ path: '/otherInformation/solicitationTemplate', query: {urlDate: ''}});
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			getData(pg) {
@@ -292,7 +292,7 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({ path: '/activityManager/solicitationTemplate', query: {urlDate: JSON.stringify(urldata)}});
+					this.$router.push({ path: '/otherInformation/solicitationTemplate', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			delete(val) {

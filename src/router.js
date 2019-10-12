@@ -412,15 +412,7 @@ var router = new Router({
 					},
 					component: () => import('@/views/activityManager/activityworks.vue'),
 				},
-				{
-					path: "solicitationTemplate",
-					name: 'solicitationTemplate',
-					meta: {
-						title: "征集模板文件",
-						pagetitle: "征集模板文件-狮圈儿运营管理平台"
-					},
-					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
-				}
+				
 			]
 		},
 		{
@@ -675,6 +667,15 @@ var router = new Router({
 				title: "其他信息及设置"
 			},
 			children:[
+				{
+					path: "solicitationTemplate",
+					name: 'solicitationTemplate',
+					meta: {
+						title: "征集模板文件",
+						pagetitle: "征集模板文件-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
+				},
 				{
 					path: "embodyRecord",
 					name: 'embodyRecord',
