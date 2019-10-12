@@ -19,7 +19,7 @@
 			</div>
 			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
 		</div>
-		<div style="height: calc(100% - 205px);margin-top: 20px;" v-show="tabsnum == 0">
+		<div style="height: calc(100% - 205px);margin-top: 20px;" v-if="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>

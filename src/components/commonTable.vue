@@ -796,6 +796,7 @@
 			},
 			autoTableHeight() {
 				//设置table标签
+				
 				setTimeout(() => {
 					this.tableHeight = this.$refs.elememt.offsetHeight / 100 * 88;
 				}, 100)

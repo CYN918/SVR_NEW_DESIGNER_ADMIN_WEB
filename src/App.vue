@@ -958,7 +958,7 @@ input:disabled{
 	font-weight: 700;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1500px) {
 	.screenMidden{
 		height: 220px;
 	}
