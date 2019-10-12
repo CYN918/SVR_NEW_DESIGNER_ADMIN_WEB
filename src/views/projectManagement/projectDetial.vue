@@ -111,7 +111,7 @@
 						<div class="ofh" style="padding-bottom: 60px;border-bottom: 1px solid rgba(251,252,259,1);">
 							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
 								<div class="fleft" style="width: 100%;height: 100%;" id="projectDetial">
-									<el-carousel style="width: 100%;height: 100%;">
+									<el-carousel style="width: 100%;height: 100%;" arrow="always">
 									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;">
 										<div class="signlistwork">
 											<img :src="citem.face_pic" width="100%" height="100%">
@@ -124,7 +124,7 @@
 											<span class="labelbtn textcenter">{{  citem.classify_1_name }}</span>
 											<span style="padding: 3px 5px;color: #999999;font-size: 12px;">{{ citem.classify_2_name+'-'+citem.classify_3_name }}</span>
 										</div>
-										<div class="ofh" style="margin: 10px 10px 0;color: #999999;">
+										<div class="ofh textcenter" style="margin: 10px 10px 0;color: #999999;">
 											<div class="fleft ofh" style="width: 33.3%;">
 												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;">
 												{{ citem.view_num  }}
@@ -911,12 +911,21 @@
 		padding: 0;
 	}
 	
+	.detailContent .el-carousel__indicators{
+		padding: 0;
+		bottom: 85px;
+	}
+	
+	.el-carousel__button{
+		border-radius: 50%;
+		padding: 0;
+		width: 6px;
+		height: 6px;
+	}
+	
 	.el-carousel__container {
 		width: 100%;
 		height: 100%;
-	}
-	.el-carousel__indicators {
-		display: none;
 	}
 	.labelbtn{
 		padding: 3px 5px;

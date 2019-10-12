@@ -1045,10 +1045,10 @@
 					this.form.business_type = da.business_type;
 					this.form.name = da.name;
 					this.form.qq = da.qq;
-					this.form.template_file_id = da.template_file_id;
+					this.selectData1.template_file_id = da.template_file_id;
 					this.selectData1.file_name = da.template_file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					console.log(da.desc)
+					//console.log(da.desc)
 					this.detailtext = JSON.parse(da.desc);
 					this.form['rule_type'] = da.rule_type;
 					if(!this.$route.query.usernameitem){
