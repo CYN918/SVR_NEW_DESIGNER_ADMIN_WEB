@@ -1,12 +1,12 @@
 <template>
 	<div class="wh">
-		<div class="tabtop wh" ref="elememt" id="table" style="height:calc(100% - 44px);overflow-y: scroll">
-			<el-table ref="multipleTable" :reserve-selection="true" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange" @row-click="rowclick">
+		<div class="wh" ref="elememt" id="table" ><!-- style="height:calc(100% - 44px);overflow-y: scroll" -->
+			<el-table ref="multipleTable" :reserve-selection="true" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" :max-height="tableHeight" v-loading="loading" @selection-change="handleSelectionChange" @row-click="rowclick">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
-					<template slot-scope="scope">
+					<template slot-scope="scope"  >
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
@@ -797,7 +797,7 @@
 			autoTableHeight() {
 				//设置table标签
 				setTimeout(() => {
-					//this.tableHeight = this.$refs.elememt.offsetHeight;
+					this.tableHeight = this.$refs.elememt.offsetHeight / 100 * 88;
 				}, 100)
 				//此处需要通过延迟方法来设置值，不然会出现值已更新，但页面没更新的问题
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度

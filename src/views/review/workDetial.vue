@@ -883,7 +883,7 @@
 				console.log(this.openurls);
 			},
 			linksee(){
-				window.open( localStorage.getItem("URL")+"/#/conts?id=" + this.$route.query.work_id);   
+				window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + this.$route.query.work_id +"&access_token="+localStorage.getItem('access_token'));
 			},
 			getData(pg) {
 				//获取子组件表格数据

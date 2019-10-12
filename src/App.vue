@@ -352,7 +352,7 @@ input{
 }
 
 .calc205{
-	height: calc(100% - 180px);
+	height: calc(100% - 223px);
 }
 
 .detailContent1 {
@@ -778,14 +778,18 @@ input{
 	#app .el-pagination .number:hover,
 	#app .el-pagination button:hover {
 		color: #ff5121;
-		background: white;
-		border-color:#999999;  
+		background: white;  
+	}
+	
+	#app .el-pagination .el-pager li.active:hover{
+		border-color: #ff5121;
+		background: #ff5121;
+		color: white
 	}
 
 	#app .el-pagination .number:active,
 	#app .el-pagination button:active {
 		border-color: #ff5121;
-		background-color: #ff5121;
 		color: white;
 	}
 

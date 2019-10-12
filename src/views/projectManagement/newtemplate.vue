@@ -63,7 +63,9 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span>
+						<div class="delect">
+							<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
+						</div>
 					</li>
 					
 					<li class="margint23 ofh">
@@ -263,6 +265,10 @@
 			upload
 		},
 		methods: {
+			delecttem(){
+				this.selectData1 ={};
+				
+			},
 			setparenttable(){
 				this.$refs.Tabledd.setparenttable();
 			},
