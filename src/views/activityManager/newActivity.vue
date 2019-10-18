@@ -290,7 +290,8 @@
 				dids:[],
 				demandlist:[],
 				demand_names:[],
-				selectData1:{}
+				selectData1:{},
+				uD:{},
 			}
 		},
 		components: {
@@ -393,17 +394,27 @@
 					this.ifBjType = 1;
 				}
 				
+				let info = "";
+				
 				if(this.uptype == "img"){
-					this.form.info += '<img src="' + url + '" alt="图片">';
+					alert(2);
+					info = '<img src="' + url + '" alt="图片">';
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph')
 				}
 				if(this.uptype == "video"){
 					/* <img src="' + coverurl + '" alt="视频图片"> */
-					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
+					info = '<video src="'+ url +'" controls="controls"></video>';
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph')
 				}
 				if(this.uptype == "audio"){
 					/* <img src="' + coverurl + '" alt="音频图片"> */
-					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
+					info = '<audio src="'+ url +'" controls="controls"></audio>';
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph')
 				}
+				
 			},
 			handleAvatarSuccessvideo(params) {
 				//console.log(params);

@@ -14,7 +14,7 @@
 						<!-- form.selct[item.a] -->
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
-						<el-dropdown trigger="click" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
+						<el-dropdown trigger="click" class="ipt" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
 							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="vocation.join(',')" suffix-icon="el-icon-arrow-down"
 							 clearable></el-input>
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
@@ -25,10 +25,12 @@
 								</el-checkbox-group>
 						    </el-dropdown-menu>
 						</el-dropdown>
-						<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
-							<el-option value="" label="全部"></el-option>
-							<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name"></el-option>
-						</el-select>
+						<div class="ipt" v-else-if="item.child && !item.type">
+							<el-select v-model="form[item.id]" placeholder="请选择" >
+								<el-option value="" label="全部"></el-option>
+								<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name"></el-option>
+							</el-select>
+						</div>
 						 <el-date-picker
 						  v-if="item.type == 'time'"
 						   @change="timetwo(item.child)"
@@ -40,7 +42,7 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						<el-cascader v-if="item.type == 'cascader'"
+						<el-cascader class="ipt" v-if="item.type == 'cascader'"
 							expand-trigger="hover"
 							:options="item.child"
 							:props="item.optionProps"
@@ -70,13 +72,13 @@
 						
 						
 				
-						<div v-if="item.type == 'two'">
+						<div v-if="item.type == 'two'" class="ipt">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 11.5px;">至</span>
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
-						<div v-if="item.type == 'text'">
-							<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
+						<div v-if="item.type == 'text'" class="ipt">
+							<el-input  placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
 						</div>
 						<div v-if="item.type == 'display'" :style="{visibility: (item.type == 'display' ? 'hidden' : '')}">
 							<button class="ipt"></button>

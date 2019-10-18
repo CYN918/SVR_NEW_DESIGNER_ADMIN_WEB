@@ -379,7 +379,7 @@ export default {
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
 				list.map((el,index,va)=>{
-					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
+					str+='<p class="selclass" style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
 				this.uD.execCommand('insertHtml', str);	
 				this.uD.execCommand( 'insertparagraph' )
@@ -1230,5 +1230,11 @@ export default {
 }
 .page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
 	border-color: #C0C4CC !important;
+}
+
+	
+.selclass > span{
+	padding-bottom: 20px;
+	
 }
 </style>
