@@ -398,6 +398,18 @@
 						}
 					break;
 					case "serviceCenter":
+						if(!setid){
+							if(row.type == '2'){
+								window.open(localStorage.getItem("URL")+"/#/userProtocol");
+							} else if(row.type == '1'){
+								window.open(localStorage.getItem("URL")+"/#/about");
+							}else if(row.type == '3'){
+								window.open(localStorage.getItem("URL")+"/#/authorization");
+							}else if(row.type == '4'){
+								window.open(localStorage.getItem("URL")+"/#/help");
+							}
+							
+						}
 						if(setid == "contributor0"){
 							this.router.push({path:"/contentManager/serviceCenter/editserviceCenter", query:{row: JSON.stringify(row)}})
 						}

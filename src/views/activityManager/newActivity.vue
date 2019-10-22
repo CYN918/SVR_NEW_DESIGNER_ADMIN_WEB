@@ -231,7 +231,6 @@
 					initialFrameHeight: 300,
 					initialFrameWidth: '99%',
 					UEDITOR_HOME_URL: '/UEditor/',
-					serverUrl:'http://139.129.221.123/File/File/insert',
 					toolbars:[
 						[
 								'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
@@ -299,6 +298,22 @@
 			commonTable
 		},
 		methods: {
+			ready(editorInstance) {
+				this.uD = editorInstance;
+				editorInstance.addListener('focus', (editor) => {
+					if (this.ifBjType == 0) {
+						this.form.info = '';
+						this.ifBjType = 1;
+					}
+				});
+				editorInstance.addListener('blur', (editor) => {
+					if (this.ifBjType == 1 && this.form.info == '') {
+						this.form.info = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+						this.ifBjType = 0;
+					}
+				});
+			
+			},
 			setparenttable(){
 				this.$refs.Tabledd.setparenttable();
 			},
@@ -390,31 +405,40 @@
 			},
 			setcontent(url,coverurl){
 				if (this.ifBjType == 0) {
-					this.form.info = "";
 					this.ifBjType = 1;
 				}
-				
 				let info = "";
-				
 				if(this.uptype == "img"){
-					alert(2);
-					info = '<img src="' + url + '" alt="图片">';
+					
+					info = '<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+url+'"/></p>';
+					//console.log(info)
 					this.uD.execCommand('insertHtml', info);
-					this.uD.execCommand('insertparagraph')
+					this.uD.execCommand('insertparagraph');
+					
 				}
 				if(this.uptype == "video"){
 					/* <img src="' + coverurl + '" alt="视频图片"> */
 					info = '<video src="'+ url +'" controls="controls"></video>';
 					this.uD.execCommand('insertHtml', info);
-					this.uD.execCommand('insertparagraph')
+					this.uD.execCommand('insertparagraph');
+					this.ifBjType = 1;
 				}
 				if(this.uptype == "audio"){
 					/* <img src="' + coverurl + '" alt="音频图片"> */
 					info = '<audio src="'+ url +'" controls="controls"></audio>';
 					this.uD.execCommand('insertHtml', info);
-					this.uD.execCommand('insertparagraph')
+					this.uD.execCommand('insertparagraph');
+					this.ifBjType = 1;
 				}
 				
+				/* if (this.ifBjType == 0) {
+					this.form.info = "";
+					this.ifBjType = 1;
+				} */
+				
+				/* if (this.ifBjType == 1 && this.form.info == '') {
+					this.ifBjType = 0;
+				} */
 			},
 			handleAvatarSuccessvideo(params) {
 				//console.log(params);
@@ -500,23 +524,7 @@
 			prev() {
 				this.Isnextshow = false;
 			},
-			ready(editorInstance) {
-				this.uD = editorInstance;
-
-				editorInstance.addListener('focus', (editor) => {
-					if (this.ifBjType == 0) {
-						this.form.info = '';
-						this.ifBjType = 1;
-					}
-				});
-				editorInstance.addListener('blur', (editor) => {
-					if (this.ifBjType == 1 && this.form.info == '') {
-						this.form.info = '<p style="color:#999">从这里开始编辑作品类容...</p>';
-						this.ifBjType = 0;
-					}
-				});
-
-			},
+			
 			getData1() {
 				//获取子组件表格数据
 				var data = {

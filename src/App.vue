@@ -60,7 +60,9 @@ input{
 .fleft{
   float: left;
 }
-
+.image-wrapper{
+	padding-bottom: 20px;
+}
 .fright{
   float: right;
 }
