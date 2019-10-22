@@ -4,10 +4,10 @@ const screenData = {
 			filterFields:[
 				{name:'用户id',id:'open_id'},
 				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
-				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'是否为平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
-				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				{name:'是否为平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:""}]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
@@ -31,10 +31,10 @@ const screenData = {
 			filterFields:[
 				{name:'用户id',id:'open_id'},
 				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
-				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'是否为平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:""}]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
@@ -57,10 +57,10 @@ const screenData = {
 			filterFields0:[
 				{name:'用户id',id:'open_id'},
 				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
-				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'是否为平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:""}]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
@@ -136,10 +136,10 @@ const screenData = {
 			filterFields:[
 				{name:'用户id',id:'open_id'},
 				{name:'性别',id:'sex',child:[{name:"男",id:"1"},{name:"女",id:"2"}]},
-				{name:'是否平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
+				{name:'是否为平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
-				{name:'是否平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"S",id:"S"},{name:"不推荐",id:""}]},
+				{name:'是否为平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
+				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:""}]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
@@ -697,13 +697,13 @@ const screenData = {
 				{prop:'weixin_name',lable:'授权认证-微信',width:150},
 				{prop:'qq_name',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
-				{prop:'contributor_type',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
+				{prop:'is_contributor',lable:'平台供稿人-认证状态',width:200,type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'is_recommend',lable:'是否为平台推荐创作者',type:'keyvalue',child:{'1':"是","0":"否"}},
 				{prop:'recommend_level',lable:'平台推荐等级',type:"novalue",width:150,novalue:"不推荐"},
 			],
 			defaults:[
 				'open_id','username','size','address','work_num','follow_num','fans_num','weixin',
-				'qq','create_time','contributor_type','is_recommend','recommend_level',"avatar"
+				'qq','create_time','is_contributor','is_recommend','recommend_level',"avatar"
 			],
 			action:{
 				morebtns:{
