@@ -166,10 +166,16 @@ input{
 	border-color: #ff5121;
 }
 
+#app .defaultbtnactive:hover{
+	background: #FF6940 !important;
+	color: #ffffff !important;
+	border-color: #FF6940 !important;
+}
+
 #app .defaultbtn:hover{
-	background: #ff5121;
-	color: #ffffff;
-	border-color: #ff5121;
+	background: rgba(255,81,33,0.05);
+	color: #FF5121;
+	border-color: #FF5121;
 }
 
 .borderb{
