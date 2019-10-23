@@ -141,15 +141,14 @@
 					}
 					
 					
-					this.$router.push({
-						path: this.$route.matched[this.$route.matched.length - 1].path,
+					 this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)
 						}
 					});
 					eventBus.$emit("sreenData", this.form);
 				}
-				this.$parent.screenmask("Off", "left1");
+			    this.$parent.screenmask("Off", "left1");
 			},
 			init() {
 				//alert(typeof this.$route.query.urlDate != "string")

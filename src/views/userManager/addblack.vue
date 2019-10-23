@@ -138,7 +138,7 @@
 			</ul>
 		</div>
 		
-		<el-dialog title="请选择通知人员" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+		<el-dialog title="请选择添加人员" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
 			<div>	
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
@@ -372,7 +372,7 @@
 				}
 				
 				if(this.IsShow == true) return;
-				if(n && n==1){
+				if(this.tabnum == 1){
 					this.api.reportlist(data).then((da) => {
 						
 						this.tableData = da.data;
@@ -388,26 +388,25 @@
 					}).catch(() => {
 						this.IsShow = false;
 					});
-					return;
 				}
-				
-				this.api.getUserList(data).then((da) => {
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-					this.dialogTableVisible = true;
-					if(this.tableConfig.ischeck){
-						this.$refs.Tabledd.change(da.data);
-					} 
-					this.IsShow = false;
-					
-					
-				}).catch((e) => {
-					console.log(e)
-					this.IsShow = false;
-				});
-			
+				if(this.tabnum == 0){
+					this.api.getUserList(data).then((da) => {
+						this.tableData = da.data;
+						this.tableConfig.total = da.total;
+						this.tableConfig.currentpage = da.page;
+						this.tableConfig.pagesize = da.page_size;
+						this.dialogTableVisible = true;
+						if(this.tableConfig.ischeck){
+							this.$refs.Tabledd.change(da.data);
+						} 
+						this.IsShow = false;
+						
+						
+					}).catch((e) => {
+						console.log(e)
+						this.IsShow = false;
+					});
+				}
 				/* this.setLoding(false); */
 			},
 			getScreenShowData() {
@@ -521,11 +520,12 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/userManager/blackList/addblack',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(n){
-				this.tabnum = n
+				this.tabnum = n;
+				this.$router.push({query:{urlDate:''}});
 				this.getData({
 					pageCurrent: 1,
 					pageSize: 50
@@ -601,8 +601,6 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getforbiddenAccess();
-			
-			
 		},
 		mounted(){
 			
@@ -692,7 +690,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 2013;
+		z-index: 2040;
 		display: fixed;
 		background: rgba(0,0,0,0.5);
 	}
@@ -702,7 +700,7 @@
 	}
 	
 	 .el-picker-panel,.el-select-dropdown{
-		z-index: 2014 !important;
+		z-index: 2040 !important;
 	}
 	
 	.shelves .el-message-box__content{

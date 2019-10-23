@@ -60,9 +60,7 @@ input{
 .fleft{
   float: left;
 }
-.image-wrapper{
-	padding-bottom: 20px;
-}
+
 .fright{
   float: right;
 }
@@ -86,6 +84,10 @@ input{
 
 .marginright60{
 	margin-right: 60px;
+}
+
+.el-dialog__wrapper {
+	z-index: 2030 !important;
 }
 
 #app .fontcolorg{
@@ -178,7 +180,7 @@ input{
 }
 
 .el-cascader-menus,.el-select-dropdown{
-		z-index: 2049 !important;
+		z-index: 2050 !important;
 }
 
 #app .btntag{
