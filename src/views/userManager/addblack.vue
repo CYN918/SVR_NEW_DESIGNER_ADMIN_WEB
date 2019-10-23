@@ -521,7 +521,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({path:'/noticeManager/newsRelease/editrelease',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/userManager/blackList/addblack',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			dialogTable(n){
@@ -539,6 +539,7 @@
 				this.tableConfig.list = DataScreen.screenShow.addblack["bts"+n];
 			},
 			add(){
+				this.IsShow = true;
 				this.api.addBl({
 					access_token:localStorage.getItem("access_token"),
 					open_ids:this.to_open_ids,
@@ -547,10 +548,12 @@
 				}).then(da => {
 					if(da.result == 0){
 						this.$router.go(-1);
+						this.IsShow = false;
 					}
 					//this.$router.go(-1);
+					this.IsShow = false;
 				}).catch(() => {
-							
+					this.IsShow = false;		
 				})
 			},
 			edit(){
@@ -587,7 +590,10 @@
 					access_token:localStorage.getItem("access_token"),
 					id:this.blackid
 				}).then(da=>{
-					this.info = da
+					this.info = da;
+					if(this.$route.query.url){
+						this.info.avatar = this.$route.query.url
+					}
 				})
 			}
 		},

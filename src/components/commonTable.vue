@@ -433,7 +433,7 @@
 					break;
 					case "blackList":
 						if(!setid){
-							this.router.push({path:"/userManager/blackList/editblack", query:{id: row.id}})
+							this.router.push({path:"/userManager/blackList/editblack", query:{id: row.id,url:row.avatar}})
 						}
 					break;
 					case "listAd":
