@@ -356,6 +356,7 @@
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor2"){
+							console.log(row.template_url);
 							fetch(row.template_url).then(res => res.blob()).then(blob => {
 								const a = document.createElement('a');
 								document.body.appendChild(a)

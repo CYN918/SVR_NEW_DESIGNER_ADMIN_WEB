@@ -90,6 +90,10 @@ input{
 	z-index: 2030 !important;
 }
 
+.el-dialog{
+	z-index: 2031 !important;
+}
+
 #app .fontcolorg{
 	color: #bbbbbb !important;
 }

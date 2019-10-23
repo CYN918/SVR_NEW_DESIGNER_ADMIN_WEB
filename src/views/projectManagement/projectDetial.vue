@@ -112,7 +112,7 @@
 							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
 								<div class="fleft" style="width: 100%;height: 100%;" id="projectDetial">
 									<el-carousel style="width: 100%;height: 100%;" arrow="always">
-									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;">
+									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;" @click.native="openwork(citem.work_id)">
 										<div class="signlistwork">
 											<img :src="citem.face_pic" width="100%" height="100%">
 										</div>
@@ -644,6 +644,9 @@
 			}
 		},
 		methods: {
+			openwork(id){
+				window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + id+"&access_token="+localStorage.getItem('access_token'));
+			},
 			arrchange(item){
 				console.log(item);
 				if(item){

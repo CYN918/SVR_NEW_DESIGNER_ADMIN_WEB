@@ -3,7 +3,7 @@
 		<div class="detailtitle ofh relative Detail">
 			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
-					征集模板文件
+					文件管理
 				</span>
 				<div class="textcenter">
 					<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -19,7 +19,7 @@
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
-		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
+		<el-dialog title="文件管理-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
 			<div style="position: relative;">
 				<ul>
 					<li class="w ofh textcenter">

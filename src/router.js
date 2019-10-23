@@ -671,8 +671,8 @@ var router = new Router({
 					path: "solicitationTemplate",
 					name: 'solicitationTemplate',
 					meta: {
-						title: "征集模板文件",
-						pagetitle: "征集模板文件-狮圈儿运营管理平台"
+						title: "文件管理",
+						pagetitle: "文件管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/activityManager/solicitationTemplate.vue'),
 				},

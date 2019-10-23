@@ -290,8 +290,10 @@
 			},
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				this.$router.go(-1);
-
+				///this.$router.go(-1);
+				this.$router.push({
+					path:"/userManager/blackList"
+				});
 			},
 			getleng(n) {
 				if (n == 10) {
@@ -547,7 +549,7 @@
 					report_ids:this.notices_ids
 				}).then(da => {
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent();
 						this.IsShow = false;
 					}
 					//this.$router.go(-1);
@@ -565,7 +567,7 @@
 				
 				this.api.editBl(data).then(da => {
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.getparent();
 					}
 				}).catch(() => {
 							
