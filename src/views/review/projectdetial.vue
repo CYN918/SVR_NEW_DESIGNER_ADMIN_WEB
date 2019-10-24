@@ -246,7 +246,7 @@
 									<div>-</div>
 								</li>
 								<li v-if="!lflag" class="fleft">
-									<div>￥{{ getdeductions() }}</div>
+									<div>￥{{ this.deduction ? this.deductionprice : this.deduction_price }}</div>
 									<div>延期交稿扣减</div>
 								</li>
 								<li class="fleft" style="margin: 0 20px;">
@@ -740,16 +740,16 @@
 			},
 			getdeductions(){
 				let data = 0;
-				data = this.deductionprice ? this.deductionprice : this.deduction_price
+				data = this.deduction ? this.deductionprice : this.deduction_price
 				return data;
 			},
 			getdeal_price() {
-				if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				/* if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 					return 0;
 				} else {
 					return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
-				}
-				
+				} */
+				return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 			},
 			getrule(n) {
 				this.typebtn = n;

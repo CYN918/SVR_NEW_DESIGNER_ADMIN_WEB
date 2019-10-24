@@ -849,6 +849,7 @@ input{
 
 	.el-dropdown-menu {
 		padding: 0;
+		z-index: 2050 !important;
 	}
 
 	.el-button--text {
