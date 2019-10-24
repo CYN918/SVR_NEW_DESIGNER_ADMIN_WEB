@@ -488,10 +488,18 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				
+				let name = '';
+				console.log(this.form.classify_id,this.tableData1)
+				this.tableData1.forEach(item=>{
+					if(item.id ==this.form.classify_id){
+						name = item.classify_name;
+					}
+				})
 				const {href} = this.$router.resolve({
 					path:"/projectManagement/projectList/newproject/openproject",
 					query:{
-						info:JSON.stringify(this.form)
+						info:JSON.stringify(this.form),
+						classname:name
 					}
 				})
 				window.open(href, '_blank')

@@ -10,7 +10,7 @@
 					<div class="cens_02_1_cent">
 						<div class="cens_x0">
 							<div class="cens_x1">{{deta.name}}</div>
-							<div class="cens_x2">项目类型：{{deta.classify_name}}</div>
+							<div class="cens_x2">项目类型：{{classify_name}}</div>
 							<div class="cens_x3">领域范围：<span v-for="(el,index) in fields" :key="index">{{el}}</span></div>
 						</div>
 						<div>
@@ -78,7 +78,8 @@ export default {
 			pzTop:{},
 			djstimd:{},
 			desc:[],
-			fields:[]
+			fields:[],
+			classify_name:""
 		}
 	},
 	mounted: function(){
@@ -173,6 +174,7 @@ export default {
 					fields:da.fields,		
 					id:da.id,
 				};
+				this.classify_name = this.$route.query.classname
 				if(da.fields){
 					this.fields = da.fields.split(',')
 				}

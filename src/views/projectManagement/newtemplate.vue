@@ -273,11 +273,18 @@
 				}
 				this.form.id = this.rows.id
 				this.form.fields = this.checkedroles.join(",");
-				
+				let name = '';
+				//console.log(this.tableData1)
+				this.tableData1.forEach(item=>{
+					if(item.id ==this.form.classify_id){
+						name = item.classify_name;
+					}
+				})
 				const {href} = this.$router.resolve({
 					path:"/projectManagement/projectList/newproject/openproject",
 					query:{
-						info:JSON.stringify(this.form)
+						info:JSON.stringify(this.form),
+						classname:name
 					}
 				})
 				window.open(href, '_blank')
