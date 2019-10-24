@@ -356,7 +356,29 @@
 							///this.router.push({path:"/activityManager/activityClass/editActivity",query:{id:row.id,num:222}});
 						}
 						if(setid == "contributor2"){
-							console.log(row.template_url);
+							//console.log(row.template_url);
+							/* if(row.file_type == "video"){
+								fetch(row.template_url).then(res => res.blob()).then(blob => {
+									const a = document.createElement('a');
+									document.body.appendChild(a)
+									a.style.display = 'none'
+									// 使用获取到的blob对象创建的url
+									const url = window.URL.createObjectURL(blob);
+									a.href = url;
+									// 指定下载的文件名
+									a.download = row.file_name;
+									a.click();
+									document.body.removeChild(a)
+									// 移除blob对象的url
+									window.URL.revokeObjectURL(url);
+								}); 
+								
+							}
+							
+							if(row.file_type == "zip"){
+								window.open(row.template_url);
+							} */
+							
 							fetch(row.template_url).then(res => res.blob()).then(blob => {
 								const a = document.createElement('a');
 								document.body.appendChild(a)
@@ -370,7 +392,8 @@
 								document.body.removeChild(a)
 								// 移除blob对象的url
 								window.URL.revokeObjectURL(url);
-							});
+							}); 
+							
 							
 							//window.open(row.template_url);
 						}

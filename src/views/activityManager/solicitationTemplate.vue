@@ -41,23 +41,28 @@
 		</el-dialog>
 		<el-dialog title="本地文件" :visible.sync="showmask1">
 			<div class="dorg textcenter">
-				<el-upload
-				  class="upload-demo textcenter"
-				  drag
-				  action="1111"
-				  ref="upload"
-				  :http-request="httprequest"
-				  :limit = "1"
-				  multiple>
-				  <div>
-				  	<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
-				  </div>
-				  <div class="w textcenter">
-				  	点击或将文件拖拽到这里上传
-				  </div>
-				  <div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
-				</el-upload>
-				<button class="defaultbtn defaultbtnactive " @click="templateadds(1)">确定</button>
+				<!-- :http-request="httprequest" -->
+				<div>
+					<el-upload
+					  class="upload-demo textcenter"
+					  drag
+					  ref="upload"
+					  :http-request="httprequest"
+					  action="454535"
+					  :limit = "1"
+					  multiple>
+					  <div>
+					  	<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
+					  </div>
+					  <div class="w textcenter">
+					  	点击或将文件拖拽到这里上传
+					  </div>
+					  <div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
+					</el-upload>
+				</div>
+				<div  style="margin: 20px;">
+					<button class="defaultbtn defaultbtnactive " @click="templateadds(1)">确定</button>
+				</div>
 			</div>
 		</el-dialog>
 		<el-dialog title="网盘链接" :visible.sync="showmask2">
@@ -75,6 +80,9 @@
 				</div>
 			</div>
 		</el-dialog>
+		<div class="masku screenContent" style="background: rgba(0,0,0,0.4);z-index: 2060;" v-if="isupload">
+			<el-progress type="circle" :percentage="progressnum" class="prossage"></el-progress>
+		</div>
 	</div>
 </template>
 
@@ -90,6 +98,9 @@
 		},
 		data() {
 			return {
+				filedata:{
+					
+				},
 				tabData: [{
 						name: "本地文件",
 						accessid:"46"
@@ -147,7 +158,8 @@
 				online_disk_info:"",
 				filename:'',
 				filetype:"",
-				isupload:false
+				isupload:false,
+				progressnum:0
 			}
 		},
 		methods: {
@@ -225,24 +237,35 @@
 					open_id,
 					times
 				];
+				
+				
 				// 通过 FormData 对象上传文件
-				var formData = new FormData();
+				 var formData = new FormData();
 				formData.append("file", _file);
 				formData.append('app_id', 1003);
 				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
 				formData.append('user', open_id)
 				formData.append('relation_type', 'activity')
-				formData.append('timestamp', times)
-			    var _this = this;
-				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response.data.data);
+				formData.append('timestamp', times) 
+				
+			     var _this = this;
+				 _this.isupload = true;
+				this.axios({
+					url:'http://139.129.221.123/File/File/insert', 
+					data:formData,
+					method:"post",
+					onUploadProgress:function(progressEvent){
+						_this.progressnum = (progressEvent.loaded / progressEvent.total).toFixed(2) * 100
+					}
+				}).then(function (response) {
+					//console.log(response.data.data);
 					_this.file_url = response.data.data.url;
 					_this.filetype = response.data.data.file_type;
-					_this.isupload = true;
-					console.log("1111111");
+					_this.isupload = false;
+					_this.progressnum = 0;
 				}).catch(function (error) {
 					console.log(error);
-				});
+				}); 
 				//console.log(this.form.banner = url)
 			},
 			getcommonrightbtn(){
@@ -355,12 +378,12 @@
 						access_token: localStorage.getItem("access_token"),
 					}
 					
-					if(this.isupload == false) {
+					/* if(this.isupload == false) {
 						this.$message({
-							message:"文件未上传完成"
+							message:"文件未上传完成/没有上传文件"
 						})
 						return;
-					}
+					} */
 				} else {
 					data = {
 						file_name:this.filename,
@@ -381,7 +404,6 @@
 						type: 'info',
 						message: "系统网络故障"
 					})
-					this.isupload =false;
 				})
 				
 			},
