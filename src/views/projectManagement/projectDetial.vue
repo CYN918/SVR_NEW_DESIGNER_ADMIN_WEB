@@ -17,7 +17,6 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				
 			</div> 
 		</div>
 		<div class="detailContent ofh">

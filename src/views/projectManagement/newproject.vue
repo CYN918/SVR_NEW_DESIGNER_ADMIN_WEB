@@ -240,6 +240,7 @@
 				<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
+				<button class="defaultbtn defaultbtnactive" @click="openproject">预览</button>
 			</div>
 		</div>
 		
@@ -475,6 +476,27 @@
 			upload
 		},
 		methods: {
+			openproject(){
+				this.detailtext.forEach((item,index)=>{
+					item.module_content = this.$refs.upload[index].form.content;
+				})
+				this.form.desc = JSON.stringify(this.detailtext);
+				if(this.selectData1.template_file_id){
+					this.form.template_file_id = this.selectData1.template_file_id
+				}
+				this.form.fields = this.checkedroles.join(",");
+				this.form.project_id = this.rows.project_id
+				this.form.demand_id = this.dids.join(',');
+				
+				const {href} = this.$router.resolve({
+					path:"/projectManagement/projectList/newproject/openproject",
+					query:{
+						info:JSON.stringify(this.form)
+					}
+				})
+				window.open(href, '_blank')
+				
+			},
 			delecttem(){
 				this.selectData1 ={};
 				
