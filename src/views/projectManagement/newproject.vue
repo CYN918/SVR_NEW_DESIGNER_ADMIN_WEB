@@ -1419,6 +1419,7 @@
 					num: "left1",
 					showmask: "No",
 					pageName: "newActivity",
+					name:"用户基本信息"
 				}
 				
 				if(this.dialogTableVisible2 == true){

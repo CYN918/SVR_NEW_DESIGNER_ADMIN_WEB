@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="screenbg" v-if="IsScreen == 'No'">
-			<common-screen :pageName="pageName" :tabnum="tabnum"></common-screen>
+			<common-screen :pageName="pageName" :name="name" :tabnum="tabnum"></common-screen>
 		</div>
 		<div class="screenbg" v-if="IsScreenShow == 'No'">
 			<common-screen-show :pageName="pageName"></common-screen-show>
@@ -47,6 +47,7 @@
 				tabnum:"",
 				pressage:false,
 				percentage:50,
+				name:""
 				
 			}
 		},
@@ -70,6 +71,7 @@
 			eventbus() {
 				eventBus.$on("screenshow", (data) => {
 					this.pageName = data.pageName;
+					this.name = data.name
 					switch (data.num) {
 						case "left1":
 							this.IsScreen = data.showmask;

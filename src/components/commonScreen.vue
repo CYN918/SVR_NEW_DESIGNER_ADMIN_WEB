@@ -2,7 +2,7 @@
 	<div class="wh screenContent" style="position: relative; z-index: 2040;">
 		<div class="screenborder">
 			<div class="screenTop paddinglr30">
-				<span class="fleft">{{ currentpageName }}-筛选</span>
+				<span class="fleft">{{ name? name: currentpageName }}-筛选</span>
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
 			<div class="screenMidden paddinglr30">
@@ -104,7 +104,7 @@
 	import city from "@/components/citys.vue"
 	
 	export default {
-		props: ["pageName","tabnum"],
+		props: ["pageName","tabnum","name"],
 		data() {
 			return {
 				form: {},
@@ -120,7 +120,7 @@
 				defaultProps: {
 				  children: 'sub_data',
 				  label: 'classify_name'
-				}
+				},
 			}
 		},
 		components:{
@@ -188,7 +188,7 @@
 				//console.log(this.form)
 			},
 			handleChange(value) {
-				console.log(value);
+				//console.log(value);
 			 }
 		},
 		watch: {
@@ -200,7 +200,7 @@
 			this.getScreen();
 			this.init();
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
-			console.log(this.$route.matched);
+			//console.log(this.$route.matched);
 		},
 		
 		
