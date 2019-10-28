@@ -201,9 +201,7 @@
 			this.init();
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			//console.log(this.$route.matched);
-		},
-		
-		
+		}
 	}
 </script>
 
