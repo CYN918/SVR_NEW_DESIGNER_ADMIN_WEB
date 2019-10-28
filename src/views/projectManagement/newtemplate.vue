@@ -25,11 +25,7 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型</span>
 						<el-select v-model="form['classify_id']" placeholder="请选择" style="width:357px;height:40px;">
-							<el-radio-group v-model="form['classify_id']">
-								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name">
-									<el-radio :label="item.id">{{ item.classify_name }}</el-radio>
-								</el-option>
-							</el-radio-group>
+							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name"></el-option>
 						</el-select>
 					</li>
 					<li class="margint23 ofh">

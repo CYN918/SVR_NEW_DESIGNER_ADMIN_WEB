@@ -50,11 +50,7 @@
 									<div>
 										<el-select v-model="content[index].access" placeholder="请选择" style="width: 375px;">
 											<el-option value="" label=""></el-option>
-											 <el-radio-group v-model="content[index].access">
-												<el-option v-for="(item,index) in forbiddenAccess" :value="item.access" :label="item.msg">
-													<el-radio :value="item.access" :label="item.access">{{ item.msg }}</el-radio>
-												</el-option>
-											</el-radio-group>
+											<el-option v-for="(item,index) in forbiddenAccess" :value="item.access" :label="item.msg"></el-option>
 										</el-select>
 									</div>
 								</div>

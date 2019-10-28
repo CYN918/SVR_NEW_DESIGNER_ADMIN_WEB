@@ -49,12 +49,8 @@
 					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">主题分类</span>
-						<el-select v-model="form['category_id']" placeholder="请选择">
-							<el-radio-group v-model="form['category_id']">
-								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name">
-									<el-radio :label="item.id">{{ item.category_name }}</el-radio>
-								</el-option>
-							</el-radio-group>
+						<el-select v-model="form['category_id']" placeholder="请选择" style="width:357px;">
+							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.category_name"></el-option>
 						</el-select>
 					</li>
 					<li class="margint23 ofh">

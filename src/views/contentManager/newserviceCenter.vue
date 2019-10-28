@@ -24,11 +24,7 @@
 				<li class="margint23 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">文档类型</span>
 					<el-select v-model="form['type']" placeholder="请选择" style="width:357px;">
-						<el-radio-group v-model="form['type']">
-							<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.name">
-								<el-radio :label="item.id">{{ item.name }}</el-radio>
-							</el-option>
-						</el-radio-group>
+						<el-option v-for="(item,index) in tableData" :key="item.id" :value="item.id" :label="item.name"></el-option>
 					</el-select>
 				</li>
 				<li class="margint13 ofh">

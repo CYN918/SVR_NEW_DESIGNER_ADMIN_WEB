@@ -27,11 +27,7 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
 						<el-select v-model="form['business_type']" placeholder="请选择" :disabled="objstatus > 0" style="width: 357px;">
-							<el-radio-group v-model="form['business_type']">
-								<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name">
-									<el-radio :label="item.id">{{ item.name }}</el-radio>
-								</el-option>
-							</el-radio-group>
+							<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name"></el-option>
 						</el-select>
 					</li>
 					<li class="margint23 ofh">
@@ -98,11 +94,7 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
 						<el-select v-model="form['classify_id']" placeholder="请选择" style="width: 357px;">
-							<el-radio-group v-model="form['classify_id']">
-								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name">
-									<el-radio :label="item.id">{{ item.classify_name }}</el-radio>
-								</el-option>
-							</el-radio-group>
+							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name"></el-option>
 						</el-select>
 						<div class="configbtn">
 							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">11</span>
