@@ -50,14 +50,14 @@
 						</span>
 					</div>
 					<div v-if="Isnextshow" style="padding-top: 30px;">
-						<span style="margin-right:0;height: auto;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
+						<!-- <span style="margin-right:0;height: auto;" v-for="(item,index) in tabData1" :key="item.name" :class="tabsnum1 == index ? 'tabs tabactive' : 'tabs'"
 						 @click="tabsChange1(index,item.name)">
-							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+							
 							{{ item.name }}
-						</span>
-						<span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
+						</span> -->
+						<!-- <span style="margin-right:0;height: auto;color: gainsboro;" class="tabs">
 							分成式
-						</span>
+						</span> -->
 					</div>
 					
 					<div class="textcenter employipt" v-if="!Isnextshow">
@@ -72,7 +72,7 @@
 					</div>
 					<div v-if="tabsnum1 == 0 && Isnextshow">
 						<div class="textcenter employipt">
-							<span style="display: inline-block;width: 84px;text-align: right;">录用价格</span>
+							<span style="display: inline-block;width: 84px;text-align: right;">买断录用价格</span>
 							<span class="defaultbtn0 employmonre" style="border-color: #DCDFE6;"><input class="w fleft" type="text" v-model="price"> <span style="color: #DCDFE6;">单位：元</span></span>
 						</div>
 					</div>
@@ -568,6 +568,7 @@
 				})
 			},
 			workhire(){
+				this.centerDialogVisible2=!this.centerDialogVisible2;
 				this.$confirm('确定录用该作品', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
@@ -584,7 +585,6 @@
 						access_token: localStorage.getItem("access_token"),
 					}).then(da => {
 						
-						this.centerDialogVisible2=!this.centerDialogVisible2;
 					})
 				}).catch(() => {
 					this.$message({
@@ -737,7 +737,6 @@
 		padding: 20px 0 37px;
 		border-top: 1px solid #E6E6E6;
 	}
-
 	/* .el-button--small, .el-button--small.is-round{
 		width: 100px;
 		height: 40px;

@@ -86,8 +86,12 @@ input{
 	margin-right: 60px;
 }
 
-.el-dialog__wrapper {
+.el-message-box__wrapper,.el-dialog__wrapper {
 	z-index: 2030 !important;
+}
+
+.v-modal {
+	z-index: 2029 !important;
 }
 
 .el-dialog{

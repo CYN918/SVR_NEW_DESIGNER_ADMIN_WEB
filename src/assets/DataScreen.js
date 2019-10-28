@@ -1707,7 +1707,7 @@ const screenData = {
 			bts1:[
 				{lable:"问题类型ID",prop:"id"},
 				{lable:"类型名称",prop:"classify_name"},
-				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"}},
+				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"},statusclass:"presetReasonstatus"},
 				{lable:"该类型反馈数",prop:"used_num"},
 				{lable:"创建时间",prop:"created_at"},
 			],
@@ -1721,7 +1721,7 @@ const screenData = {
 				links:{
 					name:"停用",
 					Ishow:true,
-					child:{"1":"启用","0":"停用"},
+					child:{"0":"启用","1":"停用"},
 					accessid:"200431"
 				},
 			},
