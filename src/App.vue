@@ -973,6 +973,10 @@ input:disabled{
 	font-weight: 700;
 }
 
+.paragraph > span{
+	overflow: initial !important;
+}
+
 @media screen and (max-width: 1500px) {
 	.screenMidden{
 		height: 220px;
