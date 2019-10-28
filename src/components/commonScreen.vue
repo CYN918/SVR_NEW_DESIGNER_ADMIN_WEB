@@ -131,7 +131,7 @@
 				if (data == "reach") {
 					//console.log()
 					if(this.vocation != ""){
-						this.form['vocation'] = this.vocation;
+						this.form['vocation'] = this.vocation.join(',');
 					};
 					
 					if(this.selectedOptions.length != 0){
