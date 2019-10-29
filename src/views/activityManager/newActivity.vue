@@ -118,7 +118,7 @@
 					</li>
 				</ul>
 			</div>
-			<div v-show="Isnextshow" class="relative" >
+			<div v-show="Isnextshow" class="relative upB" >
 				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 				<div class="ueditoruploadul">
 					<div class="fleft">
@@ -208,7 +208,7 @@
 				form: {
 					activity_name:"",
 					is_provide_template: "0",
-					info: '<p style="color:#999">从这里开始编辑作品类容...</p>',
+					info: '<p style="color:#999"></p>',
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
 					type:'1',
@@ -304,7 +304,7 @@
 				});
 				editorInstance.addListener('blur', (editor) => {
 					if (this.ifBjType == 1 && this.form.info == '') {
-						this.form.info = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+						this.form.info = '';
 						this.ifBjType = 0;
 					}
 				});
@@ -1015,5 +1015,11 @@
 
 	.detailContent .ueditoruploadul ul {
 		padding: 10;
+	}
+	
+	.upB iframe {
+		padding: 0 22px;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
 	}
 </style>

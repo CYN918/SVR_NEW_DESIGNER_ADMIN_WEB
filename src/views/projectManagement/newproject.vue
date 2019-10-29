@@ -459,7 +459,8 @@
 				objstatus:0,
 				clear:true,
 				loading:false,
-				ftype:"1"
+				ftype:"1",
+				sname:""
 			}
 		},
 		components: {
@@ -560,6 +561,7 @@
 				this.dialogTableVisible1=false;
 			},
 			reject1(){
+				this.sname = "项目模板"
 				this.ftype = "2"
 				this.tableConfig={
 					ischeck: false,
@@ -583,7 +585,8 @@
 				}
 				
 				this.filterFields = [
-					{name:"项目名称分类",id:"classify_name"},
+					{name:"模板名称",id:"template_name"},
+					{name:"所属项目分类",id:"classify_name"},
 					{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
 					{type:"display",prop:'t',lable:'额外赏金'},
 				]
@@ -696,6 +699,7 @@
 				}
 			},
 			getruledata(){
+				this.sname = "用户基本信息";
 				this.filterFields = DataScreen.screen['newproject1'].filterFields; 
 				this.dialogTableVisible1 = !this.dialogTableVisible1;
 				if(this.currentpageName == "新建项目"){
@@ -1315,6 +1319,7 @@
 				}
 			},
 			dialogTable(){
+				this.sname = "文件模板";
 				this.tableAction=DataScreen.screenShow.newActivity.action,
 				this.type = this.tabsnum + 1;
 				this.tableConfig.selectid="template_file_id";
@@ -1430,7 +1435,7 @@
 					num: "left1",
 					showmask: "No",
 					pageName: "newActivity",
-					name:"用户基本信息"
+					name:this.sname
 				}
 				
 				if(this.dialogTableVisible2 == true){
