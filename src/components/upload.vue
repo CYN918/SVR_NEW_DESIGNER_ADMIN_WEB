@@ -6,11 +6,11 @@
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
 						<!-- <div class="fleft" @click="showUp(0)">图片</div> -->
-						<div @click="showUp1(0)" class="fleft relative">图片<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
+						<div @click="showUp1(0)" class="fleft relative">图片<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile1"  multiple="multiple" type="file" /></div>
 						<!-- <div class="fleft" @click="showUp(1)">视频</div>
 						<div class="fleft" @click="showUp(2)">音频</div> -->
-						 <div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
-						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile"  multiple="multiple" type="file" /></div>
+						 <div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile2"  multiple="multiple" type="file" /></div>
+						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile3"  multiple="multiple" type="file" /></div>
 					</div>
 				</div>
 			</div>
@@ -182,6 +182,17 @@ export default {
 	methods: {
 		/*page2*/
 		handleAvatarSuccessvideo(params) {
+			
+			//console.log(this.upConfig)
+			let filet = params.target.files[0].type.split("/")[0];
+			if(this.upConfig.getType != filet){
+				this.$message({
+					message:"文件类型错误",
+					type:"error"
+				})
+				return;
+			}
+			
 			const _file = params.target.files[0];
 			let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
 			let open_id = 7;
@@ -209,6 +220,9 @@ export default {
 				 //console.log(response)
 				_this.inImg([response.data.data.url],[response.data.data.fid])
 				///_this.closed(1)
+				_this.$refs.upnfile1.value = "";
+				_this.$refs.upnfile2.value = "";
+				_this.$refs.upnfile3.value = "";
 			}).catch(function (error) {
 				console.log(error);
 			});

@@ -401,7 +401,7 @@
 				dialogTableVisible2:false,
 				pageName: "newActivity",
 				tableAction: DataScreen.screenShow.newActivity.action,
-				filterFields: DataScreen.screen.newActivity.filterFields0,
+				filterFields: [],
 				dialogTableVisible: false,
 				textarea: '',
 				commonTopData: {
@@ -458,7 +458,8 @@
 				selectelists:[],
 				objstatus:0,
 				clear:true,
-				loading:false
+				loading:false,
+				ftype:"1"
 			}
 		},
 		components: {
@@ -559,6 +560,7 @@
 				this.dialogTableVisible1=false;
 			},
 			reject1(){
+				this.ftype = "2"
 				this.tableConfig={
 					ischeck: false,
 					loading:true,
@@ -585,7 +587,6 @@
 					{name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
 					{type:"display",prop:'t',lable:'额外赏金'},
 				]
-				
 				if(this.currentpageName == "新建项目"){
 					this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
 				} else{
@@ -695,7 +696,14 @@
 				}
 			},
 			getruledata(){
+				this.filterFields = DataScreen.screen['newproject1'].filterFields; 
 				this.dialogTableVisible1 = !this.dialogTableVisible1;
+				if(this.currentpageName == "新建项目"){
+					this.$router.push({ path: '/projectManagement/projectList/newproject', query: {urlDate: ''}});
+				} else{
+					this.$router.push({ path: '/projectManagement/projectList/editproject', query: {urlDate: ''}});
+				}
+				///this.getcommonrightbtn();
 				this.getDatay({pageCurrent:1,pageSize:50});
 			},
 			edit(){
@@ -1244,18 +1252,24 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					this.filterFields =  DataScreen.screen.newproject1.filterFields;
+					
+					//this.filterFields =  DataScreen.screen['newproject'+this.ftype].filterFields; 
+					console.log(urldata,this.filterFields)
 					this.filterFields.forEach(item=>{
+						
 						if(urldata[item.id]){
+							
 							var val = urldata[item.id];
-							if(item.child){	
+							
+							if(item.child && item.type != "more"){
 								val = "";
 								item.child.forEach(citem=>{
 									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
-							} 
+							}
+							
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 						} 
 						if(item.type == "two"){
@@ -1276,6 +1290,10 @@
 								})
 							}
 						}
+						/* if(item.type == 'more'){
+							var val = urldata[item.id];
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+						} */
 					})
 				}
 				
@@ -1301,6 +1319,7 @@
 				this.type = this.tabsnum + 1;
 				this.tableConfig.selectid="template_file_id";
 				this.tableConfig.list = DataScreen.screenShow.newActivity["bts" + this.tabsnum];
+				this.filterFields = DataScreen.screen.newActivity['filterFields'+this.tabsnum]
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(this.tabsnum+1);
 				if(this.currentpageName == "新建项目"){
