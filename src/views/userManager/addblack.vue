@@ -45,7 +45,7 @@
 							<div style="margin-left: 104px;">
 								<div>
 									<div>
-										禁用权限
+										禁用权限 <span style="display: inline-block;margin-left:350px;line-height: 40px;color: #FF5121;" @click="delect(index)"> - 删除 </span>
 									</div>
 									<div>
 										<el-select v-model="content[index].access" placeholder="请选择" style="width: 375px;">
@@ -69,6 +69,7 @@
 									</div>
 								</div>
 							</div>
+							
 						</li>
 					</ul>
 					<div @click="addaccess" class="pointer" style="color: #FF5121;font-weight: 500;font-size: 16px;margin-left: 104px;">
@@ -268,6 +269,9 @@
 			}
 		},
 		methods: {
+			delect(index){
+				this.content.splice(index,1);
+			},
 			delectsel(id){
 				this.selectData.forEach((item,index)=>{
 					if(item.open_id == id) {

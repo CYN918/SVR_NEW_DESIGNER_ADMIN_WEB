@@ -96,11 +96,11 @@
 						</li>
 						<li class="margint23 ofh" >
 							<span class="fleft detailKey" style="line-height: 40px;">模板名称</span>
-							<div class=" ofh" style="width: 800px;">
+							<div class="relative ofh" style="width:calc(100% - 160px)">
 								<div class="fleft">
 									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
-								<div class="fleft uediterspan h relative pointer">
+								<div class="fleft uediterspan h pointer" style="bottom: 42px;position: absolute;right: 0;height: 20px;">
 									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 								</div>
 							</div>
