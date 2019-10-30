@@ -41,15 +41,26 @@
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 1 ">
-				<li v-if="material_info.type == '1'" class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
+				<li v-if="" class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span>{{ getValue(material_info[item.id])  }}</span>
+					<span v-if="item.type == 'two'">
+						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
+						<span v-if="material_info.type == '2'">{{ getValue(material_info[item.id2])  }}</span>
+					</span>
+					<span v-if="item.type == 'twourl'">
+						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
+						<span v-if="material_info.type == '2'" style="color: #FF5121;cursor: pointer;" @click="openwindow(material_info[item.id2])">{{ getValue(material_info[item.id2])  }}</span>
+					</span>
+					<span v-if="item.type == 'img'">
+						<img :src="material_info[item.id]" width="500px" alt="暂无">
+					</span>
+					<span v-if="!item.type">{{ getValue(material_info[item.id]) }}</span>
 				</li>
-				<li v-if="material_info.type == '2'" class="margint13 ofh" v-for="(item,index) in fileData1" :key="index" :type="item.type">
+				<!-- <li v-if="material_info.type == '2'" class="margint13 ofh" v-for="(item,index) in fileData1" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="!item.type">{{ getValue(material_info[item.id])  }}</span>
 					<span v-if="item.type == 'url'" style="color: #FF5121;" @click="openwindow(material_info[item.id])">{{ getValue(material_info[item.id])  }}</span>
-				</li>
+				</li> -->
 			</ul>
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
@@ -369,34 +380,28 @@
 				}],
 				tabsnum: 0,
 				tabsnum1: 0,
-				fileData: [{
+				fileData: [
+					{
+						name: "内容预览图",
+						id: "preview_pic",
+						type:"img"
+					},
+					{
 						name: "交稿文件/网盘链接",
-						id: "file_name",
+						id1: "file_name",
+						id2:"online_disk_url",
+						type:"twourl"
 					},
 					{
 						name: "文件大小/取件密码",
-						id: "file_size",
+						id1: "file_size",
+						id2:"access_code",
+						type:"two"
 					},
 					{
 						name: "备注说明",
 						id: "remark",
 					}
-				],
-				fileData1: [
-					{
-						name: "交稿文件/网盘链接",
-						id: "online_disk_url",
-						type:"url"
-					},
-					{
-						name: "文件大小/取件密码",
-						id: "access_code",
-					},
-					{
-						name: "备注说明",
-						id: "remark",
-					}
-					
 				],
 				workData: [{
 						name: "项目ID",
