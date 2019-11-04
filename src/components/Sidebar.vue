@@ -126,7 +126,7 @@
 				</router-link>
 				
 			</el-submenu> -->
-			<el-submenu index="101">
+			<!-- <el-submenu index="101">
 				<template slot="title">
 					<i class="iconfont">&#xe730;</i>
 					<span style="padding:15px;">作品展示配置</span>
@@ -134,7 +134,7 @@
 				<router-link to="/contentManager/workconfig">
 					<el-menu-item index="101-6">作品展示配置</el-menu-item>
 				</router-link>
-			</el-submenu>
+			</el-submenu> -->
 		</el-menu>
 	</div>
 </template>
@@ -177,7 +177,8 @@
 					"200495":"/projectManagement/projectList",
 					"200496":"/projectManagement/projectclass",
 					"200498":"/projectManagement/Profit",
-					"51":"/contentManager/projectrecommende"
+					"51":"/contentManager/projectrecommende",
+					"200478":"/contentManager/workconfig"
 					
 				},
 				iconfont:{
