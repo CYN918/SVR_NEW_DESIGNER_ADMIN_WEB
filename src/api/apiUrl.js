@@ -469,5 +469,21 @@ export default {
 	getSkillInfo:{
 		url:'/Admin/User/getUserSkill',method:'post',baseURL:0
 	},
+	worksubjectlist:{
+		url:'/admin/worksubject/list',method:'post',baseURL:0
+	},
+	worksinfos:{
+		url:'/admin/work/infos',method:'post',baseURL:0
+	},
+	worksubjectadd:{
+		url:'/admin/worksubject/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	worksubjectdel:{
+		url:'/admin/worksubject/del',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	worksubjectupdate:{
+		url:'/admin/worksubject/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
 	
 }

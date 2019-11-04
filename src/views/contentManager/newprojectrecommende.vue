@@ -1,6 +1,6 @@
 <template>
 	<div class="wh Detail" v-loading="loading">
-		<div class="detailtitle">编辑干预任务</div>
+		<div class="detailtitle">干预任务</div>
 		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh">

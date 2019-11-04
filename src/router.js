@@ -434,6 +434,33 @@ var router = new Router({
 					component: () => import('@/views/contentManager/homeBanner.vue'),
 				},
 				{
+					path: "workconfig",
+					name: 'workconfig',
+					meta: {
+						title: "作品展示配置",
+						pagetitle: "作品展示配置-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/workconfig.vue'),
+				},
+				{
+					path: "workconfig/newworkconfig",
+					name: 'newworkconfig',
+					meta: {
+						title: "新建专题",
+						pagetitle: "作品展示配置-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/newworkconfig.vue'),
+				},
+				{
+					path: "workconfig/editworkconfig",
+					name: 'editworkconfig',
+					meta: {
+						title: "编辑专题",
+						pagetitle: "作品展示配置-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/contentManager/newworkconfig.vue'),
+				},
+				{
 					path: "holdAll",
 					name: 'holdAll',
 					meta: {

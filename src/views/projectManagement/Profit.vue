@@ -117,16 +117,7 @@
 </script>
 
 <style>
-	.addDetailContent {
-		font-size: 40px;
-		color: #999999;
-		text-align: center;
-		line-height: 80px;
-		border: 1px dotted #606266;
-		cursor: pointer;
-		border-radius: 10px;
-		margin: 30px;
-	}
+	
 	.uediterspan span{
 		position: position;
 		bottom: 0;

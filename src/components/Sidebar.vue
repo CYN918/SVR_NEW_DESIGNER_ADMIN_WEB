@@ -126,15 +126,15 @@
 				</router-link>
 				
 			</el-submenu> -->
-			<!-- <el-submenu index="101">
+			<el-submenu index="101">
 				<template slot="title">
 					<i class="iconfont">&#xe730;</i>
-					<span style="padding:15px;">黑名单管理</span>
+					<span style="padding:15px;">作品展示配置</span>
 				</template>
-				<router-link to="/userManager/blackList">
-					<el-menu-item index="101-6">黑名单</el-menu-item>
+				<router-link to="/contentManager/workconfig">
+					<el-menu-item index="101-6">作品展示配置</el-menu-item>
 				</router-link>
-			</el-submenu> -->
+			</el-submenu>
 		</el-menu>
 	</div>
 </template>

@@ -17,7 +17,7 @@
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
 				<div class="ofh">
 					<div class="fleft">
-						<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)">{{ item.name }}</el-button>
+						<el-button class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)">{{ item.name }}</el-button>
 					</div>
 					<div class="fright">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
@@ -160,7 +160,7 @@
 			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
-			<img :src="imgurl" alt="暂无图片">
+			<img :src="imgurl" alt="暂无图片" style="max-height:500px;">
 		</div>
 		
 		

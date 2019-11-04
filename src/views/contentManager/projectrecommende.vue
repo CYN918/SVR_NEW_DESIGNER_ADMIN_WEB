@@ -29,7 +29,7 @@
 						fun: "ISshow"
 					}],
 					"commonrightbtn": [{
-						name: "新建项目",
+						name: "新建干预任务",
 						id: "right1",
 						fun: "add",
 						accessid:"1"
