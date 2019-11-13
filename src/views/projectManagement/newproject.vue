@@ -210,16 +210,16 @@
 							<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
 							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
 							<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
+							<div class="fright uediterspan h pointer" style="margin-right: 40px;">
+								<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
+							</div>
 						</li>
 						<li class="margint23 ofh w" >
-							<span class="fleft detailKey" style="line-height: 40px;">模块说明</span>
-							<div class="relative ofh" style="width:calc(100% - 160px)">
-								<div class="fleft">
+							<div class="relative ofh" style="width:938px;margin-left: 100px;">
+								<div class="fleft w">
 									<upload ref="upload" :uploaddata="item.module_content"></upload>
 								</div>
-								<div class="fleft uediterspan h pointer" style="bottom: 42px;position: absolute;right: 0;height: 20px;">
-									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
-								</div>
+								
 							</div>
 						</li>
 					</ul>
@@ -472,7 +472,7 @@
 		methods: {
 			openproject(){
 				this.detailtext.forEach((item,index)=>{
-					item.module_content = this.$refs.upload[index].form.content;
+					item.module_content = this.$refs.upload[index].getContent();
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
 				if(this.selectData1.template_file_id){
@@ -501,7 +501,6 @@
 			},
 			delecttem(){
 				this.selectData1 ={};
-				
 			},
 			setparenttable(){
 				this.$refs.Tableddtem.setparenttable();

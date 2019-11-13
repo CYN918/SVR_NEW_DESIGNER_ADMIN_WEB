@@ -3,7 +3,7 @@
 		<div v-show="chekin" class="upBoxd">
 			<div class="upBoxd1">
 				<div class="upBoxd1_2 relative">
-					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
+					<vue-ueditor-wrap id="id" :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
 						<!-- <div class="fleft" @click="showUp(0)">图片</div> -->
 						<div @click="showUp1(0)" class="fleft relative">图片<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile1"  multiple="multiple" type="file" /></div>
@@ -163,6 +163,7 @@ export default {
 		'form.is_platform_work'() {
 			this.setAutoSave();
 		},
+		
 	},
 	created:function(){
 		this.init();
@@ -180,6 +181,10 @@ export default {
 		
 	},
 	methods: {
+		getContent(){
+			//console.log(this.uD.getContent())
+			return this.uD.getContent();
+		},
 		/*page2*/
 		handleAvatarSuccessvideo(params) {
 			
@@ -731,7 +736,7 @@ export default {
 	display: inline-block;
 }
 .upBoxd1{
-	
+	width: calc(100% - 10px);
 }
 .upBoxd1_1{
 	background: #FFFFFF;
@@ -790,7 +795,7 @@ export default {
 	margin-right: 20px;
 }
 .upBoxd1_2{
-	width: 130%;
+	width: 100%;
 	height: 440px;
 }
 .edui-default .edui-editor-toolbarboxouter{
