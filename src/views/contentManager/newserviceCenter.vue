@@ -67,9 +67,9 @@
 				<div class="fleft" style="margin-top: 5px;margin-right: 20px;">
 					<button class="defaultbtn" @click="cent()">添加标签</button>
 				</div>
-				<div class="fleft" style="margin-top: 5px;margin-right: 20px;">
+				<!-- <div class="fleft" style="margin-top: 5px;margin-right: 20px;">
 					<button class="defaultbtn" @click="addc(0)">标签是否展示</button>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" >
