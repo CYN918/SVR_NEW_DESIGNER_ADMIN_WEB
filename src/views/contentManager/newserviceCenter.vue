@@ -63,7 +63,25 @@
 					</el-upload>
 				</div>
 			</div>
+			<div class="ofv">
+				<div class="fleft" style="margin-top: 5px;margin-right: 20px;">
+					<button class="defaultbtn" @click="cent()">添加标签</button>
+				</div>
+				<div class="fleft" style="margin-top: 5px;margin-right: 20px;">
+					<button class="defaultbtn" @click="addc(0)">标签是否展示</button>
+				</div>
+			</div>
 		</div>
+		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" >
+			<div class="margin40" style="position: relative;padding-bottom: 22px;">
+				<div>
+					标签ID <el-input placeholder="请输入标签ID" v-model="contentlabel" style="width:320px;height:40px;"></el-input>
+				</div>
+				<div class="screenContent">
+					<button class="defaultbtn defaultbtnactive" @click="addc()">确定</button>
+				</div>
+			</div>
+		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn"  @click="getparent">返回</button>
 			<button class="defaultbtn" v-if="Isnextshow" @click="prev()">上一步</button>
@@ -80,12 +98,15 @@
 	export default {
 		data() {
 			return {
+				dialogTableVisible:false,
+				contentlabel:"",
+				contentlabel1:"",
 				detailData: '',
 				input10: '',
 				radio2: "1",
 				form: {
 					remark:"",
-					content: '<p style="color:#999">从这里开始编辑作品类容...</p>',
+					content: '<p style="color:#999"></p>',
 					status:"",
 					access_token: localStorage.getItem("access_token"),
 					type:'1'
@@ -129,6 +150,15 @@
 			VueUeditorWrap
 		},
 		methods: {
+			cent(){
+				this.dialogTableVisible = !this.dialogTableVisible;
+			},
+			addc(){
+				let data = '<q class="hide" id="'+ this.contentlabel +'"> </q>';
+				this.ifBjType = 1;
+				this.uD.execCommand('insertHtml', data);
+				this.cent();
+			},
 			getparent() {
 				this.$router.go(-1);
 			},
@@ -288,7 +318,6 @@
 				});
 				editorInstance.addListener('blur', (editor) => {
 					if (this.ifBjType == 1 && this.form.content == '') {
-						this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 						this.ifBjType = 0;
 					}
 				});

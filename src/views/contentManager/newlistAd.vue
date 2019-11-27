@@ -133,7 +133,13 @@
 				this.dialogTableVisible=false;
 			},
 			getparent() {
-				this.$router.go(-1);
+				this.loading = false;
+				this.$router.push({
+					path:"/contentManager/workconfig",
+					query:{
+						tabsnum:localStorage.getItem('workconfig')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {

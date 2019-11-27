@@ -409,6 +409,11 @@ input{
     border-color: #FF5121;
 }
 
+#app .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner {
+	background-color: #FF5121;
+	border-color: #FF5121;
+}
+
 .el-radio__input.is-checked+.el-radio__label{
 	color: #FF5121 !important;
 }

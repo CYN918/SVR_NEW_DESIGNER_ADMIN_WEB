@@ -924,7 +924,7 @@ const screenData = {
 				{prop:'name',lable:'账户名'},
 				{prop:'email',lable:'邮箱'},
 				{prop:'role_name',lable:'权限角色'},
-				{prop:'updated_at',lable:'最近登录时间'},
+				{prop:'updated_at',lable:'创建时间'},
 			],
 			action:{
 				morebtns:{
