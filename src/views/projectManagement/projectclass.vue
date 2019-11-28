@@ -59,12 +59,14 @@
 					"commonrightbtn0": [{
 						name: "新建项目分类",
 						id: "right1",
-						fun: "add"
+						fun: "add",
+						accessid: "200551"
 					}],
 					"commonrightbtn1": [{
 						name: "新建预设模板",
 						id: "right1",
-						fun: "add1"
+						fun: "add1",
+						accessid: "200556"
 					}],
 					"commonbottombtn":[
 						
@@ -111,7 +113,7 @@
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"1",
+							accessid:"200553",
 							fun:"edit",
 						},
 						
@@ -121,21 +123,21 @@
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"1",
+							accessid:"200555",
 							fun:"edit1",
 						},
 						links:{
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"1",
+							accessid:"200557",
 							fun:"see",
 						},
 						filterbtn:{
 							name:(da)=>{
 								return "删除"
 							},
-							accessid:"1",
+							accessid:"200554",
 							fun:"delect",
 						}
 					},

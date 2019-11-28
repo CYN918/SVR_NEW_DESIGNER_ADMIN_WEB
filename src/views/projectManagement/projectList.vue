@@ -220,7 +220,7 @@
 										return "编辑"
 									},
 									fun:"edit",
-									accessid:"200060",
+									accessid:"200519",
 								},
 								{
 									name:(da)=>{
@@ -229,7 +229,7 @@
 										
 									},
 									fun:"delect",
-									accessid:"200062",
+									accessid:"200518",
 								}
 							]
 						},
@@ -237,7 +237,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					},
@@ -250,21 +250,21 @@
 										return '预览';
 									},
 									fun:"yulan",
-									accessid:"200062",
+									accessid:"200521",
 								},
 								{
 									name:(da)=>{
 										return "编辑"
 									},
 									fun:"edit",
-									accessid:"200060",
+									accessid:"200519",
 								},
 								{
 									name:(da)=>{
 										return '删除';
 									},
 									fun:"delect",
-									accessid:"200062",
+									accessid:"200518",
 								},
 								
 							]
@@ -273,7 +273,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					},
@@ -286,21 +286,21 @@
 										return '选标';
 									},
 									fun:"selectobj",
-									accessid:"200062",
+									accessid:"200525",
 								},
 								{
 									name:(da)=>{
 										return '预览';
 									},
 									fun:"yulan",
-									accessid:"200062",
+									accessid:"200521",
 								},
 								{
 									name:(da)=>{
 										return "编辑"
 									},
 									fun:"edit",
-									accessid:"200060",
+									accessid:"200519",
 								}
 							]
 						},
@@ -308,7 +308,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					},
@@ -321,7 +321,7 @@
 										return "编辑"
 									},
 									fun:"edit",
-									accessid:"200060",
+									accessid:"200519",
 								},
 								{
 									name:(da)=>{
@@ -329,14 +329,14 @@
 									},
 								/* 	filterdata:"is_recommend", */
 									fun:"reject1",
-									accessid:"200062",
+									accessid:"200519",
 								},
 								{
 									name:(da)=>{
 										return '终止';
 									},
 									fun:"reject",
-									accessid:"200062",
+									accessid:"200524",
 								},
 								{
 									name:(da)=>{
@@ -349,7 +349,7 @@
 									},
 									fun:"review",
 									filterdata:"check_status", 
-									accessid:"200062",
+									accessid:"200519",
 								},
 								
 							]
@@ -358,7 +358,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					},
@@ -371,7 +371,7 @@
 										return "下载稿件"
 									},
 									fun:"up",
-									accessid:"200060",
+									accessid:"200522",
 								},
 								{
 									name:(da)=>{
@@ -380,7 +380,7 @@
 										
 									},
 									fun:"presentation",
-									accessid:"200062",
+									accessid:"200521",
 								}
 							]
 						},
@@ -388,7 +388,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					},
@@ -400,7 +400,7 @@
 							name:(da)=>{
 								return "查看"
 							},
-							accessid:"200058",
+							accessid:"200521",
 							fun:"see",
 						}
 					}
