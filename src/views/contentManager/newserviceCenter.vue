@@ -72,7 +72,7 @@
 				</div> -->
 			</div>
 		</div>
-		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" >
+		<el-dialog title="添加标签ID" :visible.sync="dialogTableVisible" >
 			<div class="margin40" style="position: relative;padding-bottom: 22px;">
 				<div>
 					标签ID <el-input placeholder="请输入标签ID" v-model="contentlabel" style="width:320px;height:40px;"></el-input>
@@ -130,7 +130,7 @@
 								'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
 								['bold','italic','underline','source','strikethrough','forecolor','backcolor','|','indent','justifyleft','justifycenter',
 								'justifyright','justifyjustify','indent','rowspacingtop','rowspacingbottom','lineheight','lineheight','insertorderedlist','insertunorderedlist',
-								'imageleft','imageright']
+								'imageleft','imageright',"anchor"]
 					]
 				},
 				imageUrl: "",
