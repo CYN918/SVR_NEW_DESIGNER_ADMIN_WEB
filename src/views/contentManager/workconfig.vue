@@ -144,6 +144,12 @@
 					path:"/contentManager/workconfig/newworkconfig"
 				})
 			},
+			add1(){
+				this.setpage()
+				this.$router.push({
+					path:"/contentManager/newlistAd"
+				})
+			},
 			edit(row){
 				this.setpage()
 				this.$router.push({
