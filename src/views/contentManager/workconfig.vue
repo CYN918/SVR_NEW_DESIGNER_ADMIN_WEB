@@ -213,6 +213,9 @@
 			setpage(){
 				localStorage.setItem("workconfig",this.$refs.Tabledd.tabnums);
 			},
+			ISshow(){
+				this.$refs.Tabledd.reject();
+			},
 		},
 		created() {
 			

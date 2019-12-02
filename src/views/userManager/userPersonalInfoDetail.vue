@@ -95,8 +95,14 @@
 			}
 		},
 		methods:{
-			getparent(){
-				this.$router.go(-1);
+			getparent() {
+				this.loading = false;
+				this.$router.push({
+					path:"/userManager/userInfo",
+					query:{
+						tabsnum:localStorage.getItem('userInfo')
+					}
+				})
 			},
 			getValue(val){
 				if(val) {

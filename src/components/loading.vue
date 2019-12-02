@@ -51,7 +51,8 @@
 							"200495":"/projectManagement/projectList",
 							"200496":"/projectManagement/projectclass",
 							"200498":"/projectManagement/Profit",
-							"200478":"/contentManager/workconfig"
+							"200478":"/contentManager/workconfig",
+							"200473":"/userManager/userInfo"
 						}
 						
 						

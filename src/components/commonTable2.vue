@@ -514,6 +514,13 @@
 				if(this.tableConfig.project_id){
 					data.project_id = this.$parent.project_id;
 				}
+				
+				if(this.tableConfig.project_id){
+					data.project_id = this.$parent.project_id;
+				}
+				if(this.tableConfig['data'+this.tabnums]){
+					data[this.tableConfig['data'+this.tabnums].name] = this.tableConfig['data'+this.tabnums].id;
+				}
 				this.api[url](data).then((da) => {
 					console.log(da.data)
 					this.tableDatas = da.data;

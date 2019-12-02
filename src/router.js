@@ -31,6 +31,15 @@ var router = new Router({
 					component: () => import('@/views/userManager/userBaseInfo.vue')
 				},
 				{
+					path: 'userInfo',
+					name: 'userInfo',
+					meta: {
+						title: "供稿人信息表",
+						pagetitle: "用户基本信息-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/userManager/userInfo.vue')
+				},
+				{
 					path: 'userBaseInfo/userBaseInfoDetail',
 					name: 'userBaseInfoDetail',
 					meta: {

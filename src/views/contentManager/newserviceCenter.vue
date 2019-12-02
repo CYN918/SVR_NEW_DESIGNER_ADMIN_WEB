@@ -120,6 +120,7 @@
 				}],
 				Isnextshow: false,
 				myConfig: {
+					maximumWords:100000000,
 					autoHeightEnabled: false,
 					initialFrameHeight: 200,
 					initialFrameWidth: '100%',

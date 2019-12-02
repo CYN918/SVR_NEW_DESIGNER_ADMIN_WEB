@@ -13,9 +13,14 @@
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">{{ banner_pic != '' ? '重新上传' : '上传图片' }}</button>
 						</div>
-						<div style="margin: 10px 0;" class="fontcolorg">1920*720px，格式jpg，jpeg，png，大小不超过10M</div>
+						<div style="margin: 10px 0;" class="fontcolorg">1920*600px，格式jpg，jpeg，png，大小不超过10M</div>
 					</el-upload>
-					<img v-if="banner_pic" :src="banner_pic" alt="" width="340px" height="110px" style="margin-left: 160px;">
+					<div class="w" style="overflow-x: auto;margin-left: 160px;">
+						<!-- style="margin-left: 160px;" -->
+						<img v-if="banner_pic" :src="banner_pic" alt="" width="1920px" height="600px">
+						
+					</div>
+					
 				</li>
 				<li class="margintbt30 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>
@@ -94,6 +99,14 @@
 					return;
 				}
 				
+				this.axios({
+					url:this.jump_url
+				}).then(da=>{
+					console.log(da);
+				}).catch(da=>{
+					
+				})
+				return;
 				this.api.banneradd({
 					access_token:localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
@@ -109,6 +122,14 @@
 				})
 			},
 			edit(){
+				this.axios({
+					url:this.jump_url
+				}).then(da=>{
+					console.log(da);
+				}).catch(da=>{
+					console.log(da);
+				})
+				return;
 				 this.api.banneredit({
 					access_token:localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
