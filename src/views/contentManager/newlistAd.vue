@@ -167,7 +167,7 @@
 				}).then(da => {
 					//console.log(da)
 					if(da = "添加成功"){
-						this.$router.go(-1);
+						this.getparent()
 					}
 					this.loading = false;
 				}).catch(() => {
@@ -194,7 +194,7 @@
 				}).then(da => {
 					//console.log(da)
 					if(da = "修改成功"){
-						this.$router.go(-1);
+						this.getparent()
 					}
 					this.loading = false
 				}).catch(() => {

@@ -29,8 +29,6 @@
 		},
 		methods:{
 			goto(id){
-				
-				
 				if(this.adminuseraccess.indexOf("200396") == -1){
 					this.$message({
 						message:"没有查看权限"

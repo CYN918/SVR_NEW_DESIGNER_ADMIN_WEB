@@ -460,7 +460,8 @@
 				clear:true,
 				loading:false,
 				ftype:"1",
-				sname:""
+				sname:"",
+				deadline:""
 			}
 		},
 		components: {
@@ -740,6 +741,11 @@
 					})
 					return;
 				}
+				
+				if(this.form['deadline'] != this.deadline){
+					this.form.status = "1"
+				}
+				
 				this.api.projectupdate(this.form).then(da => {
 					
 					if(da.result == 0){
@@ -1094,6 +1100,7 @@
 					this.form.production_cycle_d = da.production_cycle_d;
 					this.form.production_cycle_h = da.production_cycle_h;
 					this.form.deadline = da.deadline;
+					this.deadline = da.deadline;
 					this.form.publish_time = da.publish_time;
 					this.form.status = da.status;
 					

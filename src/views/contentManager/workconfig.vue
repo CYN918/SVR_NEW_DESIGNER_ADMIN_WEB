@@ -35,12 +35,14 @@
 					"commonrightbtn0": [{
 						name: "新建专题",
 						id: "right1",
-						fun: "add"
+						fun: "add",
+						accessid: "200493"
 					}],
 					"commonrightbtn1": [{
 						name: "新建干预任务",
 						id: "right1",
-						fun: "add1"
+						fun: "add1",
+						accessid: "200568"
 					}],
 					"commonbottombtn":[
 						
@@ -85,14 +87,14 @@
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"1",
+							accessid:"200492",
 							fun:"edit",
 						},
 						morebtns:{
 							name:(da)=>{
 								return "删除"
 							},
-							accessid:"1",
+							accessid:"200491",
 							fun:"delect",
 						},
 					},
@@ -101,14 +103,14 @@
 							name:(da)=>{
 								return "删除"
 							},
-							accessid:"1",
+							accessid:"200570",
 							fun:"delect2",
 						},
 						links:{
 							name:(da)=>{
 								return "编辑"
 							},
-							accessid:"1",
+							accessid:"200569",
 							fun:"edit2",
 						}
 					}

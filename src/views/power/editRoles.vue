@@ -127,7 +127,7 @@
 					_token:1
 				}
 				this.api.getMenuList(data).then(da => {
-					console.log(da)
+					//console.log(da)
 					this.data2 = da;
 				}).catch(da =>{
 					

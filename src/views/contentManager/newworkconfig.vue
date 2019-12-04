@@ -115,11 +115,7 @@
 		},
 		data() {
 			return {
-				detailtext:[
-					{
-						
-					},
-				],
+				detailtext:[],
 				name:"",
 				detailData: '',
 				activity_id: '',
@@ -204,14 +200,20 @@
 					work_ids:row.work_id
 				}).then(da=>{
 					this.detailtext.splice(this.indexitem,1,da[0]);
-					console.log(this.detailtext)
+					//console.log(this.detailtext)
 					this.dialogTableVisible=false;
 				})
 				
 				
 			},
 			getparent() {
-				this.$router.go(-1);
+				this.loading = false;
+				this.$router.push({
+					path:"/contentManager/workconfig",
+					query:{
+						tabsnum:localStorage.getItem('workconfig')
+					}
+				})
 			},
 			getValue(val) {
 				if (val) {
@@ -220,7 +222,32 @@
 					return "--"
 				}
 			},
+			alertmask(){
+				
+				if(!this.name){
+					
+					return "请填写名称！！";
+				}
+				if(!this.sorts){
+					
+					return "请选择位置！！";
+				}
+				//console.log(this.detailtext+">>>>>>>>")
+				if(this.detailtext.length == 0){
+					return "请选择干预的作品！！";
+				}
+				
+				
+				return true;
+			},
 			add(){
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				let works = "";
 				this.detailtext.forEach((item,index)=>{
 					//console.log(item);
@@ -230,7 +257,9 @@
 						works += (item.work_id + ",")
 					}
 				})
+				
 				this.loading = true;
+				
 				this.api.worksubjectadd({
 					access_token:localStorage.getItem("access_token"),
 					name: this.name,
@@ -247,6 +276,13 @@
 				})
 			},
 			edit(){
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
+				
 				let works = "";
 				this.detailtext.forEach((item,index)=>{
 					//console.log(item);
@@ -404,12 +440,16 @@
 				this.name = this.row.name;
 				this.sorts = this.row.sort;
 				localStorage.setItem("newlistAd",this.$route.query.row);
-				this.api.worksinfos({
-					access_token:localStorage.getItem("access_token"),
-					work_ids:this.row.work_ids
-				}).then(da=>{
-					this.detailtext = da;
-				})
+				//console.log(this.row)
+				if(this.row.work_ids){
+					this.api.worksinfos({
+						access_token:localStorage.getItem("access_token"),
+						work_ids:this.row.work_ids
+					}).then(da=>{
+						this.detailtext = da;
+					})
+				}
+				
 			} else {
 				if(this.currentpageName == "新建干预任务"){
 					if(localStorage.getItem("newlistAd")){
