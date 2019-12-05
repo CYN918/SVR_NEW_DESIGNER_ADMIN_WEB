@@ -306,6 +306,8 @@
 							this.$parent.centerDialogVisible2 = true;
 							this.$parent.Isnextshow = false;
 							this.$parent.workid = row.work_id;
+							this.$parent.did='';
+							this.$parent.price='';
 						}
 						if(setid == "contributor3"){
 							this.$parent.setContributor(row);

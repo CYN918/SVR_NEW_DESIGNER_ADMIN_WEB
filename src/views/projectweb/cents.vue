@@ -4,7 +4,7 @@
 			<div class="cens_02">
 				<div class="cens_02_1 oijdiv">				
 					<img class="cens_02_1_img" :src="deta.banner" alt="">
-					<div v-if="deta.extra_reward || deta.extra_reward!='0.00'" class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
+					<div v-if="deta.extra_reward != '' && deta.extra_reward !='0.00'" class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
 						额外奖金¥{{deta.extra_reward}}
 					</div>
 					<div class="cens_02_1_cent">

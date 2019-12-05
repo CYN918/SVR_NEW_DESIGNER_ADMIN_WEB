@@ -8,7 +8,7 @@
 					<el-input placeholder="请输入内容" style="width:357px;height:40px;" v-model="banner_name">{{2222 }}</el-input>
 				</li>
 				<li class="margintbt30 ofh">
-					<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
+					<span class="fleft detailKey" style="line-height: 40px;">banner</span>
 					<el-upload action="454535" :http-request="httprequest" accept="image/png,image/jpg,image/jpeg" :show-file-list="false">
 						<div style="overflow: hidden;">
 							<button class="defaultbtn fleft" style="margin-left: 0;">{{ banner_pic != '' ? '重新上传' : '上传图片' }}</button>
@@ -18,9 +18,9 @@
 					<div class="w" style="overflow-x: auto;margin-left: 160px;">
 						<!-- style="margin-left: 160px;" -->
 						<img v-if="banner_pic" :src="banner_pic" alt="" width="1920px" height="600px">
-						
+
 					</div>
-					
+
 				</li>
 				<li class="margintbt30 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>
@@ -31,7 +31,7 @@
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="!rows" @click="add()">创建</button>
-			<button class="defaultbtn defaultbtnactive" v-if="rows"  @click="edit()">确定</button>
+			<button class="defaultbtn defaultbtnactive" v-if="rows" @click="edit()">确定</button>
 		</div>
 	</div>
 </template>
@@ -42,44 +42,44 @@
 			return {
 				detailData: '',
 				banner_name: "",
-				banner_pic:"",
-				jump_url:"",
+				banner_pic: "",
+				jump_url: "",
 				rows: "",
-				currentpageName:"",
+				currentpageName: "",
 			}
 		},
 		methods: {
-			beforeup (file) {
+			beforeup(file) {
 				let _this = this
 				const is1M = file.size / 1024 / 1024 < 10; // 限制小于1M
-				const isSize = new Promise(function (resolve, reject) {
-				  let width = 1920; // 限制图片尺寸为654X270
-				  let height = 720;
-				  let _URL = window.URL || window.webkitURL;
-				  let img = new Image();
-				  img.onload = function () {
-					let valid = img.width === width && img.height === height;
-					valid ? resolve() : reject();
-				  }
-				  img.src = _URL.createObjectURL(file);
+				const isSize = new Promise(function(resolve, reject) {
+					let width = 1920; // 限制图片尺寸为654X270
+					let height = 720;
+					let _URL = window.URL || window.webkitURL;
+					let img = new Image();
+					img.onload = function() {
+						let valid = img.width === width && img.height === height;
+						valid ? resolve() : reject();
+					}
+					img.src = _URL.createObjectURL(file);
 				}).then(() => {
-				  return file;
+					return file;
 				}, () => {
-					
-				  _this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB');
-				  console.log(Promise.reject())
-				  return false;
+
+					_this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB');
+					console.log(Promise.reject())
+					return false;
 				});
 				if (!is1M) {
-				  _this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB')
+					_this.$message.error('图片尺寸限制为1920 x 720，大小不可超过10MB')
 				}
-				return isSize&is1M
+				return isSize & is1M
 			},
 			getparent() {
 				this.router.push({
-					path:"/contentManager/homeBanner",
-					query:{
-						tabsnum:0
+					path: "/contentManager/homeBanner",
+					query: {
+						tabsnum: 0
 					}
 				})
 			},
@@ -90,59 +90,57 @@
 					return "--"
 				}
 			},
-			add(){
-				if(!this.banner_name || !this.banner_pic){
+			checkUrl(urlString) {
+				if (urlString != "") {
+					var reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+					if (!reg.test(urlString)) {
+						return true;
+					}
+				}
+			},
+			add() {
+				if (!this.banner_name || !this.banner_pic || this.checkUrl(this.jump_url)) {
 					this.$message({
-						type:"info",
-						message:"banner素材活动*banner图片不能为空！！"
+						type: "info",
+						message: "banner素材活动*banner图片不能为空*跳转链接url格式不正确！！"
 					});
 					return;
 				}
-				
-				this.axios({
-					url:this.jump_url
-				}).then(da=>{
-					console.log(da);
-				}).catch(da=>{
-					
-				})
-				return;
 				this.api.banneradd({
-					access_token:localStorage.getItem("access_token"),
+					access_token: localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
-					banner_pic:this.banner_pic,
-					jump_url:this.jump_url
+					banner_pic: this.banner_pic,
+					jump_url: this.jump_url
 				}).then(da => {
 					//console.log(da)
-					if(da = "添加成功"){
+					if (da = "添加成功") {
 						this.$router.go(-1);
 					}
 				}).catch(() => {
-					
+
 				})
 			},
-			edit(){
-				this.axios({
-					url:this.jump_url
-				}).then(da=>{
-					console.log(da);
-				}).catch(da=>{
-					console.log(da);
-				})
-				return;
-				 this.api.banneredit({
-					access_token:localStorage.getItem("access_token"),
+			edit() {
+				if (!this.banner_name || !this.banner_pic || this.checkUrl(this.jump_url)) {
+					this.$message({
+						type: "info",
+						message: "banner素材活动*banner图片不能为空*跳转链接url格式不正确！！"
+					});
+					return;
+				}
+				this.api.banneredit({
+					access_token: localStorage.getItem("access_token"),
 					banner_name: this.banner_name,
-					banner_pic:this.banner_pic,
-					jump_url:this.jump_url,
-					id:this.rows.id
+					banner_pic: this.banner_pic,
+					jump_url: this.jump_url,
+					id: this.rows.id
 				}).then(da => {
 					//console.log(da)
-					if(da = "修改成功"){
+					if (da = "修改成功") {
 						this.$router.go(-1);
 					}
 				}).catch(() => {
-					
+
 				})
 			},
 			httprequest(params) {
@@ -159,7 +157,7 @@
 					open_id,
 					times
 				];
-			
+
 				// 通过 FormData 对象上传文件
 				var formData = new FormData();
 				formData.append("file", _file);
@@ -169,29 +167,29 @@
 				formData.append('relation_type', 'activity')
 				formData.append('timestamp', times)
 				this.$parent.setpercentage("start");
-				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function(response) {
 					//console.log(response.data.data.url);
-					
-					_this.$parent.setpercentage("end",response.data.data.url);
-				}).catch(function (error) {
+
+					_this.$parent.setpercentage("end", response.data.data.url);
+				}).catch(function(error) {
 					console.log(error);
 				});
 				//console.log(this.form.banner = url)
 			},
-			setimgurl(url){
+			setimgurl(url) {
 				this.banner_pic = url;
 			}
 		},
 		created() {
-			if(this.$route.query.row){
+			if (this.$route.query.row) {
 				this.rows = JSON.parse(this.$route.query.row);
 				this.banner_name = this.rows.banner_name;
 				this.banner_pic = this.rows.banner_pic;
 				this.jump_url = this.rows.jump_url;
 			}
 		},
-		mounted(){
-			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
+		mounted() {
+			this.currentpageName = (this.$route.matched[this.$route.matched.length - 1].meta.title).split("/")[1];
 			console.log(this.$route.matched);
 		}
 	}
@@ -206,8 +204,8 @@
 		padding-left: 40px;
 		padding-top: 18px;
 	}
-	
-	.margintbt30{
+
+	.margintbt30 {
 		margin-bottom: 30px;
 	}
 
@@ -256,8 +254,8 @@
 		height: 102px;
 		background: red;
 	}
-	
-	.status .el-radio{
+
+	.status .el-radio {
 		width: auto;
 	}
 </style>
