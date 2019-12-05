@@ -85,7 +85,7 @@
 							name:(da)=>{
 								return "查看详情"
 							},
-							accessid:"200052",
+							accessid:"200476",
 							fun:"see1",
 						},
 					},
@@ -94,7 +94,7 @@
 							name:(da)=>{
 								return "查看详情"
 							},
-							accessid:"200047",
+							accessid:"200477",
 							fun:"see",
 						}
 					}

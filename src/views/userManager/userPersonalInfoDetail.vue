@@ -73,7 +73,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">当前状态</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ getstatus(detailData.status) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">最近更新时间</span>
@@ -95,6 +95,23 @@
 			}
 		},
 		methods:{
+			getstatus(n){
+				switch (n){
+					
+					case '1':
+						return "审核通过"
+						break;
+					case '0':
+						return "审核中"
+						break;
+					case '-1':
+						return "审核不通过"
+						break;
+					default:
+						return "--"
+						break;
+				}
+			},
 			getparent() {
 				this.loading = false;
 				this.$router.push({

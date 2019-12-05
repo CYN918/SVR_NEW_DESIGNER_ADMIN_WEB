@@ -122,21 +122,21 @@
 				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
 				<div class="ueditoruploadul">
 					<div class="fleft">
-						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+						<el-upload accept=".jpg,.gif,.png" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
 							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
 								 alt=""></div>
 							<div>上传图片</div>
 						</el-upload>
 					</div>
 					<div class="fleft marginlr30">
-						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
+						<el-upload accept=".mp4" action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
 							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
 								 alt=""></div>
 							<div>上传视频</div>
 						</el-upload>
 					</div>
 					<div class="fleft" style="margin-right: 10px;">
-						<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
+						<el-upload accept=".mp3" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
 							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
 								 alt=""></div>
 							<div>上传音频</div>

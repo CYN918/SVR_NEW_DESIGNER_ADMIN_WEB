@@ -238,7 +238,7 @@
 				</ul>
 				<ul>
 					<li class="w ofh">
-						<div class="textcenter employipt">
+						<div class="textcenter employipt ofh">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">最终价格</span>
 							<span class="fleft sel-dialog-content">
 								<span>
@@ -246,31 +246,30 @@
 								</span>
 							</span>
 						</div>
-						<div class="textcenter employipt">
-							
-							<ul class="ofh sel-dialog-content">
-								<li class="fleft">
+						<div class="textcenter">
+							<ul class="ofh sel-dialog-content" style="margin-left: 184px;">
+								<li class="fleft" style="line-height: 40px;">
 									<div>￥{{ acceptance_price }}</div>
 									<div>验收价格</div>
 								</li>
-								<li v-if="!lflag" class="fleft" style="margin: 0 20px;">
+								<li v-if="!lflag" class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>-</div>
 								</li>
-								<li v-if="!lflag" class="fleft">
+								<li v-if="!lflag" class="fleft" style="line-height: 40px;">
 									<div>￥{{ this.deduction ? this.deductionprice : this.deduction_price }}</div>
 									<div>延期交稿扣减</div>
 								</li>
-								<li class="fleft" style="margin: 0 20px;">
+								<li class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>+</div>
 								</li>
-								<li class="fleft">
+								<li class="fleft" style="line-height: 40px;">
 									<div>￥{{ apply_info.extra_reward }}</div>
 									<div>额外赏金</div>
 								</li>
-								<li class="fleft" style="margin: 0 20px;">
+								<li class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>+</div>
 								</li>
-								<li class="fleft">
+								<li class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>￥{{ acceptance_price * apply_info.gain_share_rate / 100 }}</div>
 									<div>收益加成</div>
 								</li>

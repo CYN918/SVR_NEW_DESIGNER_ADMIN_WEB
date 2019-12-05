@@ -42,21 +42,21 @@
 			<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 			<div class="ueditoruploadul">
 				<div class="fleft">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+					<el-upload accept=".jpg,.gif,.png" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
 						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
 							 alt=""></div>
 						<div>上传图片</div>
 					</el-upload>
 				</div>
 				<div class="fleft marginlr30">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
+					<el-upload accept=".mp4" action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
 						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
 							 alt=""></div>
 						<div>上传视频</div>
 					</el-upload>
 				</div>
 				<div class="fleft" style="margin-right: 10px;">
-					<el-upload action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
+					<el-upload accept=".mp3" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
 						<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
 							 alt=""></div>
 						<div>上传音频</div>
@@ -64,9 +64,9 @@
 				</div>
 			</div>
 			<div class="ofv">
-				<div class="fleft" style="margin-top: 5px;margin-right: 20px;">
+				<!-- <div class="fleft" style="margin-top: 5px;margin-right: 20px;">
 					<button class="defaultbtn" @click="cent()">添加标签</button>
-				</div>
+				</div> -->
 				<!-- <div class="fleft" style="margin-top: 5px;margin-right: 20px;">
 					<button class="defaultbtn" @click="addc(0)">标签是否展示</button>
 				</div> -->
@@ -378,22 +378,50 @@
 				})
 			},
 			setcontent(url,coverurl){
+				
 				if (this.ifBjType == 0) {
-					this.form.info = "";
 					this.ifBjType = 1;
 				}
-				
+				let info = "";
 				if(this.uptype == "img"){
-					this.form.info += '<img src="' + url + '" alt="图片">';
+					
+					info = '<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+url+'"/></p>';
+					//console.log(info)
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph');
+					
 				}
 				if(this.uptype == "video"){
 					/* <img src="' + coverurl + '" alt="视频图片"> */
-					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
+					info = '<video src="'+ url +'" controls="controls"></video>';
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph');
+					this.ifBjType = 1;
 				}
 				if(this.uptype == "audio"){
 					/* <img src="' + coverurl + '" alt="音频图片"> */
+					info = '<audio src="'+ url +'" controls="controls"></audio>';
+					this.uD.execCommand('insertHtml', info);
+					this.uD.execCommand('insertparagraph');
+					this.ifBjType = 1;
+				}
+				
+				
+				
+				/* if(this.uptype == "img"){
+					this.form.info += '<img src="' + url + '" alt="图片">';
+				}
+				if(this.uptype == "video"){
+					this.form.info += '<video src="'+ url +'" controls="controls"></video>';
+				}
+				if(this.uptype == "audio"){
 					this.form.info += '<audio src="'+ url +'" controls="controls"></audio>';
 				}
+				
+				if (this.ifBjType == 0) {
+					this.form.info = "";
+					this.ifBjType = 1;
+				} */
 			},
 		},
 		mounted() {
