@@ -251,12 +251,22 @@
 				let works = "";
 				this.detailtext.forEach((item,index)=>{
 					//console.log(item);
-					if(this.detailtext.length == (index+1)){
-						works += (item.work_id)
-					} else {
-						works += (item.work_id + ",")
+					if(item.work_id){
+						if(this.detailtext.length == (index+1)){
+							works += (item.work_id)
+						} else {
+							works += (item.work_id + ",")
+						}
 					}
+					
 				})
+				console.log()
+				if(!works){
+					this.$message({
+						message:"请选择干预的作品",
+					})
+					return
+				}
 				
 				this.loading = true;
 				
@@ -292,6 +302,13 @@
 						works += (item.work_id + ",")
 					}
 				})
+				
+				if(!works){
+					this.$message({
+						message:"请选择干预的作品",
+					})
+					return
+				}
 				
 				this.loading = true;
 				this.api.worksubjectupdate({

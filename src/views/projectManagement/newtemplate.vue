@@ -867,11 +867,6 @@
 					
 					return "请填写预计收益！！";
 				}
-				
-				if(!this.form['extra_reward']){
-					
-					return "请填写额外赏金！！";
-				}
 				if(!this.form['qq']){
 					
 					return "请填写项目顾问QQ！！";

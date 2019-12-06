@@ -37,7 +37,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">提供发票税率</span>
-					<span class="fleft detailValue">{{getValue(detailData.tax_rate_type)+"%" }}</span>
+					<span class="fleft detailValue">{{getrate(detailData.tax_rate_type) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">企业银行账号</span>
@@ -101,6 +101,21 @@
 					case '-1':
 						return "审核不通过"
 						break;
+					default:
+						return "--"
+						break;
+				}
+			},
+			getrate(n){
+				switch (n){
+					
+					case '1':
+						return "增值税专用发票，税率6%或17%"
+						break;
+					case '2':
+						return "增值税专用发票，税率3%"
+						break;
+					
 					default:
 						return "--"
 						break;
