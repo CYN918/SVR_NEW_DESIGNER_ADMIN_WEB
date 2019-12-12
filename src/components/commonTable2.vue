@@ -635,8 +635,7 @@
 			if(this.$route.query.tabsnum){
 				this.tabsChange(parseInt(this.$route.query.tabsnum));
 			} else {
-				this.gettableConfiglist(0);
-				this.getTabData();
+				this.tabsChange(parseInt(this.$parent.commonTopData.tabnums));
 			}
 		},
 		created() {

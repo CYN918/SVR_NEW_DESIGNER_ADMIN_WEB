@@ -66,7 +66,7 @@
 						{prop:'time',type:"merge",lable:'干预时间',child:{id1:"start_time",id2:"end_time"},width:320},
 						{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}} */
 						{prop:'name',lable:'专题名称'},
-						{lable:"tab排序",prop:"sort",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位"}},
+						{lable:"tab排序",prop:"sort",type:"keyvalue",child:{"1":"第一位","2":"第二位","3":"第三位","4":"第四位","5":"第五位"}},
 						{lable:"当前作品数量",prop:"total_work_num"},
 						
 					],

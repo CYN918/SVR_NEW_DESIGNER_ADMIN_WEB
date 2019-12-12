@@ -130,6 +130,7 @@
 			getactivitiesrows(row){
 	
 				this.activitiesrows = row;
+				this.activitiesrows.id = this.row.id;
 				this.dialogTableVisible=false;
 			},
 			getparent() {
@@ -181,7 +182,6 @@
 					})
 					return;
 				}
-				
 				this.loading = true;
 				this.api.Homerec_edit({
 					access_token:localStorage.getItem("access_token"),
