@@ -135,9 +135,9 @@
 									<span class="ofv" v-if="item.limittype == 'video'"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
 									<span class="ofv" v-if="item.limittype == 'file'"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
 									<span class="color-666 fright" style="line-height: 22px;">
-										<span>上移</span>
-										<span class="paddinglr30">下移</span>
-										<span>删除</span>
+										<span class="pointer" @click="swapItems(additemdata,index,index-1)">上移</span>
+										<span @click="swapItems(additemdata,index,index+1)" class="paddinglr30 pointer">下移</span>
+										<span class="pointer" @click="delect(index)">删除</span>
 									</span>
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
@@ -151,23 +151,73 @@
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">上传限制</span>
 									<el-input class="fleft additem-value" type="text" style="width: 244px;" placeholder="大小限制(KB)" v-model="additemdata[index].limitnum"></el-input>
-									<el-select class="fright" v-model="additemdata[index].limitclass" placeholder="请选择" style="width: 120px;">
+									<el-select v-if="item.limittype == 'text'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="请选择" style="width: 120px;">
 										<el-option
 										  style="width: 120px;"
-										  v-for="item in limitdatatext"
+										  v-for="item in limitdata['text']"
 										  :label="item"
 										  :value="item">
 										</el-option>
+										<!-- <el-option
+										  v-if="item.limittype == 'pic'"
+										  style="width: 120px;"
+										  v-for="item in limitdata['pic']"
+										  :label="item"
+										  :value="item">
+										</el-option>
+										<el-option
+										  v-if="item.limittype == 'video'"
+										  style="width: 120px;"
+										  v-for="item in limitdata['video']"
+										  :label="item"
+										  :value="item">
+										</el-option>
+										<el-option
+										  v-if="item.limittype == 'file'"
+										  style="width: 120px;"
+										  v-for="item in limitdata['file']"
+										  :label="item"
+										  :value="item">
+										</el-option> -->
 									  </el-select>
+									  <el-select v-if="item.limittype == 'pic'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="请选择" style="width: 120px;">
+									  	<el-option
+									  	  style="width: 120px;"
+									  	  v-for="item in limitdata['pic']"
+									  	  :label="item"
+									  	  :value="item">
+									  	</el-option>
+									  	<!-- <el-option
+									  	  v-if="item.limittype == 'pic'"
+									  	  style="width: 120px;"
+									  	  v-for="item in limitdata['pic']"
+									  	  :label="item"
+									  	  :value="item">
+									  	</el-option>
+									  	<el-option
+									  	  v-if="item.limittype == 'video'"
+									  	  style="width: 120px;"
+									  	  v-for="item in limitdata['video']"
+									  	  :label="item"
+									  	  :value="item">
+									  	</el-option>
+									  	<el-option
+									  	  v-if="item.limittype == 'file'"
+									  	  style="width: 120px;"
+									  	  v-for="item in limitdata['file']"
+									  	  :label="item"
+									  	  :value="item">
+									  	</el-option> -->
+									    </el-select>
 								</div>
 							</div>
 							<div class="addtimebtn">
 								<div class="textcenter color-999" style=""><span style="font-weight: 20px;line-height: 20px;">+</span> 选择添加附件信息项</div>
 								<div class="ofh addtimebtns">
-									<span class="ofv"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
-									<span class="ofv"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
-									<span class="ofv"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
-									<span class="ofv"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
+									<span @click="additemdatalist('text')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
+									<span @click="additemdatalist('pic')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
+									<span @click="additemdatalist('video')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
+									<span @click="additemdatalist('file')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
 								</div>
 							</div>
 						</div>
@@ -273,42 +323,27 @@
 		data() {
 			return {
 				additemdata:[
-					{
-						title:"",
-						tigs:"",
-						limitnum:"",
-						limittype:"text",
-					},
-					{
-						title:"",
-						tigs:"",
-						limitnum:"",
-						limittype:"pic",
-					},
-					{
-						title:"",
-						tigs:"",
-						limitnum:"",
-						limittype:"video",
-					},
-					{
-						title:"",
-						tigs:"",
-						limitnum:"",
-						limittype:"pic",
-					},
+					
 				],
-				limitdatatext:[
-					"仅限数字",
-					"数字+英文+标点",
-					"不限制"
-				],
-				limitdatapic:[
-					"jpg",
-					"png",
-					"gif",
-					"jpg/png/gif"
-				],
+				limitdata:{
+					text:[
+						"仅限数字",
+						"数字+英文+标点",
+						"不限制"
+					],
+					pic:[
+						"jpg",
+						"png",
+						"gif",
+						"jpg/png/gif"
+					],
+					video:[
+						"mp4"
+					],
+					file:[
+						"不限制"
+					]
+				},
 				detailData: '',
 				input10: '',
 				radio2: "1",
@@ -405,6 +440,37 @@
 			commonTable
 		},
 		methods: {
+			additemdatalist(type){
+				this.additemdata.push({
+					title:"",
+					tigs:"",
+					limitnum:"",
+					limittype:type,
+					limittypevalue:""
+				})
+			},
+			swapItems(arr, index1, index2) {
+				
+				if(index2 >= arr.length){
+					this.$message({
+						message:"到底了"
+					});
+					return
+				}
+				
+				if(index2 < 0){
+					this.$message({
+						message:"已经是第一个了"
+					});
+					return
+				}
+				
+				arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+				this.additemdata = arr; 
+			},
+			delect(index){
+				this.additemdata.splice(index,1);
+			},
 			ready(editorInstance) {
 				this.uD = editorInstance;
 				editorInstance.addListener('focus', (editor) => {
@@ -469,7 +535,7 @@
 				} else {
 					this.form.related_needs_id = "";
 				}
-				
+				this.form.extra_info = JSON.stringify(this.additemdata);
 				this.api.activityedit(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -625,6 +691,8 @@
 				return isJPG;
 			},
 			nxet() {
+				
+				//console.log(this.additemdata);
 				this.Isnextshow = true;
 				this.$refs.scroll.scrollTop = 0;
 			},
@@ -744,6 +812,8 @@
 				} else {
 					this.form.related_needs_id = "";
 				}	
+				this.form.extra_info = JSON.stringify(this.additemdata);
+				 console.log(this.form.extra_info);
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -761,10 +831,10 @@
 					this.form = da;
 					if(this.form.info){
 						this.ifBjType=1;
+					} 
+					if(da.extra_info){
+						this.additemdata = JSON.parse(da.extra_info)
 					}
-					console.log(da.related_needs_id)
-					
-					
 					da.related_needs_id.split(",").forEach(item=>{
 						this.demandlist.forEach(ditem =>{
 							if(item == ditem.did){
@@ -1072,14 +1142,14 @@
 		margin-right: 8px;
 	}
 	.additem-key{
-		width: 56px;
+		width: 58px;
 		margin-right: 4px;
 		text-align: right;
 		line-height: 40px;
 		color: #666666;
 	}
 	.additem-value{
-		width: calc(100% - 60px);
+		width: calc(100% - 63px);
 	}
 	.sel-dialog  {
 		width: 1100px;
