@@ -260,7 +260,6 @@
 					}
 					
 				})
-				console.log()
 				if(!works){
 					this.$message({
 						message:"请选择干预的作品",
@@ -276,8 +275,8 @@
 					sort: this.sorts,
 					work_ids:works,
 				}).then(da => {
-					//console.log(da)
-					if(da = "添加成功"){
+					console.log(da)
+					if(da.result = "0"){
 						this.getparent();
 					}
 					this.loading = false;
@@ -296,10 +295,12 @@
 				let works = "";
 				this.detailtext.forEach((item,index)=>{
 					//console.log(item);
-					if(this.detailtext.length == (index+1)){
-						works += (item.work_id)
-					} else {
-						works += (item.work_id + ",")
+					if(item.work_id){
+						if(this.detailtext.length == (index+1)){
+							works += (item.work_id)
+						} else {
+							works += (item.work_id + ",")
+						}
 					}
 				})
 				
@@ -318,8 +319,8 @@
 					work_ids:works,
 					id:this.row.id
 				}).then(da => {
-					//console.log(da)
-					if(da = "修改成功"){
+					console.log(da)
+					if(da.result = "0"){
 						this.getparent();
 					}
 					this.loading = false
