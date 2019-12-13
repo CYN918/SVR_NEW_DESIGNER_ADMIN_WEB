@@ -82,6 +82,7 @@
 				}
 
 				this.api.activitylist(data).then((da) => {
+					console.log(da.total)
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;

@@ -77,7 +77,7 @@
 		},
 		methods: {
 			settrue(id1,id2){
-				console.log(id1,id2)
+				//console.log(id1,id2)
 				if((this.adminuseraccess.indexOf(id1) == -1) && (this.adminuseraccess.indexOf(id2) == -1)) {
 					return false;
 				} else {
@@ -258,7 +258,7 @@
 			IsShow(index) {
 				this.Istooltip = false;
 				if(index == 0) {
-					console.log(this.$parent.selectData);
+					//console.log(this.$parent.selectData);
 					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
 						this.$parent.centerDialogVisible = true;
 					} else {
@@ -300,7 +300,7 @@
 					access_token:localStorage.getItem("access_token"),
 				}).then(da =>{
 					//alert(1);
-					console.log(da);
+					//console.log(da);
 					this.doCount = da;
 					eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)

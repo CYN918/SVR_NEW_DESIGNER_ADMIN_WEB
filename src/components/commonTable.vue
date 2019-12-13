@@ -766,7 +766,6 @@
 					    noSelectIds.push(row[this.pageid]);
 					}
 				})
-				console.log(noSelectIds)
 				noSelectIds.forEach(id=>{
 				    if (selectAllIds.indexOf(id) >= 0) {
 				        for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
@@ -807,7 +806,6 @@
 						if(data[i][this.pageid] == this.multipleSelectionAll[x][this.pageid] ){
 							var f = function(a){
 								setTimeout(() => {
-									console.log(data[a])
 									_this.$refs.multipleTable.toggleRowSelection(data[a],true);
 								}, 100);
 							}
@@ -915,7 +913,7 @@
 		},
 		mounted() {
 			this.autoTableHeight();
-			//console.log(this.tableConfig)
+			console.log(this.tableConfig)
 			this.init();
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))

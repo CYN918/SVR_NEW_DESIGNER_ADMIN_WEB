@@ -49,7 +49,7 @@
 					access_token:localStorage.getItem("access_token"),
 				}).then(da =>{
 					//alert(1);
-					console.log(da);
+					//console.log(da);
 					this.doCount = da;
 					eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
@@ -100,7 +100,7 @@
 					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
-						console.log(da)
+						//console.log(da)
 						if(da.result == 0){
 							window.location.href = da.data;
 						}

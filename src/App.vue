@@ -399,6 +399,45 @@ input{
 	padding-top: 64px;
 }
 
+.ueditortab{
+	width: 201px;
+	margin: 40px auto;
+	height: 40px;
+	
+}
+
+.ueditortab-item{
+	width: calc(50% - 2px);
+	height: calc(100% - 2px);
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #999999;
+	cursor: pointer;
+	
+}
+.color-666{
+	color: #666666;
+}
+.color-999{
+	color: #999999;
+}
+
+.ueditortab-item-left{
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.ueditortab-item-right{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.ueditortab-item-active{
+	background: #FF5121;
+	color: white;
+	border-color: #FF5121;
+}
+
 .detailContent1 ul {
 	padding-left: 132px;
 	padding-top: 64px;

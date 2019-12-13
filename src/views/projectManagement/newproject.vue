@@ -203,28 +203,41 @@
 					</li>
 				</ul> 
 			</div>
-			<div v-show="Isnextshow" class="relative" v-loading="!clear">
-				<div class="detailContent ofh w" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
-					<ul class="fleft" style="padding-top: 30px;margin-left: 50px;width:calc(100% - 182px)">
-						<li class="margint23">
-							<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
-							<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
-							<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
-							<div class="fright uediterspan h pointer" style="margin-right: 40px;">
-								<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
-							</div>
-						</li>
-						<li class="margint23 ofh w" >
-							<div class="relative ofh" style="width:938px;margin-left: 100px;">
-								<div class="fleft w">
-									<upload ref="upload" :uploaddata="item.module_content"></upload>
-								</div>
-								
-							</div>
-						</li>
-					</ul>
+			<div v-show="Isnextshow"  v-loading="!clear">
+				<div>
+					<div class="ueditortab ofh" style="margin-bottom: 0;">
+						<div :class="['ueditortab-item ueditortab-item-left',{'ueditortab-item-active':istab}]" @click="istab = true">图文编辑器</div>
+						<div :class="['ueditortab-item ueditortab-item-right',{'ueditortab-item-active':!istab}]" @click="istab = false">个性化页面</div>
+					</div>
 				</div>
-				<div class="addDetailContent" @click="addDetailContent()">+</div>
+				<div class="relative" v-if="istab">
+					<div class="detailContent ofh w" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
+						<ul class="fleft" style="padding-top: 30px;margin-left: 50px;width:calc(100% - 182px)">
+							<li class="margint23">
+								<div class="fleft" style="line-height: 40px;color: #999999;margin-left: -100px;">说明模块{{ index+1 }}</div>
+								<span class="fleft detailKey" style="line-height: 40px;">模块标题</span>
+								<el-input placeholder="请输入内容" v-model="item.module_title" style="width:357px;height:40px;" clearable></el-input>
+								<div class="fright uediterspan h pointer" style="margin-right: 40px;">
+									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
+								</div>
+							</li>
+							<li class="margint23 ofh w" >
+								<div class="relative ofh" style="width:938px;margin-left: 100px;">
+									<div class="fleft w">
+										<upload ref="upload" :uploaddata="item.module_content"></upload>
+									</div>
+									
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="addDetailContent" @click="addDetailContent()">+</div>
+				</div>
+				<div v-if="!istab">
+					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
+						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
+					</div>
+				</div>
 			</div>
 			<div class="screenContent detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
@@ -334,6 +347,7 @@
 	export default {
 		data() {
 			return {
+				istab:true,
 				checkedroles:[
 					
 				],

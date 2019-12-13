@@ -117,30 +117,102 @@
 						</el-dropdown>
 					</li>
 				</ul>
+				<ul style="border-top:1px solid #f0f2f5;padding: 0;">
+					<li class="detailKey" style="margin-left: 60px;margin-top: 20px;">报名附件信息</li>
+				</ul>
+				<ul style="padding-top: 0;">
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">报名框提示语</span>
+						<el-input class="fleft" style="width: 500px;" v-model="form.remeber_tips"></el-input>
+					</li>
+					<li class="margint23 ofh">
+						<span class="fleft detailKey">附加项设置</span>
+						<div class="fleft">
+							<div class="additem" v-for="(item,index) in additemdata" :item="item" :index="index">
+								<div class="ofh">
+									<span class="ofv" v-if="item.limittype == 'text'"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
+									<span class="ofv" v-if="item.limittype == 'pic'"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
+									<span class="ofv" v-if="item.limittype == 'video'"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
+									<span class="ofv" v-if="item.limittype == 'file'"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
+									<span class="color-666 fright" style="line-height: 22px;">
+										<span>上移</span>
+										<span class="paddinglr30">下移</span>
+										<span>删除</span>
+									</span>
+								</div>
+								<div class="ofh" style="margin: 10px 0;">
+									<span style="line-height: 40px;" class="fleft additem-key">名称</span>
+									<el-input class="fright additem-value" type="text" v-model="additemdata[index].title"></el-input>
+								</div>
+								<div class="ofh" style="margin: 10px 0;">
+									<span style="line-height: 40px;" class="fleft additem-key">提示语</span>
+									<el-input class="fright additem-value" type="text" v-model="additemdata[index].tigs"></el-input>
+								</div>
+								<div class="ofh" style="margin: 10px 0;">
+									<span style="line-height: 40px;" class="fleft additem-key">上传限制</span>
+									<el-input class="fleft additem-value" type="text" style="width: 244px;" placeholder="大小限制(KB)" v-model="additemdata[index].limitnum"></el-input>
+									<el-select class="fright" v-model="additemdata[index].limitclass" placeholder="请选择" style="width: 120px;">
+										<el-option
+										  style="width: 120px;"
+										  v-for="item in limitdatatext"
+										  :label="item"
+										  :value="item">
+										</el-option>
+									  </el-select>
+								</div>
+							</div>
+							<div class="addtimebtn">
+								<div class="textcenter color-999" style=""><span style="font-weight: 20px;line-height: 20px;">+</span> 选择添加附件信息项</div>
+								<div class="ofh addtimebtns">
+									<span class="ofv"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
+									<span class="ofv"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
+									<span class="ofv"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
+									<span class="ofv"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						
+					</li>
+				</ul>
 			</div>
-			<div v-show="Isnextshow" class="relative upB" >
-				<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
-				<div class="ueditoruploadul">
-					<div class="fleft">
-						<el-upload accept=".jpg,.gif,.png" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
-							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
-								 alt=""></div>
-							<div>上传图片</div>
-						</el-upload>
+			<div v-show="Isnextshow" >
+				<div><!-- :class="['number',{'numberactive':Isnextshow}]" -->
+					<div class="ueditortab ofh" style="margin-bottom: 0;">
+						<div :class="['ueditortab-item ueditortab-item-left',{'ueditortab-item-active':istab}]" @click="istab = true">图文编辑器</div>
+						<div :class="['ueditortab-item ueditortab-item-right',{'ueditortab-item-active':!istab}]" @click="istab = false">个性化页面</div>
 					</div>
-					<div class="fleft marginlr30">
-						<el-upload accept=".mp4" action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
-							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
-								 alt=""></div>
-							<div>上传视频</div>
-						</el-upload>
+				</div>
+				<div class="relative upB" v-if="istab">
+					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.info"></vue-ueditor-wrap>
+					<div class="ueditoruploadul">
+						<div class="fleft">
+							<el-upload accept=".jpg,.gif,.png" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccess" >
+								<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" src="../../assets/img/icon_img.png"
+									 alt=""></div>
+								<div>上传图片</div>
+							</el-upload>
+						</div>
+						<div class="fleft marginlr30">
+							<el-upload accept=".mp4" action="http://139.129.221.123/File/File/insert" :show-file-list="false"  :http-request="handleAvatarSuccessvideo" >
+								<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_vedio.png"
+									 alt=""></div>
+								<div>上传视频</div>
+							</el-upload>
+						</div>
+						<div class="fleft" style="margin-right: 10px;">
+							<el-upload accept=".mp3" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
+								<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
+									 alt=""></div>
+								<div>上传音频</div>
+							</el-upload>
+						</div>
 					</div>
-					<div class="fleft" style="margin-right: 10px;">
-						<el-upload accept=".mp3" action="http://139.129.221.123/File/File/insert" :show-file-list="false" :http-request="handleAvatarSuccessaudio" >
-							<div class="w textcenter"><img width="20px" height="20px" style="margin-top: 10px;" class="" src="../../assets/img/icon_music.png"
-								 alt=""></div>
-							<div>上传音频</div>
-						</el-upload>
+				</div>
+				<div v-if="!istab">
+					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
+						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
 					</div>
 				</div>
 			</div>
@@ -200,6 +272,43 @@
 	export default {
 		data() {
 			return {
+				additemdata:[
+					{
+						title:"",
+						tigs:"",
+						limitnum:"",
+						limittype:"text",
+					},
+					{
+						title:"",
+						tigs:"",
+						limitnum:"",
+						limittype:"pic",
+					},
+					{
+						title:"",
+						tigs:"",
+						limitnum:"",
+						limittype:"video",
+					},
+					{
+						title:"",
+						tigs:"",
+						limitnum:"",
+						limittype:"pic",
+					},
+				],
+				limitdatatext:[
+					"仅限数字",
+					"数字+英文+标点",
+					"不限制"
+				],
+				limitdatapic:[
+					"jpg",
+					"png",
+					"gif",
+					"jpg/png/gif"
+				],
 				detailData: '',
 				input10: '',
 				radio2: "1",
@@ -288,6 +397,7 @@
 				demand_names:[],
 				selectData1:{},
 				uD:{},
+				istab:true
 			}
 		},
 		components: {
@@ -931,6 +1041,46 @@
 </script>
 
 <style>
+	.addtimebtns{
+		width: 316px;
+		margin: auto;
+		margin-top:20px;
+		display: flex;
+		justify-content:space-between;
+		
+	}
+	.addtimebtn{
+		width:460px;
+		height:62px;
+		border-radius:5px;
+		border:1px solid rgba(217,217,217,1);
+		margin-top: 20px;
+		padding: 20px;
+	}
+	.additem{
+		width:460px;
+		height:212px;
+		border-radius:5px;
+		border:1px solid rgba(217,217,217,1);
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+	.additem-icon{
+		width: 22px;
+		height: 22px;
+		float: left;
+		margin-right: 8px;
+	}
+	.additem-key{
+		width: 56px;
+		margin-right: 4px;
+		text-align: right;
+		line-height: 40px;
+		color: #666666;
+	}
+	.additem-value{
+		width: calc(100% - 60px);
+	}
 	.sel-dialog  {
 		width: 1100px;
 	}
