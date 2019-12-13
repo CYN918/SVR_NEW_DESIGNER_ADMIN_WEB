@@ -28,6 +28,13 @@ if(window.location.host=='shiquaner-admin.zookingsoft.com'){
    localStorage.setItem("URL","http://shiquaner.zookingsoft.com")
    localStorage.setItem("adminURL","http://shiquaner-admin-api.zookingsoft.com");
 }
+
+if(window.location.host=='120.27.22.130:8082'){
+   baseURLs = ['http://120.27.22.130:8083',];
+   localStorage.setItem("URL","http://120.27.22.130:8080")
+   localStorage.setItem("adminURL","http://120.27.22.130:8083");
+}
+
 localStorage.setItem("baseURLs",baseURLs+'/Admin');
 const toMethod = (options) => {
 	options.method = options.method || 'post'
