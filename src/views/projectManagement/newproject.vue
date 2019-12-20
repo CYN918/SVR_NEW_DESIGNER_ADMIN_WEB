@@ -1493,6 +1493,7 @@
 				}
 			}
 			if(this.$route.query.usernameitem){
+				this.form['rule_type'] = 2;
 				this.typebtn =1;
 				this.selectelists = []
 				this.selectelists.push(JSON.parse(this.$route.query.usernameitem)) 
