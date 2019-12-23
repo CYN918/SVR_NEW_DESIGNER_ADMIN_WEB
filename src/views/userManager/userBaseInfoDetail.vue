@@ -113,7 +113,7 @@
 					<span class="fleft detailKey">平台推荐等级</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ getValue(detailData.recommend_level)  }}
+							{{ detailData.recommend_level ? getValue(detailData.recommend_level) : "不推荐"  }}
 						</router-link>
 					</span>
 				</li>

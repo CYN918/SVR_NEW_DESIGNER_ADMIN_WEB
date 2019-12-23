@@ -84,7 +84,7 @@
 						name: "新建项目",
 						id: "right1",
 						fun: "add",
-						accessid:"1"
+						accessid:"200520"
 					}],
 					"commonbottombtn":[
 						

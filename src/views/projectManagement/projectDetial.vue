@@ -211,8 +211,8 @@
 						<div class="screenContent">
 							<button class="defaultbtn" @click="userdetail(item.user.open_id)">用户详情</button>
 							<button class="defaultbtn" @click="gotoweb(item.user.open_id)">个人主页</button>
-							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
-							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
+							<button v-if="status == 2 && (adminuseraccess.indexOf('200519') > -1)" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
+							<button v-if="adminuseraccess.indexOf('200519') > -1" class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
 						<img v-if="index == 0 && item.is_selected == '1'" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
 					</li>
@@ -228,7 +228,7 @@
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
-				<button v-if="status  == 2" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
+				<button v-if="status  == 2 && tabsnum != 3 && (adminuseraccess.indexOf('200525') > -1)" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
 			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
@@ -250,7 +250,7 @@
 		  			<span>如何分配项目</span>
 		  		</li>
 		  		<li class="textcenter" style="margin-bottom: 20px;">
-		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="centerDialogVisible1=true">成为已创建项目的制作人</button>
+		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="ishide()">成为已创建项目的制作人</button>
 		  		</li>
 		  		<li class="textcenter" style="margin-bottom: 20px;">
 		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="addnewuser()">新建项目并指定TA来制作</button>
@@ -643,6 +643,10 @@
 			}
 		},
 		methods: {
+			ishide(){
+				this.centerDialogVisible = false;
+				this.centerDialogVisible1=true;
+			},
 			openwork(id){
 				window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + id+"&access_token="+localStorage.getItem('access_token'));
 			},
