@@ -174,6 +174,22 @@
 					</router-link>
 				</li>
 			</ul>
+			<ul v-if="tabsnum == 3">
+				<li class="margint13 ofh" v-for="(item,index) in getchange(check_info.append_infos)">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;"> {{ item.title }} </span>
+					<span v-if="item.limit_type == 'text'">{{ item.title  }}</span>
+					<img v-if="item.limit_type == 'pic'" :src="item.url" alt="" style="width: 200px;height: 150px;">
+					<div v-if="item.limit_type == 'video'">
+						<video :src="item.url" controls="controls"></video>
+						<div class="pointer" style="margin-left: 160px;width: 140px;color: #FF5121;margin-top: 10px;" @click="upload(item.url)">下载视频</div>
+					</div>
+					<div v-if="item.limit_type == 'file'">
+						<span>{{ getfilename(item.url) }}</span>
+						<div class="pointer" style="margin-left: 160px;width: 140px;color: #FF5121;margin-top: 10px;" @click="upload(item.url)">下载文件</div>
+						
+					</div>
+				</li>
+			</ul>
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -456,6 +472,47 @@
 			}
 		},
 		methods: {
+			upload(u){
+				fetch(u).then(res => res.blob()).then(blob => {
+					const a = document.createElement('a');
+					document.body.appendChild(a)
+					a.style.display = 'none'
+					// 使用获取到的blob对象创建的url
+					const url = window.URL.createObjectURL(blob);
+					a.href = url;
+					// 指定下载的文件名
+					let data = u.split('/');
+					
+					a.download = data[data.length-1];
+					a.click();
+					document.body.removeChild(a)
+					// 移除blob对象的url
+					window.URL.revokeObjectURL(url);
+				});
+			},
+			getfilename(str){
+				let data = str.split('/');
+				return data[data.length-1];
+			},
+			setkey(str){
+				let data = "";
+				if(str == 'text'){
+					return "姓名"
+				} else if(str == 'pic'){
+					return "预览图"
+				} else if(str == 'video'){
+					return "上传视频"
+				} else if(str == 'file') {
+					return "作品文件"
+				}
+			},
+			getchange(str){
+				if(str){
+					return JSON.parse(str)
+				} else {
+					return [];
+				}
+			},
 			getimgulr(url){
 				this.imgurl = url;
 				this.isimgurl = !this.isimgurl
@@ -809,6 +866,12 @@
 						linkTo: "/review/employWork",
 						publishWorks: "",
 					}];
+					if(this.pagetype == 2){
+						this.tabData.push({
+							name: "附件信息",
+						})
+						
+					}
 				}
 				
 				this.api["reviewInfo"+this.pagetype]({
@@ -821,7 +884,7 @@
 					this.check_info = da.check_info;
 					this.material_info = da.material_info;
 					this.status_info = da.check_info.check_status;
-					//console.log(this.workdetail)
+					console.log(da)
 					if(da.check_info.hire_type){
 						this.hire_type = da.check_info.hire_type;
 					}

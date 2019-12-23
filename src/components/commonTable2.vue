@@ -61,7 +61,7 @@
 					<template slot-scope="scope">
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url,scope.row['work_id'])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(scope.row[item.prop])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<div v-else-if="item.type == 'btn'">
@@ -589,8 +589,10 @@
 			openwindow(url){
 				window.open(url)
 			},
-			openwindowrouter(url){
-				const {href} = this.$router.resolve({ path: url})
+			openwindowrouter(url,id){
+				const {href} = this.$router.resolve({ path: url,query:{
+					id:id
+				}})
 				window.open(href, '_blank')
 			},
 			gettableConfiglist(n){

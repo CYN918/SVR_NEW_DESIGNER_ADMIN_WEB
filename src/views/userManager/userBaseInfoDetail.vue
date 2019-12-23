@@ -13,7 +13,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey detailKeyImg">头像</span>
-					<span class="fleft detailValue detailValueImg" :style="{background:'url('+ detailData.avatar +') center center no-repeat',backgroundSize:'100% 100%'}"></span>
+					<span class="fleft detailValue detailValueImg" :style="{background:'url('+ detailData.avatar +') center center no-repeat / 100% 100%'}"></span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户名</span>
@@ -118,7 +118,7 @@
 					</span>
 				</li>
 				<li class="margint13 ofh">
-					<span class="fleft detailKey">是否平台供稿人</span>
+					<span class="fleft detailKey">是否供稿人</span>
 					<span class="fleft detailValue">{{ getValue2(detailData.is_contributor) }}</span>
 				</li>
 				<li class="margint13 ofh">
@@ -195,7 +195,7 @@
 			getValue2(n){
 				let child={
 					"0":"否",
-					"2":"是"
+					"1":"是"
 				};
 				return child[n];
 			},
