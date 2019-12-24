@@ -93,7 +93,7 @@
 						<div :class="['ueditortab-item ueditortab-item-right',{'ueditortab-item-active':!istab}]" @click="istab = false">个性化页面</div>
 					</div>
 				</div>
-				<div v-if="istab" class="relative" style="min-height: 85%;">
+				<div v-show="istab" class="relative" style="min-height: 85%;">
 					<div class="detailContent" v-for="(item,index) in detailtext" v-if="clear">
 						<div class="modeltitle detailKey" style="margin-left: 50px;">说明模块{{ index+1 }}</div>
 						<ul style="padding-top: 30px;">
@@ -117,7 +117,7 @@
 					</div>
 					<div class="addDetailContent" @click="addDetailContent()">+</div>
 				</div>
-				<div v-if="!istab">
+				<div v-show="!istab">
 					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
 						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
 					</div>
@@ -703,7 +703,8 @@
 					this.form.template_name = da.template_name;
 					this.selectData1.file_name = da.file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					console.log(da.desc)
+					this.form.special_url = da.special_url
+					//console.log(da.desc)
 					this.detailtext = JSON.parse(da.desc)
 					if(this.form.desc){
 						this.ifBjType=1;

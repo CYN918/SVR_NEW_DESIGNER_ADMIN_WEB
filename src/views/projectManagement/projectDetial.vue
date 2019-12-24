@@ -51,6 +51,10 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '中标人' }}</span>
 					<span>{{ info['username'] }}</span>
 				</li>
+				<li class="margint13 ofh" v-else-if="item.status == '3' && status > 3">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '补充合同' }}</span>
+					<span>{{ info['contract_id'] }}</span>
+				</li>
 				<li class="margint13 ofh" v-else-if="item.status == '-1' && status == -1">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ "终止理由" }}</span>
 					<span>{{ info['terminate_reason'] }}</span>
@@ -211,8 +215,8 @@
 						<div class="screenContent">
 							<button class="defaultbtn" @click="userdetail(item.user.open_id)">用户详情</button>
 							<button class="defaultbtn" @click="gotoweb(item.user.open_id)">个人主页</button>
-							<button v-if="status == 2" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
-							<button class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
+							<button v-if="status == 2 && (adminuseraccess.indexOf('200519') > -1)" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
+							<button v-if="adminuseraccess.indexOf('200519') > -1" class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
 						</div>
 						<img v-if="index == 0 && item.is_selected == '1'" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
 					</li>
@@ -228,7 +232,7 @@
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>
-				<button v-if="status  == 2" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
+				<button v-if="status  == 2 && tabsnum != 3 && (adminuseraccess.indexOf('200525') > -1)" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
 			</div>
 		</div>
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
@@ -250,7 +254,7 @@
 		  			<span>如何分配项目</span>
 		  		</li>
 		  		<li class="textcenter" style="margin-bottom: 20px;">
-		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="centerDialogVisible1=true">成为已创建项目的制作人</button>
+		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="ishide()">成为已创建项目的制作人</button>
 		  		</li>
 		  		<li class="textcenter" style="margin-bottom: 20px;">
 		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="addnewuser()">新建项目并指定TA来制作</button>
@@ -381,6 +385,12 @@
 						id:"username",
 						type:"text",
 						status:'2'
+					},
+					{
+						name:"补充合同",
+						id:"contract_id",
+						type:"text",
+						status:'3'
 					},
 					{
 						name:"终止理由",
@@ -643,6 +653,10 @@
 			}
 		},
 		methods: {
+			ishide(){
+				this.centerDialogVisible = false;
+				this.centerDialogVisible1=true;
+			},
 			openwork(id){
 				window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + id+"&access_token="+localStorage.getItem('access_token'));
 			},

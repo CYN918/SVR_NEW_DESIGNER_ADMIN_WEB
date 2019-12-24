@@ -210,7 +210,7 @@
 						<div :class="['ueditortab-item ueditortab-item-right',{'ueditortab-item-active':!istab}]" @click="istab = false">个性化页面</div>
 					</div>
 				</div>
-				<div class="relative" v-if="istab">
+				<div class="relative" v-show="istab">
 					<div class="detailContent ofh w" style="border-bottom: 1px solid rgba(244,246,249,1);" v-for="(item,index) in detailtext" v-if="clear">
 						<ul class="fleft" style="padding-top: 30px;margin-left: 50px;width:calc(100% - 182px)">
 							<li class="margint23">
@@ -233,7 +233,7 @@
 					</div>
 					<div class="addDetailContent" @click="addDetailContent()">+</div>
 				</div>
-				<div v-if="!istab">
+				<div v-show="!istab">
 					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
 						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
 					</div>
@@ -675,6 +675,7 @@
 				this.form.expected_profit = row.expected_profit;
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
+				this.form.special_url = row.special_url;
 				this.selectData1.template_file_id = row.template_file_id;
 				//console.log(row);
 				this.selectData1.file_name = row.file_name;
@@ -1117,7 +1118,7 @@
 					this.deadline = da.deadline;
 					this.form.publish_time = da.publish_time;
 					this.form.status = da.status;
-					
+					this.form.special_url = da.special_url;
 					if(this.form.desc){
 						this.ifBjType=1;
 					}

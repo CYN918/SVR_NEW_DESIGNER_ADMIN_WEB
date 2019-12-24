@@ -84,9 +84,6 @@
 						{name:'导出数据',id:"right3",accessid:"200046"},
 						{name: "新建项目",id: "right1",fun: "add",accessid:"1"}
 					],
-					"commonbottombtn":[
-						
-					],
 					"tabData":[
 						{name:"待发布"},
 						{name:"招募期"},

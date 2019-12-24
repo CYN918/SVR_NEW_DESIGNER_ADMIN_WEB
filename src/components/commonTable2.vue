@@ -41,7 +41,7 @@
 							</div>
 							<div v-if="!item.accessid">
 								<div v-if="tabnums == '4'">
-									<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+									<button v-if="!commonTopData.upload && item.id == 'right3'" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 								</div>
 								<div v-else>
 									<button v-if="!commonTopData.upload && item.id == 'right1'" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
@@ -82,7 +82,7 @@
 					<template slot-scope="scope">
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url)">{{ scope.row[item.prop] }}</div>
+						<div v-else-if="item.type == 'url'" style="color: #FF5121;" @click="openwindowrouter(item.url,scope.row['work_id'])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(scope.row[item.prop])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<div v-else-if="item.type == 'btn'">
@@ -359,31 +359,18 @@
 			IsShow(index) {
 				console.log(index)
 				this.Istooltip = false;
-				if(index == 0) {
-					//console.log(this.$parent.selectData);
-					if (this.multipleSelection.length != 0) {
-						
-					} else {
-						this.$message({
-							message: '请勾项目',
-							type: 'warning'
-						});
-					}
-					
-				}
-				if(index == 1) {
-					//console.log(this.$parent.selectData);
-					if (this.multipleSelection.length != 0) {
-						
-					} else {
-						this.$message({
-							message: '请勾项目',
-							type: 'warning'
-						});
-					}
-					
+				if(this.tableDatas.length == 0){
+					this.$message({
+						message:"没有数据导出"
+					});
 				}
 				
+				if(index == 0) {
+					console.log(this.tableDatas);
+				}
+				if(index == 1) {
+					console.log(this.tableDatas);	
+				}
 			},
 			// getparent(fun){
 			// 	if(this.$parent[fun]){
@@ -666,8 +653,10 @@
 			openwindow(url){
 				window.open(url)
 			},
-			openwindowrouter(url){
-				const {href} = this.$router.resolve({ path: url})
+			openwindowrouter(url,id){
+				const {href} = this.$router.resolve({ path: url,query:{
+					id:id
+				}})
 				window.open(href, '_blank')
 			},
 			gettableConfiglist(n){
@@ -712,7 +701,7 @@
 			if(this.$route.query.tabsnum){
 				this.tabsChange(parseInt(this.$route.query.tabsnum));
 			} else {
-				this.tabsChange(parseInt(this.$parent.commonTopData.tabnums));
+				this.tabsChange(parseInt(this.commonTopData.tabnums));
 			}
 		},
 		created() {
