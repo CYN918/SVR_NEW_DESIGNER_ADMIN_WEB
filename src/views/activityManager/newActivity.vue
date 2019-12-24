@@ -123,7 +123,7 @@
 				<ul style="padding-top: 0;">
 					<li class="margint23 ofh">
 						<span class="fleft detailKey">报名框提示语</span>
-						<el-input class="fleft" style="width: 500px;" v-model="form.remeber_tips"></el-input>
+						<el-input class="fleft" style="width: 500px;" v-model="form.remeber_tips" placeholder="可说明附加信息的填写理由,或注意点"></el-input>
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey">附加项设置</span>
@@ -142,16 +142,16 @@
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">名称</span>
-									<el-input class="fright additem-value" type="text" v-model="additemdata[index].title"></el-input>
+									<el-input class="fright additem-value" type="text" maxlength="6" v-model="additemdata[index].title" :placeholder="item.titleplaceholder"></el-input>
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">提示语</span>
-									<el-input class="fright additem-value" type="text" v-model="additemdata[index].tigs"></el-input>
+									<el-input class="fright additem-value" type="text" v-model="additemdata[index].tigs" :placeholder="item.tigsplaceholder"></el-input>
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">上传限制</span>
-									<el-input class="fleft additem-value" type="text" style="width: 244px;" placeholder="大小限制(KB)" v-model="additemdata[index].limitnum"></el-input>
-									<el-select v-if="item.limittype == 'text'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="请选择" style="width: 120px;">
+									<el-input class="fleft additem-value" type="text" style="width: 244px;" :placeholder="item.limitplaceholder" v-model="additemdata[index].limitnum"></el-input>
+									<el-select v-if="item.limittype == 'text'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="内容类型" style="width: 120px;">
 										<el-option
 										  style="width: 120px;"
 										  v-for="item in limitdata['text']"
@@ -180,7 +180,7 @@
 										  :value="item">
 										</el-option> -->
 									  </el-select>
-									  <el-select v-if="item.limittype == 'pic'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="请选择" style="width: 120px;">
+									  <el-select v-if="item.limittype == 'pic'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="内容类型" style="width: 120px;">
 									  	<el-option
 									  	  style="width: 120px;"
 									  	  v-for="item in limitdata['pic']"
@@ -214,10 +214,10 @@
 							<div class="addtimebtn">
 								<div class="textcenter color-999" style=""><span style="font-weight: 20px;line-height: 20px;">+</span> 选择添加附件信息项</div>
 								<div class="ofh addtimebtns">
-									<span @click="additemdatalist('text')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
-									<span @click="additemdatalist('pic')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
-									<span @click="additemdatalist('video')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
-									<span @click="additemdatalist('file')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
+									<span @click="additemdatalist('text','如：姓名','如：限制10字以内','字数限制')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
+									<span @click="additemdatalist('pic','如：预览图','如：限制100kb以内','大小限制（kb）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
+									<span @click="additemdatalist('video','如：上传短视频','如：限制100M以内','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
+									<span @click="additemdatalist('file','如：作品文件','如：请用压缩包上传','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
 								</div>
 							</div>
 						</div>
@@ -440,13 +440,16 @@
 			commonTable
 		},
 		methods: {
-			additemdatalist(type){
+			additemdatalist(type,tit,tig,lim){
 				this.additemdata.push({
 					title:"",
 					tigs:"",
 					limitnum:"",
 					limittype:type,
-					limittypevalue:""
+					limittypevalue:"",
+					limitplaceholder:lim,
+					titleplaceholder:tit,
+					tigsplaceholder:tig
 				})
 			},
 			swapItems(arr, index1, index2) {
@@ -534,6 +537,16 @@
 					this.form.related_needs_id = this.dids.join(',')
 				} else {
 					this.form.related_needs_id = "";
+				}
+				
+				let arr = [];
+				for(let i = 0;i<this.additemdata.length;i++){
+					if(!this.additemdata[i].title || !this.additemdata[i].tigs || !this.additemdata[i].limitnum){
+						this.$message({
+							message:"附件信息的名称*提示语*上传限制是必填项"
+						})
+						return
+					}
 				}
 				this.form.extra_info = JSON.stringify(this.additemdata);
 				this.api.activityedit(this.form).then(da => {
@@ -812,8 +825,9 @@
 				} else {
 					this.form.related_needs_id = "";
 				}	
+				
 				this.form.extra_info = JSON.stringify(this.additemdata);
-				 console.log(this.form.extra_info);
+				
 				this.api.activityadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
