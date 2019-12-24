@@ -51,6 +51,10 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '中标人' }}</span>
 					<span>{{ info['username'] }}</span>
 				</li>
+				<li class="margint13 ofh" v-else-if="item.status == '3' && status > 3">
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '补充合同' }}</span>
+					<span>{{ info['contract_id'] }}</span>
+				</li>
 				<li class="margint13 ofh" v-else-if="item.status == '-1' && status == -1">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ "终止理由" }}</span>
 					<span>{{ info['terminate_reason'] }}</span>
@@ -381,6 +385,12 @@
 						id:"username",
 						type:"text",
 						status:'2'
+					},
+					{
+						name:"补充合同",
+						id:"contract_id",
+						type:"text",
+						status:'3'
 					},
 					{
 						name:"终止理由",

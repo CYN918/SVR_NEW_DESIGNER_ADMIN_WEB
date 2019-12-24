@@ -826,6 +826,15 @@
 					this.form.related_needs_id = "";
 				}	
 				
+				let arr = [];
+				for(let i = 0;i<this.additemdata.length;i++){
+					if(!this.additemdata[i].title || !this.additemdata[i].tigs || !this.additemdata[i].limitnum){
+						this.$message({
+							message:"附件信息的名称*提示语*上传限制是必填项"
+						})
+						return
+					}
+				}
 				this.form.extra_info = JSON.stringify(this.additemdata);
 				
 				this.api.activityadd(this.form).then(da =>{
