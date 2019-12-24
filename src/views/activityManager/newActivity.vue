@@ -31,7 +31,7 @@
 					</li>
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
-						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
+						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false" :before-upload="beforeAvatarUpload">
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
 							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
@@ -40,7 +40,7 @@
 					
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">活动封面</span>
-						<el-upload class="upload" action="454535" :http-request="httprequestcover" :show-file-list="false">
+						<el-upload class="upload" action="454535" :http-request="httprequestcover" :show-file-list="false" :before-upload="beforeAvatarUpload">
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
 							<div class="fontcolorg">640px*360px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
@@ -677,20 +677,25 @@
 				 
 			},
 			beforeAvatarUpload(file) {
-				//console.log(file);
-				const isJPG = file.type === 'image/jpeg';
-				const ispng = file.type === 'image/jpeg';
-				//const isLt2M = file.size / 300 / 200 < 2;
+				const extend = file.name.substring(file.name.lastIndexOf(".") + 1); 
+				const isLt2M = file.size / 1024;
 
-				/* if (isJPG || ispng) {
+				if (!(extend == "png" )&&!(extend == "jpg")&&!(extend == "jpeg")) {
 					this.$message.error('上传图片只能是 jpg，jpeg，png 格式!');
+					return false;
 				}
-				if (!isLt2M) {
-					this.$message.error('上传图片大小不能超过 1MB!');
-				} */
-				return isJPG;
+				if (isLt2M > 10000) {
+					this.$message.error('上传图片大小不能超过 10MB!');
+					return false;
+				}
 			},
 			nxet() {
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
 				
 				//console.log(this.additemdata);
 				this.Isnextshow = true;
@@ -797,13 +802,6 @@
 				}
 			},
 			createdactivity(){
-				
-				if(this.alertmask() != true){
-					this.$message({
-						message:this.alertmask(),
-					})
-					return;
-				}
 				
 				//this.form.template_file_id=this.getworkids();
 				this.form.template_file_id = this.selectData1.template_file_id
