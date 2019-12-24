@@ -21,22 +21,43 @@
 					</div>
 					<div class="fright">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
-							<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
-								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
-								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+							<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">	
+								<div v-if="tabnums == '4'">
+									<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>
+								<div v-else>
+									<button v-if="!commonTopData.upload && item.id == 'right1'" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>
+								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;top: 40px;right: 100px;">
 									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-								<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<div v-if="tabnums == '4'">
+									<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>
+								<div v-else>
+									<button v-if="commonTopData.upload && item.id == 'right1'" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>	
 							</div>
 							<div v-if="!item.accessid">
-								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
-								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
+								<div v-if="tabnums == '4'">
+									<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>
+								<div v-else>
+									<button v-if="!commonTopData.upload && item.id == 'right1'" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								</div>
+								<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;top: 40px;right: 100px;">
 									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-								<button v-if="commonTopData.upload && !item.two" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
-								<button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2)" class="defaultbtn defaultbtnactive" @click="getparent()">{{ item.name }}</button>
+								<div v-if="tabnums == '4'">
+									<button v-if="commonTopData.upload && !item.two" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								    <button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2)" class="defaultbtn defaultbtnactive" @click="getparent()">{{ item.name }}</button>
+								</div>
+								<div v-else>
+									<button v-if="commonTopData.upload && !item.two && item.id == 'right1'" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+								    <button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2) && item.id == 'right1'" class="defaultbtn defaultbtnactive" @click="getparent()">{{ item.name }}</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -335,13 +356,69 @@
 					return false;
 				}
 			},
-			getparent(fun){
-				if(this.$parent[fun]){
-					this.$parent[fun]();
+			IsShow(index) {
+				console.log(index)
+				this.Istooltip = false;
+				if(index == 0) {
+					//console.log(this.$parent.selectData);
+					if (this.multipleSelection.length != 0) {
+						
+					} else {
+						this.$message({
+							message: '请勾项目',
+							type: 'warning'
+						});
+					}
+					
 				}
-				if(this.$parent.$parent[fun]){
-					this.$parent.$parent[fun]();
+				if(index == 1) {
+					//console.log(this.$parent.selectData);
+					if (this.multipleSelection.length != 0) {
+						
+					} else {
+						this.$message({
+							message: '请勾项目',
+							type: 'warning'
+						});
+					}
+					
 				}
+				
+			},
+			// getparent(fun){
+			// 	if(this.$parent[fun]){
+			// 		this.$parent[fun]();
+			// 	}
+			// 	if(this.$parent.$parent[fun]){
+			// 		this.$parent.$parent[fun]();
+			// 	}
+			// },
+			getparent(id,name) {
+				//alert(name)
+				var idIndex = id;
+				switch (name)
+				{
+					case "publishWork":
+						if (idIndex == "right3") {
+							this.operations = [
+								{
+									name:"导出订单表",
+								},
+								{
+									name:"导出评价表"
+								}
+							];
+							this.Istooltip = !this.Istooltip;
+							return;
+						}
+					break;											
+				}				
+				const shownum = {
+					num: idIndex,
+					showmask: "No",
+					pageName: this.commonTopData.pageName,
+				}
+				eventBus.$emit("screenshow", shownum);
 			},
 			reset(){
 				this.form ={};

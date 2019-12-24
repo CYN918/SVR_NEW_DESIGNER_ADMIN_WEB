@@ -150,7 +150,7 @@
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">上传限制</span>
-									<el-input class="fleft additem-value" type="text" style="width: 244px;" placeholder="字数限制" v-model="additemdata[index].limitnum"></el-input>
+									<el-input class="fleft additem-value" type="text" style="width: 244px;" placeholder="大小限制(KB)" v-model="additemdata[index].limitnum"></el-input>
 									<el-select v-if="item.limittype == 'text'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="请选择" style="width: 120px;">
 										<el-option
 										  style="width: 120px;"
