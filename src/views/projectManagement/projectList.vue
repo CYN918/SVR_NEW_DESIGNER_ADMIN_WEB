@@ -81,6 +81,11 @@
 						fun: "ISshow"
 					}],
 					"commonrightbtn": [{
+						name: "导出",
+						id: "right1",
+						fun: "leadingout",
+						accessid:"200520",
+					},{
 						name: "新建项目",
 						id: "right1",
 						fun: "add",
@@ -661,6 +666,9 @@
 			setpage(){
 				localStorage.setItem("projectlist",this.$refs.Tabledd.tabnums);
 			},
+			leadingout(){
+				
+			}
 		},
 		created() {
 			this.getData()

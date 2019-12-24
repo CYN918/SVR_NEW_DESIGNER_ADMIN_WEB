@@ -641,11 +641,11 @@ const reviewData = {
 					type:"btn",
 					child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
 				},
-				{
-					name:"审核角色",
-					id:"role",
-					type:"text"
-				},
+				// {
+				// 	name:"审核角色",
+				// 	id:"role",
+				// 	type:"text"
+				// },
 				{
 					name:"审核人",
 					id:"check_admin_name",
