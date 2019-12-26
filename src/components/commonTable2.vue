@@ -487,6 +487,7 @@
 					//console.log(sreenData)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
+					sreenData.is_export = 1;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
