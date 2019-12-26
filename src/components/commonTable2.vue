@@ -472,6 +472,42 @@
 				this.reject();
 				this.getTabData()
 			},
+			setexport(){
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: this.currentpage,
+					limit: this.pagesize,
+					is_export:1
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = this.currentpage;
+					sreenData.limit = this.pagesize;
+					sreenData.is_export = 1;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				let form = document.createElement("form");
+				for(let key in data){
+					let dom =document.createElement("input");
+					dom.setAttribute("name",key);
+					dom.setAttribute("value",data[key]);
+					form.appendChild(dom);
+				};
+				form.setAttribute("style", "display:none");
+				form.setAttribute("target", "");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/project/list")
+				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
+				}
+				document.body.appendChild(form);
+				form.submit();
+			},
 			getTabData(isup) {
 				//获取子组件表格数据
 				var data = {
@@ -490,12 +526,6 @@
 					sreenData.limit = this.pagesize;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
-				}
-				
-				if(isup){
-					data.is_export = 1;
-				} else {
-					data.is_export = 0;
 				}
 				if(this.tableConfig.data){
 					data[this.tableConfig.data] = this.tabnums;

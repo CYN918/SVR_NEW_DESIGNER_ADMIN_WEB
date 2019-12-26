@@ -669,7 +669,7 @@
 				localStorage.setItem("projectlist",this.$refs.Tabledd.tabnums);
 			},
 			leadingout(){
-				this.$refs.Tabledd.getTabData(true);
+				this.$refs.Tabledd.setexport();
 			}
 		},
 		created() {
