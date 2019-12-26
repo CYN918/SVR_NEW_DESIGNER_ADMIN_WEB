@@ -27,7 +27,8 @@
 									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-								<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<button v-if="commonTopData.upload && !item.status" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<button v-if="commonTopData.upload && item.status && (tabnums == item.status)" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
 							</div>
 							<div v-if="!item.accessid">
 								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
@@ -471,13 +472,14 @@
 				this.reject();
 				this.getTabData()
 			},
-			getTabData() {
+			getTabData(isup) {
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: this.currentpage,
 					limit:this.pagesize,
 				}
+				
 				
 				//console.log(this.form)
 				//获取筛选的条件
@@ -490,7 +492,11 @@
 					data = sreenData;
 				}
 				
-				
+				if(isup){
+					data.is_export = 1;
+				} else {
+					data.is_export = 0;
+				}
 				if(this.tableConfig.data){
 					data[this.tableConfig.data] = this.tabnums;
 					if(this.tabnums == 5){
