@@ -482,12 +482,11 @@
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
-				if (this.$route.query.urlDate) {
-					const sreenData = JSON.parse(this.$route.query.urlDate);
+				if (this.form) {
+					const sreenData = this.form
 					//console.log(sreenData)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
-					sreenData.is_export = 1;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
