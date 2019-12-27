@@ -474,54 +474,56 @@
 			},
 			setexport(){
 				//获取子组件表格数据
-				var data = {
+				let data1 = {};
+				
+				data1 = {
 					access_token: localStorage.getItem("access_token"),
 					page: this.currentpage,
-					limit: this.pagesize,
-					is_export:1
+					limit: this.pagesize
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
 				if (this.form) {
 					const sreenData = this.form
-					//console.log(sreenData)
+					console.log(this.form)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
-					sreenData.is_export = 1;
 					sreenData.access_token = localStorage.getItem("access_token");
-					data = sreenData;
+					data1 = sreenData;
 				}
-				let form = document.createElement("form");
-				for(let key in data){
+				data1.is_export = 1;
+				let form1 = document.createElement("form");
+				for(let key in data1){
 					let dom =document.createElement("input");
 					dom.setAttribute("name",key);
-					dom.setAttribute("value",data[key]);
-					form.appendChild(dom);
+					dom.setAttribute("value",data1[key]);
+					form1.appendChild(dom);
 				};
-				form.setAttribute("style", "display:none");
-				form.setAttribute("target", "");
-				form.setAttribute("method", "post");
-				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/project/list")
+				form1.setAttribute("style", "display:none");
+				form1.setAttribute("target", "");
+				form1.setAttribute("method", "post");
+				form1.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/project/list")
 				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
-				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
+				   form1.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
 				}
-				document.body.appendChild(form);
-				form.submit();
+				document.body.appendChild(form1);
+				form1.submit();
+				this.form = {};
 			},
-			getTabData(isup) {
+			getTabData() {
 				//获取子组件表格数据
-				var data = {
+				let data = {};
+				data = {
 					access_token: localStorage.getItem("access_token"),
 					page: this.currentpage,
 					limit:this.pagesize,
 				}
 				
-				
+				//console.log(data);
 				//console.log(this.form)
 				//获取筛选的条件
 				if (this.form) {
 					const sreenData = this.form
-					//console.log(sreenData)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
 					sreenData.access_token = localStorage.getItem("access_token");
@@ -558,7 +560,6 @@
 					data[this.tableConfig['data'+this.tabnums].name] = this.tableConfig['data'+this.tabnums].id;
 				}
 				this.api[url](data).then((da) => {
-					console.log(da.data)
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;

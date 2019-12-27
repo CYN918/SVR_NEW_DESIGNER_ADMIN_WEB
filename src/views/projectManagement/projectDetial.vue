@@ -51,7 +51,7 @@
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '中标人' }}</span>
 					<span>{{ info['username'] }}</span>
 				</li>
-				<li class="margint13 ofh" v-else-if="item.status == '3' && status > 3">
+				<li class="margint13 ofh" v-else-if="item.status == '3' && status >= 3">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '补充合同' }}</span>
 					<span>{{ info['contract_id'] }}</span>
 				</li>

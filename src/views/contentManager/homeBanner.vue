@@ -457,8 +457,6 @@
 				this.$parent.tabchange(1);
 				this.tabsChange(0);
 			}
-		},
-		mounted() {
 			
 			if(this.gettab('47') && this.gettab('46')){
 				if(this.$route.query.tabsnum == 0){
@@ -468,10 +466,15 @@
 				if(this.$route.query.tabsnum == 1) {
 					this.$parent.tabchange(2);
 					this.tabsChange(1);
-					
+				}
+				
+				if(!this.$route.query.tabsnum) {
+					this.$parent.tabchange(2);
+					this.tabsChange(1);
 				}
 			}
-			
+		},
+		mounted() {
 			this.getData({pageCurrent:1,pageSize:50});
 		},
 		watch:{

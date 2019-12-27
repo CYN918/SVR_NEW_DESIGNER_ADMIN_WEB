@@ -142,7 +142,10 @@
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">名称</span>
-									<el-input class="fright additem-value" type="text" maxlength="6" v-model="additemdata[index].title" :placeholder="item.titleplaceholder"></el-input>
+									<div class="el-input__inner roles-input fright additem-value">
+										<input type="text" :placeholder="item.titleplaceholder" class="sel-input fleft" maxlength="6" v-model="additemdata[index].title">
+										<span class="fright">{{ additemdata[index].title.length }}/6</span>
+									</div>
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">提示语</span>
@@ -212,9 +215,9 @@
 								</div>
 							</div>
 							<div class="addtimebtn">
-								<div class="textcenter color-999" style=""><span style="font-weight: 20px;line-height: 20px;">+</span> 选择添加附件信息项</div>
+								<div class="textcenter color-999" style="">选择添加附件信息项</div>
 								<div class="ofh addtimebtns">
-									<span @click="additemdatalist('text','如：姓名','如：限制10字以内','字数限制')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
+									<span @click="additemdatalist('text','如：姓名','如：限制10字以内','字数限制')" class="ofv pointer "><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
 									<span @click="additemdatalist('pic','如：预览图','如：限制100kb以内','大小限制（kb）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
 									<span @click="additemdatalist('video','如：上传短视频','如：限制100M以内','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
 									<span @click="additemdatalist('file','如：作品文件','如：请用压缩包上传','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
