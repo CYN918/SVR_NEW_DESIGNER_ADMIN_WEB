@@ -217,10 +217,10 @@
 							<div class="addtimebtn">
 								<div class="textcenter color-999" style="">选择添加附件信息项</div>
 								<div class="ofh addtimebtns">
-									<span @click="additemdatalist('text','如：姓名','如：限制10字以内','字数限制')" class="ofv pointer "><img class="additem-icon" src="../../assets/img/text.png" alt=""><span class="fleft" style="line-height: 22px;">文本</span></span>
-									<span @click="additemdatalist('pic','如：预览图','如：限制100kb以内','大小限制（kb）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/pic.png" alt=""><span class="fleft" style="line-height: 22px;">图片</span></span>
-									<span @click="additemdatalist('video','如：上传短视频','如：限制100M以内','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/video.png" alt=""><span class="fleft" style="line-height: 22px;">视频</span></span>
-									<span @click="additemdatalist('file','如：作品文件','如：请用压缩包上传','大小限制（MB）')" class="ofv pointer"><img class="additem-icon" src="../../assets/img/file.png" alt=""><span class="fleft" style="line-height: 22px;">文件</span></span>
+									<span @click="additemdatalist('text','如：姓名','如：限制10字以内','字数限制')" class="ofv pointer additem-hover "><span class="iconfont">&#xe63d;</span><span style="line-height: 22px;"> 文本</span></span>
+									<span @click="additemdatalist('pic','如：预览图','如：限制100kb以内','大小限制（kb）')" class="ofv pointer additem-hover"><span class="iconfont">&#xe64a;</span><span style="line-height: 22px;"> 图片</span></span>
+									<span @click="additemdatalist('video','如：上传短视频','如：限制100M以内','大小限制（MB）')" class="ofv pointer additem-hover"><span class="iconfont">&#xe60a;</span><span style="line-height: 22px;"> 视频</span></span>
+									<span @click="additemdatalist('file','如：作品文件','如：请用压缩包上传','大小限制（MB）')" class="ofv pointer additem-hover"><span class="iconfont">&#xe721;</span><span style="line-height: 22px;"> 文件</span></span>
 								</div>
 							</div>
 						</div>
@@ -359,7 +359,8 @@
 					banner:'',
 					access_token: localStorage.getItem("access_token"),
 					type:'1',
-					cover_img:""
+					cover_img:"",
+					special_url:""
 				},
 				fileList: [{
 					name: 'food.jpeg',
@@ -544,11 +545,31 @@
 				
 				let arr = [];
 				for(let i = 0;i<this.additemdata.length;i++){
-					if(!this.additemdata[i].title || !this.additemdata[i].tigs || !this.additemdata[i].limitnum){
+					if(!this.additemdata[i].title){
 						this.$message({
-							message:"附件信息的名称*提示语*上传限制是必填项"
+							message:"附加信息第"+(i+1)+"项的名称必填"
 						})
 						return
+					}
+					if(!this.additemdata[i].tigs){
+						this.$message({
+							message:"附加信息第"+(i+1)+"项的提示语必填"
+						})
+						return
+					}
+					if(!this.additemdata[i].limitnum){
+						this.$message({
+							message:"附加信息第"+(i+1)+"项的上传显示必填"
+						})
+						return
+					}
+					if(this.additemdata[i].limittype == "text" || this.additemdata[i].limittype == "pic"){
+						if(!this.additemdata[i].limittypevalue){
+							this.$message({
+								message:"附加信息第"+(i+1)+"项的内容类型不能必选"
+							})
+							return
+						}
 					}
 				}
 				this.form.extra_info = JSON.stringify(this.additemdata);
@@ -833,9 +854,29 @@
 				for(let i = 0;i<this.additemdata.length;i++){
 					if(!this.additemdata[i].title || !this.additemdata[i].tigs || !this.additemdata[i].limitnum){
 						this.$message({
-							message:"附件信息的名称*提示语*上传限制是必填项"
+							message:"附加信息第"+(i+1)+"项的名称必填"
 						})
 						return
+					}
+					if(!this.additemdata[i].tigs){
+						this.$message({
+							message:"附加信息第"+(i+1)+"项的提示语必填"
+						})
+						return
+					}
+					if(!this.additemdata[i].limitnum){
+						this.$message({
+							message:"附加信息第"+(i+1)+"项的上传显示必填"
+						})
+						return
+					}
+					if(this.additemdata[i].limittype == "text" || this.additemdata[i].limittype == "pic"){
+						if(!this.additemdata[i].limittypevalue){
+							this.$message({
+								message:"附加信息第"+(i+1)+"项的内容类型不能必选"
+							})
+							return
+						}
 					}
 				}
 				this.form.extra_info = JSON.stringify(this.additemdata);
@@ -1137,6 +1178,9 @@
 </script>
 
 <style>
+	.additem-hover:hover span{
+		color: #FF5121;
+	}
 	.addtimebtns{
 		width: 316px;
 		margin: auto;

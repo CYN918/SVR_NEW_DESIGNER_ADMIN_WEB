@@ -13,7 +13,7 @@
 					</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" class="tags"></common-top>
 		</div>
 		<div style="height: calc(100% - 235px);margin-top: 20px;">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -144,7 +144,7 @@
 				tableAction: DataScreen.screenShow.solicitationTemplate.action0,
 				detailData: "",
 				IsDetail: false,
-				filterFields: DataScreen.screen.solicitationTemplate.filterFields,
+				filterFields: DataScreen.screen.solicitationTemplate.filterFields0,
 				centerDialogVisible: false,
 				showmask: false,
 				type: 1,
@@ -168,6 +168,7 @@
 				this.type = num + 1;
 				this.tableConfig.list = DataScreen.screenShow.solicitationTemplate["bts" + num];
 				this.tableAction = DataScreen.screenShow.solicitationTemplate["action" + num],
+				this.filterFields = DataScreen.screen.solicitationTemplate["filterFields"+num]
 				//console.log(this.tableConfig.list);
 				this.$parent.tabchange(num+1);
 				this.$router.push({ path: '/otherInformation/solicitationTemplate', query: {urlDate: ''}});
@@ -273,11 +274,11 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					//console.log(urldata);
-					/* this.filterFields = this.tabsnum == 0 ? DataScreen.screen.solicitationTemplate.filterFields0 : DataScreen.screen.solicitationTemplate.filterFields1 */
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if(urldata[item.id]){
+						if(urldata[item.id] && !item.type){
 							var val = urldata[item.id];
+							//alert(val)
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
@@ -289,7 +290,13 @@
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							//console.log(this.commonTopData.commonbottombtn);
-						} 
+						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:urldata[item.id],id:item.id})
+							}
+								
+						}
 						if(item.type == "two"){
 							if(item.child){
 								item.child.forEach(citem=>{
@@ -310,6 +317,7 @@
 						}
 					})
 				}
+				
 			},
 			resetSave(tag) {
 				if (this.$route.query.urlDate) {
@@ -452,6 +460,9 @@
 </script>
 
 <style>
+	.tags .ta{
+		margin: 0 !important;
+	}
 	.materiallist .el-checkbox__label {
 		display: none;
 	}
