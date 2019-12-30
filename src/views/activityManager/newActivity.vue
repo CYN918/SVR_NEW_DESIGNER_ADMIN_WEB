@@ -445,7 +445,7 @@
 		},
 		methods: {
 			checkValue(index){
-				var reg = /^[0-9]+$/;
+				var reg = /^[1-9]\d*$/;
 				var re = new RegExp(reg);
 				if(re.test(this.additemdata[index].limitnum)){
 					
