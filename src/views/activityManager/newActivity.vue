@@ -153,7 +153,7 @@
 								</div>
 								<div class="ofh" style="margin: 10px 0;">
 									<span style="line-height: 40px;" class="fleft additem-key">上传限制</span>
-									<el-input class="fleft additem-value" type="text" style="width: 244px;" :placeholder="item.limitplaceholder" v-model="additemdata[index].limitnum"></el-input>
+									<el-input class="fleft additem-value" type="text" style="width: 244px;" :placeholder="item.limitplaceholder" v-model="additemdata[index].limitnum" @input="checkValue(index)"></el-input>
 									<el-select v-if="item.limittype == 'text'" class="fright" v-model="additemdata[index].limittypevalue" placeholder="内容类型" style="width: 120px;">
 										<el-option
 										  style="width: 120px;"
@@ -444,6 +444,19 @@
 			commonTable
 		},
 		methods: {
+			checkValue(index){
+				var reg = /^[0-9]+$/;
+				var re = new RegExp(reg);
+				if(re.test(this.additemdata[index].limitnum)){
+					
+				}else{
+					this.$message({
+						message:"仅限输入正整数"
+					});
+					this.additemdata[index].limitnum = '';
+					return
+				}
+			},
 			additemdatalist(type,tit,tig,lim){
 				this.additemdata.push({
 					title:"",
