@@ -865,13 +865,10 @@
 						name: "审核信息",
 						linkTo: "/review/employWork",
 						publishWorks: "",
+					},
+					{
+						name: "附件信息",
 					}];
-					if(this.pagetype == 2){
-						this.tabData.push({
-							name: "附件信息",
-						})
-						
-					}
 				}
 				
 				this.api["reviewInfo"+this.pagetype]({
