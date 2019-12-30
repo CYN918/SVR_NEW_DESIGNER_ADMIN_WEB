@@ -867,7 +867,7 @@
 						publishWorks: "",
 					},
 					{
-						name: "附件信息",
+						name: "附加信息",
 					}];
 				}
 				

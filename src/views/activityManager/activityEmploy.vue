@@ -162,7 +162,7 @@
 			},
 			delect(val) {
 				//this.centerDialogVisible = true;
-				this.$confirm('确认删除该条发言内容', '确认修改', {
+				this.$confirm('确认删除该活动', '确认修改', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					dangerouslyUseHTMLString: true,

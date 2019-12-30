@@ -200,6 +200,7 @@
 					qq:"",
 					file_id:'',
 					status:"",
+					special_url:""
 				},
 				fileList: [],
 				Isnextshow: false,
@@ -703,7 +704,7 @@
 					this.form.template_name = da.template_name;
 					this.selectData1.file_name = da.file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					this.form.special_url = da.special_url
+					this.form.special_url = da.special_url;
 					//console.log(da.desc)
 					this.detailtext = JSON.parse(da.desc)
 					if(this.form.desc){

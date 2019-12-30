@@ -1,0 +1,93 @@
+{
+  "id": "1165646",
+  "name": "zookingadmin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "166646",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "947484",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "1777901",
+      "name": "退出登录",
+      "font_class": "tuichudenglu",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "2492085",
+      "name": "权限",
+      "font_class": "quanxian1",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "4150774",
+      "name": "活动管理",
+      "font_class": "huodongguanli",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "4438980",
+      "name": "icon_作品管理",
+      "font_class": "icon_zuopinguanli",
+      "unicode": "e781",
+      "unicode_decimal": 59265
+    },
+    {
+      "icon_id": "4720365",
+      "name": "内容管理",
+      "font_class": "ziliaoneirongguanli_huaban",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "5666392",
+      "name": "视频",
+      "font_class": "shipin-",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "5718089",
+      "name": "录用管理",
+      "font_class": "luyongguanli",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "6193567",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e730",
+      "unicode_decimal": 59184
+    },
+    {
+      "icon_id": "8348151",
+      "name": "文件",
+      "font_class": "wenjian1",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "8414756",
+      "name": "消息管理",
+      "font_class": "xiaoxiguanli",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    }
+  ]
+}

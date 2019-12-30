@@ -32,12 +32,17 @@
 									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
+<<<<<<< HEAD
 								<div v-if="tabnums == '4'">
 									<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 								</div>
 								<div v-else>
 									<button v-if="commonTopData.upload && item.id == 'right1'" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 								</div>	
+=======
+								<button v-if="commonTopData.upload && !item.status" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<button v-if="commonTopData.upload && item.status && (tabnums == item.status)" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+>>>>>>> origin/master
 							</div>
 							<div v-if="!item.accessid">
 								<div v-if="tabnums == '4'">
@@ -535,26 +540,63 @@
 				this.reject();
 				this.getTabData()
 			},
+			setexport(){
+				//获取子组件表格数据
+				let data1 = {};
+				
+				data1 = {
+					access_token: localStorage.getItem("access_token"),
+					page: this.currentpage,
+					limit: this.pagesize
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.form) {
+					const sreenData = this.form
+					console.log(this.form)
+					sreenData.page = this.currentpage;
+					sreenData.limit = this.pagesize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data1 = sreenData;
+				}
+				data1.is_export = 1;
+				let form1 = document.createElement("form");
+				for(let key in data1){
+					let dom =document.createElement("input");
+					dom.setAttribute("name",key);
+					dom.setAttribute("value",data1[key]);
+					form1.appendChild(dom);
+				};
+				form1.setAttribute("style", "display:none");
+				form1.setAttribute("target", "");
+				form1.setAttribute("method", "post");
+				form1.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/project/list")
+				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+				   form1.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
+				}
+				document.body.appendChild(form1);
+				form1.submit();
+				this.form = {};
+			},
 			getTabData() {
 				//获取子组件表格数据
-				var data = {
+				let data = {};
+				data = {
 					access_token: localStorage.getItem("access_token"),
 					page: this.currentpage,
 					limit:this.pagesize,
 				}
 				
+				//console.log(data);
 				//console.log(this.form)
 				//获取筛选的条件
 				if (this.form) {
 					const sreenData = this.form
-					//console.log(sreenData)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
-				
-				
 				if(this.tableConfig.data){
 					data[this.tableConfig.data] = this.tabnums;
 					if(this.tabnums == 5){
@@ -586,7 +628,6 @@
 					data[this.tableConfig['data'+this.tabnums].name] = this.tableConfig['data'+this.tabnums].id;
 				}
 				this.api[url](data).then((da) => {
-					console.log(da.data)
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;

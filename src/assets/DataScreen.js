@@ -9,7 +9,7 @@ const screenData = {
 				{name:'是否为平台推荐创作者',id:'is_recommended',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
 				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:"0"}]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
-				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'works_num_min'},{name:'作品数量上限',id:'works_num_max'}]},
+				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'work_num_min'},{name:'作品数量上限',id:'work_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
 				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
 				{name:'用户名',id:'username'},
@@ -520,7 +520,7 @@ const screenData = {
 					{name:"第三位",id:"3"},
 					{name:"第四位",id:"4"}
 				]},
-				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}]},
+				{name:"当前状态",id:"status",child:[{name:"已删除",id:"-2"},{name:"已过期",id:"-1"},{name:"未开始",id:"0"},{name:"线上展示中",id:"1"}]},
 				{name:'干预时间',type:"time",child:[{name:'更新时间(开始)',id:'update_time_start'},{name:'更新时间(开始)',id:'update_time_end'}]},
 				{name:"",type:"display"},
 			]

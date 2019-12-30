@@ -172,10 +172,34 @@
 					this.banner_material_ids += (this.selectData.length-1)== index ? item.id : (item.id+",")
 				})
 				
-				if(this.banner_material_ids == "" || this.banner_program_name == "" || this.program_begin_time == "" || this.program_end_time == "" || this.selectData.length == 0){
+				if(this.banner_material_ids == "" ){
 					this.$message({
 						type:"info",
-						message:"方案名称*是否设为默认展示方案*展示时间段*banner素材不能为空！！"
+						message:"请选择是否设为默认展示方案！！"
+					});
+					return;
+				} else if(this.banner_program_name == ""){
+					this.$message({
+						type:"info",
+						message:"方案名称不能为空！！"
+					});
+					return;
+				} else if(this.program_begin_time == ""){
+					this.$message({
+						type:"info",
+						message:"展示开始时间段不能为空！！"
+					});
+					return;
+				} else if(this.program_end_time == ""){
+					this.$message({
+						type:"info",
+						message:"展示结束时间段不能为空！！"
+					});
+					return;
+				} else if(this.selectData.length == 0){
+					this.$message({
+						type:"info",
+						message:"banner素材不能为空！！"
 					});
 					return;
 				}

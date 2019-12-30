@@ -86,16 +86,18 @@
 						{name: "新建项目",id: "right1",fun: "add",accessid:"1"}
 =======
 					"commonrightbtn": [{
-						name: "导出",
-						id: "right1",
-						fun: "leadingout",
-						accessid:"200520",
-					},{
 						name: "新建项目",
 						id: "right1",
 						fun: "add",
 						accessid:"200520"
-					}],
+					},
+					{
+						name: "导出",
+						id: "right2",
+						fun: "leadingout",
+						accessid:"200520",
+						status:"4"
+					},],
 					"commonbottombtn":[
 						
 >>>>>>> origin/master
@@ -673,7 +675,7 @@
 				localStorage.setItem("projectlist",this.$refs.Tabledd.tabnums);
 			},
 			leadingout(){
-				
+				this.$refs.Tabledd.setexport();
 			}
 		},
 		created() {

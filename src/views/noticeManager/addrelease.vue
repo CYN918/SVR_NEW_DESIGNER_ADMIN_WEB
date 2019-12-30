@@ -40,7 +40,7 @@
 			</ul>
 		</div>
 		<el-dialog title="请选择通知人员" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
-			<div style="height: 600px;overflow-y: scroll;">	
+			<div style="height: 600px;overflow-y: scroll;" class="relative">	
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
@@ -56,11 +56,11 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205">
+				<div class="calc205 ofv">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tabledd"></common-table>
 				</div>
-				<div class="w textcenter">
+				<div class="w textcenter" style="position: absolute;bottom: 0;">
 					<button class="defaultbtn defaultbtnactive" @click="setchange()">确定({{ this.selectData.length }})</button>
 				</div>
 			</div>

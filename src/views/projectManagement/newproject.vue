@@ -348,9 +348,7 @@
 		data() {
 			return {
 				istab:true,
-				checkedroles:[
-					
-				],
+				checkedroles:[],
 				fields:"",
 				showWordLimit:true,
 				typebtn:0,
@@ -377,7 +375,7 @@
 					production_cycle_d:"",
 					production_cycle_h:"",
 					demand_id:"",
-					
+					special_url:""
 				},
 				Isnextshow: false,
 				myConfig: {
@@ -675,7 +673,12 @@
 				this.form.expected_profit = row.expected_profit;
 				this.form.extra_reward = row.extra_reward;
 				this.form.qq = row.qq;
-				this.form.special_url = row.special_url;
+				if(row.special_url){
+					this.form.special_url = row.special_url;
+				} else {
+					this.form.special_url = "";
+				}
+				
 				this.selectData1.template_file_id = row.template_file_id;
 				//console.log(row);
 				this.selectData1.file_name = row.file_name;
