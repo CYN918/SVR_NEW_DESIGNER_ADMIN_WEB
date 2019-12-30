@@ -80,11 +80,6 @@
 						name: "筛选",
 						fun: "ISshow"
 					}],
-<<<<<<< HEAD
-					"commonrightbtn": [
-						{name:'导出数据',id:"right3",accessid:"200046"},
-						{name: "新建项目",id: "right1",fun: "add",accessid:"1"}
-=======
 					"commonrightbtn": [{
 						name: "新建项目",
 						id: "right1",
@@ -97,10 +92,9 @@
 						fun: "leadingout",
 						accessid:"200520",
 						status:"4"
-					},],
+					}],
 					"commonbottombtn":[
 						
->>>>>>> origin/master
 					],
 					"tabData":[
 						{name:"待发布"},
