@@ -54,10 +54,11 @@
 							"200478":"/contentManager/workconfig",
 							"200473":"/userManager/userInfo"
 						}
-						
+						console.log(da.data.menu_banner);
 						
 						for(var i = 0; i<da.data.menu_banner.length;i++){
 							if(da.data.menu_banner[i].child.length != 0){
+								console.log(url[da.data.menu_banner[i].child[0].id])
 								this.router.push({path: url[da.data.menu_banner[i].child[0].id]});
 								break;
 							}
