@@ -32,17 +32,12 @@
 									<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-<<<<<<< HEAD
 								<div v-if="tabnums == '4'">
 									<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 								</div>
 								<div v-else>
 									<button v-if="commonTopData.upload && item.id == 'right1'" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
 								</div>	
-=======
-								<button v-if="commonTopData.upload && !item.status" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
-								<button v-if="commonTopData.upload && item.status && (tabnums == item.status)" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
->>>>>>> origin/master
 							</div>
 							<div v-if="!item.accessid">
 								<div v-if="tabnums == '4'">
