@@ -579,7 +579,7 @@
 					if(this.additemdata[i].limittype == "text" || this.additemdata[i].limittype == "pic"){
 						if(!this.additemdata[i].limittypevalue){
 							this.$message({
-								message:"附加信息第"+(i+1)+"项的内容类型需必选"
+								message:"附加信息第"+(i+1)+"项的内容类型需必填"
 							})
 							return
 						}
@@ -886,7 +886,7 @@
 					if(this.additemdata[i].limittype == "text" || this.additemdata[i].limittype == "pic"){
 						if(!this.additemdata[i].limittypevalue){
 							this.$message({
-								message:"附加信息第"+(i+1)+"项的内容类型不能必选"
+								message:"附加信息第"+(i+1)+"项的内容类型需必填"
 							})
 							return
 						}
