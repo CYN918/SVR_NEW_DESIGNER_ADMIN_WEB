@@ -52,6 +52,7 @@ var router = new Router({
 					name: 'blackList',
 					meta: {
 						title: "黑名单管理",
+						pagetitle: "黑名单管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/userManager/blackList.vue')
 				},

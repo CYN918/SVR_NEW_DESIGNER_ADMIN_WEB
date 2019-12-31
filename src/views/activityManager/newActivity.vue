@@ -909,6 +909,8 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form = da;
+					this.selectData1.file_name = this.form.template_file_info.file_name;
+					this.selectData1.file_size_format = (this.form.template_file_info.file_size/1024/1024).toFixed(2) + 'MB';
 					if(this.form.info){
 						this.ifBjType=1;
 					} 
