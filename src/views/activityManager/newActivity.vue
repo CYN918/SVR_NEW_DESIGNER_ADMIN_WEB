@@ -1112,7 +1112,7 @@
 					
 					return "请选择模板状态！！";
 				}
-				if(!this.form['info'] || this.form['special_url']){
+				if(this.form['info'] == '' && this.form['special_url'] == ''){
 					
 					return "图文编辑和个性化页面不能都为空！！";
 				}
