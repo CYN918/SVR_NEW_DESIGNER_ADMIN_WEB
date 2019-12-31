@@ -449,14 +449,12 @@
 				var re = new RegExp(reg);
 				if(re.test(this.additemdata[index].limitnum)){
 					
-				} else {
-					if(this.additemdata[index].limitnum <= 0){
-						this.$message({
-								message:"仅限输入大于零的正整数"
-						});
-						this.additemdata[index].limitnum = '';
-						return
-					}
+				} else {	
+					this.$message({
+						message:"仅限输入大于零的正整数"
+					});
+					this.additemdata[index].limitnum = '';
+					return
 				}
 			},
 			additemdatalist(type,tit,tig,lim){
