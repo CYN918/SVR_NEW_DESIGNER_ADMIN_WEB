@@ -445,7 +445,7 @@
 		},
 		methods: {
 			checkValue(index){
-				var reg = /^[1-9]+$/;
+				var reg = /^\+?[1-9]\d*$/;
 				var re = new RegExp(reg);
 				if(re.test(this.additemdata[index].limitnum)){
 					
@@ -579,7 +579,7 @@
 					if(this.additemdata[i].limittype == "text" || this.additemdata[i].limittype == "pic"){
 						if(!this.additemdata[i].limittypevalue){
 							this.$message({
-								message:"附加信息第"+(i+1)+"项的内容类型不能必选"
+								message:"附加信息第"+(i+1)+"项的内容类型需必选"
 							})
 							return
 						}
@@ -1111,6 +1111,10 @@
 				if(!this.form['is_provide_template']){
 					
 					return "请选择模板状态！！";
+				}
+				if(!this.form['info'] || !this.form['special_url']){
+					
+					return "图文编辑和个性化页面不能都为空！！";
 				}
 				return true;
 			},
