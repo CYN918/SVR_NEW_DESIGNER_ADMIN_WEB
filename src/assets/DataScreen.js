@@ -85,7 +85,7 @@ const screenData = {
 				{name:"举报对象ID",id:"accused_open_id"},
 				{name:"举报对象昵称",id:"accused_username"},
 				{name:"举报位置",id:"position",child:[{name:"作品举报",id:"work"},{name:"评论举报",id:"comment"},{name:"用户中心举报",id:"user"},{name:"私信举报",id:"message"}]},
-				{name:"详细说明",id:"hire_order_name"},
+				{name:"详细说明",id:"detail"},
 				{name:'举报时间',type:"time",child:[{name:'举报时间(开始)',id:'create_time_start'},{name:'举报时间(开始)',id:'create_time_end'}]},
 				
 			]

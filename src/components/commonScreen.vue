@@ -140,7 +140,6 @@
 						this.form['classify_3'] = this.selectedOptions[2];
 					}
 					
-					
 					 this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)
