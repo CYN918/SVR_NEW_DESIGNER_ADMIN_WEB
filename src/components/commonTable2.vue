@@ -637,7 +637,7 @@
 					this.tableConfiglist = this.tableConfig.list
 				} else {
 					this.tableConfiglist = this.tableConfig['list'+ n];
-					//console.log(this.tableConfiglist)
+					console.log(this.tableConfiglist)
 				} 
 				
 				if(!this.tableAction.num){

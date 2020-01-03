@@ -240,8 +240,11 @@
 		</div>
 		
 		<el-dialog title="分配项目" :visible.sync="centerDialogVisible1">
-			<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields2"
-			 ref="Tabledd"></common-table>
+			<div id="tablebg">
+				<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields2"
+				 ref="Tabledd"></common-table>
+			</div>
+			
 		</el-dialog>
 		
 		<el-dialog
@@ -598,25 +601,38 @@
 						
 					
 				},
-				filterFields2:[
-					{name:"项目ID",id:"classify_name"},
-					{name:"项目名称",id:"classify_name"},
-					{name:"业务类型",id:"classify_name"},
-					{name:"领域范围",id:"classify_name"},
-					{name:"额外赏金",id:"classify_name"},
-					{name:"发布时间",id:"classify_name"},
-					{name:"中标时间",id:"classify_name"},
-					{name:"截稿时间",id:"classify_name"},
+				filterFields0:[
+					{name:"项目ID",id:"id"},
+					{name:"项目名称",id:"name"},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"领域范围",id:"fields"},
+					{name:"额外赏金",id:"extra_reward"},
+					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
+					{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'发布时间(开始)',id:'bidding_time_start'},{name:'发布时间(开始)',id:'bidding_time_end'}]},
+					{name:'截稿时间',id:'deadline',type:"time",child:[{name:'发布时间(开始)',id:'deadline_start'},{name:'发布时间(开始)',id:'deadline_end'}]},
+					{name:"",id:"project_id",type:"display"},
 				],
 				filterFields1:[
-					{name:"项目ID",id:"classify_name"},
-					{name:"项目名称",id:"classify_name"},
-					{name:"业务类型",id:"classify_name"},
-					{name:"领域范围",id:"classify_name"},
-					{name:"额外赏金",id:"classify_name"},
-					{name:"发布时间",id:"classify_name"},
-					{name:"中标时间",id:"classify_name"},
-					{name:"截稿时间",id:"classify_name"},
+					{name:"项目ID",id:"id"},
+					{name:"项目名称",id:"name"},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"领域范围",id:"fields"},
+					{name:"额外赏金",id:"extra_reward"},
+					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
+					{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'发布时间(开始)',id:'bidding_time_start'},{name:'发布时间(开始)',id:'bidding_time_end'}]},
+					{name:'截稿时间',id:'deadline',type:"time",child:[{name:'发布时间(开始)',id:'deadline_start'},{name:'发布时间(开始)',id:'deadline_end'}]},
+					{name:"",id:"project_id",type:"display"},
+				],
+				filterFields2:[
+					{name:"项目ID",id:"id"},
+					{name:"项目名称",id:"name"},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"领域范围",id:"fields"},
+					{name:"额外赏金",id:"extra_reward"},
+					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
+					{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'发布时间(开始)',id:'bidding_time_start'},{name:'发布时间(开始)',id:'bidding_time_end'}]},
+					{name:'截稿时间',id:'deadline',type:"time",child:[{name:'发布时间(开始)',id:'deadline_start'},{name:'发布时间(开始)',id:'deadline_end'}]},
+					{name:"",id:"project_id",type:"display"},
 				],
 				commonTopData1: {
 					"pageName": "publishWork",
@@ -653,6 +669,9 @@
 			}
 		},
 		methods: {
+			ISshow(){
+				this.$refs.Tabledd.reject();
+			},
 			ishide(){
 				this.centerDialogVisible = false;
 				this.centerDialogVisible1=true;
@@ -923,6 +942,9 @@
 </script>
 
 <style>
+	#tablebg .el-dialog__wrapper{
+		background: rgba(0,0,0,0.5);
+	},
 	.detailContent .detailContent0 ul {
 		padding: 0;
 	}

@@ -494,9 +494,9 @@
 		width: 1000px;
 	}
 	
-	 .el-picker-panel,.el-select-dropdown{
+	/* .el-picker-panel,.el-select-dropdown{
 		z-index: 2014 !important;
-	}
+	} */
 	
 	.shelves .el-message-box__content{
 		border-top:0 !important;

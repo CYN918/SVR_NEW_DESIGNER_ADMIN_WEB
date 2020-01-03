@@ -417,7 +417,7 @@
 				detailData: "",
 				filterFields:{
 					filterFields0:[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
@@ -428,7 +428,7 @@
 						{name:"",id:"project_id",type:"display"},
 					],
 					filterFields1:[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
@@ -439,7 +439,7 @@
 						{name:"",id:"project_id",type:"display"},
 					],
 					filterFields2:[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
@@ -450,7 +450,7 @@
 						{name:"",id:"project_id",type:"display"},
 					],
 					filterFields3:[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
@@ -464,7 +464,7 @@
 						{name:"",id:"project_id",type:"display"},
 					],
 					filterFields4:[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
@@ -477,7 +477,7 @@
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
 					'filterFields5':[
-						{name:"项目ID",id:"project_id"},
+						{name:"项目ID",id:"id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
 						{name:"领域范围",id:"fields"},
