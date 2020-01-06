@@ -46,7 +46,7 @@
 			<div class="margin40" style="height: 60px;" >
 				<div class="tagbts">
 					<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
-					 :disable-transitions="false" @close="handleClose(item.id)">
+					 :disable-transitions="false" @close="handleClose(item.id,index)">
 						{{item.btnName + "：" + item.val}}
 					</el-tag>
 				</div>
@@ -255,7 +255,7 @@
 					<div class="screenBottom paddinglr30">
 						<div class="screenBottombtn ofh">
 							<button class="fleft defaultbtn" @click="reset">重置</button>
-							<button class="fright defaultbtn defaultbtnactive" @click="cha">查询</button>
+							<button class="fright defaultbtn defaultbtnactive" @click="cha('reach')">查询</button>
 						</div>
 					</div>
 				</div>
@@ -266,6 +266,7 @@
 </template>
 
 <script>
+    import DataScreen from "@/assets/DataScreen.js"
 	export default {
 		props: ['tableConfig','commonTopData','tableAction','filterFields'],
 		data() {
@@ -320,6 +321,90 @@
 			}
 		},
 		methods: {
+			handleClose(tag,index) {
+				let obj = {}
+				let obj1 = {}
+				let obj2 = {}
+				let obj3 = {}
+				let obj4 = {}
+				this.commonTopData.commonbottombtn.splice(index, 1);
+				this.commonTopData.commonbottombtn.forEach(item => {
+					if(this.tabnums == 0){
+						if(item.id == "name"){
+							let obj = {name: item.val};
+						}
+						if(item.id == "sort"){
+							let obj1 = {sort: item.val};
+						}
+						if(item.id == "total_work_num_start"){
+							let obj2 = {total_work_num_start: item.val};
+						}
+						if(item.id == "total_work_num_end"){
+							let obj3 = {total_work_num_end: item.val};
+						}
+					}else{
+						if(item.id == "program_begin_time"){
+							let obj = {program_begin_time: item.val};
+						}
+						if(item.id == "program_end_time"){
+							let obj1 = {program_end_time: item.val};
+						}
+						if(item.id == "status"){
+							let obj2 = {status: item.val};
+						}
+					}		
+				})	
+				Object.assign(obj4, obj, obj1, obj2, obj3);
+				this.form = obj4;
+				this.getTabData()
+			},
+			getcommonrightbtn(){
+				// console.log(this.filterFields)
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					// console.log(urldata);
+					this.tabFilterFields = this.tabnums == 0 ? this.filterFields.filterFields0 : this.filterFields.filterFields1;
+					// console.log(this.tabFilterFields);
+					this.tabFilterFields.forEach(item=>{
+						//console.log(urldata[item.id]);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+										console.log(this.commonTopData.commonbottombtn);
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+										console.log(this.commonTopData.commonbottombtn);
+									}
+								})
+							}
+						}
+					})
+				}
+			},
 			gettitle(){
 				if(!this.commonTopData.tabDatatitle){
 					return this.commonTopData.tabData[this.tabnums].name
@@ -474,9 +559,30 @@
 				}
 				
 			},
-			cha(){
-				this.reject();
-				this.getTabData()
+			cha(data){
+				if (data == "reach") {
+					//console.log()
+					if(this.vocation != ""){
+						this.form['vocation'] = this.vocation.join(',');
+					};
+					
+					if(this.selectedOptions.length != 0){
+						this.form['classify_1'] = this.selectedOptions[0];
+						this.form['classify_2'] = this.selectedOptions[1];
+						this.form['classify_3'] = this.selectedOptions[2];
+					}
+					
+					 this.$router.push({
+						query: {
+							urlDate: JSON.stringify(this.form)
+						}
+					});
+					eventBus.$emit("sreenData", this.form);
+					this.getcommonrightbtn();
+					this.reject();
+					this.getTabData();
+				}
+			    
 			},
 			setexport(){
 				//获取子组件表格数据
@@ -525,8 +631,8 @@
 					limit:this.pagesize,
 				}
 				
-				//console.log(data);
-				//console.log(this.form)
+				console.log(data);
+				console.log(this.form)
 				//获取筛选的条件
 				if (this.form) {
 					const sreenData = this.form
@@ -686,6 +792,7 @@
 		created() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
+			
 		}
 	}
 </script>

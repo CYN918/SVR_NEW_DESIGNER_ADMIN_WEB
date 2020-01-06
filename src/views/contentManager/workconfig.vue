@@ -121,12 +121,12 @@
 					filterFields0:[
 						{name:"专题名称",id:"name"},
 						{name:"tab排序",id:"sort",child:[{name:'第一位',id:'1'},{name:'第二位',id:'2'},{name:'第三位',id:'3'},{name:'第四位',id:'4'},{name:'第五位',id:'5'}]},
-						{name:"当前作品数量",id:"total_work_num"},		
+						{name:"当前作品数量",type:'two',child:[{name:'当前作品数量下限',id:'total_work_num_start'},{name:'当前作品数量上限',id:'total_work_num_end'}]},		
 					],
 					filterFields1:[
-						{name:"干预类型",id:"classify_name"},
+						// {name:"干预类型",id:"classify_name"},
 						{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'program_begin_time'},{name:'干预时间(开始)',id:'program_end_time'}]},
-						{name:"当前状态",id:"status",child:[{name:"待使用",id:"1"},{name:" 未使用",id:"0"},{name:"线上展示中",id:"2"}]},
+						{name:"当前状态",id:"status",child:[{name:"已过期",id:"-1"},{name:" 未开始",id:"0"},{name:"线上展示中",id:"1"}]},
 					]
 				},
 				IsDetail:1,
@@ -138,52 +138,6 @@
 		watch: {},
 		computed: {},
 		methods: {
-			getcommonrightbtn(){
-				this.commonTopData.commonbottombtn = [];
-				if(this.$route.query.urlDate){
-					const urldata = JSON.parse(this.$route.query.urlDate);
-					console.log(urldata);
-					this.filterFields = this.tabsnum == 0 ? DataScreen.screen.homeBanner.filterFields0 : DataScreen.screen.homeBanner.filterFields1;
-					console.log(this.filterFields);
-					this.filterFields.forEach(item=>{
-						//console.log(urldata[item.id]);
-						if(urldata[item.id]){
-							var val = urldata[item.id];
-							if(item.child){	
-								val = "";
-								item.child.forEach(citem=>{
-									//alert(urldata[item.id])
-									if(citem.id == urldata[item.id]){
-										val = citem.name;
-									}
-								})
-							} 
-							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
-						} 
-						if(item.type == "two"){
-							if(item.child){
-								item.child.forEach(citem=>{
-									if(urldata[citem.id]){
-										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
-										console.log(this.commonTopData.commonbottombtn);
-									}
-								})
-							}
-						}
-						if(item.type == "time"){
-							if(item.child){
-								item.child.forEach(citem=>{
-									if(urldata[citem.id]){
-										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
-										console.log(this.commonTopData.commonbottombtn);
-									}
-								})
-							}
-						}
-					})
-				}
-			},
 			edit2(row){
 				this.setpage()
 				this.router.push({path:"/contentManager/editlistAd", query:{row: JSON.stringify(row)}})
@@ -268,15 +222,13 @@
 			},
 		},
 		created() {
-			this.getcommonrightbtn();
+			
 		},
 		mounted() {
 			
 		},
 		watch:{
-			"$route":function(){
-				this.getcommonrightbtn();
-			}
+			
 		}
 	}
 </script>
