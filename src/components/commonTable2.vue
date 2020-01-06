@@ -327,6 +327,12 @@
 					return this.commonTopData.tabDatatitle
 				}
 			},
+			timetwo(time){
+				// console.log(this.times)
+				this.form[time[0].id] = this.times[0];
+				this.form[time[1].id] = this.times[1];
+				//console.log(this.form)
+			},
 			gettrue(id){
 				//console.log(this.adminuseraccess)
 				//alert(this.adminuseraccess.hasOwnProperty(id)) 

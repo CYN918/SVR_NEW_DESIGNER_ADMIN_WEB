@@ -102,7 +102,7 @@
 				if (!this.banner_name ) {
 					this.$message({
 						type: "info",
-						message: "banner素材名称！！"
+						message: "banner素材名称不能为空！！"
 					});
 					return;
 				}
@@ -135,10 +135,24 @@
 				})
 			},
 			edit() {
-				if (!this.banner_name || !this.banner_pic || this.checkUrl(this.jump_url)) {
+				if (!this.banner_name ) {
 					this.$message({
 						type: "info",
-						message: "banner素材活动*banner图片不能为空*跳转链接url格式不正确！！"
+						message: "banner素材名称不能为空！！"
+					});
+					return;
+				}
+				if (!this.banner_pic) {
+					this.$message({
+						type: "info",
+						message: "banner图片不能为空"
+					});
+					return;
+				}
+				if (this.checkUrl(this.jump_url)) {
+					this.$message({
+						type: "info",
+						message: "跳转链接url格式不正确！！"
 					});
 					return;
 				}

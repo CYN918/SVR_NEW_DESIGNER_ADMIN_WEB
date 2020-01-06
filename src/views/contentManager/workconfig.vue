@@ -119,7 +119,9 @@
 				detailData: "",
 				filterFields:{
 					filterFields0:[
-						
+						{name:"专题名称",id:"name"},
+						{name:"tab排序",id:"sort",child:[{name:'第一位',id:'1'},{name:'第二位',id:'2'},{name:'第三位',id:'3'},{name:'第四位',id:'4'},{name:'第五位',id:'5'}]},
+						{name:"当前作品数量",id:"total_work_num"},		
 					],
 					filterFields1:[
 						{name:"干预类型",id:"classify_name"},
@@ -136,6 +138,52 @@
 		watch: {},
 		computed: {},
 		methods: {
+			getcommonrightbtn(){
+				this.commonTopData.commonbottombtn = [];
+				if(this.$route.query.urlDate){
+					const urldata = JSON.parse(this.$route.query.urlDate);
+					console.log(urldata);
+					this.filterFields = this.tabsnum == 0 ? DataScreen.screen.homeBanner.filterFields0 : DataScreen.screen.homeBanner.filterFields1;
+					console.log(this.filterFields);
+					this.filterFields.forEach(item=>{
+						//console.log(urldata[item.id]);
+						if(urldata[item.id]){
+							var val = urldata[item.id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
+							console.log(this.commonTopData.commonbottombtn);
+						} 
+						if(item.type == "two"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+										console.log(this.commonTopData.commonbottombtn);
+									}
+								})
+							}
+						}
+						if(item.type == "time"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+										console.log(this.commonTopData.commonbottombtn);
+									}
+								})
+							}
+						}
+					})
+				}
+			},
 			edit2(row){
 				this.setpage()
 				this.router.push({path:"/contentManager/editlistAd", query:{row: JSON.stringify(row)}})
@@ -220,13 +268,15 @@
 			},
 		},
 		created() {
-			
+			this.getcommonrightbtn();
 		},
 		mounted() {
 			
 		},
 		watch:{
-			
+			"$route":function(){
+				this.getcommonrightbtn();
+			}
 		}
 	}
 </script>
