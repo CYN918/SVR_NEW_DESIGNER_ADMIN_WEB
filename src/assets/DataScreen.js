@@ -558,10 +558,10 @@ const screenData = {
 				{name:"作品ID",id:"work_id"},
 				{name:"作品名称",id:"work_name",},
 				{name:"用户ID",id:"open_id"},
-				{name:"用户名称",id:"username",type:"time"},
-				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"},{name:"分成式",id:"2"}]},
-				{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'shortlisted_time_start'},{name:'干预时间(开始)',id:'shortlisted_time_end'}]},
+				{name:"用户名称",id:"username"},
+				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"}]},
 				{name:"录用审核人",id:"check_admin"},
+				{name:"",type:"display"},
 			]
 		},
 		channel:{
