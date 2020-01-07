@@ -323,7 +323,6 @@
 		},
 		methods: {
 			handleClose(tag,index) {
-				console.log(this.commonTopData.commonbottombtn)
 				let obj = {}
 				let obj1 = {}
 				let obj2 = {}
@@ -448,7 +447,6 @@
 				}
 			},
 			getparent(fun){
-				console.log(fun)
 				if(fun == 'add'){
 					this.router.push({
 						path:"/projectManagement/projectList/newproject",query:{id:this.dataProjectId}
@@ -588,7 +586,6 @@
 			},
 			cha(data){
 				if (data == "reach") {
-					//console.log()
 					if(this.vocation != ""){
 						this.form['vocation'] = this.vocation.join(',');
 					};

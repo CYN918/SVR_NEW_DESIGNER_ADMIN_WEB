@@ -757,6 +757,7 @@
 				this.form.fields = this.checkedroles.join(",");
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
+				this.form.access_token = localStorage.getItem("access_token");
 				
 				if(!this.form.demand_id){
 					this.$message({
