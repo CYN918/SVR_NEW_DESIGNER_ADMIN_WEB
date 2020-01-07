@@ -447,17 +447,16 @@
 				}
 			},
 			getparent(fun){
-				if(fun == 'add'){
+				if(fun == 'add20'){
 					this.router.push({
 						path:"/projectManagement/projectList/newproject",query:{id:this.dataProjectId}
 					})
-				}else{
-					if(this.$parent[fun]){
-						this.$parent[fun]();
-					}
-					if(this.$parent.$parent[fun]){
-						this.$parent.$parent[fun]();
-					}
+				}
+				if(this.$parent[fun]){
+					this.$parent[fun]();
+				}
+				if(this.$parent.$parent[fun]){
+					this.$parent.$parent[fun]();
 				}		
 			},
 			reset(){

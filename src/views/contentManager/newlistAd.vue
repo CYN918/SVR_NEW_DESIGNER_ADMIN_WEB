@@ -438,7 +438,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 2013;
+		z-index: 2050;
 		display: fixed;
 		background: rgba(0,0,0,0.5);
 	}

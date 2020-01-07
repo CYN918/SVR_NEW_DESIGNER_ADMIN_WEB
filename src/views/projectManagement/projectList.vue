@@ -83,7 +83,7 @@
 					"commonrightbtn": [{
 						name: "新建项目",
 						id: "right1",
-						fun: "add",
+						fun: "add20",
 						accessid:"200520"
 					},
 					{
