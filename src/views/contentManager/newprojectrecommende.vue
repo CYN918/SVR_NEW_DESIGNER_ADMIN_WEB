@@ -165,6 +165,15 @@
 			}
 		},
 		methods: {
+			screen(fun){
+				console.log(fun)
+				if(this.$parent[fun]){
+					this.$parent[fun]();
+				}
+				if(this.$parent.$parent[fun]){
+					this.$parent.$parent[fun]();
+				}
+			},
 			getactivitiesrows(row){
 				//console.log(row);
 				this.activitiesrows = row;

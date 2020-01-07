@@ -364,7 +364,11 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
 					// console.log(urldata);
-					this.tabFilterFields = this.tabnums == 0 ? this.filterFields.filterFields0 : this.filterFields.filterFields1;
+					if(this.filterFields.length == undefined){
+						this.tabFilterFields = this.tabnums == 0 ? this.filterFields.filterFields0 : this.filterFields.filterFields1;
+					}else{
+						this.tabFilterFields = this.filterFields;
+					}
 					// console.log(this.tabFilterFields);
 					this.tabFilterFields.forEach(item=>{
 						//console.log(urldata[item.id]);
@@ -792,7 +796,12 @@
 		created() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
-			
+			this.getcommonrightbtn();
+		},
+		watch:{
+			"$route":function(){
+				this.getcommonrightbtn();
+			},
 		}
 	}
 </script>
