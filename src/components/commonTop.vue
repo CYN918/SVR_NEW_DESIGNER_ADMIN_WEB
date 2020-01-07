@@ -59,7 +59,7 @@
 </template>
 <script>
 	export default {
-		props: ["commonTopData"],
+		props: ["commonTopData","tableDatas"],
 		data() {
 			return {
 				inputVisible: false,
@@ -156,7 +156,7 @@
 					case "activityEmploy":
 						if(idIndex == "right1"){
 							this.router.push({
-								path:"/activityManager/activityEmploy/newActivity"
+								path:"/activityManager/activityEmploy/newActivity",query:{id:this.tableDatas[0].id}
 							})
 						};
 					break;
@@ -311,6 +311,7 @@
 		},
 		created() {
 			this.gettodoCount();
+			console.log(this.tableDatas)
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;

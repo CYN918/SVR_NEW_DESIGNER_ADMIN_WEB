@@ -235,7 +235,16 @@
 				</div>
 				<div v-show="!istab">
 					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
-						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
+						<span>选择页面样式</span>
+						<!-- <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input> -->
+						<el-select v-model="form.special_url" placeholder="请选择" style="width: 475px;margin-left: 30px;">
+							<el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.url">
+							</el-option>
+						</el-select>
 					</div>
 				</div>
 			</div>
@@ -473,7 +482,9 @@
 				loading:false,
 				ftype:"1",
 				sname:"",
-				deadline:""
+				deadline:"",
+				options: [],
+				templateUrl: '',
 			}
 		},
 		components: {
@@ -529,6 +540,13 @@
 					this.$message({
 						message:"领域范围输入框不能为空",
 						type:"error"
+					})
+					return;
+				}
+				if(this.checkedroles.indexOf(this.fields) != -1){
+					this.$message({
+						message:"请勿重复添加",
+						type:"warning"
 					})
 					return;
 				}
@@ -1027,11 +1045,11 @@
 				} else{
 					this.form.status = 3;
 					let openids = ''
-					console.log(this.selectelists3)
-					for(let key in this.selectelists3){
-						openids+= key;
-					}
-					this.form.open_id = openids;
+					// console.log(this.selectelists3)
+					// for(let key in this.selectelists3){
+					// 	openids+= key;
+					// }
+					this.form.open_id = this.selectelists[0].open_id;
 				}
 				
 				this.form.demand_id = this.dids.join(',');
@@ -1121,7 +1139,24 @@
 					this.deadline = da.deadline;
 					this.form.publish_time = da.publish_time;
 					this.form.status = da.status;
-					this.form.special_url = da.special_url;
+					this.form = da;
+					// this.form.special_url = da.special_url;
+					if(this.form.special_url != ''){
+						this.options = [
+							{
+								value: '0',
+								url: '',
+								label: '不使用'
+							},
+							{
+								value: '1',
+								url: this.form.special_url,
+								label: '活动页面模板1'
+							}
+						]
+					}else{
+						this.createdMothd()
+					}
 					if(this.form.desc){
 						this.ifBjType=1;
 					}
@@ -1409,6 +1444,10 @@
 					
 					return "请填写QQ！！";
 				}
+				if(!this.form['special_url']){
+					
+					return "图文编辑不能为空！！";
+				}
 			
 				return true;
 			},
@@ -1473,6 +1512,32 @@
 				if(id == "4"){
 					this.getdemandlist();
 				}
+			},
+			createdMothd(){
+				const url = window.location.href;
+				const arr = url.split("#");
+				const urlId = JSON.parse(this.$route.query.id) + 1;
+				if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+					this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+				}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+				}else{
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+				}
+				// console.log(this.templateUrl)
+				this.options = [
+					{
+						value: '0',
+						url: '',
+						label: '不使用'
+					},
+					{
+						value: '1',
+						url: this.templateUrl,
+						label: '项目页面模板1'
+					}
+				]
+
 			}
 		},
 		created() {
@@ -1502,7 +1567,7 @@
 				this.selectelists = []
 				this.selectelists.push(JSON.parse(this.$route.query.usernameitem)) 
 			}
-			
+			this.createdMothd();
 			
 		},
 		mounted(){

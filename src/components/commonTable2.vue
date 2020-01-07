@@ -317,11 +317,13 @@
 				},
 				tableConfiglist:[],
 				commonrightbtn:[],
-				filterField:[]
+				filterField:[],
+				dataProjectId: '',
 			}
 		},
 		methods: {
 			handleClose(tag,index) {
+				console.log(this.commonTopData.commonbottombtn)
 				let obj = {}
 				let obj1 = {}
 				let obj2 = {}
@@ -386,6 +388,20 @@
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							console.log(this.commonTopData.commonbottombtn);
 						} 
+						if(urldata[item.project_id]){
+							var val = urldata[item.project_id];
+							if(item.child){	
+								val = "";
+								item.child.forEach(citem=>{
+									//alert(urldata[item.id])
+									if(citem.id == urldata[item.project_id]){
+										val = citem.name;
+									}
+								})
+							} 
+							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.project_id});
+							console.log(this.commonTopData.commonbottombtn);
+						} 
 						if(item.type == "two"){
 							if(item.child){
 								item.child.forEach(citem=>{
@@ -432,12 +448,19 @@
 				}
 			},
 			getparent(fun){
-				if(this.$parent[fun]){
-					this.$parent[fun]();
-				}
-				if(this.$parent.$parent[fun]){
-					this.$parent.$parent[fun]();
-				}
+				console.log(fun)
+				if(fun == 'add'){
+					this.router.push({
+						path:"/projectManagement/projectList/newproject",query:{id:this.dataProjectId}
+					})
+				}else{
+					if(this.$parent[fun]){
+						this.$parent[fun]();
+					}
+					if(this.$parent.$parent[fun]){
+						this.$parent.$parent[fun]();
+					}
+				}		
 			},
 			reset(){
 				this.form ={};
@@ -683,6 +706,21 @@
 					this.loading = false;
 				});
 			},
+			getAddData(){
+				let data = {};
+				data = {
+					access_token: localStorage.getItem("access_token"),
+				}
+				this.api.projectgetid(data).then((da) => {
+					this.dataProjectId = da;
+					// this.dataList.sort(function(a,b){
+					//     return b.id - a.id
+					// })
+				}).catch(() => {
+					
+				});
+
+			},
 			autoTableHeight() {
 				//设置table标签
 				setTimeout(() => {
@@ -797,6 +835,7 @@
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
 			this.getcommonrightbtn();
+			this.getAddData();
 		},
 		watch:{
 			"$route":function(){

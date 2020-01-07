@@ -265,7 +265,16 @@
 				</div>
 				<div v-if="!istab">
 					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
-						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
+						<span>选择页面样式</span> 
+						<!-- <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input> -->
+						<el-select v-model="form.special_url" placeholder="请选择" style="width: 475px;margin-left: 30px;">
+							<el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.url">
+							</el-option>
+						</el-select>
 					</div>
 				</div>
 			</div>
@@ -436,7 +445,9 @@
 				demand_names:[],
 				selectData1:{},
 				uD:{},
-				istab:true
+				istab:true,
+				options: [],
+				templateUrl: '',
 			}
 		},
 		components: {
@@ -909,6 +920,24 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form = da;
+					console.log(this.form)
+					if(this.form.special_url != ''){
+						this.options = [
+							{
+								value: '0',
+								url: '',
+								label: '不使用'
+							},
+							{
+								value: '1',
+								url: this.form.special_url,
+								label: '活动页面模板1'
+							}
+						]
+					}else{
+						this.createdMothd()
+					}
+					
 					this.selectData1.file_name = this.form.template_file_info.file_name;
 					this.selectData1.file_size_format = (this.form.template_file_info.file_size/1024/1024).toFixed(2) + 'MB';
 					if(this.form.info){
@@ -1080,7 +1109,7 @@
 				});	
 			},
 			alertmask(){
-				
+				console.log(this.form['special_url'])
 				if(!this.form['activity_name']){
 					
 					return "请填写活动名称！！";
@@ -1114,10 +1143,14 @@
 					
 					return "请选择模板状态！！";
 				}
-				if(this.form['info'] == '' && this.form['special_url'] == ''){
+				if(!this.form['special_url']){
 					
-					return "图文编辑和个性化页面不能都为空！！";
+					return "图文编辑不能为空！！";
 				}
+				// if(this.form['info'] == '' && this.form['special_url'] == ''){
+					
+				// 	return "图文编辑和个性化页面不能都为空！！";
+				// }
 				return true;
 			},
 			getdemandlist(){
@@ -1171,6 +1204,32 @@
 				/* if(id == "4"){
 					this.getdemandlist();
 				} */
+			},
+			createdMothd(){
+				const url = window.location.href;
+				const arr = url.split("#");
+				const urlId = JSON.parse(this.$route.query.id) + 1;
+				if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+					this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
+				}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+				}else{
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+				}
+				// console.log(this.templateUrl)
+				this.options = [
+					{
+						value: '0',
+						url: '',
+						label: '不使用'
+					},
+					{
+						value: '1',
+						url: this.templateUrl,
+						label: '活动页面模板1'
+					}
+				]
+
 			}
 		},
 		created() {
@@ -1179,6 +1238,7 @@
 			this.getcommonrightbtn();
 			
 			this.$parent.tabchange(1);
+			this.createdMothd();
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];

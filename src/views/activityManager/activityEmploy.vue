@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<div class="wh">
-			<common-top :commonTopData="commonTopData"></common-top>
+			<common-top :commonTopData="commonTopData" :tableDatas="tableData"></common-top>
 			<div class="calc205">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
@@ -82,7 +82,7 @@
 				}
 
 				this.api.activitylist(data).then((da) => {
-					console.log(da.total)
+					// console.log(da.data)
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
