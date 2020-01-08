@@ -1141,8 +1141,10 @@
 					this.form.publish_time = da.publish_time;
 					this.form.status = da.status;
 					this.form = da;
-					// this.form.special_url = da.special_url;
-					if(this.form.special_url != ''){
+					console.log(this.form.special_url)
+					if(this.form.special_url != 'null'){
+						this.createdMothd()
+					}else{
 						this.options = [
 							{
 								value: '0',
@@ -1155,8 +1157,6 @@
 								label: '活动页面模板1'
 							}
 						]
-					}else{
-						this.createdMothd()
 					}
 					if(this.form.desc){
 						this.ifBjType=1;
@@ -1445,10 +1445,10 @@
 					
 					return "请填写QQ！！";
 				}
-				// if(this.form['special_url'] == ''){
+				if(this.detailtext[0].module_title == '' && this.form['special_url'] == ''){
 					
-				// 	return "图文编辑不能为空！！";
-				// }
+					return "图文编辑不能为空！！";
+				}
 			
 				return true;
 			},
@@ -1565,6 +1565,7 @@
 			}
 		},
 		created() {
+			console.log(this.detailtext);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.screenreach();
 			this.getcommonrightbtn();
