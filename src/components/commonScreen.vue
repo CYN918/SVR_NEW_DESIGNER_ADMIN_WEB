@@ -15,10 +15,10 @@
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
 						<el-dropdown trigger="click" class="ipt" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
-							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="vocation.join(',')" suffix-icon="el-icon-arrow-down"
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="form[item.id]" suffix-icon="el-icon-arrow-down"
 							 clearable></el-input>
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
-								<el-checkbox-group v-model="vocation">
+								<el-checkbox-group v-model="vocation[item.id]" @change="vocations(item.id)">
 									<el-dropdown-item v-for="(citem,index) in item.child" :key="index" >
 										<el-checkbox  :label="citem" >{{citem}}</el-checkbox>
 									</el-dropdown-item>
@@ -108,7 +108,10 @@
 		data() {
 			return {
 				form: {},
-				vocation:[],
+				vocation:{
+					vocation:[],
+					recommend_level:[]
+				},
 				texts: '',
 				options: [],
 				value: '',
@@ -127,12 +130,16 @@
 			city
 		},
 		methods: {
+			vocations(arr){
+				console.log(arr);
+				this.form[arr] = this.vocation[arr].toString();
+			},
 			getparent(data) {
 				if (data == "reach") {
 					//console.log()
-					if(this.vocation != ""){
-						this.form['vocation'] = this.vocation.join(',');
-					};
+					// if(this.vocation != ""){
+					// 	this.form['vocation'] = this.vocation.join(',');
+					// };
 					
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];

@@ -7,7 +7,7 @@ const screenData = {
 				{name:'是否为平台供稿人',id:'is_contributor',child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
 				{name:'供稿人类型',id:'contributor_type',child:[{name:"个人 ",id:"1"},{name:"企业",id:"2"}]},
 				{name:'是否为平台推荐创作者',id:'is_recommend',child:[{name:"是 ",id:"1"},{name:"否",id:"0"}]},
-				{name:'推荐等级',id:'recommend_level',child:[{name:"S",id:"S"},{name:"A ",id:"A"},{name:"B",id:"B"},{name:"C",id:"C"},{name:"不推荐",id:"0"}]},
+				{name:'推荐等级',id:'recommend_level',type:"more",child:["S",'A','B','C',"不推荐"]},
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'work_num_min'},{name:'作品数量上限',id:'work_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
