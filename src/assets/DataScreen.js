@@ -1684,7 +1684,6 @@ const screenData = {
 			bts0:[
 				{lable:"反馈单ID",prop:"feedback_id"},
 				{lable:"用户ID",prop:"open_id"},
-				{lable:"分类ID",prop:"classify_id"},
 				{prop:'username',lable:'用户昵称',type:"url",id:"open_id",url:"/userManager/userBaseInfo/userBaseInfoDetail?open_id="},
 				{lable:"截图",prop:"pic",type:"img",width:200},
 				{lable:"问题类型",prop:"classify_name"},
@@ -1699,7 +1698,7 @@ const screenData = {
 				{lable:"类型名称",prop:"classify_name"},
 				{lable:"状态",prop:"status",type:"status",child:{"1":"启用","0":"停用","-1":"删除"},statusclass:"presetReasonstatus"},
 				{lable:"该类型反馈数",prop:"used_num"},
-				{lable:"创建时间",prop:"created_at"},
+				{lable:"创建时间",prop:"create_time"},
 			],
 			action1:{
 				morebtns:{
