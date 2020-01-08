@@ -1445,10 +1445,10 @@
 					
 					return "请填写QQ！！";
 				}
-				if(this.form['special_url'] == ''){
+				// if(this.form['special_url'] == ''){
 					
-					return "图文编辑不能为空！！";
-				}
+				// 	return "图文编辑不能为空！！";
+				// }
 			
 				return true;
 			},
