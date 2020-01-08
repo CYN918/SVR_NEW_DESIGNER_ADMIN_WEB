@@ -920,7 +920,6 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form = da;
-					console.log(this.form)
 					if(this.form.special_url != ''){
 						this.options = [
 							{
@@ -1109,7 +1108,6 @@
 				});	
 			},
 			alertmask(){
-				console.log(this.form['special_url'])
 				if(!this.form['activity_name']){
 					
 					return "请填写活动名称！！";
@@ -1143,7 +1141,7 @@
 					
 					return "请选择模板状态！！";
 				}
-				if(!this.form['special_url']){
+				if(this.form['info'] == '' && this.form['special_url'] == ''){
 					
 					return "图文编辑不能为空！！";
 				}
@@ -1206,30 +1204,53 @@
 				} */
 			},
 			createdMothd(){
-				const url = window.location.href;
-				const arr = url.split("#");
-				const urlId = JSON.parse(this.$route.query.id) + 1;
-				if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
-					this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
-				}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
-					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
-				}else{
-					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
-				}
-				// console.log(this.templateUrl)
-				this.options = [
-					{
-						value: '0',
-						url: '',
-						label: '不使用'
-					},
-					{
-						value: '1',
-						url: this.templateUrl,
-						label: '活动页面模板1'
+				if(this.$route.query.row == undefined){
+					const url = window.location.href;
+					const arr = url.split("#");
+					const urlId = JSON.parse(this.$route.query.id) + 1;
+					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
+					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+					}else{
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
 					}
-				]
-
+					this.options = [
+						{
+							value: '0',
+							url: '',
+							label: '不使用'
+						},
+						{
+							value: '1',
+							url: this.templateUrl,
+							label: '活动页面模板1'
+						}
+					]
+				}else{
+					const url = window.location.href;
+					const arr = url.split("#");
+					const urlId = JSON.parse(this.$route.query.row).id;
+					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
+					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+					}else{
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+					}
+					this.options = [
+						{
+							value: '0',
+							url: '',
+							label: '不使用'
+						},
+						{
+							value: '1',
+							url: this.templateUrl,
+							label: '活动页面模板1'
+						}
+					]
+				}
 			}
 		},
 		created() {

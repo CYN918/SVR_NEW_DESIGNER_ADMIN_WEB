@@ -913,7 +913,6 @@
 		},
 		mounted() {
 			this.autoTableHeight();
-			console.log(this.tableConfig)
 			this.init();
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))

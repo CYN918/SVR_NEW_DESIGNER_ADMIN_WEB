@@ -311,7 +311,6 @@
 		},
 		created() {
 			this.gettodoCount();
-			console.log(this.tableDatas)
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;

@@ -106,7 +106,6 @@
 						{name:"用户ID",id:"open_id"},
 						{name:"用户昵称",id:"username"},
 						{name:"手机号",id:"mobile"},
-						{name:"手机号",id:"reserve_phone"},
 						{name:"邮箱",id:"email"},
 						{name:"身份证姓名",id:"real_name"},
 						{name:"身份证号码",id:"id_card"},
@@ -115,8 +114,9 @@
 						{name:"银行预留手机号",id:"reserve_phone"},
 						{name:"所属开户银行",id:"bank_name"},
 						{name:"所属开户支行",id:"branch_bank"},
-						{name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
-						{name:'累积录用作品数量', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
+						{name:"",type:"display"}
+						// {name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
+						// {name:'累积录用作品数量', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
 					],
 					filterFields1:[
 						{name:"用户ID",id:"open_id"},
@@ -129,8 +129,8 @@
 						{name:"企业银行卡号",id:"bank_card_no"},
 						{name:"所属开户银行",id:"bank_name"},
 						{name:"所属开户支行",id:"branch_bank"},
-						{name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
-						{name:'累积录用作品数', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
+						// {name:'累积收益', type:'two',child:[{id:'profit_min',name:"累积收益下限"},{name:"累积收益上限",id:'profit_max'}]},
+						// {name:'累积录用作品数', type:'two',child:[{id:'hire_num_min',name:"累积录用作品数下限"},{id:'hire_num_max',name:"累积录用作品数上限"}]},
 					]
 				},
 				IsDetail:1,

@@ -197,7 +197,6 @@
 					var child=[
 						
 					];
-					console.log(da.data);
 					da.data.forEach(item =>{
 						child.push({
 							name:item.category_name,
