@@ -124,9 +124,10 @@
 				currentpageName:""
 			}
 		},
-		
-		
 		methods: {
+			handleClose(tag) {
+				this.resetSave(tag)
+			},
 			getactivitiesrows(row){
 	
 				this.activitiesrows = row;
@@ -233,7 +234,6 @@
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
-									alert(urldata[item.id])
 									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
@@ -267,7 +267,7 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({ path: '/contentManager/newrecommendedActivities', query: {urlDate: JSON.stringify(urldata)}});
+					this.$router.push({ path: '/contentManager/newlistAd', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			getData(pg) {

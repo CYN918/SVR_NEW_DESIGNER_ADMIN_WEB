@@ -167,6 +167,9 @@
 		
 		
 		methods: {
+			handleClose(tag) {
+				this.resetSave(tag)
+			},
 			swapItems(arr, index1, index2) {
 				
 				if(index2 >= arr.length){
@@ -392,7 +395,7 @@
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-					this.$router.push({ path: '/contentManager/newrecommendedActivities', query: {urlDate: JSON.stringify(urldata)}});
+					this.$router.push({ path: '/contentManager/workconfig/newworkconfig', query: {urlDate: JSON.stringify(urldata)}});
 				}
 			},
 			getData(pg) {
