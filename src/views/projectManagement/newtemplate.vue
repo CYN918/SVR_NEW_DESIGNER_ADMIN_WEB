@@ -119,7 +119,16 @@
 				</div>
 				<div v-show="!istab">
 					<div class="textcenter" style="margin: 40px;margin-bottom: 600px;">
-						<span>页面链接</span> <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input>
+						<span>选择页面样式</span> 
+						<!-- <el-input style="width: 475px;margin-left: 30px;" type="text" v-model="form.special_url"></el-input> -->
+						<el-select v-model="form.special_url" placeholder="请选择" style="width: 475px;margin-left: 30px;">
+							<el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.url">
+							</el-option>
+						</el-select>
 					</div>
 				</div>
 				
@@ -270,7 +279,9 @@
 					},
 				],
 				clear:true,
-				fields:""
+				fields:"",
+				options: [],
+				templateUrl: '',
 			}
 		},
 		components: {
@@ -321,6 +332,13 @@
 					this.$message({
 						message:"领域范围输入框不能为空",
 						type:"error"
+					})
+					return;
+				}
+				if(this.checkedroles.indexOf(this.fields) != -1){
+					this.$message({
+						message:"请勿重复添加",
+						type:"warning"
 					})
 					return;
 				}
@@ -411,6 +429,13 @@
 				}
 				this.form.id = this.rows.id
 				this.form.fields = this.checkedroles.join(",");
+				this.form.access_token = localStorage.getItem("access_token");
+				if(this.alertmask() != true){
+					this.$message({
+						message:this.alertmask(),
+					})
+					return;
+				}
 				this.api.projecttemplateupdate(this.form).then(da => {
 					//console.log(da)
 					if(da.result == 0){
@@ -676,7 +701,7 @@
 					})
 					return;
 				}
-				
+				console.log(this.form)
 				this.api.projecttemplateadd(this.form).then(da =>{
 					//console.log(da)
 					if(da.result == 0){
@@ -704,8 +729,24 @@
 					this.form.template_name = da.template_name;
 					this.selectData1.file_name = da.file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					this.form.special_url = da.special_url;
-					//console.log(da.desc)
+					this.form = da;
+					console.log(this.form.special_url)
+					if(this.form.special_url != 'null'){
+						this.createdMothd()
+					}else{
+						this.options = [
+							{
+								value: '0',
+								url: '',
+								label: '不使用'
+							},
+							{
+								value: '1',
+								url: this.form.special_url,
+								label: '项目页面模板1'
+							}
+						]
+					}
 					this.detailtext = JSON.parse(da.desc)
 					if(this.form.desc){
 						this.ifBjType=1;
@@ -892,6 +933,10 @@
 					
 					return "请选择状态！！";
 				}
+				if(this.detailtext[0].module_title == '' && this.form['special_url'] == ''){
+					
+					return "图文编辑不能为空！！";
+				}
 				return true;
 			},
 			getdemandlist(){
@@ -954,13 +999,63 @@
 					
 					this.form.status = this.rows.status
 				}
+			},
+			createdMothd(){
+				if(this.$route.query.row == undefined){
+					const url = window.location.href;
+					const arr = url.split("#");
+					const urlId = JSON.parse(this.$route.query.id) + 1;
+					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					}else{
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					}
+					this.options = [
+						{
+							value: '0',
+							url: '',
+							label: '不使用'
+						},
+						{
+							value: '1',
+							url: this.templateUrl,
+							label: '项目页面模板1'
+						}
+					]
+				}else{
+					const url = window.location.href;
+					const arr = url.split("#");
+					const urlId = JSON.parse(this.$route.query.row).id;
+					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					}else{
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					}
+					this.options = [
+						{
+							value: '0',
+							url: '',
+							label: '不使用'
+						},
+						{
+							value: '1',
+							url: this.templateUrl,
+							label: '项目页面模板1'
+						}
+					]
+				}
 			}
 		},
 		created() {
 			
 			this.screenreach();
 			this.getcommonrightbtn();
-			this.init()
+			this.init();
+			this.createdMothd();
 			
 		},
 		mounted(){

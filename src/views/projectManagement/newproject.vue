@@ -1154,7 +1154,7 @@
 							{
 								value: '1',
 								url: this.form.special_url,
-								label: '活动页面模板1'
+								label: '项目页面模板1'
 							}
 						]
 					}

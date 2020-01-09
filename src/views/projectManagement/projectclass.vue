@@ -65,7 +65,7 @@
 					"commonrightbtn1": [{
 						name: "新建预设模板",
 						id: "right1",
-						fun: "add1",
+						fun: "add21",
 						accessid: "200556"
 					}],
 					"commonbottombtn":[

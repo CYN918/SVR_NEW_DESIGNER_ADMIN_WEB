@@ -319,6 +319,7 @@
 				commonrightbtn:[],
 				filterField:[],
 				dataProjectId: '',
+				newtemplateId: '',
 			}
 		},
 		methods: {
@@ -452,12 +453,36 @@
 						path:"/projectManagement/projectList/newproject",query:{id:this.dataProjectId}
 					})
 				}
+				if(fun == 'add21'){
+					this.router.push({
+						path:"/projectManagement/projectclass/newtemplate",query:{id:this.newtemplateId}
+					})
+				}
 				if(this.$parent[fun]){
 					this.$parent[fun]();
 				}
 				if(this.$parent.$parent[fun]){
 					this.$parent.$parent[fun]();
 				}		
+			},
+			getData(){
+				let data = {};
+				data = {
+					access_token: localStorage.getItem("access_token"),
+					page: 1,
+					limit: 50,
+				}
+				this.api.projecttemplatelist(data).then((da) => {
+					if(da.data.length != '0'){
+						this.newtemplateId = da.data[0].id;
+					}
+					
+					// this.dataList.sort(function(a,b){
+					//     return b.id - a.id
+					// })
+				}).catch(() => {
+					
+				});
 			},
 			reset(){
 				this.form ={};
@@ -833,6 +858,7 @@
 			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
 			this.getcommonrightbtn();
 			this.getAddData();
+			this.getData();
 		},
 		watch:{
 			"$route":function(){
