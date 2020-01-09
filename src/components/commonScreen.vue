@@ -19,8 +19,8 @@
 							 clearable></el-input>
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
 								<el-checkbox-group v-model="vocation[item.id]" @change="vocations(item.id)">
-									<el-dropdown-item v-for="(citem,index) in item.child" :key="index" >
-										<el-checkbox  :label="citem" >{{citem}}</el-checkbox>
+									<el-dropdown-item v-for="(citem,index) in item.child" :key="index">
+										<el-checkbox  :label="citem">{{citem}}</el-checkbox>
 									</el-dropdown-item>
 								</el-checkbox-group>
 						    </el-dropdown-menu>

@@ -29,7 +29,10 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">举报位置</span>
-					<span>{{ getValue(detailData.position) }}</span>
+					<span v-if="getValue(detailData.position) == 'work'">作品举报</span>
+					<span v-if="getValue(detailData.position) == 'comment'">评论举报</span>
+					<span v-if="getValue(detailData.position) == 'user'">用户中心举报</span>
+					<span v-if="getValue(detailData.position) == 'message'">私信举报</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">被举报作品ID</span>
