@@ -162,6 +162,7 @@
 	.detailtitle{
 		padding-left: 40px;
 		padding-top: 18px;
+		padding-bottom: 30px;
 	}
 	
 	.detailContent{
@@ -175,7 +176,7 @@
 	}
 	
 	.margint13{
-		margin-bottom: 13px;
+		margin-bottom: 30px !important;
 	}
 	
 	.detailKey{
