@@ -16,7 +16,7 @@ const screenData = {
 				{name:'手机号',id:'mobile'},
 				{name:'邮箱',id:'email'},
 				{name:'职业',id:'vocation',type:"more",child:["平面设计师","插画师","网页设计师","UI设计师","动画师","产品设计师","摄影师","学生","设计爱好者","UX设计师","新媒体设计师","特效设计师","服装设计师","教育工作者"]},
-				{name:'所在地',id:'address'},
+				{name:'所在地(国家-省-市)',type:'three',child:[{name:'国家',id:'country'},{name:'省',id:'province'},{name:'市',id:'city'}]},
 				{name:'非认证微信',id:'weixin'},
 				{name:'认证微信',id:'weixin_name'},
 				{name:'非认证QQ',id:'qq'},

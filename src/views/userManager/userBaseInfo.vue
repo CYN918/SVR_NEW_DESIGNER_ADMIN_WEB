@@ -408,6 +408,15 @@
 								})
 							}
 						}
+						if(item.type == "three"){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
+						}
 						if(item.type == "time"){
 							if(item.child){
 								item.child.forEach(citem=>{
