@@ -186,6 +186,7 @@
 			},
 			reset() {
 				this.form = {};
+				this.times = [];
 			},
 			timetwo(time,index){
 				// console.log(this.times)

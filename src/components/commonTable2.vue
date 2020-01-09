@@ -199,9 +199,9 @@
 								</el-select>
 								 <el-date-picker
 								  v-if="item.type == 'time'"
-								   @change="timetwo(item.child)"
+								   @change="timetwo(item.child,index)"
 								  class="ipt"
-								  v-model="times"
+								  v-model="times[index]"
 								  type="daterange"
 								  value-format="yyyy-MM-dd HH:mm:ss"
 								  start-placeholder="开始日期"
@@ -431,10 +431,10 @@
 					return this.commonTopData.tabDatatitle
 				}
 			},
-			timetwo(time){
+			timetwo(time,index){
 				// console.log(this.times)
-				this.form[time[0].id] = this.times[0];
-				this.form[time[1].id] = this.times[1];
+				this.form[time[0].id] = this.times[index][0];
+				this.form[time[1].id] = this.times[index][1];
 				//console.log(this.form)
 			},
 			gettrue(id){
