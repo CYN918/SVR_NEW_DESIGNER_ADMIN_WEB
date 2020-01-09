@@ -639,7 +639,7 @@ const screenData = {
 				{name:"通知ID",id:"id"},
 				{name:"通知标题",id:"title"},
 				{name:'发送用户数', type:'two',child:[{name:'作品数量下限',id:'send_num_min'},{name:'作品数量上限',id:'send_num_max'}]},
-				{name:'最近更新时间',type:"time",child:["update_time_start","update_time_end"]},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:"update_time_start"},{name:'最近更新时间(结束)',id:"update_time_end"}]},
 				{name:"创建人",id:"admin_username"},
 				{name:"当前投放状态",id:"status",child:[{name:"入围未录用",id:"-2"},{name:"未入围",id:"-1"},{name:"参与活动",id:"0"},{name:"已入围",id:"1"},{name:"已录用",id:"2"}]},
 			]
@@ -648,9 +648,10 @@ const screenData = {
 			filterFields:[
 				{name:"通知模板ID",id:"id"},
 				{name:"通知标题",id:"title"},
-				{name:'最近更新时间',type:"time",child:["update_time_start","update_time_end"]},
+				{name:'最近更新时间',type:"time",child:[{name:'最近更新时间(开始)',id:"update_time_start"},{name:'最近更新时间(结束)',id:"update_time_end"}]},
 				{name:"通知触发场景说明",id:"condition"},
 				{name:"通知内容",id:"content"},
+				{name:"",type:"display"}
 			]
 		},
 		holdAlltab:{

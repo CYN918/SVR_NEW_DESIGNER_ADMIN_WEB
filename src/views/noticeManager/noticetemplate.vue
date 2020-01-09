@@ -95,9 +95,9 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					//console.log(urldata);
+					console.log(urldata);
+					// console.log(this.filterFields)
 					this.filterFields.forEach(item=>{
-						//console.log(item);
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
@@ -110,7 +110,16 @@
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
+							// console.log(this.commonTopData.commonbottombtn);
+						}
+						if(item.type == 'time'){
+							if(item.child){
+								item.child.forEach(citem=>{
+									if(urldata[citem.id]){
+										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
+									}
+								})
+							}
 						}
 					})
 				}
