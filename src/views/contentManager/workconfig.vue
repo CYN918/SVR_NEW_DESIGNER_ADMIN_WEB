@@ -125,7 +125,7 @@
 					],
 					filterFields1:[
 						// {name:"干预类型",id:"classify_name"},
-						{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'program_begin_time'},{name:'干预时间(开始)',id:'program_end_time'}]},
+						{name:'干预时间',type:"time",child:[{name:'干预时间(开始)',id:'start_time'},{name:'干预时间(开始)',id:'end_time'}]},
 						{name:"当前状态",id:"status",child:[{name:"已过期",id:"-1"},{name:" 未开始",id:"0"},{name:"线上展示中",id:"1"}]},
 					]
 				},

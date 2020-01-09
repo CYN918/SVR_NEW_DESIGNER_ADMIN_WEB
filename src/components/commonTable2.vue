@@ -461,6 +461,7 @@
 			},
 			reset(){
 				this.form ={};
+				this.times = [];
 			},
 			reject(){
 				this.centerDialogVisible = !this.centerDialogVisible;
