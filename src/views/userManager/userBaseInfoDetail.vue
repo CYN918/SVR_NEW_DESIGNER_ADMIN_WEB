@@ -53,7 +53,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">作品数量</span>
-					<span class="fleft detailValue routerLink pointer">
+					<span class="fleft detailValue">
 						{{ getValue(detailData.work_num) }}
 						<!-- <router-link to="/userPersonalInfo" tag="div">
 							
@@ -62,7 +62,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">关注人数</span>
-					<span class="fleft detailValue routerLink pointer">
+					<span class="fleft detailValue">
 						{{ getValue(detailData.follow_num)  }}
 						<!-- <router-link to="/userPersonalInfo" tag="div">
 							
@@ -71,7 +71,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">粉丝人数</span>
-					<span class="fleft detailValue routerLink pointer">
+					<span class="fleft detailValue">
 						{{ getValue(detailData.fans_num)  }}
 						<!-- <router-link to="/userPersonalInfo" tag="div">
 							
@@ -114,10 +114,11 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">平台推荐等级</span>
-					<span class="fleft detailValue routerLink pointer">
-						<router-link to="/userPersonalInfo" tag="div">
-							{{ detailData.recommend_level ? getValue(detailData.recommend_level) : "不推荐"  }}
-						</router-link>
+					<span class="fleft detailValue">
+						{{ detailData.recommend_level ? getValue(detailData.recommend_level) : "不推荐"  }}
+						<!-- <router-link to="/userPersonalInfo" tag="div">
+							
+						</router-link> -->
 					</span>
 				</li>
 				<li class="margint13 ofh">

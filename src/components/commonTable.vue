@@ -727,7 +727,6 @@
 				})
 			},
 			handleSelectionChange(val) {
-				
 				if(this.tableConfig.masktable){
 					
 				} else {
@@ -866,16 +865,29 @@
 				
 			},	
 			setall(){
-				this.sel = !this.sel;
-				if(this.sel == false){
-					this.selected = this.tableConfig.total;
-					this.$parent.seltotal = this.tableConfig.total;
-					this.toggleSelection(this.tableDatas)
-				} else {
-					this.selected = 0;
-					this.$parent.seltotal = 0;
-					this.toggleSelection();
-				};
+				
+				if(this.multipleSelection.length == '0'){
+					this.sel = !this.sel;
+					if(this.sel == false){
+						this.selected = this.tableConfig.total;
+						this.$parent.seltotal = this.tableConfig.total;
+						this.toggleSelection(this.tableDatas)
+					} else {
+						this.selected = 0;
+						this.$parent.seltotal = 0;
+						this.toggleSelection();
+					};
+				}else{
+					this.sel = !this.sel;
+					if(this.sel == true){
+						this.selected = 0;
+						this.$parent.seltotal = 0;
+						this.toggleSelection();
+					}else{
+						this.selected = this.tableConfig.total;
+						this.$parent.seltotal = this.tableConfig.total;
+					}
+				}			
 			},
 			setinit(){
 				this.sel = true;
