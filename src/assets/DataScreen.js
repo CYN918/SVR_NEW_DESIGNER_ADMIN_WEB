@@ -266,7 +266,8 @@ const screenData = {
 					optionProps: {
 						value: 'id',
 						label: 'classify_name',
-						children: 'sub_data'
+						children: 'sub_data',
+						checkStrictly: true,
 					},
 					child:()=>{
 						let a = localStorage.getItem("cascader") ;

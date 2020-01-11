@@ -154,6 +154,9 @@ input{
 	background: #fb8b6c;
 	border-color: #fb8b6c;
 }
+#app .el-select{
+	margin: 0px;
+}
 
 #app .defaultbtn {
 	width: 100px;
@@ -904,6 +907,7 @@ input{
 
 	.el-popper[x-placement^=bottom] {
 		margin-top: 0;
+		z-index: 2060 !important;
 	}
 
 	.el-dropdown-menu {

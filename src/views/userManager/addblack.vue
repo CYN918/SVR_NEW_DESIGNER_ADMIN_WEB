@@ -347,7 +347,7 @@
 				//console.log(this.selectData);
 				var openids = '';
 				this.selectData1.forEach((item, index) => {
-					openids += (index == (this.selectData.length - 1)) ? item.accused_open_id : item.accused_open_id + ",";
+					openids += (index == (this.selectData1.length - 1)) ? item.open_id : item.open_id + ",";
 				})
 				return openids;
 			},

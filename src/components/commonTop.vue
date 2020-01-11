@@ -50,7 +50,7 @@
 		<div class="margin40 ta">
 			<div class="tagbts">
 				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
-				 :disable-transitions="false" @close="handleClose(item.id)">
+				 :disable-transitions="false" @close="handleClose(item.id,index)">
 					{{item.btnName + "：" + item.val}}
 				</el-tag>
 			</div>
@@ -84,8 +84,9 @@
 					return true;
 				}
 			},
-			handleClose(tag) {
+			handleClose(tag,index) {
 				this.$parent.resetSave(tag)
+				this.commonTopData.commonbottombtn.splice(index,1)
 			},
 			getparent(id,name) {
 				//alert(name)

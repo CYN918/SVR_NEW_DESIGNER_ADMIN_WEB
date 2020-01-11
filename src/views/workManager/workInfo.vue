@@ -265,6 +265,7 @@
 					/* sreenData.is_export = is_export; */
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
+					console.log(data)
 				}
 				
 				if(this.isajax==1){
@@ -279,21 +280,21 @@
 					
 				} */
 				
-				this.api.workList(data).then((da) => {
+				// this.api.workList(data).then((da) => {
 					
-					this.tableData = da.data;
-					this.tableConfig.total = da.total;
-					this.tableConfig.currentpage = da.page;
-					this.tableConfig.pagesize = da.page_size;
-					if(this.tableConfig.ischeck){
-						this.$refs.Tabledd.change(da.data);
-					}
-					this.setLoding(false);
-					this.isajax=0;
-				}).catch(() => {
-					this.isajax=0;
-					this.setLoding(false);
-				});
+				// 	this.tableData = da.data;
+				// 	this.tableConfig.total = da.total;
+				// 	this.tableConfig.currentpage = da.page;
+				// 	this.tableConfig.pagesize = da.page_size;
+				// 	if(this.tableConfig.ischeck){
+				// 		this.$refs.Tabledd.change(da.data);
+				// 	}
+				// 	this.setLoding(false);
+				// 	this.isajax=0;
+				// }).catch(() => {
+				// 	this.isajax=0;
+				// 	this.setLoding(false);
+				// });
 
 				/* this.setLoding(false); */
 			},
@@ -470,7 +471,7 @@
 				this.commonTopData.commonbottombtn = [];
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					//console.log(urldata);
+					// console.log(urldata);
 					this.filterFields.forEach(item => {
 						//console.log(item);
 
@@ -509,12 +510,38 @@
 							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
 						};
 						if (item.type == "cascader") {
-							/* let  cascader = JSON.parse(localStorage.getItem('cascader'));
-							//console.log(cascader);
-							let classify_1 = this.getval(cascader,urldata["classify_1"]);
-							let classify_2 = this.getval(cascader,urldata["classify_2"]); 
-							let classify_3 = this.getval(cascader,urldata["classify_3"]);
-							console.log(classify_1,classify_2,classify_3) */
+							if(item.child){
+								item.child.forEach(citem => {
+									if(urldata.classify_1 == citem.value){
+										this.commonTopData.commonbottombtn.push({
+											btnName: item.name,
+											val: citem.label,
+											id: citem.value
+										})
+										citem.children.forEach(element => {
+											if(urldata.classify_2 == element.value){
+												this.commonTopData.commonbottombtn.push({
+													btnName: item.name,
+													val: element.label,
+													id: element.value
+												})
+												element.children.forEach(val => {
+													if(urldata.classify_3 == val.value){
+														this.commonTopData.commonbottombtn.push({
+															btnName: item.name,
+															val: val.label,
+															id: val.value
+														})
+													}
+												})
+											}
+
+										})
+									}
+									
+								})
+
+							}
 						};
 					})
 				}
@@ -597,8 +624,35 @@
 				this.api.Workclassify({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					DataScreen.screen.workInfo.filterFields[4].child = da
+					this.formatRoutes(da);
+					let routers = this.formatRoutes(da);
+					// console.log(routers)
+					// console.log(da)
+					DataScreen.screen.workInfo.filterFields[4].child = routers
+					// DataScreen.screen.workInfo.filterFields[4].child = da
 				})
+			},
+			formatRoutes(routerArr){
+				const arr = [];
+				let obj = {};
+				routerArr.forEach(router => {
+					const tmp = { ...router };
+					if (tmp.sub_data){
+						tmp.sub_data = this.formatRoutes(tmp.sub_data);
+						obj = {
+							value: tmp.id,
+							label: tmp.classify_name,
+							children: tmp.sub_data,
+						}
+					}else{
+						obj = {
+							value: tmp.id,
+							label: tmp.classify_name,
+						}
+					}
+					arr.push(obj);
+				})
+				return arr;
 			},
 			getval(item,classify){
 				var name = "";
@@ -627,7 +681,7 @@
 					access_token:localStorage.getItem("access_token"),
 					is_activity:0
 				}).then(da=>{
-					console.log(da);
+					// console.log(da);
 					this.demandlist = da
 				})
 			},

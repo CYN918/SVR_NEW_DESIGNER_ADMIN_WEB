@@ -6,6 +6,7 @@
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
 			<div class="screenMidden paddinglr30">
+				
 				<ul class="screenMiddenul ofh w">
 					<li v-for="(item,index) in texts" :key="item.id">
 						<div>
@@ -42,13 +43,18 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						<el-cascader class="ipt" v-if="item.type == 'cascader'"
-							expand-trigger="hover"
+						<!-- <el-cascader class="ipt" v-if="item.type == 'cascader'"
+						    expand-trigger="hover"
 							:options="item.child"
 							:props="item.optionProps"
 							v-model="selectedOptions"
-							@change="handleChange">
-						</el-cascader>
+							@change="handleChange"
+							collapse-tags
+							clearable>
+						</el-cascader> -->
+						
+						<el-cascader-multi ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" expand-trigger="hover" v-model="selectedOptions" :data="item.child" :props="item.optionProps" collapse-tags clearable> </el-cascader-multi>
+						
 						
 						
 						<!-- <div v-if="item.type == 'cascader'">
@@ -126,6 +132,7 @@
 				currentpageName:"",
 				times:[],
 				selectedOptions:[],
+				cascaderOptions: [],
 				citye:["中国","北京市","东城区"],
 				defaultProps: {
 				  children: 'sub_data',
@@ -142,19 +149,20 @@
 				this.form[arr] = this.vocation[arr].toString();
 			},
 			getparent(data) {
+				console.log(data)
 				if (data == "reach") {
 					//console.log()
 					// if(this.vocation != ""){
 					// 	this.form['vocation'] = this.vocation.join(',');
 					// };
-					
+					console.log(this.selectedOptions)
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
 					}
-					
-					 this.$router.push({
+					// console.log(this.form)
+					this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)
 						}
@@ -162,6 +170,9 @@
 					eventBus.$emit("sreenData", this.form);
 				}
 			    this.$parent.screenmask("Off", "left1");
+			},
+			unique (arr) {
+			    return Array.from(new Set(arr))
 			},
 			init() {
 				//alert(typeof this.$route.query.urlDate != "string")
@@ -187,6 +198,7 @@
 						return;
 					} else {
 						this.texts = DataScreen.screen[this.pageName].filterFields;
+						// console.log(this.texts)
 					}
 					
 				}
@@ -202,8 +214,8 @@
 				//console.log(this.form)
 			},
 			handleChange(value) {
-				//console.log(value);
-			 }
+				// console.log(value)
+			},
 		},
 		watch: {
 			"$route":function(){
@@ -281,5 +293,10 @@
 	}
 	.ipt91 >>> .el-input__inner{
 		padding-right: 5px;
+	}
+	.ipt >>> .el-select{
+		/* margin-bottom: 20px !important;
+        margin-left: 2px !important; */
+		margin: 0px;
 	}
 </style>
