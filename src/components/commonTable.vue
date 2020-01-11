@@ -117,7 +117,7 @@
 			</el-table>
 			<div class="w" style="text-align: right;background: #FFFFFF;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">选择全部</button>
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span>共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">{{btnStatus?'选择全部':'取消全选'}}</button>
 				</div>
 				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
 				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="prev, pager, next, sizes,jumper" :total="tableConfig.total">
@@ -150,7 +150,8 @@
 				isimgurl:false,
 				adminuseraccess: [],
 				radio:'',
-				row:{}
+				row:{},
+				btnStatus: true,
 			}
 		},
 		methods: {
@@ -864,18 +865,19 @@
 				this.$parent.xzFn(this.multipleSelection); */
 				
 			},	
-			setall(){
-				
+			setall(){		
 				if(this.multipleSelection.length == '0'){
 					this.sel = !this.sel;
 					if(this.sel == false){
 						this.selected = this.tableConfig.total;
 						this.$parent.seltotal = this.tableConfig.total;
 						this.toggleSelection(this.tableDatas)
+						this.btnStatus = this.btnStatus ? false : true ;
 					} else {
 						this.selected = 0;
 						this.$parent.seltotal = 0;
 						this.toggleSelection();
+						this.btnStatus = true;
 					};
 				}else{
 					this.sel = !this.sel;
@@ -883,9 +885,11 @@
 						this.selected = 0;
 						this.$parent.seltotal = 0;
 						this.toggleSelection();
+						this.btnStatus = true;
 					}else{
 						this.selected = this.tableConfig.total;
 						this.$parent.seltotal = this.tableConfig.total;
+						this.btnStatus = this.btnStatus ? false : true ;
 					}
 				}			
 			},
