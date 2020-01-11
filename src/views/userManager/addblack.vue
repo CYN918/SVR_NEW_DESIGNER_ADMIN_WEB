@@ -629,7 +629,7 @@
 				this.getData({pageCurrent:1,pageSize:50});
 			},
 			"selectData":function(){
-				console.log(this.selectData)
+				// console.log(this.selectData)
 			}
 		}
 	}

@@ -228,7 +228,7 @@
 						//{name:"待使用",id:"0"},{name:"线上展示中",id:"1"}
 					})
 					
-					console.log(da)
+					// console.log(da)
 				})
 			}
 		},

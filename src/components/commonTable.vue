@@ -736,6 +736,7 @@
 					}
 					this.multipleSelection = val
 					this.changePageCoreRecordData(this.multipleSelection)
+					this.selected = val.length;
 				}
 				
 				
