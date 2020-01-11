@@ -265,7 +265,7 @@
 					/* sreenData.is_export = is_export; */
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
-					console.log(data)
+					// console.log(data)
 				}
 				
 				if(this.isajax==1){
@@ -280,21 +280,21 @@
 					
 				} */
 				
-				// this.api.workList(data).then((da) => {
+				this.api.workList(data).then((da) => {
 					
-				// 	this.tableData = da.data;
-				// 	this.tableConfig.total = da.total;
-				// 	this.tableConfig.currentpage = da.page;
-				// 	this.tableConfig.pagesize = da.page_size;
-				// 	if(this.tableConfig.ischeck){
-				// 		this.$refs.Tabledd.change(da.data);
-				// 	}
-				// 	this.setLoding(false);
-				// 	this.isajax=0;
-				// }).catch(() => {
-				// 	this.isajax=0;
-				// 	this.setLoding(false);
-				// });
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+					if(this.tableConfig.ischeck){
+						this.$refs.Tabledd.change(da.data);
+					}
+					this.setLoding(false);
+					this.isajax=0;
+				}).catch(() => {
+					this.isajax=0;
+					this.setLoding(false);
+				});
 
 				/* this.setLoding(false); */
 			},
@@ -526,6 +526,8 @@
 													id: element.value
 												})
 												element.children.forEach(val => {
+													// console.log(val)
+													// console.log(urldata.classify_3)
 													if(urldata.classify_3 == val.value){
 														this.commonTopData.commonbottombtn.push({
 															btnName: item.name,

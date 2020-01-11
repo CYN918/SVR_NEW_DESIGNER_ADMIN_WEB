@@ -53,7 +53,14 @@
 							clearable>
 						</el-cascader> -->
 						
-						<el-cascader-multi ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" expand-trigger="hover" v-model="selectedOptions" :data="item.child" :props="item.optionProps" collapse-tags clearable> </el-cascader-multi>
+						<el-cascader-multi ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" 
+						    expand-trigger="hover" 
+							v-model="cascaderOptions" 
+							:data="item.child" 
+							:props="item.optionProps" 
+							collapse-tags 
+							clearable> 
+						</el-cascader-multi>
 						
 						
 						
@@ -149,17 +156,27 @@
 				this.form[arr] = this.vocation[arr].toString();
 			},
 			getparent(data) {
-				console.log(data)
 				if (data == "reach") {
 					//console.log()
 					// if(this.vocation != ""){
 					// 	this.form['vocation'] = this.vocation.join(',');
 					// };
-					console.log(this.selectedOptions)
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
+					}else{
+						var arr = '';
+						var arr1 = '';
+						var arr2 = '';
+						this.cascaderOptions.forEach((item, index) => {
+							arr += item[0] + ",";
+							arr1 += item[1] + ",";
+							arr2 += item[2] + ",";
+						})
+						this.form['classify_1'] = this.removeRepeatStr(arr).substring(0,this.removeRepeatStr(arr).lastIndexOf(','));
+						this.form['classify_2'] = this.removeRepeatStr(arr1).substring(0,this.removeRepeatStr(arr1).lastIndexOf(','));
+						this.form['classify_3'] = arr2.substring(0,arr2.lastIndexOf(','));					
 					}
 					// console.log(this.form)
 					this.$router.push({
@@ -171,8 +188,15 @@
 				}
 			    this.$parent.screenmask("Off", "left1");
 			},
-			unique (arr) {
-			    return Array.from(new Set(arr))
+			removeRepeatStr(str){
+				var newStr = '';
+				var len = str.length;
+				for(var i=0; i<len; i++){
+					if(newStr.indexOf(str[i])==-1){
+						newStr = newStr + str[i];
+					}
+				}
+				return newStr;
 			},
 			init() {
 				//alert(typeof this.$route.query.urlDate != "string")
@@ -206,6 +230,7 @@
 			reset() {
 				this.form = {};
 				this.times = [];
+				this.cascaderOptions = [];
 			},
 			timetwo(time,index){
 				// console.log(this.times)
