@@ -322,6 +322,6 @@
 	.ipt >>> .el-select{
 		/* margin-bottom: 20px !important;
         margin-left: 2px !important; */
-		margin: 0px;
+		height: auto !important;
 	}
 </style>
