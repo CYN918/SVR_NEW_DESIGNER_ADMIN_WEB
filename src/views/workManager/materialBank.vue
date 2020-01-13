@@ -364,12 +364,13 @@
 					this.openurls = [
 						this.oneload
 					]
+					
 				}
-				//console.log(this.openurls)
+				// console.log(this.openurls)
+				
 				this.openurls.forEach(item =>{
 					
 					let src = item.id;
-					
 					fetch(item.id).then(res => res.blob()).then(blob => {
 						const a = document.createElement('a');
 						document.body.appendChild(a)

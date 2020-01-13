@@ -222,7 +222,6 @@
 						return;
 					} else {
 						this.texts = DataScreen.screen[this.pageName].filterFields;
-						// console.log(this.texts)
 					}
 					
 				}
