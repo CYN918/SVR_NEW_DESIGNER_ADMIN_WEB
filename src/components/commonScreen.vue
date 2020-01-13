@@ -165,7 +165,8 @@
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
-					}else{
+					}
+					if(this.cascaderOptions.length != 0){
 						var arr = '';
 						var arr1 = '';
 						var arr2 = '';
@@ -176,7 +177,7 @@
 						})
 						this.form['classify_1'] = this.removeRepeatStr(arr).substring(0,this.removeRepeatStr(arr).lastIndexOf(','));
 						this.form['classify_2'] = this.removeRepeatStr(arr1).substring(0,this.removeRepeatStr(arr1).lastIndexOf(','));
-						this.form['classify_3'] = arr2.substring(0,arr2.lastIndexOf(','));					
+						this.form['classify_3'] = this.removeRepeatStr(arr2).substring(0,this.removeRepeatStr(arr2).lastIndexOf(','));					
 					}
 					// console.log(this.form)
 					this.$router.push({
@@ -189,11 +190,11 @@
 			    this.$parent.screenmask("Off", "left1");
 			},
 			removeRepeatStr(str){
-				var newStr = '';
-				var len = str.length;
-				for(var i=0; i<len; i++){
-					if(newStr.indexOf(str[i])==-1){
-						newStr = newStr + str[i];
+				var arr = str.split(",");
+				var newStr="";
+				for(var i=0;i<arr.length;i++){
+					if(newStr.indexOf(arr[i])==-1){
+						newStr+=arr[i] + ",";
 					}
 				}
 				return newStr;
@@ -222,6 +223,7 @@
 						return;
 					} else {
 						this.texts = DataScreen.screen[this.pageName].filterFields;
+						// console.log(this.texts)
 					}
 					
 				}

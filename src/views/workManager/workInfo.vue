@@ -511,24 +511,22 @@
 						};
 						if (item.type == "cascader") {
 							if(item.child){
-								item.child.forEach((citem,index) => {
-									if(urldata.classify_1.split(",")[index] == citem.value){
+								item.child.forEach(citem => {
+									if(urldata.classify_1.split(",").indexOf(citem.value) != -1){
 										this.commonTopData.commonbottombtn.push({
 											btnName: item.name,
 											val: citem.label,
 											id: citem.value
 										})
-										citem.children.forEach((element,index) => {
-											if(urldata.classify_2.split(",")[index] == element.value){
+										citem.children.forEach(element => {	
+											if(urldata.classify_2.split(",").indexOf(element.value) != -1){
 												this.commonTopData.commonbottombtn.push({
 													btnName: item.name,
 													val: element.label,
 													id: element.value
 												})
-												element.children.forEach((val,index) => {
-													// console.log(val)
-													// console.log(urldata.classify_3.split(","))
-													if(urldata.classify_3.split(",")[index] == val.value){
+												element.children.forEach(val => {
+													if(urldata.classify_3.split(",").indexOf(val.value) != -1){
 														this.commonTopData.commonbottombtn.push({
 															btnName: item.name,
 															val: val.label,
@@ -539,10 +537,8 @@
 											}
 
 										})
-									}
-									
+									}			
 								})
-
 							}
 						};
 					})
