@@ -483,7 +483,7 @@
 					this.filterFields=DataScreen.screen.addblack["filterFields"+this.tabnum];
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if(urldata[item.id]){
+						if(urldata[item.id] && !item.type){
 							var val = urldata[item.id];
 							if(item.child){	
 								val = "";
@@ -514,6 +514,12 @@
 									}
 								})
 							}
+						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:urldata[item.id],id:item.id})
+							}
+								
 						}
 					})
 				}

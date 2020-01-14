@@ -231,8 +231,10 @@
 				this.form = {};
 				this.times = [];
 				this.cascaderOptions = [];
-				this.vocation = [];
-				this.recommend_level = [];
+				this.vocation = {
+					vocation:[],
+					recommend_level:[]
+				};
 			},
 			timetwo(time,index){
 				// console.log(this.times)
