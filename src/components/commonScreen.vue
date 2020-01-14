@@ -57,8 +57,8 @@
 						    expand-trigger="hover" 
 							v-model="cascaderOptions" 
 							:data="item.child" 
-							:props="item.optionProps" 
 							collapse-tags 
+							:is-two-dimension-value="true"
 							clearable> 
 						</el-cascader-multi>
 						
@@ -231,6 +231,8 @@
 				this.form = {};
 				this.times = [];
 				this.cascaderOptions = [];
+				this.vocation = [];
+				this.recommend_level = [];
 			},
 			timetwo(time,index){
 				// console.log(this.times)
