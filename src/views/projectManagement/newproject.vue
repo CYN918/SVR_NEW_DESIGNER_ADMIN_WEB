@@ -52,8 +52,8 @@
 												<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.vocation + "|" +item.province }}</div>
 											</div>
 											<div class="fleft" style="margin-left: 10px;">
-												<el-button size="mini" style="background: #000000;color: white;">详情</el-button>
-												<el-button size="mini" style="background: #000000;color: white;">主页</el-button>
+												<el-button size="mini" style="background: #000000;color: white;" @click="userdetail(item.open_id)">详情</el-button>
+												<el-button size="mini" style="background: #000000;color: white;" @click="openwindow(item.home_page)">主页</el-button>
 											</div>
 										</div>
 										<div class="screenContent" style="margin-top: 10px;">
@@ -494,6 +494,17 @@
 			upload
 		},
 		methods: {
+			userdetail(open_id){
+				this.$router.push({
+					path:"/userManager/userBaseInfo/userBaseInfoDetail",
+					query:{
+						open_id:open_id
+					}
+				})
+			},
+			openwindow(url){
+				window.open(url);
+			},
 			openproject(){
 				this.detailtext.forEach((item,index)=>{
 					item.module_content = this.$refs.upload[index].getContent();
