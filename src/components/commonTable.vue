@@ -745,17 +745,18 @@
                 // 总选择里面的key集合
 				let selectAllIds = [];
 				this.multipleSelectionAll.forEach((row,index)=>{
-				    selectAllIds.push(row[this.pageid]);
-					
+					selectAllIds.push(row[this.pageid]);	
 				})
+				// console.log(selectAllIds)
 				
 				let selectIds = [];
 				// 获取当前页选中的id
 				//console.log(this.pageid);
 				x.forEach((row,index)=>{
-				    selectIds.push(row[this.pageid]);
+					selectIds.push(row[this.pageid]);
 					if (selectAllIds.indexOf(row[this.pageid]) < 0) {
-					    this.multipleSelectionAll.push(row);
+						this.multipleSelectionAll.push(row);
+						// console.log(this.multipleSelectionAll)
 					}
 				});
 				
@@ -798,7 +799,10 @@
 				
 				
 				
-            },
+			},
+			unique (arr) {
+			    return Array.from(new Set(arr))
+			},
 			change(data){
 				let _this = this
                 for(let i = 0;i<data.length;i++){

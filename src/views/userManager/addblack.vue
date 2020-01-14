@@ -526,6 +526,7 @@
 				}
 			},
 			dialogTable(n){
+				console.log(n)
 				this.tabnum = n;
 				this.$router.push({query:{urlDate:''}});
 				this.getData({

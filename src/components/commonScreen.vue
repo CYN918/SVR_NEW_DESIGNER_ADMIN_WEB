@@ -165,8 +165,7 @@
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
-					}
-					if(this.cascaderOptions.length != 0){
+					}else{
 						var arr = '';
 						var arr1 = '';
 						var arr2 = '';
