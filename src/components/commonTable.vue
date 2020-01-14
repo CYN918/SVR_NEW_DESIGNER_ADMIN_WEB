@@ -800,9 +800,6 @@
 				
 				
 			},
-			unique (arr) {
-			    return Array.from(new Set(arr))
-			},
 			change(data){
 				let _this = this
                 for(let i = 0;i<data.length;i++){
@@ -968,7 +965,7 @@
 		}
 	}
 </script>
-<style>
+<style scoped="scoped">
 	.status-2{
 		color: #f72522;
 	}
@@ -1042,6 +1039,11 @@
 		height: 100%;
 		background: rgba(0,0,0,0.5);
 		z-index: 2005;
+	}
+	.wh >>> .is-leaf{
+		height: 60px;
+		line-height: 60px;
+		padding: 0;
 	}
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;

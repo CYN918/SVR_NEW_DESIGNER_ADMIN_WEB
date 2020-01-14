@@ -452,6 +452,7 @@
 
 	.routerLink {
 		color: #FF5121;
+		text-align: left;
 	}
 
 	.detailbtn {

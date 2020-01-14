@@ -867,7 +867,7 @@
 		}
 	}
 </script>
-<style>
+<style scoped="scoped">
 	.transparent{
 		width: 100%;
 		height: 20px;
@@ -1034,6 +1034,11 @@
 		z-index: 2013;
 	}
 	#app .el-dropdown-link{
+		padding: 0;
+	}
+	.wh >>> .is-leaf{
+		height: 60px;
+		line-height: 60px;
 		padding: 0;
 	}
 </style>
