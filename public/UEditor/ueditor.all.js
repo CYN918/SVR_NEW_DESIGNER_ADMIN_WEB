@@ -6925,6 +6925,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                     //设置默认字体和字号
                     //font-family不能呢随便改，在safari下fillchar会有解析问题
                     'body{margin:8px;font-family:sans-serif;font-size:16px;}' +
+					'img{vertical-align:top;outline-width:0px;}' +
                     //设置段落间距
                     'p{margin:5px 0;}</style>' +
                     ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
@@ -16934,7 +16935,7 @@ UE.plugins['fiximgclick'] = (function () {
                 resizer.className = 'edui-editor-imagescale';
                 resizer.innerHTML = hands.join('');
                 resizer.style.cssText += ';display:none;border:1px solid #3b77ff;z-index:' + (me.editor.options.zIndex) + ';';
-
+				console.log(111111)
                 me.editor.ui.getDom().appendChild(cover);
                 me.editor.ui.getDom().appendChild(resizer);
 

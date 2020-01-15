@@ -19,7 +19,7 @@
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
-    var URL = window.UEDITOR_HOME_URL || getUEBasePath();
+    var URL = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/';
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
@@ -30,14 +30,14 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: "http://139.129.221.123"
+        , serverUrl: ""
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
-				'undo','redo', '|','fontsize','link','unlink',
-				'bold','underline','forecolor','|','justifyleft','justifycenter',
-				'justifyright','justifyjustify','lineheight','lineheight'
-				]
+				'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
+				['bold','italic','underline','source','strikethrough','forecolor','backcolor','|','indent','justifyleft','justifycenter',
+				'justifyright','justifyjustify','indent','rowspacingtop','rowspacingbottom','lineheight','lineheight','insertorderedlist','insertunorderedlist',
+				'imageleft','imageright','anchor','source']
 //             'fullscreen', 'source', '|', 'undo', 'redo', '|',
 //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
 //             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
@@ -232,9 +232,19 @@
         //]
 
         //打开右键菜单功能
-        ,enableContextMenu: true
+        //,enableContextMenu: true
         //右键菜单的内容，可以参考plugins/contextmenu.js里边的默认菜单的例子，label留空支持国际化，否则以此配置为准
-        ,contextMenu:[]
+        //,contextMenu:[
+        //    {
+        //        label:'',       //显示的名称
+        //        cmdName:'selectall',//执行的command命令，当点击这个右键菜单时
+        //        //exec可选，有了exec就会在点击时执行这个function，优先级高于cmdName
+        //        exec:function () {
+        //            //this是当前编辑器的实例
+        //            //this.ui._dialogs['inserttableDialog'].open();
+        //        }
+        //    }
+        //]
 
         //快捷菜单
         //,shortcutMenu:["fontfamily", "fontsize", "bold", "italic", "underline", "forecolor", "backcolor", "insertorderedlist", "insertunorderedlist"]

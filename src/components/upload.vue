@@ -53,29 +53,11 @@ export default {
 			uD:{},
 			upConfig:'',
 			myConfig: {
-			  maximumWords:100000000,
-			  autoHeightEnabled: false,
-			  initialFrameHeight: 324,
-			  initialFrameWidth: '100%',
-			  UEDITOR_HOME_URL: '/UEditor/',
-			  toolbars: [[
-			  				'undo','redo', '|','fontsize','link','unlink',
-			  				'bold','underline','forecolor','|','justifyleft','justifycenter',
-			  				'justifyright','justifyjustify','lineheight','lineheight'
-			  				]
-			  //             'fullscreen', 'source', '|', 'undo', 'redo', '|',
-			  //             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-			  //             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-			  //             'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-			  //             'directionalityltr', 'directionalityrtl', 'indent', '|',
-			  //             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-			  //             'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-			  //             'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-			  //             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-			  //             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-			  //             'print', 'preview', 'searchreplace', 'drafts', 'help'
-			          ]
-			},			
+				autoHeightEnabled: false,
+				initialFrameHeight: 500,
+				initialFrameWidth: '100%',
+				UEDITOR_HOME_URL: '/UEditor/'
+			},
 			isshowd:false,
 			upList:[
 				{
@@ -420,8 +402,9 @@ export default {
 					//str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				
-				this.uD.execCommand('insertHtml', str);
+				
 				this.uD.execCommand('insertparagraph')
+				this.uD.execCommand('insertHtml', str);
 				console.log(str)
 				console.log(this.form.content);
 				return
@@ -431,8 +414,9 @@ export default {
 					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
 			
-				this.uD.execCommand('insertHtml', str);
+				
 				this.uD.execCommand( 'insertparagraph' )
+				this.uD.execCommand('insertHtml', str);
 				return
 			}
 			

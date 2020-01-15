@@ -380,18 +380,10 @@
 				}],
 				Isnextshow: false,
 				myConfig: {
-					maximumWords:100000000,
 					autoHeightEnabled: false,
-					initialFrameHeight: 300,
-					initialFrameWidth: '99%',
-					UEDITOR_HOME_URL: '/UEditor/',
-					toolbars:[
-						[
-								'undo','redo', '|','fontsize', '|','blockquote','horizontal', '|','removeformat','formatmatch','|','link','unlink','emotion'],
-								['bold','italic','underline','source','strikethrough','forecolor','backcolor','|','indent','justifyleft','justifycenter',
-								'justifyright','justifyjustify','indent','rowspacingtop','rowspacingbottom','lineheight','lineheight','insertorderedlist','insertunorderedlist',
-								'imageleft','imageright']
-					]
+					initialFrameHeight: 500,
+					initialFrameWidth: '100%',
+					UEDITOR_HOME_URL: '/UEditor/'
 				},
 				imageUrl: "",
 				tableData1: [],
@@ -517,6 +509,18 @@
 					}
 				});
 			
+			},
+			closed(cr){
+			
+				this.tanData = {};
+				// this.isshowd=false;
+				if(cr){
+					return
+				}
+				if(this.ifBjType==1 && this.form.content==''){			
+					this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
+					this.ifBjType=0;
+				}
 			},
 			setparenttable(){
 				this.$refs.Tabledd.setparenttable();
@@ -646,23 +650,30 @@
 					
 					info = '<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+url+'"/></p>';
 					//console.log(info)
-					this.uD.execCommand('insertHtml', info);
-					this.uD.execCommand('insertparagraph');
+					this.uD.execCommand('insertHtml', info);	
+				    this.uD.execCommand( 'insertparagraph' )
+					return
 					
 				}
 				if(this.uptype == "video"){
 					/* <img src="' + coverurl + '" alt="视频图片"> */
-					info = '<video src="'+ url +'" controls="controls"></video>';
-					this.uD.execCommand('insertHtml', info);
+					
+					info = '<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" src="'+ url +'" controls="controls"></video></p>';
 					this.uD.execCommand('insertparagraph');
+					this.uD.execCommand('insertHtml', info);
+					
 					this.ifBjType = 1;
+					return
 				}
 				if(this.uptype == "audio"){
 					/* <img src="' + coverurl + '" alt="音频图片"> */
-					info = '<audio src="'+ url +'" controls="controls"></audio>';
-					this.uD.execCommand('insertHtml', info);
+					info = '<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio style="width: 86%;margin: 18px;" src="'+ url +'" controls="controls"></audio></p>';
+
+					
 					this.uD.execCommand('insertparagraph');
+					this.uD.execCommand('insertHtml', info);
 					this.ifBjType = 1;
+					return
 				}
 				
 				/* if (this.ifBjType == 0) {
