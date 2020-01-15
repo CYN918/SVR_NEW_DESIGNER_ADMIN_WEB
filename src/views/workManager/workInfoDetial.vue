@@ -32,7 +32,7 @@
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
 					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
 					<span v-else-if="item.type == 'keyvalue'">{{item.child[work_info[item.id]]}}</span>
-					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
+					<span v-else-if="item.type == 'urlopen'" style="float: left;"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
 					<span v-else-if="item.type == 'status'"> 
 						<span v-if="work_info['is_del'] == '0'">
 							{{ item.child.status[work_info['status']] }} 
@@ -453,6 +453,24 @@
 	.routerLink {
 		color: #FF5121;
 		text-align: left;
+	}
+	@media (max-width: 1440px) {
+		.routerLink {
+			max-width: 900px;
+			word-wrap: break-word;
+			display: block;
+			color: #FF5121;
+			text-align: left;
+		}
+	}
+	@media (max-width: 1366px) {
+		.routerLink {
+			max-width: 900px;
+			word-wrap: break-word;
+			display: block;
+			color: #FF5121;
+			text-align: left;
+		}
 	}
 
 	.detailbtn {
