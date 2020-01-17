@@ -262,6 +262,9 @@
 		  		<li class="textcenter" style="margin-bottom: 20px;">
 		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="addnewuser()">新建项目并指定TA来制作</button>
 		  		</li>
+				<li class="textcenter" style="margin-bottom: 20px;">
+					<button class="defaultbtn" style="width: 180px;margin: 0;" @click="zhipai()">复制该项目并指派</button>
+				</li>
 		  	</ul>
 		</el-dialog>
 	</div>
@@ -278,22 +281,17 @@
 			return {
 				tableData2:[
 					{
-						id:"1",
-						name:"广告模板"
-					},
-					{
-						id:"2",
-						name:"广告图"
-					},
-					{
 						id:"3",
 						name:"场景锁屏"
 					},
 					{
 						id:"4",
-						name:"主题"
-					}
-					
+						name:"个性化主题"
+					},
+					{
+						id:"5",
+						name:"来电秀"
+					}	
 				],
 				tabData: [
 					{
@@ -337,7 +335,7 @@
 						name:"业务类型",
 						id:"business_type",
 						type:"keyvalue",
-						child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}
+						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}
 						
 					},
 					{
@@ -665,7 +663,8 @@
 				project_id:"",
 				username:"",
 				usernameitem:"",
-				form:{}
+				form:{},
+				dataProjectId: '',
 			}
 		},
 		methods: {
@@ -795,11 +794,28 @@
 					this.$refs.Tabledd.setinit();
 				});
 			},
+			getAddData(){
+				let data = {};
+				data = {
+					access_token: localStorage.getItem("access_token"),
+				}
+				this.api.projectgetid(data).then((da) => {
+					this.dataProjectId = da;
+					// this.dataList.sort(function(a,b){
+					//     return b.id - a.id
+					// })
+				}).catch(() => {
+					
+				});
+
+			},
 			addnewuser(row){
+				this.usernameitem['dataProjectId'] = this.dataProjectId;
 				this.$router.push({
 					path:"/projectManagement/projectList/newproject",
 					query:{
-						usernameitem: JSON.stringify(this.usernameitem)
+						usernameitem: JSON.stringify(this.usernameitem),
+						id:this.dataProjectId
 					}
 				})
 			},
@@ -807,6 +823,16 @@
 				this.centerDialogVisible = true;
 				this.username = n;
 				this.usernameitem = item; 
+			},
+			zhipai(row){
+				this.usernameitem['dataProjectId'] = this.dataProjectId;
+				this.$router.push({
+					path:"/projectManagement/projectList/newproject",
+					query:{
+						usernameitem: JSON.stringify(this.usernameitem),
+						id:this.dataProjectId
+					}
+				})
 			},
 			handleSizeChange(val) {
 				this.tableConfig.pagesize = val;
@@ -926,6 +952,7 @@
 		created() {
 			this.getworkdetial();
 			this.signupList();
+			this.getAddData();
 			this.status = parseInt(this.$route.query.status);
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))

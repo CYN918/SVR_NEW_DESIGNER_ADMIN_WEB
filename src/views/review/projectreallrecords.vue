@@ -116,7 +116,7 @@
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:5,
-					username: this.$route.query.user,
+					admin_name: this.$route.query.user,
 					check_status: '1,-1',
 				}
 				//获取筛选的条件
