@@ -892,7 +892,7 @@ input{
 	.el-dropdown-link {
 		cursor: pointer;
 		color: #FF5121;
-		padding-left: 20px;
+		// padding-left: 20px;
 	}
 
 	.el-dropdown-menu__item:focus,

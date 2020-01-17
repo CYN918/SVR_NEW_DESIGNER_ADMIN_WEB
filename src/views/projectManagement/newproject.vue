@@ -1612,6 +1612,35 @@
 					]
 				}
 			},
+			getworkdetial(){
+				this.api.projectdetail({
+					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {				
+					this.form = da;				
+					this.detailtext = JSON.parse(da.desc);
+					var now = new Date();
+					var year = now.getFullYear(); //得到年份
+					var month = now.getMonth();//得到月份
+					var date = now.getDate();//得到日期
+
+					var hour = now.getHours();//得到小时
+					var minu = now.getMinutes();//得到分钟
+					var sec = now.getSeconds();//得到秒
+					month = month + 1;
+					if (month < 10) month = "0" + month;
+					if (date < 10) date = "0" + date;
+					if (hour < 10) hour = "0" + hour;
+					if (minu < 10) minu = "0" + minu;
+					if (sec < 10) sec = "0" + sec;
+					var time = "";
+					time = year + "-" + month + "-" + date + "-" + " " + hour + ":" + minu + ":" + sec ;
+					this.form['publish_time'] = time;
+					this.form['deadline'] = '';
+				}).catch(da =>{
+					
+				})
+			},
 		},
 		created() {
 			// console.log(this.detailtext);
@@ -1671,6 +1700,7 @@
 						label: '项目页面模板2'
 					}
 				]
+				this.getworkdetial()
 			}
 			this.createdMothd();
 			

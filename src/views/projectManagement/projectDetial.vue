@@ -826,11 +826,11 @@
 			},
 			zhipai(row){
 				this.usernameitem['dataProjectId'] = this.dataProjectId;
+				this.usernameitem['project_id'] = this.info.project_id;
 				this.$router.push({
 					path:"/projectManagement/projectList/newproject",
 					query:{
-						usernameitem: JSON.stringify(this.usernameitem),
-						id:this.dataProjectId
+					    usernameitem: JSON.stringify(this.usernameitem)
 					}
 				})
 			},
