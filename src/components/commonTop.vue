@@ -7,20 +7,20 @@
 					{{ currentpageName }}
 				</span>
 				<div class="textcenter">
-					<span style="height: 58px;" v-if="index < 3" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabData" v-if="index < 3 && (adminuseraccess.indexOf(item.accessid) > -1)" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
-					<span style="height: 58px;" v-if="index == 3" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabData"  v-if="index == 3 && (adminuseraccess.indexOf(item.accessid) > -1)" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index+2)] == 0 ? '' : doCount[(index+2)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
-					<span style="height: 58px;" v-if="index == 4" v-for="(item,index) in commonTopData.tabData" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabData"  v-if="index == 4 && (adminuseraccess.indexOf(item.accessid) > -1)" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index)] == 0 ? '' : doCount[(index)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
 				</div>
 			</div>
 		</div>
-		<div v-if="commonTopData.option">
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;">
+		<div v-if="!commonTopData.IsShow">
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-if="commonTopData.option">
 				<div class="textcenter" style="float: left;">
 					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
@@ -298,7 +298,7 @@
 						this.router.push({path:"/review/employWork"})
 						break;
 					case 3:
-						this.router.push({path:"/review/projectreview/projectrepending",query:{user:this.user}})
+						this.router.push({path:"/review/projectreview/projectrepending"})
 						break;
 					case 4:
 						this.router.push({path:"/review/applyPerson"})
