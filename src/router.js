@@ -152,6 +152,38 @@ var router = new Router({
 					component: () => import('@/views/review/projectreview.vue')
 				},
 				{
+					path: 'projectreview/projectrepending',
+					name: 'projectrepending',
+					meta: {
+						title: "项目验收 / 我的待审",
+					},
+					component: () => import('@/views/review/projectrepending.vue')
+				},
+				{
+					path: 'projectreview/projectrethrough',
+					name: 'projectrethrough',
+					meta: {
+						title: "项目验收 / 我通过的",
+					},
+					component: () => import('@/views/review/projectrethrough.vue')
+				},
+				{
+					path: 'projectreview/projectrerejected',
+					name: 'projectrerejected',
+					meta: {
+						title: "项目验收 / 我驳回的",
+					},
+					component: () => import('@/views/review/projectrerejected.vue')
+				},
+				{
+					path: 'projectreview/projectreallrecords',
+					name: 'projectreallrecords',
+					meta: {
+						title: "项目验收 / 全部记录",
+					},
+					component: () => import('@/views/review/projectreallrecords.vue')
+				},
+				{
 					path: 'projectreview/projectdetial',
 					name: 'projectdetial',
 					meta: {

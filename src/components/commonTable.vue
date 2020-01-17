@@ -266,7 +266,7 @@
 					break;
 					case "projectreview":
 						if(!setid){
-							this.router.push({path:"/review/projectreview/projectdetial",query:{id:row.id,type:5,check_status:row.check_status,project_id:row.project_id}});
+							this.router.push({path:"/review/projectreview/projectdetial",query:{id:row.id,type:5,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
 							
 						}
 					break;

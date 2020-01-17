@@ -398,22 +398,17 @@
 				tableData1: [],
 				tableData2:[
 					{
-						id:"1",
-						name:"广告模板"
-					},
-					{
-						id:"2",
-						name:"广告图"
-					},
-					{
 						id:"3",
 						name:"场景锁屏"
 					},
 					{
 						id:"4",
-						name:"主题"
-					}
-					
+						name:"个性化主题"
+					},
+					{
+						id:"5",
+						name:"来电秀"
+					}	
 				],
 				tableData3:[],
 				ifBjType:0,

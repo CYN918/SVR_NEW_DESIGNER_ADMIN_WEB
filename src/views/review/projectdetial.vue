@@ -88,7 +88,8 @@
 			<button v-if="material_info.type == '1'" class="defaultbtn" @click="up">下载稿件</button>
 			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
 			<button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button>
-			<button v-if="getstatusinfo()" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
+			<button v-if="getstatusinfo() && (adminuseraccess.indexOf(this.acceptance_audit) > -1)" v-show="isShow" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
+			<button v-if="this.check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
 		</div>
 
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
@@ -158,7 +159,7 @@
 				<el-button type="primary" @click="contributor1('fa')">确 定</el-button>
 			</span>
 		</el-dialog><!-- centerDialogVisible2 -->
-		<el-dialog title="项目验收确认" :visible.sync="centerDialogVisible2">
+		<el-dialog title="项目验收审核" :visible.sync="centerDialogVisible2">
 			<div style="position: relative;">
 				<div v-if="material_info.type == '2'" style="margin-bottom: 30px;border-bottom: 1px solid #F1F4F5;">
 					<ul>
@@ -199,6 +200,54 @@
 					</li>
 					<li class="w ofh">
 						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">绑定需求</span>
+							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+								<el-radio-group v-model="did">
+									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
+									 :label="item.demand_name">
+										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
+									</el-option>
+								</el-radio-group>
+							</el-select>
+						</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
+							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+								<el-option
+									v-for="item in rukuOptions"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+					</li>
+					<li class="w ofh" v-if="material_info.type == '1'">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
+							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
+						</div>
+					</li>
+					<li class="w ofh">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">内容备注</span>
+							<el-input v-model="content_remark" type="textarea" :rows="4" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<span slot="footer" class="dialog-footer sel-footer">
+				<el-button size="medium" @click="reject2()">取消</el-button>
+				<el-button size="medium" type="primary" @click="contentAudit(material_info.type)">确定并通过</el-button>
+			</span>
+		</el-dialog>
+		<el-dialog title="项目验收审核" :visible.sync="centerDialogVisible6">
+			<div style="position: relative;">
+				<ul class="textcenter">
+					<li class="w ofh">
+						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">验收价格</span>
 							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" @focus="deductionf(0)" v-model="acceptance_price"
 							 clearable>
@@ -222,19 +271,7 @@
 							</span>
 						</div>
 					</li>
-					<li class="w ofh">
-						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">选择需求</span>
-							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
-								<el-radio-group v-model="did">
-									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
-									 :label="item.demand_name">
-										<el-radio :disabled="parseInt(item.need_num)  == 0" :value="item.did" :label="item.did">{{ item.demand_name + " " + item.did  }}</el-radio>
-									</el-option>
-								</el-radio-group>
-							</el-select>
-						</div>
-					</li>
+					
 				</ul>
 				<ul>
 					<li class="w ofh">
@@ -279,8 +316,8 @@
 				</ul>
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
-				<el-button size="medium" @click="reject2()">取消</el-button>
-				<el-button size="medium" type="primary" @click="contributor1('lu')">确定并通过</el-button>
+				<el-button size="medium" @click="priceAudit()">取消</el-button>
+				<el-button size="medium" type="primary" @click="contributor1('lu')">确定验收</el-button>
 			</span>
 		</el-dialog>
 		<el-dialog :title="title + '-发送修改通知'" :visible.sync="centerDialogVisible3" width="738px">
@@ -360,6 +397,16 @@
 		props: ['detailData', 'roles'],
 		data() {
 			return {
+				is_ruku: '0',
+				rukuOptions: [{
+					value: '0',
+					label: '可直接入库'
+					}, {
+					value: '1',
+					label: '需整理后入库'
+				}],
+				storage_number: '',
+				content_remark: '',
 				adminuseraccess: [],
 				text100: '',
 				text30: "",
@@ -417,7 +464,7 @@
 						name: "业务类型",
 						id: "business_type",
 						type:"keyvalue",
-						child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}
+						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}
 					},
 					{
 						name: "banner",
@@ -479,6 +526,7 @@
 				centerDialogVisible2: false,
 				centerDialogVisible3: false,
 				centerDialogVisible5: false,
+				centerDialogVisible6: false,
 				radio1: '',
 				radio2: "",
 				workselect: false,
@@ -624,7 +672,12 @@
 					file_url:"",
 					file_name:"",
 					file_size:"",
-				}
+				},
+				check_steps: '',
+				isShow: true,
+				acceptance_audit: '',
+				audit1: '',
+				audit2: '',
 			}
 		},
 		computed:{
@@ -634,6 +687,72 @@
 			
 		},
 		methods: {
+			contentAudit(id){
+				if(id == '2'){
+					var data = {
+						access_token: localStorage.getItem("access_token"),
+						type: 5,
+						id: this.$route.query.id,
+						check_status: 0,
+						project_id: this.$route.query.project_id,
+						level: this.typebtn,
+						deal_type: 1,
+						relation_needs: this.did,
+						is_ruku: this.is_ruku,
+						content_remark: this.content_remark,
+						file_url: this.file.file_url,
+					    file_name: this.file.file_name,
+						file_size: this.file.file_size,
+						check_steps: 1,
+					}
+					this.api.reviewCheck(data).then(da => {
+						if(da.result == '0'){
+							this.centerDialogVisible2 = false;
+							this.searhData();
+						}
+					}).catch(da => {
+
+					})
+				}else{
+					var data = {
+						access_token: localStorage.getItem("access_token"),
+						type: 5,
+						id: this.$route.query.id,
+						check_status: 0,
+						project_id: this.$route.query.project_id,
+						level: this.typebtn,
+						deal_type: 1,
+						relation_needs: this.did,
+						is_ruku: this.is_ruku,
+						storage_number: this.storage_number,
+						content_remark: this.content_remark,
+						check_steps: 1,
+					}
+					this.api.reviewCheck(data).then(da => {
+						if(da.result == '0'){
+							this.centerDialogVisible2 = false;
+							this.searhData();
+						}
+					}).catch(da => {
+
+					})
+				}
+			},
+			searhData(){
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					type: 5,
+					id: this.$route.query.id,
+				}
+				this.api.reviewInfo5(data).then(da => {
+					this.check_steps = da.project_info.check_steps;
+					if(this.check_steps == '1'){
+						this.isShow = false;
+					}
+				}).catch(da => {
+
+				})
+			},
 			httprequest(params) {
 				const _file = params.file;
 				this.file_info = params.file;
@@ -824,6 +943,9 @@
 			reject2() {
 				this.centerDialogVisible2 = !this.centerDialogVisible2;
 			},
+			priceAudit(){
+				this.centerDialogVisible6 = !this.centerDialogVisible6;
+			},
 			reject3() {
 				this.centerDialogVisible3 = !this.centerDialogVisible3;
 			},
@@ -863,21 +985,20 @@
 					id: this.$route.query.id,
 					check_status: 1,
 					project_id: this.$route.query.project_id,
-					level: this.typebtn,
 					deal_type: 1,
 					acceptance_price: this.acceptance_price,
 					deduction_price: this.getdeductions(),
 					deal_price: this.getdeal_price(),
-					demand_id:this.did,
 					gain_share_rate:this.apply_info.gain_share_rate,
-					gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100)
+					gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100),
+					check_steps: 2,
 				}
 				///console.log(data)
-				if(this.material_info.type == "2"){
-					data.file_url = this.file.file_url;
-					data.file_name = this.file.file_name
-					data.file_size = this.file.file_size
-				}
+				// if(this.material_info.type == "2"){
+				// 	data.file_url = this.file.file_url;
+				// 	data.file_name = this.file.file_name
+				// 	data.file_size = this.file.file_size
+				// }
 				this.submint(data);
 			},
 			sendmessage() {
@@ -1094,7 +1215,7 @@
 				this.api.reviewreason(data).then((da) => {
 
 					this.tableData = da.data;
-					console.log(this.tableData)
+					// console.log(this.tableData)
 
 				}).catch(() => {
 
@@ -1133,6 +1254,7 @@
 
 				this.reject4();
 				this.reject2();
+				this.priceAudit();
 
 			},
 			gotodetail(name, fid, num) {
@@ -1154,10 +1276,30 @@
 			}
 		},
 		created() {
+			this.searhData();
 			this.getreviewInfo();
 			this.getData();
 			if (localStorage.getItem("adminuseraccess")) {
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+				this.access = JSON.parse(localStorage.getItem("access"))
+				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
+				this.access.top_banner[0].child.forEach(item => {
+					if(item.title == '项目验收'){
+						this.acceptance_audit = item.id;
+						item.child.forEach(element => {
+							if(element.title == this.business_title){
+								element.child.forEach(val => {
+									if(val.title == '【审核1】内容确认'){
+										this.audit1 = val.id;
+									}
+									if(val.title == '【审核1】价格确认'){
+										this.audit2 = val.id;
+									}
+								})
+							}			
+						})
+					}
+				})
 			}
 		},
 		mounted() {

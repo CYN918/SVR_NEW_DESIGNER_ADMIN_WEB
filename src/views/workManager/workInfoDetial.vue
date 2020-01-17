@@ -22,7 +22,7 @@
 		<div class="detailContent ofh">
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;min-height: 43px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ work_info[item.id] }}</span>
 					<span v-if="item.type == 'recommend'">{{ work_info[item.id] ? work_info[item.id] : "不推荐" }}</span>
 					<span v-if="!item.type">{{ work_info[item.id] }}</span>
@@ -32,7 +32,7 @@
 					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="work_info[item.id]" alt="">
 					<span v-else-if="item.type == 'imgbanner'"> {{ work_info[item.id] }} </span>
 					<span v-else-if="item.type == 'keyvalue'">{{item.child[work_info[item.id]]}}</span>
-					<span v-else-if="item.type == 'urlopen'" style="float: left;"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
+					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + work_info.work_id)">{{ item.id + work_info.work_id }}</span></span>
 					<span v-else-if="item.type == 'status'"> 
 						<span v-if="work_info['is_del'] == '0'">
 							{{ item.child.status[work_info['status']] }} 

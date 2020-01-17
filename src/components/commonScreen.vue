@@ -249,6 +249,10 @@
 		watch: {
 			"$route":function(){
 				this.form = JSON.parse(this.$route.query.urlDate);
+				this.vocation = {
+					vocation:[],
+					recommend_level:[]
+				};
 			}
 		},
 		mounted() {

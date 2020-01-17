@@ -3,7 +3,7 @@
 		<div v-if="!commonTopData.IsShow">
 			<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
 			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
-				<span class="fleft" style="width: 84px;">
+				<span class="fleft" style="width: 125px;">
 					{{ currentpageName }}
 				</span>
 				<div class="textcenter">
@@ -19,6 +19,16 @@
 				</div>
 			</div>
 		</div>
+		<div v-if="commonTopData.option">
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;">
+				<div class="textcenter" style="float: left;">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+						<el-badge class="badge">{{ item.name }}</el-badge>
+					</span>
+				</div>
+			</div>
+		</div>
+		
 		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;padding-bottom: 22px;">
 			<div class="ofh">
 				<div class="fleft">
@@ -72,7 +82,8 @@
 				currentpageName:'',
 				doCount:{},
 				operations:[],
-				adminuseraccess: []
+				adminuseraccess: [],
+				user: "",
 			};
 		},
 		methods: {
@@ -287,10 +298,28 @@
 						this.router.push({path:"/review/employWork"})
 						break;
 					case 3:
-						this.router.push({path:"/review/projectreview"})
+						this.router.push({path:"/review/projectreview/projectrepending",query:{user:this.user}})
 						break;
 					case 4:
 						this.router.push({path:"/review/applyPerson"})
+						break;
+					default:
+				}
+				
+			},
+			tabsChanges(num){
+				switch (num){
+					case 0:
+						this.router.push({path:"/review/projectreview/projectrepending",query:{user:this.user}});
+						break;
+					case 1:
+						this.router.push({path:"/review/projectreview/projectrethrough",query:{user:this.user}});
+						break;
+					case 2:
+						this.router.push({path:"/review/projectreview/projectrerejected",query:{user:this.user}})
+						break;
+					case 3:
+						this.router.push({path:"/review/projectreview/projectreallrecords",query:{user:this.user}})
 						break;
 					default:
 				}
@@ -308,10 +337,19 @@
 				}).catch(da=>{
 					
 				})
-			}
+			},
+			getuserinfo(){
+				this.api.selfInfo({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					//console.log(da)
+					this.user = da.name;
+				})
+			},
 		},
 		created() {
 			this.gettodoCount();
+			this.getuserinfo();
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
