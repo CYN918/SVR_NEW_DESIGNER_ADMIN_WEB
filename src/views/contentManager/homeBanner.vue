@@ -108,10 +108,12 @@
 		data() {
 			return {
 				tabData: [{
-						name: "banner素材"
+						name: "banner素材",
+						accessid:"45",
 					},
 					{
-						name: "展示方案"
+						name: "展示方案",
+						accessid:"44",
 					}],
 				tabsnum: 1,
 				commonTopData: {

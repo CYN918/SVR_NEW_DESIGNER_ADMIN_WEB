@@ -72,8 +72,8 @@
 						
 					],
 					"tabData":[
-						{name:"项目分类"},
-						{name:"模板预设"},
+						{name:"项目分类",accessid: "200503"},
+						{name:"模板预设",accessid: "200504"},
 					],
 					'tabnums':0,
 					num:true

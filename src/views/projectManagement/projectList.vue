@@ -90,7 +90,7 @@
 						name: "导出",
 						id: "right2",
 						fun: "leadingout",
-						accessid:"200520",
+						accessid:"200523",
 						status:"4"
 					},],
 					"commonbottombtn":[

@@ -38,8 +38,8 @@
 						
 					],
 					"tabData":[
-						{name:"个人"},
-						{name:"企业/机构"}
+						{name:"个人",accessid:"200474",},
+						{name:"企业/机构",accessid:"200475",}
 					],
 					'tabnums':0,
 					num:true

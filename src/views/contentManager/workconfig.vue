@@ -48,8 +48,8 @@
 						
 					],
 					"tabData":[
-						{name:"作品专题"},
-						{name:"精选推荐"}
+						{name:"作品专题",accessid: "200481"},
+						{name:"精选推荐",accessid: "200567"}
 					],
 					'tabnums':0,
 					num:true

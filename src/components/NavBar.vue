@@ -6,7 +6,7 @@
 			</el-breadcrumb>
 		</div>
 		<div class="fright hnav marginright60" style="position: relative;">
-			<router-link to="/review" tag="div" class="fleft pointer">
+			<router-link to="/review" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1)">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
@@ -33,7 +33,8 @@
 				IsSign: false,
 				reviewnum:0,
 				user:"",
-				userimg:'../assets/img/MRTX.svg'
+				userimg:'../assets/img/MRTX.svg',
+				adminuseraccess: [],
 			}
 		},
 		watch: {
@@ -123,7 +124,11 @@
 			this.getuserinfo();
 			this.gettodoCount();
 		},
-		mounted() {}
+		mounted() {
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
+		}
 	}
 </script>
 <style lang="scss">
