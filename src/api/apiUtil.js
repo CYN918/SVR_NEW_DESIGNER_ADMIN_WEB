@@ -50,7 +50,8 @@ const createApiInstance = (config = {},on,Type) => {
 		baseURL: baseURLs[ds],		
 		headers:{
 			//'Authorization':'Bearer '+localStorage.getItem('token'),
-			'Content-Type':Type?Type:'application/x-www-form-urlencoded'
+			'Content-Type':Type?Type:'application/x-www-form-urlencoded',
+			// 'Content-Type': 'application/zip'
 		},
 	}	
 	config = Object.assign(_config, config);

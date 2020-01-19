@@ -366,22 +366,22 @@
 					]
 					
 				}
-				console.log(this.openurls.length)
-				if(this.openurls.length > 1){
-					let file_path = '';
-					this.openurls.forEach(item =>{
-						file_path += item.id + ',';
-					})
-					var data = {
-						access_token: localStorage.getItem("access_token"),
-						file_path: file_path.substring(0,file_path.lastIndexOf(',')),
-					}
-					this.api.zipfile(data).then((da) => {
-						console.log(da)
-					}).catch(() => {
+				// console.log(this.openurls.length)
+				// if(this.openurls.length > 1){
+				// 	let file_path = '';
+				// 	this.openurls.forEach(item =>{
+				// 		file_path += item.id + ',';
+				// 	})
+				// 	var data = {
+				// 		access_token: localStorage.getItem("access_token"),
+				// 		file_path: file_path.substring(0,file_path.lastIndexOf(',')),
+				// 	}
+				// 	this.api.zipfile(data,{headers: {'Content-Type': 'application/zip'}}).then((da) => {
+				// 		console.log(da)
+				// 	}).catch(() => {
 						
-					});
-				}else{
+				// 	});
+				// }else{
 					this.openurls.forEach(item =>{
 						let src = item.id;
 						fetch(item.id).then(res => res.blob()).then(blob => {
@@ -400,7 +400,7 @@
 						});
 						
 					})
-				}
+				// }
 				
 			},
 			getimgulr(url){
