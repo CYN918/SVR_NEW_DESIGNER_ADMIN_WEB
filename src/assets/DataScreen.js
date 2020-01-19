@@ -237,7 +237,7 @@ const screenData = {
 				{name:"审核ID",id:"id"},
 				{name:"项目名称",id:"name"},
 				{name:"项目类型",id:"classify_id",child:[]},
-				{name:"业务类型",id:"business_type",child:[{name:"场景锁屏",id:"3"},{name:"主题",id:"4"},{name:"来电秀",id:"5"}]},
+				{name:"业务类型",id:"business_type",type:"more",child:["场景锁屏","个性化主题","来电秀"]},
 				
 				{name:"提审用户昵称",id:"username"},
 				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
@@ -999,7 +999,7 @@ const screenData = {
 				{prop:'name',lable:'项目名称'},
 				{prop:'classify_name',lable:'项目类型',},
 				{lable:"稿件预览图",prop:"preview_pic",type:"img",width:150},
-				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"3":"场景锁屏","4":"主题","5":"来电秀"}},
+				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}},
 				{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
 				{prop:'remark',lable:'备注说明',width:350},
 				{prop:'username',lable:'提审用户昵称'},

@@ -26,7 +26,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "projectreview",
+					"pageName": "projectreview1111",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
@@ -67,12 +67,12 @@
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					list: DataScreen.screenShow.projectreview.bts
+					list: DataScreen.screenShow.projectreview111111.bts
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.projectreview.action,
+				tableAction: DataScreen.screenShow.projectreview111111.action,
 				detailData: "",
-				filterFields:DataScreen.screen.projectreview.filterFields,
+				filterFields:DataScreen.screen.projectreview11111.filterFields,
 				IsDetail:1,
 				roles:{},
 			}

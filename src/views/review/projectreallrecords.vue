@@ -98,6 +98,7 @@
 				filterFields:DataScreen.screen.projectreview.filterFields,
 				IsDetail:1,
 				roles:{},
+				business_id: '',
 			}
 		},
 		watch: {},
@@ -109,7 +110,27 @@
 			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
-				this.tableConfig.pagesize = pg.pageSize
+				this.tableConfig.pagesize = pg.pageSize;
+				if(localStorage.getItem("access")){
+					this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
+					this.top_banner.forEach(item => {
+						item.child.forEach(element => {
+							if(element.title == '项目验收'){
+								element.child.forEach(val => {
+									if(val.id == '52'){
+										this.business_id += 5 + ",";
+									}
+									if(val.id == '53'){
+										this.business_id += 4 + ",";
+									}
+									if(val.id == '54'){
+										this.business_id += 3 + ",";
+									}
+								})
+							}
+						})
+					})
+				}
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -118,6 +139,7 @@
 					type:5,
 					admin_name: this.$route.query.user,
 					check_status: '1,-1',
+					business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
@@ -154,7 +176,7 @@
 					//console.log(urldata);
 					this.filterFields.forEach(item=>{
 						//console.log(item);
-						if(urldata[item.id]){
+						if(urldata[item.id] && !item.type){
 							var val = urldata[item.id];
 							if(item.child){	
 								val = "";
@@ -168,6 +190,24 @@
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
 							console.log(this.commonTopData.commonbottombtn);
 						}
+						if(item.type == "more"){
+							if(urldata[item.id]){
+								let a = '';	
+								urldata.business_type.split(',').forEach(item => {
+									if(item == '3'){
+										a += '场景锁屏' + ",";
+									}
+									if(item == '4'){
+										a += '个性化主题' + ",";
+									}
+									if(item == '5'){
+										a += '来电秀' + ",";
+									}
+								})
+								this.commonTopData.commonbottombtn.push({btnName:item.name,val:a.substring(0,a.lastIndexOf(',')),id:item.id})
+							}
+								
+						}
 					})
 				}
 				
@@ -177,7 +217,7 @@
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
 					//console.log(tag);
-					this.$router.push({path:'/review/projectreview',query:{urlDate:JSON.stringify(urldata)}});
+					this.$router.push({path:'/review/projectreview/projectreallrecords',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
 			delect(id){

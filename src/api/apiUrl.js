@@ -409,6 +409,9 @@ export default {
 	projectgetid:{
 		url:'/admin/project/getid',method:'post',baseURL:0
 	},
+	zipfile:{
+        url:'/admin/Zipfile/zipfile',method:'post',baseURL:0
+	},
 	projecttemplatelist:{
 		url:'/admin/projecttemplate/list',method:'post',baseURL:0
 	},

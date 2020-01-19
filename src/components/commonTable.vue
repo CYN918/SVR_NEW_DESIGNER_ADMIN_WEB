@@ -5,7 +5,7 @@
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
-				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :prop="item.prop" :label="item.lable" :width="item.width">
+				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :label="item.lable" :width="item.width">
 					<template slot-scope="scope"  >
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">

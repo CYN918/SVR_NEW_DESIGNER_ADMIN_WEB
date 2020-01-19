@@ -26,6 +26,7 @@
 								</el-checkbox-group>
 						    </el-dropdown-menu>
 						</el-dropdown>
+
 						<div class="ipt" v-else-if="item.child && !item.type">
 							<el-select v-model="form[item.id]" placeholder="请选择" >
 								<el-option value="" label="全部"></el-option>
@@ -62,7 +63,14 @@
 							clearable> 
 						</el-cascader-multi>
 						
-						
+						<!-- <el-select v-model="form[item.id]" multiple collapse-tags placeholder="请选择" v-if="item.type == 'businessType'">
+							<el-option
+							v-for="citem in item.child"
+							:key="citem.id"
+							:label="citem.name"
+							:value="citem.id">
+							</el-option>
+						</el-select> -->
 						
 						<!-- <div v-if="item.type == 'cascader'">
 							<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
@@ -130,7 +138,8 @@
 				form: {},
 				vocation:{
 					vocation:[],
-					recommend_level:[]
+					recommend_level:[],
+					business_type:[]
 				},
 				texts: '',
 				options: [],
@@ -152,8 +161,8 @@
 		},
 		methods: {
 			vocations(arr){
-				console.log(arr);
 				this.form[arr] = this.vocation[arr].toString();
+				// console.log(this.form[arr])
 			},
 			getparent(data) {
 				if (data == "reach") {
@@ -161,11 +170,27 @@
 					// if(this.vocation != ""){
 					// 	this.form['vocation'] = this.vocation.join(',');
 					// };
+					if(this.form.business_type != 'undefined'){	
+						let a = '';				
+						(this.form.business_type || '').split(',').forEach(item => {
+							if(item == '场景锁屏'){
+								a += 3 + ",";
+							}
+							if(item == '个性化主题'){
+								a += 4 + ",";
+							}
+							if(item == '来电秀'){
+								a += 5 + ",";
+							}
+						})
+						this.form.business_type = a.substring(0,a.lastIndexOf(','));	 
+					}
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
-					}else{
+					}
+					if(this.cascaderOptions.length != 0){
 						var arr = '';
 						var arr1 = '';
 						var arr2 = '';
@@ -179,6 +204,8 @@
 						this.form['classify_3'] = this.removeRepeatStr(arr2).substring(0,this.removeRepeatStr(arr2).lastIndexOf(','));					
 					}
 					// console.log(this.form)
+					
+					
 					this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)
@@ -233,7 +260,8 @@
 				this.cascaderOptions = [];
 				this.vocation = {
 					vocation:[],
-					recommend_level:[]
+					recommend_level:[],
+					business_type:[]
 				};
 			},
 			timetwo(time,index){
@@ -251,7 +279,8 @@
 				this.form = JSON.parse(this.$route.query.urlDate);
 				this.vocation = {
 					vocation:[],
-					recommend_level:[]
+					recommend_level:[],
+					business_type:[]
 				};
 			}
 		},

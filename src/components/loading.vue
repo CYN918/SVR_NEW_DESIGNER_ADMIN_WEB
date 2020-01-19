@@ -52,9 +52,22 @@
 							"200496":"/projectManagement/projectclass",
 							"200498":"/projectManagement/Profit",
 							"200478":"/contentManager/workconfig",
-							"200473":"/userManager/userInfo"
+							"200473":"/userManager/userInfo",
+							"12":"/review/publishWork",
+							"13":"/review/finalistsWork",
+							"14":"/review/employWork",
+							"15":"/review/applyPerson",
+							"16":"/review/projectreview/projectrepending",
 						}
-						console.log(da.data.menu_banner);
+						// console.log(da.data.menu_banner);
+						// console.log(da.data.top_banner)
+						if(da.data.top_banner.lengt != 0){
+							da.data.top_banner.forEach(element => {
+								element.child.forEach(item => {
+									this.router.push({path: url[item.id]});
+								})
+							});
+						}
 						
 						for(var i = 0; i<da.data.menu_banner.length;i++){
 							if(da.data.menu_banner[i].child.length != 0){
