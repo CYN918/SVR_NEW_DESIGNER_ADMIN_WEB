@@ -79,7 +79,7 @@
 						{
 							name:"全部记录",
 							linkTo:"/review/projectreview/projectreallrecords",
-							/* accessid:"14", */
+							// accessid:"52",
 						}
 					],
 					'tabnums':3,
