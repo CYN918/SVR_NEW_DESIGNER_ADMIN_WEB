@@ -1292,7 +1292,7 @@
 									if(val.title == '【审核1】内容确认'){
 										this.audit1 = val.id;
 									}
-									if(val.title == '【审核1】价格确认'){
+									if(val.title == '【审核2】价格确认'){
 										this.audit2 = val.id;
 									}
 								})
