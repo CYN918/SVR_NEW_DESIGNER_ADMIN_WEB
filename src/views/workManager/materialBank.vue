@@ -366,43 +366,43 @@
 					]
 					
 				}
-				console.log(this.openurls.length)
-				if(this.openurls.length > 1){
-					let file_path = '';
-					this.openurls.forEach(item =>{
-						file_path += item.id + ',';
-					})
-					var data = {
-						access_token: localStorage.getItem("access_token"),
-						file_path: file_path.substring(0,file_path.lastIndexOf(',')),
-					}
-					this.api.zipfile(data).then((da) => {
-						console.log(da)
-					}).catch(() => {
+				// console.log(this.openurls.length)
+				// if(this.openurls.length > 1){
+				// 	let file_path = '';
+				// 	this.openurls.forEach(item =>{
+				// 		file_path += item.id + ',';
+				// 	})
+				// 	var data = {
+				// 		access_token: localStorage.getItem("access_token"),
+				// 		file_path: file_path.substring(0,file_path.lastIndexOf(',')),
+				// 	}
+				// 	this.api.zipfile(data).then((da) => {
+				// 		console.log(da)
+				// 	}).catch(() => {
 						
-					});
-				}else{
-					alert(2)
-				}
-				// this.openurls.forEach(item =>{
-					
-				// 	let src = item.id;
-				// 	fetch(item.id).then(res => res.blob()).then(blob => {
-				// 		const a = document.createElement('a');
-				// 		document.body.appendChild(a)
-				// 		a.style.display = 'none'
-				// 		// 使用获取到的blob对象创建的url
-				// 		const url = window.URL.createObjectURL(blob);
-				// 		a.href = url;
-				// 		// 指定下载的文件名
-				// 		a.download = item.name;
-				// 		a.click();
-				// 		document.body.removeChild(a)
-				// 		// 移除blob对象的url
-				// 		window.URL.revokeObjectURL(url);
 				// 	});
+				// }else{
+				// 	alert(2)
+				// }
+				this.openurls.forEach(item =>{
 					
-				// })
+					let src = item.id;
+					fetch(item.id).then(res => res.blob()).then(blob => {
+						const a = document.createElement('a');
+						document.body.appendChild(a)
+						a.style.display = 'none'
+						// 使用获取到的blob对象创建的url
+						const url = window.URL.createObjectURL(blob);
+						a.href = url;
+						// 指定下载的文件名
+						a.download = item.name;
+						a.click();
+						document.body.removeChild(a)
+						// 移除blob对象的url
+						window.URL.revokeObjectURL(url);
+					});
+					
+				})
 			},
 			getimgulr(url){
 				this.imgurl = url;
