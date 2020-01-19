@@ -1015,7 +1015,7 @@ const screenData = {
 				links:{
 					name:"详情",
 					Ishow:true,
-					accessid:"200510"
+					// accessid:"200510"
 				}
 			},
 		},
