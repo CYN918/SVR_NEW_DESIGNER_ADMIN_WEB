@@ -13,6 +13,8 @@
     "el-cascader-multi": "^1.1.8",
     "ele-multi-cascader": "^2.2.4",
     "element-ui": "^2.7.2",
+    "multi-cascader": "^1.1.0",
+    "multi-cascader-base-ele": "^1.0.29",
     "qs": "^6.7.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",

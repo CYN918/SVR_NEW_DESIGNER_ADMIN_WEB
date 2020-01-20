@@ -1043,6 +1043,9 @@ input:disabled{
 .modeltitle span{
 	cursor: pointer;
 }
+.multi-el-cascader-menu__item--extensible:after {
+	content: "\E604" !important;
+}
 
 @media screen and (max-width: 1500px) {
 	.screenMidden{

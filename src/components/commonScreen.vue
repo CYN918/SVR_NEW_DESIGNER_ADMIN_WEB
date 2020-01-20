@@ -53,15 +53,21 @@
 							collapse-tags
 							clearable>
 						</el-cascader> -->
+						<div class="box">
+							<el-multi-cascader ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" 
+								expand-trigger="hover" 
+								v-model="cascaderOptions" 
+								:options="item.child" 
+								multiple 
+								filterable 
+								select-children 
+								clearable 
+								collapse-tags
+								only-out-put-leaf-node
+								change-on-select> 
+							</el-multi-cascader>
+						</div>
 						
-						<el-cascader-multi ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" 
-						    expand-trigger="hover" 
-							v-model="cascaderOptions" 
-							:data="item.child" 
-							collapse-tags 
-							:is-two-dimension-value="true"
-							clearable> 
-						</el-cascader-multi>
 						
 						<!-- <el-select v-model="form[item.id]" multiple collapse-tags placeholder="请选择" v-if="item.type == 'businessType'">
 							<el-option

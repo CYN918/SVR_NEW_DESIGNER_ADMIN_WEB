@@ -4,7 +4,7 @@ import store from './store'
 import './registerServiceWorker'
 import Common from '@/components/index.js'
 import ElementUI from 'element-ui'
-import elCascaderMulti from "el-cascader-multi";
+import multiCascader from 'multi-cascader-base-ele'
 import 'element-ui/lib/theme-chalk/index.css'
 import "@/assets/font/iconfont.css"
 import axios from "axios"
@@ -13,7 +13,7 @@ import api from './api/index'
 
 Vue.use(Common)
 Vue.use(ElementUI)
-Vue.use(elCascaderMulti);
+Vue.use(multiCascader)
 window.eventBus = new Vue()
 
 Vue.config.productionTip = false
