@@ -10,19 +10,23 @@
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品入围'">
+			<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-else-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品入围'">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品录用'">
+			<router-link to="/review/employWork" tag="div" class="fleft pointer" v-else-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品录用'">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '项目验收'">
+			<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-else-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '项目验收'">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
-			<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '供稿人申请'">
+			<router-link to="/review/projectreview/projectreallrecords" tag="div" class="fleft pointer" v-else-if="(adminuseraccess.indexOf('11') > -1) && (adminuseraccess.indexOf('52') > -1) && this.auditTitle == '项目验收'">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
+			</router-link>
+			<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-else-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '供稿人申请'">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>
@@ -144,7 +148,12 @@
 		mounted() {
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
-				this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
+				// console.log(JSON.parse(localStorage.getItem("access")).top_banner)
+				if(JSON.parse(localStorage.getItem("access")).top_banner != 'undefined'){
+					this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
+				}else{
+					console.log(2)
+				}		
 			}
 		}
 	}

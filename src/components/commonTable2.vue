@@ -8,7 +8,7 @@
 						{{ currentpageName }}
 					</span>
 					<div class="textcenter">
-						<span v-for="(item,index) in commonTopData.tabData" v-if="(adminuseraccess.indexOf(item.accessid) > -1)"  :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<span v-for="(item,index) in commonTopData.tabData"  :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 							<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 						</span>
 					</div>

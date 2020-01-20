@@ -19,23 +19,15 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="this.adminuseraccess.indexOf(this.allId) > -1">
+		<div>
 			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-if="commonTopData.option">
-				<div class="textcenter" style="float: left;">	
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+				<div class="textcenter" style="float: left;">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
-				</div>
-			</div>
-		</div>
-		<div v-else>
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-if="commonTopData.option">
-				<div class="textcenter" style="float: left;">	
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index < 3" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
-					
-					
 				</div>
 			</div>
 		</div>
@@ -362,7 +354,6 @@
 		created() {
 			this.gettodoCount();
 			this.getuserinfo();
-			console.log(this.adminuseraccess.indexOf(this.allId))
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
@@ -371,21 +362,23 @@
 			var access = [];
 			if(localStorage.getItem("access")){
 				access = JSON.parse(localStorage.getItem("access"));
-				access.top_banner.forEach(element => {
-					element.child.forEach(item => {
-						if(item.id == '16'){
-							item.child.forEach(val => {
-								if(val.title == '查看全部记录'){
-									this.allId = val.id;
-								}
-							})
-						}
-
-					})
-					
-				});
-			}
-			
+				// console.log(access.top_banner)
+				if(access.top_banner != 'undefined'){
+					access.top_banner.forEach(element => {
+						element.child.forEach(item => {
+							if(item.id == '16'){
+								item.child.forEach(val => {	
+									if(val.id != '52'){
+										this.allId = val.id;
+									}								
+								})
+							}
+						})		
+					});
+				}else{
+					console.log(2)
+				}			
+			}			
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 			}
