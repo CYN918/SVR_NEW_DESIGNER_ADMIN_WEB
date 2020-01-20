@@ -117,14 +117,14 @@
 						item.child.forEach(element => {
 							if(element.title == '项目验收'){
 								element.child.forEach(val => {
-									if(val.id == '52'){
-										this.business_id += 5 + ",";
+									if(val.id == '55'){
+										this.business_id += 3 + ",";
 									}
 									if(val.id == '53'){
-										this.business_id += 4 + ",";
+										this.business_id += 5 + ",";
 									}
 									if(val.id == '54'){
-										this.business_id += 3 + ",";
+										this.business_id += 4 + ",";
 									}
 								})
 							}
