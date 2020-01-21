@@ -398,22 +398,17 @@
 				tableData1: [],
 				tableData2:[
 					{
-						id:"1",
-						name:"广告模板"
-					},
-					{
-						id:"2",
-						name:"广告图"
-					},
-					{
 						id:"3",
 						name:"场景锁屏"
 					},
 					{
 						id:"4",
-						name:"主题"
-					}
-					
+						name:"个性化主题"
+					},
+					{
+						id:"5",
+						name:"来电秀"
+					}	
 				],
 				tableData3:[],
 				ifBjType:0,
@@ -485,6 +480,7 @@
 				deadline:"",
 				options: [],
 				templateUrl: '',
+				templateUrl1: '',
 			}
 		},
 		components: {
@@ -1152,22 +1148,48 @@
 					this.form.publish_time = da.publish_time;
 					this.form.status = da.status;
 					this.form = da;
-					console.log(this.form.special_url)
+					// console.log(this.form.special_url)
 					if(this.form.special_url != 'null'){
 						this.createdMothd()
 					}else{
-						this.options = [
-							{
-								value: '0',
-								url: '',
-								label: '不使用'
-							},
-							{
-								value: '1',
-								url: this.form.special_url,
-								label: '项目页面模板1'
-							}
-						]
+						if(this.templateUrl == this.form.special_url){
+							this.options = [
+								{
+									value: '0',
+									url: '',
+									label: '不使用'
+								},
+								{
+									value: '1',
+									url: this.form.special_url,
+									label: '项目页面模板1'
+								},
+								{
+									value: '2',
+									url: this.templateUrl1,
+									label: '项目页面模板2'
+								}
+							]
+						}else if(this.templateUrl1 == this.form.special_url){
+							this.options = [
+								{
+									value: '0',
+									url: '',
+									label: '不使用'
+								},
+								{
+									value: '1',
+									url: this.templateUrl,
+									label: '项目页面模板1'
+								},
+								{
+									value: '2',
+									url: this.form.special_url,
+									label: '项目页面模板2'
+								}
+							]
+						}
+						
 					}
 					if(this.form.desc){
 						this.ifBjType=1;
@@ -1527,15 +1549,21 @@
 			},
 			createdMothd(){
 				if(this.$route.query.row == undefined){
-					const url = window.location.href;
-					const arr = url.split("#");
+					const url = window.location.host;
 					const urlId = JSON.parse(this.$route.query.id) + 1;
-					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
-						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
-					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					console.log(url)
+					if(url == 'shiquaner-admin.zookingsoft.com'){
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+					}else if(url == '120.27.22.130:8082'){
+						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;		
 					}else{
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
 					}
 					this.options = [
 						{
@@ -1547,18 +1575,29 @@
 							value: '1',
 							url: this.templateUrl,
 							label: '项目页面模板1'
+						},
+						{
+							value: '2',
+							url: this.templateUrl1,
+							label: '项目页面模板2'
 						}
 					]
 				}else{
-					const url = window.location.href;
-					const arr = url.split("#");
+					const url = window.location.host;
 					const urlId = JSON.parse(this.$route.query.row).id;
-					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
-						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
-					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					console.log(url)
+					if(url == 'shiquaner-admin.zookingsoft.com'){
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+					}else if(url == '120.27.22.130:8082'){
+						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;
 					}else{
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
 					}
 					this.options = [
 						{
@@ -1570,13 +1609,47 @@
 							value: '1',
 							url: this.templateUrl,
 							label: '项目页面模板1'
+						},
+						{
+							value: '2',
+							url: this.templateUrl1,
+							label: '项目页面模板2'
 						}
 					]
 				}
-			}
+			},
+			getworkdetial(){
+				this.api.projectdetail({
+					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {				
+					this.form = da;				
+					this.detailtext = JSON.parse(da.desc);
+					var now = new Date();
+					var year = now.getFullYear(); //得到年份
+					var month = now.getMonth();//得到月份
+					var date = now.getDate();//得到日期
+
+					var hour = now.getHours();//得到小时
+					var minu = now.getMinutes();//得到分钟
+					var sec = now.getSeconds();//得到秒
+					month = month + 1;
+					if (month < 10) month = "0" + month;
+					if (date < 10) date = "0" + date;
+					if (hour < 10) hour = "0" + hour;
+					if (minu < 10) minu = "0" + minu;
+					if (sec < 10) sec = "0" + sec;
+					var time = "";
+					time = year + "-" + month + "-" + date + "-" + " " + hour + ":" + minu + ":" + sec ;
+					this.form['publish_time'] = time;
+					this.form['deadline'] = '';
+				}).catch(da =>{
+					
+				})
+			},
 		},
 		created() {
-			console.log(this.detailtext);
+			// console.log(this.detailtext);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.screenreach();
 			this.getcommonrightbtn();
@@ -1590,6 +1663,7 @@
 				}
 				this.objstatus = parseInt(this.rows.status);
 				localStorage.setItem("editproject",this.$route.query.row)
+				
 			} else {
 				//console.log(this.currentpageName);
 				if(this.currentpageName == "编辑页面"){
@@ -1602,8 +1676,40 @@
 				this.typebtn =1;
 				this.selectelists = []
 				this.selectelists.push(JSON.parse(this.$route.query.usernameitem)) 
+				const url = window.location.href;
+				const arr = url.split("#");
+				const urlId = JSON.parse(this.$route.query.usernameitem).dataProjectId + 1;
+				if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
+					this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+					this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+				}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+				}else{
+					this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+					this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+				}
+				this.options = [
+					{
+						value: '0',
+						url: '',
+						label: '不使用'
+					},
+					{
+						value: '1',
+						url: this.templateUrl,
+						label: '项目页面模板1'
+					},
+					{
+						value: '2',
+						url: this.templateUrl1,
+						label: '项目页面模板2'
+					}
+				]
+				this.getworkdetial()
 			}
 			this.createdMothd();
+			
 			
 		},
 		mounted(){
