@@ -116,6 +116,7 @@
 					this.top_banner.forEach(item => {
 						item.child.forEach(element => {
 							if(element.title == '项目验收'){
+								console.log(element.child)
 								element.child.forEach(val => {
 									if(val.id == '55'){
 										this.business_id += 3 + ",";

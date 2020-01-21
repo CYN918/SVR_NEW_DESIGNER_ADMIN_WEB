@@ -87,8 +87,9 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button v-if="material_info.type == '1'" class="defaultbtn" @click="up">下载稿件</button>
 			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
-			<button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button>
-			<button v-if="getstatusinfo() && (adminuseraccess.indexOf(this.acceptance_audit) > -1)" v-show="isShow" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
+			<!-- <button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button> -->
+			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
+			<button v-if="this.check_steps == '0' && (adminuseraccess.indexOf(this.acceptance_audit) > -1)" v-show="isShow" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 			<button v-if="this.check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
 		</div>
 
@@ -608,6 +609,7 @@
 				reviewinfostatus: [],
 				/* status_info: parseInt(this.$route.query.check_status), */
 				status_info: "",
+				check_steps: "",
 				apply_info: {},
 				check_info: {},
 				material_info: {},
@@ -673,7 +675,6 @@
 					file_name:"",
 					file_size:"",
 				},
-				check_steps: '',
 				isShow: true,
 				acceptance_audit: '',
 				audit1: '',
@@ -737,21 +738,6 @@
 
 					})
 				}
-			},
-			searhData(){
-				var data = {
-					access_token: localStorage.getItem("access_token"),
-					type: 5,
-					id: this.$route.query.id,
-				}
-				this.api.reviewInfo5(data).then(da => {
-					this.check_steps = da.project_info.check_steps;
-					if(this.check_steps == '1'){
-						this.isShow = false;
-					}
-				}).catch(da => {
-
-				})
 			},
 			httprequest(params) {
 				const _file = params.file;
@@ -868,12 +854,12 @@
 				return data;
 			},
 			getdeal_price() {
-				/* if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 					return 0;
 				} else {
 					return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
-				} */
-				return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+				}
+				// return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 			},
 			getrule(n) {
 				this.typebtn = n;
@@ -965,7 +951,8 @@
 					type: 5,
 					id: this.$route.query.id,
 					check_status: -1,
-					reason: this.radio1
+					reason: this.radio1,
+					check_steps: 0,
 				}
 				
 				if (this.radio1 == "其他理由") {
@@ -1134,6 +1121,10 @@
 					this.material_info = da.file_info;
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
+					this.check_steps = da.project_info.check_steps;
+					if(this.check_steps == '1'){
+						this.isShow = false;
+					}
 					if (da.check_info.hire_type) {
 						this.hire_type = da.check_info.hire_type;
 					}
@@ -1276,7 +1267,6 @@
 			}
 		},
 		created() {
-			this.searhData();
 			this.getreviewInfo();
 			this.getData();
 			if (localStorage.getItem("adminuseraccess")) {
