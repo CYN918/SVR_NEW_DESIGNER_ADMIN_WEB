@@ -1549,18 +1549,21 @@
 			},
 			createdMothd(){
 				if(this.$route.query.row == undefined){
-					const url = window.location.href;
-					const arr = url.split("#");
+					const url = window.location.host;
 					const urlId = JSON.parse(this.$route.query.id) + 1;
-					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
-						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
-					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					console.log(url)
+					if(url == 'shiquaner-admin.zookingsoft.com'){
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+					}else if(url == '120.27.22.130:8082'){
+						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;		
 					}else{
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
 					}
 					this.options = [
 						{
@@ -1580,18 +1583,21 @@
 						}
 					]
 				}else{
-					const url = window.location.href;
-					const arr = url.split("#");
+					const url = window.location.host;
 					const urlId = JSON.parse(this.$route.query.row).id;
-					if(arr[0] == 'http://shiquaner-admin.zookingsoft.com/'){
-						this.templateUrl = 'http://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
-					}else if(arr[0] == 'http://dev-web-ndesigner-admin.idatachain.cn/'){
+					console.log(url)
+					if(url == 'shiquaner-admin.zookingsoft.com'){
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+					}else if(url == '120.27.22.130:8082'){
+						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
+						this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;
 					}else{
 						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
 					}
 					this.options = [
 						{
