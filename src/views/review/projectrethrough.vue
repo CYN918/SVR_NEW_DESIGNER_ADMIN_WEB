@@ -132,13 +132,14 @@
 					})
 				}
 				//获取子组件表格数据
+				var check_steps = 1 + "," + 2;
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:5,
 					admin_name: this.$route.query.user,
-					check_status: 1,
+					check_steps: check_steps,
 					business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
 				}
 				//获取筛选的条件
