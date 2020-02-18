@@ -803,7 +803,8 @@
 				//window.open();
 			},
 			getarr(arr){
-				return arr.split(",")
+				
+				return arr.split(",")	
 			},
 			getdes(ds){
 				return JSON.parse(ds);
@@ -1182,7 +1183,6 @@
 				this.font_size = 0;
 				this.openurls = [];
 				val.forEach((item, index) => {
-					//console.log(item.split(",")[1])
 					this.font_size += Number(item.split(",")[2]);
 					this.openurls.push({
 						name: item.split(",")[3],
@@ -1274,15 +1274,26 @@
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
 				this.access.top_banner[0].child.forEach(item => {
-					if(item.title == '项目验收'){
+					if(item.id == '16'){
 						this.acceptance_audit = item.id;
 						item.child.forEach(element => {
 							if(element.title == this.business_title){
 								element.child.forEach(val => {
-									if(val.title == '【审核1】内容确认'){
+									if(val.id == '200573'){
 										this.audit1 = val.id;
-									}
-									if(val.title == '【审核2】价格确认'){
+									}else if(val.id == '200577'){
+										this.audit1 = val.id;
+									}else if(val.id == '200580'){
+										this.audit1 = val.id;
+									}else if(val.id == '200583'){
+										this.audit1 = val.id;
+									}else if(val.id == '200575'){
+										this.audit2 = val.id;
+									}else if(val.id == '200578'){
+										this.audit2 = val.id;
+									}else if(val.id == '200581'){
+										this.audit2 = val.id;
+									}else if(val.id == '200584'){
 										this.audit2 = val.id;
 									}
 								})
