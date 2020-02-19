@@ -99,6 +99,7 @@
 				IsDetail:1,
 				roles:{},
 				business_id: '',
+				check_steps_status: '',
 			}
 		},
 		watch: {},
@@ -115,16 +116,63 @@
 					this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
 					this.top_banner.forEach(item => {
 						item.child.forEach(element => {
-							if(element.title == '项目验收'){
+							if(element.id == '16'){
 								element.child.forEach(val => {
 									if(val.id == '55'){
 										this.business_id += 3 + ",";
+										if(val.child.length == '2'){
+											this.check_steps_status = 0 + ',' + 1;
+										}else{
+											val.child.forEach(da => {
+												if(da.id == '200580'){
+													this.check_steps_status = 0;
+												}else{
+													this.check_steps_status = 1;
+												}
+											})
+										}	
 									}
 									if(val.id == '53'){
 										this.business_id += 5 + ",";
+										if(val.child.length == '2'){
+											this.check_steps_status = 0 + ',' + 1;
+										}else{
+											val.child.forEach(da => {
+												if(da.id == '200573'){
+													this.check_steps_status = 0;
+												}else{
+                                                    this.check_steps_status = 1;
+												}
+											})
+										}			
 									}
 									if(val.id == '54'){
 										this.business_id += 4 + ",";
+										if(val.child.length == '2'){
+											this.check_steps_status = 0 + ',' + 1;
+										}else{
+											val.child.forEach(da => {
+												if(da.id == '200577'){
+													this.check_steps_status = 0;
+												}else{
+													this.check_steps_status = 1;
+												}
+											})
+										}	
+									}
+									if(val.id == '56'){
+										this.business_id += 6 + ",";
+										if(val.child.length == '2'){
+											this.check_steps_status = 0 + ',' + 1;
+										}else{
+											val.child.forEach(da => {
+												if(da.id == '200583'){
+													this.check_steps_status = 0;
+												}else{
+													this.check_steps_status = 1;
+												}
+											})
+										}			
 									}
 								})
 							}
@@ -137,7 +185,7 @@
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:5,
-					check_status: 0,
+					check_steps: this.check_steps_status,
 					business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
 				}
 				//获取筛选的条件

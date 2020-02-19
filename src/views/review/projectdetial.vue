@@ -689,7 +689,7 @@
 		},
 		methods: {
 			contentAudit(id){
-				if(id == '2'){
+				if(id == '2'){	
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -710,11 +710,18 @@
 						if(da.result == '0'){
 							this.centerDialogVisible2 = false;
 							this.searhData();
+							this.getreviewInfo();
 						}
 					}).catch(da => {
 
 					})
 				}else{
+					if(!this.storage_number){
+						this.$message({
+							message: "请填写入库素材数量!"
+						})
+						return;
+					}
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -733,6 +740,7 @@
 						if(da.result == '0'){
 							this.centerDialogVisible2 = false;
 							this.searhData();
+							this.getreviewInfo();
 						}
 					}).catch(da => {
 
