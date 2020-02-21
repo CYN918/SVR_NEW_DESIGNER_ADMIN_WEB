@@ -594,13 +594,13 @@
 						type: "text"
 					},
 					{
-						name:"驳回理由",
+						name:"理由",
 						id:"check_reason",
 						type:"status",
 						status:"-1"
 					},
 					{
-						name:"驳回详细说明",
+						name:"详细说明",
 						id:"check_comment",
 						type:"status",
 						status:"-1"
@@ -708,9 +708,8 @@
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
-							this.centerDialogVisible2 = false;
-							this.searhData();
 							this.getreviewInfo();
+							this.centerDialogVisible2 = false;
 						}
 					}).catch(da => {
 
@@ -738,9 +737,8 @@
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
-							this.centerDialogVisible2 = false;
-							this.searhData();
 							this.getreviewInfo();
+							this.centerDialogVisible2 = false;
 						}
 					}).catch(da => {
 
