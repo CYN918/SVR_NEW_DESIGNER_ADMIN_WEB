@@ -589,7 +589,12 @@
 						type: "text"
 					},
 					{
-						name: "审核时间",
+						name: "内容审核时间",
+						id: "content_check_confim_time",
+						type: "text"
+					},
+					{
+						name: "价格审核时间",
 						id: "check_time",
 						type: "text"
 					},
