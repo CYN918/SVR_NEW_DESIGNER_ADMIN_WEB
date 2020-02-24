@@ -222,7 +222,7 @@
 				this.radio = row[this.tableConfig.selectid];
 			},
 			handleClick(row, setid, page,event) {
-				//console.log(page,setid)
+				// console.log(page,setid)
 				//return;
 				switch(page){
 					case "userBaseInfo":

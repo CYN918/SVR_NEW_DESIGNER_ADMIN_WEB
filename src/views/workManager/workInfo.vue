@@ -157,7 +157,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<button class=""></button>
-				<el-button type="primary" @click="contributor">确 定</el-button>
+				<el-button type="primary" @click="contributor('on')">确 定</el-button>
 			</span>
 		</el-dialog>
 	</div>
@@ -346,8 +346,8 @@
 				this.radioS = this.selectOne.recommend_level;
 				this.centerDialogVisible1 = true;
 			},
-			contributor() {
-				//console.log(workids)
+			contributor(info) {
+				console.log(info)
 				//console.log(this.selectData);
 				var work_ids = this.getworkids();
 				this.centerDialogVisible = false;
@@ -356,15 +356,7 @@
 					access_token:localStorage.getItem("access_token"),
 					work_ids:work_ids,
 				}).then(da => {
-					console.log(da)
-					this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						dangerouslyUseHTMLString: true,
-						type: '',
-						center: true
-					}).then(() => {
-						console.log(this.radioS)
+					if(info == 'on'){
 						let data = {
 							work_id: work_ids,
 							recommend_level: this.radioS,
@@ -387,13 +379,49 @@
 						}).catch(() => {
 							this.$refs.Tabledd.setinit();
 					    });
-					}).catch(() => {
-						this.$message({
-							type: 'info',
-							message: '已经取消'
+
+					}else{
+						console.log(da)
+						this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							dangerouslyUseHTMLString: true,
+							type: '',
+							center: true
+						}).then(() => {
+							console.log(this.radioS)
+							let data = {
+								work_id: work_ids,
+								recommend_level: this.radioS,
+								access_token: localStorage.getItem("access_token"),
+							};
+							//alert(this.$refs.Tabledd.sel);
+							//return;
+							if(this.$refs.Tabledd.sel == false) {
+								data = {};
+								if(this.$route.query.urlDate){
+									data = JSON.parse(this.$route.query.urlDate);
+								}
+								data.access_token = localStorage.getItem("access_token");
+								data.recommend_level = this.radioS;
+							} 
+							
+							this.api.setRecommendLevelwork(data).then(da => {
+								this.getData({pageCurrent:1,pageSize:50});
+								this.$refs.Tabledd.setinit();
+							}).catch(() => {
+								this.$refs.Tabledd.setinit();
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已经取消'
+							});
+							this.$refs.Tabledd.setinit();
 						});
-						this.$refs.Tabledd.setinit();
-					});
+
+					}
+					
 				}).catch(da => {
 					
 				})

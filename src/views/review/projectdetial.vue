@@ -574,8 +574,13 @@
 						type: "text"
 					},
 					{
-						name: "审核人",
-						id: "admin_name",
+						name: "内容审核人",
+						id: "check_admin_content_name",
+						type: "text"
+					},
+					{
+						name: "价格审核人",
+						id: "check_admin",
 						type: "text"
 					},
 					{
@@ -946,6 +951,8 @@
 				this.centerDialogVisible4 = !this.centerDialogVisible4;
 			},
 			contributor() {
+				// console.log(this.radio1)
+				// console.log(this.text100)
 				if (!this.radio1) {
 					this.$message({
 						message: "请选择驳回理由"
@@ -960,11 +967,13 @@
 					check_status: -1,
 					reason: this.radio1,
 					check_steps: 0,
+					comment:'',
 				}
 				
 				if (this.radio1 == "其他理由") {
-					data.reason = this.text100;
-				} else {
+					data.reason = '其他';
+					data.comment=this.text100;
+				}else{
 					data.comment=this.text100;
 				}
 				
