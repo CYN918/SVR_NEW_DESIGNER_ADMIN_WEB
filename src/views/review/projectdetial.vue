@@ -580,7 +580,7 @@
 					},
 					{
 						name: "价格审核人",
-						id: "check_admin",
+						id: "admin_name",
 						type: "text"
 					},
 					{
