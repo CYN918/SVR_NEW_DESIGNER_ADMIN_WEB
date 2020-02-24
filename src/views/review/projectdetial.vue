@@ -909,7 +909,7 @@
 				if (val) {
 					return val
 				} else {
-					return "--"
+					return "其他"
 				}
 			},
 			getleng(n) {

@@ -6,30 +6,10 @@
 			</el-breadcrumb>
 		</div>
 		<div class="fright hnav marginright60" style="position: relative;">
-			<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品发布'">
+			<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1)">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
-			<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品入围'">
-				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
-			<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '作品录用'">
-				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
-			<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '项目验收'">
-				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
-			<router-link to="/review/projectreview/projectreallrecords" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && (adminuseraccess.indexOf('52') > -1) && this.auditTitle == '项目验收'">
-				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
-			<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && this.auditTitle == '供稿人申请'">
-				<span class="dp fontsize18">审核台</span>
-				<span class="dp sel-badge" v-html="reviewnum">99+</span>
-			</router-link>
+			</router-link>	
 			<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
 			<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
 			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
