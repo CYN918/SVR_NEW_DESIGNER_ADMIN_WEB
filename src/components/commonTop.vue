@@ -104,8 +104,9 @@
 				this.commonTopData.commonbottombtn.splice(index,1)
 			},
 			getparent(id,name) {
-				//alert(name)
+				// console.log(name)
 				var idIndex = id;
+				// console.log(idIndex)
 				switch (name)
 				{
 					case "userBaseInfo":

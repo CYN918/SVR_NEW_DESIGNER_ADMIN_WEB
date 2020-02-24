@@ -279,7 +279,6 @@
 					
 					
 				} */
-				
 				this.api.workList(data).then((da) => {
 					
 					this.tableData = da.data;
@@ -499,76 +498,89 @@
 				this.commonTopData.commonbottombtn = [];
 				if (this.$route.query.urlDate) {
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					// console.log(urldata);
+					
 					this.filterFields.forEach(item => {
-						//console.log(item);
-
-						if (urldata[item.id]) {
-							var val = urldata[item.id];
-							if (item.child) {
-								val = "";
-								item.child.forEach(citem => {
-									//alert(urldata[item.id])
-									if (citem.id == urldata[item.id]) {
-										val = citem.name;
-									}
-								})
-							}
-							this.commonTopData.commonbottombtn.push({
-								btnName: item.name,
-								val: val,
-								id: item.id
-							});
-							//console.log(this.commonTopData.commonbottombtn);
-						}
-						if (item.type == "two") {
-							if (item.child) {
-								item.child.forEach(citem => {
-									if (urldata[citem.id]) {
-										this.commonTopData.commonbottombtn.push({
-											btnName: citem.name,
-											val: urldata[citem.id],
-											id: citem.id
-										})
-									}
-								})
-							}
-							//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
-							/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
-							this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
-						};
-						if (item.type == "cascader") {
+						// console.log(item);
+						if(urldata.classify_1 != undefined){
+							if (item.type == "linkage") {
+							// console.log(urldata.classify_1)
 							if(item.child){
 								item.child.forEach(citem => {
-									if(urldata.classify_1.split(",").indexOf(citem.value) != -1){
-										this.commonTopData.commonbottombtn.push({
-											btnName: item.name,
-											val: citem.label,
-											id: citem.value
-										})
-										citem.children.forEach(element => {	
-											if(urldata.classify_2.split(",").indexOf(element.value) != -1){
-												this.commonTopData.commonbottombtn.push({
-													btnName: item.name,
-													val: element.label,
-													id: element.value
-												})
-												element.children.forEach(val => {
-													if(urldata.classify_3.split(",").indexOf(val.value) != -1){
+									
+										if(urldata.classify_1.split(",").indexOf(citem.value) != -1){
+											this.commonTopData.commonbottombtn.push({
+												btnName: item.name,
+												val: citem.label,
+												id: citem.value
+											})
+											citem.children.forEach(element => {	
+												
+													if(urldata.classify_2.split(",").indexOf(element.value) != -1){
 														this.commonTopData.commonbottombtn.push({
 															btnName: item.name,
-															val: val.label,
-															id: val.value
+															val: element.label,
+															id: element.value
+														})
+														element.children.forEach(val => {
+															
+																if(urldata.classify_3.split(",").indexOf(val.value) != -1){
+																	this.commonTopData.commonbottombtn.push({
+																		btnName: item.name,
+																		val: val.label,
+																		id: val.value
+																	})
+																}
+																												
 														})
 													}
-												})
-											}
-
-										})
-									}			
+																							
+											})
+										}
+												
 								})
 							}
 						};
+						
+					    }else{
+							if (urldata[item.id]) {
+								var val = urldata[item.id];
+								if (item.child) {
+									val = "";
+									item.child.forEach(citem => {
+										//alert(urldata[item.id])
+										if (citem.id == urldata[item.id]) {
+											val = citem.name;
+										}
+									})
+								}
+								this.commonTopData.commonbottombtn.push({
+									btnName: item.name,
+									val: val,
+									id: item.id
+								});
+								//console.log(this.commonTopData.commonbottombtn);
+							}
+							if (item.type == "two") {
+								if (item.child) {
+									item.child.forEach(citem => {
+										if (urldata[citem.id]) {
+											this.commonTopData.commonbottombtn.push({
+												btnName: citem.name,
+												val: urldata[citem.id],
+												id: citem.id
+											})
+										}
+									})
+								}
+								//this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id})
+								/* this.commonTopData.commonbottombtn.push({btnName:item.child[0].name,val:val,id:item.child[0].id});
+								this.commonTopData.commonbottombtn.push({btnName:item.child[1].name,val:val,id:item.child[1].id}); */
+							};
+
+						}
+
+						
+						
 					})
 				}
 

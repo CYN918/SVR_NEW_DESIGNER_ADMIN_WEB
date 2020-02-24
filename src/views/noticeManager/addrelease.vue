@@ -16,12 +16,16 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft fontcolorg" style="margin-right: 20px;">通知内容</span>
-					<div class="fleft defaultbtnworkbg">
+					<div style="margin-left: 85px;">
+						<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="text100"></vue-ueditor-wrap>
+					</div>
+					
+					<!-- <div class="fleft defaultbtnworkbg">
 						<div>
 							<textarea style="padding: 10px;" name="" id="" cols="69" rows="10" v-model="text100"  class="defaultbtnwork"></textarea>
 						</div>
-						<!-- <span class="fright fontcolorg">{{ text100.length }}/100</span> -->
-					</div>
+						<span class="fright fontcolorg">{{ text100.length }}/100</span>
+					</div> -->
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft fontcolorg" style="margin-right: 20px;">发送用户</span>
@@ -77,6 +81,7 @@
 </template>
 
 <script>
+    import VueUeditorWrap from 'vue-ueditor-wrap'
 	import workData from "../../assets/workData.js"
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
@@ -85,6 +90,7 @@
 		components: {
 			commonTop,
 			commonTable,
+			VueUeditorWrap,
 		},
 		data() {
 			return {
@@ -105,6 +111,12 @@
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 					"IsShow": true,
+				},
+				myConfig: {
+					autoHeightEnabled: false,
+					initialFrameHeight: 500,
+					initialFrameWidth: 1000,
+					UEDITOR_HOME_URL: '/UEditor/'
 				},
 				screenConfig: [],
 				tableConfig: {
@@ -210,6 +222,7 @@
 				this.api.getUserList(data).then((da) => {
 					
 					this.tableData = da.data;
+					// console.log(this.tableData)
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
 					this.tableConfig.pagesize = da.page_size;
@@ -383,7 +396,23 @@
 				this.dialogTableVisible=false;
 				this.sendnum=this.selectData.length;
 				this.to_open_ids = this.getnoticeids();
-			}
+			},
+			ready(editorInstance) {
+				this.uD = editorInstance;
+				editorInstance.addListener('focus', (editor) => {
+					if (this.ifBjType == 0) {
+						this.form.info = '';
+						this.ifBjType = 1;
+					}
+				});
+				editorInstance.addListener('blur', (editor) => {
+					if (this.ifBjType == 1 && this.form.info == '') {
+						this.form.info = '';
+						this.ifBjType = 0;
+					}
+				});
+			
+			},
 			
 
 		},

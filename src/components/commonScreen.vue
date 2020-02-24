@@ -54,7 +54,7 @@
 							clearable>
 						</el-cascader> -->
 						<div class="box">
-							<el-multi-cascader ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'cascader'" 
+							<el-multi-cascader ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'linkage'" 
 								expand-trigger="hover" 
 								v-model="cascaderOptions" 
 								:options="item.child" 

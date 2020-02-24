@@ -263,7 +263,7 @@ const screenData = {
 				{name:"作品标题",id:"work_name"},
 				{name:"用户ID",id:"open_id"},
 				{name:"用户昵称",id:"username"},
-				{name:"作品类型",id:"classify",type:"cascader",child:[]},
+				{name:"作品类型",id:"classify",type:"linkage",child:[]},
 				{name:"版权说明",id:"copyright",child:[{name:"禁止匿名转载；禁止商业使用；禁止个人使用。",id:"禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
 				{name:"作品标签",id:"labels"},
 				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},

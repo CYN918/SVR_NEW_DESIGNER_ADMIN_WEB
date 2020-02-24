@@ -786,7 +786,7 @@
 				        }
 				    }
 				})
-                //console.log(this.multipleSelectionAll);
+                // console.log(this.multipleSelectionAll);
 				if( this.$parent.$parent.pageName && this.$parent.$parent.pageName == "addblack"){
 					if(this.$parent.$parent.tabnum == 0) {
 						this.$parent.$parent.selectData = this.multipleSelectionAll;
@@ -875,7 +875,9 @@
 				this.$parent.xzFn(this.multipleSelection); */
 				
 			},	
-			setall(){		
+			setall(){	
+				// console.log(this.tableConfig)
+				// console.log(this.multipleSelection.length)	
 				if(this.multipleSelection.length == '0'){
 					this.sel = !this.sel;
 					if(this.sel == false){
@@ -883,12 +885,15 @@
 						this.$parent.seltotal = this.tableConfig.total;
 						this.toggleSelection(this.tableDatas)
 						this.btnStatus = this.btnStatus ? false : true ;
+						this.multipleSelection = this.tableDatas
+					    this.changePageCoreRecordData(this.multipleSelection)
 					} else {
 						this.selected = 0;
 						this.$parent.seltotal = 0;
 						this.toggleSelection();
 						this.btnStatus = true;
 					};
+					
 				}else{
 					this.sel = !this.sel;
 					if(this.sel == true){
@@ -900,6 +905,8 @@
 						this.selected = this.tableConfig.total;
 						this.$parent.seltotal = this.tableConfig.total;
 						this.btnStatus = this.btnStatus ? false : true ;
+						this.multipleSelection = this.tableDatas
+					    this.changePageCoreRecordData(this.multipleSelection)
 					}
 				}			
 			},
