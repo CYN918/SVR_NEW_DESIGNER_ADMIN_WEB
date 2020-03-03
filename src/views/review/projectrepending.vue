@@ -186,7 +186,7 @@
 					limit: pg.pageSize,
 					type:5,
 					check_steps: this.check_steps_status,
-					per_check_name: this.$route.query.user,
+					// per_check_name: this.$route.query.user,
 					check_status:0,
 					business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
 				}
