@@ -324,6 +324,53 @@
 							name:"更多",
 							child:[
 								{
+									name:(da,da1)=>{
+										if(da == "4"){
+											if(this.adminuseraccess.indexOf("16")>0){
+												
+												if(this.adminuseraccess.indexOf("52")>0){
+													return "验收审核"
+												} else {
+													if(da1 == "3"){
+														// "3":"场景锁屏","4":"个性化主题","5":"来电秀";
+														if(this.adminuseraccess.indexOf("55")>0){
+															return "验收审核"
+														} else {
+															return "";
+														}
+													} else if(da1 == "4"){
+														if(this.adminuseraccess.indexOf("54")>0){
+															return "验收审核"
+														} else {
+															return "";
+														}
+													} else if(da1 == "5"){
+														if(this.adminuseraccess.indexOf("53")>0){
+															return "验收审核"
+														} else {
+															return "";
+														}
+													} else {
+														return "";
+													}
+												}
+												
+												
+												
+											} else {
+												return "";
+											}
+											
+										} else {
+											return "";
+										}
+									},
+									fun:"review1",
+									accessid:"200519",
+									filterdata:"status",
+									filterdata1:"business_type"
+								},
+								{
 									name:(da)=>{
 										return "编辑"
 									},
@@ -344,20 +391,7 @@
 									},
 									fun:"reject",
 									accessid:"200524",
-								},
-								{
-									name:(da)=>{
-										if(da == '4'){
-											return '验收审核';
-										} else {
-											return null;
-										}
-										
-									},
-									fun:"review",
-									filterdata:"check_status", 
-									accessid:"200519",
-								},
+								}
 								
 							]
 						},
@@ -496,7 +530,11 @@
 				top_banner: [],
 				crow:{},
 				tableData:{},
-				contract_id:""
+				contract_id:"",
+				adminuseraccess:"",
+				access:"",
+				business_title:"",
+				
 			}
 		},
 		watch: {},
@@ -594,6 +632,18 @@
 				}
 				
 			},
+			review1(row){
+				
+				const {href} = this.$router.resolve({ path: "/review/projectreview/projectdetial",query:{
+					id:row.bing_id,
+					type:5,
+					check_status:0,
+					project_id:row.project_id,
+					business_type:row.business_type
+				}})
+				window.open(href, '_blank')
+				
+			},
 			selectobj(row){
 				this.setpage()
 				this.$router.push({
@@ -673,7 +723,10 @@
 			}
 		},
 		created() {
-			this.getData()
+			this.getData();
+			if (localStorage.getItem("adminuseraccess")) {
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
 		},
 		mounted() {
 			

@@ -61,13 +61,13 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">累计收益</span>
-					<span class="fleft detailValue">{{ "--" }}</span>
+					<span class="fleft detailValue">{{ money(detailData.hire_price) }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">累计录用作品</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ 0 }}
+							{{ getValue(detailData.hire_num) }}
 						</router-link>
 					</span>
 				</li>
@@ -95,6 +95,10 @@
 			}
 		},
 		methods:{
+			money(str){
+				let d = str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				return "¥"+d;
+			},
 			getstatus(n){
 				switch (n){
 					

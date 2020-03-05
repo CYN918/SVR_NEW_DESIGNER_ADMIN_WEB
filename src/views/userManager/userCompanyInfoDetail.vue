@@ -53,13 +53,13 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">累计收益</span>
-					<span class="fleft detailValue">{{ getValue() }}</span>
+					<span class="fleft detailValue">{{ getValue(detailData.hire_price)+"（元）" }}</span>
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">累计录用作品</span>
 					<span class="fleft detailValue routerLink pointer">
 						<router-link to="/userPersonalInfo" tag="div">
-							{{ getValue()}}
+							{{ getValue(detailData.hire_num)}}
 						</router-link>
 					</span>
 				</li>
