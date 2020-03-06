@@ -244,6 +244,17 @@ const screenData = {
 				{name:"",type:"display"}
 			]
 		},
+		projectreview1:{
+			filterFields:[
+				{name:"审核ID",id:"id"},
+				{name:"项目名称",id:"name"},
+				{name:"项目类型",id:"classify_id",child:[]},
+				{name:"业务类型",id:"business_type",type:"more",child:["场景锁屏","个性化主题","来电秀"]},
+				
+				{name:"提审用户昵称",id:"username"},
+				{name:"",type:"display"}
+			]
+		},
 		applyPerson:{
 			filterFields:[
 				{name:"审核ID",id:"id"},

@@ -215,7 +215,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
-							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" :disabled="isbusiness_type" style="width: 300px;">
 								<el-option
 									v-for="item in rukuOptions"
 									:key="item.value"
@@ -398,6 +398,7 @@
 		props: ['detailData', 'roles'],
 		data() {
 			return {
+				isbusiness_type:false,
 				is_ruku: '0',
 				rukuOptions: [{
 					value: '0',
@@ -1324,7 +1325,9 @@
 			}
 		},
 		mounted() {
-
+			if(this.$route.query.business_type == "5"){
+				this.isbusiness_type = true;
+			}
 		}
 	}
 </script>

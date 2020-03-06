@@ -15,10 +15,15 @@
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
 						<div v-else-if="item.type == 'btn'">
 							<div v-if="item.child[scope.row[item.prop]] == '待审核' && scope.row.check_steps == '0'">
-								<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]">1/2{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+								<!-- <div v-if="adminuseraccess.indexOf('200573') > 0"> -->
+									<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]">1/2{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+								<!-- </div> -->
+								
 							</div>
 							<div v-else-if="item.child[scope.row[item.prop]] == '待审核' && scope.row.check_steps == '1'">
-								<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]">2/2{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+								<!-- <div v-if="adminuseraccess.indexOf('200575') > 0"> -->
+									<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]">2/2{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+								<!-- </div> -->
 							</div>
 							<div v-else>
 								<button style="width: 100px;" :class="'fleft defaultbtn0 defaultbtn'+scope.row[item.prop]">{{ item.child[scope.row[item.prop]] }}</button><span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
