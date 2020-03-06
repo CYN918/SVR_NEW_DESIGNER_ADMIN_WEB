@@ -562,9 +562,9 @@
 				this.IsShow = true;
 				this.api.addBl({
 					access_token:localStorage.getItem("access_token"),
-					open_ids:this.notices_ids,
+					open_ids:this.to_open_ids,
 					content:JSON.stringify(this.content),
-					report_ids:this.to_open_ids
+					report_ids:this.notices_ids
 				}).then(da => {
 					if(da.result == 0){
 						this.getparent();
