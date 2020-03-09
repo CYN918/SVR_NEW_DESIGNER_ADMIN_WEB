@@ -225,7 +225,7 @@
 							</el-select>
 						</div>
 					</li>
-					<li class="w ofh" v-if="this.business_title == '【业务】来电秀'">
+					<!-- <li class="w ofh" v-if="this.business_title == '【业务】来电秀'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">来电秀分类</span>
 							<el-select v-model="ld_show" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
@@ -237,7 +237,7 @@
 								</el-option>
 							</el-select>
 						</div>
-					</li>
+					</li> -->
 					<li class="w ofh" v-if="material_info.type == '1'&&this.business_title != '【业务】来电秀'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
