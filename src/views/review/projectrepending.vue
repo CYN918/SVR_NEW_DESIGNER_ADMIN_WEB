@@ -98,8 +98,7 @@
 				filterFields:DataScreen.screen.projectreview.filterFields,
 				IsDetail:1,
 				roles:{},
-				business_id: '',
-				check_steps_status: '',
+				mxArr:[],
 			}
 		},
 		watch: {},
@@ -115,64 +114,80 @@
 				if(localStorage.getItem("access")){
 					this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
 					this.top_banner.forEach(item => {
-						item.child.forEach(element => {
-							if(element.id == '16'){
-								element.child.forEach(val => {
+						item.child.forEach(element => {		
+						if(element.id == '16'){					
+								element.child.forEach(val => {			
 									if(val.id == '55'){
-										this.business_id += 3 + ",";
 										if(val.child.length == '2'){
-											this.check_steps_status = 0 + ',' + 1;
+											this.check_steps = '0,1';
 										}else{
 											val.child.forEach(da => {
 												if(da.id == '200580'){
-													this.check_steps_status = 0;
-												}else{
-													this.check_steps_status = 1;
+													this.check_steps = 0;
+												}else if(da.id == '200581'){
+													this.check_steps = 1;
 												}
 											})
-										}	
+										}		
+										let obj = {
+											business_id:3,
+											check_steps:this.check_steps,
+										}
+										this.mxArr.push(obj)
 									}
 									if(val.id == '53'){
-										this.business_id += 5 + ",";
 										if(val.child.length == '2'){
-											this.check_steps_status = 0 + ',' + 1;
+											this.check_steps = '0,1';
 										}else{
 											val.child.forEach(da => {
 												if(da.id == '200573'){
-													this.check_steps_status = 0;
-												}else{
-                                                    this.check_steps_status = 1;
+													this.check_steps = 0;
+												}else if(da.id == '200575'){
+													this.check_steps = 1;
 												}
 											})
-										}			
+										}		
+										let obj1 = {
+											business_id:5,
+											check_steps:this.check_steps,
+										}	
+										this.mxArr.push(obj1)
 									}
 									if(val.id == '54'){
-										this.business_id += 4 + ",";
 										if(val.child.length == '2'){
-											this.check_steps_status = 0 + ',' + 1;
+											this.check_steps = '0,1';
 										}else{
 											val.child.forEach(da => {
 												if(da.id == '200577'){
-													this.check_steps_status = 0;
-												}else{
-													this.check_steps_status = 1;
+													this.check_steps = 0;
+												}else if(da.id == '200578'){
+													this.check_steps = 1;
 												}
 											})
+										}		
+										let obj2 = {
+											business_id:4,
+											check_steps:this.check_steps,
 										}	
+										this.mxArr.push(obj2)
 									}
 									if(val.id == '56'){
-										this.business_id += 6 + ",";
 										if(val.child.length == '2'){
-											this.check_steps_status = 0 + ',' + 1;
+											this.check_steps = '0,1';
 										}else{
 											val.child.forEach(da => {
 												if(da.id == '200583'){
-													this.check_steps_status = 0;
-												}else{
-													this.check_steps_status = 1;
+													this.check_steps = 0;
+												}else if(da.id == '200584'){
+													this.check_steps = 1;
 												}
 											})
-										}			
+										}		
+										let obj3 = {
+											business_id:6,
+											check_steps:this.check_steps,
+										}	
+										this.mxArr.push(obj3)	
 									}
 								})
 							}
@@ -185,10 +200,11 @@
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:5,
-					check_steps: this.check_steps_status,
+					// check_steps: this.check_steps_status,
 					// per_check_name: this.$route.query.user,
 					check_status:0,
-					business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
+					// business_type: this.business_id.substring(0,this.business_id.lastIndexOf(',')),
+					mix_blens:JSON.stringify(this.mxArr),
 				}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
@@ -199,6 +215,7 @@
 					sreenData.type = 5
 					data = sreenData;
 				}
+				console.log(data)
 
 				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;

@@ -2,7 +2,7 @@
 	<div class="w ctcontent">
 		<div v-if="!commonTopData.IsShow">
 			<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 10px;" v-else-if="commonTopData.tabData">
 				<span class="fleft" style="width: 125px;">
 					{{ currentpageName }}
 				</span>
@@ -20,12 +20,12 @@
 			</div>
 		</div>
 		<div>
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 20px;" v-if="commonTopData.option">
+			<div class="paddinglr40 relative" style="height: 20px;border-bottom: 2px solid #f0f2f5;line-height: 20px;margin-bottom: 5px;" v-if="commonTopData.option">
 				<div class="textcenter" style="float: left;">
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+					<span style="height: 20px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+					<span style="height: 20px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
 				</div>
