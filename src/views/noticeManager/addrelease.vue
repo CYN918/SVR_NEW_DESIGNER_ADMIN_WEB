@@ -74,7 +74,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="!rows.id" @click="add()">创建</button>
 			<button class="defaultbtn defaultbtnactive" v-if="rows.id" @click="edit()">保存</button>
 		</div>
-		<div class="workfixed" v-show="IsScreen == 'No'">
+		<div class="workfixed" v-show="IsScreen == 'No'" style="z-index:2090;">
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
 	</div>

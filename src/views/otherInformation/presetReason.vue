@@ -60,6 +60,7 @@
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
+				console.log(pg)
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -172,7 +173,7 @@
 		},
 		mounted() {
 			//console.log(this.tableConfig)
-			this.getData({pageCurrent:1,pageSize:10});
+			this.getData({pageCurrent:1,pageSize:50});
 			
 		},
 		watch:{

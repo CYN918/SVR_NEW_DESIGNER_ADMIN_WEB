@@ -18,7 +18,7 @@
 						<el-dropdown trigger="click" class="ipt" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
 							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="form[item.id]" suffix-icon="el-icon-arrow-down"
 							 clearable></el-input>
-						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 200px;">
 								<el-checkbox-group v-model="vocation[item.id]">
 									<el-dropdown-item v-for="(citem,index) in item.child" :key="index">
 										<el-checkbox  :label="citem" @change="vocations(item.id)">{{citem}}</el-checkbox>
@@ -105,11 +105,11 @@
 							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'three'" class="ipt">
-							<el-input v-model="form[item.child[0].id]" class="ipt91" placeholder="请输入国家" clearable style="width: 68px;"></el-input>
+							<el-input v-model="form[item.child[0].id]" class="ipt91" placeholder="国家" clearable style="width: 68px;"></el-input>
 							<span>-</span>
-							<el-input v-model="form[item.child[1].id]" class="ipt91" placeholder="请输入省" clearable style="width: 68px;"></el-input>
+							<el-input v-model="form[item.child[1].id]" class="ipt91" placeholder="省" clearable style="width: 68px;"></el-input>
 							<span>-</span>
-							<el-input v-model="form[item.child[2].id]" class="ipt91" placeholder="请输入市" clearable style="width: 68px;"></el-input>
+							<el-input v-model="form[item.child[2].id]" class="ipt91" placeholder="市" clearable style="width: 68px;"></el-input>
 						</div>
 						<div v-if="item.type == 'text'" class="ipt">
 							<el-input  placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>

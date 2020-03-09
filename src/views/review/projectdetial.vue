@@ -199,7 +199,7 @@
 							</el-button-group>
 						</div>
 					</li>
-					<li class="w ofh" v-if="this.business_title != '【业务】来电秀'">
+					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">绑定需求</span>
 							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
@@ -238,7 +238,7 @@
 							</el-select>
 						</div>
 					</li> -->
-					<li class="w ofh" v-if="material_info.type == '1'&&this.business_title != '【业务】来电秀'">
+					<li class="w ofh" v-if="material_info.type == '1'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
@@ -254,7 +254,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<el-button size="medium" @click="reject2()">取消</el-button>
-				<el-button size="medium" type="primary" @click="contentAudit(material_info.type)">确定并通过</el-button>
+				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contentAudit(material_info.type)">确定并通过</el-button>
 			</span>
 		</el-dialog>
 		<el-dialog title="项目验收审核" :visible.sync="centerDialogVisible6">
@@ -331,7 +331,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<el-button size="medium" @click="priceAudit()">取消</el-button>
-				<el-button size="medium" type="primary" @click="contributor1('lu')">确定验收</el-button>
+				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contributor1('lu')">确定验收</el-button>
 			</span>
 		</el-dialog>
 		<el-dialog :title="title + '-发送修改通知'" :visible.sync="centerDialogVisible3" width="738px">
@@ -746,7 +746,9 @@
 				}else{
 					if(!this.storage_number){
 						this.$message({
-							message: "请填写入库素材数量!"
+							message: "请填写入库素材数量!",
+							type: 'warning',
+						    customClass:'zZindex'
 						})
 						return;
 					}
@@ -979,7 +981,9 @@
 				// console.log(this.text100)
 				if (!this.radio1) {
 					this.$message({
-						message: "请选择驳回理由"
+						message: "请选择驳回理由",
+						type: 'warning',
+						customClass:'zZindex'
 					})
 					return;
 				}

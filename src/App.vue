@@ -11,6 +11,9 @@
   list-style: none;
   outline: none;
 }
+.zZindex {
+   z-index:3000 !important;
+}
 
 html,body{
 	width: 100%;
