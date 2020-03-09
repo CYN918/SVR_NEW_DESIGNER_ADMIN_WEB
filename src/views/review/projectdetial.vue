@@ -41,7 +41,7 @@
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 1 ">
-				<li v-if="" class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
+				<li class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'two'">
 						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
@@ -199,7 +199,7 @@
 							</el-button-group>
 						</div>
 					</li>
-					<li class="w ofh">
+					<li class="w ofh" v-if="this.business_title != '【业务】来电秀'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">绑定需求</span>
 							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
@@ -215,7 +215,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
-							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" :disabled="isbusiness_type" style="width: 300px;">
+							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
 								<el-option
 									v-for="item in rukuOptions"
 									:key="item.value"
@@ -225,7 +225,20 @@
 							</el-select>
 						</div>
 					</li>
-					<li class="w ofh" v-if="material_info.type == '1'">
+					<li class="w ofh" v-if="this.business_title == '【业务】来电秀'">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">来电秀分类</span>
+							<el-select v-model="ld_show" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+								<el-option
+									v-for="item in showOptions"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+					</li>
+					<li class="w ofh" v-if="material_info.type == '1'&&this.business_title != '【业务】来电秀'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
@@ -407,6 +420,11 @@
 					value: '1',
 					label: '需整理后入库'
 				}],
+				ld_show:'0',
+				showOptions:[{
+					value: '0',
+					label: '明星网红'
+				}],
 				storage_number: '',
 				content_remark: '',
 				adminuseraccess: [],
@@ -466,7 +484,7 @@
 						name: "业务类型",
 						id: "business_type",
 						type:"keyvalue",
-						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}
+						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他"}
 					},
 					{
 						name: "banner",
@@ -1294,6 +1312,7 @@
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
+				// console.log(this.business_title)
 				this.access.top_banner[0].child.forEach(item => {
 					if(item.id == '16'){
 						this.acceptance_audit = item.id;
