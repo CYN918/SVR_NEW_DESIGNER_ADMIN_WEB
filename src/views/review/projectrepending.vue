@@ -111,89 +111,6 @@
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
-				if(localStorage.getItem("access")){
-					this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
-					this.top_banner.forEach(item => {
-						item.child.forEach(element => {		
-						if(element.id == '16'){					
-								element.child.forEach(val => {			
-									if(val.id == '55'){
-										if(val.child.length == '2'){
-											this.check_steps = '0,1';
-										}else{
-											val.child.forEach(da => {
-												if(da.id == '200580'){
-													this.check_steps = 0;
-												}else if(da.id == '200581'){
-													this.check_steps = 1;
-												}
-											})
-										}		
-										let obj = {
-											business_id:3,
-											check_steps:this.check_steps,
-										}
-										this.mxArr.push(obj)
-									}
-									if(val.id == '53'){
-										if(val.child.length == '2'){
-											this.check_steps = '0,1';
-										}else{
-											val.child.forEach(da => {
-												if(da.id == '200573'){
-													this.check_steps = 0;
-												}else if(da.id == '200575'){
-													this.check_steps = 1;
-												}
-											})
-										}		
-										let obj1 = {
-											business_id:5,
-											check_steps:this.check_steps,
-										}	
-										this.mxArr.push(obj1)
-									}
-									if(val.id == '54'){
-										if(val.child.length == '2'){
-											this.check_steps = '0,1';
-										}else{
-											val.child.forEach(da => {
-												if(da.id == '200577'){
-													this.check_steps = 0;
-												}else if(da.id == '200578'){
-													this.check_steps = 1;
-												}
-											})
-										}		
-										let obj2 = {
-											business_id:4,
-											check_steps:this.check_steps,
-										}	
-										this.mxArr.push(obj2)
-									}
-									if(val.id == '56'){
-										if(val.child.length == '2'){
-											this.check_steps = '0,1';
-										}else{
-											val.child.forEach(da => {
-												if(da.id == '200583'){
-													this.check_steps = 0;
-												}else if(da.id == '200584'){
-													this.check_steps = 1;
-												}
-											})
-										}		
-										let obj3 = {
-											business_id:6,
-											check_steps:this.check_steps,
-										}	
-										this.mxArr.push(obj3)	
-									}
-								})
-							}
-						})
-					})
-				}
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -215,7 +132,6 @@
 					sreenData.type = 5
 					data = sreenData;
 				}
-				console.log(data)
 
 				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;
@@ -325,6 +241,89 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getData1();
+			if(localStorage.getItem("access")){
+				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
+				this.top_banner.forEach(item => {
+					item.child.forEach(element => {		
+					if(element.id == '16'){					
+							element.child.forEach(val => {			
+								if(val.id == '55'){
+									if(val.child.length == '2'){
+										this.check_steps = '0,1';
+									}else{
+										val.child.forEach(da => {
+											if(da.id == '200580'){
+												this.check_steps = 0;
+											}else if(da.id == '200581'){
+												this.check_steps = 1;
+											}
+										})
+									}		
+									let obj = {
+										business_type:3,
+										check_steps:this.check_steps,
+									}
+									this.mxArr.push(obj)
+								}
+								if(val.id == '53'){
+									if(val.child.length == '2'){
+										this.check_steps = '0,1';
+									}else{
+										val.child.forEach(da => {
+											if(da.id == '200573'){
+												this.check_steps = 0;
+											}else if(da.id == '200575'){
+												this.check_steps = 1;
+											}
+										})
+									}		
+									let obj1 = {
+										business_type:5,
+										check_steps:this.check_steps,
+									}	
+									this.mxArr.push(obj1)
+								}
+								if(val.id == '54'){
+									if(val.child.length == '2'){
+										this.check_steps = '0,1';
+									}else{
+										val.child.forEach(da => {
+											if(da.id == '200577'){
+												this.check_steps = 0;
+											}else if(da.id == '200578'){
+												this.check_steps = 1;
+											}
+										})
+									}		
+									let obj2 = {
+										business_type:4,
+										check_steps:this.check_steps,
+									}	
+									this.mxArr.push(obj2)
+								}
+								if(val.id == '56'){
+									if(val.child.length == '2'){
+										this.check_steps = '0,1';
+									}else{
+										val.child.forEach(da => {
+											if(da.id == '200583'){
+												this.check_steps = 0;
+											}else if(da.id == '200584'){
+												this.check_steps = 1;
+											}
+										})
+									}		
+									let obj3 = {
+										business_type:6,
+										check_steps:this.check_steps,
+									}	
+									this.mxArr.push(obj3)	
+								}
+							})
+						}
+					})
+				})
+			}
 		},
 		mounted() {
 			//console.log(this.tableConfig)

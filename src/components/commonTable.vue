@@ -734,6 +734,7 @@
 				})
 			},
 			handleCurrentChange(val) {
+				console.log(val)
 				this.currentpage = val;
 				this.getTabData();
 				this.$nextTick(() => {
