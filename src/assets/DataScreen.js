@@ -47,9 +47,10 @@ const screenData = {
 				{name:'非认证微信',id:'weixin'},
 				{name:'认证微信',id:'weixin_name'},
 				{name:'非认证QQ',id:'qq'},
-				{name:'认证qq',id:'qq_name'},
-				{name:'非认证微博',id:'weibo'},
-				{name:'认证微博',id:'weibo_name'}
+				{name:'认证QQ',id:'qq_name'},
+				// {name:'非认证微博',id:'weibo'},
+				{name:'认证微博',id:'weibo_name'},
+				{name:"",type:"display"}
 			],
 			
 		},
