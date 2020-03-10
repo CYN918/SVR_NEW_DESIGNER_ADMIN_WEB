@@ -287,6 +287,20 @@
 					
 				}
 				
+				if(index == 1) {
+					//console.log(this.$parent.selectData);
+					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
+						// this.$parent.centerDialogVisible = true;
+						this.router.push({path:"/userManager/blackList/addblack",query:{rows:JSON.stringify(this.$parent.selectData)}});
+					} else {
+						this.$message({
+							message: '请勾选用户',
+							type: 'warning'
+						});
+					}
+					
+				}
+				
 			},
 			handleClick(tab, event) {
 				//console.log(tab, event);

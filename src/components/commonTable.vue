@@ -234,6 +234,14 @@
 						if (setid == "contributor0") {
 							this.$parent.setContributor(row);
 						}
+						
+						if (setid == "contributor1") {
+							//alert(1)
+							let a = [];
+							a.push(row)
+							this.router.push({path:"/userManager/blackList/addblack",query:{rows:JSON.stringify(a)}});
+							//this.$parent.setContributor(row);
+						}
 						if (!setid) {
 							this.router.push({path:"/userManager/userBaseInfo/userBaseInfoDetail",query:{open_id:row.open_id}});
 							///this.$parent.linkDetail(row.open_id);
@@ -796,7 +804,20 @@
 					if(this.$parent.$parent.tabnum == 0) {
 						this.$parent.$parent.selectData = this.multipleSelectionAll;
 					} else {
+						let ids = [];
+						if(this.multipleSelectionAll.length > 1){
+							this.multipleSelectionAll.forEach((item,index)=>{
+								this.multipleSelectionAll.forEach(items=>{
+									if(item.open_id == items.open_id){
+										this.multipleSelectionAll.splice(index,1);
+									}
+								})
+							})
+						}
+						
+						//console.log(this.multipleSelectionAll)
 						this.$parent.$parent.selectData1 = this.multipleSelectionAll;
+						//console.log(this.$parent.$parent.selectData1)
 					}
 					return;
 				}

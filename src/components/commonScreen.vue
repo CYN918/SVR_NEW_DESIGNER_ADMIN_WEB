@@ -100,9 +100,9 @@
 						
 				
 						<div v-if="item.type == 'two'" class="ipt">
-							<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<el-input v-model="form[item.child[0].id]" class="ipt90" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 11.5px;">至</span>
-							<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
+							<el-input v-model="form[item.child[1].id]" onkeyup="value=value.replace(/[^\d]/g,'')" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'three'" class="ipt">
 							<el-input v-model="form[item.child[0].id]" class="ipt91" placeholder="国家" clearable style="width: 68px;"></el-input>

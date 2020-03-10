@@ -291,10 +291,10 @@
 			},
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				///this.$router.go(-1);
-				this.$router.push({
-					path:"/userManager/blackList"
-				});
+				this.$router.go(-1);
+				// this.$router.push({
+				// 	path:"/userManager/blackList"
+				// });
 			},
 			getleng(n) {
 				if (n == 10) {
@@ -558,7 +558,25 @@
 				this.$refs.screen.getScreen()
 				this.tableConfig.list = DataScreen.screenShow.addblack["bts"+n];
 			},
+			alertmask(){
+				if(!this.to_open_ids){
+					return "请选择禁用用户"
+				} else if(!this.notices_ids){
+					return "请选择通知用户"
+				} else if(!this.content){
+					return "请填写禁用权限1"
+				}
+				return false;
+					
+			},
 			add(){
+				if(this.alertmask()){
+					this.$message({
+						type:"warning",
+						message:this.alertmask()
+					})
+					return;
+				}
 				this.IsShow = true;
 				this.api.addBl({
 					access_token:localStorage.getItem("access_token"),
@@ -638,6 +656,12 @@
 				}
 				
 			}
+			
+			if(this.$route.query.rows){
+				console.log(JSON.parse(this.$route.query.rows))
+				let rows = JSON.parse(this.$route.query.rows);
+				this.selectData=rows;
+			}
 			//console.log(this.$route.matched);
 		},
 		watch:{
@@ -646,9 +670,6 @@
 				this.getcommonrightbtn();
 				this.getData({pageCurrent:1,pageSize:50});
 			},
-			"selectData":function(){
-				// console.log(this.selectData)
-			}
 		}
 	}
 </script>
