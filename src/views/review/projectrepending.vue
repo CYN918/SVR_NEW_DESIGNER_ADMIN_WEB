@@ -130,7 +130,9 @@
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
 					sreenData.type = 5
+					sreenData.mix_blens = JSON.stringify(this.mxArr)
 					data = sreenData;
+					
 				}
 
 				this.api.reviewList5(data).then((da) => {
