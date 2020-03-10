@@ -363,100 +363,26 @@
 				if(type == "one"){
 					this.openurls = [
 						this.oneload
-					]
-					
+					]	
 				}
-				// console.log(this.openurls.length)
-				// if(this.openurls.length > 1 && this.openurls.length < 10){
-				// 	let file_path = '';
-				// 	this.openurls.forEach(item =>{
-				// 		file_path += item.id + ',';
-				// 	})
-				// 	var data = {
-				// 		access_token: localStorage.getItem("access_token"),
-				// 		file_path: file_path.substring(0,file_path.lastIndexOf(',')),
-				// 	}
-				// 	let qs=require('qs')
-                //     let qsParam=qs.stringify(data);
-					// this.api.zipfile(data,{responseType: 'blob',}).then(res => res.blob()).then(blob => {
-					// 	const a = document.createElement('a');
-					// 	document.body.appendChild(a)
-					// 	a.style.display = 'none'
-					// 	// 使用获取到的blob对象创建的url
-					// 	const url = window.URL.createObjectURL(blob);
-					// 	a.href = url;
-					// 	// 指定下载的文件名
-						
-					// 	a.click();
-					// 	document.body.removeChild(a)
-					// 	// 移除blob对象的url
-					// 	window.URL.revokeObjectURL(url);
-					// })
-					// this.axios.post( 'http://dev-api-ndesigner-admin.idatachain.cn/admin/Zipfile/zipfile',qsParam).then(res => {
-					// 	// 假设 data 是返回来的二进制数据
-					// 	const data = res.data
-					// 	const url = window.URL.createObjectURL(new Blob([data], {type: "Content-Type: application/zip"}))
-					// 	const link = document.createElement('a')
-					// 	link.style.display = 'none'
-					// 	link.href = url
-					// 	link.setAttribute('download', 'zip')
-					// 	document.body.appendChild(link)
-					// 	link.click()
-					// 	document.body.removeChild(link)
-					// })
-				// 	this.axios({
-				// 		method: "post",
-				// 		url: 'http://dev-api-ndesigner-admin.idatachain.cn/admin/Zipfile/zipfile',
-				// 		data: qsParam,
-						
-				// 	})
-				// 	.then(res => {
-				// 		let blob = new Blob([data], {type: 'application/zip'})
-				// 		const a = document.createElement('a');
-				// 		document.body.appendChild(a)
-				// 		a.style.display = 'none'
-				// 		// 使用获取到的blob对象创建的url
-				// 		const url = window.URL.createObjectURL(blob);
-				// 		a.href = url;
-						
-						
-				// 		a.download = '压缩包zip下载';
-				// 		a.click();
-				// 		document.body.removeChild(a)
-				// 		// 移除blob对象的url
-				// 		window.URL.revokeObjectURL(url);
-				// 	})
-				// 	.catch(res => {
-				// 		let blob = new Blob([data], {type: 'application/zip'})
-				// 		let url = window.URL.createObjectURL(blob)
-				// 		const link = document.createElement('a') // 创建a标签
-				// 		link.href = url
-				// 		link.download = `导出zip文件` // 重命名文件
-				// 		link.click()
-				// 		URL.revokeObjectURL(url) // 释放内存
-				// 	});
-
-				// }else{
-					this.openurls.forEach(item =>{
-						let src = item.id;
-						fetch(item.id).then(res => res.blob()).then(blob => {
-							const a = document.createElement('a');
-							document.body.appendChild(a)
-							a.style.display = 'none'
-							// 使用获取到的blob对象创建的url
-							const url = window.URL.createObjectURL(blob);
-							a.href = url;
-							// 指定下载的文件名
-							a.download = item.name;
-							a.click();
-							document.body.removeChild(a)
-							// 移除blob对象的url
-							window.URL.revokeObjectURL(url);
-						});
-						
-					})
-				// }
-				
+				// console.log(this.openurls)
+				this.openurls.forEach(item =>{
+					let src = item.id;
+					fetch(item.id).then(res => res.blob()).then(blob => {
+						const a = document.createElement('a');
+						document.body.appendChild(a)
+						a.style.display = 'none'
+						// 使用获取到的blob对象创建的url
+						const url = window.URL.createObjectURL(blob);
+						a.href = url;
+						// 指定下载的文件名
+						a.download = item.name;
+						a.click();
+						document.body.removeChild(a)
+						// 移除blob对象的url
+						window.URL.revokeObjectURL(url);
+					});	
+				})	
 			},
 			getimgulr(url){
 				this.imgurl = url;

@@ -88,7 +88,7 @@
 			<button v-if="material_info.type == '1'" class="defaultbtn" @click="up">下载稿件</button>
 			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
 			<!-- <button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button> -->
-			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
+			<button v-if="getstatusinfo() && this.check_steps == '0'" class="defaultbtn" @click="reject">验收驳回</button>
 			<button v-if="this.check_steps == '0' && (adminuseraccess.indexOf(this.audit1) > -1)" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 			<button v-if="this.check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
 		</div>
@@ -215,7 +215,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
-							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;" disabled>
 								<el-option
 									v-for="item in rukuOptions"
 									:key="item.value"
@@ -602,11 +602,11 @@
 						id: "admin_name",
 						type: "text"
 					},
-					{
-						name: "AI审核描述",
-						id: "ai_check_desc",
-						type: "text"
-					},
+					// {
+					// 	name: "AI审核描述",
+					// 	id: "ai_check_desc",
+					// 	type: "text"
+					// },
 					{
 						name: "内容审核时间",
 						id: "content_check_confim_time",
@@ -619,7 +619,7 @@
 					},
 					{
 						name: "最近更新时间",
-						id: "check_time",
+						id: "updated_at",
 						type: "text"
 					},
 					{
@@ -939,7 +939,7 @@
 				if (val) {
 					return val
 				} else {
-					return "其他"
+					return "--"
 				}
 			},
 			getleng(n) {
