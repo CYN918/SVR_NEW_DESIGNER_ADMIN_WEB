@@ -241,7 +241,7 @@ const screenData = {
 				{name:"业务类型",id:"business_type",type:"more",child:["场景锁屏","个性化主题","来电秀"]},
 				
 				{name:"提审用户昵称",id:"username"},
-				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+				// {name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"",type:"display"}
 			]
 		},

@@ -89,7 +89,7 @@
 			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
 			<!-- <button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button> -->
 			<button v-if="getstatusinfo()" class="defaultbtn" @click="reject">验收驳回</button>
-			<button v-if="this.check_steps == '0' && (adminuseraccess.indexOf(this.acceptance_audit) > -1)" v-show="isShow" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
+			<button v-if="this.check_steps == '0' && (adminuseraccess.indexOf(this.audit1) > -1)" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
 			<button v-if="this.check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
 		</div>
 
@@ -705,7 +705,6 @@
 					file_size:"",
 				},
 				isShow: true,
-				acceptance_audit: '',
 				audit1: '',
 				audit2: '',
 			}
@@ -1319,7 +1318,6 @@
 				// console.log(this.business_title)
 				this.access.top_banner[0].child.forEach(item => {
 					if(item.id == '16'){
-						this.acceptance_audit = item.id;
 						item.child.forEach(element => {
 							if(element.title == this.business_title){
 								element.child.forEach(val => {
