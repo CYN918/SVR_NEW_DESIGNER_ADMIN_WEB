@@ -238,7 +238,7 @@
 							</el-select>
 						</div>
 					</li> -->
-					<li class="w ofh" v-if="material_info.type == '1'">
+					<li class="w ofh" v-if="material_info.type == '1' && is_ruku == '1'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
