@@ -291,10 +291,10 @@
 			},
 			getparent() {
 				//alert(parseInt(this.$route.query.type))
-				this.$router.go(-1);
-				// this.$router.push({
-				// 	path:"/userManager/blackList"
-				// });
+				//this.$router.go(-1);
+				this.$router.push({
+					path:"/userManager/blackList"
+				});
 			},
 			getleng(n) {
 				if (n == 10) {

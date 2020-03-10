@@ -359,7 +359,9 @@
 					send_time:this.send_time,
 				}).then(da => {
 					if(da.result == 0){
-						this.$router.go(-1);
+						this.$router.push({
+							path:"/noticeManager/newsRelease"
+						})
 					}
 				}).catch(() => {
 							
