@@ -212,10 +212,23 @@
 							</el-select>
 						</div>
 					</li>
-					<li class="w ofh">
+					<li class="w ofh" v-if="this.business_title == '【业务】来电秀'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
 							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;" disabled>
+								<el-option
+									v-for="item in rukuOptions"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+					</li>
+					<li class="w ofh" v-else>
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">能否直接入库</span>
+							<el-select v-model="is_ruku" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
 								<el-option
 									v-for="item in rukuOptions"
 									:key="item.value"
@@ -238,7 +251,7 @@
 							</el-select>
 						</div>
 					</li> -->
-					<li class="w ofh" v-if="material_info.type == '1' && is_ruku == '1'">
+					<li class="w ofh" v-if="material_info.type == '1' && is_ruku == '2'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
@@ -412,12 +425,12 @@
 		data() {
 			return {
 				isbusiness_type:false,
-				is_ruku: '0',
+				is_ruku: '1',
 				rukuOptions: [{
-					value: '0',
+					value: '1',
 					label: '可直接入库'
 					}, {
-					value: '1',
+					value: '2',
 					label: '需整理后入库'
 				}],
 				ld_show:'0',
@@ -718,6 +731,14 @@
 		methods: {
 			contentAudit(id){
 				if(id == '2'){	
+					if(!this.did){
+						this.$message({
+							message: "请选择绑定需求!",
+							type: 'warning',
+							customClass:'zZindex'
+						})
+						return;
+					}
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -743,14 +764,35 @@
 
 					})
 				}else{
-					if(!this.storage_number){
+					if(!this.did){
 						this.$message({
-							message: "请填写入库素材数量!",
+							message: "请选择绑定需求!",
 							type: 'warning',
-						    customClass:'zZindex'
+							customClass:'zZindex'
 						})
 						return;
 					}
+					if(this.is_ruku == '2'){
+						if(!this.storage_number){
+							this.$message({
+								message: "请填写入库素材数量!",
+								type: 'warning',
+								customClass:'zZindex'
+							})
+							return;
+						}else{
+							var re = /^[1-9]+$/;
+							// console.log(re.test(this.storage_number))
+							if(re.test(this.storage_number) == false){
+								this.$message({
+									message: "请填写大于1的正整数!",
+									type: 'warning',
+									customClass:'zZindex'
+								})
+								return;
+							}
+						}
+					}		
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -1315,7 +1357,7 @@
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
-				// console.log(this.business_title)
+				console.log(this.business_title)
 				this.access.top_banner[0].child.forEach(item => {
 					if(item.id == '16'){
 						item.child.forEach(element => {
