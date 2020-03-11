@@ -65,9 +65,9 @@
 			<ul v-if="tabsnum == 2">
 				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
 					<span v-if="!item.status" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.status && item.status == '-1'" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
+					<span v-if="item.status && item.status == '-1' && status_info == '-1'" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
 					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
-					<span v-if="item.type == 'status'">{{ getValue(check_info[item.id]) }}</span>
+					<span v-if="item.type == 'status' && status_info == '-1'">{{ getValue(check_info[item.id]) }}</span>
 					<span v-if="!item.type">{{ title }}</span>
 					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
 					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
@@ -636,13 +636,13 @@
 						type: "text"
 					},
 					{
-						name:"理由",
+						name:"驳回理由",
 						id:"check_reason",
 						type:"status",
 						status:"-1"
 					},
 					{
-						name:"详细说明",
+						name:"驳回详细说明",
 						id:"check_comment",
 						type:"status",
 						status:"-1"
