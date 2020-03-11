@@ -749,6 +749,7 @@
 				})
 			},
 			handleSelectionChange(val) {
+				this.multipleSelectionAll=[];
 				if(this.tableConfig.masktable){
 					
 				} else {
@@ -765,6 +766,7 @@
 			changePageCoreRecordData (x) {
                 // 总选择里面的key集合
 				let selectAllIds = [];
+				
 				this.multipleSelectionAll.forEach((row,index)=>{
 					selectAllIds.push(row[this.pageid]);	
 				})
@@ -801,6 +803,7 @@
 				})
                 // console.log(this.multipleSelectionAll);
 				if( this.$parent.$parent.pageName && this.$parent.$parent.pageName == "addblack"){
+					
 					if(this.$parent.$parent.tabnum == 0) {
 						this.$parent.$parent.selectData = this.multipleSelectionAll;
 					} else {

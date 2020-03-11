@@ -130,8 +130,6 @@
 						</li>
 					</ul>
 				</li>
-				
-				
 			</ul>
 		</div>
 		
@@ -357,21 +355,14 @@
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg,n) {
-				if(this.selectData.length == '0'){
-					this.accused_open_id = '';
-				}else{
-					this.selectData.forEach(item => {
-						this.accused_open_id += item.open_id + ',';
-					})
-					this.accused_open_id = this.accused_open_id.substring(0,this.accused_open_id.length-1)
-				}
-				console.log(this.accused_open_id)
+				
+				//console.log(this.accused_open_id)
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					accused_open_id: this.accused_open_id,
+					
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -386,6 +377,16 @@
 				
 				if(this.IsShow == true) return;
 				if(this.tabnum == 1){
+					if(this.selectData.length != 0){
+						this.selectData.forEach(item => {
+							this.accused_open_id += item.open_id + ',';
+						})
+						this.accused_open_id = this.accused_open_id.substring(0,this.accused_open_id.length-1);
+						data.accused_open_id=this.accused_open_id;
+					}
+					
+					
+					
 					this.api.reportlist(data).then((da) => {
 						
 						this.tableData = da.data;

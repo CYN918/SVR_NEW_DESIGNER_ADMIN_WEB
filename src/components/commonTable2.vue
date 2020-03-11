@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<!-- <div class="transparent"></div> -->
-		<div class="wh" ref="elememt" id="table">
+		<div class="wh" ref="elememt" id="table" v-loading="loading">
 			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" :height="tableHeight" v-loading="loading" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
@@ -143,7 +143,7 @@
 							<el-dropdown trigger="click" v-if="tableActions.morebtns && tableActions.morebtns.child">
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name }}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '') }}</el-dropdown-item>
+									<el-dropdown-item v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '',citem.filterdata1 ? scope.row[citem.filterdata1] : '') }}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
@@ -493,7 +493,7 @@
 			},
 			tabsChange(num){
 				this.tabnums = num;
-				console.log(this.tabnums)
+				//console.log(this.tabnums)
 				this.gettableConfiglist(this.tabnums);
 				this.getTabData();
 			},

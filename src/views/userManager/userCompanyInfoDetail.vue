@@ -126,7 +126,7 @@
 				this.$router.push({
 					path:"/userManager/userInfo",
 					query:{
-						tabsnum:localStorage.getItem('projectlist')
+						tabsnum:localStorage.getItem('userInfo')
 					}
 				})
 			},
