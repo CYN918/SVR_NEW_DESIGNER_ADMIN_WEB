@@ -782,7 +782,7 @@
 							})
 							return;
 						}else{
-							var re = /^[1-9]+$/;
+							var re = /^[1-9]\d*$/;
 							// console.log(re.test(this.storage_number))
 							if(re.test(this.storage_number) == false){
 								this.$message({
