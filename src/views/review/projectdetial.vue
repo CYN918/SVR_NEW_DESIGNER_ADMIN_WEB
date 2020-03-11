@@ -749,6 +749,7 @@
 						deal_type: 1,
 						demand_id: this.did,
 						is_ruku: this.is_ruku,
+						storage_number: 1,
 						content_remark: this.content_remark,
 						file_url: this.file.file_url,
 					    file_name: this.file.file_name,
@@ -792,6 +793,8 @@
 								return;
 							}
 						}
+					}else{
+						this.storage_number = 1;
 					}		
 					var data = {
 						access_token: localStorage.getItem("access_token"),
