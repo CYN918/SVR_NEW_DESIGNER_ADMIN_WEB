@@ -2,7 +2,7 @@
 	<div class="w ctcontent">
 		<div v-if="!commonTopData.IsShow">
 			<div class="margin40 cttitle" v-if="!commonTopData.tabData">{{ currentpageName }}</div>
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;" v-else-if="commonTopData.tabData">
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 15px;" v-else-if="commonTopData.tabData">
 				<span class="fleft" style="width: 125px;">
 					{{ currentpageName }}
 				</span>
