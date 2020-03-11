@@ -284,7 +284,6 @@ input{
     border: 1px solid #DCDFE6;
     outline: 0;
 } */
-
 .hoverload{
 	position: absolute;
 	top:0;
@@ -1033,6 +1032,9 @@ input:disabled{
 	background-color: #f5f7fa;
 	border-color: #E4E7ED;
 	color: #C0C4CC;
+}
+.el-table{
+	max-height: 485.32px !important;
 }
 
 .el-table th>.cell{

@@ -18,7 +18,7 @@
 						<el-dropdown trigger="click" class="ipt" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
 							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="form[item.id]" suffix-icon="el-icon-arrow-down"
 							 clearable></el-input>
-						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 200px;">
+						    <el-dropdown-menu slot="dropdown" style="width: 200px;min-height: 120px;">
 								<el-checkbox-group v-model="vocation[item.id]">
 									<el-dropdown-item v-for="(citem,index) in item.child" :key="index">
 										<el-checkbox  :label="citem" @change="vocations(item.id)">{{citem}}</el-checkbox>
