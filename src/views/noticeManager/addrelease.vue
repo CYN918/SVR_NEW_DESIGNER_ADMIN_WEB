@@ -16,7 +16,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft fontcolorg" style="margin-right: 20px;">通知内容</span>
-					<div style="margin-left: 85px;">
+					<div style="margin-left: 77px;">
 						<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="text100"></vue-ueditor-wrap>
 					</div>
 					
@@ -114,8 +114,8 @@
 				},
 				myConfig: {
 					autoHeightEnabled: false,
-					initialFrameHeight: 500,
-					initialFrameWidth: 1000,
+					initialFrameHeight: 250,
+					initialFrameWidth: 500,
 					UEDITOR_HOME_URL: '/UEditor/'
 				},
 				screenConfig: [],
