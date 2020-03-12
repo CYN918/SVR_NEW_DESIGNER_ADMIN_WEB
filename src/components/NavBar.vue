@@ -41,7 +41,7 @@
 		watch: {
 			$route() {
 				this.getBreadcrumb();
-				this.gettodoCount();
+				// this.gettodoCount();
 			}
 		},
 		computed: {},
