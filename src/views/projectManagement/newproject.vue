@@ -511,6 +511,7 @@
 					item.module_content = this.$refs.upload[index].getContent();
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
+				console.log(this.form.desc)
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
@@ -763,6 +764,7 @@
 					item.module_content = this.$refs.upload[index].form.content;
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
+				console.log(this.form.desc)
 				if(this.selectData1.template_file_id){
 					this.form.template_file_id = this.selectData1.template_file_id
 				}
@@ -1121,7 +1123,7 @@
 			},
 			getactivityinfo(){
 				this.api.projectdetail({
-					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
+					project_id:this.rows.project_id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form.classify_id = da.classify_id;
@@ -1137,7 +1139,7 @@
 					this.selectData1.file_name = da.template_file_name;
 					this.selectData1.file_size_format = da.file_size_format;
 					console.log(JSON.parse(da.desc))
-					this.detailtext = JSON.parse(da.desc);
+					// this.detailtext = JSON.parse(da.desc);
 					this.form['rule_type'] = da.rule_type;
 					if(!this.$route.query.usernameitem){
 						if(da.rule_type == "1"){
@@ -1635,6 +1637,7 @@
 				}).then(da => {				
 					this.form = da;				
 					this.detailtext = JSON.parse(da.desc);
+					console.log(this.detailtext)
 					var now = new Date();
 					var year = now.getFullYear(); //得到年份
 					var month = now.getMonth();//得到月份
@@ -1659,7 +1662,7 @@
 			},
 		},
 		created() {
-			this.getactivityinfo();
+			// this.getactivityinfo();
 			// console.log(this.detailtext);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.screenreach();
