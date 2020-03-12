@@ -8,8 +8,8 @@
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :label="item.lable" :width="item.width">
 					<template slot-scope="scope"  >
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
-						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;display: block;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<img style="width: 80px;height: 48px;margin: auto;display: block;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<img style="width: 80px;height: 48px;margin: auto;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;cursor: pointer;" @click="openwindowrouter(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
