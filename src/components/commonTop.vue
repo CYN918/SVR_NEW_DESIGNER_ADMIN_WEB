@@ -344,14 +344,16 @@
 				}
 				
 			},
-			gettodoCount(){
+			gettodoCount(str){
 				this.api.todoCount({
 					access_token:localStorage.getItem("access_token"),
+					permissions:str,
 				}).then(da =>{
 					//alert(1);
 					//console.log(da);
 					this.doCount = da;
-					eventBus.$emit("reviewnum",da.total);
+					this.reviewnum = da.total;
+					// eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
 				}).catch(da=>{
 					
@@ -367,7 +369,6 @@
 			},
 		},
 		created() {
-			this.gettodoCount();
 			this.getuserinfo();
 		},
 		mounted() {
@@ -379,6 +380,32 @@
 				access = JSON.parse(localStorage.getItem("access"));
 				// console.log(access.top_banner)
 				if(access.top_banner != 'undefined'){
+					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
+					for(var i = 0;i < accessArry.length;i++){
+						if(accessArry[i].id == '11'){
+							let newArr = accessArry[i].child;
+							let arr = [];
+							newArr.forEach(element => {		
+								if(element.id == '12'){
+									arr.push(1)
+								}
+								if(element.id == '13'){
+									arr.push(2)
+								}	
+								if(element.id == '14'){
+									arr.push(3)
+								}
+								if(element.id == '15'){
+									arr.push(4)
+								}
+								if(element.id == '16'){
+									arr.push(5)
+								}	
+							});
+							let str = arr.toString();
+							this.gettodoCount(str);				
+						}
+					}
 					access.top_banner.forEach(element => {
 						element.child.forEach(item => {
 							if(item.id == '16'){
