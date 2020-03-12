@@ -909,12 +909,12 @@ input{
 
 	.el-popper[x-placement^=bottom] {
 		margin-top: 0;
-		z-index: 2060 !important;
+		z-index: 2095 !important;
 	}
 
 	.el-dropdown-menu {
 		padding: 0;
-		z-index: 2050 !important;
+		z-index: 2095 !important;
 	}
 
 	.el-button--text {

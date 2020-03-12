@@ -825,6 +825,7 @@
 				this.usernameitem = item; 
 			},
 			zhipai(row){
+				// console.log(row)
 				this.usernameitem['dataProjectId'] = this.dataProjectId;
 				this.usernameitem['project_id'] = this.info.project_id;
 				this.$router.push({
