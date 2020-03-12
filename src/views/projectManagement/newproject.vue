@@ -114,7 +114,7 @@
 						<div>
 							<div class="ofh">
 								<div class="fleft el-input__inner roles-input width500" style="width: 375px;">
-									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="form['fields']">
+									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
 									<span class="fright">{{ fields.length }}/10</span>
 								</div>
 								<button class="fleft defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
@@ -1635,7 +1635,21 @@
 					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {				
-					this.form = da;				
+					this.form = da;	
+					this.form.classify_id = da.classify_id;
+					this.form.banner = da.banner;
+					this.form.fields = da.fields;
+					this.checkedroles = da.fields.split(',');
+					this.form.expected_profit = da.expected_profit;
+					this.form.extra_reward = da.extra_reward;
+					this.form.business_type = da.business_type;
+					this.form.name = da.name;
+					this.form.qq = da.qq;
+					this.selectData1.template_file_id = da.template_file_id;
+					this.selectData1.file_name = da.template_file_name;
+					this.selectData1.file_size_format = da.file_size_format;
+					// console.log(JSON.parse(da.desc))
+					this.form['rule_type'] = da.rule_type;			
 					this.detailtext = JSON.parse(da.desc);
 					console.log(this.detailtext)
 					var now = new Date();
