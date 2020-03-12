@@ -46,15 +46,18 @@
 		},
 		computed: {},
 		methods: {
-			gettodoCount(){
+			gettodoCount(str){
 				this.api.todoCount({
 					access_token:localStorage.getItem("access_token"),
+					permissions:str,
 				}).then(da =>{
 					//alert(1);
 					//console.log(da);
-					this.doCount = da;
-					eventBus.$emit("reviewnum",da.total);
+					let doCount = da;
+					this.reviewnum = da.total;
+					// eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
+					
 				}).catch(da=>{
 					
 				})
@@ -66,11 +69,11 @@
 			signOut() {
 				this.IsSign = !this.IsSign
 			},
-			getbus(){
-				eventBus.$on("reviewnum",(data) =>{
-					this.reviewnum  = data;
-				})
-			},
+			// getbus(){
+			// 	eventBus.$on("reviewnum",(data) =>{
+			// 		this.reviewnum  = data;
+			// 	})
+			// },
 			getuserinfo(){
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
@@ -121,18 +124,43 @@
 		},
 		created() {
 			this.getBreadcrumb();
-			this.getbus();
+			// this.getbus();
 			this.getuserinfo();
-			this.gettodoCount();
+			
 		},
 		mounted() {
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))		
 			}
 			if(localStorage.getItem("access")){
-				// console.log(JSON.parse(localStorage.getItem("access")).top_banner)
 				if(JSON.parse(localStorage.getItem("access")).top_banner != 'undefined'){
 					this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
+					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
+					for(var i = 0;i < accessArry.length;i++){
+						if(accessArry[i].id == '11'){
+							let newArr = accessArry[i].child;
+							let arr = [];
+							newArr.forEach(element => {		
+								if(element.id == '12'){
+									arr.push(1)
+								}
+								if(element.id == '13'){
+									arr.push(2)
+								}	
+								if(element.id == '14'){
+									arr.push(3)
+								}
+								if(element.id == '15'){
+									arr.push(4)
+								}
+								if(element.id == '16'){
+									arr.push(5)
+								}	
+							});
+							let str = arr.toString();
+							this.gettodoCount(str);				
+						}
+					}
 				}else{
 					console.log(2)
 				}

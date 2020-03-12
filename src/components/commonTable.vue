@@ -749,6 +749,13 @@
 				})
 			},
 			handleSelectionChange(val) {
+				// console.log(val.length)
+				this.selected = val.length;
+				if(val.length == '0'){
+					this.btnStatus = true;
+				}else{
+					this.btnStatus = false;
+				}
 				this.multipleSelectionAll=[];
 				if(this.tableConfig.masktable){
 					
@@ -758,7 +765,8 @@
 					}
 					this.multipleSelection = val
 					this.changePageCoreRecordData(this.multipleSelection)
-					this.selected = val.length;
+					
+					
 				}
 				
 				
@@ -906,37 +914,43 @@
 			},	
 			setall(){	
 				// console.log(this.tableConfig)
-				// console.log(this.multipleSelection.length)	
-				if(this.multipleSelection.length == '0'){
+				// console.log(this.selected)	
+				// console.log(this.sel)
+				if(this.selected != '0'){
+					
 					this.sel = !this.sel;
-					if(this.sel == false){
+					if(this.sel == true){
+						this.btnStatus = false;
 						this.selected = this.tableConfig.total;
 						this.$parent.seltotal = this.tableConfig.total;
-						this.toggleSelection(this.tableDatas)
-						this.btnStatus = this.btnStatus ? false : true ;
 						this.multipleSelection = this.tableDatas
 					    this.changePageCoreRecordData(this.multipleSelection)
-					} else {
+						
+					}else{
 						this.selected = 0;
 						this.$parent.seltotal = 0;
 						this.toggleSelection();
 						this.btnStatus = true;
-					};
+					}
 					
 				}else{
 					this.sel = !this.sel;
-					if(this.sel == true){
+					if(this.sel == false){
 						this.selected = 0;
 						this.$parent.seltotal = 0;
 						this.toggleSelection();
 						this.btnStatus = true;
-					}else{
+						
+						
+						
+					} else {
 						this.selected = this.tableConfig.total;
 						this.$parent.seltotal = this.tableConfig.total;
-						this.btnStatus = this.btnStatus ? false : true ;
+						this.toggleSelection(this.tableDatas)
+						this.btnStatus = false;
 						this.multipleSelection = this.tableDatas
 					    this.changePageCoreRecordData(this.multipleSelection)
-					}
+					};
 				}			
 			},
 			setinit(){
