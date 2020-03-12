@@ -114,7 +114,7 @@
 						<div>
 							<div class="ofh">
 								<div class="fleft el-input__inner roles-input width500" style="width: 375px;">
-									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
+									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="form['fields']">
 									<span class="fright">{{ fields.length }}/10</span>
 								</div>
 								<button class="fleft defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
@@ -184,7 +184,7 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
 						<el-dropdown trigger="click" :hide-on-click="false">
-							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down"
+							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down" v-model="form['demand_id']"
 							 clearable></el-input><!-- v-model="demand_names.join(',')" -->
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
 								<el-checkbox-group v-model="dids" @change="getdemand_names">
@@ -221,6 +221,7 @@
 									<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 								</div>
 							</li>
+							
 							<li class="margint23 ofh w" >
 								<div class="relative ofh" style="width:938px;margin-left: 100px;">
 									<div class="fleft w">
@@ -408,6 +409,10 @@
 					{
 						id:"5",
 						name:"来电秀"
+					},
+					{
+						id:"6",
+						name:"其他"
 					}	
 				],
 				tableData3:[],
@@ -1116,7 +1121,7 @@
 			},
 			getactivityinfo(){
 				this.api.projectdetail({
-					project_id:this.rows.project_id,
+					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form.classify_id = da.classify_id;
@@ -1131,7 +1136,7 @@
 					this.selectData1.template_file_id = da.template_file_id;
 					this.selectData1.file_name = da.template_file_name;
 					this.selectData1.file_size_format = da.file_size_format;
-					//console.log(da.desc)
+					console.log(JSON.parse(da.desc))
 					this.detailtext = JSON.parse(da.desc);
 					this.form['rule_type'] = da.rule_type;
 					if(!this.$route.query.usernameitem){
@@ -1550,21 +1555,26 @@
 			createdMothd(){
 				if(this.$route.query.row == undefined){
 					const url = window.location.host;
-					const urlId = JSON.parse(this.$route.query.id) + 1;
-					console.log(url)
-					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
-					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
-					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;		
-					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
-						this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+					console.log(this.$route.query.id)
+					if(this.$route.query.id != undefined){
+						const urlId = JSON.parse(this.$route.query.id) + 1;
+						console.log(url)
+						if(url == 'shiquaner-admin.zookingsoft.com'){
+							this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v2?id=' + urlId;
+							this.templateUrl1 = 'https://shiquaner.zookingsoft.com/#/Ac_v3?id=' + urlId;
+						}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
+							this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+							this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+						}else if(url == '120.27.22.130:8082'){
+							this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v2?id=' + urlId;
+							this.templateUrl1 = 'http://120.27.22.130:8080/#/Ac_v3?id=' + urlId;		
+						}else{
+							this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v2?id=' + urlId;
+							this.templateUrl1 = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v3?id=' + urlId;
+						}
 					}
+					
+					
 					this.options = [
 						{
 							value: '0',
@@ -1649,6 +1659,7 @@
 			},
 		},
 		created() {
+			this.getactivityinfo();
 			// console.log(this.detailtext);
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.screenreach();
