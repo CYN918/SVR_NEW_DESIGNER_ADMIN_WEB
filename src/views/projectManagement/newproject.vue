@@ -1649,7 +1649,14 @@
 					this.selectData1.file_name = da.template_file_name;
 					this.selectData1.file_size_format = da.file_size_format;
 					// console.log(JSON.parse(da.desc))
-					this.form['rule_type'] = da.rule_type;			
+					this.form['rule_type'] = da.rule_type;	
+					da.demand_id.split(",").forEach(item=>{
+						this.demandlist.forEach(ditem =>{
+							if(item == ditem.did){
+								this.dids.push(item)
+							}
+						})
+					});		
 					this.detailtext = JSON.parse(da.desc);
 					console.log(this.detailtext)
 					var now = new Date();
