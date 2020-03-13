@@ -1631,34 +1631,7 @@
 				}
 			},
 			getworkdetial(){
-				this.api.projectdetail({
-					project_id:JSON.parse(this.$route.query.usernameitem).project_id,
-					access_token:localStorage.getItem("access_token")
-				}).then(da => {				
-					this.form = da;	
-					this.form.classify_id = da.classify_id;
-					this.form.banner = da.banner;
-					this.form.fields = da.fields;
-					this.checkedroles = da.fields.split(',');
-					this.form.expected_profit = da.expected_profit;
-					this.form.extra_reward = da.extra_reward;
-					this.form.business_type = da.business_type;
-					this.form.name = da.name;
-					this.form.qq = da.qq;
-					this.selectData1.template_file_id = da.template_file_id;
-					this.selectData1.file_name = da.template_file_name;
-					this.selectData1.file_size_format = da.file_size_format;
-					// console.log(JSON.parse(da.desc))
-					this.form['rule_type'] = da.rule_type;	
-					da.demand_id.split(",").forEach(item=>{
-						this.demandlist.forEach(ditem =>{
-							if(item == ditem.did){
-								this.dids.push(item)
-							}
-						})
-					});		
-					this.detailtext = JSON.parse(da.desc);
-					console.log(this.detailtext)
+				
 					var now = new Date();
 					var year = now.getFullYear(); //得到年份
 					var month = now.getMonth();//得到月份
@@ -1677,9 +1650,7 @@
 					time = year + "-" + month + "-" + date + "-" + " " + hour + ":" + minu + ":" + sec ;
 					this.form['publish_time'] = time;
 					this.form['deadline'] = '';
-				}).catch(da =>{
-					
-				})
+				
 			},
 		},
 		created() {
@@ -1691,6 +1662,7 @@
 			this.$parent.tabchange(1);
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
+				// console.log(this.rows)
 				this.selectData1.file_name = this.rows.template_file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				if(this.rows.desc){
@@ -1698,15 +1670,6 @@
 				}
 				this.objstatus = parseInt(this.rows.status);
 				localStorage.setItem("editproject",this.$route.query.row)
-				
-			} else {
-				//console.log(this.currentpageName);
-				if(this.currentpageName == "编辑页面"){
-					this.rows = JSON.parse(localStorage.getItem("editproject"));
-					
-				}
-			}
-			if(this.$route.query.usernameitem){
 				this.form['rule_type'] = 2;
 				this.typebtn =1;
 				this.selectelists = []
@@ -1742,6 +1705,13 @@
 					}
 				]
 				this.getworkdetial()
+				
+			} else {
+				//console.log(this.currentpageName);
+				if(this.currentpageName == "编辑页面"){
+					this.rows = JSON.parse(localStorage.getItem("editproject"));
+					
+				}
 			}
 			this.createdMothd();
 			

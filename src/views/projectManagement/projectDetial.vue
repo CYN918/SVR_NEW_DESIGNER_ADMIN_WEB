@@ -824,17 +824,24 @@
 				this.username = n;
 				this.usernameitem = item; 
 			},
-			zhipai(row){
-				// console.log(row)
-				this.usernameitem['dataProjectId'] = this.dataProjectId;
-				this.usernameitem['project_id'] = this.info.project_id;
-				// console.log(this.usernameitem)
-				this.$router.push({
-					path:"/projectManagement/projectList/newproject",
-					query:{
-					    usernameitem: JSON.stringify(this.usernameitem)
-					}
+			zhipai(){
+				this.api.projectdetail({
+					project_id:this.info.project_id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {	
+					this.usernameitem['desc'] = da.desc;
+					this.usernameitem['dataProjectId'] = this.dataProjectId;
+					this.usernameitem['project_id'] = this.info.project_id;
+					console.log(this.usernameitem)
+					this.$router.push({
+						path:"/projectManagement/projectList/newproject",
+						query:{
+							row: JSON.stringify(this.usernameitem)
+						}
+					})
+
 				})
+				
 			},
 			handleSizeChange(val) {
 				this.tableConfig.pagesize = val;
