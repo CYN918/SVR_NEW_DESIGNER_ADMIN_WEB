@@ -1511,6 +1511,7 @@
 						}
 						if(this.$route.query.copyData){
 							// console.log(this.$route.query.copyData)
+							
 							let da = JSON.parse(this.$route.query.copyData);
 							
 							this.form.classify_id = da.classify_id;
@@ -1530,12 +1531,13 @@
 							this.form.production_cycle_h = da.production_cycle_h;
 							// this.form.deadline = da.deadline;
 							// this.deadline = da.deadline;
-							this.form.publish_time = da.publish_time;
+							// this.form.publish_time = da.publish_time;
 							this.form.status = da.status;
 							// this.form = da;
 							if(this.form.desc){
 								this.ifBjType=1;
 							}
+							this.form.demand_id = da.demand_id;
 							da.demand_id.split(",").forEach(item=>{
 								this.demandlist.forEach(ditem =>{
 									if(item == ditem.did){
@@ -1686,8 +1688,10 @@
 					if (sec < 10) sec = "0" + sec;
 					var time = "";
 					time = year + "-" + month + "-" + date + "-" + " " + hour + ":" + minu + ":" + sec ;
+					// console.log(time)
 					this.form['publish_time'] = time;
-					this.form['deadline'] = '';
+					
+					
 				
 			},
 		},
@@ -1701,6 +1705,7 @@
 			if(this.$route.query.copyData){
 				let da = JSON.parse(this.$route.query.copyData);
 				this.detailtext = JSON.parse(da.desc);
+				this.getworkdetial();
 			}
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
