@@ -365,13 +365,9 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					// console.log(urldata);
-					if(this.filterFields.length == undefined){
-						this.tabFilterFields = this.tabnums == 0 ? this.filterFields.filterFields0 : this.filterFields.filterFields1;
-					}else{
-						this.tabFilterFields = this.filterFields;
-					}
-					// console.log(this.tabFilterFields);
+				    //console.log(urldata);
+					this.tabFilterFields = this.filterFields['filterFields'+ this.tabnums];
+					//console.log(this.tabFilterFields);
 					this.tabFilterFields.forEach(item=>{
 						//console.log(urldata[item.id]);
 						if(urldata[item.id]){

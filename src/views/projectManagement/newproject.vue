@@ -772,23 +772,23 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				this.form.access_token = localStorage.getItem("access_token");
-				
-				if(!this.form.demand_id){
+				if(this.alertmask() != true){
 					this.$message({
-						message:"请选择关联需求"
+						message:this.alertmask(),
 					})
 					return;
 				}
+				
 				//console.log(this.form.rule_type)
-				if(this.form['deadline'] && this.form.rule_type == 2){
+				if(!this.form['deadline'] && this.form.rule_type == 1){
 					this.$message({
 						message:"请填写报名截止时间"
 					})
 					return;
 				}
-				if(this.alertmask() != true){
+				if(!this.form.demand_id){
 					this.$message({
-						message:this.alertmask(),
+						message:"请选择关联需求"
 					})
 					return;
 				}
@@ -1085,16 +1085,17 @@
 					return;
 				}
 				
-				if(!this.form.demand_id){
+				
+				//console.log(this.form.rule_type);
+				if(!this.form['deadline'] && this.form.rule_type == 1){
 					this.$message({
-						message:"请选择关联需求"
+						message:"请填写报名截止时间"
 					})
 					return;
 				}
-				//console.log(this.form.rule_type);
-				if(this.form['deadline'] && this.form.rule_type == 2){
+				if(!this.form.demand_id){
 					this.$message({
-						message:"请填写报名截止时间"
+						message:"请选择关联需求"
 					})
 					return;
 				}
@@ -1557,6 +1558,7 @@
 			getdemand_names(){
 				//console.log(this.dids);
 				this.demand_names = [];
+				this.form.demand_id = this.dids.join(',');
 				this.dids.forEach(item =>{
 					this.demandlist.forEach(ditem=>{
 						if(item == ditem.did){
