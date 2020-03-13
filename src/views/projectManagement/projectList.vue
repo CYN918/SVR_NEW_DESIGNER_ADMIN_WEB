@@ -507,7 +507,7 @@
 						{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
 						{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
 						{name:"中标人昵称",id:"username"},
-						{name:"中标人手机号",id:"mobile"},
+						// {name:"中标人手机号",id:"mobile"},
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
 					'filterFields5':[
