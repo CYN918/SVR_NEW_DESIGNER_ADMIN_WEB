@@ -1729,7 +1729,7 @@
 				this.typebtn =1;
 				this.selectelists = []
 				this.selectelists.push(JSON.parse(this.$route.query.usernameitem))
-				this.rows = JSON.parse(this.$route.query.usernameitem);				
+				this.rows = '';				
 				const url = window.location.href;
 				const arr = url.split("#");
 				const urlId = JSON.parse(this.$route.query.usernameitem).dataProjectId + 1;
