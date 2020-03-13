@@ -1509,6 +1509,44 @@
 								this.rows = JSON.parse(localStorage.getItem("newproject"));
 							}
 						}
+						if(this.$route.query.copyData){
+							// console.log(this.$route.query.copyData)
+							let da = JSON.parse(this.$route.query.copyData);
+							
+							this.form.classify_id = da.classify_id;
+							this.form.banner = da.banner;
+							this.form.fields = da.fields;
+							this.checkedroles = da.fields.split(',');
+							this.form.expected_profit = da.expected_profit;
+							this.form.extra_reward = da.extra_reward;
+							this.form.business_type = da.business_type;
+							this.form.name = da.name;
+							this.form.qq = da.qq;
+							this.selectData1.template_file_id = da.template_file_id;
+							this.selectData1.file_name = da.template_file_name;
+							this.selectData1.file_size_format = da.file_size_format;
+							
+							this.form.production_cycle_d = da.production_cycle_d;
+							this.form.production_cycle_h = da.production_cycle_h;
+							// this.form.deadline = da.deadline;
+							// this.deadline = da.deadline;
+							this.form.publish_time = da.publish_time;
+							this.form.status = da.status;
+							// this.form = da;
+							if(this.form.desc){
+								this.ifBjType=1;
+							}
+							da.demand_id.split(",").forEach(item=>{
+								this.demandlist.forEach(ditem =>{
+									if(item == ditem.did){
+										this.dids.push(item)
+										
+									}
+								})
+							});
+							this.getdemand_names();
+
+						}
 						
 					};
 					
@@ -1661,42 +1699,8 @@
 			this.getcommonrightbtn();
 			this.$parent.tabchange(1);
 			if(this.$route.query.copyData){
-				// console.log(this.$route.query.copyData)
 				let da = JSON.parse(this.$route.query.copyData);
-				
-				this.form.classify_id = da.classify_id;
-				this.form.banner = da.banner;
-				this.form.fields = da.fields;
-				this.checkedroles = da.fields.split(',');
-				this.form.expected_profit = da.expected_profit;
-				this.form.extra_reward = da.extra_reward;
-				this.form.business_type = da.business_type;
-				this.form.name = da.name;
-				this.form.qq = da.qq;
-				this.selectData1.template_file_id = da.template_file_id;
-				this.selectData1.file_name = da.template_file_name;
-				this.selectData1.file_size_format = da.file_size_format;
 				this.detailtext = JSON.parse(da.desc);
-				this.form.production_cycle_d = da.production_cycle_d;
-				this.form.production_cycle_h = da.production_cycle_h;
-				this.form.deadline = da.deadline;
-				this.deadline = da.deadline;
-				this.form.publish_time = da.publish_time;
-				this.form.status = da.status;
-				this.form = da;
-				if(this.form.desc){
-					this.ifBjType=1;
-				}
-				da.demand_id.split(",").forEach(item=>{
-					this.demandlist.forEach(ditem =>{
-						if(item == ditem.did){
-							this.dids.push(item)
-							
-						}
-					})
-				});
-				this.getdemand_names();
-
 			}
 			if(this.$route.query.row){
 				this.rows = JSON.parse(this.$route.query.row);
