@@ -1513,7 +1513,7 @@
 							// console.log(this.$route.query.copyData)
 							
 							let da = JSON.parse(this.$route.query.copyData);
-							
+							this.rows = "";
 							this.form.classify_id = da.classify_id;
 							this.form.banner = da.banner;
 							this.form.fields = da.fields;
