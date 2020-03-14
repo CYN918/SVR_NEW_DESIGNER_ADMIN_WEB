@@ -6,10 +6,26 @@
 			</el-breadcrumb>
 		</div>
 		<div class="fright hnav marginright60" style="position: relative;">
-			<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1)">
+			<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '12'">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
+			</router-link>
+			<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '13'">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
+			</router-link>
+			<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '14'">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
+			</router-link>
+			<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '15'">
 				<span class="dp fontsize18">审核台</span>
 				<span class="dp sel-badge" v-html="reviewnum">99+</span>
 			</router-link>	
+			<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '16'">
+				<span class="dp fontsize18">审核台</span>
+				<span class="dp sel-badge" v-html="reviewnum">99+</span>
+			</router-link>
 			<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
 			<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
 			<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
@@ -36,6 +52,7 @@
 				userimg:'../assets/img/MRTX.svg',
 				adminuseraccess: [],
 				auditTitle: '',
+				newArr:[],
 			}
 		},
 		watch: {
@@ -138,9 +155,10 @@
 					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
 					for(var i = 0;i < accessArry.length;i++){
 						if(accessArry[i].id == '11'){
-							let newArr = accessArry[i].child;
+							this.newArr = accessArry[i].child;
+							// console.log(this.newArr)
 							let arr = [];
-							newArr.forEach(element => {		
+							this.newArr.forEach(element => {		
 								if(element.id == '12'){
 									arr.push(1)
 								}

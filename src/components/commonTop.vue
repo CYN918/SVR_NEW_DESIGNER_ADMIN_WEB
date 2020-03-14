@@ -104,7 +104,7 @@
 				this.commonTopData.commonbottombtn.splice(index,1)
 			},
 			getparent(id,name) {
-				// console.log(name)
+				console.log(id,name)
 				var idIndex = id;
 				// console.log(idIndex)
 				switch (name)

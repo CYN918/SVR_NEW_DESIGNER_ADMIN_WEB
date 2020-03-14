@@ -26,7 +26,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "projectreview1",
+					"pageName": "projectreview",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",

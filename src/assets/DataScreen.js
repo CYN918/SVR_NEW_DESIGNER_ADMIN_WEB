@@ -1248,6 +1248,10 @@ const screenData = {
 						}
 					],
 				},
+				delete:{
+					name:"删除",
+					Ishow:true
+				},
 				links:{
 					name:"预览",
 					Ishow:true

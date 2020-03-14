@@ -275,13 +275,30 @@
 				<ul class="textcenter">
 					<li class="w ofh">
 						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">结算方式</span>
+							<el-radio-group v-model="want_deal_type">
+								<el-radio-button label="1">买断</el-radio-button>
+								<el-radio-button label="2">分成</el-radio-button>
+							</el-radio-group>
+						</div>
+					</li>
+					<li class="w ofh" v-if="want_deal_type == '2'">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
+							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，可分给创作者的比例(单位:%)" v-model="split_proportion"
+							 clearable>
+							</el-input>
+						</div>
+					</li>
+					<li class="w ofh" v-if="want_deal_type == '1'">
+						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">验收价格</span>
 							<el-input style="width: 300px" class="fleft sel-dialog-content" placeholder="请输入内容" @focus="deductionf(0)" v-model="acceptance_price"
 							 clearable>
 							</el-input>
 						</div>
 					</li>
-					<li class="w ofh">
+					<!-- <li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">延期交稿扣减</span>
 							<el-input style="width: 300px" v-if="deduction" :disabled="lflag"  class="fleft sel-dialog-content" placeholder="请输入内容" v-model="deductionprice"
@@ -297,10 +314,10 @@
 								作者未延期
 							</span>
 						</div>
-					</li>
+					</li> -->
 					
 				</ul>
-				<ul>
+				<ul v-if="want_deal_type == '1'">
 					<li class="w ofh">
 						<div class="textcenter employipt ofh">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">最终价格</span>
@@ -316,7 +333,7 @@
 									<div>￥{{ acceptance_price }}</div>
 									<div>验收价格</div>
 								</li>
-								<li v-if="!lflag" class="fleft" style="margin: 0 20px;line-height: 40px;">
+								<!-- <li v-if="!lflag" class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>-</div>
 								</li>
 								<li v-if="!lflag" class="fleft" style="line-height: 40px;">
@@ -329,7 +346,7 @@
 								<li class="fleft" style="line-height: 40px;">
 									<div>￥{{ apply_info.extra_reward }}</div>
 									<div>额外赏金</div>
-								</li>
+								</li> -->
 								<li class="fleft" style="margin: 0 20px;line-height: 40px;">
 									<div>+</div>
 								</li>
@@ -424,6 +441,8 @@
 		props: ['detailData', 'roles'],
 		data() {
 			return {
+				want_deal_type:1,
+				split_proportion:'',
 				isbusiness_type:false,
 				is_ruku: '1',
 				rukuOptions: [{
@@ -936,12 +955,17 @@
 				return data;
 			},
 			getdeal_price() {
-				if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				// if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				// 	return 0;
+				// } else {
+				// 	return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+				// }
+				// return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+				if(((parseInt(this.acceptance_price) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 					return 0;
 				} else {
-					return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+					return (parseInt(this.acceptance_price) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 				}
-				// return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 			},
 			getrule(n) {
 				this.typebtn = n;
@@ -1067,6 +1091,8 @@
 					gain_share_rate:this.apply_info.gain_share_rate,
 					gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100),
 					check_steps: 2,
+					split_proportion:this.split_proportion,
+					want_deal_type:this.want_deal_type,
 				}
 				///console.log(data)
 				// if(this.material_info.type == "2"){
@@ -1399,7 +1425,17 @@
 </script>
 
 <style>
-
+.el-radio-button__orig-radio:checked+.el-radio-button__inner{
+	color: #FFF;
+	background: rgb(0, 0, 0);
+	border-color: rgb(0, 0, 0);
+	-webkit-box-shadow: -1px 0 0 0 rgb(0, 0, 0);
+	box-shadow: -1px 0 0 0 rgb(0, 0, 0);
+}
+.el-radio-group{
+	width: 140px;
+    float: left;
+}
 
 </style>
 
