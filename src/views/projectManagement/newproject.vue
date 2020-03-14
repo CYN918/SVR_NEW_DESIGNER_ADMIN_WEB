@@ -1795,6 +1795,9 @@
 </script>
 
 <style>
+.el-radio-group{
+	width: 100%;
+}
 	.fieldsbtn{
 		display: inline-block;
 		width: 100px;
