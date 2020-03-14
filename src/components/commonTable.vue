@@ -102,7 +102,7 @@
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && tableAction.morebtns.accessid && (adminuseraccess.indexOf(tableAction.morebtns.accessid) > -1)">{{ tableAction.morebtns.name }}</el-button>
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && !tableAction.morebtns.accessid">{{ tableAction.morebtns.name }}</el-button>
 								
-								<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child ">
+								<el-dropdown trigger="hover" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child ">
 									<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 									<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 										<el-dropdown-item v-if="citem.accessid && (adminuseraccess.indexOf(citem.accessid) > -1)" v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
@@ -118,7 +118,7 @@
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && tableAction.morebtns.accessid && (adminuseraccess.indexOf(tableAction.morebtns.accessid) > -1)">{{ tableAction.morebtns.name }}</el-button>
 								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && !tableAction.morebtns.accessid">{{ tableAction.morebtns.name }}</el-button>
 								
-								<el-dropdown trigger="click" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)">
+								<el-dropdown trigger="hover" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child && (tableAction.morebtns.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)">
 									<span class="el-dropdown-link">{{ tableAction.morebtns.name }}</span>
 									<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 										<el-dropdown-item v-for="(citem,index) in tableAction.morebtns.child" v-if="!citem.accessid && (citem.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1)" :key="index" class="comonbtn" @click.native="handleClick(scope.row,citem.id,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
