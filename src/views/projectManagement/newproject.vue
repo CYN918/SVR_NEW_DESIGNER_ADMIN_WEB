@@ -89,14 +89,14 @@
 							</ul>
 						</div>
 					</li>
-					<!-- <li class="margint23 ofh">
+					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">结算方式</span>
 						<el-radio-group v-model="form['want_deal_type']">
 							<el-radio-button label="0">用户选择</el-radio-button>
 							<el-radio-button label="1">买断</el-radio-button>
 							<el-radio-button label="2">分成</el-radio-button>
 						</el-radio-group>
-					</li> -->
+					</li>
 				</ul>
 				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
 					<li class="margint23 ofh">
@@ -148,10 +148,10 @@
 						<span class="fleft detailKey" style="line-height: 40px;">预计收益</span>
 						<el-input placeholder="给创作者的收益预期,如: 20.00~30.00/张" v-model="form['expected_profit']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
-					<li class="margint23 ofh">
+					<!-- <li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">额外赏金</span>
 						<el-input placeholder="单位, 元; 额外赏金可吸引更多创作者报名" v-model="form['extra_reward']" style="width:357px;height:40px;" clearable></el-input>
-					</li>
+					</li> -->
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
 						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
@@ -1719,13 +1719,19 @@
 				this.getworkdetial();
 			}
 			if(this.$route.query.row){
+
 				this.rows = JSON.parse(this.$route.query.row);
-				// console.log(this.rows)
+				console.log(this.rows)
 				this.selectData1.file_name = this.rows.template_file_name;
 				this.selectData1.file_size_format = this.rows.file_size_format;
 				if(this.rows.desc){
 					this.detailtext = JSON.parse(this.rows.desc);
 				}
+				this.form['want_deal_type'] = JSON.parse(this.$route.query.row).want_deal_type;
+				this.form['rule_type'] = 2;
+				this.typebtn =1;
+				this.selectelists = []
+				this.selectelists.push(JSON.parse(this.$route.query.row))
 				this.objstatus = parseInt(this.rows.status);
 				localStorage.setItem("editproject",this.$route.query.row)										
 			} else {
