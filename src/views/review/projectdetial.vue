@@ -620,6 +620,59 @@
 						}
 					},
 					{
+						name: "项目评级",
+						id: "level",
+						type: "text"
+					},
+					{
+						name: "绑定需求",
+						id: "demand_id",
+						type: "text"
+					},
+					{
+						name: "是否直接入库",
+						id: "is_ruku",
+						type: "btn",
+						child: {
+							"1": "可直接入库",
+							"2": "需整理后入库",
+						}
+					},
+					{
+						name: "入库素材数量",
+						id: "storage_number",
+						type: "text"
+					},
+					{
+						name: "内容备注",
+						id: "content_remark",
+						type: "text"
+					},
+					{
+						name: "结算方式",
+						id: "deal_type",
+						type: "btn",
+						child: {
+							"1": "买断",
+							"2": "分成",
+						}
+					},
+					{
+						name: "最终结算价格",
+						id: "deal_price",
+						type: "text"
+					},
+					{
+						name: "验收价格",
+						id: "acceptance_price",
+						type: "text"
+					},
+					{
+						name: "分成比例",
+						id: "split_proportion",
+						type: "text"
+					},
+					{
 						name: "审核角色",
 						id: "role",
 						type: "text"
@@ -665,7 +718,8 @@
 						id:"check_comment",
 						type:"status",
 						status:"-1"
-					}
+					},
+
 				],
 				reviewinfostatus: [],
 				/* status_info: parseInt(this.$route.query.check_status), */
@@ -1093,6 +1147,23 @@
 							want_deal_type:this.want_deal_type,
 						}	
 					}else{
+						if(this.split_proportion){
+							if(this.split_proportion < 0 || this.split_proportion > 100){
+								this.$message({
+									message: "请填写0到100之间的数字!",
+									type: 'warning',
+									customClass:'zZindex'
+								})
+								return;
+							}
+						}else{
+							this.$message({
+								message: "请填写分成比例!",
+								type: 'warning',
+								customClass:'zZindex'
+							})
+							return;
+						}
 						var data = {
 							access_token: localStorage.getItem("access_token"),
 							type: 5,
