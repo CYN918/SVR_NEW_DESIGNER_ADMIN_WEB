@@ -17,6 +17,10 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
+				<span  v-else-if="index == 5 && postData != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span>
 			</div> 
 		</div>
 		<div class="detailContent ofh">
@@ -107,6 +111,27 @@
 			<div v-if="tabsnum == 2" class="detailContent0">
 				<common-table :commonTopData="commonTopData1" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields1"
 				></common-table>
+			</div>
+			<div v-if="tabsnum == 5">
+				<div class="question_00">
+					<div class="question_01">{{datad}}</div>
+					<ul class="question_02">
+						<li v-for="(el,index) in List" :key="index">
+							<div class="ques_01">{{el.sort+'、'+el.question}}</div>
+							<div class="ques_02" v-if="el.type==1">
+								<label @click="chekdeal_type(el.id,key)" v-for="(el2,key) in el.option" :key="key">
+									<span readonly :class="key==postData[el.id]?'chekdOn':''"></span>
+									{{el2}}
+								</label>
+							</div>													
+						</li>
+						<div class="ques_03">
+							<textarea readonly v-model="value" placeholder="终止项目将会永久降低你的信用分，并影响之后项目中标率，确定要终止项目？"></textarea>
+							<div class="maxd_ss">{{value.length}}/140</div>
+						</div>
+					</ul>
+					
+				</div>
 			</div>
 			<div v-if="tabsnum == 3">
 				<ul class="ofh">
@@ -311,6 +336,10 @@
 					{
 						name: "验收信息",
 						status:4
+					},
+					{
+						name: "项目评价",
+						status:6
 					}
 				],
 				tabsnum: 0,
@@ -335,7 +364,7 @@
 						name:"业务类型",
 						id:"business_type",
 						type:"keyvalue",
-						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}
+						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他"}
 						
 					},
 					{
@@ -665,9 +694,21 @@
 				usernameitem:"",
 				form:{},
 				dataProjectId: '',
+				List:[],
+				lisr:[],
+				value:'',
+				datad:'',
+				postData:{},
 			}
 		},
 		methods: {
+			chekdeal_type(a,b){
+				if(!this.postData[a]){
+					this.$set(this.postData,a,b);
+					return
+				}
+				this.postData[a] = b;
+			},
 			ISshow(){
 				this.$refs.Tabledd.reject();
 			},
@@ -890,7 +931,7 @@
 			},
 			tabsChange(num) {
 				this.tabsnum = num;
-				//alert(this.tabsnum)
+				// alert(this.tabsnum)
 				if (this.tabsnum == 2) {
 					this.detailbtn = false;
 				} else {
@@ -906,7 +947,12 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
+					// console.log(this.postData)
+					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
+					this.datad = da.name;
+					this.postData = JSON.parse(da.evaluate_result);
+					this.value = JSON.parse(da.evaluate_result)[7]
 					this.desc = JSON.parse(da.desc);
 				}).catch(da =>{
 					
@@ -926,6 +972,25 @@
 				}).catch(da =>{
 					
 				})
+			},
+			pr_question(){
+				let data={
+					access_token:localStorage.getItem("access_token"),
+				}
+				this.api.pr_question(data).then(da => {
+					if(da=='error'){					
+						return
+					}		
+					for(let i=0,n=da.length;i<n;i++){
+						this.lisr.push(da[i].id);
+					}		
+							
+					this.List = da;
+
+				}).catch(da => {
+
+				})
+
 			},
 			openwindow(url){
 				window.open(url)
@@ -957,6 +1022,7 @@
 			
 		},
 		created() {
+			this.pr_question();
 			this.getworkdetial();
 			this.signupList();
 			this.getAddData();
@@ -1283,6 +1349,86 @@
 		height: 100%;
 		margin-left: 5px;
 	}
-	
+	.question_00{
+		/* overflow: hidden; */
+		padding: 30px 40px 0;
+		width: 750px;
+		text-align: left;
+	}
+	.question_01{
+		font-size:16px;
+		font-weight:400;
+		color:rgba(40,40,40,1);
+		line-height:22px;
+		margin-bottom: 30px;
+		padding-left: 132px;
+	}
+	.question_02{
+		padding-top: 0px !important;
+	}
+	.question_02>li{
+		margin-bottom: 23px;
+	}
+	.ques_01{
+		font-size:14px;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+		line-height:20px;
+		margin-bottom: 13px;
+	}
+
+	.ques_02 span{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 8px;
+		width:14px;
+		height:14px;
+		background:rgba(255,255,255,1);
+		border-radius:2px;
+		border:1px solid rgba(217,217,217,1);
+	}
+	.ques_02 label{
+		cursor: pointer;
+		margin-right: 20px;
+	}
+	.ques_02 span.chekdOn{
+		background: #33B3FF;
+		border-color: #33B3FF;
+	}
+	.ques_02 span.chekdOn:after{
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 8px;
+		height: 4px;
+		border: 1px solid #fff;
+		border-top: 0;
+		border-right: 0;
+		-webkit-transform: rotate(-58deg) translate(-21%,76%);
+		transform: rotate(-58deg) translate(-21%,76%);
+	}
+	.ques_03{
+		position: relative;
+	}
+	.ques_03>textarea{
+		box-sizing: border-box;
+		padding: 15px 20px;
+		width:500px;
+		height:150px;
+		border-radius:5px;
+		border:1px solid rgba(187,187,187,1);
+	}
+	.ques_03 .maxd_ss{
+		position: absolute;
+		bottom: 13px;
+		left: 444px;
+		font-size:14px;
+		font-weight:400;
+		color:rgba(187,187,187,1);
+		line-height:20px;
+	}
 	
 </style>

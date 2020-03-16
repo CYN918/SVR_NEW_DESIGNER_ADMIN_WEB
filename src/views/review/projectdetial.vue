@@ -632,7 +632,7 @@
 					{
 						name: "是否直接入库",
 						id: "is_ruku",
-						type: "btn",
+						type: "keyvalue",
 						child: {
 							"1": "可直接入库",
 							"2": "需整理后入库",
@@ -651,7 +651,7 @@
 					{
 						name: "结算方式",
 						id: "deal_type",
-						type: "btn",
+						type: "keyvalue",
 						child: {
 							"1": "买断",
 							"2": "分成",

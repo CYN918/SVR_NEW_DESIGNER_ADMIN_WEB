@@ -397,6 +397,9 @@ export default {
 	projectclassifylist:{
 		url:'/admin/projectclassify/list',method:'post',baseURL:0
 	},
+	pr_question:{
+		url:'/admin/project/question',method:'post',baseURL:0,
+	},
 	projectclassifyadd:{
 		url:'/admin/projectclassify/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
