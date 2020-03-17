@@ -165,7 +165,6 @@
 				reviewnum:0,
 				user:"",
 				userimg:'../assets/img/MRTX.svg',
-				adminuseraccess: [],
 				auditTitle: '',
 				newArr:[],
 			};
@@ -522,11 +521,57 @@
 				
 				
 			},
+			getaccess() {
+				this.api.adminuseraccess({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					this.adminuseraccess = JSON.stringify(da);
+				})
+			}
 		},
 		created() {
 			this.getuserinfo();
 			this.getBreadcrumb();
+			this.getaccess();
 			// this.getbus();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
+			}
+			// console.log(this.adminuseraccess)
+			if(localStorage.getItem("access")){
+				if(JSON.parse(localStorage.getItem("access")).top_banner != 'undefined'){
+					this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
+					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
+					for(var i = 0;i < accessArry.length;i++){
+						if(accessArry[i].id == '11'){
+							this.newArr = accessArry[i].child;
+							// console.log(this.newArr)
+							let arr = [];
+							this.newArr.forEach(element => {		
+								if(element.id == '12'){
+									arr.push(1)
+								}
+								if(element.id == '13'){
+									arr.push(2)
+								}	
+								if(element.id == '14'){
+									arr.push(3)
+								}
+								if(element.id == '15'){
+									arr.push(4)
+								}
+								if(element.id == '16'){
+									arr.push(5)
+								}	
+							});
+							let str = arr.toString();
+							this.gettodoCount(str);				
+						}
+					}
+				}else{
+					console.log(2)
+				}
+			}
 		},
 		mounted() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
@@ -578,46 +623,7 @@
 					console.log(2)
 				}			
 			}			
-			if(localStorage.getItem("adminuseraccess")){
-				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
-			}
-			if(localStorage.getItem("adminuseraccess")){
-				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))		
-			}
-			if(localStorage.getItem("access")){
-				if(JSON.parse(localStorage.getItem("access")).top_banner != 'undefined'){
-					this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
-					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
-					for(var i = 0;i < accessArry.length;i++){
-						if(accessArry[i].id == '11'){
-							this.newArr = accessArry[i].child;
-							// console.log(this.newArr)
-							let arr = [];
-							this.newArr.forEach(element => {		
-								if(element.id == '12'){
-									arr.push(1)
-								}
-								if(element.id == '13'){
-									arr.push(2)
-								}	
-								if(element.id == '14'){
-									arr.push(3)
-								}
-								if(element.id == '15'){
-									arr.push(4)
-								}
-								if(element.id == '16'){
-									arr.push(5)
-								}	
-							});
-							let str = arr.toString();
-							this.gettodoCount(str);				
-						}
-					}
-				}else{
-					console.log(2)
-				}
-			}
+			
 			
 		},
 		watch:{
@@ -627,6 +633,7 @@
 			$route() {
 				this.getBreadcrumb();
 				// this.gettodoCount();
+				
 			}
 		}
 	}
