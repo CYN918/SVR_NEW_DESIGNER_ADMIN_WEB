@@ -1,46 +1,53 @@
 <template>
-	<div class="wh Detail" ref="height">
-		<div class="detailtitle  ofh" style="margin-bottom: 20px;">
-			<span class="fleft">{{ currentpageName }}</span>
-		</div>
-		<div class="detailContent" ref="scroll" style="height: calc(100% - 47px) !important;">
-			<div class="relative" >
-				<div class="detailContent" v-for="(item,index) in detailtext">
-					<div class="modeltitle ofh" style="margin-left: 50px;">
-						<div class="fleft">成长等级{{ index+1 }}</div>
-						<div class="fright uediterspan h relative pointer" style="margin-right:50%;">
-							<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
-						</div>
-					</div>
-					<ul style="padding-top: 30px;">
-						<li class="margint23 ofh">
-							<span class="fleft detailKey" style="line-height: 40px;">累计收益值</span>
-							<el-input placeholder="请输入内容" v-model="item.total_income" style="width:357px;height:40px;" clearable></el-input>
-						</li>
-						<li class="margint23 ofh" >
-							<span class="fleft detailKey" style="line-height: 40px;">加成百分比</span>
-							<div class=" ofh" style="width: 800px;">
-								<div class="fleft">
-									<el-input placeholder="请输入内容" v-model="item.gain_share_rate" style="width:357px;height:40px;" clearable></el-input>
-								</div>
-								
+    <div>
+		<common-top :commonTopData="commonTopData"></common-top>
+		<div class="wh Detail" ref="height">
+			
+			<div class="detailtitle  ofh" style="margin-bottom: 20px;">
+				<span class="fleft">{{ currentpageName }}</span>
+			</div>
+			<div class="detailContent" ref="scroll" style="height: calc(100% - 47px) !important;">
+				<div class="relative" >
+					<div class="detailContent" v-for="(item,index) in detailtext">
+						<div class="modeltitle ofh" style="margin-left: 50px;">
+							<div class="fleft">成长等级{{ index+1 }}</div>
+							<div class="fright uediterspan h relative pointer" style="margin-right:50%;">
+								<span @click="swapItems(detailtext,index,index-1)">上移</span><span @click="swapItems(detailtext,index,index+1)">下移</span><span @click="delect(index)">删除</span>
 							</div>
-						</li>
-					</ul>
-					
+						</div>
+						<ul style="padding-top: 30px;">
+							<li class="margint23 ofh">
+								<span class="fleft detailKey" style="line-height: 40px;">累计收益值</span>
+								<el-input placeholder="请输入内容" v-model="item.total_income" style="width:357px;height:40px;" clearable></el-input>
+							</li>
+							<li class="margint23 ofh" >
+								<span class="fleft detailKey" style="line-height: 40px;">加成百分比</span>
+								<div class=" ofh" style="width: 800px;">
+									<div class="fleft">
+										<el-input placeholder="请输入内容" v-model="item.gain_share_rate" style="width:357px;height:40px;" clearable></el-input>
+									</div>
+									
+								</div>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="addDetailContent" @click="addDetailContent()">+</div>
 				</div>
-				<div class="addDetailContent" @click="addDetailContent()">+</div>
+				<div class="screenContent detailbtn">
+					<button class="defaultbtn defaultbtnactive" @click="edit()">保存</button>
+				</div>
+				<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 			</div>
-			<div class="screenContent detailbtn">
-				<button class="defaultbtn defaultbtnactive" @click="edit()">保存</button>
-			</div>
-			<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
+			
 		</div>
-		
+
 	</div>
+	
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
 		data() {
 			return {
@@ -52,10 +59,17 @@
 						total_income:"0",
 						gain_share_rate:"0"
 					},
-				]
+				],
+				commonTopData: {
+					"pageName": "Profit",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 			}
 		},
 		components: {
+			commonTop
 		},
 		methods: {
 			addDetailContent(){

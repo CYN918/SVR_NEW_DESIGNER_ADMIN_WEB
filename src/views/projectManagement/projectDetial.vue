@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="projectDetialTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -17,7 +19,7 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span  v-else-if="index == 5 && evaluation != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				<span  v-else-if="index == 5 && status == item.status && evaluation != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
@@ -293,17 +295,27 @@
 		  	</ul>
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
 	import commonTable from '@/components/commonTable2.vue'
-	
+	import commonTop from '@/components/commonTop.vue'
 	export default {
 		components:{
-			commonTable
+			commonTable,
+			commonTop
 		},
 		data() {
 			return {
+				projectDetialTopData: {
+					"pageName": "projectDetial",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+					upload: true
+				},
 				tableData2:[
 					{
 						id:"3",
@@ -339,7 +351,7 @@
 					},
 					{
 						name: "项目评价",
-						status:6
+						status:5
 					}
 				],
 				tabsnum: 0,
@@ -948,14 +960,17 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					console.log(da.evaluate_result)
+					console.log(this.evaluation)
 					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
 					// this.datad = da.name;
-					this.evaluation = da.evaluate_result;
-					this.postData = JSON.parse(da.evaluate_result);
-					this.value = JSON.parse(da.evaluate_result)[7]
 					this.desc = JSON.parse(da.desc);
+					if(da.evaluate_result != ''){
+						this.evaluation = da.evaluate_result;
+						this.postData = JSON.parse(da.evaluate_result);
+						this.value = JSON.parse(da.evaluate_result)[7]
+					}
+					
 				}).catch(da =>{
 					
 				})

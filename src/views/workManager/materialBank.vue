@@ -1,139 +1,144 @@
 <template>
-	<div class="wh Detail">
-		<div class="detailtitle ofh relative">
-			<div style="margin-bottom: 32px;">
-				<span class="fleft worktabs">
-					素材库
-				</span>
-				<div class="textcenter">
-					<span style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.id)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-						{{ item.name }}
+	<div>
+		
+		<common-top :commonTopData="commonTopData"></common-top>
+		<div class="wh Detail">
+			<div class="detailtitle ofh relative">
+				<div style="margin-bottom: 32px;">
+					<span class="fleft worktabs">
+						素材库
 					</span>
+					<div class="textcenter">
+						<span style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+						@click="tabsChange(index,item.id)">
+							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+							{{ item.name }}
+						</span>
+					</div>
+					<div class="materialdownload" v-if="adminuseraccess.indexOf('200465') > -1">
+						<button class="defaultbtn" style="width: 87px;height: 32px;margin-right: 10px;" @click="showselectwork()">选择下载</button>
+						<button class="defaultbtn" style="width: 87px;height: 32px;margin-left: 0;" @click="handleCheckAllChange()">全部下载</button>
+					</div>
 				</div>
-				<div class="materialdownload" v-if="adminuseraccess.indexOf('200465') > -1">
-					<button class="defaultbtn" style="width: 87px;height: 32px;margin-right: 10px;" @click="showselectwork()">选择下载</button>
-					<button class="defaultbtn" style="width: 87px;height: 32px;margin-left: 0;" @click="handleCheckAllChange()">全部下载</button>
+				
+			</div>
+			<div  ref="bgwidth" class="paddinglr40 ofh" style="height: calc(100% - 285px);overflow-y: scroll;width: calc(100% - 80px);" v-loading="setLoding">
+				<div class="ofh w" v-show="tabsnum == 0" >
+					<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+						<ul class="materiallist">
+							<li v-for="(item,index) in materialdata" :key="index">
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)">
+									<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
+									<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
+									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
+								</div>
+								<div class="color66">
+									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
+									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+								</div>
+							</li>
+							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
+						</ul>
+					</el-checkbox-group>
+				</div>
+				<div class="ofh" v-show="tabsnum == 1">
+					<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+						<ul class="materiallist">
+							<li v-for="(item,index) in materialdata" :key="index+item.fid">
+								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
+									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
+									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
+								</div>
+								<div class="color66">
+									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
+									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+								</div>
+							</li> 
+							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
+						</ul>
+					</el-checkbox-group>
+				</div>
+				<div class="ofh" v-show="tabsnum == 2">
+					<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+						<div>
+							<ul class="materiallist">
+								<li class="relative" v-for="(item,index) in materialdata" :key="item.fid+index">
+									<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
+										<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
+										<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
+										<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
+									</div>
+									<video v-show="videofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
+									<div class="color66">
+										<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
+										<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+									</div>
+								</li> 
+								<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
+							</ul>
+						</div>
+					</el-checkbox-group>
+				</div>
+				<div class="ofh" v-show="tabsnum == 3">
+					<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
+						<div>
+							<ul class="materiallist relative">
+								<li v-for="(item,index) in materialdata" :key="item.fid+index+index">
+									<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
+										<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
+										<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
+										<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
+									</div>
+									<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
+									<div class="color66">
+										<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
+										<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+									</div>
+								</li> 
+								<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
+							</ul>
+						</div>
+					</el-checkbox-group>
+				</div>
+				<div class="w" style="text-align: right;background: #FFFFFF;" v-if="!workselect">
+					<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
+						<span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
+					</div>
+					<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
+					:page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
+					</el-pagination>
+				</div>
+				<div class="screenContent detailbtn"  v-if="workselect">
+					<button class="defaultbtn" @click="showselectwork()">取消选项</button>
+					<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks('')">下载 {{ checkList.length }}
+						个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
 				</div>
 			</div>
-			<div  class="sucia">
-				<common-top :commonTopData="commonTopData" class="commontop"></common-top>
+			<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
+				<img :src="imgurl" alt="暂无图片">
 			</div>
-		</div>
-		<div  ref="bgwidth" class="paddinglr40 ofh" style="height: calc(100% - 285px);overflow-y: scroll;width: calc(100% - 80px);" v-loading="setLoding">
-			<div class="ofh w" v-show="tabsnum == 0" >
-				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<ul class="materiallist">
-						 <li v-for="(item,index) in materialdata" :key="index">
-							<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)">
-								<el-checkbox class="material-checkbox" :label="item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
-								<img class="material-fu" src="../../assets/img/SHT_SHXQ_ZIP_icon.png" alt="">
-								<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
-							</div>
-							<div class="color66">
-								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('附件',item.fid)">{{ item.file_name }}</span>
-								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
+			<el-dialog title="确定全部下载" :visible.sync="centerDialogVisible5" width="738px">
+				<div style="position: relative;">
+					<ul>
+						<li class="w ofh">
+							<div class="textcenter employipt">
+								<span>
+									<span style="width: auto;padding: 0 5px;" @click="downWorks('')">一共 {{ openurls.length }}
+										个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
+								</span>
 							</div>
 						</li>
-						<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
 					</ul>
-				</el-checkbox-group>
-			</div>
-			<div class="ofh" v-show="tabsnum == 1">
-				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<ul class="materiallist">
-						<li v-for="(item,index) in materialdata" :key="index+item.fid">
-							<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.file_url + ')', backgroundSize:'100% 100%'}" @click="getimgulr(item.file_url)" @click.stop>
-								<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
-								<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
-							</div>
-							<div class="color66">
-								<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('图片',item.fid)">{{ item.file_name }}</span>
-								<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
-							</div>
-						</li> 
-						<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
-					</ul>
-				</el-checkbox-group>
-			</div>
-			<div class="ofh" v-show="tabsnum == 2">
-				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<div>
-						<ul class="materiallist">
-							<li class="relative" v-for="(item,index) in materialdata" :key="item.fid+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showvideo(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_zt.png" alt="">
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<video v-show="videofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls="controls" style="position: absolute;top:0;left: 0;border-radius: 5px;"></video>
-								<div class="color66">
-									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('视频',item.fid)">{{ item.file_name }}</span>
-									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
-								</div>
-							</li> 
-							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
-						</ul>
-					</div>
-				</el-checkbox-group>
-			</div>
-			<div class="ofh" v-show="tabsnum == 3">
-				<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
-					<div>
-						<ul class="materiallist relative">
-							 <li v-for="(item,index) in materialdata" :key="item.fid+index+index">
-								<div class="material relative" @mouseover="hover(item.fid,item.file_url,item.file_name)" :style="{backgroundImage: 'url(' + item.cover_img + ')', backgroundSize:'100% 100%'}" @click="showaudio(item.fid)" @click.stop>
-									<el-checkbox class="material-checkbox" :label=" item.file_url +','+item.fid+','+item.file_size+','+item.file_name" v-if="workselect" @click.stop.native></el-checkbox>
-									<img class="material-bo" src="../../assets/img/scsc_icon_yp.png" alt="">
-									<div class="hoverload" v-if="item.fid == fid && !workselect && (adminuseraccess.indexOf('200465') > -1)" @click="downWorks('one')" @click.stop></div>
-								</div>
-								<audio v-show="audiofid == item.fid" :id="item.fid" :src="item.file_url" class="material" controls style="position: absolute;top:0;left: 0;border-radius: 5px;"></audio>
-								<div class="color66">
-									<span :title="item.file_name" style="width: 100px;height: 20px;" class="fleft textover" @click="gotodetail('音频',item.fid)">{{ item.file_name }}</span>
-									<span class="fright">{{ Number(item.file_size) / 1024 >= 1 ? Number(item.file_size/1024).toFixed(2) +"M" : Number(item.file_size).toFixed(2) + "KB"}}</span>
-								</div>
-							</li> 
-							<li v-for="item in buchu" class="material" style="visibility: hidden;"></li>
-						</ul>
-					</div>
-				</el-checkbox-group>
-			</div>
-			<div class="w" style="text-align: right;background: #FFFFFF;" v-if="!workselect">
-				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					 <span>已选择{{ selected }}条,</span><span>共{{total}}条数据</span>
 				</div>
-				<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="sizes, prev, pager, next, jumper" :total="total">
-				</el-pagination>
-			</div>
-			<div class="screenContent detailbtn"  v-if="workselect">
-				<button class="defaultbtn" @click="showselectwork()">取消选项</button>
-				<button class="defaultbtn defaultbtnactive" style="width: auto;padding: 0 5px;" @click="downWorks('')">下载 {{ checkList.length }}
-					个选项（{{ font_size / 1024 >= 1 ? (font_size/1024).toFixed(2) +"M" : font_size.toFixed(2) + "KB" }}）</button>
-			</div>
+				<span slot="footer" class="dialog-footer sel-footer">
+					<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
+					<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
+				</span>
+			</el-dialog>
+
 		</div>
-		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
-			<img :src="imgurl" alt="暂无图片">
-		</div>
-		<el-dialog title="确定全部下载" :visible.sync="centerDialogVisible5" width="738px">
-			<div style="position: relative;">
-				<ul>
-					<li class="w ofh">
-						<div class="textcenter employipt">
-							<span>
-								<span style="width: auto;padding: 0 5px;" @click="downWorks('')">一共 {{ openurls.length }}
-									个选项（{{ this.font_size / 1024 >= 1 ? (this.font_size/1024).toFixed(2) +"M" : this.font_size.toFixed(2) + "KB"   }}）</span>
-							</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="centerDialogVisible5=false">取消</button>
-				<button class="defaultbtn defaultbtnactive" @click="downWorks('')">确定</button>
-			</span>
-		</el-dialog>
+		
+		
 	</div>
 </template>
 
@@ -182,7 +187,6 @@
 					}, ],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow":true
 				},
 				pagesize:50,
 				total:0,

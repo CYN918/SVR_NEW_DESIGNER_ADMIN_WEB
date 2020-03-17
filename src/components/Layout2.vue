@@ -126,14 +126,14 @@
 	}
 </script>
 <style lang="scss" scoped>
-	$sideBarWidt: 280px;
+	$sideBarWidt: 60px;
 
 	.sideBar {
 		width: $sideBarWidt;
 	}
 
 	.mainContent {
-		width: calc(100% - 280px);
+		width: calc(100% - 60px);
 	}
 
 	.mainContentNav {

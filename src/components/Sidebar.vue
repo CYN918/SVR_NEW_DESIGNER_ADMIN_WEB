@@ -3,14 +3,14 @@
 		<div class="w hnav username ofh">
 			<!-- <span class="fleft userlog"></span>
 			<span class="fleft fontsize24">狮大大</span> -->
-			<img src="../assets/img/style.svg" alt="" style="display: block;margin: 12px 40px;">
+			<img src="../assets/img/icon_left tab_logo.svg" alt="" style="display: block;margin: 23px 20px;">
 		</div>
-		<el-menu style="overflow-y: auto;" unique-opened default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose" :default-active="defaultactive" :default-openeds="defaultopeneds"
-		 active-text-color="#FF5121">
+		<el-menu style="overflow-y: auto;" unique-opened default-active="1" class="w sel-menu" @open="handleOpen" @close="handleClose"
+		 active-text-color="#33B3FF" :collapse="isCollapse">
 			<el-submenu :index="item.id" v-for="item in menuAccess" :key="item.id">
 				<template slot="title">
 					<i class="iconfont" v-html="iconfont[item.id]"></i>
-					<span style="padding:15px;">{{ item.title }}</span>
+					<span slot="title">{{ item.title }}</span>
 				</template>
 				<router-link v-if="item.child && item.child.length != 0 && url[citem.id]"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
 					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
@@ -195,7 +195,8 @@
 				},
 				defaultopeneds:[],
 				fid:"",
-				defaultactive:""
+				defaultactive:"",
+				isCollapse: true,
 			}
 		},
 		watch: {},
@@ -227,23 +228,29 @@
 	}
 </script>
 <style lang="scss">
+	.el-menu-vertical-demo:not(.el-menu--collapse) {
+		width: 200px;
+		min-height: 400px;
+	}
 	#app .sel-menu {
+		width: 60px;
 		border: 0;
 		height: calc(100% - 60px);
+		overflow: hidden !important;
 	}
 
 	.username {
 		color: white;
-		background: #545c64;
+		// background: #545c64;
 	}
 
 	#app .el-icon-location {
 		padding-left: 20px;
 	}
 
-	#app .el-submenu__title i {
-		right: 40px;
-	}
+	// #app .el-submenu__title i {
+	// 	right: 40px;
+	// }
 
 	#app .el-menu-item {
 		text-indent: 48px;
@@ -253,9 +260,9 @@
 		font-weight: 800;
 	}
 	
-	#app .iconfont{
-		padding-left: 24px;
-	}
+	// #app .iconfont{
+	// 	padding-left: 24px;
+	// }
 
 	.userlog {
 		width: 25px;
@@ -267,9 +274,39 @@
 	}
 
 	#app .el-submenu__title:hover i,
+	#app .el-submenu__title:hover span,
 	#app .el-menu-item:focus i,
 	#app .el-menu-item:hover i {
-		color: #FF5121;
+		color: #33B3FF;
+	}
+	.el-menu-item:hover{
+		background: rgba(51,179,255,1);
+		color: #33B3FF;
+	}
+	.el-submenu__title span{
+		right: 45px;
+        position: absolute;
+		overflow: visible !important;
+		visibility: visible !important;
+		top: 20px;
+		color: #BBBBBB;
+	}
+	.el-submenu__title{
+		height: 65px !important;
+		line-height: 60px !important;
+	}
+	.is-active .el-submenu__title span{
+		color: #33B3FF;
+	}
+	.el-submenu:hover,
+	.is-opened:hover{
+		background: #ffffff !important;
+	}
+	.el-menu .is-active{
+		border-left: 2px solid #33B3FF;
+	}
+	.el-menu--vertical .is-active{
+		border-left: none;
 	}
 	
 	

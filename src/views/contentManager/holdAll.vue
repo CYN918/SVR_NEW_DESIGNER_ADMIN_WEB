@@ -1,31 +1,44 @@
 <template>
-	<div style="padding: 20px;background: white;width: calc(100% - 40px);height: calc(100% - 40px);">
-		<div>工具箱</div>
-		<ul class="screenContent" style="justify-content: flex-start;">
-			<li v-for="(item,inde) in operatelist" :key="item.id" class="holdlist textcenter" @click="goto(inde)">
-				<div style="margin: 27px auto 13px;width: 80%;color: #FFFFFF;">
-					<span  v-for="(citem,index) in item.event_detail" :key="citem.title" v-if="index < (item.event_detail.length - 1)">
-						{{ citem.title }} +
-					</span> 
-					<span v-else-if="index == (item.event_detail.length - 1)" >
-						{{ citem.title }}
-					</span> 
-				</div>
-				<div style="width: 80%;margin: auto; color: #FFFFFF;text-align: left;">
-					 {{ item.desc }} 
-				</div>
-			</li>
-		</ul>
+	<div>
+		<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
+		<div style="padding: 20px;background: white;width: calc(100% - 40px);height: calc(100% - 20px);">
+			<div>工具箱</div>
+			<ul class="screenContent" style="justify-content: flex-start;">
+				<li v-for="(item,inde) in operatelist" :key="item.id" class="holdlist textcenter" @click="goto(inde)">
+					<div style="margin: 27px auto 13px;width: 80%;color: #FFFFFF;">
+						<span  v-for="(citem,index) in item.event_detail" :key="citem.title" v-if="index < (item.event_detail.length - 1)">
+							{{ citem.title }} +
+						</span> 
+						<span v-else-if="index == (item.event_detail.length - 1)" >
+							{{ citem.title }}
+						</span> 
+					</div>
+					<div style="width: 80%;margin: auto; color: #FFFFFF;text-align: left;">
+						{{ item.desc }} 
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
 		data(){
 			return{
 				operatelist:{},
-				adminuseraccess:[]
+				adminuseraccess:[],
+				commonTopData: {
+					"pageName": "holdAll",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 			}
+		},
+		components: {
+			commonTop
 		},
 		methods:{
 			goto(id){

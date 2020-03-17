@@ -4,9 +4,9 @@
 			<side-bar></side-bar>
 		</div>
 		<div class="mainContent h fright">
-			<div class="mainContentNav w">
+			<!-- <div class="mainContentNav w">
 				<nav-bar></nav-bar>
-			</div>
+			</div> -->
 			<div class="mainContentMidden">
 				<keep-alive>
 					<transition name="fade-transform" mode="out-in">
@@ -30,11 +30,11 @@
 
 <script>
 	import sideBar from '@/components/Sidebar.vue'
-	import navBar from '@/components/NavBar.vue'
+	// import navBar from '@/components/NavBar.vue'
 	export default {
 		components: {
 			sideBar,
-			navBar
+			// navBar
 		},
 		props: {},
 		data() {
@@ -178,14 +178,14 @@
 	}
 </style>
 <style lang="scss" scoped>
-	$sideBarWidt: 280px;
+	$sideBarWidt: 60px;
 
 	.sideBar {
 		width: $sideBarWidt;
 	}
 
 	.mainContent {
-		width: calc(100% - 280px);
+		width: calc(100% - 60px);
 	}
 
 	.mainContentNav {
@@ -193,10 +193,10 @@
 	}
 
 	.mainContentMidden {
-		width: calc(100% - 40px);
-		height: calc(100% - 100px);
+		// width: calc(100% - 0px);
+		height: calc(100% - 0px);
 		background: #f0f2f5;
-		padding: 20px;
+		padding: 0px 20px 20px 20px;
 		overflow: hidden;
 	}
 	

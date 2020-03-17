@@ -1,5 +1,6 @@
 <template>
 	<div class="wh">
+		<common-top :commonTopData="commonTopData"></common-top>
 		<div class="detailtitle ofh relative Detail">
 			<div style="margin-bottom: 32px;">
 				<span class="fleft worktabs">
@@ -17,7 +18,7 @@
 					 @click="tabsChange(0)">banner素材</span>
 				</div>
 			</div>
-			<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
+			
 		</div>
 		<div style="height: calc(100% - 205px);margin-top: 20px;" v-if="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
@@ -129,8 +130,7 @@
 						accessid:"200435"
 					}],
 					"commonbottombtn":[],
-					"IsShow":true,
-					upload:true
+					
 					
 				},
 				screenConfig: [],

@@ -81,13 +81,13 @@ input{
   font-size:24px;
 }
 
-.marginleft60{
-	margin-left: 60px;
-}
+// .marginleft60{
+// 	margin-left: 60px;
+// }
 
-.marginright60{
-	margin-right: 60px;
-}
+// .marginright60{
+// 	margin-right: 60px;
+// }
 
 .el-message-box__wrapper,.el-dialog__wrapper {
 	z-index: 2030 !important;
@@ -133,7 +133,7 @@ input{
 }
 
 .margin40{
-	margin:0 40px;
+	margin:0 10px;
 }
 
 .ofh {
@@ -142,9 +142,11 @@ input{
 
 #app .btnorgle{
 	width: 100px;
-	height: 40px;
-	background: #ff5121;
-	border-color: #ff5121;
+	height: 32px;
+	padding: 0;
+	border-radius: 5px;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: white;
 }
 
@@ -154,8 +156,8 @@ input{
 
 #app .el-select-dropdown__item.hover,#app .el-select-dropdown__item:hover,#app .btnorgle:hover{
 	transition: 0.2;
-	background: #fb8b6c;
-	border-color: #fb8b6c;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 #app .el-select{
 	margin: 0px;
@@ -163,7 +165,8 @@ input{
 
 #app .defaultbtn {
 	width: 100px;
-	height: 40px;
+	height: 32px;
+	border-radius: 5px;
 	margin-left: 30px;
 	border:1px solid #999999;
 	background: transparent;
@@ -173,7 +176,8 @@ input{
 
 #app .defaultbtnno {
 	width: 100px;
-	height: 40px;
+	height: 32px;
+	border-radius: 5px;
 	margin-left: 30px;
 	border:1px solid #999999;
 	background: transparent;
@@ -182,9 +186,13 @@ input{
 }
 
 #app .defaultbtnactive{
-	background: #ff5121;
-	color: #ffffff;
-	border-color: #ff5121;
+	width: 100px;
+	height: 32px;
+	padding: 0;
+	border-radius: 5px;
+	background: #33B3FF;
+	border-color: #33B3FF;
+	color: white;
 }
 
 #app .defaultbtnactive:hover{
@@ -199,9 +207,9 @@ input{
 	border-color: #FF5121;
 }
 
-.borderb{
-	border-bottom: #f8f8f8 solid 3px;
-}
+// .borderb{
+// 	border-bottom: #f8f8f8 solid 3px;
+// }
 
 #app .tag{
 	border-color: #E6E6E6;
@@ -266,17 +274,17 @@ input{
 }
 
 #app .is-active i {
-	color: #FF5121 !important; 
+	color: #33B3FF !important; 
 }
 
 #app .el-submenu__title:hover,#app .el-menu-item:focus, #app .el-menu-item:hover{
 	background-color: #ffede8 !important;
-	color: #FF5121 !important;
+	color: #33B3FF !important;
 }
 
 #app .is_default .el-submenu__title,#app .is_default .el-menu-item, #app .is_default .el-menu-item{
 	background-color: #ffede8 !important;
-	color: #FF5121 !important;
+	color: #33B3FF !important;
 }
 
 /* .sel-footer .el-button:focus,.sel-footer .el-button:hover,.sel-footer .el-button:active{
@@ -382,7 +390,7 @@ input{
 }
 
 .paddinglr40{
-	padding: 0 40px;
+	padding: 0 10px;
 }
 
 .calc205{
@@ -638,8 +646,8 @@ input{
 	}
 
 	.tabactive {
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
+		color: #33B3FF;
+		border-bottom: 2px solid #33B3FF;
 	}
 
 	.img-top {
@@ -1034,7 +1042,7 @@ input:disabled{
 	color: #C0C4CC;
 }
 .el-table{
-	max-height: 485.32px !important;
+	max-height: 628.32px !important;
 }
 
 .el-table th>.cell{

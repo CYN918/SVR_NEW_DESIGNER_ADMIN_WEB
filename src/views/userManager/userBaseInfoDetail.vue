@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail ofh">
 		<div class="detailtitle">查看用户信息</div>
 		<div style="overflow-y: auto;height:calc(100% - 40px);width: 100%;">
@@ -163,16 +165,29 @@
 		</div>
 		
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data(){
 			return{
 				detailData:'',
 				hide:"",
 				index:0,
-				SkillInfo:{}
+				SkillInfo:{},
+				commonTopData: {
+					"pageName": "userBaseInfoDetail",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+					upload: true
+				},
 			}
 		},
 		methods:{
@@ -302,7 +317,7 @@
 	}
 	
 	.userchangeactive{
-		color: #FF5121;
-		border-bottom: 2px solid #FF5121;
+		color: #33B3FF;
+		border-bottom: 2px solid #33B3FF;
 	}
 </style>

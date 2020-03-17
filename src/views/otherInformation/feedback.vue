@@ -1,79 +1,83 @@
 <template>
-	<div class="wh">
-		<div class="detailtitle ofh relative Detail">
-			<div style="margin-bottom: 32px;">
-				<span class="fleft worktabs">
-					意见反馈
-				</span>
-				<div class="textcenter">
-					<span  style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
-						<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-						{{ item.name }}
+    <div>
+		<common-top :commonTopData="commonTopData" class="feed"></common-top>
+		<div class="wh">
+			<div class="detailtitle ofh relative Detail">
+				<div style="margin-bottom: 32px;">
+					<span class="fleft worktabs">
+						意见反馈
 					</span>
+					<div class="textcenter">
+						<span  style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
+						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
+							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
+							{{ item.name }}
+						</span>
+					</div>
 				</div>
+				
 			</div>
-			<common-top :commonTopData="commonTopData" class="feed"></common-top>
+			<div style="height: calc(100% - 235px);margin-top: 20px;">
+				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+				ref="Tabledd"></common-table>
+			</div>
+			<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
+				<div style="position: relative;">
+					<ul>
+						<li class="w ofh textcenter">
+							<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
+							<input type="text" v-model="file_name" class="fleft defaultbtn defaultbtn0" style="width:200px">
+						</li>
+					</ul>
+				</div>
+				<span slot="footer" class="dialog-footer sel-footer">
+					<button class="defaultbtn" @click="centerDialogVisible = false">取 消</button>
+					<button class="defaultbtn defaultbtnactive" @click="newname">确 定</button>
+				</span>
+			</el-dialog>
+			<el-dialog title="本地文件" :visible.sync="showmask">
+				<span slot="footer" class="dialog-footer sel-footer">
+					<button class="defaultbtn" @click="showmaskload">本地文件</button>
+					<button class="defaultbtn" @click="showmaskload1">网盘链接</button>
+				</span>
+			</el-dialog>
+			<el-dialog title="本地文件" :visible.sync="showmask1">
+				<div class="dorg">
+					<el-upload
+					class="upload-demo"
+					drag
+					action="https://jsonplaceholder.typicode.com/posts/"
+					multiple>
+					<div>
+						<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
+					</div>
+					<div class="w textcenter">
+						点击或将文件拖拽到这里上传
+					</div>
+					<div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
+					</el-upload>
+				</div>
+				
+				
+			</el-dialog>
+			<el-dialog title="网盘链接" :visible.sync="showmask2">
+				<div class="dorg textcenter" style="width: 100%;">
+					<div>
+						<span style="line-height: 40px;padding-right: 20px;">文件名称</span>
+						<el-input style="width: 357px" placeholder="请输入文件名称"></el-input>
+					</div>
+					<div style="margin-top: 30px;">
+						<span style="line-height: 40px;padding-right: 20px;">网盘链接</span>
+						<el-input style="width: 357px" placeholder="请输入网盘链接，提取码等"></el-input>
+					</div>
+					<div style="margin-top: 40px;">
+						<button class="defaultbtn defaultbtnactive " @click="showmaskload1">确定</button>
+					</div>
+				</div>
+			</el-dialog>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;">
-			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-			 ref="Tabledd"></common-table>
-		</div>
-		<el-dialog title="征集模板文件-修改文件名称" :visible.sync="centerDialogVisible" width="406px">
-			<div style="position: relative;">
-				<ul>
-					<li class="w ofh textcenter">
-						<span class="fleft marginleft60" style="line-height: 40px;">用户名称</span>
-						<input type="text" v-model="file_name" class="fleft defaultbtn defaultbtn0" style="width:200px">
-					</li>
-				</ul>
-			</div>
-			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="centerDialogVisible = false">取 消</button>
-				<button class="defaultbtn defaultbtnactive" @click="newname">确 定</button>
-			</span>
-		</el-dialog>
-		<el-dialog title="本地文件" :visible.sync="showmask">
-			<span slot="footer" class="dialog-footer sel-footer">
-				<button class="defaultbtn" @click="showmaskload">本地文件</button>
-				<button class="defaultbtn" @click="showmaskload1">网盘链接</button>
-			</span>
-		</el-dialog>
-		<el-dialog title="本地文件" :visible.sync="showmask1">
-			<div class="dorg">
-				<el-upload
-				  class="upload-demo"
-				  drag
-				  action="https://jsonplaceholder.typicode.com/posts/"
-				  multiple>
-				  <div>
-				  	<img src="../../assets/img/icon_unloading.png" style="width:60px;height:60px;display:block;margin:31px auto 14px" alt="">
-				  </div>
-				  <div class="w textcenter">
-				  	点击或将文件拖拽到这里上传
-				  </div>
-				  <div class="w textcenter fontcolorg">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</div>
-				</el-upload>
-			</div>
-			
-			
-		</el-dialog>
-		<el-dialog title="网盘链接" :visible.sync="showmask2">
-			<div class="dorg textcenter" style="width: 100%;">
-				<div>
-					<span style="line-height: 40px;padding-right: 20px;">文件名称</span>
-					<el-input style="width: 357px" placeholder="请输入文件名称"></el-input>
-				</div>
-				<div style="margin-top: 30px;">
-					<span style="line-height: 40px;padding-right: 20px;">网盘链接</span>
-					<el-input style="width: 357px" placeholder="请输入网盘链接，提取码等"></el-input>
-				</div>
-				<div style="margin-top: 40px;">
-					<button class="defaultbtn defaultbtnactive " @click="showmaskload1">确定</button>
-				</div>
-			</div>
-		</el-dialog>
 	</div>
+	
 </template>
 
 <script>
@@ -107,7 +111,7 @@
 					}],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
+					// "IsShow": true,
 					upload: true
 
 				},

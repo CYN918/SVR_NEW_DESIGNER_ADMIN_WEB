@@ -1,5 +1,8 @@
 <template>
+<div>
+	<common-top :commonTopData="newprojectTopData"></common-top>
 	<div class="wh Detail" ref="height" v-loading="loading">
+		
 		<div class="detailtitle">
 			<span class="fleft">{{ currentpageName }}</span>
 			<div class="employment" style="text-align: center;">
@@ -353,6 +356,7 @@
 			</div>
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
@@ -448,6 +452,14 @@
 					"IsShow": true,
 				},
 				screenConfig: [],
+				newprojectTopData:[{
+					"pageName": "newproject",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+					upload: true
+				}],
 				tableConfig: {
 					"pageName": "newActivity",
 					total: 0,
@@ -501,7 +513,8 @@
 			VueUeditorWrap,
 			commonTable,
 			commonTable3,
-			upload
+			upload,
+			commonTop
 		},
 		methods: {
 			userdetail(open_id){

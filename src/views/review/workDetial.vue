@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="workDetialTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -369,14 +371,27 @@
 			<img style="max-height: 700px;" :src="imgurl" alt="暂无图片">
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	import reviewData from "@/assets/reviewData.js"
 	export default {
 		props: ['detailData', 'roles'],
+		components:{
+			commonTop
+		},
 		data() {
 			return {
+				workDetialTopData:{
+					"pageName": "workDetial",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+					upload: true
+				},
 				text100: '',
 				text30: "",
 				length10: 0,
