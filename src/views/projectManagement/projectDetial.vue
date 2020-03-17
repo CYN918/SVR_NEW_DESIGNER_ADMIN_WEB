@@ -114,12 +114,12 @@
 			</div>
 			<div v-if="tabsnum == 5">
 				<div class="question_00">
-					<div class="question_01">{{datad}}</div>
+					<!-- <div class="question_01">{{datad}}</div> -->
 					<ul class="question_02">
 						<li v-for="(el,index) in List" :key="index">
 							<div class="ques_01">{{el.sort+'、'+el.question}}</div>
 							<div class="ques_02" v-if="el.type==1">
-								<label v-for="(el2,key) in el.option" :key="key">
+								<label v-for="(el2,key) in el.option" :key="key" :class="key==postData[el.id]?'teShu':''">
 									<span :class="key==postData[el.id]?'chekdOn':''"></span>
 									{{el2}}
 								</label>
@@ -697,7 +697,7 @@
 				List:[],
 				lisr:[],
 				value:'',
-				datad:'',
+				// datad:'',
 				postData:{},
 				evaluation:'',
 			}
@@ -951,7 +951,7 @@
 					console.log(da.evaluate_result)
 					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
-					this.datad = da.name;
+					// this.datad = da.name;
 					this.evaluation = da.evaluate_result;
 					this.postData = JSON.parse(da.evaluate_result);
 					this.value = JSON.parse(da.evaluate_result)[7]
@@ -1431,6 +1431,10 @@
 		font-weight:400;
 		color:rgba(187,187,187,1);
 		line-height:20px;
+	}
+	.teShu{
+		color: #33B3FF;
+		font-weight: bold;
 	}
 	
 </style>
