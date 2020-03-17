@@ -8,23 +8,23 @@
 					</el-breadcrumb>
 				</div>
 				<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
-					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '12'">
+					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '13'">
+					<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '13'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '14'">
+					<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '14'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '15'">
+					<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '15'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>	
-					<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '16'">
+					<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '16'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
@@ -58,23 +58,23 @@
 				</div>
 
 				<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
-					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '12'">
+					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '13'">
+					<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '13'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '14'">
+					<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '14'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
-					<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '15'">
+					<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '15'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>	
-					<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && newArr[0].id == '16'">
+					<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '16'">
 						<span class="dp fontsize18">审核台</span>
 						<span class="dp sel-badge" v-html="reviewnum">99+</span>
 					</router-link>
@@ -166,7 +166,7 @@
 				user:"",
 				userimg:'../assets/img/MRTX.svg',
 				auditTitle: '',
-				newArr:[],
+				firstId:'',
 			};
 		},
 		methods: {
@@ -527,65 +527,17 @@
 				}).then(da=>{
 					this.adminuseraccess = JSON.stringify(da);
 				})
-			}
-		},
-		created() {
-			this.getuserinfo();
-			this.getBreadcrumb();
-			this.getaccess();
-			// this.getbus();
-			if(localStorage.getItem("adminuseraccess")){
-				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
-			}
-			// console.log(this.adminuseraccess)
-			if(localStorage.getItem("access")){
-				if(JSON.parse(localStorage.getItem("access")).top_banner != 'undefined'){
-					this.auditTitle = JSON.parse(localStorage.getItem("access")).top_banner[0].child[0].title;
-					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
+			},
+			getaccess_list() {
+				this.api.access({
+					access_token:localStorage.getItem("access_token")
+				}).then((da) => {
+					let accessArry = da.data.top_banner;
 					for(var i = 0;i < accessArry.length;i++){
 						if(accessArry[i].id == '11'){
-							this.newArr = accessArry[i].child;
-							// console.log(this.newArr)
-							let arr = [];
-							this.newArr.forEach(element => {		
-								if(element.id == '12'){
-									arr.push(1)
-								}
-								if(element.id == '13'){
-									arr.push(2)
-								}	
-								if(element.id == '14'){
-									arr.push(3)
-								}
-								if(element.id == '15'){
-									arr.push(4)
-								}
-								if(element.id == '16'){
-									arr.push(5)
-								}	
-							});
-							let str = arr.toString();
-							this.gettodoCount(str);				
-						}
-					}
-				}else{
-					console.log(2)
-				}
-			}
-		},
-		mounted() {
-			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
-			localStorage.setItem("screenShowDataChange","");
-			
-			var access = [];
-			if(localStorage.getItem("access")){
-				access = JSON.parse(localStorage.getItem("access"));
-				// console.log(access.top_banner)
-				if(access.top_banner != 'undefined'){
-					let accessArry = JSON.parse(localStorage.getItem("access")).top_banner;
-					for(var i = 0;i < accessArry.length;i++){
-						if(accessArry[i].id == '11'){
-							let newArr = accessArry[i].child;
+							var newArr = accessArry[i].child;
+							this.firstId = newArr[0].id;
+							console.log(this.firstId)
 							let arr = [];
 							newArr.forEach(element => {		
 								if(element.id == '12'){
@@ -608,6 +560,27 @@
 							this.gettodoCount(str);				
 						}
 					}
+
+				})
+			}
+		},
+		created() {
+			this.getuserinfo();
+			this.getBreadcrumb();
+			this.getaccess();
+			this.getaccess_list();
+			// this.getbus();
+			
+		},
+		mounted() {
+			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			localStorage.setItem("screenShowDataChange","");
+			
+			var access = [];
+			if(localStorage.getItem("access")){
+				access = JSON.parse(localStorage.getItem("access"));
+				// console.log(access.top_banner)
+				if(access.top_banner != 'undefined'){
 					access.top_banner.forEach(element => {
 						element.child.forEach(item => {
 							if(item.id == '16'){
