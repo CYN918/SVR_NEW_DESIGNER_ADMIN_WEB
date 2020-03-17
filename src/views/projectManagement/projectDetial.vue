@@ -17,7 +17,7 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span  v-else-if="index == 5 && postData != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				<span  v-else-if="index == 5 && evaluation != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
@@ -119,8 +119,8 @@
 						<li v-for="(el,index) in List" :key="index">
 							<div class="ques_01">{{el.sort+'、'+el.question}}</div>
 							<div class="ques_02" v-if="el.type==1">
-								<label @click="chekdeal_type(el.id,key)" v-for="(el2,key) in el.option" :key="key">
-									<span readonly :class="key==postData[el.id]?'chekdOn':''"></span>
+								<label v-for="(el2,key) in el.option" :key="key">
+									<span :class="key==postData[el.id]?'chekdOn':''"></span>
 									{{el2}}
 								</label>
 							</div>													
@@ -699,6 +699,7 @@
 				value:'',
 				datad:'',
 				postData:{},
+				evaluation:'',
 			}
 		},
 		methods: {
@@ -947,10 +948,11 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					// console.log(this.postData)
+					console.log(da.evaluate_result)
 					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
 					this.datad = da.name;
+					this.evaluation = da.evaluate_result;
 					this.postData = JSON.parse(da.evaluate_result);
 					this.value = JSON.parse(da.evaluate_result)[7]
 					this.desc = JSON.parse(da.desc);
