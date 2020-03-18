@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh">
@@ -91,6 +93,7 @@
 			</div>
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
@@ -114,15 +117,9 @@
 				dialogTableVisible:false,
 				commonTopData: {
 					"pageName": "addbannerScheme",
-					"commonleftbtn": [{
-							name: "筛选",
-							id: "left1",
-							url: ""
-						}
-					],
+					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
 				},
 				screenConfig: [],
 				tableConfig: {

@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh">
@@ -26,10 +28,15 @@
 			<button class="defaultbtn defaultbtnactive" @click="edit()" v-if="id">确认修改</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailData: '',
@@ -39,7 +46,13 @@
 				num:this.$route.query.num,
 				name:this.$route.query.name,
 				status:this.$route.query.status,
-				currentpageName:""
+				currentpageName:"",
+				commonTopData: {
+					"pageName": "reviseActivity",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 			}
 		},
 		methods: {

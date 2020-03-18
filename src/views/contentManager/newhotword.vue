@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">编辑干预任务</div>
 		<div class="detailContent1 ofh">
@@ -36,10 +38,15 @@
 			<button class="defaultbtn defaultbtnactive" v-if="row" @click="edit()">确认</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailData: '',
@@ -53,7 +60,14 @@
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
 					{name:"第四位",id:"4"}
-				]
+				],
+				commonTopData: {
+					"pageName": "newhotword",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+				},
 			}
 		},
 		methods: {

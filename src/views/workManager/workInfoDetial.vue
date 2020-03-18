@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -207,11 +209,16 @@
 			</span>
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	import workData from "../../assets/workData.js"
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				tabData: [{
@@ -243,7 +250,14 @@
 				fid:"",
 				centerDialogVisible5:false,
 				oneload:{},
-				adminuseraccess:[]
+				adminuseraccess:[],
+				commonTopData: {
+					"pageName": "workInfoDetial",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					// "IsShow": true,
+				},
 			}
 		},
 		methods: {

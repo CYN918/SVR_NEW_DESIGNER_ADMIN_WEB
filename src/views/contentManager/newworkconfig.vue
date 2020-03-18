@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail" v-loading="loading">
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent ofh">
@@ -101,6 +103,7 @@
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -129,15 +132,10 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "newlistAd",
-					"commonleftbtn": [{
-							name: "筛选",
-							id: "left1",
-							url: ""
-						}
-					],
+					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
+					
 				},
 				screenConfig: [],
 				tableConfig: {

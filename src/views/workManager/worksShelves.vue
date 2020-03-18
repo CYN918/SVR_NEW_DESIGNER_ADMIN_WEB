@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -88,6 +90,7 @@
 			<common-screen :pageName="pageName"></common-screen>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -110,15 +113,9 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "worksShelves",
-					"commonleftbtn": [{
-							name: "筛选",
-							id: "left1",
-							url: ""
-						}
-					],
+					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
 				},
 				screenConfig: [],
 				tableConfig: {
@@ -465,10 +462,6 @@
 		border-color: #FF5121;
 	}
 
-	.ctcontent {
-		background: white;
-		margin-bottom: 20px;
-	}
 
 	.paddingb10 {
 		padding-bottom: 10px;
@@ -478,10 +471,10 @@
 		padding: 10px 0;
 	}
 
-	.cttitle {
+	/* .cttitle {
 		line-height: 60px;
 		padding-bottom: 20px;
-	}
+	} */
 
 	.tagbts {
 		display: flex;

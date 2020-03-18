@@ -535,6 +535,7 @@
 		border-top: 1px solid #E6E6E6;
 	}
 	
+	
 	/* .el-button--small, .el-button--small.is-round{
 		width: 100px;
 		height: 40px;

@@ -132,9 +132,9 @@ input{
 	font-size: 18px;
 }
 
-.margin40{
-	margin:0 10px;
-}
+// .margin40{
+// 	margin:0 10px;
+// }
 
 .ofh {
 	overflow: hidden;
@@ -151,7 +151,7 @@ input{
 }
 
 .el-button--text:focus, .el-button--text:hover{
-	color:#ff5121;
+	color:#33B3FF;
 }
 
 #app .el-select-dropdown__item.hover,#app .el-select-dropdown__item:hover,#app .btnorgle:hover{
@@ -167,7 +167,7 @@ input{
 	width: 100px;
 	height: 32px;
 	border-radius: 5px;
-	margin-left: 30px;
+	margin-left: 10px;
 	border:1px solid #999999;
 	background: transparent;
 	border-radius: 5px;
@@ -196,15 +196,17 @@ input{
 }
 
 #app .defaultbtnactive:hover{
-	background: #FF6940 !important;
+	background: #33B3FF !important;
 	color: #ffffff !important;
-	border-color: #FF6940 !important;
+	border-color: #33B3FF !important;
+	cursor: pointer;
 }
 
 #app .defaultbtn:hover{
-	background: rgba(255,81,33,0.05);
-	color: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	color: #ffffff;
+	border-color: #33B3FF;
+	cursor: pointer;
 }
 
 // .borderb{
@@ -315,8 +317,8 @@ input{
 }
 
 .el-checkbox__input.is-checked .el-checkbox__inner {
-	background-color: #ff5121 !important;
-	border-color: #ff5121 !important;
+	background-color: #33B3FF !important;
+	border-color: #33B3FF !important;
 }
 
 .el-select .el-input.is-focus .el-input__inner{
@@ -894,14 +896,14 @@ input{
 	}
 
 	#app .el-pager li.active {
-		border-color: #FF5121;
-		background-color: #FF5121;
+		border-color: #33B3FF;
+		background-color: #33B3FF;
 		color: white;
 	}
 
 	.el-dropdown-link {
 		cursor: pointer;
-		color: #FF5121;
+		color: #33B3FF;
 		// padding-left: 20px;
 	}
 
@@ -926,7 +928,7 @@ input{
 	}
 
 	.el-button--text {
-		color: #FF5121;
+		color: #33B3FF;
 	}
 
 	#app .el-checkbox__inner:hover {

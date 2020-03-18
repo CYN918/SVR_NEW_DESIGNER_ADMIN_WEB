@@ -1205,7 +1205,7 @@ const screenData = {
 		},
 		labels:{
 			bts:[
-				{prop:'label',lable:'标签词',width:150},
+				{prop:'label',lable:'标签词'},
 				{prop:'count',lable:'作品标注数'}
 			],
 			action:{
@@ -1812,11 +1812,11 @@ const screenData = {
 		},
 		noticetemplate:{
 			bts:[
-				{lable:"通知模板ID",prop:"id",width:200},
-				{lable:"通知标题",prop:"title",width:300},
-				{lable:"通知触发场景说明",prop:"condition",width:300},
-				{lable:"通知内容",prop:"content",width:300},
-				{lable:"最近更新时间",prop:"updated_at",width:300},
+				{lable:"通知模板ID",prop:"id"},
+				{lable:"通知标题",prop:"title"},
+				{lable:"通知触发场景说明",prop:"condition"},
+				{lable:"通知内容",prop:"content"},
+				{lable:"最近更新时间",prop:"updated_at"},
 			],
 			action:{
 				is_hidden:true,

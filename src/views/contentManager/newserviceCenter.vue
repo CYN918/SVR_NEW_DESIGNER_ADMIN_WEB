@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail" ref="height">
 		<div class="detailtitle">
 			<span class="fleft">编辑文档</span>
@@ -90,11 +92,12 @@
 			<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows.id" @click="edit()">确 定</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
 	import VueUeditorWrap from 'vue-ueditor-wrap'
-
+    import commonTop from '@/components/commonTop.vue'
 	export default {
 		data() {
 			return {
@@ -122,7 +125,7 @@
 				myConfig: {
 					maximumWords:100000000,
 					autoHeightEnabled: false,
-					initialFrameHeight: 200,
+					initialFrameHeight: 500,
 					initialFrameWidth: '100%',
 					UEDITOR_HOME_URL: '/UEditor/',
 					serverUrl:'http://139.129.221.123/File/File/insert',
@@ -143,12 +146,20 @@
 				],
 				ifBjType:0,
 				rows:{},
-				uptype:"img"
+				uptype:"img",
+				commonTopData: {
+					"pageName": "newserviceCenter",
+					"commonleftbtn": [],
+					
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 				
 			}
 		},
 		components: {
-			VueUeditorWrap
+			VueUeditorWrap,
+			commonTop
 		},
 		methods: {
 			cent(){

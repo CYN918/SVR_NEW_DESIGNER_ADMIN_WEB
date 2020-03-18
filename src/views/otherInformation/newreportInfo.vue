@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">新建举报分类预设</div>
 		<div class="detailContent1 ofh">
@@ -22,15 +24,26 @@
 		</div>
 		<div class="mainContentMiddenBottom">Copyright @ www.zookingsoft.com, All Rights Reserved.</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailData: '',
 				content: '',
 				status:"1",
+				commonTopData: {
+					"pageName": "newreportInfo",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 			}
 		},
 		methods: {

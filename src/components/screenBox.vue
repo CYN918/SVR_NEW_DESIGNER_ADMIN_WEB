@@ -35,10 +35,6 @@
 </script>
 
 <style>
-.ctcontent {
-	background: white;
-	margin-bottom: 20px;
-}
 
 	.paddingb10 {
 		padding-bottom: 10px;
@@ -48,10 +44,10 @@
 		padding: 10px 0;
 	}
 
-	.cttitle {
+	/* .cttitle {
 		line-height: 60px;
 		padding-bottom: 20px;
-	}
+	} */
 	
 	.tagbts {
 		display: flex;

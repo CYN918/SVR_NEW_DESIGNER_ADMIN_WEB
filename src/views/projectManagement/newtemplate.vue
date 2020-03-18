@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="newtemplateTopData"></common-top>
 	<div class="wh Detail" ref="height">
 		<div class="detailtitle">
 			<span class="fleft">{{ currentpageName }}</span>
@@ -178,6 +180,7 @@
 			
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
@@ -242,6 +245,12 @@
 					"commonbottombtn": [],
 					"IsShow": true,
 				},
+				newtemplateTopData:{
+					"pageName": "newtemplate",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 				screenConfig: [],
 				tableConfig: {
 					"pageName": "newActivity",
@@ -287,7 +296,8 @@
 		components: {
 			VueUeditorWrap,
 			commonTable,
-			upload
+			upload,
+			commonTop
 		},
 		methods: {
 			openproject(){

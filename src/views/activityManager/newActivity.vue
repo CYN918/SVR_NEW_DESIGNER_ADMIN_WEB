@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail" ref="height">
 		<div class="detailtitle">
 			<span class="fleft">{{ currentpageName }}</span>
@@ -323,6 +325,7 @@
 			
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
@@ -396,15 +399,10 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "newActivity",
-					"commonleftbtn": [{
-							name: "筛选",
-							id: "left1",
-							url: ""
-						}
-					],
+					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
+					// "IsShow": true,
 				},
 				screenConfig: [],
 				tableConfig: {
@@ -444,7 +442,8 @@
 		},
 		components: {
 			VueUeditorWrap,
-			commonTable
+			commonTable,
+			commonTop
 		},
 		methods: {
 			checkValue(index){

@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">查看页面</div>
 		<div class="detailContent1 ofh">
@@ -53,14 +55,26 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailData: '',
 				pic:[],
+				commonTopData: {
+					"pageName": "seereportInfo",
+					"commonleftbtn": [],
+					
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 			}
 		},
 		methods: {

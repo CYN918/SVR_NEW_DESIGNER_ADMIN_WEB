@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="addblackTopData"></common-top>
 	<div class="wh Detail" v-loading="IsShow">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -196,6 +198,7 @@
 			<common-screen ref="screen" :pageName="pageName"></common-screen>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -229,6 +232,13 @@
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 					"IsShow": true,
+				},
+				addblackTopData:{
+					"pageName": "addblack",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+					upload: true
 				},
 				screenConfig: [],
 				tableConfig: {
@@ -690,11 +700,6 @@
 		border-color: #FF5121;
 	}
 
-	.ctcontent {
-		background: white;
-		margin-bottom: 20px;
-	}
-
 	.paddingb10 {
 		padding-bottom: 10px;
 	}
@@ -703,10 +708,10 @@
 		padding: 10px 0;
 	}
 
-	.cttitle {
+	/* .cttitle {
 		line-height: 60px;
 		padding-bottom: 20px;
-	}
+	} */
 
 	.tagbts {
 		display: flex;

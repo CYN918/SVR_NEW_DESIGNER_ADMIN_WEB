@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh">
@@ -34,10 +36,15 @@
 			<button class="defaultbtn defaultbtnactive" v-if="rows" @click="edit()">确定</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailData: '',
@@ -46,6 +53,12 @@
 				jump_url: "",
 				rows: "",
 				currentpageName: "",
+				commonTopData: {
+					"pageName": "addHomeBanner",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 			}
 		},
 		methods: {

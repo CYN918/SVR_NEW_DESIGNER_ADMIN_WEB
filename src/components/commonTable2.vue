@@ -2,7 +2,7 @@
 	<div class="wh">
 		<div class="w ctcontent">
 			<div v-if="!commonTopData.is" style="background: white;">
-				<div class="margin40 cttitle" v-if="!commonTopData.tabData">
+				<div class="margin40 cttitle" v-if="!commonTopData.tabData" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
 					<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
 						<el-breadcrumb separator="/" class="fontcolorg">
 							<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
@@ -40,7 +40,7 @@
 					
 					</div>
 				</div>
-				<div class="paddinglr40 relative" style="height: 60px;line-height: 60px;margin-bottom: 20px;" v-else-if="commonTopData.tabData">
+				<div class="paddinglr40 relative" style="height: 60px;line-height: 60px;margin-bottom: 15px;" v-else-if="commonTopData.tabData">
 					<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
 						<el-breadcrumb separator="/" class="fontcolorg">
 							<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
@@ -84,12 +84,12 @@
 					</div>
 				</div>
 			</div>
-			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;">
+			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 				<div class="ofh">
-					<div class="fleft">
+					<div class="fleft" style="float:right;">
 						<el-button class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)">{{ item.name }}</el-button>
 					</div>
-					<div class="fright">
+					<div class="fright" style="float:left;">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
 							<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
 								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="margin40" style="height: 20px;" >
+			<div class="margin40" style="height: 20px;margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
 				<div class="tagbts">
 					<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 					 :disable-transitions="false" @close="handleClose(item.id,index)">
@@ -124,7 +124,7 @@
 		</div>
 		<!-- <div class="transparent"></div> -->
 		<div class="wh" ref="elememt" id="table" v-loading="loading">
-			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" :height="tableHeight" v-loading="loading" @selection-change="handleSelectionChange">
+			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" :height="tableHeight" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="55" type="selection" v-if="tableConfig.ischeck"></el-table-column>
 				<el-table-column width="33" v-if="!tableConfig.ischeck"></el-table-column>
@@ -208,7 +208,7 @@
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<div>
-							<span v-if="tableActions.links && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 14px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
+							<span v-if="tableActions.links && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
 							<el-button @click="handleClick(tableActions.morebtns.fun,scope.row)" type="text" size="small" v-if="tableActions.morebtns && !tableActions.morebtns.child && gettrue(tableActions.morebtns.accessid)">{{ tableActions.morebtns.name(tableActions.morebtns.filterdata ?  scope.row[tableActions.morebtns.filterdata] : '') }}</el-button>
 							<el-dropdown trigger="click" v-if="tableActions.morebtns && tableActions.morebtns.child">
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name }}</span>
@@ -216,7 +216,7 @@
 									<el-dropdown-item v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '',citem.filterdata1 ? scope.row[citem.filterdata1] : '') }}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
-							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#FF5121;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
+							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
 						</div>
 					</template>
 				</el-table-column>
@@ -567,7 +567,7 @@
 			},
 			tabsChange(num){
 				this.tabnums = num;
-				//console.log(this.tabnums)
+				// console.log(this.tabnums)
 				this.gettableConfiglist(this.tabnums);
 				this.getTabData();
 			},
@@ -796,6 +796,7 @@
 					data[this.tableConfig['data'+this.tabnums].name] = this.tableConfig['data'+this.tabnums].id;
 				}
 				this.api[url](data).then((da) => {
+					console.log(da)
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
@@ -893,16 +894,13 @@
 				
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
+					this.filterField = this.filterFields;
 					//console.log(this.tableActions)
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
-				}
-				
-				if(!this.tableAction.num){
-					this.filterField = this.filterFields;
-				} else {
 					this.filterField = this.filterFields['filterFields'+ n];
 				}
+				
 				
 				if(!this.commonTopData.num){
 					this.commonrightbtn = this.commonTopData.commonrightbtn;
@@ -1048,6 +1046,7 @@
 			this.getuserinfo();
 			this.getaccess();
 			this.getaccess_list();
+			this.tabsChange(0);
 		},
 		watch:{
 			"$route":function(){
@@ -1116,10 +1115,6 @@
 		background: rgba(0,0,0,0.5);
 		z-index: 2005;
 	}
-	.ctcontent {
-		/* background: white; */
-		/* margin-bottom: 20px; */
-	}
 	
 	.paddingb10 {
 		padding-bottom: 10px;
@@ -1129,10 +1124,10 @@
 		padding: 10px 0;
 	}
 	
-	.cttitle {
+	/* .cttitle {
 		line-height: 60px;
 		padding-bottom: 20px;
-	}
+	} */
 	
 	.tagbts {
 		display: flex;

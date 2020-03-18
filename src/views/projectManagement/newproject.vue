@@ -143,7 +143,7 @@
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
 						<div class="delect" v-if="selectData1.template_file_id">
-							<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
+							<span class="fontcolorg">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
 						</div>
 					</li>
 					
@@ -452,14 +452,14 @@
 					"IsShow": true,
 				},
 				screenConfig: [],
-				newprojectTopData:[{
+				newprojectTopData:{
 					"pageName": "newproject",
 					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 					// "IsShow": true,
-					upload: true
-				}],
+					// upload: true
+				},
 				tableConfig: {
 					"pageName": "newActivity",
 					total: 0,
@@ -794,6 +794,7 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				this.form.access_token = localStorage.getItem("access_token");
+				this.form.settlement = this.form.want_deal_type;
 				if(this.alertmask() != true){
 					this.$message({
 						message:this.alertmask(),
@@ -1096,7 +1097,7 @@
 					item.module_content = this.$refs.upload[index].form.content;
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
-				
+				this.form.settlement = this.form.want_deal_type
 				
 				
 				if(this.alertmask() != true){
@@ -1288,7 +1289,8 @@
 				var data = {
 					access_token:localStorage.getItem("access_token"),
 					page:pg.pageCurrent,
-					limit:pg.pageSize
+					limit:pg.pageSize,
+					is_contributor:1,
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))\

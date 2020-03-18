@@ -1,7 +1,7 @@
 <template>
 	<div class="w ctcontent">
 		<div v-if="!commonTopData.IsShow" style="background: white;">
-			<div class="margin40 cttitle" v-if="!commonTopData.tabData" style="height: 60px;line-height: 60px;margin-bottom: 15px;">
+			<div class="margin40 cttitle" v-if="!commonTopData.tabData" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
 				<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
 					<el-breadcrumb separator="/" class="fontcolorg">
 						<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
@@ -91,8 +91,8 @@
 				
 			</div>
 		</div>
-		<div>
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 15px;" v-if="commonTopData.option">
+		<div  v-if="commonTopData.option">
+			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 15px;background: none;">
 				<div class="textcenter" style="float: left;">
 					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
@@ -103,13 +103,12 @@
 				</div>
 			</div>
 		</div>
-		
-		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;">
+		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 			<div class="ofh">
-				<div class="fleft">
+				<div class="fleft" style="float:right;">
 					<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</el-button>
 				</div>
-				<div class="fright">
+				<div class="fright" style="float:left;">
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
 						<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
 							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
@@ -132,7 +131,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="margin40 ta">
+		<div class="margin40 ta" style="margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
 			<div class="tagbts">
 				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 				 :disable-transitions="false" @close="handleClose(item.id,index)">
@@ -613,10 +612,6 @@
 </script>
 
 <style>
-	.ctcontent {
-		/* background: white; */
-		/* margin-bottom: 20px; */
-	}
 
 	.paddingb10 {
 		padding-bottom: 10px;

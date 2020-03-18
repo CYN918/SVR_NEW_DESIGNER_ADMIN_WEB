@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail" v-loading="loading">
 		<div class="detailtitle">干预任务</div>
 		<div class="detailContent1 ofh">
@@ -68,6 +70,7 @@
 			</div>
 		</el-dialog>
 	</div>
+</div>
 </template>
 
 <script>
@@ -122,15 +125,9 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "newprojectrecommende",
-					"commonleftbtn": [{
-							name: "筛选",
-							id: "left1",
-							url: ""
-						}
-					],
+					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					"IsShow": true,
 				},
 				screenConfig: [],
 				tableConfig: {

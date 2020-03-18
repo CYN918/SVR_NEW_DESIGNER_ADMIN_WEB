@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">查看用户信息</div>
 		<div style="overflow-y: auto;height:calc(100% - 40px);width: 100%;">
@@ -85,13 +87,24 @@
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components:{
+			commonTop
+		},
 		data(){
 			return{
-				detailData:''
+				detailData:'',
+				commonTopData:{
+					"pageName":"userPersonalInfoDetail",
+					"commonleftbtn":[],
+				    "commonrightbtn":[],
+					"commonbottombtn":[],
+				},
 			}
 		},
 		methods:{

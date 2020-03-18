@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<span class="fleft worktabs">
@@ -87,11 +89,16 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	import workData from "../../assets/workData.js"
 	export default {
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				detailbtn:true,
@@ -104,8 +111,13 @@
 				orderinfo:{},
 				workData:workData.orderDetial,
 				check_admin_name:"",
-				hire_time:""
-				
+				hire_time:"",
+				commonTopData: {
+					"pageName": "orderDetial",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},	
 			}
 		},
 		methods: {

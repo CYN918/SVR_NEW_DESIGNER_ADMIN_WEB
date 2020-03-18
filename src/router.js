@@ -19,7 +19,7 @@ var router = new Router({
 			component: Layout,
 			redirect: '/userManager/userBaseInfo',
 			meta: {
-				title: "用户管理"
+				title: "用户"
 			},
 			children: [{
 					path: 'userBaseInfo',
@@ -241,7 +241,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/power/roleManager",
 			meta: {
-				title: "权限管理"
+				title: "权限"
 			},
 			children: [
 				{
@@ -311,7 +311,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/workManager/workInfo",
 			meta: {
-				title: "作品管理"
+				title: "作品"
 			},
 			children:[
 				{
@@ -392,7 +392,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/activityManager/activityClass",
 			meta: {
-				title: "活动管理"
+				title: "活动"
 			},
 			children:[
 				{
@@ -463,7 +463,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/contentManager/homeBanner",
 			meta: {
-				title: "内容管理"
+				title: "内容"
 			},
 			children:[
 				{
@@ -696,7 +696,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/employmentManager/employmentorder",
 			meta: {
-				title: "录用管理"
+				title: "录用"
 			},
 			children:[
 				{
@@ -733,7 +733,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/otherInformation/embodyRecord",
 			meta: {
-				title: "其他信息及设置"
+				title: "其他"
 			},
 			children:[
 				{
@@ -837,7 +837,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/noticeManager/newsRelease",
 			meta: {
-				title: "消息通知管理"
+				title: "通知"
 			},
 			children:[
 				{
@@ -883,7 +883,7 @@ var router = new Router({
 			name: 'Layout',
 			redirect:"/projectManagement/projectclass",
 			meta: {
-				title: "项目管理"
+				title: "项目"
 			},
 			children:[
 				{

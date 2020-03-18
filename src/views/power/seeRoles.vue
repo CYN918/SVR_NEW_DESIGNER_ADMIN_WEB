@@ -1,5 +1,8 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
+		
 		<div class="detailtitle">查看页面</div>
 		<div class="detailContent1 ofh">
 			<ul>
@@ -31,10 +34,15 @@
 			<button class="defaultbtn" @click="getparent()">返回</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		props: ['detailData', 'roles'],
 		data() {
 			return {
@@ -50,6 +58,13 @@
 				rolename: "--",
 				roleintroduce: "--",
 				permissions: [],
+				commonTopData: {
+					"pageName": "seeRoles",
+					"commonleftbtn": [],
+					
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 			}
 		},
 		methods: {

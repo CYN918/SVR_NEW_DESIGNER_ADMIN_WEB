@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">设置角色</div>
 		<div class="detailContent1 ofh">
@@ -55,10 +57,15 @@
 			<button class="defaultbtn defaultbtnactive" @click="setrole()">提交</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
+		components: {
+			commonTop
+		},
 		props: ['detailData','roles'],
 		data() {
 			return {
@@ -80,7 +87,14 @@
 				rolesData:[],
 				role_ids:[],
 				rows:JSON.parse(this.$route.query.row),
-				checkedKeys:[]
+				checkedKeys:[],
+				commonTopData: {
+					"pageName": "setRoles",
+					"commonleftbtn": [],
+					
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 			}
 		},
 		methods: {
