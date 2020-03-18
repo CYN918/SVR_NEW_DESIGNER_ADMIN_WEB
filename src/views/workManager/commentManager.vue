@@ -368,9 +368,9 @@
 	}
 	
 	.numberactive{
-		background: #FF5121;
-		color: white;
-		border-color: #FF5121;
+		background: #33B3FF;
+		color: #FFFFFF;
+		border-color: #33B3FF;
 	}
 	
 	.fontactive{

@@ -109,7 +109,7 @@
 						</el-select>
 						<div class="configbtn">
 							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">11</span>
-							<button @click="reject1" class="defaultbtn" style="width: auto;padding: 0 10px;background: #000000;color: white;margin: 0;margin-top: 10px;">选择模板一建配置</button>
+							<button @click="reject1" class="defaultbtn" style="width: auto;padding: 0 10px;color: #666666;margin: 0;margin-top: 10px;border-color:#BBBBBB;">选择模板一建配置</button>
 						</div>
 					</li>
 					<li class="margint23 ofh">
@@ -128,7 +128,7 @@
 									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
 									<span class="fright">{{ fields.length }}/10</span>
 								</div>
-								<button class="fleft defaultbtn" style="background: #000000;color: white;margin-left: 10px;"  @click="addtag">添加</button>
+								<button class="fleft defaultbtn" style="background: #33B3FF;color: #FFFFFF;margin-left: 10px;border-color: #33B3FF;"  @click="addtag">添加</button>
 							</div>
 							<div style="margin-left: 160px;margin-top: 10px;">
 								<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"

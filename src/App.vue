@@ -541,8 +541,8 @@ input{
 }
 
 .work .el-button--primary{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 
 .el-button--mini, .el-button--small{
@@ -781,14 +781,14 @@ input{
 
 	.el-radio__input.is-checked .el-radio__inner,
 	.el-button--primary {
-		background: #FF5121;
-		border-color: #FF5121;
+		background: #33B3FF;
+		border-color: #33B3FF;
 	}
 
 	.el-button--primary:focus,
 	.el-button--primary:hover {
-		background: #FF5121;
-		border-color: #FF5121;
+		background: #33B3FF;
+		border-color: #33B3FF;
 	}
 
 	[class*=" el-icon-"],
@@ -986,9 +986,9 @@ input{
 	}
 	
 	.numberactive{
-		background: #FF5121;
-		color: white;
-		border-color: #FF5121;
+		background: #33B3FF;
+		color: #FFFFFF;
+		border-color: #33B3FF;
 	}
 	
 	.fontactive{
