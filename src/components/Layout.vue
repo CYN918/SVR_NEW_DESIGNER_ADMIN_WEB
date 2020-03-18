@@ -197,7 +197,7 @@
 		height: calc(100% - 0px);
 		background: #f0f2f5;
 		padding: 0px 20px 20px 20px;
-		overflow: hidden;
+		overflow-y: scroll;
 	}
 	
 	
