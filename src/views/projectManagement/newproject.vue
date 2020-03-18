@@ -1079,15 +1079,26 @@
 			createdactivity(){
 				
 				if(this.form.rule_type == 1){
+					
 					this.form.status = 0;
 				} else{
-					this.form.status = 3;
-					let openids = ''
-					// console.log(this.selectelists3)
-					// for(let key in this.selectelists3){
-					// 	openids+= key;
-					// }
-					this.form.open_id = this.selectelists[0].open_id;
+					if(this.selectelists.length == '0'){
+						this.$message({
+							message:"请选择指定制作人",
+							type:"error"
+						})
+						return;
+					}else{
+						this.form.status = 3;
+						let openids = ''
+						// console.log(this.selectelists3)
+						// for(let key in this.selectelists3){
+						// 	openids+= key;
+						// }
+						this.form.open_id = this.selectelists[0].open_id;
+
+					}
+					
 				}
 				
 				this.form.demand_id = this.dids.join(',');
