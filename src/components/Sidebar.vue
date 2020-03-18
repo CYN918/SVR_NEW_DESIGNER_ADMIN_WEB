@@ -13,7 +13,7 @@
 					<span slot="title">{{ item.title }}</span>
 				</template>
 				<router-link v-if="item.child && item.child.length != 0 && url[citem.id]"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
-					<el-menu-item :index="url[citem.id]" ><span>{{ citem.title }}</span></el-menu-item>
+					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
 			</el-submenu>
 			<!-- <el-submenu index="7">
@@ -280,13 +280,14 @@
 		color: #33B3FF;
 	}
 	.el-menu-item:hover{
-		background: rgba(51,179,255,1);
-		opacity:0.5;
+		// background: rgba(51,179,255,1);
+		// opacity:0.5;
+	    color: #33B3FF;
 	}
-	.el-menu-item:hover span{
-		color: #33B3FF;
-		opacity: 1;
-	}
+	// .el-menu-item:hover span{
+	// 	color: #33B3FF;
+	// 	opacity: 1;
+	// }
 	.el-submenu__title span{
 		right: 45px;
         position: absolute;

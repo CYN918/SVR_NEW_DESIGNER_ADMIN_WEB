@@ -277,7 +277,7 @@ input{
 	color: #33B3FF !important; 
 }
 
-#app .el-submenu__title:hover,#app .el-menu-item:focus, #app .el-menu-item:hover{
+#app .el-submenu__title:hover,#app .el-menu-item:focus{
 	background-color: #ffede8 !important;
 	color: #33B3FF !important;
 }
