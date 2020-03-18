@@ -151,6 +151,14 @@
 		mounted() {
 			this.getMenu();
 			this.seeroles();
+		},
+		created(){
+			if(this.$route.query.name){
+				this.length10 = this.$route.query.name.length
+			}
+			if(this.$route.query.description){
+				this.length30 = this.$route.query.description.length
+			}
 		}
 	}
 </script>

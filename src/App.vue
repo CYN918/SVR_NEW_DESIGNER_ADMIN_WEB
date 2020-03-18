@@ -459,13 +459,13 @@ input{
 }
 
 #app .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
-	background-color: #FF5121;
-    border-color: #FF5121;
+	background-color: #33B3FF;
+    border-color: #33B3FF;
 }
 
 #app .el-checkbox__input.is-disabled.is-indeterminate .el-checkbox__inner {
-	background-color: #FF5121;
-	border-color: #FF5121;
+	background-color: #33B3FF;
+	border-color: #33B3FF;
 }
 
 .el-radio__input.is-checked+.el-radio__label{
@@ -932,7 +932,7 @@ input{
 	}
 
 	#app .el-checkbox__inner:hover {
-		border-color: #FF5121;
+		border-color: #33B3FF;
 	}
 	
 	.maskimg{
@@ -947,8 +947,8 @@ input{
 
 	.el-checkbox__input.is-checked .el-checkbox__inner,
 	.el-checkbox__input.is-indeterminate .el-checkbox__inner {
-		background-color: #FF5121;
-		border-color: #FF5121;
+		background-color: #33B3FF;
+		border-color: #33B3FF;
 	}
 	
 	.el-pager li.btn-quicknext, .el-pager li.btn-quickprev{
