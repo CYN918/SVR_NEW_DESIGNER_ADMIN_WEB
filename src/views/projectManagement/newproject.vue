@@ -424,13 +424,13 @@
 						name:"来电秀"
 					},
 					{
-						id:"6",
-						name:"其他"
-					},
-					{
 						id:"7",
 						name:"杂志锁屏"
-					}	
+					},	
+					{
+						id:"6",
+						name:"其他"
+					}
 				],
 				tableData3:[],
 				ifBjType:0,
