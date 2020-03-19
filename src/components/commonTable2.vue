@@ -917,7 +917,7 @@
 				}).then(da =>{
 					//alert(1);
 					//console.log(da);
-					this.doCount = da;
+					// this.doCount = da;
 					this.reviewnum = da.total;
 					// eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
