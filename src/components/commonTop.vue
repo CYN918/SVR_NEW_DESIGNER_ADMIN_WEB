@@ -45,6 +45,7 @@
 						<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
 					</el-breadcrumb>
 				</div>
+				
 				<div class="textcenter" style="width: 70%;float:left;">
 					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabData" v-if="index < 3 && (adminuseraccess.indexOf(item.accessid) > -1)" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
@@ -423,21 +424,7 @@
 				}
 				
 			},
-			gettodoCount(str){
-				this.api.todoCount({
-					access_token:localStorage.getItem("access_token"),
-					permissions:str,
-				}).then(da =>{
-					//alert(1);
-					//console.log(da);
-					this.doCount = da;
-					this.reviewnum = da.total;
-					// eventBus.$emit("reviewnum",da.total);
-					//console.log(this.doCount)
-				}).catch(da=>{
-					
-				})
-			},
+			
 			getuserinfo(){
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
@@ -452,8 +439,8 @@
 					permissions:str,
 				}).then(da =>{
 					//alert(1);
-					//console.log(da);
-					let doCount = da;
+					// console.log(da);
+					this.doCount = da;
 					this.reviewnum = da.total;
 					// eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
@@ -642,6 +629,9 @@
 	
 	.badge .el-badge__content.is-fixed{
 		top:13px
+	}
+	.el-badge__content{
+		background: #33B3FF;
 	}
 	
 	.marginl0{

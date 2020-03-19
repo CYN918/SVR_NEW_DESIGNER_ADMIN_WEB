@@ -917,7 +917,7 @@
 				}).then(da =>{
 					//alert(1);
 					//console.log(da);
-					let doCount = da;
+					this.doCount = da;
 					this.reviewnum = da.total;
 					// eventBus.$emit("reviewnum",da.total);
 					//console.log(this.doCount)
@@ -1159,6 +1159,9 @@
 	
 	.badge .el-badge__content.is-fixed{
 		top:13px
+	}
+	.el-badge__content{
+		background: #33B3FF;
 	}
 	
 	.marginl0{

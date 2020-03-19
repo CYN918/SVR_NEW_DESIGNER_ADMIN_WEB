@@ -541,7 +541,7 @@
 						name: "业务类型",
 						id: "business_type",
 						type:"keyvalue",
-						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他"}
+						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}
 					},
 					{
 						name: "banner",
@@ -1570,6 +1570,9 @@
 .el-radio-group{
 	width: 260px;
     float: left;
+}
+.Detail{
+	background: #FFF;
 }
 
 </style>

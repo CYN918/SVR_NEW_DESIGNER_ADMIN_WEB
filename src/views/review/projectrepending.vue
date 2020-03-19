@@ -186,6 +186,12 @@
 									if(item == '5'){
 										a += '来电秀' + ",";
 									}
+									if(item == '6'){
+										a += '其他' + ",";
+									}
+									if(item == '7'){
+										a += '杂志锁屏' + ",";
+									}
 								})
 								this.commonTopData.commonbottombtn.push({btnName:item.name,val:a.substring(0,a.lastIndexOf(',')),id:item.id})
 							}
