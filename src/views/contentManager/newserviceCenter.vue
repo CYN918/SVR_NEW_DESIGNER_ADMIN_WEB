@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="wh Detail" ref="height">
 	<common-top :commonTopData="commonTopData"></common-top>
-	<div class="wh Detail" ref="height">
+	<div style="background: white;">
 		<div class="detailtitle">
 			<span class="fleft">编辑文档</span>
 			<div class="employment" style="text-align: center;">
@@ -125,7 +125,7 @@
 				myConfig: {
 					maximumWords:100000000,
 					autoHeightEnabled: false,
-					initialFrameHeight: 500,
+					initialFrameHeight: 200,
 					initialFrameWidth: '100%',
 					UEDITOR_HOME_URL: '/UEditor/',
 					serverUrl:'http://139.129.221.123/File/File/insert',
@@ -452,9 +452,7 @@
 </script>
 
 <style>
-	.Detail {
-		background: white;
-	}
+	
 
 	.detailtitle {
 		padding-left: 40px;

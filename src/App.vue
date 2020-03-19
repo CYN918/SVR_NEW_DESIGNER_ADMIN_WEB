@@ -549,9 +549,9 @@ input{
 	font-size: 14px
 }
 
-.Detail {
-		background: white;
-	}
+// .Detail {
+// 		background: white;
+// 	}
 
 	.Dialogkey {
 		margin: 0 33px 26px 66px;
