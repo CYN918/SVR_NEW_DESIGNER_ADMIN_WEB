@@ -281,13 +281,22 @@
 							<el-radio-group v-model="want_deal_type">
 								<el-radio-button label="1">买断</el-radio-button>
 								<el-radio-button label="2">分成</el-radio-button>
+								<el-radio-button label="3">预约金+分成</el-radio-button>
 							</el-radio-group>
 						</div>
 					</li>
-					<li class="w ofh" v-if="want_deal_type == '2'">
+					<li class="w ofh" v-if="want_deal_type == '2' || want_deal_type == '3'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
 							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，可分给创作者的比例(单位:%)" v-model="split_proportion"
+							 clearable>
+							</el-input>
+						</div>
+					</li>
+					<li class="w ofh" v-if="want_deal_type == '3'">
+						<div class="textcenter employipt">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">预约金</span>
+							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="填写金额(单位:元)，请确保和线下打款金额一致" v-model="advance_payment"
 							 clearable>
 							</el-input>
 						</div>
@@ -458,6 +467,7 @@
 				},
 				want_deal_type:1,
 				split_proportion:'',
+				advance_payment:'',
 				isbusiness_type:false,
 				is_ruku: '1',
 				rukuOptions: [{
@@ -670,6 +680,7 @@
 						child: {
 							"1": "买断",
 							"2": "分成",
+							"3": "预约金+分成",
 						}
 					},
 					{
@@ -1191,6 +1202,7 @@
 							// gain_share_rate:this.apply_info.gain_share_rate,
 							check_steps: 2,
 							split_proportion:this.split_proportion,
+							advance_payment:this.advance_payment,
 							want_deal_type:this.want_deal_type,
 						}
 					}
@@ -1209,6 +1221,7 @@
 						gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100),
 						check_steps: 2,
 						split_proportion:this.split_proportion,
+						advance_payment:this.advance_payment,
 						want_deal_type:this.want_deal_type,
 					}
 				}		
@@ -1518,6 +1531,8 @@
 										this.audit1 = val.id;
 									}else if(val.id == '200583'){
 										this.audit1 = val.id;
+									}else if(val.id == '200585'){
+										this.audit1 = val.id;
 									}else if(val.id == '200575'){
 										this.audit2 = val.id;
 									}else if(val.id == '200578'){
@@ -1525,6 +1540,8 @@
 									}else if(val.id == '200581'){
 										this.audit2 = val.id;
 									}else if(val.id == '200584'){
+										this.audit2 = val.id;
+									}else if(val.id == '200586'){
 										this.audit2 = val.id;
 									}
 								})
@@ -1551,7 +1568,7 @@
 	box-shadow: -1px 0 0 0 rgb(0, 0, 0);
 }
 .el-radio-group{
-	width: 140px;
+	width: 260px;
     float: left;
 }
 

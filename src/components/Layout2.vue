@@ -141,8 +141,8 @@
 	}
 
 	.mainContentMidden {
-		width: calc(100% - 40px);
-		height: calc(100% - 175px);
+		// width: calc(100% - 40px);
+		// height: calc(100% - 175px);
 		background: #f0f2f5;
 		padding: 20px;
 		overflow: hidden;

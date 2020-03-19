@@ -92,12 +92,12 @@
 			</div>
 		</div>
 		<div  v-if="commonTopData.option">
-			<div class="paddinglr40 relative" style="height: 58px;border-bottom: 2px solid #f0f2f5;line-height: 58px;margin-bottom: 15px;background: none;">
+			<div class="paddinglr40 relative" style="height: 35px;border-bottom: 2px solid #f0f2f5;line-height: 35px;background: none;">
 				<div class="textcenter" style="float: left;">
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+					<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+					<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
 						<el-badge class="badge">{{ item.name }}</el-badge>
 					</span>
 				</div>

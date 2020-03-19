@@ -52,6 +52,7 @@ input{
 .wh{
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .h{
   height: 100%;
@@ -396,7 +397,7 @@ input{
 }
 
 .calc205{
-	height: calc(100% - 223px);
+	height: calc(100% - 127px);
 }
 
 .detailContent1 {
@@ -1044,7 +1045,7 @@ input:disabled{
 	color: #C0C4CC;
 }
 .el-table{
-	max-height: 628.32px !important;
+	max-height: 700.32px !important;
 }
 
 .el-table th>.cell{

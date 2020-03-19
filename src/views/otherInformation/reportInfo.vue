@@ -377,10 +377,10 @@
 		display: none;
 	}
 
-	.work .el-button--primary {
+	/* .work .el-button--primary {
 		background: #FF5121;
 		border-color: #FF5121;
-	}
+	} */
 	
 	.feed > div{
 		margin-left: 0;

@@ -321,6 +321,24 @@
 									}	
 									this.mxArr.push(obj3)	
 								}
+								if(val.id == '57'){
+									if(val.child.length == '2'){
+										this.check_steps = '0,1';
+									}else{
+										val.child.forEach(da => {
+											if(da.id == '200585'){
+												this.check_steps = 0;
+											}else if(da.id == '200586'){
+												this.check_steps = 1;
+											}
+										})
+									}		
+									let obj4 = {
+										business_type:7,
+										check_steps:this.check_steps,
+									}	
+									this.mxArr.push(obj4)	
+								}
 							})
 						}
 					})

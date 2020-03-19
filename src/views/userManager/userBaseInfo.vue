@@ -503,10 +503,10 @@
 		line-height: 28px;
 	}
 	
-	.el-radio__input.is-checked .el-radio__inner,.el-button--primary{
-		background: #FF5121;
-		border-color: #FF5121;
-	}
+	// .el-radio__input.is-checked .el-radio__inner,.el-button--primary{
+	// 	background: #FF5121;
+	// 	border-color: #FF5121;
+	// }
 	
 	.el-radio__input.is-checked+.el-radio__label{
 		color: #FF5121;

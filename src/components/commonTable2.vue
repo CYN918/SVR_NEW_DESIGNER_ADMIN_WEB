@@ -566,6 +566,7 @@
 				this.centerDialogVisible = !this.centerDialogVisible;
 			},
 			tabsChange(num){
+				console.log(num)
 				this.tabnums = num;
 				// console.log(this.tabnums)
 				this.gettableConfiglist(this.tabnums);

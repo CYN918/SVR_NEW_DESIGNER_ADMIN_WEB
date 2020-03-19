@@ -176,6 +176,7 @@
 					"50":"/userManager/blackList",
 					"200495":"/projectManagement/projectList",
 					"200496":"/projectManagement/projectclass",
+					"200497":"/projectManagement/settlement",
 					"200498":"/projectManagement/Profit",
 					"51":"/contentManager/projectrecommende",
 					"200478":"/contentManager/workconfig",

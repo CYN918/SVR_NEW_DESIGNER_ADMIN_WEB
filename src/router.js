@@ -959,6 +959,15 @@ var router = new Router({
 					component: () => import('@/views/projectManagement/Profit.vue'),
 				},
 				{
+					path:"settlement",
+					name: 'settlement',
+					meta: {
+						title: "分成结算表",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/settlement.vue'),
+				},
+				{
 					path:"projectList/newproject",
 					name: 'newproject',
 					meta: {

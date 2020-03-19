@@ -494,10 +494,10 @@
 		display: none;
 	}
 	
-	.work .el-button--primary{
+	/* .work .el-button--primary{
 		background: #FF5121;
 		border-color: #FF5121;
-	}
+	} */
 	#app .bannerstatus-1{
 		background:lightgray;
 		border-color:lightgray;
