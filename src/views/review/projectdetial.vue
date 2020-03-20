@@ -3,9 +3,9 @@
 	<common-top :commonTopData="projectdetialTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
-			<span class="fleft worktabs">
+			<!-- <span class="fleft worktabs">
 				审核详情
-			</span>
+			</span> -->
 			<div class="textcenter">
 				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 				 @click="tabsChange(index,item.name)" style="height: 33px;">
@@ -15,33 +15,7 @@
 
 		</div>
 		<div class="detailContent1 ofh">
-			<ul v-if="tabsnum == 0">
-				<li class="margint13 ofh" v-for="(item,index) in workData" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ getValue(apply_info[item.id])  }}</span>
-					<div v-if="item.type == 'text1'">
-						<div style="margin-bottom: 10px;" v-for="(citem,index) in getdes(apply_info[item.id])">
-							<div style="margin-left: 160px;">需求说明-{{ index+1 }}</div>
-							<div style="margin-left: 160px;" v-html="citem.module_title"></div>
-							<div style="margin-left: 160px;" v-html="citem.module_content"></div>
-						</div>
-					</div>
-					<span v-if="!item.type">{{ title }}</span>
-					<span v-if="item.type == 'recommend'">{{ apply_info[item.id] ? apply_info[item.id] : "不推荐" }}</span>
-					<span v-else-if="item.type == 'arr'">
-						<span v-for="(citem,index) in getarr(apply_info[item.id])">{{ citem }}</span>
-					</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="apply_info[item.id]" alt="没有图片">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="apply_info[item.id]" alt="没有图片">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="apply_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'imgbanner'"> {{ getValue(apply_info[item.id])  }} </span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="apply_info[item.id]" alt="没有图片">
-					<span v-else-if="item.type == 'keyvalue'">{{ getValue(item.child[apply_info[item.id]])}}</span>
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ getValue(apply_info[item.id]) }}</span>
-					</router-link>
-				</li>
-			</ul>
+			
 			<ul v-if="tabsnum == 1 ">
 				<li class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
 					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
@@ -64,26 +38,12 @@
 					<span v-if="item.type == 'url'" style="color: #FF5121;" @click="openwindow(material_info[item.id])">{{ getValue(material_info[item.id])  }}</span>
 				</li> -->
 			</ul>
-			<ul v-if="tabsnum == 2">
-				<li class="margint13 ofh" v-for="(item,index) in reviewinfocommon" :key="index" :type="item.type">
-					<span v-if="!item.status" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.status && item.status == '-1' && status_info == '-1'" class="fleft" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ getValue(check_info[item.id]) }}</span>
-					<span v-if="item.type == 'status' && status_info == '-1'">{{ getValue(check_info[item.id]) }}</span>
-					<span v-if="!item.type">{{ title }}</span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="check_info[item.id]" alt="没有图片">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="check_info[item.id]" alt="没有图片">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="check_info[item.id]" alt="没有图片">
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="check_info[item.id]" alt="没有图片">
-					<button :class="'workbtn defaultbtn0 defaultbtn'+check_info[item.id]" v-else-if="item.type == 'btn'">
-						{{ getValue(item.child[check_info[item.id]]) }}
-					</button>
-					<span v-else-if="item.type == 'child'">{{ getValue(item.child[check_info[item.id]]) }}</span>
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ getValue(check_info[item.id]) }}</span>
-					</router-link>
-				</li>
-			</ul>
+		</div>
+		<div v-if="tabsnum == 2">
+			<reviewinfocommon :reviewinfocommon="reviewinfocommon"></reviewinfocommon>
+		</div>
+		<div v-if="tabsnum == 0">
+			<workData :reviewinfocommon="apply_info" :material_info="material_info"></workData>
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -450,10 +410,14 @@
 <script>
 	import reviewData from "@/assets/reviewData.js"
 	import commonTop from '@/components/commonTop.vue'
+	import reviewinfocommon from './reviewinfocommon'
+	import workData from './workData'
 	export default {
 		props: ['detailData', 'roles'],
 		components:{
-			commonTop
+			commonTop,
+			reviewinfocommon,
+			workData
 		},
 		data() {
 			return {
@@ -610,143 +574,7 @@
 				detailbtn: true,
 				checkList: [],
 				checkAll: [],
-				reviewinfocommon: [{
-						name: "审核ID",
-						id: "id",
-						type: "text"
-					},
-					{
-						name: "提审项",
-					},
-					{
-						name: "提审用户ID",
-						id: "open_id",
-						type: "text"
-					},
-					{
-						name: "提审用户昵称",
-						id: "username",
-						type: "url"
-					},
-					{
-						name: "提审时间",
-						id: "created_at",
-						type: "text"
-					},
-					{
-						name: "当前审核状态",
-						id: "check_status",
-						type: "btn",
-						child: {
-							"0": "待审核",
-							"1": "审核通过",
-							"-1": "审核驳回",
-							"-2": "失效或撤回"
-						}
-					},
-					{
-						name: "项目评级",
-						id: "level",
-						type: "text"
-					},
-					{
-						name: "绑定需求",
-						id: "demand_id",
-						type: "text"
-					},
-					{
-						name: "是否直接入库",
-						id: "is_ruku",
-						type: "btn",
-						child: {
-							"1": "可直接入库",
-							"2": "需整理后入库",
-						}
-					},
-					{
-						name: "入库素材数量",
-						id: "storage_number",
-						type: "text"
-					},
-					{
-						name: "内容备注",
-						id: "content_remark",
-						type: "text"
-					},
-					{
-						name: "结算方式",
-						id: "deal_type",
-						type: "btn",
-						child: {
-							"1": "买断",
-							"2": "分成",
-							"3": "预约金+分成",
-						}
-					},
-					{
-						name: "最终结算价格",
-						id: "deal_price",
-						type: "text"
-					},
-					{
-						name: "验收价格",
-						id: "acceptance_price",
-						type: "text"
-					},
-					{
-						name: "分成比例",
-						id: "split_proportion",
-						type: "text"
-					},
-					{
-						name: "审核角色",
-						id: "role",
-						type: "text"
-					},
-					{
-						name: "内容审核人",
-						id: "check_admin_content_name",
-						type: "text"
-					},
-					{
-						name: "价格审核人",
-						id: "admin_name",
-						type: "text"
-					},
-					// {
-					// 	name: "AI审核描述",
-					// 	id: "ai_check_desc",
-					// 	type: "text"
-					// },
-					{
-						name: "内容审核时间",
-						id: "content_check_confim_time",
-						type: "text"
-					},
-					{
-						name: "价格审核时间",
-						id: "check_time",
-						type: "text"
-					},
-					{
-						name: "最近更新时间",
-						id: "updated_at",
-						type: "text"
-					},
-					{
-						name:"驳回理由",
-						id:"check_reason",
-						type:"status",
-						status:"-1"
-					},
-					{
-						name:"驳回详细说明",
-						id:"check_comment",
-						type:"status",
-						status:"-1"
-					},
-
-				],
+				reviewinfocommon:{},
 				reviewinfostatus: [],
 				/* status_info: parseInt(this.$route.query.check_status), */
 				status_info: "",
@@ -1361,12 +1189,14 @@
 					id: this.$route.query.id,
 				}).then(da => {
 					//console.log(da)
+					this.reviewinfocommon = da.check_info;
 					this.apply_info = da.project_info;
 					this.check_info = da.check_info;
 					this.material_info = da.file_info;
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
-					this.check_steps = da.project_info.check_steps;
+					this.check_steps = da.check_info.check_steps;
+					console.log(this.check_steps)
 					if(this.check_steps == '1'){
 						this.isShow = false;
 					}
@@ -1517,7 +1347,7 @@
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"))
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
-				console.log(this.business_title)
+				// console.log(this.business_title)
 				this.access.top_banner[0].child.forEach(item => {
 					if(item.id == '16'){
 						item.child.forEach(element => {
@@ -1573,6 +1403,9 @@
 }
 .Detail{
 	background: #FFF;
+}
+.detailContent1 > ul{
+	padding-top: 30px;
 }
 
 </style>

@@ -40,7 +40,7 @@ a:active{text-decoration:none;}
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -271,16 +271,15 @@ input{
 	margin-right: 15px;
 }
 
-#app .el-menu-item.is-active{
-   background-color: #ffede8 !important;
-}
+// #app .el-menu-item.is-active{
+//    background-color: #ffede8 !important;
+// }
 
-#app .is-active i {
+#app .is-active img {
 	color: #33B3FF !important; 
 }
 
-#app .el-submenu__title:hover,#app .el-menu-item:focus{
-	background-color: #ffede8 !important;
+#app .el-submenu__title:hover,#app .el-menu-item:focus,#app .el-submenu__title img:hover{
 	color: #33B3FF !important;
 }
 
@@ -455,7 +454,7 @@ input{
 
 .detailContent1 ul {
 	padding-left: 132px;
-	padding-top: 64px;
+	padding-top: 30px;
 }
 
 #app .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{

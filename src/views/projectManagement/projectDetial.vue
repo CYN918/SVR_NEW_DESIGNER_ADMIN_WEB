@@ -3,9 +3,9 @@
 	<common-top :commonTopData="projectDetialTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
-			<span class="fleft worktabs">
+			<!-- <span class="fleft worktabs">
 				查看作品
-			</span>
+			</span> -->
 			<div class="textcenter">
 				<span v-for="(item,index) in tabData" :key="item.name" v-if="index < 2" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">

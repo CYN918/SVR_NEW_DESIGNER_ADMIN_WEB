@@ -184,15 +184,15 @@
 					
 				},
 				iconfont:{
-					"1": "&#xe602;",
+					"1": "&#xe730;",
 					"18": "&#xe627;",
-					"19": "&#xe62b;",
+					"19": "&#xe601;",
 					"17": "&#xe781;",
 					"5": "&#xe609;",
-					"20": "&#xe730;",
-					"21": "&#xe730;",
-					"8": "&#xe730;",
-					"200494":"&#xe781"
+					"20": "&#xe618;",
+					"21": "&#xe655;",
+					"8": "&#xe62b;",
+					"200494":"&#xe600;"
 				},
 				defaultopeneds:[],
 				fid:"",
@@ -304,13 +304,16 @@
 	.is-active .el-submenu__title span{
 		color: #33B3FF;
 	}
+	.is-active .el-submenu__title .iconfont{
+		color: #33B3FF;
+	}
 	.el-submenu:hover,
 	.is-opened:hover{
 		background: #ffffff !important;
 	}
-	.el-menu .is-active{
-		border-left: 2px solid #33B3FF;
-	}
+	// .el-menu .is-active{
+	// 	border-left: 2px solid #33B3FF;
+	// }
 	.el-menu--vertical .is-active{
 		border-left: none;
 	}

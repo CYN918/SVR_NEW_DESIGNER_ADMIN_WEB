@@ -53,7 +53,7 @@
 		display: flex;
 		align-items:center;
 		height: 100%;
-		overflow-x: auto;
+		/* overflow-x: auto; */
 	}
 	
 	.lefttit{

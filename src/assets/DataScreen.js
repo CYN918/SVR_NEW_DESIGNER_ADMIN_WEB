@@ -1011,7 +1011,7 @@ const screenData = {
 				{prop:'name',lable:'项目名称'},
 				{prop:'classify_name',lable:'项目类型',},
 				{lable:"稿件预览图",prop:"preview_pic",type:"img",width:150},
-				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀"}},
+				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
 				{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
 				{prop:'remark',lable:'备注说明',width:350},
 				{prop:'username',lable:'提审用户昵称'},

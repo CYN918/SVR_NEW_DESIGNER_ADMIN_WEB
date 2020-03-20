@@ -333,20 +333,20 @@
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
-						<div class="fleft">
+						<div class="fleft" style="margin-left:20px;">
 							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
 				<div class="margin40" style="height: 60px;">
-					<div class="tagbts">
+					<div class="tagbts" style="margin-left:20px;">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				<div style="max-height: 600px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 					 ref="Tableddtem"></common-table>
 				</div>
@@ -1831,6 +1831,9 @@
 </script>
 
 <style>
+.el-table__body-wrapper{
+	max-height: 316.76px !important;
+}
 .el-radio-group{
 	width: 100%;
 }

@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2562945",
+      "name": "通知",
+      "font_class": "tongzhi",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "3420425",
+      "name": "项目",
+      "font_class": "xiangmu",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "3630214",
+      "name": "数据",
+      "font_class": "shuju",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "13594039",
+      "name": "tabbar_icon_ly_24_default",
+      "font_class": "tabbar_icon_ly__default",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "166646",
       "name": "文件",
       "font_class": "wenjian",
@@ -18,6 +46,20 @@
       "font_class": "tupian",
       "unicode": "e64a",
       "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "5666392",
+      "name": "视频",
+      "font_class": "shipin-",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "8348151",
+      "name": "文件",
+      "font_class": "wenjian1",
+      "unicode": "e721",
+      "unicode_decimal": 59169
     },
     {
       "icon_id": "1777901",
@@ -55,13 +97,6 @@
       "unicode_decimal": 58923
     },
     {
-      "icon_id": "5666392",
-      "name": "视频",
-      "font_class": "shipin-",
-      "unicode": "e60a",
-      "unicode_decimal": 58890
-    },
-    {
       "icon_id": "5718089",
       "name": "录用管理",
       "font_class": "luyongguanli",
@@ -74,13 +109,6 @@
       "font_class": "yonghuguanli",
       "unicode": "e730",
       "unicode_decimal": 59184
-    },
-    {
-      "icon_id": "8348151",
-      "name": "文件",
-      "font_class": "wenjian1",
-      "unicode": "e721",
-      "unicode_decimal": 59169
     },
     {
       "icon_id": "8414756",
