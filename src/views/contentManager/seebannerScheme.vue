@@ -87,6 +87,29 @@
 					</div>
 				</li>
 			</ul>
+			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+				<draggable v-model="myArray" class="createGoods-show-list">
+					<li v-for ="(item,index) in myArray" :key="item.id">
+						<div class="fleft" style="line-height: 40px;padding-left: 40px;">banner-{{ index+1 }}</div>
+						<ul style="padding-top: 0px;margin-top: 0px;">
+							<!-- <div class="detailtitle">Banner-1</div> -->
+							<li class="margint23 ofh">
+								<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
+								
+								<img :src="item.banner_pic" alt="" width="340px" height="110px">
+							</li>
+							<li class="margint13 ofh">
+								<span class="fleft detailKey" style="line-height: 40px;">banner素材活动</span>
+								<span style="width:357px;height:40px;line-height: 40px;">{{ item.banner_name }}</span>
+							</li>
+							<li class="margint13 ofh">
+								<span class="fleft detailKey" style="line-height: 40px;">跳转链接</span>
+								<span style="width:357px;height:40px;line-height: 40px;">{{ item.jump_url }}</span>
+							</li>
+						</ul>
+					</li>  
+                </draggable>
+			</div>
 		</div>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -100,12 +123,14 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
+	import draggable from 'vuedraggable';
 	
 	export default {
 		
 		components: {
 			commonTop,
 			commonTable,
+			draggable,
 		},
 		data() {
 			return {
@@ -118,6 +143,8 @@
 					"commonrightbtn": [],
 					"commonbottombtn":[],
 				},
+				myArray:[],
+				newArr:[],
 			}
 		},
 		methods: {
@@ -139,12 +166,22 @@
 				}).then(da=>{
 					//console.log(da);
 					this.datadetial = da;
+					this.myArray = da.banner_info;
 				}).catch(da=>{
 					
 				})
 			},
 			editp(){
-				console.log(this.datadetial)
+				var heavyArr = this.unique(this.myArray);
+				heavyArr.forEach(item => {
+					this.newArr.push(item.id)
+					return
+				})
+				// console.log(typeof(JSON.parse(this.datadetial.banner_material_ids)))
+				// console.log(JSON.parse(this.datadetial.banner_material_ids).join(","))
+				// console.log(typeof(this.newArr))
+				// console.log(this.newArr.join(","))
+				
 				this.api.bannerprogramedit({
 					access_token:localStorage.getItem("access_token"),
 					id:this.datadetial.id,
@@ -152,7 +189,7 @@
 					is_default:this.datadetial.is_default,
 					program_begin_time:this.datadetial.program_begin_time,
 					program_end_time:this.datadetial.program_end_time,
-					banner_material_ids:  JSON.parse(this.datadetial.banner_material_ids).join(",")
+					banner_material_ids:  this.newArr.join(",")
 				}).then(da=>{
 					if(da.result == 0){
 						this.$router.go(-1);
@@ -160,6 +197,15 @@
 				}).catch(da=>{
 					
 				})
+			},
+			unique(arr){
+				var newArr = [];
+				for(var i = 0; i < arr.length; i++){
+					if(newArr.indexOf(arr[i]) == -1){
+						newArr.push(arr[i])
+					}
+				}
+				return newArr;
 			}
 		},
 		created() {
