@@ -178,7 +178,7 @@
 								let a = '';	
 								urldata.business_type.split(',').forEach(item => {
 									if(item == '3'){
-										a += '场景锁屏' + ",";
+										a += '场景主题' + ",";
 									}
 									if(item == '4'){
 										a += '个性化主题' + ",";

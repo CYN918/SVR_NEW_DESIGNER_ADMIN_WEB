@@ -139,7 +139,7 @@
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景锁屏","4":"主题"}},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"主题"}},
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},

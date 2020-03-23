@@ -319,7 +319,7 @@
 				tableData2:[
 					{
 						id:"3",
-						name:"场景锁屏"
+						name:"场景主题"
 					},
 					{
 						id:"4",
@@ -328,6 +328,14 @@
 					{
 						id:"5",
 						name:"来电秀"
+					},
+					{
+						id:"6",
+						name:"其他"
+					},
+					{
+						id:"7",
+						name:"杂志锁屏"
 					}	
 				],
 				tabData: [
@@ -376,7 +384,7 @@
 						name:"业务类型",
 						id:"business_type",
 						type:"keyvalue",
-						child:{"3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他"}
+						child:{"3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他"}
 						
 					},
 					{
@@ -643,7 +651,7 @@
 				filterFields0:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -654,7 +662,7 @@
 				filterFields1:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -665,7 +673,7 @@
 				filterFields2:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景锁屏",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},

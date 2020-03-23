@@ -179,7 +179,7 @@
 					if(this.form.business_type != 'undefined'){	
 						let a = '';				
 						(this.form.business_type || '').split(',').forEach(item => {
-							if(item == '场景锁屏'){
+							if(item == '场景主题'){
 								a += 3 + ",";
 							}
 							if(item == '个性化主题'){
@@ -187,6 +187,12 @@
 							}
 							if(item == '来电秀'){
 								a += 5 + ",";
+							}
+							if(item == '其他'){
+								a += 6 + ",";
+							}
+							if(item == '杂志锁屏'){
+								a += 7 + ",";
 							}
 						})
 						this.form.business_type = a.substring(0,a.lastIndexOf(','));	 

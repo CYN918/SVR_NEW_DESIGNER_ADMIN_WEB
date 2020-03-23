@@ -6,7 +6,7 @@
                 <li><span class="left">项目名称</span><span class="right">{{reviewinfocommon.name}}</span></li>
                 <li>
                     <span class="left">业务类型</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '3'">场景锁屏</span>
+                    <span class="right" v-if="reviewinfocommon.business_type == '3'">场景主题</span>
                     <span class="right" v-if="reviewinfocommon.business_type == '4'">个性化主题</span>
                     <span class="right" v-if="reviewinfocommon.business_type == '5'">来电秀</span>
                     <span class="right" v-if="reviewinfocommon.business_type == '6'">其他</span>
