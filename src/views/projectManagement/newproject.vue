@@ -274,13 +274,13 @@
 			<div style="width: 1200px;overflow-x: scroll;"> 
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
-						<div class="fleft">
+						<div class="fleft" style="margin-left:20px;">
 							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
 				<div class="margin40" style="height: 60px;">
-					<div class="tagbts">
+					<div class="tagbts" style="margin-left:20px;">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
@@ -307,13 +307,13 @@
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
-						<div class="fleft">
+						<div class="fleft" style="margin-left:20px;">
 							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
 				<div class="margin40" style="height: 60px;">
-					<div class="tagbts">
+					<div class="tagbts" style="margin-left:20px;">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
