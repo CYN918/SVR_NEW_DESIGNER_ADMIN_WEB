@@ -338,7 +338,7 @@
 													return "验收审核"
 												} else {
 													if(da1 == "3"){
-														// "3":"场景锁屏","4":"个性化主题","5":"来电秀";
+														// "3":"场景锁屏","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏";
 														if(this.adminuseraccess.indexOf("55")>0){
 															return "验收审核"
 														} else {
@@ -356,7 +356,19 @@
 														} else {
 															return "";
 														}
-													} else {
+													} else if(da1 == "6"){
+														if(this.adminuseraccess.indexOf("53")>0){
+															return "验收审核"
+														} else {
+															return "";
+														}														
+													} else  if(da1 == "7"){
+														if(this.adminuseraccess.indexOf("57")>0){
+															return "验收审核"
+														} else {
+															return "";
+														}	
+													}else {
 														return "";
 													}
 												}
@@ -645,7 +657,8 @@
 					type:5,
 					check_status:0,
 					project_id:row.project_id,
-					business_type:row.business_type
+					business_type:row.business_type,
+					blank:'_blank',
 				}})
 				window.open(href, '_blank')
 				

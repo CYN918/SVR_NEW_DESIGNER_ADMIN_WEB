@@ -4,7 +4,7 @@
 	<div class="wh Detail" ref="height" v-loading="loading">
 		
 		<div class="detailtitle">
-			<span class="fleft">{{ currentpageName }}</span>
+			<!-- <span class="fleft">{{ currentpageName }}</span> -->
 			<div class="employment" style="text-align: center;">
 				<span>
 					<span :class="['number',{'numberactive':!Isnextshow}]">1</span>

@@ -908,9 +908,13 @@
 				return a;
 			},
 			getparent() {
-
-				this.$router.go(-1);
-
+				if(this.$route.query.blank){
+					this.$router.push({
+						path:"/projectManagement/projectList",
+					})
+				}else{
+					this.$router.go(-1);
+				}
 			},
 			getValue(val) {
 				if (val) {

@@ -574,7 +574,7 @@
 			},
 			
 			handleClick(fun,row,index) {
-				console.log(fun,row,index)
+				// console.log(fun,row,index)
 				if(this.$parent[fun]){
 					this.$parent[fun](row);
 				}

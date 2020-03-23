@@ -1,4 +1,6 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle">{{ currentpageName }}</div>
 		<div class="detailContent1 ofh" v-if="edit != 'edit'">
@@ -91,6 +93,7 @@
 			<button class="defaultbtn defaultbtnactive" v-if="edit == 'edit'" @click="editp()">确定</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -108,7 +111,13 @@
 			return {
 				edit:this.$route.query.edit,
 				datadetial:{},
-				currentpageName:""
+				currentpageName:"",
+				commonTopData: {
+					"pageName": "seebannerScheme",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn":[],
+				},
 			}
 		},
 		methods: {
