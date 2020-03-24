@@ -1,10 +1,25 @@
 <template>
 	<div class="wh">
 		<div class="wh">
-			<common-top :commonTopData="commonTopData"></common-top>
-			<div class="calc205">
+			<common-top :commonTopData="commonTopData" v-if="tabsnum == 1"></common-top>
+			<common-top :commonTopData="contributeData" v-if="tabsnum == 0"></common-top>
+			<div class="detailtitle ofh relative Detail">
+				<div style="margin-bottom: 32px;">
+					<div class="textcenter">
+						<span style="height: 30px;" :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
+						@click="tabsChange(1)">全部作品</span>
+						<span style="height: 30px;" :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
+						@click="tabsChange(0)">投稿作品</span>
+					</div>
+				</div>
+				
+			</div>
+			<div  style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-if="tabsnum == 1">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
+			</div>
+			<div style="height: calc(100% - 205px);margin-top: 20px;" v-if="tabsnum == 0">
+				<Contribute :tableDatas="tableData" :tableConfig="tableConfig" ref="Tabledd"></Contribute>
 			</div>
 		</div>
 		<el-dialog title="批量操作-设为平台推荐创作者" :visible.sync="centerDialogVisible" width="406px">
@@ -167,11 +182,13 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
+	import Contribute from "./contribute"
 
 	export default {
 		components: {
 			commonTop,
 			commonTable,
+			Contribute,
 		},
 		props: {},
 		data() {
@@ -187,6 +204,7 @@
 				screenShowDataChange: "",
 				IsDetail: false,
 				tabsnum1:0,
+				tabsnum:1,
 				tabData1:[{
 					name: "买断式"
 				}/* , {
@@ -216,6 +234,17 @@
 					],
 					"commonbottombtn": [],
 				},
+				contributeData:{
+					"pageName": "workInfo",
+					"commonleftbtn": [{
+						name: "筛选",
+						id: "left1",
+						url: ""
+					}, ],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+
+				},
 				screenConfig: [],
 				tableConfig: {
 					"pageName": "workInfo",
@@ -239,21 +268,36 @@
 				isajax:0,
 				did:'',
 				demandlist:[],
-				demand_names:[]
+				demand_names:[],
+				adminuseraccess:[],
 			}
 		},
 		methods: {
+			tabsChange(num) {
+				this.tabsnum = num;
+				this.getData({pageCurrent:1,pageSize:50});
+			},
 			setLoding(type){
+				// console.log(type)
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
 				//获取子组件表格数据
-				var data = {
-					access_token: localStorage.getItem("access_token"),
-					page: pg.pageCurrent,
-					limit: pg.pageSize,
-					
+				if(this.tabsnum == '1'){
+					var data = {
+						access_token: localStorage.getItem("access_token"),
+						page: pg.pageCurrent,
+						limit: pg.pageSize,	
+					}
+				}else{
+					var data = {
+						access_token: localStorage.getItem("access_token"),
+						page: pg.pageCurrent,
+						limit: pg.pageSize,
+						is_platform_work: 1,	
+					}
+
 				}
 				//获取筛选的条件
 				//console.log(JSON.parse(this.$route.query.urlDate))
@@ -346,7 +390,7 @@
 				this.centerDialogVisible1 = true;
 			},
 			contributor(info) {
-				console.log(info)
+				// console.log(info)
 				//console.log(this.selectData);
 				var work_ids = this.getworkids();
 				this.centerDialogVisible = false;
@@ -380,7 +424,7 @@
 					    });
 
 					}else{
-						console.log(da)
+						// console.log(da)
 						this.$confirm('有'+ da +'个作品已经是平台推荐作品</br>是否统一将推荐评级修改为'+this.radioS, '确认修改', {
 							confirmButtonText: '确定',
 							cancelButtonText: '取消',
@@ -388,7 +432,7 @@
 							type: '',
 							center: true
 						}).then(() => {
-							console.log(this.radioS)
+							// console.log(this.radioS)
 							let data = {
 								work_id: work_ids,
 								recommend_level: this.radioS,
@@ -730,6 +774,9 @@
 			this.getcommonrightbtn();
 			this.getWorkclassify();
 			this.getdemandlist();
+			if(localStorage.getItem("adminuseraccess")){
+				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"));
+			}
 		},
 		mounted() {
 			//console.log(this.tableConfig)
@@ -838,4 +885,321 @@
 		border-color: #FF5121;
 		color: #FF5121;
 	} */
+	.bannerlistg{
+		width:750px;
+		height:270px;
+		border-radius:5px;
+		border: 1px solid #E6E6E6;
+		margin-bottom: 20px;
+		
+	}
+	
+	.screenContent1{
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		flex-wrap: wrap;
+		justify-content:space-between;
+		padding:0 20px;
+	}
+	
+	#app .defaultbtn1400{
+		margin-right: 20px;
+	}
+	
+	@media screen and (max-width: 1860px) {
+		.bannerlistg{
+			width:calc(50% - 8px);
+			height:270px;
+			border-radius:5px;
+			border: 1px solid #E6E6E6;
+			margin:0 1;
+			margin-bottom: 20px;
+			
+		}
+		
+		.screenContent1{
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+			flex-wrap: wrap;
+			justify-content:space-between;
+			
+		}
+		
+		#app .defaultbtn1400{
+			width: 80px;
+			margin-left: 0;
+			margin-right: 5px;
+		}
+	}
+	
+	
+	
+	.scrollbar{
+		height: calc(100% - 90px);
+		background-color: white;
+		overflow-y: auto;
+	}
+	
+	/* width:calc(50% - 8px); */
+	
+	.bannerlisttag0 {
+		width:100px;
+		height:40px;
+		border-radius:0px 5px 0px 5px;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(255,255,255,1);
+		line-height:40px;
+		text-align: center;
+	}
+	
+	.Detail {
+		background: white;
+	}
+
+	.Dialogkey {
+		margin: 0 33px 26px 66px;
+		width: 84px;
+	}
+
+	.detailtitle {
+		padding-left: 40px;
+		padding-top: 18px;
+	}
+
+	.detailContent1 {
+		height: calc(100% - 139px);
+		overflow-y: auto;
+	}
+
+	.detailContent1>ul {
+		padding-left: 132px;
+		padding-top: 64px;
+	}
+
+	.margint13 {
+		margin-bottom: 13px;
+	}
+
+	.detailKey {
+		width: 160px;
+		font-family: PingFangSC-Regular;
+		font-size: 14px;
+		color: #999999;
+	}
+
+	.detailValueImg {
+		width: 68px;
+		height: 68px;
+		border-radius: 50%;
+		background: red;
+	}
+
+	.detailKeyImg {
+		line-height: 68px;
+	}
+
+	.routerLink {
+		color: #FF5121;
+	}
+
+	.detailbtn {
+		height: 100px;
+	}
+
+	.squareImg {
+		width: 160px;
+		height: 102px;
+		background: red;
+	}
+
+	.roles-input {
+		height: 40px;
+		line-height: 40px;
+	}
+
+	.width500 {
+		width: 500px;
+	}
+
+	.roles-input input {
+		height: 100%;
+		width: 400px;
+	}
+
+	.roletree {
+		height: 460px;
+		border: 1px solid #D9D9D9;
+		display: inline-block;
+		overflow-y: auto;
+		border-radius: 5px;
+	}
+
+	.account-ipt {
+		padding: 10px;
+		text-align: center;
+		border: 1px solid #999999;
+		border-radius: 5px;
+	}
+
+	.materiallist {
+		display: flex;
+		overflow: hidden;
+		flex-wrap: wrap;
+		justify-content: flex-start
+	}
+
+	.materiallist li {
+		margin: 0 17px 17px 0;
+	}
+
+	.material {
+		width: 239px;
+		height: 135px;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+		border-radius: 5px;
+		background: #F9F9F9;
+	}
+
+	.material-fu {
+		width: 60px;
+		height: 68px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -34px;
+		margin-left: -30px;
+	}
+
+	.material-bo {
+		width: 32px;
+		height: 32px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -16px;
+		margin-left: -16px;
+	}
+
+	.material-checkbox {
+		position: absolute;
+		top: 6px;
+		right: 10px;
+	}
+
+	.materialdownload {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+
+	.color66 {
+		color: #666666;
+		margin-top: 3px;
+		overflow: hidden;
+		font-size: 14px;
+	}
+
+	.el-message-box--center .el-message-box__title {
+		justify-content: left;
+	}
+
+	.sel-alert {
+		width: 406px;
+	}
+
+	.el-message-box__header,
+	.el-dialog__header {
+		padding: 27px 30px !important;
+
+	}
+
+	.el-dialog__title {
+		font-size: 16px !important;
+	}
+
+	.el-dialog__body {
+		padding: 27px 0 27px !important;
+		border-top: 1px solid #e6e6e6;
+	}
+
+	.el-radio-group {
+		display: block;
+	}
+
+	.el-dialog__headerbtn {
+		position: "";
+		float: right;
+		font-size: 18px;
+	}
+
+	.sel-footer {
+		display: block;
+		text-align: center;
+	}
+
+	.el-radio {
+		line-height: 28px;
+	}
+
+	.el-radio__input.is-checked .el-radio__inner,
+	.el-button--primary {
+		background: #FF5121;
+		border-color: #FF5121;
+	}
+
+	.el-button--primary:focus,
+	.el-button--primary:hover {
+		background: #FF5121;
+		border-color: #FF5121;
+	}
+
+	[class*=" el-icon-"],
+	[class^=el-icon-] {
+		line-height: 2;
+	}
+
+	.sel-radio-title {
+		position: absolute;
+		left: 30px;
+	}
+
+	.font12 {
+		font-family: PingFangSC-Regular;
+		font-size: 12px;
+		color: #999999;
+	}
+
+	.el-message-box--center .el-message-box__content {
+		padding: 20px 0 37px;
+		border-top: 1px solid #E6E6E6;
+	}
+
+	.workbtn {
+		width: 70px;
+	}
+	
+	.employipt{
+		height: 40px;
+		line-height: 40px;
+		margin: 30px;
+	}
+	
+	.employmonre {
+		width: 300px;
+		display: inline-block;
+		margin: 0 20px;
+	}
+	
+	.employmonre input {
+		width: 200px;
+		height: 100%;
+		margin-left: 5px;
+		
+	}
+	.wh{
+		overflow: hidden;
+	}
 </style>

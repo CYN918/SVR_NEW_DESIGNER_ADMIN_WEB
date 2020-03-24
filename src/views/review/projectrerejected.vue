@@ -289,6 +289,8 @@
 		}
 	}
 </script>
-<style scoped="scoped">
-	
+<style scoped='scoped'>
+	.wh{
+		overflow: hidden;
+	}
 </style>

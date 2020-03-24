@@ -9,7 +9,7 @@
 				
 				<ul class="screenMiddenul ofh w">
 					<li v-for="(item,index) in texts" :key="item.id">
-						<div>
+						<div class="label">
 							{{ item.name }}
 						</div>
 						<!-- form.selct[item.a] -->
@@ -101,15 +101,15 @@
 				
 						<div v-if="item.type == 'two'" class="ipt">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容" clearable></el-input>
-							<span style="padding: 0 11.5px;">至</span>
+							<span style="padding: 0 11.5px;color:#999999;font-size:12px;">至</span>
 							<el-input v-model="form[item.child[1].id]" onkeyup="value=value.replace(/[^\d]/g,'')" class="ipt90" placeholder="请输入内容" clearable></el-input>
 						</div>
 						<div v-if="item.type == 'three'" class="ipt">
-							<el-input v-model="form[item.child[0].id]" class="ipt91" placeholder="国家" clearable style="width: 68px;"></el-input>
-							<span>-</span>
-							<el-input v-model="form[item.child[1].id]" class="ipt91" placeholder="省" clearable style="width: 68px;"></el-input>
-							<span>-</span>
-							<el-input v-model="form[item.child[2].id]" class="ipt91" placeholder="市" clearable style="width: 68px;"></el-input>
+							<el-input v-model="form[item.child[0].id]" class="ipt91" placeholder="国家" clearable style="width: 100px;"></el-input>
+							<span style="color:#999999;font-size:12px;margin: 0 5px;">-</span>
+							<el-input v-model="form[item.child[1].id]" class="ipt91" placeholder="省" clearable style="width: 100px;"></el-input>
+							<span style="color:#999999;font-size:12px;margin: 0 5px;">-</span>
+							<el-input v-model="form[item.child[2].id]" class="ipt91" placeholder="市" clearable style="width: 100px;"></el-input>
 						</div>
 						<div v-if="item.type == 'text'" class="ipt">
 							<el-input  placeholder="请输入内容" v-model="form[item.id]"  clearable></el-input>
@@ -305,9 +305,14 @@
 
 <style scoped="scoped">
 	.screenborder {
-		width: 772px;
+		width: 380px;
 		background: #FFFFFF;
 		border-radius: 5px;
+		right: 26px;
+		top: 108px;
+        position: absolute;
+		overflow-y: scroll;
+		height: calc(100% - 127px);
 	}
 
 	.screenMiddenul {
@@ -320,6 +325,10 @@
 
 	.screenMiddenul li {
 		margin-top: 27px;
+	}
+	.screenMiddenul li .label{
+		color: #999999;
+		font-size: 12px;
 	}
 
 	.el-select-dropdown .checkboxipt {

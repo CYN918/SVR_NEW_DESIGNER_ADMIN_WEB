@@ -143,24 +143,26 @@ input{
 #app .btnorgle{
 	width: 100px;
 	height: 32px;
+	line-height: 32px;
 	padding: 0;
 	border-radius: 5px;
-	background: #33B3FF;
-	border-color: #33B3FF;
-	color: white;
+	color: #999999;
+	cursor: pointer;
+	text-align: center;
 }
 
 .el-button--text:focus, .el-button--text:hover{
 	color:#33B3FF;
 }
 
-#app .el-select-dropdown__item.hover,#app .el-select-dropdown__item:hover,#app .btnorgle:hover{
+#app .el-select-dropdown__item.hover,#app .el-select-dropdown__item:hover{
 	transition: 0.2;
 	background: #33B3FF;
 	border-color: #33B3FF;
 }
 #app .el-select{
 	margin: 0px;
+	width: 335px;
 }
 
 #app .defaultbtn {
@@ -247,7 +249,7 @@ input{
 }
 
 .paddinglr30{
-	padding: 0 30px;
+	padding: 0 20px;
 }
 
 .pointer{
@@ -255,7 +257,7 @@ input{
 }
 
 #app .ipt {
-	width: 217px;
+	width: 335px;
 	height: 40px;
 }
 
@@ -264,7 +266,7 @@ input{
 }
 
 #app .ipt90 {
-	width: 90px;
+	width: 150px;
 }
 
 #app .el-submenu [class^=el-icon-]{
@@ -311,9 +313,9 @@ input{
     outline: 0;
 }
 
-.el-checkbox__input.is-checked+.el-checkbox__label{
-	color: #ff5121 !important;
-}
+// .el-checkbox__input.is-checked+.el-checkbox__label{
+// 	color: #ff5121 !important;
+// }
 
 .el-checkbox__input.is-checked .el-checkbox__inner {
 	background-color: #33B3FF !important;
@@ -551,6 +553,10 @@ input{
 // .Detail {
 // 		background: white;
 // 	}
+    .el-popper{
+		width: 335px !important;
+		left: 1535px !important;
+	}
 
 	.Dialogkey {
 		margin: 0 33px 26px 66px;

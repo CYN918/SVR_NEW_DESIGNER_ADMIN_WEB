@@ -528,7 +528,7 @@
 						// {name:"中标人手机号",id:"mobile"},
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
-					'filterFields5':[
+					filterFields5:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},

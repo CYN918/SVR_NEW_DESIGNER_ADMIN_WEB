@@ -26,7 +26,7 @@
 					classify_name:""
 				},
 				commonTopData: {
-					"pageName": "publishWork",
+					"pageName": "userInfo",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow",

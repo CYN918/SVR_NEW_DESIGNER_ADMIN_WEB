@@ -993,6 +993,7 @@
 				
 				this.api.signupList(data).then(da => {
 					this.signupLists = da.data;
+					console.log(this.signupLists)
 					this.tableConfig.total = da.total;
 				}).catch(da =>{
 					

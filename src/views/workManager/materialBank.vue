@@ -22,7 +22,7 @@
 				</div>
 				
 			</div>
-			<div  ref="bgwidth" class="paddinglr40 ofh" style="height: calc(100% - 285px);overflow-y: scroll;width: calc(100% - 80px);" v-loading="setLoding">
+			<div  ref="bgwidth" class="paddinglr40 ofh" style="height: calc(100% - 172px);width: calc(100% - 80px);" v-loading="setLoding">
 				<div class="ofh w" v-show="tabsnum == 0" >
 					<el-checkbox-group v-model="checkList" @change="handleCheckedCitiesChange">
 						<ul class="materiallist">
@@ -512,6 +512,8 @@
 <style scoped>
 	.Detail {
 		background: white;
+		max-height: 780px;
+		overflow-y: scroll;
 	}
 
 	.Dialogkey {

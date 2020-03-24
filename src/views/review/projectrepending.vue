@@ -131,6 +131,7 @@
 					sreenData.access_token = localStorage.getItem("access_token");
 					sreenData.type = 5
 					sreenData.mix_blens = JSON.stringify(this.mxArr)
+					sreenData.check_status = 0
 					data = sreenData;
 					
 				}
@@ -367,6 +368,8 @@
 		}
 	}
 </script>
-<style>
-	
+<style scoped='scoped'>
+	.wh{
+		overflow: hidden;
+	}
 </style>

@@ -87,7 +87,7 @@
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 				<div class="ofh">
 					<div class="fleft" style="float:right;">
-						<el-button class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)">{{ item.name }}</el-button>
+						<div class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>
 					</div>
 					<div class="fright" style="float:left;">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
@@ -242,7 +242,7 @@
 					<div class="screenMidden paddinglr30">
 						<ul class="screenMiddenul ofh w">
 							<li v-for="(item,index) in filterField" :key="item.id">
-								<div>
+								<div class="label">
 									{{ item.name }}
 								</div>
 								<!-- form.selct[item.a] -->
@@ -310,7 +310,7 @@
 						
 								<div v-if="item.type == 'two'">
 									<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
-									<span style="padding: 0 14px;">至</span>
+									<span style="padding: 0 9px;">至</span>
 									<el-input v-model="form[item.child[1].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 								</div>
 								<div v-if="item.type == 'text'">
@@ -1167,13 +1167,17 @@
 	.marginl0{
 		margin-left: 0;
 	}
-	
-	.screenborder {
-		width: 772px;
+	.wh >>> .el-dialog{
+        width: 380px;
 		background: #FFFFFF;
 		border-radius: 5px;
-		margin: auto;
-	}
+		right: 26px;
+		top: 108px;
+        position: absolute;
+		overflow-y: scroll;
+		height: calc(100% - 127px);
+        margin-top: 0vh !important;
+    }
 	
 	.screenMiddenul {
 		display: flex;
@@ -1283,4 +1287,8 @@
 		background: #ffede8;
 		color: #FF5121;
 	}
+    .label{
+        color: #999999;
+        font-size: 12px;
+    }
 </style>
