@@ -248,7 +248,7 @@
 					<li class="w ofh" v-if="want_deal_type == '2' || want_deal_type == '3'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
-							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，可分给创作者的比例(单位:%)" v-model="split_proportion"
+							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，可分给创作者的比例(单位:%)" v-model="user_split_rate"
 							 clearable>
 							</el-input>
 						</div>
@@ -430,7 +430,7 @@
 					upload: true
 				},
 				want_deal_type:1,
-				split_proportion:'',
+				user_split_rate:'',
 				advance_payment:'',
 				isbusiness_type:false,
 				is_ruku: '1',
@@ -1005,8 +1005,8 @@
 							want_deal_type:this.want_deal_type,
 						}	
 					}else{
-						if(this.split_proportion){
-							if(this.split_proportion < 0 || this.split_proportion > 100){
+						if(this.user_split_rate){
+							if(this.user_split_rate < 0 || this.user_split_rate > 100){
 								this.$message({
 									message: "请填写0到100之间的数字!",
 									type: 'warning',
@@ -1033,7 +1033,7 @@
 							// deal_price: this.getdeal_price(),
 							// gain_share_rate:this.apply_info.gain_share_rate,
 							check_steps: 2,
-							split_proportion:this.split_proportion,
+							user_split_rate:this.user_split_rate,
 							advance_payment:this.advance_payment,
 							want_deal_type:this.want_deal_type,
 						}
@@ -1052,7 +1052,7 @@
 						gain_share_rate:this.apply_info.gain_share_rate,
 						gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100),
 						check_steps: 2,
-						split_proportion:this.split_proportion,
+						user_split_rate:this.user_split_rate,
 						advance_payment:this.advance_payment,
 						want_deal_type:this.want_deal_type,
 					}

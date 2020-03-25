@@ -132,14 +132,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="margin40 ta" style="margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
+		<!-- <div class="margin40 ta" style="margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
 			<div class="tagbts">
 				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 				 :disable-transitions="false" @close="handleClose(item.id,index)">
 					{{item.btnName + "：" + item.val}}
 				</el-tag>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>
@@ -691,6 +691,24 @@
 		background: #ffede8;
 		color: #FF5121;
 	}
+	.el-popper{
+		width: 335px;
+		left: 1535px;
+	}
+	.sel-tooltip{
+		width: 170px;
+		border: 1px solid #E6E6E6;
+		position: absolute;	
+		background: white;
+		margin-top: 9px;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+		border-radius: 2px 2px 2px 2px;
+	}
+	.sel-tooltip .comonbtn:hover{
+		background: #ffede8;
+		color: #FF5121;
+	}
+	
 	
 	
 </style>

@@ -2,11 +2,6 @@
 <div>
 	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
-		<div class="detailtitle ofh relative">
-			<span class="fleft worktabs">
-				作品下架
-			</span>
-		</div>
 		<div class="detailContent1 ofh">
 			<ul>
 				<li class="margint13 ofh" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
@@ -517,6 +512,8 @@
 <style scoped>
 	.Detail {
 		background: white;
+		max-height: 840px;
+		overflow-y: scroll;
 	}
 
 	.Dialogkey {
@@ -528,11 +525,7 @@
 		padding-left: 40px;
 		padding-top: 18px;
 	}
-
-	.detailContent1 {
-		height: calc(100% - 139px);
-		overflow-y: auto;
-	}
+	
 
 	.detailContent1>ul {
 		padding-left: 132px;

@@ -698,6 +698,20 @@
 		background: rgba(0,0,0,0.5);
 		z-index: 2005;
 	}
+	.sel-tooltip{
+		width: 170px;
+		border: 1px solid #E6E6E6;
+		position: absolute;	
+		background: white;
+		margin-top: 9px;
+		box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+		border-radius: 2px 2px 2px 2px;
+	}
+	
+	.el-popper{
+		width: 335px;
+		left: 1535px;
+	}
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;
 	} */

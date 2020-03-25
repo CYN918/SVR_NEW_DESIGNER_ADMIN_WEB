@@ -162,7 +162,7 @@ input{
 }
 #app .el-select{
 	margin: 0px;
-	width: 335px;
+	// width: 335px;
 }
 
 #app .defaultbtn {
@@ -367,19 +367,7 @@ input{
 	margin: 0;
 }
 
-.sel-tooltip{
-	width: 170px;
-	border: 1px solid #E6E6E6;
-	position: absolute;	
-	background: white;
-	margin-top: 9px;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 2px 2px 2px 2px;
-}
-.sel-tooltip .comonbtn:hover{
-	background: #ffede8;
-	color: #FF5121;
-}
+
 
 .comonbtn{
 	height: 40px;
@@ -550,13 +538,12 @@ input{
 	font-size: 14px
 }
 
-// .Detail {
-// 		background: white;
-// 	}
-    .el-popper{
-		width: 335px !important;
-		left: 1535px !important;
+.Detail {
+		background: white;
+		max-height: 846px;
+    overflow-y: scroll;
 	}
+    
 
 	.Dialogkey {
 		margin: 0 33px 26px 66px;
