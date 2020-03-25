@@ -1056,7 +1056,7 @@ input:disabled{
 
 @media screen and (max-width: 1500px) {
 	.screenMidden{
-		height: 220px;
+		height: 616px;
 	}
 }
 </style>

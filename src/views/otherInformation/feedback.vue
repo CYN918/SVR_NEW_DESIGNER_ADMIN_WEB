@@ -1,12 +1,11 @@
-<template>
-    <div>
-		<common-top :commonTopData="commonTopData" class="feed"></common-top>
+<template>	
 		<div class="wh">
+			<common-top :commonTopData="commonTopData" class="feed"></common-top>
 			<div class="detailtitle ofh relative Detail">
 				<div style="margin-bottom: 32px;">
-					<span class="fleft worktabs">
+					<!-- <span class="fleft worktabs">
 						意见反馈
-					</span>
+					</span> -->
 					<div class="textcenter">
 						<span  style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
@@ -76,7 +75,6 @@
 				</div>
 			</el-dialog>
 		</div>
-	</div>
 	
 </template>
 
@@ -386,6 +384,9 @@
 <style scoped>
 	.Detail {
 		background: white;
+	}
+	.wh{
+		overflow: hidden;
 	}
 
 	.Dialogkey {

@@ -1,12 +1,11 @@
-<template>
-    <div>
-		<common-top :commonTopData="commonTopData" class="tags"></common-top>
+<template>	
 		<div class="wh">
+			<common-top :commonTopData="commonTopData" class="tags"></common-top>
 			<div class="detailtitle ofh relative Detail">
 				<div style="margin-bottom: 32px;">
-					<span class="fleft worktabs">
+					<!-- <span class="fleft worktabs">
 						文件管理
-					</span>
+					</span> -->
 					<div class="textcenter">
 						<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
 						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
@@ -86,7 +85,6 @@
 				<el-progress type="circle" :percentage="progressnum" class="prossage"></el-progress>
 			</div>
 		</div>
-	</div>
 	
 </template>
 
@@ -484,6 +482,9 @@
 <style scoped>
 	.Detail {
 		background: white;
+	}
+	.wh{
+		overflow: hidden;
 	}
 
 	.Dialogkey {

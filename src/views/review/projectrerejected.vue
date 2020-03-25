@@ -155,6 +155,7 @@
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
 					sreenData.type = 5
+					sreenData.check_status = -1
 					data = sreenData;
 				}
 
