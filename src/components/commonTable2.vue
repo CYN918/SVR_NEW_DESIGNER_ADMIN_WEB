@@ -5,7 +5,7 @@
 				<div class="margin40 cttitle" v-if="!commonTopData.tabData" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
 					<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
 						<el-breadcrumb separator="/" class="fontcolorg">
-							<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
+							<img src="../assets/img/tabbar_icon_file_24_pressed.svg" alt="" style="margin-right:3px;position: relative;top:22px;float: left;"><el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
 						</el-breadcrumb>
 					</div>
 					<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
@@ -43,7 +43,7 @@
 				<div class="paddinglr40 relative" style="height: 60px;line-height: 60px;margin-bottom: 15px;" v-else-if="commonTopData.tabData">
 					<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
 						<el-breadcrumb separator="/" class="fontcolorg">
-							<el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
+							<img src="../assets/img/tabbar_icon_file_24_pressed.svg" alt="" style="margin-right:3px;position: relative;top:22px;float: left;"><el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
 						</el-breadcrumb>
 					</div>
 					<div class="textcenter" style="width: 70%;float:left;">

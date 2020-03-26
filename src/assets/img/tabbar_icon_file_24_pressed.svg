@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>tabbar_icon_file_24_pressed</title>
+    <desc>Created with Sketch.</desc>
+    <g id="houtai" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1-通用列表" transform="translate(-104.000000, -23.000000)">
+            <g id="top-bar" transform="translate(80.000000, 0.000000)">
+                <g id="icon/24px-copy-2" transform="translate(22.000000, 22.000000)">
+                    <g id="icon/24px/others">
+                        <g id="tabbar_icon_file_24_pressed">
+                            <rect id="Rectangle" x="0" y="0" width="16" height="16"></rect>
+                            <g id="位置" transform="translate(2.666667, 1.333333)" fill-rule="nonzero" stroke="#1E1E1E">
+                                <path d="M5.27058824,7.92956125 C3.99063664,7.92956125 3.01182521,6.95077758 3.01182521,5.67043875 C3.01182521,4.39052346 3.9902131,3.41173979 5.27058824,3.41173979 C6.55053983,3.41173979 7.52935126,4.39052346 7.52935126,5.67043875 C7.52935126,6.95077758 6.55096337,7.92956125 5.27058824,7.92956125 Z" id="Path"></path>
+                                <path d="M5.27058824,13.2 C1.73145007,10.3390378 0,7.85417246 0,5.67043875 C0,2.43295612 2.48451226,0.4 5.27058824,0.4 C8.05666421,0.4 10.5411765,2.43295612 10.5411765,5.67043875 C10.5411765,7.85417246 8.8097264,10.3390378 5.27058824,13.2 Z" id="Path"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
