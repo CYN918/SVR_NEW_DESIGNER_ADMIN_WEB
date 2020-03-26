@@ -24,7 +24,7 @@
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
+		<div style="height: calc(100% - 205px);margin-top: 20px;background-color: white;" v-show="tabsnum == 1">
 			<div class="w" style="height: 20px;"></div>
 			<div class="scrollbar" style="">
 				<ul class="screenContent1" style="">
