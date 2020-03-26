@@ -217,8 +217,8 @@
 									<div>
 										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span>{{ item.user.work_experience ? item.user.work_experience :"--"}}</span>
 									</div>
-									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">类型偏好 </span><span>{{ item.user.preference_classify ? item.user.preference_classify :"--"}}</span>
+									<div style="width: 100%;height: 35px;">
+										<span style="color:rgba(187,187,187,1);font-size: 12px;float: left;display: block;">类型偏好 </span><span style="width: 300px;overflow: hidden;display: block;height: 25px;float: left;">{{ item.user.preference_classify ? item.user.preference_classify :"--"}}</span>
 									</div>
 									<div class="ofh">
 										<span class="fleft"  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
