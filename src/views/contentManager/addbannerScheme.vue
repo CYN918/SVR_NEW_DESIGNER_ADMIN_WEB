@@ -33,10 +33,10 @@
 					</div>
 				</li>
 			</ul>
-			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
-				<div v-for ="(item,index) in selectData" :key="item.id">
-					<div class="fleft" style="line-height: 40px;padding-left: 40px;">banner-{{ index+1 }}</div>
-					<ul style="padding-top: 0px;margin-top: 0px;">
+			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;width:100%;height:223px;">
+				<div v-for ="(item,index) in selectData" :key="item.id" style="width:100%;height:223px;float:left;">
+					<div class="fleft" style="line-height: 40px;padding-left: 40px;float:left;">banner-{{ index+1 }}</div>
+					<ul style="padding-top: 0px;margin-top: 0px;float:left;">
 						<!-- <div class="detailtitle">Banner-1</div> -->
 						<li class="margint23 ofh">
 							<span class="fleft detailKey"  style="line-height: 40px;">banner</span>
@@ -58,6 +58,7 @@
 							<span style="width:357px;height:40px;line-height: 40px;">{{ item.jump_url }}</span>
 						</li>
 					</ul>
+					<div class="rleft" style="float:right;padding-right:120px;cursor: pointer;" @click="deleteCanal(index,selectData)">删除</div>
 				</div>
 			</div>
 			<div class="addzu pointer" @click="select">+添加一组</div>
@@ -151,6 +152,9 @@
 						tabsnum:1
 					}
 				})
+			},
+			deleteCanal(index,rows){
+				rows.splice(index, 1);
 			},
 			getactivitiesrows(row){
 				//console.log(row);

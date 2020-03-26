@@ -107,7 +107,11 @@
 		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 			<div class="ofh">
 				<div class="fleft" style="float:right;">
-					<div class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="getparent(item.id,commonTopData.pageName)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>
+					<ul>
+						<li class="btnorgle" v-for="item in commonTopData.commonleftbtn" :key="item.id" v-if="item.id == 'left1'" @click="getparent(item.id,commonTopData.pageName)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+						<li class="btnorgle" v-for="item in commonTopData.commonleftbtn" :key="item.id" v-if="item.id == 'right2'" @click="getparent(item.id,commonTopData.pageName)"><img src="../assets/img/show_icon.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+						<li class="btnorgle" v-for="item in commonTopData.commonleftbtn" :key="item.id" v-if="item.id == 'right3' && (adminuseraccess.indexOf(item.accessid) > -1)" @click="getparent(item.id,commonTopData.pageName)"><img src="../assets/img/export.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+					</ul>	
 				</div>
 				<div class="fright" style="float:left;">
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
@@ -707,6 +711,9 @@
 	.sel-tooltip .comonbtn:hover{
 		background: #ffede8;
 		color: #FF5121;
+	}
+	.fleft > ul > li{
+		display: inline-block;
 	}
 	
 	

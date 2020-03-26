@@ -87,7 +87,11 @@
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 				<div class="ofh">
 					<div class="fleft" style="float:right;">
-						<div class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>
+						<ul>
+							<li class="btnorgle" v-if="item.is != tabnums && item.id == 'left1'" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+							<li class="btnorgle" v-if="item.is != tabnums && item.id == 'right2'" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/show_icon.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+							<li class="btnorgle" v-if="item.is != tabnums && item.id == 'right3' && (adminuseraccess.indexOf(item.accessid) > -1)" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/export.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
+						</ul>			
 					</div>
 					<div class="fright" style="float:left;">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
@@ -1307,5 +1311,8 @@
 	.el-popper{
 		width: 335px;
 		left: 1535px;
+	}
+	.fleft > ul > li{
+		display: inline-block;
 	}
 </style>

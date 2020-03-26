@@ -80,9 +80,14 @@
 
 <style>
 	.screenbordershow{
-		width: 709px;
+		width: 380px;
 		background: #FFFFFF;
 		border-radius: 5px;
+		position: absolute;
+		right: 335px;
+		top: 110px;
+		overflow-y: scroll;
+        height: calc(100% - 127px);
 	}
 	
 	.screenMiddenShowul{
@@ -102,10 +107,16 @@
 	}
 	
 	.el-checkbox.is-bordered.is-checked{
-		border-color: #FF5121 !important;
+		border: none !important;
+		float: left;
+        width: 47%;
+		margin-left: 0 !important;
 	}
 	
 	.el-checkbox.is-bordered+.el-checkbox.is-bordered{
+		border: none !important;
+		float: left;
+        width: 47%;
 		margin-left: 0 !important;
 	}
 	

@@ -102,10 +102,11 @@
 					"pageName":"employmentorder",
 					"commonleftbtn":[
 						{name:"筛选",id:"left1",url:""},
-				    ],
-				    "commonrightbtn":[
 						{name:'展示字筛选',id:"right2"},
 						{name:'导出数据',id:"right3",accessid:"200359"}
+				    ],
+				    "commonrightbtn":[
+						
 					],
 					"commonbottombtn":[],
 				},

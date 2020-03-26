@@ -37,13 +37,14 @@
 						name: "筛选",
 						id: "left1",
 						url: ""
-					}, ],
-					"commonrightbtn": [
-						{
+					},
+					{
 							name: '展示字筛选',
 							id: "right2",
 							accessid: '200335'
-						},
+						}, ],
+					"commonrightbtn": [
+						
 					],
 					"commonbottombtn": [],
 				},

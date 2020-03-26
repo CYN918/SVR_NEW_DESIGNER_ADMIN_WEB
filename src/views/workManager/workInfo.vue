@@ -216,13 +216,8 @@
 						name: "筛选",
 						id: "left1",
 						url: ""
-					}, ],
-					"commonrightbtn": [{
-							name: '批量操作',
-							id: "right1",
-							accessid: '200307'
-						},
-						{
+					},
+					{
 							name: '展示字筛选',
 							id: "right2",
 						},
@@ -230,7 +225,13 @@
 							name: '导出数据',
 							id: "right3",
 							accessid: '200309'
-						}
+						} ],
+					"commonrightbtn": [{
+							name: '批量操作',
+							id: "right1",
+							accessid: '200307'
+						},
+						
 					],
 					"commonbottombtn": [],
 				},
