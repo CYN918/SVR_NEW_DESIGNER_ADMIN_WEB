@@ -234,6 +234,7 @@
 				}).catch()
 			},
 			getData1() {
+				DataScreen.screen.projectreview.filterFields[2].child = [];
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),

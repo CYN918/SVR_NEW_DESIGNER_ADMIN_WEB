@@ -217,6 +217,7 @@
 				}).catch()
 			},
 			getData1() {
+				DataScreen.screen.projectreview.filterFields[2].child = [];
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -241,8 +242,8 @@
 		},
 		created() {
 			this.screenreach();
-			this.getcommonrightbtn();
 			this.getData1();
+			this.getcommonrightbtn();
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
 				this.top_banner.forEach(item => {
