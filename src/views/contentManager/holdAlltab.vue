@@ -1,38 +1,16 @@
 <template>
-	<div class="wh">
-		<div class="wh" v-show="tabsnum == 0">
-			<div class="detailtitle ofh relative Detail">
-				<div style="margin-bottom: 32px;">
-					<span class="fleft worktabs">
-						首次上传原创作品+认证奖励
-					</span>
-					<div class="textcenter">
-						 <span :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
-						 @click="tabsChange(1)">配置页</span>
-						<span :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
-						 @click="tabsChange(0)">奖励记录</span>
-					</div>
-				</div>
-				<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
-			</div>
-			<div style="height: calc(100% - 205px);margin-top: 20px;">
+	<div class="wh" style="overflow: hidden;">
+		<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
+		<div class="wh" v-if="tabsnum == 1">
+			
+			<div style="height: calc(100% - 135px);overflow: hidden;">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
 			</div>
 		</div>
-		<div class="wh" v-show="tabsnum == 1" style="overflow-y: scroll;">
-			<div class="detailtitle ofh relative Detail" style="height:calc(100% - 73px);">
-				<div style="margin-bottom: 32px;">
-					<span class="fleft worktabs">
-						首次上传原创作品+认证奖励
-					</span>
-					<div class="textcenter">
-						 <span :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
-						 @click="tabsChange(1)">配置页</span>
-						<span :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
-						 @click="tabsChange(0)">奖励记录</span>
-					</div>
-				</div>
+		<div class="wh" v-if="tabsnum == 0">
+			<div class="detailtitle ofh relative Detail" style="height: calc(100% - 135px);overflow: hidden;">
+				
 				<div>
 					<ul>
 						<li class="ofh textcenter" style="margin: 10px 0;margin-left: 100px;">
@@ -86,24 +64,24 @@
 		data() {
 			return {
 				
-				tabsnum: 1,
+				tabsnum: 0,
 				commonTopData: {
 					"pageName": "holdAlltab",
-					"commonleftbtn": [{
-						name: "筛选",
-						id: "left1",
-						url: ""
-					}],
-					commonrightbtn:[{
-						name: "导出数据",
-						id: "right3",
-						accessid:"200398"
-					}],
+					"commonleftbtn": [],
+					commonrightbtn:[],
 					"commonbottombtn":[
 						
 					],
-					"IsShow":true,
-					upload:true
+					// "IsShow":true,
+					upload:true,
+					"tabTopData":[{
+						name: "配置页",
+						accessid:"",
+					},
+					{
+						name: "奖励记录",
+						accessid:"",
+					}]
 					
 				},
 				screenConfig: [],
@@ -161,13 +139,17 @@
 					}
 								
 					this.api.operaterecord(data).then((da) => {
-						//console.log(da.data)
+						// console.log(da.data)
 						this.tableData = da.data;
 						this.tableConfig.total = da.total;
 						
 						this.tableConfig.currentpage = da.page;
 						this.tableConfig.pagesize = da.page_size;
-						this.setLoding(false);
+						if(this.tabsnum == 1){
+							this.setLoding(false);
+
+						}
+						
 					}).catch(() => {
 						this.setLoding(false);
 					});

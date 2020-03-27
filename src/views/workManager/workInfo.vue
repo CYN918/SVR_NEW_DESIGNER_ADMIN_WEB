@@ -1,24 +1,12 @@
 <template>
 	<div class="wh">
 		<div class="wh">
-			<common-top :commonTopData="commonTopData" v-if="tabsnum == 1"></common-top>
-			<common-top :commonTopData="contributeData" v-if="tabsnum == 0"></common-top>
-			<div class="detailtitle ofh relative Detail">
-				<div style="margin-bottom: 32px;">
-					<div class="textcenter">
-						<span style="height: 30px;" :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
-						@click="tabsChange(1)">全部作品</span>
-						<span style="height: 30px;" :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
-						@click="tabsChange(0)">投稿作品</span>
-					</div>
-				</div>
-				
-			</div>
-			<div  style="height: calc(100% - 235px);margin-top: 20px;background-color: white;" v-if="tabsnum == 1">
+			<common-top :commonTopData="commonTopData"></common-top>
+			<div  style="height: calc(100% - 135px);overflow: hidden;background-color: white;" v-if="tabsnum == 0">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				 ref="Tabledd"></common-table>
 			</div>
-			<div style="height: calc(100% - 205px);margin-top: 20px;" v-if="tabsnum == 0">
+			<div style="height: calc(100% - 135px);overflow: hidden;" v-if="tabsnum == 1">
 				<Contribute :tableDatas="tableData" :tableConfig="tableConfig" ref="Tabledd"></Contribute>
 			</div>
 		</div>
@@ -204,7 +192,7 @@
 				screenShowDataChange: "",
 				IsDetail: false,
 				tabsnum1:0,
-				tabsnum:1,
+				tabsnum:0,
 				tabData1:[{
 					name: "买断式"
 				}/* , {
@@ -234,18 +222,16 @@
 						
 					],
 					"commonbottombtn": [],
+					"tabTopData":[{
+						name: "全部作品",
+						accessid:"",
+					},
+					{
+						name: "投稿作品",
+						accessid:"",
+					}]
 				},
-				contributeData:{
-					"pageName": "workInfo",
-					"commonleftbtn": [{
-						name: "筛选",
-						id: "left1",
-						url: ""
-					}, ],
-					"commonrightbtn": [],
-					"commonbottombtn": [],
-
-				},
+				
 				screenConfig: [],
 				tableConfig: {
 					"pageName": "workInfo",
@@ -290,13 +276,13 @@
 						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,
 						limit: pg.pageSize,	
+						is_platform_work: 1,	
 					}
 				}else{
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,
 						limit: pg.pageSize,
-						is_platform_work: 1,	
 					}
 
 				}

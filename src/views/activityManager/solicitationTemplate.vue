@@ -1,22 +1,7 @@
 <template>	
 		<div class="wh">
 			<common-top :commonTopData="commonTopData" class="tags"></common-top>
-			<div class="detailtitle ofh relative Detail">
-				<div style="margin-bottom: 32px;">
-					<!-- <span class="fleft worktabs">
-						文件管理
-					</span> -->
-					<div class="textcenter">
-						<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
-							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-							{{ item.name }}
-						</span>
-					</div>
-				</div>
-				
-			</div>
-			<div style="height: calc(100% - 235px);margin-top: 20px;">
+			<div style="height: calc(100% - 135px);overflow: hidden;">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				ref="Tabledd"></common-table>
 			</div>
@@ -103,15 +88,7 @@
 				filedata:{
 					
 				},
-				tabData: [{
-						name: "本地文件",
-						accessid:"46"
-					},
-					{
-						name: "网盘链接",
-						accessid:"47"
-					}
-				],
+				
 				tabsnum: 0,
 				commonTopData: {
 					"pageName": "solicitationTemplate",
@@ -129,6 +106,15 @@
 						}
 					}],
 					"commonbottombtn": [],
+					"tabTopData": [{
+						name: "本地文件",
+						accessid:"46"
+					},
+					{
+						name: "网盘链接",
+						accessid:"47"
+					}
+				],
 					// "IsShow": true,
 					upload: true
 

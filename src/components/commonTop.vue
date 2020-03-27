@@ -1,52 +1,13 @@
 <template>
 	<div class="w ctcontent">
-		<div v-if="!commonTopData.IsShow" style="background: white;">
-			<div class="margin40 cttitle" v-if="!commonTopData.tabData" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
-				<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
+		<div style="background: white;">
+			<div class="margin40 cttitle" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
+				<div class="fleft hnav marginleft60 fontcolorg" style="width: 18%;float:left;">
 					<el-breadcrumb separator="/" class="fontcolorg">
 						<img src="../assets/img/tabbar_icon_file_24_pressed.svg" alt="" style="margin-right:3px;position: relative;top:22px;float: left;"><el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
 					</el-breadcrumb>
 				</div>
-				<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
-					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
-						<span class="dp fontsize18">审核台</span>
-						<span class="dp sel-badge" v-html="reviewnum">99+</span>
-					</router-link>
-					<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '13'">
-						<span class="dp fontsize18">审核台</span>
-						<span class="dp sel-badge" v-html="reviewnum">99+</span>
-					</router-link>
-					<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '14'">
-						<span class="dp fontsize18">审核台</span>
-						<span class="dp sel-badge" v-html="reviewnum">99+</span>
-					</router-link>
-					<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '15'">
-						<span class="dp fontsize18">审核台</span>
-						<span class="dp sel-badge" v-html="reviewnum">99+</span>
-					</router-link>	
-					<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '16'">
-						<span class="dp fontsize18">审核台</span>
-						<span class="dp sel-badge" v-html="reviewnum">99+</span>
-					</router-link>
-					<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
-					<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
-					<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
-						
-						<div @click="getuser()"><i class="el-icon-setting" style="margin-right: 8.2px;"></i>账号信息</div>
-						<div @click="out()"><i class="iconfont" style="margin-right: 8.2px;padding-left: 0;">&#xe67f;</i>退出登录</div>
-					</div>
-					<div class="masku" v-if="IsSign" @click="signOut"></div>
-				
-				</div>
-			</div>
-			<div class="paddinglr40 relative" style="height: 60px;line-height: 60px;margin-bottom: 15px;" v-else-if="commonTopData.tabData">
-				<div class="fleft hnav marginleft60 fontcolorg" style="width: 17%;float:left;">
-					<el-breadcrumb separator="/" class="fontcolorg">
-						<img src="../assets/img/tabbar_icon_file_24_pressed.svg" alt="" style="margin-right:3px;position: relative;top:22px;float: left;"><el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
-					</el-breadcrumb>
-				</div>
-				
-				<div class="textcenter" style="width: 70%;float:left;">
+				<div class="textcenter" style="width: 69%;float:left;" v-if="commonTopData.tabData">
 					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabData" v-if="index < 3 && (adminuseraccess.indexOf(item.accessid) > -1)" :key="item.linkTo" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 						<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
@@ -57,7 +18,11 @@
 						<el-badge :value="doCount[(index)] == 0 ? '' : doCount[(index)]" :max="99" class="badge">{{ item.name }}</el-badge>
 					</span>
 				</div>
-
+				<div class="textcenter" style="width: 69%;float:left;" v-if="commonTopData.tabTopData">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabTopData" v-if="(adminuseraccess.indexOf(item.accessid) > -1)" :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="switchTabs(index)">
+						{{ item.name }}
+					</span>
+				</div>
 				<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
 					<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
 						<span class="dp fontsize18">审核台</span>
@@ -89,7 +54,6 @@
 					<div class="masku" v-if="IsSign" @click="signOut"></div>
 				
 				</div>
-				
 			</div>
 		</div>
 		<div  v-if="commonTopData.option">
@@ -171,6 +135,7 @@
 				userimg:'../assets/img/MRTX.svg',
 				auditTitle: '',
 				firstId:'',
+				tabnums:0,
 			};
 		},
 		methods: {
@@ -387,6 +352,10 @@
 			},
 			handleClick(tab, event) {
 				//console.log(tab, event);
+			},
+			switchTabs(num){
+				this.tabnums = num;
+				this.$parent.tabsChange(num);
 			},
 			tabsChange(num){
 				switch (num){

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<common-top :commonTopData="commonTopData" class="commonbg"></common-top>
-		<div style="padding: 20px;background: white;width: calc(100% - 40px);height: calc(100% - 20px);">
+		<div style="padding: 20px;background: white;width: calc(100% - 40px);height: 800px;">
 			<div>工具箱</div>
 			<ul class="screenContent" style="justify-content: flex-start;">
 				<li v-for="(item,inde) in operatelist" :key="item.id" class="holdlist textcenter" @click="goto(inde)">

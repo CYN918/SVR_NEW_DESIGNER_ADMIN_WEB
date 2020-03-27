@@ -1,19 +1,7 @@
 <template>
 		<div class="wh">
 			<common-top :commonTopData="commonTopData" class="feed"></common-top>
-			<div class="detailtitle ofh relative Detail">
-				<div style="margin-bottom: 32px;">
-					<div class="textcenter">
-						<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
-							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-							{{ item.name }}
-						</span>
-					</div>
-				</div>
-				
-			</div>
-			<div style="height: calc(100% - 235px);margin-top: 20px;">
+			<div style="height: calc(100% - 135px);overflow: hidden;">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				ref="Tabledd"></common-table>
 			</div>
@@ -87,15 +75,7 @@
 		},
 		data() {
 			return {
-				tabData:[{
-						name: "举报内容",
-						accessid:"48"
-					},
-					{
-						name: "举报分类预设",
-						accessid:"49"
-					}
-				],
+				
 				tabsnum: 0,
 				commonTopData: {
 					"pageName": "reportInfo",
@@ -106,6 +86,15 @@
 					}],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
+					"tabTopData":[{
+						name: "举报内容",
+						accessid:"48"
+					},
+					{
+						name: "举报分类预设",
+						accessid:"49"
+					}
+				],
 					// "IsShow": true,
 					upload: true
 				},

@@ -326,11 +326,11 @@ export default {
 <style scoped>
 	.box {
 		width: 100%;
-        height: 700px;
+        height: 800px;
 	}
     .boxllist{
         width: 100%;
-        max-height: 620px;
+        max-height: 720px;
         overflow-y: scroll;
         padding-left: 40px;
     }

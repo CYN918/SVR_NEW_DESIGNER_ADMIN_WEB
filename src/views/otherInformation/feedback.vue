@@ -1,22 +1,7 @@
 <template>	
 		<div class="wh">
 			<common-top :commonTopData="commonTopData" class="feed"></common-top>
-			<div class="detailtitle ofh relative Detail">
-				<div style="margin-bottom: 32px;">
-					<!-- <span class="fleft worktabs">
-						意见反馈
-					</span> -->
-					<div class="textcenter">
-						<span  style="height: 30px;" v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-						@click="tabsChange(index,item.name)" v-if="gettab(item.accessid)">
-							<!-- <el-badge :value="200" :max="99" class="badge">{{ item.name }}</el-badge> -->
-							{{ item.name }}
-						</span>
-					</div>
-				</div>
-				
-			</div>
-			<div style="height: calc(100% - 235px);margin-top: 20px;">
+			<div style="height: calc(100% - 135px);overflow: hidden;">
 				<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 				ref="Tabledd"></common-table>
 			</div>
@@ -90,15 +75,6 @@
 		},
 		data() {
 			return {
-				tabData: [{
-						name: "反馈内容",
-						accessid:"42"
-					},
-					{
-						name: "问题类型预设",
-						accessid:"43"
-					}
-				],
 				tabsnum: 0,
 				commonTopData: {
 					"pageName": "feedback",
@@ -109,6 +85,15 @@
 					}],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
+					"tabTopData": [{
+						name: "反馈内容",
+						accessid:"42"
+					},
+					{
+						name: "问题类型预设",
+						accessid:"43"
+					}
+				],
 					// "IsShow": true,
 					upload: true
 

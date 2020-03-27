@@ -1,30 +1,11 @@
 <template>
 	<div class="wh">
 		<common-top :commonTopData="commonTopData"></common-top>
-		<div class="detailtitle ofh relative Detail">
-			<div style="margin-bottom: 32px;">
-				<span class="fleft worktabs">
-					首页banner
-				</span>
-				<div class="textcenter">
-					<!-- <span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(index,item.name)">
-						
-						{{ item.name }}
-					</span> -->
-					<span style="height: 30px;" v-if="adminuseraccess.indexOf('44') > -1" :class="tabsnum == 1 ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(1)">展示方案</span>
-					<span style="height: 30px;" v-if="adminuseraccess.indexOf('45') > -1" :class="tabsnum == 0 ? 'tabs tabactive' : 'tabs'"
-					 @click="tabsChange(0)">banner素材</span>
-				</div>
-			</div>
-			
-		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;overflow: hidden;" v-if="tabsnum == 0">
+		<div style="height: calc(100% - 135px);overflow: hidden;" v-if="tabsnum == 1">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
-		<div style="height: calc(100% - 235px);margin-top: 20px;background-color: white;overflow: hidden;" v-show="tabsnum == 1">
+		<div style="height: calc(100% - 135px);background-color: white;overflow: hidden;" v-show="tabsnum == 0">
 			<div class="w" style="height: 20px;"></div>
 			<div class="scrollbar" style="">
 				<ul class="screenContent1" style="">
@@ -108,15 +89,7 @@
 		},
 		data() {
 			return {
-				tabData: [{
-						name: "banner素材",
-						accessid:"45",
-					},
-					{
-						name: "展示方案",
-						accessid:"44",
-					}],
-				tabsnum: 1,
+				tabsnum: 0,
 				commonTopData: {
 					"pageName": "homeBanner",
 					"commonleftbtn": [{
@@ -130,6 +103,14 @@
 						accessid:"200435"
 					}],
 					"commonbottombtn":[],
+					"tabTopData":[{
+						name: "banner素材",
+						accessid:"45",
+					},
+					{
+						name: "展示方案",
+						accessid:"44",
+					}]
 					
 					
 				},
@@ -155,6 +136,7 @@
 		},
 		methods: {
 			tabsChange(num) {
+				console.log(num)
 				this.tabsnum = num;
 				this.getData({pageCurrent:1,pageSize:50});
 				//console.log(this.tableConfig.list);
@@ -172,6 +154,7 @@
 					}];
 				}
 				this.$parent.tabchange(num+1);
+				
 			},
 			setLoding(type){
 				//alert(2);
@@ -180,6 +163,28 @@
 			getData(pg) {
 				//获取子组件表格数据
 				if(this.tabsnum == 0){
+					var data = {
+						access_token: localStorage.getItem("access_token"),
+						page: pg.pageCurrent,
+						limit: pg.pageSize
+					}
+					//获取筛选的条件
+					if (this.$route.query.urlDate) {
+						const sreenData = JSON.parse(this.$route.query.urlDate);
+						//console.log(sreenData)
+						sreenData.page = pg.pageCurrent;
+						sreenData.limit = pg.pageSize;
+						sreenData.access_token = localStorage.getItem("access_token");
+						data = sreenData;
+					}
+								
+					this.api.bannerprogramlist(data).then((da) => {
+						this.bannerprogramlists = da.data;
+						this.tableConfig.total = da.total;
+						
+					}).catch(() => {
+					});	
+				} else {	
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,
@@ -205,28 +210,6 @@
 						this.setLoding(false);
 					}).catch(() => {
 						this.setLoding(false);
-					});
-				} else {
-					var data = {
-						access_token: localStorage.getItem("access_token"),
-						page: pg.pageCurrent,
-						limit: pg.pageSize
-					}
-					//获取筛选的条件
-					if (this.$route.query.urlDate) {
-						const sreenData = JSON.parse(this.$route.query.urlDate);
-						//console.log(sreenData)
-						sreenData.page = pg.pageCurrent;
-						sreenData.limit = pg.pageSize;
-						sreenData.access_token = localStorage.getItem("access_token");
-						data = sreenData;
-					}
-								
-					this.api.bannerprogramlist(data).then((da) => {
-						this.bannerprogramlists = da.data;
-						this.tableConfig.total = da.total;
-						
-					}).catch(() => {
 					});
 				}
 				
@@ -448,32 +431,6 @@
 			if(localStorage.getItem("adminuseraccess")){
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"));
 				console.log(this.adminuseraccess.indexOf('45') > -1)
-			}
-			
-			if(!this.gettab('45') && this.gettab('44')){
-				this.$parent.tabchange(2);
-				this.tabsChange(1);
-				
-			}
-			if(!this.gettab('44') && this.gettab('45')){
-				this.$parent.tabchange(1);
-				this.tabsChange(0);
-			}
-			
-			if(this.gettab('47') && this.gettab('46')){
-				if(this.$route.query.tabsnum == 0){
-					this.$parent.tabchange(1);
-					this.tabsChange(0);
-				}
-				if(this.$route.query.tabsnum == 1) {
-					this.$parent.tabchange(2);
-					this.tabsChange(1);
-				}
-				
-				if(!this.$route.query.tabsnum) {
-					this.$parent.tabchange(2);
-					this.tabsChange(1);
-				}
 			}
 		},
 		mounted() {

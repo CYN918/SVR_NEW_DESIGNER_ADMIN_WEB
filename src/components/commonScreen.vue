@@ -244,6 +244,7 @@
 				}
 			},
 			getScreen() {
+				console.log(this.tabnum)
 				if(this.tabnum){
 					if(this.tabnum == 1){
 						this.texts = DataScreen.screen[this.pageName].filterFields0
@@ -256,6 +257,7 @@
 						
 					}
 				} else {
+					console.log(this.pageName)
 					if(this.pageName && this.pageName == "addblack"){
 						this.texts = DataScreen.screen.addblack["filterFields"+this.$parent.tabnum];
 						return;
