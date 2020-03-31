@@ -433,12 +433,12 @@
 				user_split_rate:'',
 				advance_payment:'',
 				isbusiness_type:false,
-				is_ruku: '1',
+				is_ruku: '0',
 				rukuOptions: [{
-					value: '1',
-					label: '可直接入库'
+					value: '0',
+					label: '直接入库'
 					}, {
-					value: '2',
+					value: '1',
 					label: '需整理后入库'
 				}],
 				ld_show:'0',
