@@ -1596,6 +1596,13 @@
 			},
 			getdemand_names(){
 				//console.log(this.dids);
+				if(this.dids.length > 1){
+					this.$message({
+						message: "只能选择一项!",
+						type: 'warning',
+					})
+					return;
+				}
 				this.demand_names = [];
 				this.form.demand_id = this.dids.join(',');
 				this.dids.forEach(item =>{

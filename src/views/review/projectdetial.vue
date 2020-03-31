@@ -164,7 +164,7 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">绑定需求</span>
-							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;">
+							<el-select v-model="did" placeholder="请选择" class="fleft sel-dialog-content" style="width: 300px;" disabled>
 								<el-radio-group v-model="did">
 									<el-option v-for="(item,index) in demandlist" :key="index" :disabled="parseInt(item.need_num) == 0" :value="item.did"
 									 :label="item.demand_name">
@@ -248,7 +248,7 @@
 					<li class="w ofh" v-if="want_deal_type == '2' || want_deal_type == '3'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
-							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，可分给创作者的比例(单位:%)" v-model="user_split_rate"
+							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，请输入0-100数字(单位:%)" v-model="user_split_rate"
 							 clearable>
 							</el-input>
 						</div>
@@ -1192,7 +1192,8 @@
 					type: 5,
 					id: this.$route.query.id,
 				}).then(da => {
-					//console.log(da)
+					// console.log(da)
+					this.did = da.project_info.demand_id;
 					this.reviewinfocommon = da.check_info;
 					this.apply_info = da.project_info;
 					this.check_info = da.check_info;
@@ -1200,7 +1201,7 @@
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
 					this.check_steps = da.check_info.check_steps;
-					console.log(this.check_steps)
+					// console.log(this.check_steps)
 					if(this.check_steps == '1'){
 						this.isShow = false;
 					}

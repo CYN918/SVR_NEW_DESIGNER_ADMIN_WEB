@@ -1036,7 +1036,7 @@ input:disabled{
 	color: #C0C4CC;
 }
 .el-table{
-	height: 700.32px !important;
+	// height: 700.32px !important;
 }
 
 .el-table th>.cell{
