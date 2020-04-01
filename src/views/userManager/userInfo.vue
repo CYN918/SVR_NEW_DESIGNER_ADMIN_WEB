@@ -161,7 +161,7 @@
 				})
 			},
 			setpage(){
-				localStorage.setItem("userInfo",this.$refs.Tabledd.tabnums);
+				localStorage.setItem("userInfo",this.$refs.Tabledd.commonTopData.tabnums);
 			},
 			ISshow(){
 				this.$refs.Tabledd.reject();

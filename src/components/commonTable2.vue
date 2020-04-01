@@ -9,7 +9,7 @@
 						</el-breadcrumb>
 					</div>
 					<div class="textcenter" style="width: 69%;float:left;" v-if="commonTopData.tabData">
-						<span v-for="(item,index) in commonTopData.tabData"  :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<span v-for="(item,index) in commonTopData.tabData"  :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
 							<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 						</span>
 					</div>
@@ -49,7 +49,7 @@
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 				<div class="ofh">
 					<div class="fleft" style="float:right;">
-						<div class="btnorgle" v-if="item.is != tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>	
+						<div class="btnorgle" v-if="item.is != commonTopData.tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>	
 					</div>
 					<div class="fright" style="float:left;">
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
@@ -60,7 +60,7 @@
 								</div>
 								<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
 								<button v-if="commonTopData.upload && !item.status" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
-								<button v-if="commonTopData.upload && item.status && (tabnums == item.status)" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
+								<button v-if="commonTopData.upload && item.status && (commonTopData.tabnums == item.status)" class="defaultbtn defaultbtnactive" @click="getparent(item.fun)">{{ item.name }}</button>
 							</div>
 							<div v-if="!item.accessid">
 								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
@@ -330,7 +330,6 @@
 				doCount:{},
 				operations:[],
 				adminuseraccess: [],
-				tabnums:0,
 				/* ///// */
 				form: {
 					
@@ -371,7 +370,7 @@
 				let obj4 = {}
 				this.commonTopData.commonbottombtn.splice(index, 1);
 				this.commonTopData.commonbottombtn.forEach(item => {
-					if(this.tabnums == 0){
+					if(this.commonTopData.tabnums == 0){
 						if(item.id == "name"){
 							let obj = {name: item.val};
 						}
@@ -401,49 +400,40 @@
 				this.getTabData()
 			},
 			getcommonrightbtn(){
-				// console.log(this.filterFields)
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-				    //console.log(urldata);
-					this.tabFilterFields = this.filterFields['filterFields'+ this.tabnums];
-					//console.log(this.tabFilterFields);
+					this.tabFilterFields = this.filterFields['filterFields'+ this.commonTopData.tabnums];
 					this.tabFilterFields.forEach(item=>{
-						//console.log(urldata[item.id]);
 						if(urldata[item.id]){
 							var val = urldata[item.id];
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
-									//alert(urldata[item.id])
 									if(citem.id == urldata[item.id]){
 										val = citem.name;
 									}
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.id});
-							console.log(this.commonTopData.commonbottombtn);
 						} 
 						if(urldata[item.project_id]){
 							var val = urldata[item.project_id];
 							if(item.child){	
 								val = "";
 								item.child.forEach(citem=>{
-									//alert(urldata[item.id])
 									if(citem.id == urldata[item.project_id]){
 										val = citem.name;
 									}
 								})
 							} 
 							this.commonTopData.commonbottombtn.push({btnName:item.name,val:val,id:item.project_id});
-							console.log(this.commonTopData.commonbottombtn);
 						} 
 						if(item.type == "two"){
 							if(item.child){
 								item.child.forEach(citem=>{
 									if(urldata[citem.id]){
 										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
-										console.log(this.commonTopData.commonbottombtn);
 									}
 								})
 							}
@@ -453,7 +443,6 @@
 								item.child.forEach(citem=>{
 									if(urldata[citem.id]){
 										this.commonTopData.commonbottombtn.push({btnName:citem.name,val:urldata[citem.id],id:citem.id})
-										console.log(this.commonTopData.commonbottombtn);
 									}
 								})
 							}
@@ -463,20 +452,16 @@
 			},
 			gettitle(){
 				if(!this.commonTopData.tabDatatitle){
-					return this.commonTopData.tabData[this.tabnums].name
+					return this.commonTopData.tabData[this.commonTopData.tabnums].name
 				} else {
 					return this.commonTopData.tabDatatitle
 				}
 			},
 			timetwo(time,index){
-				// console.log(this.times)
 				this.form[time[0].id] = this.times[index][0];
 				this.form[time[1].id] = this.times[index][1];
-				//console.log(this.form)
 			},
 			gettrue(id){
-				//console.log(this.adminuseraccess)
-				//alert(this.adminuseraccess.hasOwnProperty(id)) 
 				if(this.adminuseraccess.indexOf(id) > -1){
 					return true;
 				} else {
@@ -528,15 +513,12 @@
 				this.centerDialogVisible = !this.centerDialogVisible;
 			},
 			tabsChange(num){
-				console.log(num)
-				this.tabnums = num;
-				// console.log(this.tabnums)
-				this.gettableConfiglist(this.tabnums);
+				this.commonTopData.tabnums = num;
+				this.gettableConfiglist(this.commonTopData.tabnums);
 				this.getTabData();
 			},
 			
 			handleClick(fun,row,index) {
-				// console.log(fun,row,index)
 				if(this.$parent[fun]){
 					this.$parent[fun](row);
 				}
@@ -578,7 +560,6 @@
 				
 				let selectIds = [];
 				// 获取当前页选中的id
-				//console.log(this.pageid);
 				x.forEach((row,index)=>{
 					selectIds.push(row[this.pageid]);
 					if (selectAllIds.indexOf(row[this.pageid]) < 0) {
@@ -594,7 +575,6 @@
 						noSelectIds.push(row[this.pageid]);
 					}
 				})
-				console.log(noSelectIds)
 				noSelectIds.forEach(id=>{
 					if (selectAllIds.indexOf(id) >= 0) {
 						for(let i = 0; i< this.multipleSelectionAll.length; i ++) {
@@ -605,7 +585,6 @@
 						}
 					}
 				})
-				//console.log(this.multipleSelectionAll);
 				if( this.$parent.$parent.pageName && this.$parent.$parent.pageName == "addblack"){
 					if(this.$parent.$parent.tabnum == 0) {
 						this.$parent.$parent.selectData = this.multipleSelectionAll;
@@ -635,7 +614,6 @@
 						if(data[i][this.pageid] == this.multipleSelectionAll[x][this.pageid] ){
 							var f = function(a){
 								setTimeout(() => {
-									console.log(data[a])
 									_this.$refs.multipleTable.toggleRowSelection(data[a],true);
 								}, 100);
 							}
@@ -681,10 +659,8 @@
 					limit: this.pagesize
 				}
 				//获取筛选的条件
-				//console.log(JSON.parse(this.$route.query.urlDate))
 				if (this.form) {
 					const sreenData = this.form
-					console.log(this.form)
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
 					sreenData.access_token = localStorage.getItem("access_token");
@@ -717,9 +693,6 @@
 					page: this.currentpage,
 					limit:this.pagesize,
 				}
-				
-				console.log(data);
-				console.log(this.form)
 				//获取筛选的条件
 				if (this.form) {
 					const sreenData = this.form
@@ -729,14 +702,14 @@
 					data = sreenData;
 				}
 				if(this.tableConfig.data){
-					data[this.tableConfig.data] = this.tabnums;
-					if(this.tabnums == 5){
+					data[this.tableConfig.data] = this.commonTopData.tabnums;
+					if(this.commonTopData.tabnums == 5){
 						data[this.tableConfig.data] = -1;
 					}
-					if(this.tabnums == 3){
+					if(this.commonTopData.tabnums == 3){
 						data.status = '3,4';
 					}
-					if(this.tabnums == 4){
+					if(this.commonTopData.tabnums == 4){
 						data.status = '5';
 					}
 				}
@@ -745,7 +718,7 @@
 				if(this.tableConfig.url) {
 					url = this.tableConfig.url;
 				} else {
-					url = this.tableConfig["url"+ this.tabnums];
+					url = this.tableConfig["url"+ this.commonTopData.tabnums];
 				}
 				
 				if(this.tableConfig.project_id){
@@ -755,11 +728,10 @@
 				if(this.tableConfig.project_id){
 					data.project_id = this.$parent.project_id;
 				}
-				if(this.tableConfig['data'+this.tabnums]){
-					data[this.tableConfig['data'+this.tabnums].name] = this.tableConfig['data'+this.tabnums].id;
+				if(this.tableConfig['data'+this.commonTopData.tabnums]){
+					data[this.tableConfig['data'+this.commonTopData.tabnums].name] = this.tableConfig['data'+this.commonTopData.tabnums].id;
 				}
 				this.api[url](data).then((da) => {
-					console.log(da)
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
@@ -852,13 +824,11 @@
 					this.tableConfiglist = this.tableConfig.list
 				} else {
 					this.tableConfiglist = this.tableConfig['list'+ n];
-					console.log(this.tableConfiglist)
 				} 
 				
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
 					this.filterField = this.filterFields;
-					//console.log(this.tableActions)
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
 					this.filterField = this.filterFields['filterFields'+ n];
@@ -877,12 +847,9 @@
 					access_token:localStorage.getItem("access_token"),
 					permissions:str,
 				}).then(da =>{
-					//alert(1);
-					//console.log(da);
 					// this.doCount = da;
 					this.reviewnum = da.total;
 					// eventBus.$emit("reviewnum",da.total);
-					//console.log(this.doCount)
 					
 				}).catch(da=>{
 					
@@ -890,7 +857,6 @@
 			},
 			getBreadcrumb() {
 				this.names = this.$route.matched
-				//console.log(this.$route.matched)
 			},
 			signOut() {
 				this.IsSign = !this.IsSign
@@ -904,7 +870,6 @@
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					//console.log(da)
 					this.user = da;
 					this.userimg = da.avatar? da.avatar : require('../assets/img/MRTX.svg');
 				})
@@ -931,7 +896,6 @@
 					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
-						//console.log(da)
 						if(da.result == 0){
 							window.location.href = da.data;
 						}
@@ -962,7 +926,6 @@
 						if(accessArry[i].id == '11'){
 							var newArr = accessArry[i].child;
 							this.firstId = newArr[0].id;
-							console.log(this.firstId)
 							let arr = [];
 							newArr.forEach(element => {		
 								if(element.id == '12'){
@@ -991,16 +954,11 @@
 			
 		},
 		mounted() {
-			
-			
 			this.autoTableHeight();
-			//console.log(this.tableConfig)
-			this.init();
-			
+			this.init();	
 		},
 		created() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
-			//console.log(this.$route.matched[this.$route.matched.length-1].meta.title);
 			this.getcommonrightbtn();
 			this.getAddData();
 			this.getData();
@@ -1009,7 +967,13 @@
 			this.getuserinfo();
 			this.getaccess();
 			this.getaccess_list();
-			this.tabsChange(0);
+			if(this.$route.query.tabsnum){
+				this.commonTopData.tabnums = this.$route.query.tabsnum;
+				this.gettableConfiglist(this.commonTopData.tabnums);
+				this.getTabData();
+			}else{
+				this.tabsChange(0);
+			}
 		},
 		watch:{
 			"$route":function(){

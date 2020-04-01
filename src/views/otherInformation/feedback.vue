@@ -94,6 +94,7 @@
 						accessid:"43"
 					}
 				],
+				'tabnums':0,
 					// "IsShow": true,
 					upload: true
 

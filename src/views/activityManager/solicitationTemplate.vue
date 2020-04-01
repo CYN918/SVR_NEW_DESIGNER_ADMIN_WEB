@@ -115,6 +115,7 @@
 						accessid:"47"
 					}
 				],
+				'tabnums':0,
 					// "IsShow": true,
 					upload: true
 

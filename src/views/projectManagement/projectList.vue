@@ -735,7 +735,7 @@
 				
 			},
 			setpage(){
-				localStorage.setItem("projectlist",this.$refs.Tabledd.tabnums);
+				localStorage.setItem("projectlist",this.$refs.Tabledd.commonTopData.tabnums);
 			},
 			leadingout(){
 				this.$refs.Tabledd.setexport();

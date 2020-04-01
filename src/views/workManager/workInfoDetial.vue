@@ -280,8 +280,12 @@
 				document.getElementById(fid).play();
 			},
 			getparent() {
-				//alert(parseInt(this.$route.query.type))
-				this.$router.go(-1)
+				this.$router.push({
+					path:"/workManager/workInfo",
+					query:{
+						tabsnum:0
+					}
+				})
 				
 			},
 			getValue(val) {
@@ -428,6 +432,12 @@
 </style>
 
 <style scoped>
+.detailContent{
+	overflow-y: scroll !important;
+}
+.wh{
+	overflow: auto !important;
+}
 	.Detail {
 		background: white;
 	}

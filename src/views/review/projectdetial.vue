@@ -213,7 +213,7 @@
 							</el-select>
 						</div>
 					</li> -->
-					<li class="w ofh" v-if="material_info.type == '1' && is_ruku == '0'">
+					<li class="w ofh" v-if="is_ruku == '0'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
@@ -647,6 +647,7 @@
 				isShow: true,
 				audit1: '',
 				audit2: '',
+				fileStr:'',
 			}
 		},
 		computed:{
@@ -673,7 +674,6 @@
 						check_status: 0,
 						project_id: this.$route.query.project_id,
 						level: this.typebtn,
-						deal_type: 1,
 						demand_id: this.did,
 						is_ruku: this.is_ruku,
 						storage_number: 1,
@@ -682,6 +682,7 @@
 					    file_name: this.file.file_name,
 						file_size: this.file.file_size,
 						check_steps: 1,
+						file_info: this.fileStr,
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
@@ -769,7 +770,9 @@
 				formData.append('timestamp', times)
 			    var _this = this;
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
-					console.log(response.data.data);
+					
+					_this.fileStr = JSON.stringify(response.data.data)
+					// console.log(_this.fileStr);
 					_this.file={
 						file_url:response.data.data.url,
 						file_name:response.data.data.file_name,

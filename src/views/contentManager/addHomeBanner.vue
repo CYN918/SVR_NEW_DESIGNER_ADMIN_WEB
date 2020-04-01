@@ -59,6 +59,7 @@
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 				},
+				tabsnum:''
 			}
 		},
 		methods: {
@@ -92,7 +93,7 @@
 				this.router.push({
 					path: "/contentManager/homeBanner",
 					query: {
-						tabsnum: 0
+						tabsnum: this.tabsnum
 					}
 				})
 			},
@@ -227,11 +228,13 @@
 				this.banner_name = this.rows.banner_name;
 				this.banner_pic = this.rows.banner_pic;
 				this.jump_url = this.rows.jump_url;
+				this.tabsnum = 1;
+			}else{
+				this.tabsnum = 0;
 			}
 		},
 		mounted() {
 			this.currentpageName = (this.$route.matched[this.$route.matched.length - 1].meta.title).split("/")[1];
-			console.log(this.$route.matched);
 		}
 	}
 </script>

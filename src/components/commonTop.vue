@@ -19,7 +19,7 @@
 					</span>
 				</div>
 				<div class="textcenter" style="width: 69%;float:left;" v-if="commonTopData.tabTopData">
-					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabTopData" v-if="(adminuseraccess.indexOf(item.accessid) > -1)" :class="index == tabnums ? 'tabs tabactive' : 'tabs'" @click="switchTabs(index)">
+					<span style="height: 58px;" v-for="(item,index) in commonTopData.tabTopData" v-if="(adminuseraccess.indexOf(item.accessid) > -1)" :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="switchTabs(index)">
 						{{ item.name }}
 					</span>
 				</div>
@@ -135,12 +135,10 @@
 				userimg:'../assets/img/MRTX.svg',
 				auditTitle: '',
 				firstId:'',
-				tabnums:0,
 			};
 		},
 		methods: {
 			settrue(id1,id2){
-				//console.log(id1,id2)
 				if((this.adminuseraccess.indexOf(id1) == -1) && (this.adminuseraccess.indexOf(id2) == -1)) {
 					return false;
 				} else {
@@ -152,9 +150,7 @@
 				this.commonTopData.commonbottombtn.splice(index,1)
 			},
 			getparent(id,name) {
-				console.log(id,name)
 				var idIndex = id;
-				// console.log(idIndex)
 				switch (name)
 				{
 					case "userBaseInfo":
@@ -323,7 +319,6 @@
 			IsShow(index) {
 				this.Istooltip = false;
 				if(index == 0) {
-					//console.log(this.$parent.selectData);
 					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
 						this.$parent.centerDialogVisible = true;
 					} else {
@@ -336,7 +331,6 @@
 				}
 				
 				if(index == 1) {
-					//console.log(this.$parent.selectData);
 					if (this.$parent.selectData.length != 0 || this.$parent.seltotal) {
 						// this.$parent.centerDialogVisible = true;
 						this.router.push({path:"/userManager/blackList/addblack",query:{rows:JSON.stringify(this.$parent.selectData)}});
@@ -354,7 +348,7 @@
 				//console.log(tab, event);
 			},
 			switchTabs(num){
-				this.tabnums = num;
+				this.commonTopData.tabnums = num;
 				this.$parent.tabsChange(num);
 			},
 			tabsChange(num){
@@ -379,7 +373,6 @@
 				
 			},
 			tabsChanges(num){
-				console.log(this.user)
 				switch (num){
 					case 0:
 						this.router.push({path:"/review/projectreview/projectrepending",query:{user:this.user.name}});
@@ -402,7 +395,6 @@
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					//console.log(da)
 					this.user = da.name;
 				})
 			},
@@ -411,20 +403,15 @@
 					access_token:localStorage.getItem("access_token"),
 					permissions:str,
 				}).then(da =>{
-					//alert(1);
-					// console.log(da);
 					this.doCount = da;
 					this.reviewnum = da.total;
-					// eventBus.$emit("reviewnum",da.total);
-					//console.log(this.doCount)
-					
+					// eventBus.$emit("reviewnum",da.total);				
 				}).catch(da=>{
 					
 				})
 			},
 			getBreadcrumb() {
 				this.names = this.$route.matched
-				//console.log(this.$route.matched)
 			},
 			signOut() {
 				this.IsSign = !this.IsSign
@@ -438,7 +425,6 @@
 				this.api.selfInfo({
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
-					//console.log(da)
 					this.user = da;
 					this.userimg = da.avatar? da.avatar : require('../assets/img/MRTX.svg');
 				})
@@ -465,7 +451,6 @@
 					this.api.logout({
 						access_token:localStorage.getItem("access_token")
 					}).then(da=>{
-						//console.log(da)
 						if(da.result == 0){
 							window.location.href = da.data;
 						}
@@ -496,7 +481,6 @@
 						if(accessArry[i].id == '11'){
 							var newArr = accessArry[i].child;
 							this.firstId = newArr[0].id;
-							console.log(this.firstId)
 							let arr = [];
 							newArr.forEach(element => {		
 								if(element.id == '12'){
@@ -529,6 +513,10 @@
 			this.getaccess();
 			this.getaccess_list();
 			// this.getbus();
+			if(this.$route.query.tabsnum){
+				this.commonTopData.tabnums = this.$route.query.tabsnum;
+				this.$parent.tabsChange(this.commonTopData.tabnums);
+			}
 			
 		},
 		mounted() {
@@ -538,7 +526,6 @@
 			var access = [];
 			if(localStorage.getItem("access")){
 				access = JSON.parse(localStorage.getItem("access"));
-				// console.log(access.top_banner)
 				if(access.top_banner != 'undefined'){
 					access.top_banner.forEach(element => {
 						element.child.forEach(item => {
@@ -552,7 +539,7 @@
 						})		
 					});
 				}else{
-					console.log(2)
+			        
 				}			
 			}			
 			

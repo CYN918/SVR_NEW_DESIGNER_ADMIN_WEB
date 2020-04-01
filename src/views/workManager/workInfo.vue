@@ -229,7 +229,8 @@
 					{
 						name: "投稿作品",
 						accessid:"",
-					}]
+					}],
+					'tabnums':0,
 				},
 				
 				screenConfig: [],
