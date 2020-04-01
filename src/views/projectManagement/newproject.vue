@@ -200,7 +200,7 @@
 						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
 								<el-checkbox-group v-model="dids" @change="getdemand_names">
 									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
-										<el-checkbox  :label="item.did" >{{  item.demand_name + " " + item.did }}</el-checkbox>
+										<el-checkbox  :label="item.did">{{  item.demand_name + " " + item.did }}</el-checkbox>
 									</el-dropdown-item>
 								</el-checkbox-group>
 						    </el-dropdown-menu>
@@ -1595,13 +1595,13 @@
 				})
 			},
 			getdemand_names(){
-				//console.log(this.dids);
+				// console.log(this.dids);
 				if(this.dids.length > 1){
 					this.$message({
-						message: "只能选择一项!",
+						message: "只能选择一项绑定需求!",
 						type: 'warning',
 					})
-					return;
+					this.dids.splice(1)
 				}
 				this.demand_names = [];
 				this.form.demand_id = this.dids.join(',');
