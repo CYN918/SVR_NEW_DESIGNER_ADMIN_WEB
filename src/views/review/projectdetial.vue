@@ -27,8 +27,11 @@
 						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
 						<span v-if="material_info.type == '2'" style="color: #FF5121;cursor: pointer;" @click="openwindow(material_info[item.id2])">{{ getValue(material_info[item.id2])  }}</span>
 					</span>
-					<span v-if="item.type == 'img'">
+					<span v-if="item.type == 'img' && apply_info.business_type != '5'">
 						<img :src="material_info[item.id]" width="500px" alt="暂无">
+					</span>
+					<span v-if="item.type == 'video' && apply_info.business_type == '5'">
+						<video :src="material_info[item.id]" width="500px" alt="暂无" controls="controls"></video>
 					</span>
 					<span v-if="!item.type">{{ getValue(material_info[item.id]) }}</span>
 				</li>
@@ -40,7 +43,7 @@
 			</ul>
 		</div>
 		<div v-if="tabsnum == 2">
-			<reviewinfocommon :reviewinfocommon="reviewinfocommon"></reviewinfocommon>
+			<reviewinfocommon :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id"></reviewinfocommon>
 		</div>
 		<div v-if="tabsnum == 0">
 			<workData :reviewinfocommon="apply_info" :material_info="material_info"></workData>
@@ -473,6 +476,11 @@
 						name: "内容预览图",
 						id: "preview_pic",
 						type:"img"
+					},
+					{
+						name: "视频内容预览",
+						id: "file_url",
+						type:"video"
 					},
 					{
 						name: "交稿文件/网盘链接",

@@ -38,8 +38,8 @@
                         <div class="bt_o_contenaut">
                             <ul>
                                 <li><span>项目评级</span><span>{{reviewinfocommon.level}}</span></li>
-                                <li><span>绑定需求</span><span>{{reviewinfocommon.demand_id}}</span></li>
-                                <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '2'">需整理后入库</span></li>
+                                <li><span>绑定需求</span><span>{{demand_id}}</span></li>
+                                <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '0'">需整理后入库</span></li>
                                 <li><span>入库素材数量</span><span>{{reviewinfocommon.storage_number}}</span></li>
                                 <li><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
                             </ul>           
@@ -59,8 +59,8 @@
                         <div class="bt_o_contenaut">
                             <ul>
                                 <li><span>项目评级</span><span>{{reviewinfocommon.level}}</span></li>
-                                <li><span>绑定需求</span><span>{{reviewinfocommon.demand_id}}</span></li>
-                                <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '2'">需整理后入库</span></li>
+                                <li><span>绑定需求</span><span>{{demand_id}}</span></li>
+                                <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '0'">需整理后入库</span></li>
                                 <li><span>入库素材数量</span><span>{{reviewinfocommon.storage_number}}</span></li>
                                 <li><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
                             </ul>           
@@ -110,7 +110,7 @@
 
 <script>
     export default {
-        props: ['reviewinfocommon'],
+        props: ['reviewinfocommon','demand_id'],
         data(){
             return {
 
@@ -123,7 +123,7 @@
 
         },
         created(){
-            // console.log(this.reviewinfocommon)
+            console.log(this.reviewinfocommon.is_ruku)
         },
         mounted(){
 
