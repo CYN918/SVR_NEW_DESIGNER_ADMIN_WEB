@@ -1001,6 +1001,7 @@
 							acceptance_price: this.acceptance_price,
 							deal_price: this.getdeal_price(),
 							gain_share_rate:this.apply_info.gain_share_rate,
+							gain_share_price:(this.acceptance_price * this.apply_info.gain_share_rate / 100),
 							check_steps: 2,
 							want_deal_type:this.want_deal_type,
 						}	

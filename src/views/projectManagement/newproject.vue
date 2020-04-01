@@ -1837,7 +1837,7 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
 .el-table__body-wrapper{
 	max-height: 316.76px !important;
 }
