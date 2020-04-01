@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="box_process" style="height:180px;">
-            <div class="box_process_title">项目时间</div>
+            <div class="box_process_title">项目来源绑定</div>
             <div class="box_process_content">
                 <div class="bt_o">
                     <ul>

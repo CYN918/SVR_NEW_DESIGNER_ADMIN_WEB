@@ -237,8 +237,8 @@
 				<ul class="textcenter">
 					<li class="w ofh">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">结算方式</span>
-							<el-radio-group v-model="want_deal_type">
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;float:left;">结算方式</span>
+							<el-radio-group v-model="want_deal_type" style="width:260px;float:left;">
 								<el-radio-button label="1">买断</el-radio-button>
 								<el-radio-button label="2">分成</el-radio-button>
 								<el-radio-button label="3">预约金+分成</el-radio-button>
@@ -1405,10 +1405,6 @@
 	border-color: rgb(0, 0, 0);
 	-webkit-box-shadow: -1px 0 0 0 rgb(0, 0, 0);
 	box-shadow: -1px 0 0 0 rgb(0, 0, 0);
-}
-.el-radio-group{
-	width: 260px;
-    float: left;
 }
 .Detail{
 	background: #FFF;

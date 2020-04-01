@@ -93,126 +93,137 @@
 						</div>
 					</li>
 					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">结算方式</span>
-						<el-radio-group v-model="form['want_deal_type']">
+						<span class="fleft detailKey" style="line-height: 40px;float:left;">结算方式</span>
+						<el-radio-group v-model="form['want_deal_type']" style="width:300px;float:left;">
 							<el-radio-button label="0">用户选择</el-radio-button>
 							<el-radio-button label="1">买断</el-radio-button>
 							<el-radio-button label="2">分成</el-radio-button>
 						</el-radio-group>
 					</li>
 				</ul>
-				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
-						<el-select v-model="form['classify_id']" placeholder="请选择" style="width: 357px;">
-							<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name"></el-option>
-						</el-select>
-						<div class="configbtn">
-							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">11</span>
-							<button @click="reject1" class="defaultbtn" style="width: auto;padding: 0 10px;color: #666666;margin: 0;margin-top: 10px;border-color:#BBBBBB;">选择模板一建配置</button>
-						</div>
-					</li>
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
-						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
-							<button class="defaultbtn" style="margin-left: 0;">{{ form['banner'] ? "重新上传" : "上传图片" }}</button>
-							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
-						</el-upload>
-						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
-					</li>
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
-						<div>
-							<div class="ofh">
-								<div class="fleft el-input__inner roles-input width500" style="width: 375px;">
-									<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
-									<span class="fright">{{ fields.length }}/10</span>
+				<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+					<div style="width:100px;float:left;margin:10px 0px 0px 30px;color:#666666;">项目详情信息</div>
+					<ul>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">所属项目类型 / 模板</span>
+							<el-select v-model="form['classify_id']" placeholder="请选择" style="width: 357px;">
+								<el-option v-for="(item,index) in tableData1" :key="item.id" :value="item.id" :label="item.classify_name"></el-option>
+							</el-select>
+							<div class="configbtn">
+								<span class="fleft detailKey" style="line-height: 40px;color: transparent;">11</span>
+								<button @click="reject1" class="defaultbtn" style="width: auto;padding: 0 10px;color: #666666;margin: 0;margin-top: 10px;border-color:#BBBBBB;">选择模板一建配置</button>
+							</div>
+						</li>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">banner</span>
+							<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
+								<button class="defaultbtn" style="margin-left: 0;">{{ form['banner'] ? "重新上传" : "上传图片" }}</button>
+								<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+							</el-upload>
+							<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+						</li>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
+							<div>
+								<div class="ofh">
+									<div class="fleft el-input__inner roles-input width500" style="width: 375px;">
+										<input type="text" placeholder="请输入内容" class="sel-input fleft" maxlength="10" v-model="fields">
+										<span class="fright">{{ fields.length }}/10</span>
+									</div>
+									<button class="fleft defaultbtn" style="background: #33B3FF;color: #FFFFFF;margin-left: 10px;border-color: #33B3FF;"  @click="addtag">添加</button>
 								</div>
-								<button class="fleft defaultbtn" style="background: #33B3FF;color: #FFFFFF;margin-left: 10px;border-color: #33B3FF;"  @click="addtag">添加</button>
+								<div style="margin-left: 160px;margin-top: 10px;">
+									<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"
+									:disable-transitions="false" @close="handleClose(index)">
+										{{item}}
+									</el-tag>
+								</div>
 							</div>
-							<div style="margin-left: 160px;margin-top: 10px;">
-								<el-tag :key="item" v-for="(item,index) in checkedroles" closable class="tag"
-								 :disable-transitions="false" @close="handleClose(index)">
-									{{item}}
-								</el-tag>
+						</li>
+						
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
+							<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
+							<div class="delect" v-if="selectData1.template_file_id">
+								<span class="fontcolorg">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
 							</div>
-						</div>
-					</li>
-					
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
-						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
-						<div class="delect" v-if="selectData1.template_file_id">
-							<span class="fontcolorg">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
-						</div>
-					</li>
-					
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">预计收益</span>
-						<el-input placeholder="给创作者的收益预期,如: 20.00~30.00/张" v-model="form['expected_profit']" style="width:357px;height:40px;" clearable></el-input>
-					</li>
-					<!-- <li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">额外赏金</span>
-						<el-input placeholder="单位, 元; 额外赏金可吸引更多创作者报名" v-model="form['extra_reward']" style="width:357px;height:40px;" clearable></el-input>
-					</li> -->
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
-						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
-					</li>
-				</ul>
-				<ul style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">发布时间</span>
-						<el-date-picker
-						  v-model="form['publish_time']"
-						  type="datetime"
-						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :disabled="objstatus > 0"
-						  placeholder="选择日期时间" @change="databijiao()">
-						</el-date-picker>
-					</li>
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">报名截止时间</span>
-						<el-date-picker
-						  v-model="form['deadline']"
-						  type="datetime"
-						  :disabled="objstatus > 2 || typebtn == 1"
-						  value-format="yyyy-MM-dd HH:mm:ss"
-						  :placeholder="typebtn == 1 ? '你已指定制作人':'选择日期时间'" @change="databijiao()">
-						</el-date-picker>
-					</li>
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">制作周期</span>
-						<div class="fleft ofh">
-							<div class="fleft">
-								<el-input-number v-model="form['production_cycle_d']" :min="0" controls-position="right" ></el-input-number> 天
+						</li>
+						
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">预计收益</span>
+							<el-input placeholder="给创作者的收益预期,如: 20.00~30.00/张" v-model="form['expected_profit']" style="width:357px;height:40px;" clearable></el-input>
+						</li>
+						<!-- <li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">额外赏金</span>
+							<el-input placeholder="单位, 元; 额外赏金可吸引更多创作者报名" v-model="form['extra_reward']" style="width:357px;height:40px;" clearable></el-input>
+						</li> -->
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
+							<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
+						</li>
+					</ul>	
+				</div>
+				<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+					<div style="width:100px;float:left;margin:10px 0px 0px 30px;color:#666666;">项目时间</div>
+					<ul>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">发布时间</span>
+							<el-date-picker
+							v-model="form['publish_time']"
+							type="datetime"
+							value-format="yyyy-MM-dd HH:mm:ss"
+							:disabled="objstatus > 0"
+							placeholder="选择日期时间" @change="databijiao()">
+							</el-date-picker>
+						</li>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">报名截止时间</span>
+							<el-date-picker
+							v-model="form['deadline']"
+							type="datetime"
+							:disabled="objstatus > 2 || typebtn == 1"
+							value-format="yyyy-MM-dd HH:mm:ss"
+							:placeholder="typebtn == 1 ? '你已指定制作人':'选择日期时间'" @change="databijiao()">
+							</el-date-picker>
+						</li>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">制作周期</span>
+							<div class="fleft ofh">
+								<div class="fleft">
+									<el-input-number v-model="form['production_cycle_d']" :min="0" controls-position="right" ></el-input-number> 天
+								</div>
+								<div style="margin-left: 40px;" class="fleft">
+									<el-input-number v-model="form['production_cycle_h']" controls-position="right" :min="0" :max="23"></el-input-number> 时
+								</div>
 							</div>
-							<div style="margin-left: 40px;" class="fleft">
-								<el-input-number v-model="form['production_cycle_h']" controls-position="right" :min="0" :max="23"></el-input-number> 时
+						</li>
+					</ul>
+				</div> 
+				<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+					<div style="width:100px;float:left;margin:10px 0px 0px 30px;color:#666666;">需求来源绑定</div>
+					<ul>
+						<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
+							<el-dropdown trigger="click" :hide-on-click="false">
+								<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down" v-model="form['demand_id']"
+								clearable></el-input><!-- v-model="demand_names.join(',')" -->
+								<el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+									<el-checkbox-group v-model="dids" @change="getdemand_names">
+										<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
+											<el-checkbox  :label="item.did">{{  item.demand_name + " " + item.did }}</el-checkbox>
+										</el-dropdown-item>
+									</el-checkbox-group>
+								</el-dropdown-menu>
+							</el-dropdown>
+							<div>
+								<span class="fleft detailKey" style="line-height: 40px;color: transparent;">1111</span>
+								<span style="padding: 8px; background: rgba(245,245,245,1);margin-top: 10px;margin-right:8px;display: inline-block;color: #000000;border-radius: 4px;border:1px solid rgba(217,217,217,1)" v-for="(item,index) in demand_names">
+									{{ item }}
+								</span>
 							</div>
-						</div>
-					</li>
-					<li class="margint23 ofh">
-						<span class="fleft detailKey" style="line-height: 40px;">选择关联需求</span>
-						<el-dropdown trigger="click" :hide-on-click="false">
-							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down" v-model="form['demand_id']"
-							 clearable></el-input><!-- v-model="demand_names.join(',')" -->
-						    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
-								<el-checkbox-group v-model="dids" @change="getdemand_names">
-									<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
-										<el-checkbox  :label="item.did">{{  item.demand_name + " " + item.did }}</el-checkbox>
-									</el-dropdown-item>
-								</el-checkbox-group>
-						    </el-dropdown-menu>
-						</el-dropdown>
-						<div>
-							<span class="fleft detailKey" style="line-height: 40px;color: transparent;">1111</span>
-							<span style="padding: 8px; background: rgba(245,245,245,1);margin-top: 10px;margin-right:8px;display: inline-block;color: #000000;border-radius: 4px;border:1px solid rgba(217,217,217,1)" v-for="(item,index) in demand_names">
-								{{ item }}
-							</span>
-						</div>
-					</li>
-				</ul> 
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div v-show="Isnextshow"  v-loading="!clear">
 				<div>
@@ -1892,7 +1903,7 @@
 
 	.detailContent ul {
 		padding-left: 132px;
-		padding-top: 64px;
+		padding-top: 0px;
 	}
 
 	.margint13 {
