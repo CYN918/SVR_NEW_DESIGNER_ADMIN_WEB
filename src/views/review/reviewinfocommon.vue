@@ -41,7 +41,8 @@
                                 <li><span>绑定需求</span><span>{{demand_id}}</span></li>
                                 <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '0'">需整理后入库</span></li>
                                 <li><span>入库素材数量</span><span>{{reviewinfocommon.storage_number}}</span></li>
-                                <li><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
+                                <li v-if="reviewinfocommon.content_remark != ''"><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
+                                <li v-if="reviewinfocommon.content_remark == ''"><span>内容备注</span><span>暂无内容</span></li>
                             </ul>           
                         </div>
                         <li style="margin-top:30px;">
@@ -62,7 +63,8 @@
                                 <li><span>绑定需求</span><span>{{demand_id}}</span></li>
                                 <li><span>能否直接入库</span><span v-if="reviewinfocommon.is_ruku == '1'">可直接入库</span><span v-if="reviewinfocommon.is_ruku == '0'">需整理后入库</span></li>
                                 <li><span>入库素材数量</span><span>{{reviewinfocommon.storage_number}}</span></li>
-                                <li><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
+                                <li v-if="reviewinfocommon.content_remark != ''"><span>内容备注</span><span>{{reviewinfocommon.content_remark}}</span></li>
+                                <li v-if="reviewinfocommon.content_remark == ''"><span>内容备注</span><span>暂无内容</span></li>
                             </ul>           
                         </div>
                         <li style="margin-top:30px;">
@@ -72,12 +74,27 @@
                         <div class="bt_o_contenaut">
                             <ul>
                                 <li><span>结算方式</span><span v-if="reviewinfocommon.deal_type == '1'">买断</span><span v-if="reviewinfocommon.deal_type == '2'">分成</span><span v-if="reviewinfocommon.deal_type == '3'">预约金+分成</span></li>
-                                <li><span>最终结算价格</span><span style="color:#FF9200;">¥{{reviewinfocommon.deal_price}}</span></li>
-                                <div class="bt_o_contenaut_t">
+                                <li v-if="reviewinfocommon.deal_type == '1'"><span>最终结算价格</span><span style="color:#FF9200;">¥{{formatMoney(reviewinfocommon.deal_price)}}</span></li>
+                                <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '1'">
                                     <ul>
-                                        <li><div style="color:#999999;font-size:12px;">验收价格</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{reviewinfocommon.acceptance_price}}</div></li>
+                                        <li><div style="color:#999999;font-size:12px;">验收价格</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{formatMoney(reviewinfocommon.acceptance_price)}}</div></li>
                                         <li style="width:30px;">+</li>
-                                        <li><div style="color:#999999;font-size:12px;">收益加成（10%）</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{reviewinfocommon.gain_share_price}}</div></li>
+                                        <li><div style="color:#999999;font-size:12px;">收益加成（{{gain_share_rate}}.00%）</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{formatMoney(reviewinfocommon.gain_share_price)}}</div></li>
+                                    </ul>
+                                </div>
+                                <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '2'">
+                                    <ul>
+                                        <li><div style="color:#999999;font-size:12px;">分成比例</div><div style="margin-top:5px;color:#282828;font-size:14px;">{{reviewinfocommon.user_split_rate}}%</div></li>
+                                    </ul>
+                                </div>
+                                <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '3'">
+                                    <ul>
+                                        <li><div style="color:#999999;font-size:12px;">预约金</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{formatMoney(reviewinfocommon.advance_payment)}}</div></li>
+                                        <li style="width:30px;">+</li>
+                                        <li>
+                                            <div style="color:#999999;font-size:12px;">分成比例</div>
+                                            <div style="margin-top:5px;color:#282828;font-size:14px;">{{reviewinfocommon.user_split_rate}}%</div>
+                                        </li>
                                     </ul>
                                 </div>
                             </ul>           
@@ -110,7 +127,7 @@
 
 <script>
     export default {
-        props: ['reviewinfocommon','demand_id'],
+        props: ['reviewinfocommon','demand_id','gain_share_rate'],
         data(){
             return {
 
@@ -120,10 +137,14 @@
 
         },
         methods:{
-
+            formatMoney(input){ 
+                var n = parseFloat(input).toFixed(2);
+                var re = /(\d{1,3})(?=(\d{3})+(?:\.))/g;
+                return n.replace(re, "$1,");
+            }
         },
         created(){
-            console.log(this.reviewinfocommon.is_ruku)
+            console.log(this.reviewinfocommon)
         },
         mounted(){
 

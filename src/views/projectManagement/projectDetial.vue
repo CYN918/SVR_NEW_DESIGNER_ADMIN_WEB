@@ -67,33 +67,7 @@
 				</li>
 			</ul>
 			<ul v-if="tabsnum == 4">
-				<li class="margint13 ofh" v-for="(item,index) in yanshou" :key="index" :type="item.type">
-					<span v-if="!item.sh" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.sh && (status > item.status)" class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text' && !item.sh">{{ info[item.id] }}</span>
-					<span v-if="item.type == 'text' && item.sh && status>item.status">{{ info[item.id] }}</span>
-					<span v-if="item.type == 'recommend'">{{ info[item.id] ? info[item.id] : "不推荐" }}</span>
-					<span v-if="!item.type">{{ info[item.id] }}</span>
-					<span v-else-if="item.type == 'isnum'"> {{ info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="info[item.id]" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ info[item.id] }} </span>
-					<span v-else-if="item.type == 'keyvalue'">{{item.child[info[item.id]]}}</span>
-					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + info.work_id)">{{ item.id + info.work_id }}</span></span>
-					<span v-else-if="item.type == 'status'"> 
-						<span v-if="info['is_del'] == '0'">
-							{{ item.child.status[info['status']] }} 
-						</span>
-						<span v-else-if="info['is_del'] != '0'">
-							{{ item.child.is_del[info['is_del']] }}
-						</span>
-					</span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="info[item.id]" alt="">
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ info[item.id] }}</span>
-					</router-link>
-				</li>
+				<reviewinfocommon :reviewinfocommon="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
 			</ul>
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<div v-for ="(item,index) in desc" class="ofh">
@@ -301,10 +275,12 @@
 <script>
 	import commonTable from '@/components/commonTable2.vue'
 	import commonTop from '@/components/commonTop.vue'
+	import reviewinfocommon from '../../views/review/reviewinfocommon'
 	export default {
 		components:{
 			commonTable,
-			commonTop
+			commonTop,
+			reviewinfocommon
 		},
 		data() {
 			return {
@@ -954,6 +930,7 @@
 				}
 			},
 			tabsChange(num) {
+				console.log(num)
 				this.tabsnum = num;
 				// alert(this.tabsnum)
 				if (this.tabsnum == 2) {
@@ -971,7 +948,7 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					console.log(this.evaluation)
+					console.log(da)
 					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
 					// this.datad = da.name;
