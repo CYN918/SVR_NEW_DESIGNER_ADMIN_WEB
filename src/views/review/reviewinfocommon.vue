@@ -82,21 +82,9 @@
                                         <li><div style="color:#999999;font-size:12px;">收益加成（{{gain_share_rate}}.00%）</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{formatMoney(reviewinfocommon.gain_share_price)}}</div></li>
                                     </ul>
                                 </div>
-                                <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '2'">
-                                    <ul>
-                                        <li><div style="color:#999999;font-size:12px;">分成比例</div><div style="margin-top:5px;color:#282828;font-size:14px;">{{reviewinfocommon.user_split_rate}}%</div></li>
-                                    </ul>
-                                </div>
-                                <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '3'">
-                                    <ul>
-                                        <li><div style="color:#999999;font-size:12px;">预约金</div><div style="margin-top:5px;color:#282828;font-size:14px;">¥{{formatMoney(reviewinfocommon.advance_payment)}}</div></li>
-                                        <li style="width:30px;">+</li>
-                                        <li>
-                                            <div style="color:#999999;font-size:12px;">分成比例</div>
-                                            <div style="margin-top:5px;color:#282828;font-size:14px;">{{reviewinfocommon.user_split_rate}}%</div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <li v-if="reviewinfocommon.deal_type == '2'"><span>分成比例</span><span>{{reviewinfocommon.user_split_rate}}%</span></li>
+                                <li v-if="reviewinfocommon.deal_type == '3'"><span>预约金</span><span>¥{{formatMoney(reviewinfocommon.advance_payment)}}</span></li>
+                                <li v-if="reviewinfocommon.deal_type == '3'"><span>分成比例</span><span>{{reviewinfocommon.user_split_rate}}%</span></li>
                             </ul>           
                         </div>
                     </ul>  
