@@ -25,6 +25,9 @@
 				</span>
 			</div> 
 		</div>
+		<div v-if="tabsnum == 4">
+			<reviewinfocommon :reviewinfocommon="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
+		</div>
 		<div class="detailContent ofh">
 			<ul v-if="tabsnum == 0">
 				<li class="margint13 ofh" v-if="!item.status" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
@@ -66,9 +69,7 @@
 					<span>{{ info['terminate_reason'] }}</span>
 				</li>
 			</ul>
-			<ul v-if="tabsnum == 4">
-				<reviewinfocommon :reviewinfocommon="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
-			</ul>
+			
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<div v-for ="(item,index) in desc" class="ofh">
 					<div v-if="false" class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
