@@ -24,7 +24,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "labels",
+					"pageName": "settlement",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
@@ -43,15 +43,15 @@
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					pageName:"labels",
-					list: DataScreen.screenShow.labels.bts,
+					pageName:"settlement",
+					list: DataScreen.screenShow.settlement.bts,
 					ischeck:false
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.labels.action,
+				tableAction: DataScreen.screenShow.settlement.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.labels.filterFields
+				filterFields:DataScreen.screen.settlement.filterFields
 			}
 		},
 		watch: {},
@@ -78,7 +78,7 @@
 					data = sreenData;
 				}
 
-				this.api.Worklabel(data).then((da) => {
+				this.api.settlement(data).then((da) => {
 					
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;

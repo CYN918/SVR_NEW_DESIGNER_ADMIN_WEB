@@ -194,7 +194,7 @@
 						{prop:'deduction_price',lable:'延迟交稿扣减'},
 						{prop:'gain_share_price',lable:'收益加成'},
 						{prop:'deal_price',lable:'成交价格'},
-						{prop:'want_deal_type',lable:'成交方式',type:"keyvalue",child:{"1":"买断式","2":"加成式"}},
+						{prop:'deal_type',lable:'成交方式',type:"keyvalue",child:{"1":"买断式","2":"分成式","3":"预约金+分成"}},
 						{prop:'demand_id',lable:'需求ID'},
 						{prop:'level',lable:'项目评级'},
 						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},

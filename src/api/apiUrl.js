@@ -148,6 +148,9 @@ export default {
 	Worklabel:{
 		url:'/admin/Work/label',method:'post',baseURL:0
 	},
+	settlement:{
+        url:'/admin/Thirdapi/MoneyList',method:'post',baseURL:0
+	},
 	activitywork:{
 		url:'/admin/activity/work',method:'post',baseURL:0
 	},

@@ -27,6 +27,15 @@ const screenData = {
 			],
 			
 		},
+		settlement:{
+			filterFields:[
+				{name:"项目名称",id:""},
+				{name:"结算日期",id:"balance_date"},
+				{name:"用户昵称",id:"open_id"},
+				{name:"项目ID",id:"work_id"},
+				{name:"",type:"display"},
+			],
+		},
 		addrelease:{
 			filterFields:[
 				{name:'用户id',id:'open_id'},
@@ -1213,6 +1222,28 @@ const screenData = {
 				is_hidden:true,
 				morebtns:{
 					page:"labels"
+				}
+			}
+		},
+		settlement:{
+			bts:[
+				{prop:"work_id",lable:"项目ID"},
+				{prop:"",lable:"项目名称"},
+				{prop:"balance_date",lable:"结算周期"},
+				{prop:"open_id",lable:"用户昵称"},
+				{prop:"deal_type",lable:"结算方式"},
+				{prop:"primaray_fee",lable:"纯分成金额"},
+				{prop:"gain_share_rate",lable:"收益加成比"},
+				{prop:"profit_fee",lable:"加成金额"},
+				{prop:"balance_fee",lable:"分成结算收益"},
+				{prop:"advance_payment",lable:"预约金额"},
+				{prop:"advance_paymen_income",lable:"预约金收益"},
+				{prop:"advance_paymen_total_income",lable:"预约金累计"},
+			],
+			action:{
+				is_hidden:true,
+				morebtns:{
+					page:"settlement"
 				}
 			}
 		},

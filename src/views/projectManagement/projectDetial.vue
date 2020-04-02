@@ -28,47 +28,11 @@
 		<div v-if="tabsnum == 4">
 			<reviewinfocommon :reviewinfocommon="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
 		</div>
+		<div v-if="tabsnum == 0">
+			<workData :reviewinfocommon="info"></workData>
+		</div>
 		<div class="detailContent ofh">
-			<ul v-if="tabsnum == 0">
-				<li class="margint13 ofh" v-if="!item.status" v-for="(item,index) in baseInfo" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'text'">{{ info[item.id] }}</span>
-					<span v-if="item.type == 'recommend'">{{ info[item.id] ? info[item.id] : "不推荐" }}</span>
-					<span v-if="!item.type">{{ info[item.id] }}</span>
-					<span v-else-if="item.type == 'isnum'"> {{ info[item.id] > 0 ? item.child[0]:item.child[1] }} </span>
-					<img class="img-top" v-else-if="item.type == 'imgtou'" :src="info[item.id]" alt="">
-					<img class="img-fengmian" v-else-if="item.type == 'imgfeng'" :src="info[item.id]" alt="">
-					<img class="img-banner" v-else-if="item.type == 'imgbanner'" :src="info[item.id]" alt="">
-					<span v-else-if="item.type == 'imgbanner'"> {{ info[item.id] }} </span>
-					<span v-else-if="item.type == 'two'"> {{ info[item.ids.id0]+"天"+info[item.ids.id1]+"时" }} </span>
-					<span v-else-if="item.type == 'keyvalue'">{{item.child[info[item.id]]}}</span>
-					<span v-else-if="item.type == 'urlopen'"><span class="routerLink pointer" @click="openwindow(item.id + info.work_id)">{{ item.id + info.work_id }}</span></span>
-					<span v-else-if="item.type == 'status'"> 
-						<span v-if="info['is_del'] == '0'">
-							{{ item.child.status[info['status']] }} 
-						</span>
-						<span v-else-if="info['is_del'] != '0'">
-							{{ item.child.is_del[info['is_del']] }}
-						</span>
-					</span>
-					<img class="img-zheng" v-else-if="item.type == 'imgzheng'" :src="info[item.id]" alt="">
-					<router-link to="/" v-else-if="item.type == 'url'">
-						<span class="routerLink">{{ info[item.id] }}</span>
-					</router-link>
-				</li>
-				<li class="margint13 ofh" v-else-if="item.status == '2' && status > 1">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '中标人' }}</span>
-					<span>{{ info['username'] }}</span>
-				</li>
-				<li class="margint13 ofh" v-else-if="item.status == '3' && status >= 3">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ '补充合同' }}</span>
-					<span>{{ info['contract_id'] }}</span>
-				</li>
-				<li class="margint13 ofh" v-else-if="item.status == '-1' && status == -1">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ "终止理由" }}</span>
-					<span>{{ info['terminate_reason'] }}</span>
-				</li>
-			</ul>
+			
 			
 			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
 				<div v-for ="(item,index) in desc" class="ofh">
@@ -277,11 +241,13 @@
 	import commonTable from '@/components/commonTable2.vue'
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from '../../views/review/reviewinfocommon'
+	import workData from '../../views/review/workData'
 	export default {
 		components:{
 			commonTable,
 			commonTop,
-			reviewinfocommon
+			reviewinfocommon,
+			workData
 		},
 		data() {
 			return {

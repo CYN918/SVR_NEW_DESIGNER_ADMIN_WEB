@@ -451,8 +451,11 @@
 	}
 </script>
 
-<style>
-	
+<style scoped="scoped">
+	.Detail{
+		background: none;
+		overflow: hidden;
+	}
 
 	.detailtitle {
 		padding-left: 40px;

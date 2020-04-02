@@ -34,7 +34,8 @@
                         </li>
                         <li>
                             <span class="box_process_content_left">项目附件</span>
-                            <span class="box_process_content_right">{{material_info.file_name}}({{material_info.file_size}})</span>
+                            <span class="box_process_content_right" v-if="material_info">{{material_info.file_name}}({{material_info.file_size}})</span>
+                            <span class="box_process_content_right" v-else>{{reviewinfocommon.file_name}}({{reviewinfocommon.file_size}})</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">预计收益</span>
@@ -119,6 +120,7 @@
         },
         created(){
             console.log(this.reviewinfocommon)
+            console.log(this.material_info)
         },
         mounted(){
 
