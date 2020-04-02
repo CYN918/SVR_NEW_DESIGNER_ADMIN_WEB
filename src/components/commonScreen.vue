@@ -123,7 +123,7 @@
 					</li> -->
 				</ul>
 			</div>
-			<div class="screenBottom paddinglr30">
+			<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 4%;">
 				<div class="screenBottombtn ofh">
 					<button class="fleft defaultbtn" @click="reset">重置</button>
 					<button class="fright defaultbtn defaultbtnactive" @click="getparent('reach')">查询</button>

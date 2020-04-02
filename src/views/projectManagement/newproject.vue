@@ -1883,8 +1883,17 @@
 		bottom: 0;
 		margin:10px;
 	}
-	.sel-dialog  {
-		width: 1200px !important;
+	.Detail >>> .el-dialog  {
+		width: 65% !important;
+	}
+	.Detail >>> .el-input-number__decrease.is-disabled{
+		color: #606266;
+	}
+	.Detail >>> .el-input-number.is-controls-right .el-input-number__increase{
+		border-bottom: none;
+	}
+	.Detail >>> .el-input-number__increase,.Detail >>> .el-input-number__decrease{
+		background: none;
 	}
 	
 	.Detail {
