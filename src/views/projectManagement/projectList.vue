@@ -75,7 +75,7 @@
 				commonTopData: {
 					num:false,
 					upload:true,
-					"pageName": "publishWork",
+					"pageName": "projectList",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow"

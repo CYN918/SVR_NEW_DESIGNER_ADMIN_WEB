@@ -51,7 +51,7 @@
 					classify_name:""
 				},
 				commonTopData: {
-					"pageName": "publishWork",
+					"pageName": "projectclass",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow"
@@ -273,7 +273,7 @@
 				})
 			},
 			setpage(){
-				localStorage.setItem("projectclass",this.$refs.Tabledd.tabnums);
+				localStorage.setItem("projectclass",this.$refs.Tabledd.commonTopData.tabnums);
 			},
 		},
 		created() {

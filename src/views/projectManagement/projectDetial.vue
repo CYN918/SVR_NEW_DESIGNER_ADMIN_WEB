@@ -688,9 +688,6 @@
 					"commonbottombtn":[
 						
 					],
-					"tabData":[
-						
-					],
 					tabDatatitle:"交稿记录",
 					is:true
 				},
@@ -765,10 +762,16 @@
 				})
 				window.open(href, '_blank');
 			},
-			check(){
-				this.$router.push({
-					path:"/review/projectreview"
-				})
+			check(row){
+				const {href} = this.$router.resolve({ path: "/review/projectreview/projectdetial",query:{
+					id:row.bing_id,
+					type:5,
+					check_status:0,
+					project_id:row.project_id,
+					business_type:row.business_type,
+					blank:'_blank',
+				}})
+				window.open(href, '_blank')
 			},
 			up(row){
 				window.open(row.file_url);
