@@ -11,7 +11,7 @@
 					<button class="defaultbtn" style="visibility: hidden;width: 193px;"></button>
 				</el-checkbox-group>
 			</div>
-			<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 4%;">
+			<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 20%;">
 				<div class="screenBottombtn ofh">
 					<button  class="fleft defaultbtn" @click="reset">恢复默认</button>
 					<button class="fright defaultbtn defaultbtnactive" @click="getparent('reach')">确 定</button>
