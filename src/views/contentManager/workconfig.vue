@@ -26,7 +26,7 @@
 					classify_name:""
 				},
 				commonTopData: {
-					"pageName": "publishWork",
+					"pageName": "workconfig",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow",
@@ -215,7 +215,7 @@
 				
 			},
 			setpage(){
-				localStorage.setItem("workconfig",this.$refs.Tabledd.tabnums);
+				localStorage.setItem("workconfig",this.$refs.Tabledd.commonTopData.tabnums);
 			},
 			ISshow(){
 				this.$refs.Tabledd.reject();

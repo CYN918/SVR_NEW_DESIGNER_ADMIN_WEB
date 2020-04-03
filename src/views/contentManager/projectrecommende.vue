@@ -23,7 +23,7 @@
 				comment:"",
 				commonTopData: {
 					num:false,
-					"pageName": "publishWork",
+					"pageName": "projectrecommende",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow"
