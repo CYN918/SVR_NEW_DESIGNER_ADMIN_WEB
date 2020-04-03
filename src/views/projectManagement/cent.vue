@@ -15,7 +15,7 @@
         </div>
         <ul class="box-content">
             <li v-for="todo in dataList">
-                <div class="preview_pic" v-if="todo.file_info == ''">
+                <div class="preview_pic" v-if="business_type != '5'">
                     <img :src="todo.preview_pic" alt="" @click="getimgulr(todo.preview_pic)"/>
                 </div>
                 <div class="preview_pic" v-else>
@@ -78,6 +78,7 @@ export default {
             isimgurl:false,
             videourl:"",
             isvideourl:false,
+            business_type:this.$route.query.business_type,
         }
     },
     created(){
