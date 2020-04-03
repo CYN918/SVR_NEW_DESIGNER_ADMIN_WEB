@@ -14,6 +14,7 @@ import api from './api/index'
 Vue.use(Common)
 Vue.use(ElementUI)
 Vue.use(multiCascader)
+Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
 window.eventBus = new Vue()
 
 Vue.config.productionTip = false

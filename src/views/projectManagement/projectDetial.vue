@@ -54,8 +54,9 @@
 				</div>
 			</div>
 			<div v-if="tabsnum == 2" class="detailContent0">
-				<common-table :commonTopData="commonTopData1" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields1"
-				></common-table>
+				<!-- <common-table :commonTopData="commonTopData1" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields1"
+				></common-table> -->
+				<Cent :dataList="dataList"></Cent>
 			</div>
 			<div v-if="tabsnum == 5">
 				<div class="question_00">
@@ -246,12 +247,14 @@
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from '../../views/review/reviewinfocommon'
 	import workData from '../../views/review/workData'
+	import Cent from './cent'
 	export default {
 		components:{
 			commonTable,
 			commonTop,
 			reviewinfocommon,
-			workData
+			workData,
+			Cent
 		},
 		data() {
 			return {
@@ -662,7 +665,8 @@
 				// datad:'',
 				postData:{},
 				evaluation:'',
-				business_type:this.$route.query.business_type
+				business_type:this.$route.query.business_type,
+				dataList: [],
 			}
 		},
 		methods: {
@@ -900,10 +904,25 @@
 			tabsChange(num) {
 				this.tabsnum = num;
 				if (this.tabsnum == 2) {
+					this.fileRecord();
 					this.detailbtn = false;
 				} else {
 					this.detailbtn = true;
 				}
+			},
+			fileRecord(num){
+				this.api.fileRecord({
+					project_id:this.$route.query.id,
+					access_token:localStorage.getItem("access_token"),
+					limit:this.tableConfig.pagesize,
+					page:this.tableConfig.currentpage,
+					check_status:num,
+				}).then(da => {
+					this.dataList = da.data;
+				}).catch(da =>{
+					
+				})
+
 			},
 			showselectwork() {
 				this.detailbtn = !this.detailbtn;
