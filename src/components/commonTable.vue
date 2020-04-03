@@ -228,7 +228,6 @@
 				this.radio = row[this.tableConfig.selectid];
 			},
 			handleClick(row, setid, page,event) {
-				console.log(row, setid, page,event)
 				if(setid == "activitydetel"){		
 					this.$parent.delect(row);
 				}

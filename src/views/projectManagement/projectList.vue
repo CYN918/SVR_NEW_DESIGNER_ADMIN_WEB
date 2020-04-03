@@ -735,7 +735,8 @@
 					path:"/projectManagement/projectList/projectDetial",
 					query:{
 						id: row.project_id,
-						status:row.status
+						status:row.status,
+						business_type:row.business_type,
 					}
 				})
 				

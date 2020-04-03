@@ -23,6 +23,10 @@
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
+				<span  v-else-if="index == 2 && business_type == '5'" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(index,item.name)">
+					{{ item.name }}
+				</span>
 			</div> 
 		</div>
 		<div v-if="tabsnum == 4">
@@ -256,7 +260,6 @@
 					"commonleftbtn": [],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
-					// "IsShow": true,
 					upload: true
 				},
 				tableData2:[
@@ -327,7 +330,7 @@
 						name:"业务类型",
 						id:"business_type",
 						type:"keyvalue",
-						child:{"3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他"}
+						child:{"3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}
 						
 					},
 					{
@@ -563,7 +566,6 @@
 				tableAction:{
 					morebtns:{
 						name:(da)=>{
-							console.log("da"+da)
 							if(da == "1"){
 								return "下载"
 							} else {
@@ -660,6 +662,7 @@
 				// datad:'',
 				postData:{},
 				evaluation:'',
+				business_type:this.$route.query.business_type
 			}
 		},
 		methods: {
@@ -681,7 +684,6 @@
 				window.open( localStorage.getItem("baseURLs")+"/work/preview?work_id=" + id+"&access_token="+localStorage.getItem('access_token'));
 			},
 			arrchange(item){
-				console.log(item);
 				if(item){
 					
 					return item.split(",");
@@ -717,7 +719,7 @@
 				window.open(href, '_blank')
 			},
 			up(row){
-				window.open(row.file_url);
+				window.open(row.download_file_url);
 			},
 			getselectUser(item){
 				this.$confirm('确定将<span style="color:#ff5121">'+ item.user.username +'</span>定为<span style="color:#ff5121">'+ this.info.name +'</span>的中标制作人', '确认修改', {
@@ -773,7 +775,6 @@
 					}) */
 					/* row.open_id = this.usernameitem.open_id;
 					row.status = 3; */
-					console.log(row);
 					
 					
 					this.api.selectUser({
@@ -897,9 +898,7 @@
 				}
 			},
 			tabsChange(num) {
-				console.log(num)
 				this.tabsnum = num;
-				// alert(this.tabsnum)
 				if (this.tabsnum == 2) {
 					this.detailbtn = false;
 				} else {
@@ -915,7 +914,6 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					console.log(da)
 					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
 					// this.datad = da.name;
@@ -940,7 +938,6 @@
 				
 				this.api.signupList(data).then(da => {
 					this.signupLists = da.data;
-					console.log(this.signupLists)
 					this.tableConfig.total = da.total;
 				}).catch(da =>{
 					
