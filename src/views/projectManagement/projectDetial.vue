@@ -1017,7 +1017,7 @@
 <style>
 	#tablebg .el-dialog__wrapper{
 		background: rgba(0,0,0,0.5);
-	},
+	}
 	.detailContent .detailContent0 ul {
 		padding: 0;
 	}

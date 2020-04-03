@@ -91,6 +91,7 @@ input{
 
 .el-message-box__wrapper,.el-dialog__wrapper {
 	z-index: 2030 !important;
+	overflow: hidden;
 }
 
 .v-modal {

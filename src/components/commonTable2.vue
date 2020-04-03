@@ -987,6 +987,9 @@
 	}
 </script>
 <style scoped="scoped">
+    .screenborder >>> .ipt,.screenborder >>> .el-select>.el-input{
+		width: 329px !important;
+	}
 	.transparent{
 		width: 100%;
 		height: 20px;
