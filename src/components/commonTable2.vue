@@ -1247,5 +1247,6 @@
 		right: 1.33%;
 		padding: 0;
 		background: #FFFFFF;
+		z-index: 999999;
 	}
 </style>
