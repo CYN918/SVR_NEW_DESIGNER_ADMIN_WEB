@@ -70,6 +70,7 @@
 			},
 			eventbus() {
 				eventBus.$on("screenshow", (data) => {
+					console.log(data)
 					this.pageName = data.pageName;
 					this.name = data.name
 					switch (data.num) {

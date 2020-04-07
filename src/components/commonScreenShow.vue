@@ -11,7 +11,7 @@
 					<button class="defaultbtn" style="visibility: hidden;width: 193px;"></button>
 				</el-checkbox-group>
 			</div>
-			<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 20%;">
+			<div class="screenBottom paddinglr30">
 				<div class="screenBottombtn ofh">
 					<button  class="fleft defaultbtn" @click="reset">恢复默认</button>
 					<button class="fright defaultbtn defaultbtnactive" @click="getparent('reach')">确 定</button>
@@ -78,7 +78,7 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
 	.screenbordershow{
 		width: 380px;
 		background: #FFFFFF;
@@ -126,5 +126,13 @@
 	
 	.el-checkbox{
 		margin-right: 0 !important;
+	}
+	.screenBottom{
+		width: 380px;
+		position: fixed;
+		bottom: 1.8%;
+        right: 17.45%;
+		padding: 0;
+		background: #FFFFFF;
 	}
 </style>

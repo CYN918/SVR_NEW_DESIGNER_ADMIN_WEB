@@ -123,7 +123,7 @@
 					</li> -->
 				</ul>
 			</div>
-			<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 4%;">
+			<div class="screenBottom paddinglr30">
 				<div class="screenBottombtn ofh">
 					<button class="fleft defaultbtn" @click="reset">重置</button>
 					<button class="fright defaultbtn defaultbtnactive" @click="getparent('reach')">查询</button>
@@ -244,7 +244,6 @@
 				}
 			},
 			getScreen() {
-				console.log(this.tabnum)
 				if(this.tabnum){
 					if(this.tabnum == 1){
 						this.texts = DataScreen.screen[this.pageName].filterFields0
@@ -257,7 +256,6 @@
 						
 					}
 				} else {
-					console.log(this.pageName)
 					if(this.pageName && this.pageName == "addblack"){
 						this.texts = DataScreen.screen.addblack["filterFields"+this.$parent.tabnum];
 						return;
@@ -382,5 +380,13 @@
         margin-left: 2px !important; */
 		height: auto !important;
 		width: 335px;
+	}
+	.screenBottom{
+		width: 380px;
+		position: fixed;
+		bottom: 2%;
+		right: 1.33%;
+		padding: 0;
+		background: #FFFFFF;
 	}
 </style>

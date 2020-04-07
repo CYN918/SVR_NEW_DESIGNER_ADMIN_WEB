@@ -284,7 +284,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="screenBottom paddinglr30" style="position: fixed;bottom: 0;right: 4%;">
+					<div class="screenBottom paddinglr30">
 						<div class="screenBottombtn ofh">
 							<button class="fleft defaultbtn" @click="reset">重置</button>
 							<button class="fright defaultbtn defaultbtnactive" @click="cha('reach')">查询</button>
@@ -1239,5 +1239,13 @@
 	}
 	.fleft > ul > li{
 		display: inline-block;
+	}
+	.screenBottom{
+		width: 380px;
+		position: fixed;
+		bottom: 2%;
+		right: 1.33%;
+		padding: 0;
+		background: #FFFFFF;
 	}
 </style>
