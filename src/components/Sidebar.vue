@@ -239,6 +239,14 @@
 		height: calc(100% - 60px);
 		overflow: hidden !important;
 	}
+	#app .sel-menu > li{
+		width: 60px;
+		height: 56px;
+		line-height: 56px;
+	}
+	#app .sel-menu > li:nth-child(2),#app .sel-menu > li:nth-child(3),#app .sel-menu > li:nth-child(4),#app .sel-menu > li:nth-child(5),#app .sel-menu > li:nth-child(6),#app .sel-menu > li:nth-child(7),#app .sel-menu > li:nth-child(8),#app .sel-menu > li:nth-child(9){
+		margin-top: 15px;
+	}
 
 	.username {
 		color: white;
@@ -295,14 +303,18 @@
 		overflow: visible !important;
 		visibility: visible !important;
 		top: 20px;
-		color: #BBBBBB;
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		color:rgba(187,187,187,1);
 	}
 	.el-submenu__title{
 		height: 65px !important;
 		line-height: 60px !important;
 	}
 	.is-active .el-submenu__title span{
-		color: #33B3FF;
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		color:rgba(51,179,255,1);
 	}
 	.is-active .el-submenu__title .iconfont{
 		color: #33B3FF;
