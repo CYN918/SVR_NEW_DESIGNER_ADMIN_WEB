@@ -1228,17 +1228,18 @@ const screenData = {
 		settlement:{
 			bts:[
 				{prop:"work_id",lable:"项目ID"},
-				{prop:"",lable:"项目名称"},
+				{prop:"name",lable:"项目名称"},
 				{prop:"balance_date",lable:"结算周期"},
-				{prop:"open_id",lable:"用户昵称"},
-				{prop:"deal_type",lable:"结算方式"},
+				{prop:"open_id",lable:"用户ID"},
+				{prop:"username",lable:"用户昵称"},
+				{prop:"deal_type",lable:"结算方式",type:"keyvalue",child:{"1":"买断型","2":"分成型","3":"预约金+分成"}},
 				{prop:"primaray_fee",lable:"纯分成金额"},
 				{prop:"gain_share_rate",lable:"收益加成比"},
 				{prop:"profit_fee",lable:"加成金额"},
 				{prop:"balance_fee",lable:"分成结算收益"},
 				{prop:"advance_payment",lable:"预约金额"},
-				{prop:"advance_paymen_income",lable:"预约金收益"},
-				{prop:"advance_paymen_total_income",lable:"预约金累计"},
+				{prop:"advance_payment_income",lable:"预约金收益"},
+				{prop:"advance_payment_total_income",lable:"预约金累计"},
 			],
 			action:{
 				is_hidden:true,
