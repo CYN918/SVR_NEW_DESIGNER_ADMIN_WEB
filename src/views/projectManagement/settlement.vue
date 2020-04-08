@@ -57,6 +57,59 @@
 		watch: {},
 		computed: {},
 		methods: {
+			export(){
+				this.$confirm('确认导出', '确认修改', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					dangerouslyUseHTMLString: true,
+					type: '',
+					center: true
+				}).then(() => {
+					this.setexport({pageCurrent:1,pageSize:50},1);
+					
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已经取消'
+					});
+				});
+			},
+			setexport(pg,is_export){
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize,
+					is_export:is_export
+				}
+				//获取筛选的条件
+				//console.log(JSON.parse(this.$route.query.urlDate))
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.is_export = is_export;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+				let form = document.createElement("form");
+				for(let key in data){
+					let dom =document.createElement("input");
+					dom.setAttribute("name",key);
+					dom.setAttribute("value",data[key]);
+					form.appendChild(dom);
+				};
+				form.setAttribute("style", "display:none");
+				form.setAttribute("target", "");
+				form.setAttribute("method", "post");
+				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/Thirdapi/MoneyList")
+				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
+				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/Thirdapi/MoneyList")
+				}
+				document.body.appendChild(form);
+				form.submit();
+			},
 			setLoding(type){
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	

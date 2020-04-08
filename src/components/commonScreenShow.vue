@@ -5,7 +5,7 @@
 				<span class="fleft">{{ currentpageName }}-展示字段筛选</span>
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
-			<div class="screenMidden paddinglr30">
+			<div class="screenMidden paddinglr30" style="padding-bottom:50px;">
 				<el-checkbox-group class="screenMiddenShowul" v-model="selectbtns">
 					<el-checkbox class="checkboxshow" v-for="(item,index) in btns" :label="item.prop" :key="item.lable" border>{{item.lable}}</el-checkbox>
 					<button class="defaultbtn" style="visibility: hidden;width: 193px;"></button>

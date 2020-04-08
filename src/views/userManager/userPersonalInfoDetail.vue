@@ -2,8 +2,8 @@
 <div>
 	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
-		<div class="detailtitle">查看用户信息</div>
-		<div style="overflow-y: auto;height:calc(100% - 40px);width: 100%;">
+		<!-- <div class="detailtitle">查看用户信息</div> -->
+		<div style="overflow-y: auto;height:calc(100% - 127px);width: 100%;margin-top:20px;">
 			<ul style="padding-left: 132px;">
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户ID</span>

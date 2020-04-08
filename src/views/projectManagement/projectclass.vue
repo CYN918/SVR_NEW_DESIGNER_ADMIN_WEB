@@ -51,7 +51,7 @@
 					classify_name:""
 				},
 				commonTopData: {
-					"pageName": "projectclass",
+					"pageName": "publishWork",
 					"commonleftbtn": [{
 						name: "筛选",
 						fun: "ISshow"

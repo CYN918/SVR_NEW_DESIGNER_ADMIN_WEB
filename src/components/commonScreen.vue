@@ -7,7 +7,7 @@
 			</div>
 			<div class="screenMidden paddinglr30">
 				
-				<ul class="screenMiddenul ofh w">
+				<ul class="screenMiddenul ofh w" style="padding-bottom:50px;">
 					<li v-for="(item,index) in texts" :key="item.id">
 						<div class="label">
 							{{ item.name }}

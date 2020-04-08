@@ -2,7 +2,7 @@
 	<div class="wh">
 		<div class="w ctcontent">
 			<div style="background: white;">
-				<div class="margin40 cttitle" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;" v-if="commonTopData.pageName != 'publishWork'">
+				<div class="margin40 cttitle" style="height: 60px;line-height: 60px;margin:0px 10px 15px 10px;">
 					<div class="fleft hnav marginleft60 fontcolorg" style="width: 18%;float:left;">
 						<el-breadcrumb separator="/" class="fontcolorg">
 							<img src="../assets/img/tabbar_icon_file_24_pressed.svg" alt="" style="margin-right:3px;position: relative;top:22px;float: left;"><el-breadcrumb-item v-for="(item,index) in names" :key="item.index">{{ item.meta.title}}</el-breadcrumb-item>
@@ -202,7 +202,7 @@
 			<div>
 				<div class="screenborder">
 					<div class="screenMidden paddinglr30">
-						<ul class="screenMiddenul ofh w">
+						<ul class="screenMiddenul ofh w" style="padding-bottom:50px;">
 							<li v-for="(item,index) in filterField" :key="item.id">
 								<div class="label">
 									{{ item.name }}

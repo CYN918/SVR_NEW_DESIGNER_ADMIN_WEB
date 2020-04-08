@@ -150,7 +150,6 @@
 				this.commonTopData.commonbottombtn.splice(index,1)
 			},
 			getparent(id,name) {
-				console.log(id,name)
 				var idIndex = id;
 				switch (name)
 				{
@@ -168,6 +167,11 @@
 							return;
 						}
 						if(idIndex == "right3"){
+							this.$parent.export()
+						}
+					break;
+				    case "settlement":
+						if(idIndex == "right1"){
 							this.$parent.export()
 						}
 					break;

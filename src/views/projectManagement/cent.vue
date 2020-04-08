@@ -19,7 +19,11 @@
                     <img :src="todo.preview_pic" alt="" @click="getimgulr(todo.preview_pic)"/>
                 </div>
                 <div class="preview_pic" v-else>
-                    <video :src="todo.file_url" controls="controls" @click="getvideoulr(todo.file_url)"></video>
+                    <video id="video" @click="getvideoulr(todo.file_url)" @mouseover="selectStyle()" @mouseout="outStyle()">
+                        <source :src="todo.file_url" type="video/ogg">
+                        <source :src="todo.file_url" type="video/mp4">
+                    </video>
+                    <div v-if="isShow" class="video-img" @click="playOn()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div>
                 </div>
                 <div class="preview_pic_message">
                     <div class="detailed-information">
@@ -43,11 +47,17 @@
         <div v-if="dataList.length == '0'">
             <img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
         </div>
-        <div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
+        <div class="maskimg screenContent" v-if="isimgurl">
+            <div class="delete-window" @click="getimgulr">x</div>
 			<img :src="imgurl" alt="暂无图片" style="max-height:500px;">
 		</div>
-        <div class="maskimg screenContent" v-if="isvideourl" @click="getvideoulr">
-			<video :src="videourl" controls="controls" style="max-height:500px;"></video>
+        <div class="maskimg screenContent" v-if="isvideourl">
+            <div class="delete-window" @click="getvideoulr">x</div>
+			<video id="playVideo">
+                <source :src="videourl" type="video/ogg">
+                <source :src="videourl" type="video/mp4">
+            </video>
+            <div v-if="isShow" class="video-img-expand" @click="playVideo()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div>
 		</div>
     </div>
     
@@ -79,6 +89,7 @@ export default {
             videourl:"",
             isvideourl:false,
             business_type:this.$route.query.business_type,
+            isShow:true,
         }
     },
     created(){
@@ -102,6 +113,31 @@ export default {
         },
         changeSx(){
             this.$parent.fileRecord(this.status)
+        },
+        playOn(){
+            document.getElementById('video').play();
+            this.isShow = false;
+            // document.getElementById('video').addEventListener("ended",function(){
+            //     this.isShow = true;
+            // });
+        },
+        playVideo(){
+            document.getElementById('playVideo').play();
+            this.isShow = false;
+            // document.getElementById('playVideo').addEventListener("ended",function(){
+            //     this.isShow = true;
+            // });
+        },
+        selectStyle(){
+            this.playOn();
+            setTimeout(function(){
+                document.getElementById('video').pause();
+                this.isShow = true;
+            },3000);
+        },
+        outStyle(){
+            document.getElementById('video').pause();
+            this.isShow = true;
         }
     },
     mounted(){
@@ -149,6 +185,7 @@ export default {
         float: left;
         margin: 16px;
         cursor: pointer;
+        position: relative;
     }
     .box-content > li .preview_pic img{
         width: 100%;
@@ -159,6 +196,28 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 5px;
+    }
+    .video-img{
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 50%;
+    }
+    .video-img-expand{
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 50%;
     }
     .box-content > li .preview_pic_message{
         float: left;
@@ -220,6 +279,26 @@ export default {
         line-height: 32px;
         text-align: center;
         float: right;
+    }
+    .delete-window{
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        width: 48px;
+        height: 48px;
+        text-align: center;
+        line-height: 48px;
+        background: rgba(40,40,40,1);
+        color: #BBBBBB;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    .screenContent{
+        background: #000000;
+    }
+    #playVideo{
+        position: relative;
     }
 
 </style>
