@@ -98,9 +98,9 @@
 						url: ""
 					}],
 					"commonrightbtn": [{
-						name: "新建展示方案",
-						id: "right0",
-						accessid:"200435"
+						name: "新建banner素材",
+						id: "right1",
+						accessid:"200438"
 					}],
 					"commonbottombtn":[],
 					"tabTopData":[{
