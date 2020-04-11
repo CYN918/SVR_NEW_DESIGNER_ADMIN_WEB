@@ -657,8 +657,9 @@
 		color: #FF5121;
 	}
 	.el-popper{
-		width: 335px;
-		left: 1535px;
+		position: absolute;
+		top: 332px;
+		left: 1246px !important;
 	}
 	.sel-tooltip{
 		width: 170px;

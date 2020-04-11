@@ -709,8 +709,9 @@
 	}
 	
 	.el-popper{
-		width: 335px;
-		left: 1535px;
+		position: absolute;
+		top: 332px;
+		left: 1246px !important;
 	}
 	/* #table .el-table th.is-leaf {
 		border-bottom: 5px solid #545C64;

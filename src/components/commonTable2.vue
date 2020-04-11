@@ -1234,8 +1234,9 @@
         background: #e5f5ff !important;
 	}
 	.el-popper{
-		width: 335px;
-		left: 1535px;
+		position: absolute;
+		top: 332px;
+		left: 1246px !important;
 	}
 	.fleft > ul > li{
 		display: inline-block;

@@ -31,7 +31,7 @@
                         <p v-else>{{todo.online_disk_url}}</p>
                         <p>{{todo.created_at}}</p>
                         <div class="flie-mesa">
-                            <div class="download-file" v-if="todo.online_disk_url == ''" @click="download(todo)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{todo.file_size}})</div>
+                            <div class="download-file" v-if="todo.online_disk_url == ''" @click="download(todo)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(todo.file_info).file_size_format}})</div>
                             <div class="download-file" v-else>提取码:<b style="color:#33B3FF;margin-left:5px;">{{todo.access_code}}</b></div>
                             <div class="t" v-if="todo.check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
                             <div class="t" v-if="todo.check_status == '-1'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已驳回</div>

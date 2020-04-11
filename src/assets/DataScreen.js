@@ -288,7 +288,7 @@ const screenData = {
 				{name:"版权说明",id:"copyright",child:[{name:"禁止匿名转载；禁止商业使用；禁止个人使用。",id:"禁止匿名转载；禁止商业使用；禁止个人使用。"},{name:"禁止匿名转载；禁止商业使用。",id:"禁止匿名转载；禁止商业使用。"},{name:"不限制作品用途。",id:"不限制作品用途。"}]},
 				{name:"作品标签",id:"labels"},
 				{name:"是否为平台投稿作品",id:"is_platform_work",child:[{name:"否",id:"0"},{name:"是",id:"1"}]},
-				{name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
+				// {name:"是否已被录用",id:"is_hired",child:[{name:"否",id:"2"},{name:"是",id:"1"}]},
 				{name:"录用方式",id:"hire_type",child:[{name:"买断式",id:"1"},{name:"分成式",id:"2"}]},
 				{name:"录用活动ID",id:"activity_id"},
 				{name:"录用订单ID",id:"hire_id"},
@@ -1084,10 +1084,10 @@ const screenData = {
 				{prop:'hire_id',lable:'录用订单ID'},
 				{prop:'hire_order_name',lable:'录用订单名称',width:200},
 				{prop:'http://dev-web-ndesigner.idatachain.cn/#/conts?id=',lable:'作品预览链接',type:"urlopen",width:200},
-				{prop:'status',lable:'当前状态',type:"statustwo",child:{
-					is_del:{"1":"用户删除","2":"系统下架"},
-					status:{"0":"待审核","1":"审核中","2":"审核通过","-1":"草稿","-2":"未通过"}
-				},width:150}
+				// {prop:'status',lable:'当前状态',type:"statustwo",child:{
+				// 	is_del:{"1":"用户删除","2":"系统下架"},
+				// 	status:{"0":"待审核","1":"审核中","2":"审核通过","-1":"草稿","-2":"未通过"}
+				// },width:150}
 			],
 			action:{
 				morebtns:{
