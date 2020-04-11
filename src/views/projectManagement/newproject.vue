@@ -1978,4 +1978,13 @@
 	.detailContent .ueditoruploadul ul {
 		padding: 10;
 	}
+	.el-popper{
+		width: 335px !important;
+		height: 260px;
+		transform-origin: center bottom;
+		z-index: 2009;
+		position: absolute;
+		top: 439px;
+		left: 371px !important;
+	}
 </style>
