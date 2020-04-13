@@ -249,7 +249,7 @@ var router = new Router({
 					name: 'roleManager',
 					meta: {
 						title: "角色管理",
-						pagetitle: "角色管理-狮圈儿运营管理平台"
+						pagetitle: "权限-角色管理-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/power/roleManager.vue'),
 				},
@@ -704,7 +704,7 @@ var router = new Router({
 					name: 'employmentorder',
 					meta: {
 						title: "录用订单",
-						pagetitle: "录用订单-狮圈儿运营管理平台"
+						pagetitle: "录用-录用订单-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/employmentManager/employmentorder.vue'),
 				},
@@ -845,7 +845,7 @@ var router = new Router({
 					name: 'newsRelease',
 					meta: {
 						title: "发布通知",
-						pagetitle: "发布通知-狮圈儿运营管理平台"
+						pagetitle: "通知-发布通知-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/newsRelease.vue'),
 				},
@@ -853,7 +853,8 @@ var router = new Router({
 					path:"newsRelease/addrelease",
 					name: 'addrelease',
 					meta: {
-						title: "发布通知 / 新建通知"
+						title: "发布通知 / 新建通知",
+						pagetitle: "通知-发布通知-新建通知-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/addrelease.vue'),
 				},
@@ -861,7 +862,8 @@ var router = new Router({
 					path:"newsRelease/editrelease",
 					name: 'editrelease',
 					meta: {
-						title: "发布通知 / 编辑通知"
+						title: "发布通知 / 编辑通知",
+						pagetitle: "通知-发布通知-编辑通知-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/addrelease.vue'),
 				},
@@ -870,7 +872,7 @@ var router = new Router({
 					name: 'noticetemplate',
 					meta: {
 						title: "系统通知模板",
-						pagetitle: "系统通知模板-狮圈儿运营管理平台"
+						pagetitle: "通知-系统通知模板-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/noticeManager/noticetemplate.vue'),
 				},
@@ -891,7 +893,7 @@ var router = new Router({
 					name: 'projectclass',
 					meta: {
 						title: "项目分类预设",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目-项目分类预设-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/projectclass.vue'),
 				},
@@ -900,7 +902,7 @@ var router = new Router({
 					name: 'newprojectclass',
 					meta: {
 						title: "新建项目发布",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目发布-狮圈儿运营管理平台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newprojectclass.vue'),
 				},
@@ -909,7 +911,7 @@ var router = new Router({
 					name: 'editprojectclass',
 					meta: {
 						title: "编辑项目发布",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目发布-狮圈儿运营管理平台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newprojectclass.vue'),
 				},
@@ -918,7 +920,7 @@ var router = new Router({
 					name: 'newtemplate',
 					meta: {
 						title: "项目分类预设 / 模板预设 / 新建预设模板",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目发布-狮圈儿运营管理平台-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newtemplate.vue'),
 				},
@@ -945,7 +947,7 @@ var router = new Router({
 					name: 'projectList',
 					meta: {
 						title: "项目发布",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目-项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/projectList.vue'),
 				},
@@ -954,7 +956,7 @@ var router = new Router({
 					name: 'Profit',
 					meta: {
 						title: "收益成长设置",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目-收益成长设置-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/Profit.vue'),
 				},
@@ -963,7 +965,7 @@ var router = new Router({
 					name: 'settlement',
 					meta: {
 						title: "分成结算表",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目发布-分成结算表-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/settlement.vue'),
 				},
@@ -972,7 +974,7 @@ var router = new Router({
 					name: 'newproject',
 					meta: {
 						title: "新建项目",
-						pagetitle: "项目发布-狮圈儿运营管理平台"
+						pagetitle: "项目-新建项目-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newproject.vue'),
 				},

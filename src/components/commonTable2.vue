@@ -9,7 +9,7 @@
 						</el-breadcrumb>
 					</div>
 					<div class="textcenter" style="width: 69%;float:left;" v-if="commonTopData.tabData">
-						<span v-for="(item,index) in commonTopData.tabData"  :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index)">
+						<span v-for="(item,index) in commonTopData.tabData"  :class="index == commonTopData.tabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChange(index,commonTopData.pageName)">
 							<el-badge :value="doCount[(index+1)] == 0 ? '' : doCount[(index+1)]" :max="99" class="badge">{{ item.name }}</el-badge>
 						</span>
 					</div>
@@ -512,7 +512,15 @@
 			reject(){
 				this.centerDialogVisible = !this.centerDialogVisible;
 			},
-			tabsChange(num){
+			tabsChange(num,pageName){
+				if(pageName == 'projectList'){
+					this.router.push({
+						path:"/projectManagement/projectList",
+						query:{
+							tabsnum:num	
+						}
+					});
+				}		
 				this.commonTopData.tabnums = num;
 				this.gettableConfiglist(this.commonTopData.tabnums);
 				this.getTabData();
