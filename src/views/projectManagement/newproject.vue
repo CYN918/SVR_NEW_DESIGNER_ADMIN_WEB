@@ -149,7 +149,7 @@
 							</div>
 						</li>
 						
-						<li class="margint23 ofh">
+						<li class="margint23 ofh" v-if="form['want_deal_type'] != '2'">
 							<span class="fleft detailKey" style="line-height: 40px;">预计收益</span>
 							<el-input placeholder="给创作者的收益预期,如: 20.00~30.00/张" v-model="form['expected_profit']" style="width:357px;height:40px;" clearable></el-input>
 						</li>
@@ -1898,6 +1898,7 @@
 	
 	.Detail {
 		background: white;
+		overflow-y: scroll;
 	}
 
 	.detailtitle {

@@ -232,7 +232,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<el-button size="medium" @click="reject2()">取消</el-button>
-				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contentAudit(material_info.type)">确定并通过</el-button>
+				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contentAudit(material_info.type)" :loading="loading">确定并通过</el-button>
 			</span>
 		</el-dialog>
 		<el-dialog title="项目验收审核" :visible.sync="centerDialogVisible6">
@@ -335,7 +335,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer sel-footer">
 				<el-button size="medium" @click="priceAudit()">取消</el-button>
-				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contributor1('lu')">确定验收</el-button>
+				<el-button size="medium" class="defaultbtn defaultbtnactive" type="primary" @click="contributor1('lu')" :loading="loading">确定验收</el-button>
 			</span>
 		</el-dialog>
 		<el-dialog :title="title + '-发送修改通知'" :visible.sync="centerDialogVisible3" width="738px">
@@ -656,6 +656,7 @@
 				audit1: '',
 				audit2: '',
 				fileStr:'',
+				loading:false,
 			}
 		},
 		computed:{
@@ -675,6 +676,7 @@
 						})
 						return;
 					}
+					this.loading = true;
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -694,6 +696,7 @@
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
+							this.loading = false;
 							this.getreviewInfo();
 							this.centerDialogVisible2 = false;
 						}
@@ -731,7 +734,8 @@
 						}
 					}else{
 						this.storage_number = 1;
-					}		
+					}
+					this.loading = true;		
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						type: 5,
@@ -748,6 +752,7 @@
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
+							this.loading = false;
 							this.getreviewInfo();
 							this.centerDialogVisible2 = false;
 						}
@@ -1001,6 +1006,7 @@
 			},
 			contributor1(n) {
 				if(n == 'lu'){
+					this.loading = true;
 					if(this.want_deal_type == '1'){
 						var data = {
 							access_token: localStorage.getItem("access_token"),
@@ -1235,6 +1241,7 @@
 				//console.log(data);
 				this.api.reviewCheck(data).then(da => {
 					if(da.result == 0){
+						this.loading = false;
 						this.$router.go(-1)
 					}
 					

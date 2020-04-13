@@ -1341,6 +1341,7 @@
 	
 	.Detail {
 		background: white;
+		overflow-y: scroll;
 	}
 
 	.detailtitle {

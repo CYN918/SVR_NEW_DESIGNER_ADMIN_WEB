@@ -592,8 +592,9 @@
 		left: 40px;
 	}
 	
-	.badge .el-badge__content.is-fixed{
-		top:13px
+	.badge >>> .el-badge__content.is-fixed{
+		top:13px;
+		background: #33B3FF;
 	}
 	.el-badge__content{
 		background: #33B3FF;
