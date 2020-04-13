@@ -667,10 +667,18 @@
 		},
 		methods: {
 			contentAudit(id){
-				if(id == '2'){	
+				if(id == '2'){
 					if(!this.did){
 						this.$message({
 							message: "请选择绑定需求!",
+							type: 'warning',
+							customClass:'zZindex'
+						})
+						return;
+					}
+					if(!this.file.file_url){
+						this.$message({
+							message: "请上传文件!",
 							type: 'warning',
 							customClass:'zZindex'
 						})

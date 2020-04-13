@@ -201,8 +201,8 @@
 		<el-dialog :title="gettitle() +'-筛选'" :visible.sync="centerDialogVisible">
 			<div>
 				<div class="screenborder">
-					<div class="screenMidden paddinglr30">
-						<ul class="screenMiddenul ofh w" style="padding-bottom:50px;">
+					<div class="screenMidden paddinglr30" style="margin-top:35px;">
+						<ul class="screenMiddenul ofh w" style="padding-bottom:85px;">
 							<li v-for="(item,index) in filterField" :key="item.id">
 								<div class="label">
 									{{ item.name }}
@@ -989,6 +989,13 @@
 <style scoped="scoped">
     .screenborder >>> .ipt,.screenborder >>> .el-select>.el-input{
 		width: 329px !important;
+	}
+	.wh >>> .el-dialog__header{
+		position: fixed;
+		width: 320px;
+		background: #FFFFFF;
+		z-index:999999;
+		border-bottom: 1px #E6E6E6 solid;
 	}
 	.transparent{
 		width: 100%;

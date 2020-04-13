@@ -1,11 +1,11 @@
 <template>
 	<div class="wh screenContent" style="position: relative; z-index: 2040;">
 		<div class="screenborder">
-			<div class="screenTop paddinglr30">
+			<div class="screenTop paddinglr30" style="position: fixed;width: 338px;background: #FFFFFF;z-index:999999;">
 				<span class="fleft">{{ name? name: currentpageName }}-筛选</span>
 				<span class="fright fontsize24 screenclose pointer" @click="getparent()">x</span>
 			</div>
-			<div class="screenMidden paddinglr30">
+			<div class="screenMidden paddinglr30" style="margin-top:76px;">
 				
 				<ul class="screenMiddenul ofh w" style="padding-bottom:50px;">
 					<li v-for="(item,index) in texts" :key="item.id">

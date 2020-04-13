@@ -140,21 +140,21 @@
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
-							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+							<el-button class="btnorgle" style="margin-left: 20px;" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
-				<div class="margin40" style="height: 60px;">
+				<!-- <div class="margin40" style="height: 60px;">
 					<div class="tagbts">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
-				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				</div> -->
+				<div class="calc205" style="overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tabledd" style="height: 450px;"></common-table>
 				</div>
 				<div class="w textcenter">
 					<button class="defaultbtn defaultbtnactive" @click="setchange()">确定({{ this.selectData.length }})</button>
@@ -167,21 +167,21 @@
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
-							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+							<el-button class="btnorgle" style="margin-left: 20px;" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
-				<div class="margin40" style="height: 60px;">
+				<!-- <div class="margin40" style="height: 60px;">
 					<div class="tagbts">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
-				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				</div> -->
+				<div class="calc205" style="overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tabledd" style="height: 450px;"></common-table>
 				</div>
 				<div class="w textcenter">
 					<button class="defaultbtn defaultbtnactive" @click="setchange()">确定({{ selectData1.length }})</button>
