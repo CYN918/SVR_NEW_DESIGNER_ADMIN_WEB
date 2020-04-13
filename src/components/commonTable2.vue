@@ -1236,7 +1236,6 @@
 	.el-popper{
 		position: absolute;
 		top: 332px;
-		left: 1246px !important;
 	}
 	.fleft > ul > li{
 		display: inline-block;

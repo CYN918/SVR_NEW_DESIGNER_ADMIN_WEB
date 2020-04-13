@@ -563,7 +563,7 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
 
 	.paddingb10 {
 		padding-bottom: 10px;
@@ -659,7 +659,7 @@
 	.el-popper{
 		position: absolute;
 		top: 332px;
-		left: 1246px !important;
+		left: 1684px !important;
 	}
 	.sel-tooltip{
 		width: 170px;

@@ -207,7 +207,7 @@
 							<el-dropdown trigger="click" :hide-on-click="false">
 								<el-input class="ipt el-dropdown-link" placeholder="请输入内容" suffix-icon="el-icon-arrow-down" v-model="form['demand_id']"
 								clearable></el-input><!-- v-model="demand_names.join(',')" -->
-								<el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
+								<el-dropdown-menu slot="dropdown" style="width: 335px;height: 260px;left: 370px;">
 									<el-checkbox-group v-model="dids" @change="getdemand_names">
 										<el-dropdown-item v-for="(item,index) in demandlist" :key="index" >
 											<el-checkbox  :label="item.did">{{  item.demand_name + " " + item.did }}</el-checkbox>
@@ -1978,7 +1978,7 @@
 	.detailContent .ueditoruploadul ul {
 		padding: 10;
 	}
-	.el-popper{
+	.margint23 >>> .el-popper{
 		width: 335px !important;
 		height: 260px;
 		transform-origin: center bottom;
