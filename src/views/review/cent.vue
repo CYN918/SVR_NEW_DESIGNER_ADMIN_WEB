@@ -21,12 +21,12 @@
                         <p v-else>{{dataList.online_disk_url}}</p>
                         <p>{{dataList.created_at}}</p>
                         <div class="flie-mesa">
-                            <div class="download-file" v-if="dataList.online_disk_url == ''" @click="download(dataList)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{dataList.file_size}})</div>
+                            <div class="download-file" v-if="dataList.online_disk_url == ''" @click="download(dataList)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})</div>
                             <div class="download-file" v-else>提取码:<b style="color:#33B3FF;margin-left:5px;">{{dataList.access_code}}</b></div>
-                            <div class="t" v-if="dataList.check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
-                            <div class="t" v-if="dataList.check_status == '-1'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已驳回</div>
-                            <div class="t" v-if="dataList.check_status == '0'" style="background:#fff4e5;color:rgba(255,146,0,1);">待审核</div>
-                            <div class="t" v-if="dataList.check_status == '1'" style="background:#efffe5;color:rgba(77,198,0,1);">已验收</div>
+                            <div class="t" v-if="check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
+                            <div class="t" v-if="check_status == '-1'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已驳回</div>
+                            <div class="t" v-if="check_status == '0'" style="background:#fff4e5;color:rgba(255,146,0,1);">待审核</div>
+                            <div class="t" v-if="check_status == '1'" style="background:#efffe5;color:rgba(77,198,0,1);">已验收</div>
                         </div>
                     </div>
                     <div class="instructions" v-if="dataList.remark == ''">暂无说明</div>
@@ -54,7 +54,7 @@
 </template>
 <script>
 export default {
-    props:['dataList'],
+    props:['dataList','check_status'],
     data(){
         return{
             status: '',

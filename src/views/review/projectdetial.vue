@@ -19,7 +19,7 @@
 			
 		</div>
 		<div v-if="tabsnum == 1">
-			<Cent :dataList="material_info"></Cent>
+			<Cent :dataList="material_info" :check_status="reviewinfocommon.check_status"></Cent>
 
 		</div>
 		<div v-if="tabsnum == 2">
