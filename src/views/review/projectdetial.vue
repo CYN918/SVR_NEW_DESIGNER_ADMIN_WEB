@@ -16,31 +16,11 @@
 		</div>
 		<div class="detailContent1 ofh">
 			
-			<ul v-if="tabsnum == 1 ">
-				<li class="margint13 ofh" v-for="(item,index) in fileData" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="item.type == 'two'">
-						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
-						<span v-if="material_info.type == '2'">{{ getValue(material_info[item.id2])  }}</span>
-					</span>
-					<span v-if="item.type == 'twourl'">
-						<span v-if="material_info.type == '1'" >{{ getValue(material_info[item.id1])  }}</span>
-						<span v-if="material_info.type == '2'" style="color: #FF5121;cursor: pointer;" @click="openwindow(material_info[item.id2])">{{ getValue(material_info[item.id2])  }}</span>
-					</span>
-					<span v-if="item.type == 'img'">
-						<img :src="material_info[item.id]" width="500px" alt="暂无">
-					</span>
-					<span v-if="item.type == 'video'">
-						<div>{{material_info[item.id]}}</div>
-					</span>
-					<span v-if="!item.type">{{ getValue(material_info[item.id]) }}</span>
-				</li>
-				<!-- <li v-if="material_info.type == '2'" class="margint13 ofh" v-for="(item,index) in fileData1" :key="index" :type="item.type">
-					<span class="fleft fontcolorg" style="margin-right: 20px;width: 140px;">{{ item.name }}</span>
-					<span v-if="!item.type">{{ getValue(material_info[item.id])  }}</span>
-					<span v-if="item.type == 'url'" style="color: #FF5121;" @click="openwindow(material_info[item.id])">{{ getValue(material_info[item.id])  }}</span>
-				</li> -->
-			</ul>
+			
+		</div>
+		<div v-if="tabsnum == 1">
+			<Cent :dataList="material_info"></Cent>
+
 		</div>
 		<div v-if="tabsnum == 2">
 			<reviewinfocommon :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id" :gain_share_rate="apply_info.gain_share_rate"></reviewinfocommon>
@@ -415,12 +395,14 @@
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from './reviewinfocommon'
 	import workData from './workData'
+	import Cent from './cent'
 	export default {
 		props: ['detailData', 'roles'],
 		components:{
 			commonTop,
 			reviewinfocommon,
-			workData
+			workData,
+			Cent
 		},
 		data() {
 			return {
