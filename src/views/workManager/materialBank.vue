@@ -510,6 +510,11 @@
 </style>
 
 <style scoped>
+    .materialdownload >>> .defaultbtn {
+		border:1px solid #33B3FF !important;
+		color: #ffffff !important;
+		background: #33B3FF !important;
+	}
 	.Detail {
 		background: white;
 		max-height: 780px;

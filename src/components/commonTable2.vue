@@ -650,7 +650,7 @@
 							urlDate: JSON.stringify(this.form)
 						}
 					});
-					eventBus.$emit("sreenData", this.form);
+					// eventBus.$emit("sreenData", this.form);
 					this.getcommonrightbtn();
 					this.reject();
 					this.getTabData();
@@ -774,6 +774,11 @@
 				if(this.tableConfig.loading){
 					this.loading = false;
 				}
+				document.addEventListener('keydown',(e)=>{
+					if(e.keyCode==13){				
+						this.cha('reach');					
+					}
+				},false)
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
@@ -1263,5 +1268,10 @@
 		padding: 0;
 		background: #FFFFFF;
 		z-index: 999999;
+	}
+	.fright >>> .defaultbtn {
+		border:1px solid #33B3FF !important;
+		color: #ffffff !important;
+		background: #33B3FF !important;
 	}
 </style>

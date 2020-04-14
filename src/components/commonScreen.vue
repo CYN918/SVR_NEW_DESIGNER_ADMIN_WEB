@@ -223,7 +223,7 @@
 							urlDate: JSON.stringify(this.form)
 						}
 					});
-					eventBus.$emit("sreenData", this.form);
+					// eventBus.$emit("sreenData", this.form);
 				}
 			    this.$parent.screenmask("Off", "left1");
 			},
@@ -242,6 +242,11 @@
 				if(this.$route.query.urlDate){
 					this.form = JSON.parse(this.$route.query.urlDate);
 				}
+				document.addEventListener('keydown',(e)=>{
+					if(e.keyCode==13){				
+						this.getparent('reach');					
+					}
+				},false)
 			},
 			getScreen() {
 				if(this.tabnum){
@@ -258,6 +263,9 @@
 				} else {
 					if(this.pageName && this.pageName == "addblack"){
 						this.texts = DataScreen.screen.addblack["filterFields"+this.$parent.tabnum];
+						return;
+					} else if(this.pageName && this.pageName == "homeBanner"){
+						this.texts = DataScreen.screen.homeBanner["filterFields"+0];
 						return;
 					} else {
 						this.texts = DataScreen.screen[this.pageName].filterFields;

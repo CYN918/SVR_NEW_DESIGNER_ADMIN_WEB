@@ -1187,7 +1187,5 @@
 		margin-left: 5px;
 		
 	}
-	.wh{
-		overflow: hidden;
-	}
+	
 </style>

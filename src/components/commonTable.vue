@@ -131,10 +131,10 @@
 			</el-table>
 			<div class="w" style="text-align: right;background: #FFFFFF;">
 				<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span v-if="tableConfig.total != ''">共{{tableConfig.total}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">{{btnStatus?'选择全部':'取消全选'}}</button>
+					<span v-if="tableConfig.ischeck">已选择{{ selected }}条,</span><span v-if="tableConfig.total != ''">共{{Number(tableConfig.total)}}条数据</span><button style="width:87px;height: 32px;" class="defaultbtn" @click="setall" v-if="tableConfig.ischeck">{{btnStatus?'选择全部':'取消全选'}}</button>
 				</div>
 				<el-pagination v-if="tableConfig.total != ''" class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentpage"
-				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="prev, pager, next, sizes,jumper" :total="tableConfig.total">
+				 :page-sizes="[50, 100, 200, 500]" :page-size="pagesize" layout="prev, pager, next, sizes,jumper" :total="Number(tableConfig.total)">
 				</el-pagination>
 			</div>
 		</div>

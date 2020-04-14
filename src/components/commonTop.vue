@@ -678,6 +678,11 @@
 	.fleft > ul > li{
 		display: inline-block;
 	}
+	.fright >>> .defaultbtn {
+		border:1px solid #33B3FF !important;
+		color: #ffffff !important;
+		background: #33B3FF !important;
+	}
 	
 	
 	

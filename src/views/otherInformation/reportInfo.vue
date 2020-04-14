@@ -376,9 +376,7 @@
 	.Detail {
 		background: white;
 	}
-	.wh{
-		overflow: hidden;
-	}
+	
 
 	.Dialogkey {
 		margin: 0 33px 26px 66px;

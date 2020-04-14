@@ -1519,10 +1519,10 @@
 					
 					return "请填写领域范围！！";
 				}
-				if(!this.form['expected_profit']){
+				// if(!this.form['expected_profit']){
 					
-					return "请填写预计收益！！";
-				}
+				// 	return "请填写预计收益！！";
+				// }
 				
 				if(!this.form['qq']){
 					

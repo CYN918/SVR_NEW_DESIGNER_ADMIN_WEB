@@ -435,9 +435,6 @@
 .detailContent{
 	overflow-y: scroll !important;
 }
-.wh{
-	overflow: auto !important;
-}
 	.Detail {
 		background: white;
 	}

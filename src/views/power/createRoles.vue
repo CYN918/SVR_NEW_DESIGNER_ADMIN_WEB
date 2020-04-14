@@ -1,5 +1,8 @@
 <template>
+<div>
+	<common-top :commonTopData="commonTopData"></common-top>
 	<div class="wh Detail">
+		
 		<div class="detailtitle">添加角色</div>
 		<div class="detailContent1 ofh">
 			<ul>
@@ -35,11 +38,16 @@
 			<button class="defaultbtn" @click="addrole()">添加</button>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
+    import commonTop from '@/components/commonTop.vue'
 	export default {
 		props: ['detailData','roles'],
+		components: {
+			commonTop
+		},
 		data() {
 			return {
 				text10: '',
@@ -50,6 +58,12 @@
 				defaultProps: {
 					children: 'child',
 					label: 'title'
+				},
+				commonTopData: {
+					"pageName": "createRoles",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
 				},
 			}
 		},

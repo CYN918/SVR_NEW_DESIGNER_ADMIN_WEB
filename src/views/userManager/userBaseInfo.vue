@@ -141,7 +141,7 @@
 		methods:{
 			setLoding(type){
 				//alert(2);
-				console.log(this.$refs);
+				console.log(type);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg){

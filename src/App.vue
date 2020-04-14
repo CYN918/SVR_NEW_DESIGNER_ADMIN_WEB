@@ -174,7 +174,7 @@ input{
 	border:1px solid #999999;
 	background: transparent;
 	border-radius: 5px;
-	color: #333333;
+	color: #999999;
 }
 
 #app .defaultbtnno {

@@ -70,7 +70,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		if(result==0){
 			///console.log(isType)
 			if(isType.suktip){
-				Message({message: '操作成功',type: 'success'});
+				Message({message: '操作成功',type: 'success',duration: 2000});
 			}
 			
 			if(isType.reload){	
