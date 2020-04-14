@@ -56,18 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<div  v-if="commonTopData.option">
-			<div class="paddinglr40 relative" style="height: 35px;border-bottom: 2px solid #f0f2f5;line-height: 35px;background: none;">
-				<div class="textcenter" style="float: left;">
-					<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
-						<el-badge class="badge">{{ item.name }}</el-badge>
-					</span>
-					<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
-						<el-badge class="badge">{{ item.name }}</el-badge>
-					</span>
-				</div>
-			</div>
-		</div>
+		
 		<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 			<div class="ofh">
 				<div class="fleft" style="float:right;">
@@ -77,7 +66,19 @@
 						<li class="btnorgle" v-for="item in commonTopData.commonleftbtn" :key="item.id" v-if="item.id == 'right3' && (adminuseraccess.indexOf(item.accessid) > -1)" @click="getparent(item.id,commonTopData.pageName)"><img src="../assets/img/export.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</li>
 					</ul>	
 				</div>
-				<div class="fright" style="float:left;">
+				<div class="fright" style="float:left;"  v-if="commonTopData.option">
+					<div class="paddinglr40 relative" style="height: 35px;border-bottom: 2px solid #f0f2f5;line-height: 35px;background: none;">
+						<div class="textcenter" style="float: left;">
+							<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index < 3 && (adminuseraccess.indexOf(allId) > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+								<el-badge class="badge">{{ item.name }}</el-badge>
+							</span>
+							<span style="height: 35px;" v-for="(item,index) in commonTopData.option" v-if="index == 3 && (adminuseraccess.indexOf('52') > -1)" :key="item.linkTo" :class="index == commonTopData.mintabnums ? 'tabs tabactive' : 'tabs'" @click="tabsChanges(index)">
+								<el-badge class="badge">{{ item.name }}</el-badge>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="fright" style="float:left;" v-else>
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
 						<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
 							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
