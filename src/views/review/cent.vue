@@ -41,9 +41,9 @@
             <div class="delete-window" @click="getimgulr">x</div>
 			<img :src="imgurl" alt="暂无图片" style="max-height:500px;">
 		</div>
-        <div class="maskimg screenContent" v-if="isvideourl">
+        <div class="maskimg screenContent" v-if="isvideourl"> 
             <div class="delete-window" @click="getvideoulr">x</div>
-			<video id="playVideo">
+			<video id="playVideo" style="max-width: 675px;">
                 <source :src="videourl" type="video/ogg">
                 <source :src="videourl" type="video/mp4">
             </video>
