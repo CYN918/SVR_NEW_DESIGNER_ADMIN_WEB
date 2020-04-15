@@ -34,7 +34,7 @@
 						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
 						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-							<div class="fontcolorg">1920px*620px，格式jpg，jpeg，png，大小不超过10M</div>
+							<div class="fontcolorg">1300px*480px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
 						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
@@ -62,7 +62,7 @@
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button></div>
 						<div class="delect" v-if="selectData1.template_file_id">
-							<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
+							<span class="fontcolorg">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span><span @click="delecttem()" class="pointer fontcolorg textcenter" style="margin: 0 10px;border-radius: 50%;background: #F5F5F5;width: 20px;height: 20px;display: inline-block;">x</span>
 						</div>
 					</li>
 					
@@ -70,10 +70,10 @@
 						<span class="fleft detailKey" style="line-height: 40px;">预计收益</span>
 						<el-input placeholder="给创作者的收益预期,如: 20.00~30.00/张" v-model="form['expected_profit']" style="width:357px;height:40px;" clearable></el-input>
 					</li>
-					<li class="margint23 ofh">
+					<!-- <li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">额外赏金</span>
 						<el-input placeholder="单位, 元; 额外赏金可吸引更多创作者报名" v-model="form['extra_reward']" style="width:357px;height:40px;" clearable></el-input>
-					</li>
+					</li> -->
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">项目顾问QQ</span>
 						<el-input placeholder="请填写QQ号, 项目顾问将负责解决创作者制作或报名的疑问" v-model="form['qq']" style="width:357px;height:40px;" clearable></el-input>
@@ -157,21 +157,21 @@
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
-							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+							<el-button class="btnorgle" style="margin-left:20px;" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
-				<div class="margin40" style="height: 60px;">
+				<!-- <div class="margin40" style="height: 60px;">
 					<div class="tagbts">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
-				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				</div> -->
+				<div class="calc205" style="overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tabledd" style="height: 450px;"></common-table>
 				</div>
 				<div class="w textcenter">
 					<button class="defaultbtn" @click="setparenttable">确定</button>

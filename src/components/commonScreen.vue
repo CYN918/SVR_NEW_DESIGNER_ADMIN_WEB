@@ -214,10 +214,7 @@
 						this.form['classify_1'] = this.removeRepeatStr(arr).substring(0,this.removeRepeatStr(arr).lastIndexOf(','));
 						this.form['classify_2'] = this.removeRepeatStr(arr1).substring(0,this.removeRepeatStr(arr1).lastIndexOf(','));
 						this.form['classify_3'] = this.removeRepeatStr(arr2).substring(0,this.removeRepeatStr(arr2).lastIndexOf(','));					
-					}
-					// console.log(this.form)
-					
-					
+					}				
 					this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)
@@ -294,7 +291,7 @@
 		},
 		watch: {
 			"$route":function(){
-				this.form = JSON.parse(this.$route.query.urlDate);
+				// this.form = JSON.parse(this.$route.query.urlDate);
 				this.vocation = {
 					vocation:[],
 					recommend_level:[],

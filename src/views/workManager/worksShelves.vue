@@ -139,7 +139,7 @@
 				this.$router.push({
 					path:"/workManager/workInfo",
 					query:{
-						tabsnum:1
+						tabsnum:0
 					}
 				})
 
@@ -223,16 +223,16 @@
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
-					work_id:this.workid
+					accused_open_id:this.$route.query.open_id,
 				}
 				//获取筛选的条件
-				//console.log(JSON.parse(this.$route.query.urlDate))
+				// console.log(JSON.parse(this.$route.query.urlDate))
 				if (this.$route.query.urlDate) {
 					const sreenData = JSON.parse(this.$route.query.urlDate);
 					//console.log(sreenData)
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
-					sreenData.work_id = this.workid;
+					sreenData.open_id = this.open_id;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}

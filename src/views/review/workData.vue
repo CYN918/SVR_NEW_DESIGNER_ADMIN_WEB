@@ -41,10 +41,10 @@
                             <span class="box_process_content_left">预计收益</span>
                             <span class="box_process_content_right">{{reviewinfocommon.expected_profit}}</span>
                         </li>
-                        <li>
+                        <!-- <li>
                             <span class="box_process_content_left">额外赏金</span>
                             <span class="box_process_content_right">{{reviewinfocommon.extra_reward}}</span>
-                        </li>
+                        </li> -->
                         <li>
                             <span class="box_process_content_left">项目顾问QQ</span>
                             <span class="box_process_content_right">{{reviewinfocommon.qq}}</span>

@@ -650,7 +650,7 @@
 							urlDate: JSON.stringify(this.form)
 						}
 					});
-					// eventBus.$emit("sreenData", this.form);
+					eventBus.$emit("sreenData", this.form);
 					this.getcommonrightbtn();
 					this.reject();
 					this.getTabData();

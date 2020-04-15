@@ -2,8 +2,8 @@
     <div class="box">
         <div class="box_message">
             <ul>
-                <li><span class="left">提审用户ID</span><span class="right">{{reviewinfocommon.id}}</span></li>
-                <li><span class="left">提审用户昵称</span><span class="right" style="color:#33B3FF;">{{reviewinfocommon.username}}</span></li>
+                <li><span class="left">提审用户ID</span><span class="right">{{reviewinfocommon.check_admin}}</span></li>
+                <li><span class="left">提审用户昵称</span><span class="right" style="color:#33B3FF;">{{reviewinfocommon.admin_name}}</span></li>
                 <li><span class="left">提审时间</span><span class="right">{{reviewinfocommon.created_at}}</span></li>
                 <li>
                     <span class="left">当前审核状态</span>
@@ -33,7 +33,7 @@
                     <ul>
                         <li>
                             <span class="box_process_content_left" style="background: #4DC600;border-bottom-left-radius: 0px;"><i></i>已通过(1/2)</span>
-                            <span class="box_process_content_right">内容确认:<b style="margin-left:5px;">用户名称&nbsp;&nbsp;&nbsp;{{reviewinfocommon.content_check_confim_time}}</b></span>
+                            <span class="box_process_content_right">内容确认:<b style="margin-left:5px;">{{reviewinfocommon.check_admin_content_name}}&nbsp;&nbsp;&nbsp;{{reviewinfocommon.content_check_confim_time}}</b></span>
                         </li>
                         <div class="bt_o_contenaut">
                             <ul>
@@ -55,7 +55,7 @@
                     <ul>
                         <li>
                             <span class="box_process_content_left" style="background: #4DC600;border-bottom-left-radius: 0px;"><i></i>已通过(1/2)</span>
-                            <span class="box_process_content_right">内容确认:<b style="margin-left:5px;">用户名称&nbsp;&nbsp;&nbsp;{{reviewinfocommon.content_check_confim_time}}</b></span>
+                            <span class="box_process_content_right">内容确认:<b style="margin-left:5px;">{{reviewinfocommon.check_admin_content_name}}&nbsp;&nbsp;&nbsp;{{reviewinfocommon.content_check_confim_time}}</b></span>
                         </li>
                         <div class="bt_o_contenaut">
                             <ul>
@@ -69,7 +69,7 @@
                         </div>
                         <li style="margin-top:30px;">
                             <span class="box_process_content_left" style="background: #4DC600;border-bottom-left-radius: 0px;"><i></i>已通过(2/2)</span>
-                            <span class="box_process_content_right">结算确认:<b style="margin-left:5px;">用户名称&nbsp;&nbsp;&nbsp;{{reviewinfocommon.check_time}}</b></span>
+                            <span class="box_process_content_right">结算确认:<b style="margin-left:5px;">{{reviewinfocommon.admin_name}}&nbsp;&nbsp;&nbsp;{{reviewinfocommon.check_time}}</b></span>
                         </li>
                         <div class="bt_o_contenaut">
                             <ul>
@@ -212,7 +212,7 @@
         margin-right: 6px;
     }
     .bt_o > ul > li .box_process_content_right{
-        width: 277px;
+        /* width: 277px; */
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
         background: #fff4e5;

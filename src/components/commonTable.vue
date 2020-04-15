@@ -325,7 +325,7 @@
 						}
 						
 						if(setid == "contributor1"){
-							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
+							this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id,open_id:row.open_id}});
 						}
 						if(setid == "contributor2"){
 							this.$parent.centerDialogVisible2 = true;

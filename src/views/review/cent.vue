@@ -71,10 +71,10 @@ export default {
     },
     methods:{
         download(row){
-            if(row.download_file_url == ''){
+            if(row.download_file_size == ''){
                 window.open(row.file_url);
             }else{
-                window.open(row.download_file_url);
+                window.open(row.download_file_size);
             }    
         },
         getimgulr(url){

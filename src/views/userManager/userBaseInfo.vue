@@ -140,8 +140,6 @@
 		},
 		methods:{
 			setLoding(type){
-				//alert(2);
-				console.log(type);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg){
@@ -159,8 +157,8 @@
 				}
 				this.isajax=1;
 				if(this.$route.query.urlDate){
-				    const sreenData = JSON.parse(this.$route.query.urlDate);
-					//console.log(sreenData)
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					// console.log(sreenData)
 				    sreenData.page = pg.pageCurrent;
 				    sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
@@ -444,7 +442,6 @@
 			this.getcommonrightbtn();
 		},
 		mounted(){
-			console.log(1);
 			//console.log(this.tableConfig)
 			this.getData({pageCurrent:1,pageSize:50});
 		},
