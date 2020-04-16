@@ -224,7 +224,7 @@
 							<el-radio-group v-model="want_deal_type" style="width:260px;float:left;">
 								<el-radio-button label="1">买断</el-radio-button>
 								<el-radio-button label="2">分成</el-radio-button>
-								<el-radio-button label="3">预约金+分成</el-radio-button>
+								<el-radio-button label="3">预付金+分成</el-radio-button>
 							</el-radio-group>
 						</div>
 					</li>
@@ -238,7 +238,7 @@
 					</li>
 					<li class="w ofh" v-if="want_deal_type == '3'">
 						<div class="textcenter employipt">
-							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">预约金</span>
+							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">预付金</span>
 							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="填写金额(单位:元)，请确保和线下打款金额一致" v-model="advance_payment"
 							 clearable>
 							</el-input>

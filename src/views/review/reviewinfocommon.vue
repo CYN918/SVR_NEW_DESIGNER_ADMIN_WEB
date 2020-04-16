@@ -73,7 +73,7 @@
                         </li>
                         <div class="bt_o_contenaut">
                             <ul>
-                                <li><span>结算方式</span><span v-if="reviewinfocommon.deal_type == '1'">买断</span><span v-if="reviewinfocommon.deal_type == '2'">分成</span><span v-if="reviewinfocommon.deal_type == '3'">预约金+分成</span></li>
+                                <li><span>结算方式</span><span v-if="reviewinfocommon.deal_type == '1'">买断</span><span v-if="reviewinfocommon.deal_type == '2'">分成</span><span v-if="reviewinfocommon.deal_type == '3'">预付金+分成</span></li>
                                 <li v-if="reviewinfocommon.deal_type == '1'"><span>最终结算价格</span><span style="color:#FF9200;">¥{{formatMoney(reviewinfocommon.deal_price)}}</span></li>
                                 <div class="bt_o_contenaut_t" v-if="reviewinfocommon.deal_type == '1'">
                                     <ul>
@@ -83,7 +83,7 @@
                                     </ul>
                                 </div>
                                 <li v-if="reviewinfocommon.deal_type == '2'"><span>分成比例</span><span>{{reviewinfocommon.user_split_rate}}%</span></li>
-                                <li v-if="reviewinfocommon.deal_type == '3'"><span>预约金</span><span>¥{{formatMoney(reviewinfocommon.advance_payment)}}</span></li>
+                                <li v-if="reviewinfocommon.deal_type == '3'"><span>预付金</span><span>¥{{formatMoney(reviewinfocommon.advance_payment)}}</span></li>
                                 <li v-if="reviewinfocommon.deal_type == '3'"><span>分成比例</span><span>{{reviewinfocommon.user_split_rate}}%</span></li>
                             </ul>           
                         </div>
