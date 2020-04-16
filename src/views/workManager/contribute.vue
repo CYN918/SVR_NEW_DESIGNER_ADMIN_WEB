@@ -295,7 +295,7 @@ export default {
             this.$parent.getData(val,this.pagesize)
         },
         shelves(row){
-            this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id}});
+            this.router.push({path:"/workManager/workInfo/worksShelves",query:{id:row.work_id,open_id:row.open_id}});
         },
         setall(){	
             this.btnStatus = !this.btnStatus;	

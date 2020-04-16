@@ -1,11 +1,11 @@
 <template>
 	<div class="wh">
 		<common-top :commonTopData="commonTopData"></common-top>
-		<div style="height: calc(100% - 135px);overflow: hidden;" v-if="tabsnum == 1">
+		<div style="height: calc(100% - 135px);overflow: hidden;" v-if="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
-		<div style="height: calc(100% - 135px);background-color: white;overflow: hidden;" v-show="tabsnum == 0">
+		<div style="height: calc(100% - 135px);background-color: white;overflow: hidden;" v-show="tabsnum == 1">
 			<div class="w" style="height: 20px;"></div>
 			<div class="scrollbar" style="">
 				<ul class="screenContent1" style="">
@@ -163,7 +163,7 @@
 			},
 			getData(pg) {
 				//获取子组件表格数据
-				if(this.tabsnum == 0){
+				if(this.tabsnum == 1){
 					var data = {
 						access_token: localStorage.getItem("access_token"),
 						page: pg.pageCurrent,

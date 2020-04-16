@@ -171,6 +171,7 @@
 				// console.log(this.form[arr])
 			},
 			getparent(data) {
+
 				if (data == "reach") {
 					//console.log()
 					// if(this.vocation != ""){

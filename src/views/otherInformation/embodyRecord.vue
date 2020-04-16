@@ -223,6 +223,11 @@
 			this.getData({pageCurrent:1,pageSize:50});
 			this.screenreach();
 			this.getcommonrightbtn();
+		},
+		watch:{
+			"$route":function(){
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>

@@ -348,6 +348,11 @@
 				pageCurrent: 1,
 				pageSize: 50
 			});
+		},
+		watch:{
+			"$route":function(){
+				this.getData({pageCurrent:1,pageSize:50});
+			}
 		}
 	}
 </script>

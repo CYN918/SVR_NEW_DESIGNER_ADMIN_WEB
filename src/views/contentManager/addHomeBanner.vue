@@ -59,7 +59,7 @@
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 				},
-				tabsnum:''
+				tabsnum:0,
 			}
 		},
 		methods: {
@@ -228,9 +228,6 @@
 				this.banner_name = this.rows.banner_name;
 				this.banner_pic = this.rows.banner_pic;
 				this.jump_url = this.rows.jump_url;
-				this.tabsnum = 1;
-			}else{
-				this.tabsnum = 0;
 			}
 		},
 		mounted() {
