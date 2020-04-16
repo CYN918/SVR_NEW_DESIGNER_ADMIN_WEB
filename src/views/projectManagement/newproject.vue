@@ -400,7 +400,7 @@
 				tableData2:[
 					{
 						id:"3",
-						name:"场景锁屏"
+						name:"场景主题"
 					},
 					{
 						id:"4",
@@ -413,7 +413,11 @@
 					{
 						id:"6",
 						name:"其他"
-					}	
+					},
+					{
+						id:"7",
+						name:"杂志锁屏"
+					}
 				],
 				tableData3:[],
 				ifBjType:0,

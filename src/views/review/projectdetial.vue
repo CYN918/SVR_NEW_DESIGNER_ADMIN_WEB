@@ -430,7 +430,7 @@
 					value: '1',
 					label: '可直接入库'
 					}, {
-					value: '2',
+					value: '0',
 					label: '需整理后入库'
 				}],
 				ld_show:'0',
