@@ -27,7 +27,7 @@
                     <ul>
                         <li style="height:150px;">
                             <span class="box_process_content_left">Banner</span>
-                            <span class="box_process_content_right"><img width="320" height="120" :src="reviewinfocommon.banner" alt=""/></span>
+                            <span class="box_process_content_right"><img v-if="reviewinfocommon.detail_banner" width="320" height="120" :src="reviewinfocommon.detail_banner" alt=""/><img v-else width="320" height="120" :src="reviewinfocommon.banner" alt=""/></span>
                             <span class="box_process_content_right" v-if="reviewinfocommon.banner == ''">没有图片</span>
                         </li>
                         <li>
