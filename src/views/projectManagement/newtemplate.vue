@@ -34,10 +34,18 @@
 						<span class="fleft detailKey" style="line-height: 40px;">banner</span>
 						<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
 							<button class="defaultbtn" style="margin-left: 0;">上传图片</button>
-							<div class="fontcolorg">1300px*480px，格式jpg，jpeg，png，大小不超过10M</div>
+							<div class="fontcolorg">640px*240px，格式jpg，jpeg，png，大小不超过10M</div>
 						</el-upload>
 						<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
 					</li>
+					<li class="margint23 ofh">
+							<span class="fleft detailKey" style="line-height: 40px;">详情banner</span>
+							<el-upload class="upload" action="454535" :http-request="httprequestbanner" :show-file-list="false">
+								<button class="defaultbtn" style="margin-left: 0;">{{ form['detail_banner'] ? "重新上传" : "上传图片" }}</button>
+								<div class="fontcolorg">1300px*480px，格式jpg，jpeg，png，大小不超过10M</div>
+							</el-upload>
+							<img v-if="form['detail_banner']" :src="form['detail_banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
+						</li>
 
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">领域范围</span>
@@ -202,6 +210,7 @@
 				filename:"",
 				form: {
 					banner:'',
+					detail_banner:'',
 					access_token: localStorage.getItem("access_token"),
 					classify_id:"",
 					banner:"",
@@ -655,6 +664,37 @@
 				});
 				//console.log(this.form.banner = url)
 			},
+			httprequestbanner(params) {
+				const _file = params.file;
+				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
+				let open_id = 7;
+				let times = (Date.parse(new Date()) / 1000);
+				let arr = [
+					1003,
+					app_secret,
+					open_id,
+					times
+				];
+
+				// 通过 FormData 对象上传文件
+				var formData = new FormData();
+				formData.append("file", _file);
+				formData.append('app_id', 1003);
+				formData.append('sign', this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user', open_id)
+				formData.append('relation_type', 'activity')
+				formData.append('timestamp', times)
+			    var _this = this;
+				this.$parent.setpercentage("start");
+				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
+					_this.uptype = "detail_banner";
+					_this.$parent.setpercentage("end",response.data.data.url);
+					//_this.form.banner = response.data.data.url
+				}).catch(function (error) {
+					console.log(error);
+				});
+				//console.log(this.form.banner = url)
+			},
 			httprequestcover(params) {
 				const _file = params.file;
 				let app_secret = '1Q61s1iP8I376GyMTdsjOzd4hcLpZ4SG';
@@ -690,6 +730,10 @@
 				if(this.uptype == 'banner'){
 					
 					this.form.banner = url;
+				}
+				if(this.uptype == 'detail_banner'){
+					
+					this.form.detail_banner = url;
 				}
 				
 				if(this.uptype == 'cover'){
@@ -926,6 +970,10 @@
 				if(!this.form['banner']){
 					
 					return "请上传活动banner！！";
+				}
+				if(!this.form['detail_banner']){
+					
+					return "请上传详情banner！！";
 				}
 				if(!this.form['fields']){
 					
