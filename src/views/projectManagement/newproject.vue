@@ -92,7 +92,15 @@
 							</ul>
 						</div>
 					</li>
-					<li class="margint23 ofh">
+					<li class="margint23 ofh" v-if="form['business_type'] == '6'">
+						<span class="fleft detailKey" style="line-height: 40px;float:left;">结算方式</span>
+						<el-radio-group v-model="form['want_deal_type']" style="width:300px;float:left;">
+							<el-radio-button label="0" :disabled="true">用户选择</el-radio-button>
+							<el-radio-button label="1">买断</el-radio-button>
+							<el-radio-button label="2" :disabled="true">分成</el-radio-button>
+						</el-radio-group>
+					</li>
+					<li class="margint23 ofh" v-else>
 						<span class="fleft detailKey" style="line-height: 40px;float:left;">结算方式</span>
 						<el-radio-group v-model="form['want_deal_type']" style="width:300px;float:left;">
 							<el-radio-button label="0">用户选择</el-radio-button>
@@ -207,7 +215,7 @@
 						</li>
 					</ul>
 				</div> 
-				<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
+				<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;" v-if="form['business_type'] != '6'">
 					<div style="width:100px;float:left;margin:10px 0px 0px 30px;color:#666666;">需求来源绑定</div>
 					<ul>
 						<li class="margint23 ofh">
@@ -661,6 +669,7 @@
 						{prop:'template_name',lable:'模板名称'},
 						{prop:'classify_name',lable:'所属项目分类'},
 						{prop:'banner',lable:'banner',type:"img"},
+						{prop:'detail_banner',lable:'detail_banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'extra_reward',lable:'额外赏金'},
@@ -745,6 +754,7 @@
 				//console.log(row);
 				this.form.classify_id = row.classify_id;
 				this.form.banner = row.banner;
+				this.form.detail_banner = row.detail_banner;
 				this.form.fields = row.fields;
 				this.checkedroles = row.fields.split(",");
 				this.form.expected_profit = row.expected_profit;
@@ -833,12 +843,16 @@
 					})
 					return;
 				}
-				if(!this.form.demand_id){
-					this.$message({
-						message:"请选择关联需求"
-					})
-					return;
+				if(this.form.business_type != '6'){
+					if(!this.form.demand_id){
+						this.$message({
+							message:"请选择关联需求"
+						})
+						return;
+					}
+
 				}
+				
 				
 				if(this.form['deadline'] != this.deadline){
 					this.form.status = "1"
@@ -1185,11 +1199,14 @@
 					})
 					return;
 				}
-				if(!this.form.demand_id){
-					this.$message({
-						message:"请选择关联需求"
-					})
-					return;
+				if(this.form.business_type != '6'){
+					if(!this.form.demand_id){
+						this.$message({
+							message:"请选择关联需求"
+						})
+						return;
+					}
+
 				}
 				this.loading = true;
 				this.api.projectadd(this.form).then(da =>{
@@ -1221,6 +1238,7 @@
 				}).then(da=>{
 					this.form.classify_id = da.classify_id;
 					this.form.banner = da.banner;
+					this.detail_banner = da.detail_banner;
 					this.form.fields = da.fields;
 					this.checkedroles = da.fields.split(',');
 					this.form.expected_profit = da.expected_profit;
@@ -1614,6 +1632,7 @@
 							this.rows = "";
 							this.form.classify_id = da.classify_id;
 							this.form.banner = da.banner;
+							this.form.detail_banner = da.detail_banner;
 							this.form.fields = da.fields;
 							this.checkedroles = da.fields.split(',');
 							this.form.expected_profit = da.expected_profit;

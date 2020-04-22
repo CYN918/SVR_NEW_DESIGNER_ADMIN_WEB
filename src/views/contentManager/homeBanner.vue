@@ -1,7 +1,7 @@
 <template>
 	<div class="wh">
 		<common-top :commonTopData="commonTopData"></common-top>
-		<div style="height: calc(100% - 135px);overflow: hidden;" v-if="tabsnum == 0">
+		<div style="height: calc(100% - 135px);overflow: hidden;" v-show="tabsnum == 0">
 			<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
 			 ref="Tabledd"></common-table>
 		</div>
