@@ -15,14 +15,15 @@
 				
 				<li class="margint13 ofh">
 					<span class="fleft detailKey" style="line-height: 40px;">tab排序</span>
-					<el-select v-model="sorts" placeholder="请选择" style="width: 217px" ref="mySelect">
-						<el-option
+					<select v-model="sorts" style="width: 217px;height:40px;background-color: #FFF;border-radius: 4px;border: 1px solid #DCDFE6;padding-left:5px;">
+						<option
 						v-for="item in tableData1"
 						:key="item.name"
 						:label="item.name"
-						:value="item.id">
-						</el-option>
-					</el-select>
+						:value="item.id"
+						style="font-size: 14px;padding: 0 20px;white-space: nowrap;height: 34px;line-height: 34px;cursor: pointer;color: #606266;text-overflow: ellipsis;">
+						</option>
+					</select>
 				</li>
 			</ul>
 			
@@ -164,6 +165,7 @@
 				IsScreen:"off",
 				currentpageName:"",
 				tableData1:[
+					{name:"请选择",id:""},
 					{name:"第一位",id:"1"},
 					{name:"第二位",id:"2"},
 					{name:"第三位",id:"3"},
