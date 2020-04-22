@@ -298,14 +298,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="margin40" style="height: 60px;">
+				<!-- <div class="margin40" style="height: 60px;">
 					<div class="tagbts" style="margin-left:20px;">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="resetSave(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
-				</div>
+				</div> -->
 				<div class="calc205"  style="width:1200px">
 					<commonTable3 ref="tabs3" :tableDatas="tableData3" :tableConfig="tableConfig" :tableAction="tableAction"></commonTable3>
 				</div>
@@ -1889,7 +1889,7 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				this.getData({pageCurrent:1,pageSize:50});
+				this.getDatay({pageCurrent:1,pageSize:50});
 			}
 		}
 	}
