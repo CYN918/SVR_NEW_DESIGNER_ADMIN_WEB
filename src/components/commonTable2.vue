@@ -774,11 +774,11 @@
 				if(this.tableConfig.loading){
 					this.loading = false;
 				}
-				document.addEventListener('keydown',(e)=>{
-					if(e.keyCode==13){				
-						this.cha('reach');					
-					}
-				},false)
+				// document.addEventListener('keydown',(e)=>{
+				// 	if(e.keyCode==13){				
+				// 		this.cha('reach');					
+				// 	}
+				// },false)
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'

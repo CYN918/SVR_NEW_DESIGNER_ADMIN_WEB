@@ -240,11 +240,11 @@
 				if(this.$route.query.urlDate){
 					this.form = JSON.parse(this.$route.query.urlDate);
 				}
-				document.addEventListener('keydown',(e)=>{
-					if(e.keyCode==13){				
-						this.getparent('reach');					
-					}
-				},false)
+				// document.addEventListener('keydown',(e)=>{
+				// 	if(e.keyCode==13){				
+				// 		this.getparent('reach');					
+				// 	}
+				// },false)
 			},
 			getScreen() {
 				if(this.tabnum){
