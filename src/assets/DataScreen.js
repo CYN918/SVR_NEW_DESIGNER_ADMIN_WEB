@@ -156,6 +156,18 @@ const screenData = {
 				{name:"",type:"display"}
 			]
 		},
+		newprojectrecommende:{
+			filterFields: [
+				{name:"项目ID",id:"project_id"},
+				{name:"项目名称",id:"name"},
+				{name:"业务类型",id:"business_type",child:[{name:"广告模板 ",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+				{name:"领域范围",id:"fields"},
+				{name:"发布时间",id:"publish_time",type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
+				{name:"中标时间",id:"bidding_time",type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(开始)',id:'bidding_time_end'}]},
+				{name:"截稿时间",id:"deadline",type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(开始)',id:'deadline_end'}]},
+			],
+
+		},
 		newproject2:{
 			filterFields:[
 				{name:"模板名称",id:"template_name"},

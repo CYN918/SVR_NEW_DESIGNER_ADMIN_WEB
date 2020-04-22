@@ -352,7 +352,7 @@
 			<div>
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
-						<div class="fleft" style="margin-left:20px;">
+						<div class="fleft">
 							<el-button class="btnorgle" style="margin-left:20px;" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>

@@ -268,7 +268,7 @@ input{
 }
 
 #app .ipt90 {
-	width: 150px;
+	width: 135px;
 }
 
 #app .el-submenu [class^=el-icon-]{

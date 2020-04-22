@@ -51,21 +51,21 @@
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft">
-							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+							<el-button class="btnorgle" style="margin-left:20px;" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
 						</div>
 					</div>
 				</div>
-				<div class="margin40" style="height: 60px;">
+				<!-- <div class="margin40" style="height: 60px;">
 					<div class="tagbts">
 						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
 						 :disable-transitions="false" @close="handleClose(item.id)">
 							{{item.btnName + "：" + item.val}}
 						</el-tag>
 					</div>
-				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				</div> -->
+				<div class="calc205" style="overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tabledd" style="height:450px;"></common-table>
 				</div>
 			</div>
 		</el-dialog>
@@ -125,7 +125,11 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "newprojectrecommende",
-					"commonleftbtn": [],
+					"commonleftbtn": [{
+							name: "筛选",
+							id: "left1",
+							url: ""
+						}],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 				},
@@ -143,7 +147,6 @@
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},
-						{prop:'extra_reward',lable:'额外赏金'},
 						{prop:'publish_time',lable:'发布时间'},
 						{prop:'bidding_time',lable:'中标时间'},
 						{prop:'deadline',lable:'截稿时间'},
@@ -164,12 +167,22 @@
 		methods: {
 			screen(fun){
 				console.log(fun)
-				if(this.$parent[fun]){
-					this.$parent[fun]();
+				// if(this.$parent[fun]){
+				// 	this.$parent[fun]();
+				// }
+				// if(this.$parent.$parent[fun]){
+				// 	this.$parent.$parent[fun]();
+				// }
+				const shownum = {
+					num: "left1",
+					showmask: "No",
+					pageName: "newprojectrecommende",
+					name:this.sname
 				}
-				if(this.$parent.$parent[fun]){
-					this.$parent.$parent[fun]();
-				}
+				
+				
+				
+				eventBus.$emit("screenshow", shownum);
 			},
 			getactivitiesrows(row){
 				//console.log(row);
