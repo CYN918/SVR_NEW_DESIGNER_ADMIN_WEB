@@ -59,7 +59,8 @@
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
 						<span v-else-if="item.type == 'status'"><span :class="item.statusclass+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
-						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop]  }}</span>
+						<span v-else-if="item.type == 'price'">{{ "￥" + formatMoney(scope.row[item.prop])  }}</span>
+						<span v-else-if="item.type == 'baifen'">{{scope.row[item.prop] + "%" }}</span>
 						<div v-else-if="item.type == 'hiretime'">
 							<div style="color: #FF5121;" @click="openwindowrouter(item.url,scope.row[item.id])">
 								{{ scope.row[item.prop] ? scope.row[item.prop] : "--" }}
@@ -199,6 +200,11 @@
 			openWindow(name)  {  
 				 window.open('about:blank',name,);  
 			}, */
+			formatMoney(input){ 
+                var n = parseFloat(input).toFixed(2);
+                var re = /(\d{1,3})(?=(\d{3})+(?:\.))/g;
+                return n.replace(re, "$1,");
+            },
 			setparenttable(){
 				switch(this.tableAction.morebtns.page){
 					case "userBaseInfo":
