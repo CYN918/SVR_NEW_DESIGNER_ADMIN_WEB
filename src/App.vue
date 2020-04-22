@@ -243,7 +243,7 @@ input{
 }
 
 #app .el-textarea__inner:focus{
-	border-color: #ff5121;
+	border-color: #33B3FF;
 }
 
 .marginlr30{
@@ -325,7 +325,7 @@ input{
 }
 
 .el-select .el-input.is-focus .el-input__inner{
-	border-color: #ff5121 !important;
+	border-color: #33B3FF !important;
 }
 
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after{
@@ -439,9 +439,9 @@ input{
 }
 
 .ueditortab-item-active{
-	background: #FF5121;
+	background: #33B3FF;
 	color: white;
-	border-color: #FF5121;
+	border-color: #33B3FF;
 }
 
 .detailContent1 ul {
@@ -460,12 +460,12 @@ input{
 }
 
 .el-radio__input.is-checked+.el-radio__label{
-	color: #FF5121 !important;
+	color: #33B3FF !important;
 }
 
 .el-radio__input.is-checked .el-radio__inner{
-	background-color: #FF5121 !important;
-	border-color: #FF5121 !important;
+	background-color: #33B3FF !important;
+	border-color: #33B3FF !important;
 }
 
 .defaultbtn0,.defaultbtn-2{
@@ -483,8 +483,8 @@ input{
 	color: #67C239;
 }
 .defaultbtn-1{
-	border-color: #FF1A27;
-	color: #FF1A27;
+	border-color: #33B3FF;
+	color: #33B3FF;
 }
 
 .el-radio__inner{

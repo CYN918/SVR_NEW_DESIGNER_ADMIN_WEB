@@ -9,7 +9,7 @@
                     <img :src="dataList.preview_pic" alt="" @click="getimgulr(dataList.preview_pic)"/>
                 </div>
                 <div class="preview_pic" v-else>
-                    <video id="video" @click="getvideoulr(dataList.file_url)" @mouseover="selectStyle()" @mouseout="outStyle()">
+                    <video id="video" @click="getvideoulr(dataList.file_url)" @mouseover="selectStyle()" @mouseout="outStyle()" controls="controls">
                         <source :src="dataList.file_url" type="video/ogg">
                         <source :src="dataList.file_url" type="video/mp4">
                     </video>
@@ -43,7 +43,7 @@
 		</div>
         <div class="maskimg screenContent" v-if="isvideourl"> 
             <div class="delete-window" @click="getvideoulr">x</div>
-			<video id="playVideo" style="max-width: 675px;">
+			<video id="playVideo" style="width: 414px;height:736px;" controls="controls">
                 <source :src="videourl" type="video/ogg">
                 <source :src="videourl" type="video/mp4">
             </video>
