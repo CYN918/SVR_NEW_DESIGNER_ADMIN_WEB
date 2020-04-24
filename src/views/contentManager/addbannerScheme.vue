@@ -34,6 +34,7 @@
 				</li>
 			</ul>
 			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;width:100%;height:223px;">
+				<draggable v-model="selectData" class="createGoods-show-list">
 				<div v-for ="(item,index) in selectData" :key="item.id" style="width:100%;height:223px;float:left;">
 					<div class="fleft" style="line-height: 40px;padding-left: 40px;float:left;">banner-{{ index+1 }}</div>
 					<ul style="padding-top: 0px;margin-top: 0px;float:left;">
@@ -60,6 +61,7 @@
 					</ul>
 					<div class="rleft" style="float:right;padding-right:120px;cursor: pointer;" @click="deleteCanal(index,selectData)">删除</div>
 				</div>
+				</draggable>
 			</div>
 			<div class="addzu pointer" @click="select">+添加一组</div>
 		</div>
@@ -101,11 +103,13 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
+	import draggable from 'vuedraggable';
 	
 	export default {
 		components: {
 			commonTop,
 			commonTable,
+			draggable 
 		},
 		data() {
 			return {

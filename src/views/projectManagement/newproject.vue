@@ -125,7 +125,7 @@
 						<li class="margint23 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">banner</span>
 							<el-upload class="upload" action="454535" :http-request="httprequest" :show-file-list="false">
-								<button class="defaultbtn" style="margin-left: 0;">{{ form['banner'] ? "重新上传" : "上传图片" }}</button>
+								<button class="defaultbtn" style="margin-left: 0;position: relative;right: 115px;">{{ form['banner'] ? "重新上传" : "上传图片" }}</button>
 								<div class="fontcolorg">640px*240px，格式jpg，jpeg，png，大小不超过10M</div>
 							</el-upload>
 							<img v-if="form['banner']" :src="form['banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">
@@ -133,7 +133,7 @@
 						<li class="margint23 ofh">
 							<span class="fleft detailKey" style="line-height: 40px;">详情banner</span>
 							<el-upload class="upload" action="454535" :http-request="httprequestbanner" :show-file-list="false">
-								<button class="defaultbtn" style="margin-left: 0;">{{ form['detail_banner'] ? "重新上传" : "上传图片" }}</button>
+								<button class="defaultbtn" style="margin-left: 0;position: relative;right: 115px;">{{ form['detail_banner'] ? "重新上传" : "上传图片" }}</button>
 								<div class="fontcolorg">1170px*480px，格式jpg，jpeg，png，大小不超过10M</div>
 							</el-upload>
 							<img v-if="form['detail_banner']" :src="form['detail_banner']" alt="" width="340px" height="110px" style="margin-left: 156px;">

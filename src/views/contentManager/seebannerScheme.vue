@@ -54,6 +54,7 @@
 					<div class="rleft" style="float:right;padding-right:120px;cursor: pointer;position: relative;bottom: 200px;" @click="deleteCanal(index,myArray)">删除</div>
 				</div>
 			</div>
+			<div class="addzu pointer" @click="select">+添加一组</div>
 		</div>
 		<div class="detailContent1 ofh" v-if="edit == 'edit'">
 			<ul>
@@ -90,7 +91,7 @@
 			</ul>
 			<div style="border-top: 1px solid #E6E6E6;padding-top: 40px;margin-top: 40px;">
 				<draggable v-model="myArray" class="createGoods-show-list">
-					<li v-for ="(item,index) in myArray" :key="item.id">
+					<li v-for ="(item,index) in myArray">
 						<div class="fleft" style="line-height: 40px;padding-left: 40px;">banner-{{ index+1 }}</div>
 						<ul style="padding-top: 0px;margin-top: 0px;">
 							<!-- <div class="detailtitle">Banner-1</div> -->
@@ -112,7 +113,34 @@
 					</li>  
                 </draggable>
 			</div>
+			<div class="addzu pointer" @click="select">+添加一组</div>
 		</div>
+		<el-dialog title="请选择banner素材" :visible.sync="dialogTableVisible" custom-class="sel-dialog">
+			<div>
+				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
+					<div class="ofh">
+						<div class="fleft">
+							<el-button class="btnorgle" v-for="(item,index) in commonTopData.commonleftbtn" :key="item.id" @click="screen(item.id)">{{ item.name }}</el-button>
+						</div>
+					</div>
+				</div>
+				<div class="margin40" style="height: 60px;">
+					<div class="tagbts">
+						<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+						 :disable-transitions="false" @close="handleClose(item.id)">
+							{{item.btnName + "：" + item.val}}
+						</el-tag>
+					</div>
+				</div>
+				<div class="calc205">
+					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
+					 ref="Tabledd"></common-table>
+				</div>
+				<div class="screenContent detailbtn">
+					<button class="defaultbtn defaultbtnactive" @click="select()">确定（{{myArray.length}}）</button>
+				</div>
+			</div>
+		</el-dialog>
 		<div class="screenContent detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
 			<button class="defaultbtn defaultbtnactive" v-if="edit == 'edit'" @click="editp()">确定</button>
@@ -148,6 +176,19 @@
 				myArray:[],
 				newArr:[],
 				tabsnum:1,
+				dialogTableVisible:false,
+				screenConfig: [],
+				tableConfig: {
+					"pageName": "addbannerScheme",
+					total: 0,
+					currentpage: 1,
+					pagesize: 10,
+					list: DataScreen.screenShow.addbannerScheme.bts,
+					loading:true
+				
+				},
+				tableData: [],
+				tableAction: DataScreen.screenShow.addbannerScheme.action,
 			}
 		},
 		methods: {
@@ -158,6 +199,9 @@
 						tabsnum: this.tabsnum
 					}
 				})
+			},
+			select(){
+				this.dialogTableVisible = !this.dialogTableVisible
 			},
 			getValue(val) {
 				if (val) {
@@ -218,9 +262,40 @@
 			deleteCanal(index,rows){
 				rows.splice(index, 1);
 			},
+			getactivitiesrows(row){
+				//console.log(row);
+				this.myArray.push(row);
+			},
+			getData(pg) {
+				//获取子组件表格数据
+				var data = {
+					access_token: localStorage.getItem("access_token"),
+					page: pg.pageCurrent,
+					limit: pg.pageSize
+				}
+				//获取筛选的条件
+				if (this.$route.query.urlDate) {
+					const sreenData = JSON.parse(this.$route.query.urlDate);
+					//console.log(sreenData)
+					sreenData.page = pg.pageCurrent;
+					sreenData.limit = pg.pageSize;
+					sreenData.access_token = localStorage.getItem("access_token");
+					data = sreenData;
+				}
+			
+				this.api.bannerlist(data).then((da) => {
+					
+					this.tableData = da.data;
+					this.tableConfig.total = da.total;
+					this.tableConfig.currentpage = da.page;
+					this.tableConfig.pagesize = da.page_size;
+				}).catch(() => {
+				});
+			},
 		},
 		created() {
 			this.getinfo();
+			this.getData({pageCurrent:this.tableConfig.currentpage,pageSize:this.tableConfig.pagesize});
 		},
 		mounted(){
 			this.currentpageName = (this.$route.matched[this.$route.matched.length-1].meta.title).split("/")[1];
