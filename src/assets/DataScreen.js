@@ -785,7 +785,7 @@ const screenData = {
 				{prop:'education_school',lable:'学校名称'},
 				{prop:'weixin',lable:'非认证-微信号',width:150,type:"nocon",name:"--"},
 				{prop:'qq',lable:'非认证-QQ号',width:150,type:"nocon",name:"--"},
-				{prop:'home_page',lable:'主页链接'},
+				// {prop:'home_page',lable:'主页链接'},
 				{prop:'weixin_name',lable:'授权认证-微信',width:150},
 				{prop:'qq_name',lable:'授权认证-QQ',width:150},
 				{prop:'create_time',lable:'注册时间'},
