@@ -67,9 +67,9 @@
 						</el-tag>
 					</div>
 				</div> -->
-				<div style="width: 100%;overflow-y:hidden;">
+				<div class="calc205" style="height:450px;overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd" style="width: 100%;height:450px;"></common-table>
+					 ref="Tabledd" style="height:450px;"></common-table>
 				</div>
 				<div class="w textcenter">
 					<button class="defaultbtn defaultbtnactive" @click="dialogTableVisible=false">确定({{ this.selectData.length }})</button>
@@ -450,7 +450,10 @@
 	}
 </script>
 
-<style>
+<style scoped>
+.calc205 >>> .el-table__empty-block{
+	height: 250px;
+}
 	
 	.el-select-dropdown,.el-picker-panel{
 		z-index:2014 !important;
