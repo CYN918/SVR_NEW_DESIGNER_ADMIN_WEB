@@ -1386,7 +1386,8 @@
 				    const sreenData = JSON.parse(this.$route.query.urlDate);
 					//console.log(sreenData)
 				    sreenData.page = pg.pageCurrent;
-				    sreenData.limit = pg.pageSize;
+					sreenData.limit = pg.pageSize;
+					sreenData.is_contributor = 1;
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}

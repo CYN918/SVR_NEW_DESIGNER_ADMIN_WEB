@@ -20,9 +20,9 @@
 								</div>
 							</div>
 							<el-carousel height="190px" style="background: gray;border-radius: 5px;">
-							  <el-carousel-item v-for="citem in item.banner_list" :key="citem.id">
-								<img :src="citem.banner_pic" width="100%" height="100%" alt="">
-							  </el-carousel-item>
+								<el-carousel-item v-for="citem in item.banner_list">
+									<img :src="citem.banner_pic" width="100%" height="100%" alt="">
+								</el-carousel-item>
 							</el-carousel>
 							<div class="fleft w" style="height: calc(100% - 190px);">
 								<div class="fleft" style="padding: 20px;">
