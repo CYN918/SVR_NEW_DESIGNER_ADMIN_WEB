@@ -51,6 +51,7 @@
 							<span style="width:357px;height:40px;line-height: 40px;">{{ item.jump_url }}</span>
 						</li>
 					</ul>
+					<div class="rleft" style="float:right;padding-right:120px;cursor: pointer;position: relative;bottom: 200px;" @click="deleteCanal(index,myArray)">删除</div>
 				</div>
 			</div>
 		</div>
@@ -107,6 +108,7 @@
 								<span style="width:357px;height:40px;line-height: 40px;">{{ item.jump_url }}</span>
 							</li>
 						</ul>
+						<div class="rleft" style="float:right;padding-right:120px;cursor: pointer;position: relative;bottom: 200px;" @click="deleteCanal(index,myArray)">删除</div>
 					</li>  
                 </draggable>
 			</div>
@@ -212,7 +214,10 @@
 					}
 				}
 				return newArr;
-			}
+			},
+			deleteCanal(index,rows){
+				rows.splice(index, 1);
+			},
 		},
 		created() {
 			this.getinfo();

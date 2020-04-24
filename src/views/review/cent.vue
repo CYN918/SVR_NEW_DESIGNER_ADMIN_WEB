@@ -13,7 +13,7 @@
                         <source :src="dataList.file_url" type="video/ogg">
                         <source :src="dataList.file_url" type="video/mp4">
                     </video>
-                    <div v-if="isShow" class="video-img" @click="playOn()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div>
+                    <!-- <div v-if="isShow" class="video-img" @click="playOn()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div> -->
                 </div>
                 <div class="preview_pic_message">
                     <div class="detailed-information">
@@ -47,7 +47,7 @@
                 <source :src="videourl" type="video/ogg">
                 <source :src="videourl" type="video/mp4">
             </video>
-            <div v-if="isShow" class="video-img-expand" @click="playVideo()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div>
+            <!-- <div v-if="isShow" class="video-img-expand" @click="playVideo()"><img :src="imgSig + 'newHome/play.svg'" alt="" /></div> -->
 		</div>
     </div>
     
@@ -88,13 +88,13 @@ export default {
         changeSx(){
             this.$parent.fileRecord(this.status)
         },
-        playOn(){
-            document.getElementById('video').play();
-            this.isShow = false;
-            // document.getElementById('video').addEventListener("ended",function(){
-            //     this.isShow = true;
-            // });
-        },
+        // playOn(){
+        //     document.getElementById('video').play();
+        //     this.isShow = false;
+        //     // document.getElementById('video').addEventListener("ended",function(){
+        //     //     this.isShow = true;
+        //     // });
+        // },
         playVideo(){
             document.getElementById('playVideo').play();
             this.isShow = false;
@@ -102,17 +102,17 @@ export default {
             //     this.isShow = true;
             // });
         },
-        selectStyle(){
-            this.playOn();
-            setTimeout(function(){
-                document.getElementById('video').pause();
-                this.isShow = true;
-            },3000);
-        },
-        outStyle(){
-            document.getElementById('video').pause();
-            this.isShow = true;
-        }
+        // selectStyle(){
+        //     // this.playOn();
+        //     setTimeout(function(){
+        //         document.getElementById('video').pause();
+        //         this.isShow = true;
+        //     },3000);
+        // },
+        // outStyle(){
+        //     document.getElementById('video').pause();
+        //     this.isShow = true;
+        // }
     },
     mounted(){
 
