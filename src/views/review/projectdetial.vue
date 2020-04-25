@@ -89,8 +89,8 @@
 			<button v-if="material_info.type == '2'" class="defaultbtn" @click="openwindow(material_info['online_disk_url'])">前往下载</button>
 			<!-- <button v-if="getstatusinfo() && (adminuseraccess.indexOf('200511') > -1)" class="defaultbtn" @click="reject">验收驳回</button> -->
 			<button v-if="getstatusinfo() && this.check_steps == '0'" class="defaultbtn" @click="reject">验收驳回</button>
-			<button v-if="check_steps == '0' && (adminuseraccess.indexOf(this.audit1) > -1)" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
-			<button v-if="check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
+			<button v-if="this.check_steps == '0' && (adminuseraccess.indexOf(this.audit1) > -1)" class="defaultbtn defaultbtnactive" @click="reject2()">验收通过</button>
+			<button v-if="this.check_steps == '1' && (adminuseraccess.indexOf(this.audit2) > -1)" class="defaultbtn defaultbtnactive" @click="priceAudit()">价格审核</button>
 		</div>
 
 		<el-dialog :title="title + '-审核驳回'" :visible.sync="centerDialogVisible" width="738px">
@@ -1210,7 +1210,7 @@
 					this.status_info = da.check_info.check_status;
 					//console.log(this.workdetail)
 					this.check_steps = da.check_info.check_steps;
-					// console.log(this.check_steps)
+					console.log(this.check_steps)
 					if(this.check_steps == '1'){
 						this.isShow = false;
 					}
