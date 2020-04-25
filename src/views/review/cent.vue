@@ -9,7 +9,7 @@
                     <img :src="dataList.preview_pic" alt="" @click="getimgulr(dataList.preview_pic)"/>
                 </div>
                 <div class="preview_pic" v-else>
-                    <video id="video" @click="getvideoulr(dataList.file_url)" @mouseover="selectStyle()" @mouseout="outStyle()" controls="controls">
+                    <video id="video" @click="getvideoulr(dataList.file_url)" controls="controls">
                         <source :src="dataList.file_url" type="video/ogg">
                         <source :src="dataList.file_url" type="video/mp4">
                     </video>
@@ -21,7 +21,20 @@
                         <p v-else>{{dataList.online_disk_url}}</p>
                         <p>{{dataList.created_at}}</p>
                         <div class="flie-mesa">
-                            <div class="download-file" v-if="dataList.online_disk_url == ''" @click="download(dataList)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})</div>
+                            <div class="download-file" v-if="dataList.online_disk_url == ''" @click="download(dataList)">
+                                <div v-if="check_steps == '0' && fileType != 'zip'">
+                                    <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})
+                                </div>
+                                <div v-if="check_steps == '1' && fileType == 'zip'">
+                                    <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})
+                                </div>
+                                <div v-if="check_steps == '2'">
+                                    <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})
+                                </div>
+                                <div v-if="check_steps == '1' && fileType != 'zip'">
+                                    正在打包，请稍后下载
+                                </div>
+                            </div>
                             <div class="download-file" v-else>提取码:<b style="color:#33B3FF;margin-left:5px;">{{dataList.access_code}}</b></div>
                             <div class="t" v-if="check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
                             <div class="t" v-if="check_status == '-1'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已驳回</div>
@@ -54,7 +67,7 @@
 </template>
 <script>
 export default {
-    props:['dataList','check_status'],
+    props:['dataList','check_status','check_steps'],
     data(){
         return{
             status: '',
@@ -64,18 +77,22 @@ export default {
             isvideourl:false,
             business_type:this.$route.query.business_type,
             isShow:true,
+            fileType:'',
         }
     },
     created(){
-        
+        this.init();
     },
     methods:{
+        init(){
+            var inptext = this.dataList.download_file_url;
+            var last = inptext.lastIndexOf(".");           
+            var source=inptext.length;
+            var sheng = Number(source)-last - 1;
+            this.fileType = inptext.slice(-sheng);
+        },
         download(row){
-            if(row.download_file_size == ''){
-                window.open(row.file_url);
-            }else{
-                window.open(row.download_file_size);
-            }    
+            window.open(row.download_file_url);
         },
         getimgulr(url){
             this.imgurl = url;

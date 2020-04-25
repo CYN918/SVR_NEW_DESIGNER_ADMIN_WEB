@@ -257,6 +257,7 @@ const screenData = {
 		projectreview:{
 			filterFields:[
 				{name:"审核ID",id:"id"},
+				{name:"项目ID",id:"project_id"},
 				{name:"项目名称",id:"name"},
 				{name:"项目类型",id:"classify_id",child:[]},
 				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏"]},
@@ -1030,6 +1031,7 @@ const screenData = {
 		projectreview:{
 			bts:[
 				{prop:'id',lable:'审核ID'},
+				{prop:'project_id',lable:'项目ID'},
 				{prop:'name',lable:'项目名称'},
 				{prop:'classify_name',lable:'项目类型',},
 				{lable:"稿件预览图",prop:"preview_pic",type:"img",width:150},

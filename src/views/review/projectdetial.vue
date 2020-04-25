@@ -19,7 +19,7 @@
 			
 		</div>
 		<div v-if="tabsnum == 1">
-			<Cent :dataList="material_info" :check_status="reviewinfocommon.check_status"></Cent>
+			<Cent :dataList="material_info" :check_status="reviewinfocommon.check_status" :check_steps="reviewinfocommon.check_steps"></Cent>
 
 		</div>
 		<div v-if="tabsnum == 2">
@@ -745,6 +745,11 @@
 							this.loading = false;
 							this.getreviewInfo();
 							this.centerDialogVisible2 = false;
+							this.$message({
+								message: "审核通过，视频正在打包，请稍后前往“交稿文件”处下载",
+								type: 'success',
+								customClass:'zZindex'
+							})
 						}
 					}).catch(da => {
 
@@ -800,7 +805,7 @@
 				
 			},
 			up(){
-				fetch(this.material_info.file_url).then(res => res.blob()).then(blob => {
+				fetch(this.material_info.download_file_url).then(res => res.blob()).then(blob => {
 					const a = document.createElement('a');
 					document.body.appendChild(a)
 					a.style.display = 'none'
