@@ -1375,6 +1375,8 @@
 										this.audit1 = val.id;
 									}else if(val.id == '200583'){
 										this.audit1 = val.id;
+									}else if(val.id == '200585'){
+										this.audit1 = val.id;
 									}else if(val.id == '200575'){
 										this.audit2 = val.id;
 									}else if(val.id == '200578'){
@@ -1382,6 +1384,8 @@
 									}else if(val.id == '200581'){
 										this.audit2 = val.id;
 									}else if(val.id == '200584'){
+										this.audit2 = val.id;
+									}else if(val.id == '200586'){
 										this.audit2 = val.id;
 									}
 								})
