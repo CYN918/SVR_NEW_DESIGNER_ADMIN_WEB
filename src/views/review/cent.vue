@@ -94,9 +94,44 @@ export default {
             var sheng = Number(source)-last - 1;
             this.fileType = inptext.slice(-sheng);
         },
+        load(file) {
+            this.getBlob(file.url).then(blob => {
+                this.saveAs(blob, file.name);
+            });
+        },
+        getBlob(url) {
+            return new Promise(resolve => {
+                const xhr = new XMLHttpRequest();
+
+                xhr.open('GET', url, true);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        resolve(xhr.response);
+                    }
+                };
+
+                xhr.send();
+            });
+        },
+        saveAs(blob, filename) {
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        },
         download(row){
             if(this.business_type == '5'){
-                window.open(row.download_file_url);
+                var inptext = row.download_file_url;
+                var last = inptext.lastIndexOf(".");           
+                var source = inptext.length;
+                var sheng = Number(source)-last - 1;
+                var fileSuffix = inptext.slice(-sheng);
+                if(fileSuffix == 'mp4'){
+                    this.load({url:row.download_file_url})
+                }else{
+                    window.open(row.download_file_url);
+                }
             }else{
                 window.open(row.file_url);
             }
