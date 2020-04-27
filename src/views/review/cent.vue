@@ -21,7 +21,7 @@
                         <p v-else>{{dataList.online_disk_url}}</p>
                         <p>{{dataList.created_at}}</p>
                         <div class="flie-mesa">
-                            <div class="download-file" v-if="dataList.online_disk_url == ''" @click="download(dataList)">
+                            <div class="download-file" v-if="dataList.online_disk_url == '' && business_type == '5'" @click="download(dataList)">
                                 <div v-if="check_steps == '0' && fileType != 'zip'">
                                     <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})
                                 </div>
@@ -34,6 +34,9 @@
                                 <div v-if="check_steps == '1' && fileType != 'zip'">
                                     正在打包，请稍后下载
                                 </div>
+                            </div>
+                            <div class="download-file" v-else-if="dataList.online_disk_url == '' && business_type != '5'" @click="download(dataList)">
+                                <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(dataList.file_info).file_size_format}})
                             </div>
                             <div class="download-file" v-else>提取码:<b style="color:#33B3FF;margin-left:5px;">{{dataList.access_code}}</b></div>
                             <div class="t" v-if="check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
@@ -92,7 +95,12 @@ export default {
             this.fileType = inptext.slice(-sheng);
         },
         download(row){
-            window.open(row.download_file_url);
+            if(this.business_type == '5'){
+                window.open(row.download_file_url);
+            }else{
+                window.open(row.file_url);
+            }
+            
         },
         getimgulr(url){
             this.imgurl = url;
