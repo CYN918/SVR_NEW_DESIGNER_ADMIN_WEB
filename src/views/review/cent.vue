@@ -81,6 +81,7 @@ export default {
             business_type:this.$route.query.business_type,
             isShow:true,
             fileType:'',
+            openurls:[],
         }
     },
     created(){
@@ -94,41 +95,32 @@ export default {
             var sheng = Number(source)-last - 1;
             this.fileType = inptext.slice(-sheng);
         },
-        load(file) {
-            this.getBlob(file.url).then(blob => {
-                this.saveAs(blob, file.name);
-            });
-        },
-        getBlob(url) {
-            return new Promise(resolve => {
-                const xhr = new XMLHttpRequest();
-
-                xhr.open('GET', url, true);
-                xhr.responseType = 'blob';
-                xhr.onload = () => {
-                    if (xhr.status === 200) {
-                        resolve(xhr.response);
-                    }
-                };
-
-                xhr.send();
-            });
-        },
-        saveAs(blob, filename) {
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-        },
         download(row){
             if(this.business_type == '5'){
+                this.openurls.push({name:row.file_name,id:row.download_file_url});
                 var inptext = row.download_file_url;
                 var last = inptext.lastIndexOf(".");           
                 var source = inptext.length;
                 var sheng = Number(source)-last - 1;
                 var fileSuffix = inptext.slice(-sheng);
                 if(fileSuffix == 'mp4'){
-                    this.load({url:row.download_file_url})
+                    this.openurls.forEach(item =>{
+                        let src = item.id;
+                        fetch(item.id).then(res => res.blob()).then(blob => {
+                            const a = document.createElement('a');
+                            document.body.appendChild(a)
+                            a.style.display = 'none'
+                            // 使用获取到的blob对象创建的url
+                            const url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            // 指定下载的文件名
+                            a.download = item.name;
+                            a.click();
+                            document.body.removeChild(a)
+                            // 移除blob对象的url
+                            window.URL.revokeObjectURL(url);
+                        });	
+                    })
                 }else{
                     window.open(row.download_file_url);
                 }
