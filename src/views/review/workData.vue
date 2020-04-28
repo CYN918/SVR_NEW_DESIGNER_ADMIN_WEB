@@ -179,7 +179,7 @@
     }
     .box_process_content{
         float: left;
-        width: 600px;
+        min-width: 600px;
     }
     .bt_o > ul > li{
         width: 100%;
