@@ -193,7 +193,7 @@
         color: #999999;
     }
     .bt_o > ul > li .box_process_content_right{
-        width: 277px;
+        /* width: 277px; */
         float: left;
         padding-left: 16px;
     }
