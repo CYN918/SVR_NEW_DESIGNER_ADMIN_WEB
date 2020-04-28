@@ -251,7 +251,7 @@
 							</el-select>
 						</div>
 					</li> -->
-					<li class="w ofh" v-if="material_info.type == '1' && is_ruku == '2'">
+					<li class="w ofh" v-if="is_ruku == '0'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">入库素材数量</span>
 							<el-input v-model="storage_number" placeholder="请输入内容" style="width: 300px;float: left;"></el-input>
@@ -428,7 +428,7 @@
 				is_ruku: '1',
 				rukuOptions: [{
 					value: '1',
-					label: '可直接入库'
+					label: '直接入库'
 					}, {
 					value: '0',
 					label: '需整理后入库'
@@ -720,6 +720,7 @@
 				isShow: true,
 				audit1: '',
 				audit2: '',
+				fileStr:'',
 			}
 		},
 		computed:{
@@ -734,6 +735,14 @@
 					if(!this.did){
 						this.$message({
 							message: "请选择绑定需求!",
+							type: 'warning',
+							customClass:'zZindex'
+						})
+						return;
+					}
+					if(!this.file.file_url){
+						this.$message({
+							message: "请上传文件!",
 							type: 'warning',
 							customClass:'zZindex'
 						})
@@ -755,6 +764,7 @@
 					    file_name: this.file.file_name,
 						file_size: this.file.file_size,
 						check_steps: 1,
+						file_info: this.fileStr,
 					}
 					this.api.reviewCheck(data).then(da => {
 						if(da.result == '0'){
@@ -843,6 +853,7 @@
 			    var _this = this;
 				this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 					console.log(response.data.data);
+					_this.fileStr = JSON.stringify(response.data.data)
 					_this.file={
 						file_url:response.data.data.url,
 						file_name:response.data.data.file_name,
