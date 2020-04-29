@@ -120,12 +120,20 @@
 				
 				
 			},
+			getaccess() {
+				this.api.adminuseraccess({
+					access_token:localStorage.getItem("access_token")
+				}).then(da=>{
+					this.adminuseraccess = JSON.stringify(da);
+				})
+			},
 			
 		},
 		created() {
 			this.getBreadcrumb();
 			// this.getbus();
 			this.getuserinfo();
+			this.getaccess();
 			
 		},
 		mounted() {
