@@ -67,7 +67,8 @@
                         </li>
                         <li>
                             <span class="box_process_content_left">报名截止时间</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.delivery_deadline}}</span>
+                            <span class="box_process_content_right" v-if="type == 1">{{reviewinfocommon.delivery_deadline}}</span>
+                            <span class="box_process_content_right" v-if="type == 2">{{reviewinfocommon.deadline}}</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">制作周期</span>
@@ -108,7 +109,7 @@
 
 <script>
     export default {
-        props: ['reviewinfocommon','material_info'],
+        props: ['reviewinfocommon','material_info','type'],
         data(){
             return {
 

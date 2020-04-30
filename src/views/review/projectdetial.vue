@@ -26,7 +26,7 @@
 			<reviewinfocommon :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id" :gain_share_rate="apply_info.gain_share_rate"></reviewinfocommon>
 		</div>
 		<div v-if="tabsnum == 0">
-			<workData :reviewinfocommon="apply_info" :material_info="material_info"></workData>
+			<workData :reviewinfocommon="apply_info" :material_info="material_info" :type="type"></workData>
 		</div>
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="getparent()">返回</button>
@@ -453,6 +453,7 @@
 				}],
 				tabsnum: 0,
 				tabsnum1: 0,
+				type:1,
 				fileData: [
 					{
 						name: "内容预览图",
