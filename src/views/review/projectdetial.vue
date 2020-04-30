@@ -746,11 +746,20 @@
 							this.loading = false;
 							this.getreviewInfo();
 							this.centerDialogVisible2 = false;
-							this.$message({
-								message: "审核通过，视频正在打包，请稍后前往“交稿文件”处下载",
-								type: 'success',
-								customClass:'zZindex'
-							})
+							if(this.$route.query.business_type == '5'){
+								this.$message({
+									message: "审核通过，视频正在打包，请稍后前往“交稿文件”处下载",
+									type: 'success',
+									customClass:'zZindex'
+								})
+							}else{
+								this.$message({
+									message: "审核通过",
+									type: 'success',
+									customClass:'zZindex'
+								})
+							}
+							
 						}
 					}).catch(da => {
 
