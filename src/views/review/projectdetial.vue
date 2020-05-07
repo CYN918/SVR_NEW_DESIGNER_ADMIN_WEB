@@ -815,28 +815,62 @@
 				
 			},
 			up(){
-				let reg2 = /^(\s|\S)+(.zip|.ZIP)$/;
-				if (reg2.test(this.material_info.download_file_url)) {
-				  	this.downloadZip(this.material_info.download_file_url)			  
-					return
+
+				// let reg2 = /^(\s|\S)+(.zip|.ZIP)$/;
+				// if (reg2.test(this.material_info.download_file_url)) {
+				//   	this.downloadZip(this.material_info.download_file_url)			  
+				// 	return
+				// }
+				
+				
+				// fetch(this.material_info.download_file_url).then(res => res.blob()).then(blob => {
+				// 	const a = document.createElement('a');
+				// 	document.body.appendChild(a)
+				// 	a.style.display = 'none'
+				// 	// 使用获取到的blob对象创建的url
+				// 	const url = window.URL.createObjectURL(blob);
+				// 	a.href = url;
+				// 	// 指定下载的文件名
+				// 	a.download = this.material_info.file_name;
+				// 	a.click();
+				// 	document.body.removeChild(a)
+				// 	// 移除blob对象的url
+				// 	window.URL.revokeObjectURL(url);
+				// });
+
+				if(this.$route.query.business_type == 5){
+					this.openurls.push({name:this.material_info.file_name,id:this.material_info.download_file_url});
+					var inptext = this.material_info.download_file_url;
+					var last = inptext.lastIndexOf(".");           
+					var source = inptext.length;
+					var sheng = Number(source)-last - 1;
+					var fileSuffix = inptext.slice(-sheng);
+					if(fileSuffix == 'mp4'){
+						this.openurls.forEach(item =>{
+							let src = item.id;
+							fetch(item.id).then(res => res.blob()).then(blob => {
+								const a = document.createElement('a');
+								document.body.appendChild(a)
+								a.style.display = 'none'
+								// 使用获取到的blob对象创建的url
+								const url = window.URL.createObjectURL(blob);
+								a.href = url;
+								// 指定下载的文件名
+								a.download = item.name;
+								a.click();
+								document.body.removeChild(a)
+								// 移除blob对象的url
+								window.URL.revokeObjectURL(url);
+							});	
+						})
+					}else{
+						window.open(this.material_info.download_file_url)
+					}
+					
+				}else{
+					window.open(this.material_info.file_url)
 				}
-				
-				
-				fetch(this.material_info.download_file_url).then(res => res.blob()).then(blob => {
-					const a = document.createElement('a');
-					document.body.appendChild(a)
-					a.style.display = 'none'
-					// 使用获取到的blob对象创建的url
-					const url = window.URL.createObjectURL(blob);
-					a.href = url;
-					// 指定下载的文件名
-					a.download = this.material_info.file_name;
-					a.click();
-					document.body.removeChild(a)
-					// 移除blob对象的url
-					window.URL.revokeObjectURL(url);
-				});
-				//window.open();
+	
 			},
 			downloadZip(url){
 				const content = url;
