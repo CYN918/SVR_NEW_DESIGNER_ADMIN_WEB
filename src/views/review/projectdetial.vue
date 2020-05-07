@@ -23,7 +23,7 @@
 
 		</div>
 		<div v-if="tabsnum == 2">
-			<reviewinfocommon :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id" :gain_share_rate="apply_info.gain_share_rate"></reviewinfocommon>
+			<reviewinfocommon :apply_info="apply_info" :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id" :gain_share_rate="apply_info.gain_share_rate"></reviewinfocommon>
 		</div>
 		<div v-if="tabsnum == 0">
 			<workData :reviewinfocommon="apply_info" :material_info="material_info" :type="type"></workData>

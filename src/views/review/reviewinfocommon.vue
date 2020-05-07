@@ -2,8 +2,8 @@
     <div class="box">
         <div class="box_message">
             <ul>
-                <li><span class="left">提审用户ID</span><span class="right">{{reviewinfocommon.check_admin}}</span></li>
-                <li><span class="left">提审用户昵称</span><span class="right" style="color:#33B3FF;">{{reviewinfocommon.username}}</span></li>
+                <li><span class="left">提审用户ID</span><span class="right">{{apply_info.user_id}}</span></li>
+                <li><span class="left">提审用户昵称</span><span class="right" style="color:#33B3FF;">{{apply_info.username}}</span></li>
                 <li><span class="left">提审时间</span><span class="right">{{reviewinfocommon.created_at}}</span></li>
                 <li>
                     <span class="left">当前审核状态</span>
@@ -115,7 +115,7 @@
 
 <script>
     export default {
-        props: ['reviewinfocommon','demand_id','gain_share_rate'],
+        props: ['reviewinfocommon','demand_id','gain_share_rate','apply_info'],
         data(){
             return {
 
@@ -132,7 +132,7 @@
             }
         },
         created(){
-            console.log(this.reviewinfocommon)
+            console.log(this.apply_info)
         },
         mounted(){
 

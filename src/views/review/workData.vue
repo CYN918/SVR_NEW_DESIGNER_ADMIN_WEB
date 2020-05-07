@@ -122,8 +122,7 @@
 
         },
         created(){
-            console.log(this.material_info)
-            console.log(this.reviewinfocommon)
+            
         },
         mounted(){
 

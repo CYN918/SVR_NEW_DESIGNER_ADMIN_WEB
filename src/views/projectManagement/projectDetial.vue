@@ -30,10 +30,10 @@
 			</div> 
 		</div>
 		<div v-if="tabsnum == 4">
-			<reviewinfocommon :reviewinfocommon="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
+			<reviewinfocommon :reviewinfocommon="info" :apply_info="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
 		</div>
 		<div v-if="tabsnum == 0">
-			<workData :reviewinfocommon="info" :type="type"></workData>
+			<workData :reviewinfocommon="info" :material_info="info" :type="type"></workData>
 		</div>
 		<div class="detailContent ofh">
 			
