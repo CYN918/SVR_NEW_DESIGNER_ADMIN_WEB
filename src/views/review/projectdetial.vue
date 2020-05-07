@@ -815,13 +815,20 @@
 				
 			},
 			up(){
-				fetch(this.material_info.download_file_url).then(res => {
+				let reg2 = /^(\s|\S)+(.zip|.ZIP)$/;
+				if (reg2.test(this.material_info.download_file_url)) {
+				  	this.downloadZip(this.material_info.download_file_url)			  
+					return
+				}
+				
+				
+				fetch(this.material_info.download_file_url).then(res => res.blob()).then(blob => {
 					const a = document.createElement('a');
 					document.body.appendChild(a)
 					a.style.display = 'none'
 					// 使用获取到的blob对象创建的url
-					// const url = window.URL.createObjectURL(blob);
-					a.href = res;
+					const url = window.URL.createObjectURL(blob);
+					a.href = url;
 					// 指定下载的文件名
 					a.download = this.material_info.file_name;
 					a.click();
@@ -830,6 +837,24 @@
 					window.URL.revokeObjectURL(url);
 				});
 				//window.open();
+			},
+			downloadZip(url){
+				const content = url;
+				const blob = new Blob([content],{type:"application/zip"});
+				var timestamp = (new Date()).valueOf();
+				const fileName = timestamp+'.zip';
+				if('download' in document.createElement('a')) { // 非IE下载
+				    const elink = document.createElement('a');
+				    elink.download = fileName;
+				    elink.style.display = 'none';
+				    elink.href = window.URL.createObjectURL(blob);
+				    document.body.appendChild(elink);
+				    elink.click();
+				    window.URL.revokeObjectURL(elink.href); // 释放URL 对象
+				    document.body.removeChild(elink);
+				} else { // IE10+下载
+				    navigator.msSaveBlob(blob, fileName);
+				}				
 			},
 			getarr(arr){
 				
