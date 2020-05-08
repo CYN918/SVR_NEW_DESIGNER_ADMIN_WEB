@@ -483,7 +483,7 @@
 				centerDialogVisible1:false,
 				oneload:{},
 				adminuseraccess:[],
-				info:[],
+				info:{},
 				signupLists:[],
 				tableConfig: {
 					total:0,

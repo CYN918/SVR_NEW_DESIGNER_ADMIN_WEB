@@ -102,6 +102,24 @@
                 </div>
             </div>
         </div>
+        <div class="box_process" style="height:180px;" v-if="reviewinfocommon.project_status == '3' || reviewinfocommon.project_status == '4'">
+            <div class="box_process_title">补充合同</div>
+            <div class="box_process_content">
+                <div class="bt_o">
+                    <ul>
+                        <li v-if="reviewinfocommon.contract_files.length == '0'">
+                            <span class="box_process_content_left">绑定合同</span>
+                            <span class="box_process_content_right">暂未绑定合同</span>
+                        </li>
+                        <li v-for="(todo,index) in reviewinfocommon.contract_files" v-else>
+                            <span class="box_process_content_left">绑定合同{{index+1}}</span>
+                            <span class="box_process_content_right">{{todo.file_name}}</span>
+                            <!-- <span class="box_process_content_right" @click="download(todo)" style="margin-left: 100px;color: rgba(51,179,255,1);cursor: pointer;">下载</span> -->
+                        </li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -112,19 +130,36 @@
         props: ['reviewinfocommon','material_info','type'],
         data(){
             return {
-
+                list:[],
             }
         },
         components:{
 
         },
         methods:{
+            download(row){
+                fetch(row.file_url).then(res => res.blob()).then(blob => {
+                    const a = document.createElement('a');
+                    document.body.appendChild(a)
+                    a.style.display = 'none'
+                    // 使用获取到的blob对象创建的url
+                    const url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    // 指定下载的文件名
+                    a.download = row.file_name;
+                    a.click();
+                    document.body.removeChild(a)
+                    // 移除blob对象的url
+                    window.URL.revokeObjectURL(url);
+                });
+            }
 
         },
         created(){
-            
+                
         },
         mounted(){
+            
 
         },
         
@@ -185,7 +220,7 @@
     .bt_o > ul > li{
         width: 100%;
         height: 38px;
-        line-height: 38px;
+        /* line-height: 38px; */
     }
     .bt_o > ul > li .box_process_content_left{
         width: 124px;
