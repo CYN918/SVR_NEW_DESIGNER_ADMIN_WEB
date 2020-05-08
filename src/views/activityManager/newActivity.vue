@@ -940,7 +940,7 @@
 							{
 								value: '1',
 								url: this.form.special_url,
-								label: '活动页面模板1'
+								label: '画笔下的奇妙幻想'
 							}
 						]
 					}else{
@@ -1219,13 +1219,13 @@
 					const urlId = JSON.parse(this.$route.query.id) + 1;
 					console.log(url)
 					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4?id=' + urlId;
 					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
 					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4?id=' + urlId;
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
 					}
 					this.options = [
 						{
@@ -1236,7 +1236,7 @@
 						{
 							value: '1',
 							url: this.templateUrl,
-							label: '活动页面模板1'
+							label: '画笔下的奇妙幻想'
 						}
 					]
 				}else{
@@ -1244,13 +1244,13 @@
 					const urlId = JSON.parse(this.$route.query.row).id;
 					console.log(url)
 					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4?id=' + urlId;
 					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
 					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4?id=' + urlId;
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/Ac_v?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
 					}
 					this.options = [
 						{
@@ -1261,7 +1261,7 @@
 						{
 							value: '1',
 							url: this.templateUrl,
-							label: '活动页面模板1'
+							label: '画笔下的奇妙幻想'
 						}
 					]
 				}
