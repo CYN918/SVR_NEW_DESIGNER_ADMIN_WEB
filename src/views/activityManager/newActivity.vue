@@ -101,7 +101,7 @@
 					<li class="margint23 ofh" v-if="form['is_provide_template'] == '1'">
 						<span class="fleft detailKey" style="line-height: 40px;" >模板文件</span>
 						<div><button class="defaultbtn" style="margin-left: 0;" @click="dialogTable">选择模板文件</button><span style="color: #FF5121;" class="pointer" @click="totem"> 前往上传</span></div>
-						<span class="fontcolorg" style="margin-left: 160px;">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span>
+						<span class="fontcolorg">{{ (selectData1.file_name ? selectData1.file_name : "--") +"&nbsp;&nbsp;&nbsp;&nbsp;"+ (selectData1.file_size_format ? selectData1.file_size_format : "--") }}</span>
 					</li>
 					
 					<li class="margint23 ofh" v-if="form['setting_type'] == '4'">
@@ -314,9 +314,9 @@
 						</el-tag>
 					</div>
 				</div>
-				<div class="calc205" style="max-height: 300px;overflow-y:auto;">
+				<div class="calc205" style="overflow-y:auto;">
 					<common-table :screenConfig="screenConfig" :tableConfig="tableConfig" :tableDatas="tableData" :tableAction="tableAction"
-					 ref="Tabledd"></common-table>
+					 ref="Tabledd" style="height: 450px;"></common-table>
 				</div>
 				<div class="w textcenter">
 					<button class="defaultbtn" @click="setparenttable">确定</button>
@@ -1216,16 +1216,14 @@
 			createdMothd(){
 				if(this.$route.query.row == undefined){
 					const url = window.location.host;
-					const urlId = JSON.parse(this.$route.query.id) + 1;
-					console.log(url)
 					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4';
 					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
 					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4';
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
 					}
 					this.options = [
 						{
@@ -1242,15 +1240,14 @@
 				}else{
 					const url = window.location.host;
 					const urlId = JSON.parse(this.$route.query.row).id;
-					console.log(url)
 					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4';
 					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
 					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4';
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4?id=' + urlId;
+						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
 					}
 					this.options = [
 						{
