@@ -182,7 +182,8 @@
 		data() {
 			let permisstions = JSON.parse(localStorage.getItem('adminuseraccess'))
 			let tabTopData = []
-			if (permisstions.indexOf('58') > -1) {
+			let hasAll = permisstions.indexOf('58') > -1
+			if (hasAll) {
 				tabTopData.push({
 					name: "全部作品",
 					accessid:"",
@@ -206,7 +207,7 @@
 				screenShowDataChange: "",
 				IsDetail: false,
 				tabsnum1:0,
-				tabsnum:0,
+				tabsnum:hasAll?0:1,
 				tabData1:[{
 					name: "买断式"
 				}/* , {
