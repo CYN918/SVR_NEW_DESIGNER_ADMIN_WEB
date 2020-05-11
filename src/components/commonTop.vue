@@ -223,7 +223,7 @@
 					case "activityEmploy":
 						if(idIndex == "right1"){
 							this.router.push({
-								path:"/activityManager/activityEmploy/newActivity",query:{id:this.tableDatas[0].id}
+								path:"/activityManager/activityEmploy/newActivity"
 							})
 						};
 					break;

@@ -99,15 +99,15 @@ input{
 	z-index: 2029 !important;
 }
 
-.el-dialog{
-	z-index: 2031 !important;
-	margin: 0 !important;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-}
+// .el-dialog{
+// 	z-index: 2031 !important;
+// 	margin: 0 !important;
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	-webkit-transform: translate(-50%,-50%);
+// 	transform: translate(-50%,-50%);
+// }
 
 .addDetailContent {
 	font-size: 40px;

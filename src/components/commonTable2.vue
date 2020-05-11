@@ -471,7 +471,7 @@
 			getparent(fun){
 				if(fun == 'add20'){
 					this.router.push({
-						path:"/projectManagement/projectList/newproject",query:{id:this.dataProjectId}
+						path:"/projectManagement/projectList/newproject"
 					})
 				}
 				if(fun == 'add21'){

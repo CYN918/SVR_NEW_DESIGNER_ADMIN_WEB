@@ -143,6 +143,8 @@
 					{name:"用户协议",id:"2"},
 					{name:"授权协议",id:"3"},
 					{name:"帮助中心",id:"4"},
+					{name:"常见问题",id:"5"},
+					{name:"来电秀app工具",id:"6"},
 				],
 				ifBjType:0,
 				rows:{},

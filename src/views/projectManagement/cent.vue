@@ -31,7 +31,10 @@
                         <p v-else>{{todo.online_disk_url}}</p>
                         <p>{{todo.created_at}}</p>
                         <div class="flie-mesa">
-                            <div class="download-file" v-if="todo.online_disk_url == ''" @click="download(todo)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{JSON.parse(todo.file_info).file_size_format}})</div>
+                            <div class="download-file" v-if="todo.online_disk_url == '' && business_type == '5'" @click="download(todo)"><img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{todo.download_file_size}})</div>
+                            <div class="download-file" v-else-if="todo.online_disk_url == '' && business_type != '5'" @click="download(todo)">
+                                <img :src="imgSig + 'toltImg/icon_download.svg'"/>下载({{todo.file_size}})
+                            </div>
                             <div class="download-file" v-else>提取码:<b style="color:#33B3FF;margin-left:5px;">{{todo.access_code}}</b></div>
                             <div class="t" v-if="todo.check_status == '-2'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已撤销</div>
                             <div class="t" v-if="todo.check_status == '-1'" style="background:#ffe7e5;color:rgba(255,59,48,1);">已驳回</div>
@@ -90,6 +93,7 @@ export default {
             isvideourl:false,
             business_type:this.$route.query.business_type,
             isShow:true,
+            openurls:[],
         }
     },
     created(){
@@ -97,10 +101,63 @@ export default {
     },
     methods:{
         download(row){
-            if(row.download_file_url == ''){
-                window.open(row.file_url);
+            console.log(row)
+            if(this.business_type == '5'){
+                this.openurls.push({name:row.file_name,id:row.download_file_url});
+                var inptext = row.download_file_url;
+                var last = inptext.lastIndexOf(".");           
+                var source = inptext.length;
+                var sheng = Number(source)-last - 1;
+                var fileSuffix = inptext.slice(-sheng);
+                if(fileSuffix == 'mp4'){
+                    this.openurls.forEach(item =>{
+                        let src = item.id;
+                        fetch(item.id).then(res => res.blob()).then(blob => {
+                            const a = document.createElement('a');
+                            document.body.appendChild(a)
+                            a.style.display = 'none'
+                            // 使用获取到的blob对象创建的url
+                            const url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            // 指定下载的文件名
+                            a.download = item.name;
+                            a.click();
+                            document.body.removeChild(a)
+                            // 移除blob对象的url
+                            window.URL.revokeObjectURL(url);
+                        });	
+                    })
+                }else{
+                    fetch(row.download_file_url).then(res => res.blob()).then(blob => {
+                        const a = document.createElement('a');
+                        document.body.appendChild(a)
+                        a.style.display = 'none'
+                        // 使用获取到的blob对象创建的url
+                        const url = window.URL.createObjectURL(blob);
+                        a.href = url;
+                        // 指定下载的文件名
+                        a.download = row.file_name;
+                        a.click();
+                        document.body.removeChild(a)
+                        // 移除blob对象的url
+                        window.URL.revokeObjectURL(url);
+                    });
+                }
             }else{
-                window.open(row.download_file_url);
+                fetch(row.file_url).then(res => res.blob()).then(blob => {
+                    const a = document.createElement('a');
+                    document.body.appendChild(a)
+                    a.style.display = 'none'
+                    // 使用获取到的blob对象创建的url
+                    const url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    // 指定下载的文件名
+                    a.download = row.file_name;
+                    a.click();
+                    document.body.removeChild(a)
+                    // 移除blob对象的url
+                    window.URL.revokeObjectURL(url);
+                });
             }    
         },
         getimgulr(url){
