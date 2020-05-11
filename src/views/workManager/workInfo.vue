@@ -180,6 +180,17 @@
 		},
 		props: {},
 		data() {
+			let permisstions = JSON.parse(localStorage.getItem('adminuseraccess'))
+			let tabTopData = [{
+				name: "全部作品",
+				accessid:"",
+			}]
+			if (permisstions.indexOf('59') > -1) {
+				tabTopData.push({
+					name: '投稿作品',
+					accessid: ''
+				})
+			}
 			return {
 				centerDialogVisible: false,
 				centerDialogVisible1: false,
@@ -222,14 +233,7 @@
 						
 					],
 					"commonbottombtn": [],
-					"tabTopData":[{
-						name: "全部作品",
-						accessid:"",
-					},
-					{
-						name: "投稿作品",
-						accessid:"",
-					}],
+					"tabTopData":tabTopData,
 					'tabnums':0,
 				},
 				

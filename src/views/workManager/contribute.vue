@@ -9,9 +9,9 @@
                         <el-dropdown trigger="hover">
                             <img src="../../assets/img/icon_more.svg" class="bt-Img">
                             <el-dropdown-menu class="sel-tooltip" slot="dropdown">
-                                <el-dropdown-item class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="preview(item)">预览作品</el-dropdown-item>
-                                <el-dropdown-item class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="setContributor(item)">修改推荐等级</el-dropdown-item>
-                                <el-dropdown-item class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="shelves(item)">下架作品</el-dropdown-item>
+                                <el-dropdown-item v-if="authorized('200587')" class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="preview(item)">预览作品</el-dropdown-item>
+                                <el-dropdown-item v-if="authorized('200588')" class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="setContributor(item)">修改推荐等级</el-dropdown-item>
+                                <el-dropdown-item v-if="authorized('200589')" class="comonbtn" style="width:124px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="shelves(item)">下架作品</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
@@ -148,6 +148,11 @@ export default {
 
     },
     methods:{
+        authorized(authorizedid) {
+            let permisstions = JSON.parse(localStorage.getItem('adminuseraccess'))
+            if (permisstions.indexOf(authorizedid) > -1) return true
+            return false
+        },
         setLoding(type){
             this.loading = type;
         },
