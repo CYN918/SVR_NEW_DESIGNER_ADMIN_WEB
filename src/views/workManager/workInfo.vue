@@ -181,10 +181,13 @@
 		props: {},
 		data() {
 			let permisstions = JSON.parse(localStorage.getItem('adminuseraccess'))
-			let tabTopData = [{
-				name: "全部作品",
-				accessid:"",
-			}]
+			let tabTopData = []
+			if (permisstions.indexOf('58') > -1) {
+				tabTopData.push({
+					name: "全部作品",
+					accessid:"",
+				})
+			}
 			if (permisstions.indexOf('59') > -1) {
 				tabTopData.push({
 					name: '投稿作品',
