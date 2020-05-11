@@ -1551,7 +1551,7 @@ const screenData = {
 			bts:[
 				{lable:"文档ID",prop:"id"},
 				{lable:"文档备注",prop:"remark"},
-				{lable:"文档类型",prop:"type",type:"keyvalue",child:{"1":"关于我们","2":"用户协议","3":"授权协议","4":"帮助中心"}},
+				{lable:"文档类型",prop:"type",type:"keyvalue",child:{"1":"关于我们","2":"用户协议","3":"授权协议","4":"帮助中心","5":"常见问题","6":"来电秀app工具"}},
 				{lable:'更新时间',prop:"updated_at"},
 				{lable:"当前状态",prop:"status",type:"status",statusclass:"recommendedActivitiesstatus",child:{"1":"线上展示中","0":" 未开始","-1":"已过期","-2":"已删除"}}
 			],
