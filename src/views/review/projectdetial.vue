@@ -1303,6 +1303,7 @@
 					if (da.check_info.hire_type) {
 						this.hire_type = da.check_info.hire_type;
 					}
+					this.want_deal_type = da.project_info.want_deal_type
 					/* if(da.check_info.contributor_type){
 						this.contributor_type = da.apply_info.contributor_type;
 					} */
