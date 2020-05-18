@@ -221,10 +221,10 @@
 					<li class="w ofh">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;float:left;">结算方式</span>
-							<el-radio-group v-model="want_deal_type" style="width:260px;float:left;">
-								<el-radio-button label="1">买断</el-radio-button>
-								<el-radio-button label="2">分成</el-radio-button>
-								<el-radio-button label="3">预付金+分成</el-radio-button>
+							<el-radio-group v-model="want_deal_type" style="width:290px;float:left;" class="customGroup">
+								<el-radio-button label="1" ><img style="width: 14px;height: 14px;margin-right: 5px" src="../../assets/img/user.png" v-if="settlement==0 && origin_type==1" />买断</el-radio-button>
+								<el-radio-button label="2" ><img style="width: 14px;height: 14px;margin-right: 5px" src="../../assets/img/user.png" v-if="settlement==0 && origin_type==2" />分成</el-radio-button>
+								<el-radio-button label="3" >预付金+分成</el-radio-button>
 							</el-radio-group>
 						</div>
 					</li>
@@ -414,6 +414,8 @@
 					// "IsShow": true,
 					upload: true
 				},
+				settlement: 0,
+				origin_type:1,
 				want_deal_type:1,
 				user_split_rate:'',
 				advance_payment:'',
@@ -1304,6 +1306,8 @@
 						this.hire_type = da.check_info.hire_type;
 					}
 					this.want_deal_type = da.project_info.want_deal_type
+					this.settlement = da.project_info.settlement
+					this.origin_type = da.project_info.want_deal_type
 					/* if(da.check_info.contributor_type){
 						this.contributor_type = da.apply_info.contributor_type;
 					} */
@@ -1492,6 +1496,11 @@
 </script>
 
 <style>
+.customGroup .el-radio-button__inner{
+	height: 40px!important;
+	line-height: 40px!important;
+	padding-top: 0!important;
+}
 .el-radio-button__orig-radio:checked+.el-radio-button__inner{
 	color: #FFF;
 	background: #409EFF;
