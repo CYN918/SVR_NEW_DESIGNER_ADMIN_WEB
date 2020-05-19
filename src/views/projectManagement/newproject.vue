@@ -298,7 +298,7 @@
 		</div>
 		
 		<el-dialog title="请选择指定用户" :visible.sync="dialogTableVisible1" custom-class="sel-dialog">
-			<div style="width: 1200px;overflow-x: scroll;"> 
+			<div style="overflow-x: scroll;"> 
 				<div class="margin40 borderb" style="position: relative;padding-bottom: 22px;">
 					<div class="ofh">
 						<div class="fleft" style="margin-left:20px;">
@@ -1946,8 +1946,14 @@
 		bottom: 0;
 		margin:10px;
 	}
+	.Detail >>> .el-dialog__wrapper{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	.Detail >>> .el-dialog  {
-		width: 65% !important;
+		width: 1200px!important;
+		margin: 0!important;
 	}
 	.Detail >>> .el-input-number__decrease.is-disabled{
 		color: #606266;
