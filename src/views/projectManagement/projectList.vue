@@ -6,7 +6,7 @@
 				 ref="Tabledd"></common-table>
 			</div>
 		</div>
-		<el-dialog title="请选择终止理由" :visible.sync="centerDialogVisible" width="738px">
+		<el-dialog title="请选择终止理由" :visible.sync="centerDialogVisible" width="738px" custom-class="custom-dialog">
 			<div style="position: relative;">
 				<ul>
 					<li class="w ofh">
@@ -763,5 +763,8 @@
 	}
 </script>
 <style>
-	
+	.custom-dialog{
+		max-height: 500px;
+		overflow-x: auto;
+	}
 </style>
