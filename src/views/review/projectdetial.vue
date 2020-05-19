@@ -222,8 +222,8 @@
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;float:left;">结算方式</span>
 							<el-radio-group v-model="want_deal_type" style="width:290px;float:left;" class="customGroup">
-								<el-radio-button label="1" ><img style="width: 14px;height: 14px;margin-right: 5px" src="../../assets/img/user.png" v-if="settlement==0 && origin_type==1" />买断</el-radio-button>
-								<el-radio-button label="2" ><img style="width: 14px;height: 14px;margin-right: 5px" src="../../assets/img/user.png" v-if="settlement==0 && origin_type==2" />分成</el-radio-button>
+								<el-radio-button label="1" ><i class="iconfont" v-if="settlement==0 && origin_type==1" >&#xe730;</i>买断</el-radio-button>
+								<el-radio-button label="2" ><i class="iconfont" v-if="settlement==0 && origin_type==2" >&#xe730;</i>分成</el-radio-button>
 								<el-radio-button label="3" >预付金+分成</el-radio-button>
 							</el-radio-group>
 						</div>
