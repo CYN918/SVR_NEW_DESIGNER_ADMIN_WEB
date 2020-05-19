@@ -507,6 +507,11 @@ const reviewData = {
 				child:{"1":"个体","2":"企业"}
 			},
 			{
+				name:"身份证号",
+				id:"id_card",
+				type:"text",
+			},
+			{
 				name:"身份证正面照片",
 				id:"front_photo",
 				type:"imgzheng",
