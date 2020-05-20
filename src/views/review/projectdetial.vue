@@ -626,7 +626,7 @@
 				typebtn1: "",
 				level: "",
 				deal_type: "",
-				acceptance_price: 0,
+				acceptance_price: '0',
 				deduction_price: 0,
 				deductionprice: 0,
 				deal_price: 0,
@@ -642,6 +642,14 @@
 				audit2: '',
 				fileStr:'',
 				loading:false,
+			}
+		},
+		watch:{
+			acceptance_price(newValue, oldValue) {
+				this.acceptance_price = this.acceptance_price.replace(/(^\s*) | (\s*$)/g,'')
+				if(isNaN(Number(newValue))) {
+					this.acceptance_price = ''
+				}
 			}
 		},
 		computed:{
@@ -964,10 +972,11 @@
 				// 	return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 				// }
 				// return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
-				if(((parseInt(this.acceptance_price) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				let acceptance_price = this.acceptance_price ? parseInt(this.acceptance_price) : 0;
+				if(((parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 					return 0;
 				} else {
-					return (parseInt(this.acceptance_price) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+					return (parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 				}
 			},
 			getrule(n) {
@@ -1087,6 +1096,15 @@
 				if(n == 'lu'){
 					this.loading = true;
 					if(this.want_deal_type == '1'){
+						if(this.acceptance_price == 0) {
+							this.$message({
+								message: '买断金额不能为0!',
+								type: 'warning',
+								customClass: 'zZindex'
+							})
+							this.loading = false
+							return
+						}
 						var data = {
 							access_token: localStorage.getItem("access_token"),
 							type: 5,
@@ -1103,13 +1121,23 @@
 						}	
 					}else{
 						if(this.user_split_rate){
-							if(this.user_split_rate < 0 || this.user_split_rate > 100){
+							if(this.user_split_rate <= 0 || this.user_split_rate > 100){
 								this.$message({
-									message: "请填写0到100之间的数字!",
+									message: "分成比例为1到100之间的整数!",
 									type: 'warning',
 									customClass:'zZindex'
 								})
+								this.loading = false
 								return;
+							}
+							if(!Number.isInteger(Number(this.user_split_rate))){
+								this.$message({
+									message: '分成比例为1到100之间的整数!',
+									type: 'warning',
+									customClass:'zZindex'
+								})
+								this.loading = false
+								return
 							}
 						}else{
 							this.$message({
@@ -1117,7 +1145,26 @@
 								type: 'warning',
 								customClass:'zZindex'
 							})
+							this.loading = false
 							return;
+						}
+						if(this.advance_payment && isNaN(Number(this.advance_payment))){
+							this.$message({
+								message: '预付金为数字!',
+								type: 'warning',
+								customClass: 'zZindex'
+							})
+							this.loading = false
+							return
+						}
+						if(this.advance_payment && +this.advance_payment<=0){
+							this.$message({
+								message: '预付金不能为负数或0!',
+								type: 'warning',
+								customClass: 'zZindex'
+							})
+							this.loading = false
+							return
 						}
 						var data = {
 							access_token: localStorage.getItem("access_token"),
@@ -1160,6 +1207,8 @@
 				// 	data.file_name = this.file.file_name
 				// 	data.file_size = this.file.file_size
 				// }
+				console.log(data)
+				return
 				this.submint(data);
 			},
 			sendmessage() {
