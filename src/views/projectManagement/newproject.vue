@@ -209,7 +209,7 @@
 									<el-input-number v-model="form['production_cycle_d']" :min="0" controls-position="right" ></el-input-number> 天
 								</div>
 								<div style="margin-left: 40px;" class="fleft">
-									<el-input-number v-model="form['production_cycle_h']" controls-position="right" :min="0" :max="23"></el-input-number> 时
+									<el-input-number v-model="form['production_cycle_h']" controls-position="right" :min="1" :max="23"></el-input-number> 时
 								</div>
 							</div>
 						</li>
