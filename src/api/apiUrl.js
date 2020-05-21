@@ -457,6 +457,15 @@ export default {
 	terminate:{
 		url:'/admin/project/terminate',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
+	contractList:{
+		url: '/admin/project/ContractList',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	addContract:{
+		url:'/admin/project/addContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	delContract:{
+		url:'/admin/project/delContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
 	bindContract:{
 		url:'/admin/project/bindContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
