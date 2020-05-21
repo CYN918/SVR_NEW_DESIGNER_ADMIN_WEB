@@ -1207,8 +1207,6 @@
 				// 	data.file_name = this.file.file_name
 				// 	data.file_size = this.file.file_size
 				// }
-				console.log(data)
-				return
 				this.submint(data);
 			},
 			sendmessage() {
@@ -1375,6 +1373,7 @@
 						this.loading = false;
 						this.$router.go(-1)
 					}
+					this.loading = false;
 					
 					//this.getreviewInfo();
 				}).catch(da => {
