@@ -44,7 +44,11 @@
 		<el-dialog title="补充合同ID" :visible.sync="centerDialogVisible1" width="500px">
 			<div>
 				<ul>
-					<li class="w ofh textcenter">
+					<li class="w ofh textcenter contract-item" v-for="(contract, index) in contract_files" :key="index">
+						<span>{{contract.name}}</span>
+						<i class="el-icon-delete" @click="deleteContract(contract)"></i>
+					</li>
+					<li class="w ofh textcenter" style="margin-top: 20px">
 						<span class="Dialogkey" style="display: inline-block;line-height: 40px;margin: 0;">
 							合同ID
 						</span>
@@ -70,6 +74,7 @@
 		},
 		data() {
 			return {
+				contract_files: [{},{}],
 				reason:"",
 				comment:"",
 				commonTopData: {
@@ -564,6 +569,34 @@
 		watch: {},
 		computed: {},
 		methods: {
+			loadContractList() {
+				let row = this.crow
+				if(row && row.project_id){
+					this.api.contractList({
+						access_token:localStorage.getItem("access_token"),
+						project_id:row.project_id
+					}).then(da => {
+						if(da.result == 0){
+							this.contract_files = Object.entries(da.data).map(([name, value]) => {
+								return { name }
+							})
+						}
+					})
+				}
+			},
+			deleteContract(contract) {
+				let row = this.crow
+				if(!row || !row.project_id) return
+				this.api.delContract({
+					access_token:localStorage.getItem("access_token"),
+					project_id:row.project_id,
+					archive_id:contract.name
+				}).then(da => {
+					if(da.result == 0){
+						this.contract_files = this.contract_files.filter(f => f.name != contract.name)
+					}
+				})
+			},
 			presentation(row){
 				this.setpage()
 				this.$router.push({
@@ -598,17 +631,19 @@
 			reject1(row){
 				this.crow = row;
 				this.centerDialogVisible1 =!this.centerDialogVisible1;
+				this.loadContractList()
 			},
 			supply(){
 				let row = this.crow;
-				this.api.bindContract({
+				this.api.addContract({
 					access_token:localStorage.getItem("access_token"),
 					project_id:row.project_id,
-					contract_id:this.contract_id 
+					archive_id:this.contract_id 
 				}).then(da=>{
 					if(da.result == 0){
-						this.$refs.Tabledd.getTabData();
-						this.centerDialogVisible1=false;
+						// this.$refs.Tabledd.getTabData();
+						// this.centerDialogVisible1=false;
+						this.contract_files.push({ name: this.contract_id })
 						this.contract_id = '';
 					}
 				}).catch(da=>{
@@ -766,5 +801,17 @@
 	.custom-dialog{
 		max-height: 500px;
 		overflow-x: auto;
+	}
+	.contract-item{
+		height: 40px;
+		line-height: 40px;
+	}
+	.contract-item span{
+		display: inline-block;
+		width: 357px;
+		text-align: left;
+	}
+	.contract-item i{
+		cursor: pointer;
 	}
 </style>
