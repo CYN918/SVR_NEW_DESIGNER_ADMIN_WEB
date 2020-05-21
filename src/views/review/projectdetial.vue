@@ -1096,9 +1096,9 @@
 				if(n == 'lu'){
 					this.loading = true;
 					if(this.want_deal_type == '1'){
-						if(this.acceptance_price == 0) {
+						if(Number(this.acceptance_price) <= 0) {
 							this.$message({
-								message: '买断金额不能为0或空!',
+								message: '买断金额不能为负或0或空!',
 								type: 'warning',
 								customClass: 'zZindex'
 							})
