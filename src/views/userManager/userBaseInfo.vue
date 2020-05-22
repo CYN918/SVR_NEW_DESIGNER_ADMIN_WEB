@@ -121,6 +121,7 @@
 				screenConfig:[],
 				tableConfig:{
 					"pageName":"userBaseInfo",
+					primaryKey: 'open_id',
 					total:0,
 					currentpage:1,
 					pagesize:50,
@@ -350,6 +351,9 @@
 				form.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/User/getUserList")
 				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
 				   form.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/User/getUserList")
+				}
+				if(window.location.host=='120.27.22.130:8082'){
+					form.setAttribute('action', 'http://120.27.22.130:8082/admin/User/getUserList')
 				}
 				document.body.appendChild(form);
 				form.submit();
