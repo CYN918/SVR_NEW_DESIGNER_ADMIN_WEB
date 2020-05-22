@@ -458,7 +458,7 @@ export default {
 		url:'/admin/project/terminate',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
 	contractList:{
-		url: '/admin/project/ContractList',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+		url: '/admin/project/ContractList',method:'post',baseURL:0,isType:{suktip:false,isok:true}
 	},
 	addContract:{
 		url:'/admin/project/addContract',method:'post',baseURL:0,isType:{suktip:true,isok:true}
