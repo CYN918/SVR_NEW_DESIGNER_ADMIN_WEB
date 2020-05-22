@@ -689,13 +689,14 @@
 					id: this.$route.query.id,
 					check_status: -1,
 					reason:this.radio1,
+					comment:this.text100
 				}
 				
-				if (this.radio1 == "其他理由") {
-					data.reason = this.text100;
-				} else {
-					data.comment=this.text100;
-				}
+				// if (this.radio1 == "其他理由") {
+				// 	data.reason = this.text100;
+				// } else {
+				// 	data.comment=this.text100;
+				// }
 				this.submint(data)
 				this.reject();
 			},
