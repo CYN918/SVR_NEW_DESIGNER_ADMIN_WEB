@@ -277,7 +277,7 @@ export default {
                     return '刚刚';
                 }
                 if(pt>ms*12){
-                    return formatDate(new Date(times));		
+                    return this.formatDate(new Date(times));		
                 }
                 if(pt>ms){
                     return parseInt(pt/ms) + "个月前";
@@ -292,6 +292,15 @@ export default {
                     return parseInt(pt/m) + "分钟前";
                 }
                 return '刚刚';				
+        },
+        formatDate(now) { 
+            var year=now.getFullYear(); 
+            var month=now.getMonth()+1; 
+            var date=now.getDate(); 
+            var hour=now.getHours(); 
+            var minute=now.getMinutes(); 
+            var second=now.getSeconds(); 
+            return year+"-"+month+"-"+date; 
         },
         handleSizeChange(val) {
             this.$parent.getData(this.currentpage,val)
