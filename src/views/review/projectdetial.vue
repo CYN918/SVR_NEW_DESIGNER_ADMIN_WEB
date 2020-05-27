@@ -233,7 +233,7 @@
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
 							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，请输入0-100数字(单位:%)" v-model="user_split_rate"
 							 clearable>
-							</el-input>
+							</el-input>%
 						</div>
 					</li>
 					<li class="w ofh" v-if="want_deal_type == '3'">
@@ -653,7 +653,7 @@
 			}
 		},
 		computed:{
-			
+
 		},
 		filters:{
 			
@@ -1105,6 +1105,8 @@
 							this.loading = false
 							return
 						}
+						
+						
 						var data = {
 							access_token: localStorage.getItem("access_token"),
 							type: 5,
@@ -1148,6 +1150,21 @@
 							this.loading = false
 							return;
 						}
+						if(!this){
+							
+						}
+						
+						if(!this.advance_payment){
+							this.$message({
+								message: '请填写预付金!',
+								type: 'warning',
+								customClass: 'zZindex'
+							})
+							this.loading = false
+							return
+						}
+							
+							
 						if(this.advance_payment && isNaN(Number(this.advance_payment))){
 							this.$message({
 								message: '预付金为数字!',
