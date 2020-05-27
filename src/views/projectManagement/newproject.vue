@@ -94,7 +94,7 @@
 					</li>
 					<li class="margint23 ofh" v-if="form['business_type'] == '6'">
 						<span class="fleft detailKey" style="line-height: 40px;float:left;">结算方式</span>
-						<el-radio-group v-model="form['want_deal_type']" style="width:300px;float:left;">
+						<el-radio-group v-model="form['settlement']" style="width:300px;float:left;">
 							<el-radio-button label="0" :disabled="true">用户选择</el-radio-button>
 							<el-radio-button label="1">买断</el-radio-button>
 							<el-radio-button label="2" :disabled="true">分成</el-radio-button>
@@ -102,7 +102,7 @@
 					</li>
 					<li class="margint23 ofh" v-else>
 						<span class="fleft detailKey" style="line-height: 40px;float:left;">结算方式</span>
-						<el-radio-group v-model="form['want_deal_type']" style="width:300px;float:left;">
+						<el-radio-group v-model="form['settlement']" style="width:300px;float:left;">
 							<el-radio-button label="0">用户选择</el-radio-button>
 							<el-radio-button label="1">买断</el-radio-button>
 							<el-radio-button label="2">分成</el-radio-button>
@@ -828,7 +828,7 @@
 				this.form.project_id = this.rows.project_id
 				this.form.demand_id = this.dids.join(',');
 				this.form.access_token = localStorage.getItem("access_token");
-				this.form.settlement = this.form.want_deal_type;
+				this.form.want_deal_type = this.form.settlement;
 				if(this.alertmask() != true){
 					this.$message({
 						message:this.alertmask(),

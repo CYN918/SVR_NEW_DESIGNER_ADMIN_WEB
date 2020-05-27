@@ -31,7 +31,7 @@
 						</div>
 						<span v-else-if="item.type == 'urlfile'">
 							<span v-if="scope.row[item.filetype.name] == item.filetype.id">
-								{{ scope.row[item.prop.prop1] }}
+								{{namChck(scope.row,item.prop.prop1)}}
 							</span>
 							<span v-else>
 								<span class="routerLink pointer" @click="openwindow1(scope.row[item.prop.prop2])">{{ scope.row[item.prop.prop2] }}</span>
@@ -170,7 +170,13 @@
 			}
 		},
 		methods: {
-			
+			namChck: function (n,k) {
+				if(n.business_type==5){
+					return n[k]+'.mp4';
+				}
+				
+			  return  n[k];
+			},
 			/* openPostWindow(url,data,name){  //url要跳转到的页面，data要传递的数据，name显示方式（可能任意命名）
 			  var tempForm = document.createElement("form");  
 			  tempForm.id="tempForm1";  
