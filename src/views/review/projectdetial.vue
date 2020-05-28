@@ -1154,7 +1154,7 @@
 							
 						}
 						
-						if(!this.advance_payment){
+						if(this.want_deal_type == 3 && !this.advance_payment){
 							this.$message({
 								message: '请填写预付金!',
 								type: 'warning',
