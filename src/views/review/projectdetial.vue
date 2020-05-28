@@ -1150,15 +1150,10 @@
 							this.loading = false
 							return;
 						}
-						if(!this){
-							
-						}
-						
-<<<<<<< HEAD
+
+
 						if(this.want_deal_type ==3 && !this.advance_payment){
-=======
-						if(this.want_deal_type == 3 && !this.advance_payment){
->>>>>>> ea3754ca7d5a0d6525696a9c78e3c7c6939393f1
+
 							this.$message({
 								message: '请填写预付金!',
 								type: 'warning',
