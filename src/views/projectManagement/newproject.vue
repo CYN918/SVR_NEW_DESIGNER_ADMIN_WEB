@@ -1184,7 +1184,7 @@
 					item.module_content = this.$refs.upload[index].form.content;
 				})
 				this.form.desc = JSON.stringify(this.detailtext);
-				this.form.settlement = this.form.want_deal_type
+				// this.form.settlement = this.form.want_deal_type
 				
 				
 				if(this.alertmask() != true){
