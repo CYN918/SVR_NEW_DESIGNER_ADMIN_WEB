@@ -55,7 +55,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">处理时间</span>
-					<span>{{ getValue(detailData.create_time) }}</span>
+					<span>{{ getValue(detailData.check_time) }}</span>
 				</li>
 				
 			</ul>
