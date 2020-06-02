@@ -930,23 +930,9 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da=>{
 					this.form = da;
-					if(this.form.special_url != ''){
-						this.options = [
-							{
-								value: '0',
-								url: '',
-								label: '不使用'
-							},
-							{
-								value: '1',
-								url: this.form.special_url,
-								label: '画笔下的奇妙幻想'
-							}
-						]
-					}else{
-						this.createdMothd()
-					}
-					
+
+					this.createdMothd();
+				
 					this.selectData1.file_name = this.form.template_file_info.file_name;
 					this.selectData1.file_size_format = (this.form.template_file_info.file_size/1024/1024).toFixed(2) + 'MB';
 					if(this.form.info){
@@ -1215,15 +1201,15 @@
 			},
 			createdMothd(){
 				if(this.$route.query.row == undefined){
-					const url = window.location.host;
+					let urlx = window.location.host;
 					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4';
-					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
-					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4';
+						urlx = 'https://shiquaner.zookingsoft.com';
+					}else if(urlx == 'dev-web-ndesigner-admin.idatachain.cn'){
+						urlx = 'http://dev-web-ndesigner.idatachain.cn';
+					}else if(urlx == '120.27.22.130:8082'){
+						urlx = 'http://120.27.22.130:8080';
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
+						urlx = 'http://dev-web-ndesigner.idatachain.cn';
 					}
 					this.options = [
 						{
@@ -1233,22 +1219,30 @@
 						},
 						{
 							value: '1',
-							url: this.templateUrl,
+							url: urlx+'/#/ac_v4',
 							label: '画笔下的奇妙幻想'
-						}
-					]
+						},
+						{
+							value: '2',
+							url: urlx+'/#/ac_v5',
+							label: '为TA应援'
+						},
+					];
+				
 				}else{
-					const url = window.location.host;
+					let urlx = window.location.host;
+					
 					const urlId = JSON.parse(this.$route.query.row).id;
-					if(url == 'shiquaner-admin.zookingsoft.com'){
-						this.templateUrl = 'https://shiquaner.zookingsoft.com/#/ac_v4';
-					}else if(url == 'dev-web-ndesigner-admin.idatachain.cn'){
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
-					}else if(url == '120.27.22.130:8082'){
-						this.templateUrl = 'http://120.27.22.130:8080/#/ac_v4';
+					if(urlx == 'shiquaner-admin.zookingsoft.com'){
+						urlx = 'https://shiquaner.zookingsoft.com';
+					}else if(urlx == 'dev-web-ndesigner-admin.idatachain.cn'){
+						urlx = 'http://dev-web-ndesigner.idatachain.cn';
+					}else if(urlx == '120.27.22.130:8082'){
+						urlx = 'http://120.27.22.130:8080';
 					}else{
-						this.templateUrl = 'http://dev-web-ndesigner.idatachain.cn/#/ac_v4';
+						urlx = 'http://dev-web-ndesigner.idatachain.cn';
 					}
+					
 					this.options = [
 						{
 							value: '0',
@@ -1257,9 +1251,14 @@
 						},
 						{
 							value: '1',
-							url: this.templateUrl,
+							url: urlx+'/#/ac_v4',
 							label: '画笔下的奇妙幻想'
-						}
+						},
+						{
+							value: '2',
+							url: urlx+'/#/ac_v5',
+							label: '为TA应援'
+						},
 					]
 				}
 			}
