@@ -15,7 +15,8 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey detailKeyImg">头像</span>
-					<span class="fleft detailValue detailValueImg" :style="{background:'url('+ detailData.avatar +') center center no-repeat / 100% 100%'}"></span>
+					<span class="fleft detailValue detailValueImg" :style="{backgroundImage:'url('+ detailData.avatar +')'}" style="background-size: 100% 100%;background-position: center center;background-repeat: no-repeat;"></span>
+					<!-- <span class="fleft detailValue detailValueImg" :style="{background:'url('+ detailData.avatar +') center center no-repeat'}"></span> -->
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft detailKey">用户名</span>
