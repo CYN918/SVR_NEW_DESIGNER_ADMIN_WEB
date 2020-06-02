@@ -966,18 +966,25 @@
 				return data;
 			},
 			getdeal_price() {
+				let pic = this.acceptance_price*100;
+				let upic = parseInt(pic+parseInt(pic*this.apply_info.gain_share_rate / 100))/100;
+				if(upic<0){
+					return 0;
+				}
+				return upic
+				
 				// if(((parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
 				// 	return 0;
 				// } else {
 				// 	return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
 				// }
 				// return (parseInt(this.acceptance_price) - this.getdeductions() + parseInt(this.apply_info.extra_reward) + parseInt(this.acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
-				let acceptance_price = this.acceptance_price ? parseInt(this.acceptance_price) : 0;
-				if(((parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
-					return 0;
-				} else {
-					return (parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
-				}
+				// let acceptance_price = this.acceptance_price ? parseInt(this.acceptance_price) : 0;
+				// if(((parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2)) <= 0){
+				// 	return 0;
+				// } else {
+				// 	return (parseInt(acceptance_price) + parseInt(acceptance_price) * this.apply_info.gain_share_rate / 100).toFixed(2);
+				// }
 			},
 			getrule(n) {
 				this.typebtn = n;
