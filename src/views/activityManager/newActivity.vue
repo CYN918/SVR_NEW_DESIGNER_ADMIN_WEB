@@ -1202,7 +1202,7 @@
 			createdMothd(){
 				if(this.$route.query.row == undefined){
 					let urlx = window.location.host;
-					if(url == 'shiquaner-admin.zookingsoft.com'){
+					if(urlx == 'shiquaner-admin.zookingsoft.com'){
 						urlx = 'https://shiquaner.zookingsoft.com';
 					}else if(urlx == 'dev-web-ndesigner-admin.idatachain.cn'){
 						urlx = 'http://dev-web-ndesigner.idatachain.cn';
