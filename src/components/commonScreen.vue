@@ -171,6 +171,7 @@
 				// console.log(this.form[arr])
 			},
 			getparent(data) {
+				
 
 				if (data == "reach") {
 					//console.log()
@@ -215,7 +216,7 @@
 						this.form['classify_1'] = this.removeRepeatStr(arr).substring(0,this.removeRepeatStr(arr).lastIndexOf(','));
 						this.form['classify_2'] = this.removeRepeatStr(arr1).substring(0,this.removeRepeatStr(arr1).lastIndexOf(','));
 						this.form['classify_3'] = this.removeRepeatStr(arr2).substring(0,this.removeRepeatStr(arr2).lastIndexOf(','));					
-					}				
+					}		
 					this.$router.push({
 						query: {
 							urlDate: JSON.stringify(this.form)

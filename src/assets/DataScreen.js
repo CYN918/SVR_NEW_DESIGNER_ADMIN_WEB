@@ -260,10 +260,14 @@ const screenData = {
 				{name:"项目ID",id:"project_id"},
 				{name:"项目名称",id:"name"},
 				{name:"项目类型",id:"classify_id",child:[]},
+				// {name:"审核状态",id:"check_status",child:[]},
+				
+				// '',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"}
+				
 				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏"]},
 				
 				{name:"提审用户昵称",id:"username"},
-				// {name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+				{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
 				{name:"",type:"display"}
 			]
 		},
