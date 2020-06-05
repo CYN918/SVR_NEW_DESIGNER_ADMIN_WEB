@@ -1397,7 +1397,9 @@
 						this.$router.go(-1)
 					}
 					this.loading = false;
-					
+					setTimeout(()=>{
+						window.close();
+					}, 10);
 					//this.getreviewInfo();
 				}).catch(da => {
 
