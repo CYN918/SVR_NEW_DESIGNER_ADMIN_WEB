@@ -11,7 +11,7 @@ const screenData = {
 				//{name:'推荐等级',id:'recommend_level',type:"level",child:["A","B","C","S","不推荐"]},
 				{name:'作品数量', type:'two',child:[{name:'作品数量下限',id:'work_num_min'},{name:'作品数量上限',id:'work_num_max'}]},
 				{name:'关注人数', type:'two',child:[{name:'关注人数下限',id:'follow_num_min'},{name:'关注人数上限',id:'follow_num_max'}]},
-				{name:'注册时间',id:'register_time',type:"time",child:[{name:'注册时间(开始)',id:'register_time_start'},{name:'注册时间(开始)',id:'register_time_end'}]},
+				{name:'注册时间',id:'create_time',type:"time",child:[{name:'注册时间(开始)',id:'create_time_min'},{name:'注册时间(开始)',id:'create_time_max'}]},
 				{name:'用户名',id:'username'},
 				{name:'手机号',id:'mobile'},
 				{name:'邮箱',id:'email'},

@@ -159,7 +159,7 @@
 				this.isajax=1;
 				if(this.$route.query.urlDate){
 					const sreenData = JSON.parse(this.$route.query.urlDate);
-					console.log(JSON.parse(this.$route.query.urlDate))
+
 				    sreenData.page = pg.pageCurrent;
 				    sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
