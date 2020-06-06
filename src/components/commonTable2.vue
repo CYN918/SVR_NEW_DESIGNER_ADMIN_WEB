@@ -668,7 +668,7 @@
 				}
 				//获取筛选的条件
 				if (this.form) {
-					const sreenData = this.form
+					const sreenData = JSON.parse(JSON.stringify(this.form));
 					sreenData.page = this.currentpage;
 					sreenData.limit = this.pagesize;
 					sreenData.access_token = localStorage.getItem("access_token");
@@ -691,7 +691,6 @@
 				}
 				document.body.appendChild(form1);
 				form1.submit();
-				this.form = {};
 			},
 			getTabData() {
 				//获取子组件表格数据
