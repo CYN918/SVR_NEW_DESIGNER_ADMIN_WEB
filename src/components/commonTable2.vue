@@ -685,10 +685,7 @@
 				form1.setAttribute("style", "display:none");
 				form1.setAttribute("target", "");
 				form1.setAttribute("method", "post");
-				form1.setAttribute("action", "http://dev-api-ndesigner-admin.idatachain.cn/admin/project/list")
-				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
-				   form1.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
-				}
+				form1.setAttribute("action",window.location.host+'/admin/project/list')
 				document.body.appendChild(form1);
 				form1.submit();
 			},
