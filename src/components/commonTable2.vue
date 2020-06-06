@@ -685,7 +685,8 @@
 				form1.setAttribute("style", "display:none");
 				form1.setAttribute("target", "");
 				form1.setAttribute("method", "post");
-				form1.setAttribute("action",window.location.host+'/admin/project/list')
+
+				form1.setAttribute("action",window.location.origin+'/admin/project/list')
 				document.body.appendChild(form1);
 				form1.submit();
 			},
