@@ -690,7 +690,7 @@
 				if(window.location.host=='shiquaner-admin.zookingsoft.com'){
 					form1.setAttribute("action", "http://shiquaner-admin-api.zookingsoft.com/admin/project/list")
 				}
-				if(window.location.host=='http://120.27.22.130:8082'){
+				if(window.location.host=='120.27.22.130:8082'){
 					form1.setAttribute("action", "http://120.27.22.130:8083/admin/project/list")
 				}
 	
