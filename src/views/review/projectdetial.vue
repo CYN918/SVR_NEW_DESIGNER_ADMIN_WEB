@@ -662,8 +662,8 @@
 			contentAudit(id){
 				console.log(this.material_info)
 				if(id == '2'){
-				
-					if(!this.did && this.material_info.business_type!=6){
+					
+					if(!this.did && this.apply_info.business_type!=6){
 						this.$message({
 							message: "请选择绑定需求!",
 							type: 'warning',
@@ -707,7 +707,7 @@
 
 					})
 				}else{
-					if(!this.did && this.material_info.business_type!=6){
+					if(!this.did && this.apply_info.business_type!=6){
 						this.$message({
 							message: "请选择绑定需求!",
 							type: 'warning',
@@ -1361,7 +1361,7 @@
 					type: 5,
 					id: this.$route.query.id,
 				}).then(da => {
-					// console.log(da)
+					console.log(da)
 					this.did = da.project_info.demand_id;
 					this.reviewinfocommon = da.check_info;
 					this.apply_info = da.project_info;
