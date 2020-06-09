@@ -15,126 +15,7 @@
 				<router-link v-if="item.child && item.child.length != 0 && url[citem.id]"  v-for="citem in item.child" :key="citem.id" :to="url[citem.id] ? url[citem.id] : ''">
 					<el-menu-item :index="url[citem.id]" >{{ citem.title }}</el-menu-item>
 				</router-link>
-			</el-submenu>
-			<!-- <el-submenu index="7">
-				<template slot="title">
-					<i class="iconfont">&#xe781;</i>
-					<span style="padding:15px;">项目管理</span>
-				</template>
-				<router-link to="/contentManager/projectrecommende">
-					<el-menu-item index="3-1" class="">推荐项目</el-menu-item>
-				</router-link>
-			</el-submenu> -->
-			<!-- <el-submenu index="7">
-				<template slot="title">
-					<i class="iconfont">&#xe781;</i>
-					<span style="padding:15px;">作品管理</span>
-				</template>
-				<router-link to="/workManager/workInfo">
-					<el-menu-item index="3-1" class="">作品信息表</el-menu-item>
-				</router-link>
-				<router-link to="/workManager/materialBank">
-					<el-menu-item index="3-2">素材库</el-menu-item>
-				</router-link>
-				<router-link to="/workManager/labels">
-					<el-menu-item index="3-3">作品标签</el-menu-item>
-				</router-link>
-				<router-link to="/workManager/commentManager">
-					<el-menu-item index="3-4">评论回复管理</el-menu-item>
-				</router-link>
-			</el-submenu>
-			<el-submenu index="9">
-				<template slot="title">
-					<i class="iconfont">&#xe627;</i>
-					<span style="padding:15px;">活动管理</span>
-				</template>
-				<router-link to="/activityManager/activityEmploy">
-					<el-menu-item index="9-2">发布活动</el-menu-item>
-				</router-link>
-				<router-link to="/activityManager/activityClass">
-					<el-menu-item index="9-1" class="">主题分类管理</el-menu-item>
-				</router-link>
-				
-				<router-link to="/activityManager/activityworks">
-					<el-menu-item index="9-4">参与活动的作品</el-menu-item>
-				</router-link>
-				<router-link to="/activityManager/solicitationTemplate">
-					<el-menu-item index="9-3">征集模板文件</el-menu-item>
-				</router-link>
-			</el-submenu>
-			<el-submenu index="10">
-				<template slot="title">
-					<i class="iconfont">&#xe730;</i>
-					<span style="padding:15px;">内容管理</span>
-				</template>
-				<router-link to="/contentManager/homeBanner">
-					<el-menu-item index="10-2">首页banner</el-menu-item>
-				</router-link>
-				<router-link to="/contentManager/hotWordSearch">
-					<el-menu-item index="10-3">热门搜素词</el-menu-item>
-				</router-link>
-				<router-link to="/contentManager/recommendedActivities">
-					<el-menu-item index="10-4">我的收益-推荐活动</el-menu-item>
-				</router-link>
-				<router-link to="/contentManager/serviceCenter">
-					<el-menu-item index="10-5">文档服务中心</el-menu-item>
-				</router-link>
-				<router-link to="/contentManager/listAd">
-					<el-menu-item index="10-6">首页列表干预</el-menu-item>
-				</router-link>
-			</el-submenu>
-			<el-submenu index="11">
-				<template slot="title">
-					<i class="iconfont">&#xe62b;</i>
-					<span style="padding:15px;">录用管理</span>
-				</template>
-				<router-link to="/employmentManager/employmentorder">
-					<el-menu-item index="11-1" class="">录用订单</el-menu-item>
-				</router-link>
-				<router-link to="/employmentManager/channel">
-					<el-menu-item index="11-2">分成渠道表</el-menu-item>
-				</router-link>
-			</el-submenu>
-			<el-submenu index="12">
-				<template slot="title">
-					<i class="el-icon-setting" style="margin-right: 0;width: auto;"></i>
-					<span style="padding:15px;">其他信息及设置</span>
-				</template>
-				<router-link to="/otherInformation/embodyRecord">
-					<el-menu-item index="12-1" class="">提现记录表</el-menu-item>
-				</router-link>
-				<router-link to="/otherInformation/presetReason">
-					<el-menu-item index="12-2">审核驳回理由预设</el-menu-item>
-				</router-link>
-				<router-link to="/otherInformation/feedback">
-					<el-menu-item index="12-3">意见反馈</el-menu-item>
-				</router-link>
-				<router-link to="/otherInformation/reportInfo">
-					<el-menu-item index="12-4">举报信息</el-menu-item>
-				</router-link>
-			</el-submenu>
-			<el-submenu index="13">
-				<template slot="title">
-					<i class="iconfont">&#xe62b;</i>
-					<span style="padding:15px;">消息通知管理</span>
-				</template>
-				<router-link to="/noticeManager/newsRelease">
-					<el-menu-item index="12-1" class="">消息发布</el-menu-item>
-				</router-link>
-				<router-link to="/noticeManager/noticetemplate">
-					<el-menu-item index="12-2">系统通知模板</el-menu-item>
-				</router-link>
-				
-			</el-submenu> -->
-			<!-- <el-submenu index="101">
-				<template slot="title">
-					<i class="iconfont">&#xe730;</i>
-					<span style="padding:15px;">作品展示配置</span>
-				</template>
-				<router-link to="/contentManager/workconfig">
-					<el-menu-item index="101-6">作品展示配置</el-menu-item>
-				</router-link>
-			</el-submenu> -->
+			</el-submenu>			
 		</el-menu>
 	</div>
 </template>
@@ -175,6 +56,7 @@
 					"41":"/contentManager/holdAll",
 					"50":"/userManager/blackList",
 					"200495":"/projectManagement/projectList",
+					"200605":"/projectManagement/projectLongList",
 					"200496":"/projectManagement/projectclass",
 					"200497":"/projectManagement/settlement",
 					"200498":"/projectManagement/Profit",
@@ -223,7 +105,7 @@
 		mounted() {
 			if(localStorage.getItem("access")){
 				this.menuAccess = JSON.parse(localStorage.getItem("access")).menu_banner;
-				//console.log(localStorage.getItem("access"));
+				console.log(this.menuAccess);
 			}
 		}
 	}

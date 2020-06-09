@@ -660,8 +660,10 @@
 		},
 		methods: {
 			contentAudit(id){
+				console.log(this.material_info)
 				if(id == '2'){
-					if(!this.did){
+				
+					if(!this.did && this.material_info.business_type!=6){
 						this.$message({
 							message: "请选择绑定需求!",
 							type: 'warning',
@@ -705,7 +707,7 @@
 
 					})
 				}else{
-					if(!this.did){
+					if(!this.did && this.material_info.business_type!=6){
 						this.$message({
 							message: "请选择绑定需求!",
 							type: 'warning',

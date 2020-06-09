@@ -9,7 +9,7 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				// access_token = "52c3ef5c68ba47610b9c2942717b2de8";
+				// access_token = "80dbb289313ef7cd59a9f4533197b455";
 				//console.log(access_token)
 				
 				localStorage.setItem("access_token",access_token);
@@ -51,6 +51,7 @@
 							"200495":"/projectManagement/projectList",
 							"200496":"/projectManagement/projectclass",
 							"200498":"/projectManagement/Profit",
+							"200605":"/projectManagement/projectLongList",
 							"200478":"/contentManager/workconfig",
 							"200473":"/userManager/userInfo",
 							
