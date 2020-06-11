@@ -997,6 +997,15 @@ var router = new Router({
 					component: () => import('@/views/projectManagement/newproject.vue'),
 				},
 				{
+					path:"projectList/newprojectLong",
+					name: 'newprojectLong',
+					meta: {
+						title: "新建长期项目",
+						pagetitle: "项目-新建长期项目-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newprojectLong.vue'),
+				},
+				{
 					path:"projectList/projectDetial",
 					name: 'projectDetial',
 					meta: {
@@ -1004,6 +1013,15 @@ var router = new Router({
 						pagetitle: "项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/projectDetial.vue'),
+				},
+				{
+					path:"projectList/projectDetialLong",
+					name: 'projectDetialLong',
+					meta: {
+						title: "查看长期项目页面",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/projectDetialLong.vue'),
 				},
 				{
 					path:"projectList/editproject",

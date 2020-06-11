@@ -505,6 +505,11 @@ export default {
 	worksubjectupdate:{
 		url:'/admin/worksubject/update',method:'post',baseURL:0,isType:{suktip:true,isok:true}
 	},
-	
+	projectshelve:{
+		url:'/admin/project/shelve',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	probjLongpcList:{
+		url:'/admin/Project/pcList',method:'post',baseURL:0
+	},
 	
 }

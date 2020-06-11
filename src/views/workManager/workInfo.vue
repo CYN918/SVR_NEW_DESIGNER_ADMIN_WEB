@@ -474,7 +474,7 @@
 					type: '',
 					center: true
 				}).then(() => {
-					this.setexport({pageCurrent:1,pageSize:50},1);
+					this.setexport({pageCurrent:this.$refs.Tabledd.currentpage,pageSize:this.$refs.Tabledd.pagesize},1);
 					
 				}).catch(() => {
 					this.$message({

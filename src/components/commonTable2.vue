@@ -14,26 +14,11 @@
 						</span>
 					</div>
 					<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
-						<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
+						<router-link v-if="backTO()" :to="backTO()" tag="div" class="fleft pointer">
 							<span class="dp fontsize18">审核台</span>
 							<span class="dp sel-badge" v-html="reviewnum">99+</span>
 						</router-link>
-						<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '13'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
-						<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '14'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
-						<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '15'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>	
-						<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '16'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
+	
 						<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
 						<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
 						<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
@@ -358,10 +343,31 @@
 				userimg:'../assets/img/MRTX.svg',
 				adminuseraccess: [],
 				auditTitle: '',
-				firstId:'',
+				firstId:[],
 			}
 		},
 		methods: {
+			backTO(){
+				if(this.adminuseraccess.indexOf('11')==-1){
+					return
+				}
+				
+				if(this.firstId.indexOf('12')!=-1){
+					return '/review/publishWork';
+				}
+				if(this.firstId.indexOf('13')!=-1){
+					return '/review/finalistsWork';					
+				}
+				if(this.firstId.indexOf('14')!=-1){
+					return '/review/employWork';					
+				}
+				if(this.firstId.indexOf('15')!=-1){
+					return '/review/applyPerson';					
+				}
+				if(this.firstId.indexOf('16')!=-1){
+					return '/review/projectreview/projectrepending';					
+				}
+			},
 			handleClose(tag,index) {
 				let obj = {}
 				let obj1 = {}
@@ -524,6 +530,8 @@
 				this.commonTopData.tabnums = num;
 				this.gettableConfiglist(this.commonTopData.tabnums);
 				this.getTabData();
+				
+				// project_type
 			},
 			
 			handleClick(fun,row,index) {
@@ -942,11 +950,13 @@
 					for(var i = 0;i < accessArry.length;i++){
 						if(accessArry[i].id == '11'){
 							var newArr = accessArry[i].child;
-							this.firstId = newArr[0].id;
+							this.firstId = [];
 							let arr = [];
 							newArr.forEach(element => {		
+								this.firstId.push(element.id);
 								if(element.id == '12'){
 									arr.push(1)
+									
 								}
 								if(element.id == '13'){
 									arr.push(2)

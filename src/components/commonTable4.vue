@@ -12,7 +12,7 @@
 					<div v-if="commonTopData.tabData" class="textcenter" style="width: 69%;float:left;">
 						<span 
 						v-for="(item,index) in commonTopData.tabData" 
-						:class="['tabs',index == commonTopData.tabnums?'tabactive':'']" 
+						:class="['tabs',item.isAc?'tabactive':'']" 
 						@click="tabsChange(item.path)"
 						>
 							<el-badge 
@@ -21,26 +21,11 @@
 						</span>
 					</div>
 					<div class="fright hnav marginright60" style="position: relative;float:right;width:13%;">
-						<router-link to="/review/publishWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '12'">
+						<router-link v-if="backTO()" :to="backTO()" tag="div" class="fleft pointer">
 							<span class="dp fontsize18">审核台</span>
 							<span class="dp sel-badge" v-html="reviewnum">99+</span>
 						</router-link>
-						<router-link to="/review/finalistsWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '13'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
-						<router-link to="/review/employWork" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '14'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
-						<router-link to="/review/applyPerson" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '15'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>	
-						<router-link to="/review/projectreview/projectrepending" tag="div" class="fleft pointer" v-if="(adminuseraccess.indexOf('11') > -1) && firstId == '16'">
-							<span class="dp fontsize18">审核台</span>
-							<span class="dp sel-badge" v-html="reviewnum">99+</span>
-						</router-link>
+						
 						<div class="fright marginleft60 pointer" @click="signOut">{{ this.user.name }}</div>
 						<!-- <span  :style="{'background':'url('+userimg+')'}" @click="signOut"></span> -->
 						<div class="userinfobtn" v-if="IsSign" style="z-index: 2004;">
@@ -55,10 +40,15 @@
 			</div>
 			<div :class="['borderb','margin40',{marginl0:commonTopData.IsShow}]" style="position: relative;margin-bottom: 15px;" v-if="commonTopData.commonleftbtn.length != '0'">
 				<div class="ofh">
+				
 					<div class="fleft" style="float:right;">
+						
 						<div class="btnorgle" v-if="item.is != commonTopData.tabnums" v-for="(item,index) in commonTopData.commonleftbtn" @click="getparent(item.fun)"><img src="../assets/img/icon_sx.svg" alt="" style="margin-right:3px;position: relative;top:1px;">{{ item.name }}</div>	
+						
 					</div>
 					<div class="fright" style="float:left;">
+						<span :class="['chNbtn',el.v==tableConfig.status?'chNbtncheck':'']" v-for="el in tableAction.chNav" @click="chNav(el.v)">{{el.n}}</span>
+						
 						<div class="fleft" v-for="(item,index) in commonrightbtn" :key="item.id">
 							<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
 								<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.fun)">{{ item.name }}</button>
@@ -82,16 +72,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="margin40" style="height: 20px;margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
-				<div class="tagbts">
-					<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
-					 :disable-transitions="false" @close="handleClose(item.id,index)">
-						{{item.btnName + "：" + item.val}}
-					</el-tag>
-				</div>
-			</div> -->
+
 		</div>
-		<!-- <div class="transparent"></div> -->
+
 		<div class="wh" ref="elememt" id="table" v-loading="loading">
 			<el-table ref="multipleTable" :reserve-selection="true" :row-key="getRowKeys" :data="tableDatas" tooltip-effect  :header-cell-style="cellStyle" style="width: 100%" :height="tableHeight" @selection-change="handleSelectionChange">
 				<el-table-column width="27" v-if="tableConfig.ischeck"></el-table-column>
@@ -130,15 +113,18 @@
 						</div>
 						<div v-else-if="item.type == 'statustwo'">
 							<span v-if="scope.row['is_del'] == '0'">
-								<span :class="'status'+scope.row['status']">●</span><span>{{ item.child.status[scope.row['status']] }}</span>
+								<span :class="'status'+scope.row['status']">●</span><span>{{item.child.status[scope.row['status']] }}</span>
 							</span>
 							<span v-else-if="scope.row['is_del'] != '0'">
-								<span class="status-1">●</span><span>{{ item.child.is_del[scope.row['is_del']] }}</span>
+								<span class="status-1">●</span><span>{{item.child.is_del[scope.row['is_del']] }}</span>
 							</span>
 						</div>
+						<span v-else-if="item.type == 'zq'">
+							{{ scope.row.production_cycle_d+'天 '+scope.row.production_cycle_h+'时' }} 
+						</span>
 						<span v-else-if="item.type == 'keyvalue'"><span>{{ item.child[scope.row[item.prop]] ? item.child[scope.row[item.prop]] : item.child.no }}</span></span>
 						<span v-else-if="item.type == 'novalue'"><span>{{ scope.row[item.prop] != "" ? scope.row[item.prop] : item.novalue }}</span></span>
-						<span v-else-if="item.type == 'status'"><span :class="item.statusclass+scope.row[item.prop]">●</span><span>{{ item.child[scope.row[item.prop]] }}</span></span>
+						<span v-else-if="item.type == 'status'"><span :class="item.statusclass+scope.row[item.prop]">●</span><span>{{item.child[scope.row[item.prop]] }}</span></span>
 						<span v-else-if="item.type == 'nocon'">{{ scope.row[item.prop] ? scope.row[item.prop] : item.name }}</span>
 						<span v-else-if="item.type == 'price'">{{ "￥" + scope.row[item.prop]  }}</span>
 						<div v-else-if="item.type == 'hiretime'">
@@ -180,9 +166,14 @@
 							<span v-if="tableActions.links && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
 							<el-button @click="handleClick(tableActions.morebtns.fun,scope.row)" type="text" size="small" v-if="tableActions.morebtns && !tableActions.morebtns.child && gettrue(tableActions.morebtns.accessid)">{{ tableActions.morebtns.name(tableActions.morebtns.filterdata ?  scope.row[tableActions.morebtns.filterdata] : '') }}</el-button>
 							<el-dropdown trigger="click" v-if="tableActions.morebtns && tableActions.morebtns.child">
-								<span class="el-dropdown-link">{{ tableActions.morebtns.name }}</span>
+								<span class="el-dropdown-link">{{ tableActions.morebtns.name}}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" v-for="(citem,index) in tableActions.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(citem.fun,scope.row,index)">{{ citem.name(citem.filterdata ? scope.row[citem.filterdata] : '',citem.filterdata1 ? scope.row[citem.filterdata1] : '') }}</el-dropdown-item>
+									<el-dropdown-item 
+									v-if="gettrue(citem.accessid) && citem.name(citem.filterdata ? scope.row[citem.filterdata] : '')" 
+									v-for="(citem,index) in tableActions.morebtns.child" 
+									:key="index" class="comonbtn" 
+									@click.native="handleClick(citem.fun,scope.row,index)">
+									{{citem.name(scope.row)}}</el-dropdown-item>
 								</el-dropdown-menu>
 							</el-dropdown>
 							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
@@ -215,9 +206,8 @@
 									{{ item.name }}
 								</div>
 								<!-- form.selct[item.a] -->
-								<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
-								 clearable></el-input>
-								<el-dropdown trigger="click" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
+								<el-input v-if="item.type=='input'" class="ipt" placeholder="请输入内容" v-model="form[item.id]" clearable></el-input>
+								<el-dropdown v-if="item.type == 'more'" trigger="click" :hide-on-click="false">
 									<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="vocation.join(',')" suffix-icon="el-icon-arrow-down"
 									 clearable></el-input>
 								    <el-dropdown-menu slot="dropdown" style="width: 200px;height: 260px;">
@@ -228,16 +218,16 @@
 										</el-checkbox-group>
 								    </el-dropdown-menu>
 								</el-dropdown>
-								<el-select v-model="form[item.id]" placeholder="请选择" v-else-if="item.child && !item.type">
+								<el-select v-if="item.type=='selet'" v-model="form[item.id]" placeholder="请选择" >
 									<el-option value="" label="全部"></el-option>
 									 <el-radio-group v-model="form[item.id]">
 										<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name">
-											<el-radio :value="childitem.id" :label="childitem.id">{{ childitem.name }}</el-radio>
+											<el-radio :value="childitem.id" :label="childitem.id">{{ item.vk?childitem[item.vk]:childitem.name }}</el-radio>
 										</el-option>
 									</el-radio-group>
 								</el-select>
 								 <el-date-picker
-								  v-if="item.type == 'time'"
+									v-if="item.type == 'time'"
 								   @change="timetwo(item.child,index)"
 								  class="ipt"
 								  v-model="times[index]"
@@ -254,29 +244,6 @@
 									v-model="selectedOptions"
 									@change="handleChange">
 								</el-cascader>
-								
-								
-								<!-- <div v-if="item.type == 'cascader'">
-									<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
-									<el-popover
-									  ref="popover"
-									  placement="right"
-									  width="200">
-									  <div style="max-height: 400px;min-height: 200px;overflow-y: auto;">
-										  <el-tree
-										    v-if="item.type == 'cascader'"
-										    :data="item.child"
-										    show-checkbox
-										    node-key="id"
-										    :props="defaultProps">
-										  </el-tree>
-									  </div>
-				
-									</el-popover>
-								</div> -->
-								
-								
-						
 								<div v-if="item.type == 'two'">
 									<el-input v-model="form[item.child[0].id]" class="ipt90" placeholder="请输入内容" clearable></el-input>
 									<span style="padding: 0 9px;">至</span>
@@ -365,10 +332,30 @@
 				userimg:'../assets/img/MRTX.svg',
 				adminuseraccess: [],
 				auditTitle: '',
-				firstId:'',
+				firstId:[],
 			}
 		},
 		methods: {
+			backTO(){
+				if(this.adminuseraccess.indexOf('11')==-1){
+					return
+				}
+				if(this.firstId.indexOf('12')!=-1){
+					return '/review/publishWork';
+				}
+				if(this.firstId.indexOf('13')!=-1){
+					return '/review/finalistsWork';					
+				}
+				if(this.firstId.indexOf('14')!=-1){
+					return '/review/employWork';					
+				}
+				if(this.firstId.indexOf('15')!=-1){
+					return '/review/applyPerson';					
+				}
+				if(this.firstId.indexOf('16')!=-1){
+					return '/review/projectreview/projectrepending';					
+				}
+			},
 			handleClose(tag,index) {
 				let obj = {}
 				let obj1 = {}
@@ -476,6 +463,7 @@
 				}
 			},
 			getparent(fun){
+			
 				if(fun == 'add20'){
 					this.router.push({
 						path:"/projectManagement/projectList/newproject"
@@ -711,19 +699,7 @@
 					sreenData.access_token = localStorage.getItem("access_token");
 					data = sreenData;
 				}
-				if(this.tableConfig.data){
-					data[this.tableConfig.data] = this.commonTopData.tabnums;
-					if(this.commonTopData.tabnums == 5){
-						data[this.tableConfig.data] = -1;
-					}
-					if(this.commonTopData.tabnums == 3){
-						data.status = '3,4';
-					}
-					if(this.commonTopData.tabnums == 4){
-						data.status = '5';
-					}
-				}
-				
+				data.status = this.tableConfig.status;
 				let url = "";
 				if(this.tableConfig.url) {
 					url = this.tableConfig.url;
@@ -738,8 +714,8 @@
 				if(this.tableConfig.project_id){
 					data.project_id = this.$parent.project_id;
 				}
-				if(this.tableConfig['data'+this.commonTopData.tabnums]){
-					data[this.tableConfig['data'+this.commonTopData.tabnums].name] = this.tableConfig['data'+this.commonTopData.tabnums].id;
+				if(this.tableConfig.project_type){
+					data.project_type = this.tableConfig.project_type;
 				}
 				this.api[url](data).then((da) => {
 					this.tableDatas = da.data;
@@ -755,6 +731,7 @@
 					access_token: localStorage.getItem("access_token"),
 				}
 				this.api.projectgetid(data).then((da) => {
+		
 					this.dataProjectId = da;
 					// this.dataList.sort(function(a,b){
 					//     return b.id - a.id
@@ -773,14 +750,7 @@
 				//this.$refs.table.$el.offsetTop：表格距离浏览器的高度
 			},
 			init(){
-				if(this.tableConfig.loading){
-					this.loading = false;
-				}
-				// document.addEventListener('keydown',(e)=>{
-				// 	if(e.keyCode==13){				
-				// 		this.cha('reach');					
-				// 	}
-				// },false)
+				this.loading = !this.tableConfig.loading;
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
@@ -932,6 +902,10 @@
 					this.adminuseraccess = JSON.stringify(da);
 				})
 			},
+			chNav(n){
+				this.tableConfig.status = n;
+				this.getTabData()
+			},
 			getaccess_list() {
 				this.api.access({
 					access_token:localStorage.getItem("access_token")
@@ -940,9 +914,10 @@
 					for(var i = 0;i < accessArry.length;i++){
 						if(accessArry[i].id == '11'){
 							var newArr = accessArry[i].child;
-							this.firstId = newArr[0].id;
+							this.firstId = [];
 							let arr = [];
 							newArr.forEach(element => {		
+								this.firstId.push(element.id)
 								if(element.id == '12'){
 									arr.push(1)
 								}
@@ -965,7 +940,8 @@
 					}
 
 				})
-			}
+			},
+			
 			
 		},
 		mounted() {
@@ -978,17 +954,13 @@
 			this.getAddData();
 			this.getData();
 			this.getBreadcrumb();
+			this.gettableConfiglist(0)
 			// this.getbus();
 			this.getuserinfo();
 			this.getaccess();
 			this.getaccess_list();
-			if(this.$route.query.tabsnum){
-				this.commonTopData.tabnums = this.$route.query.tabsnum;
-				this.gettableConfiglist(this.commonTopData.tabnums);
-				this.getTabData();
-			}else{
-				this.tabsChange(0);
-			}
+			this.getTabData();
+	
 		},
 		watch:{
 			"$route":function(){
@@ -1275,5 +1247,17 @@
 		border:1px solid #33B3FF !important;
 		color: #ffffff !important;
 		background: #33B3FF !important;
+	}
+	.chNbtn{
+		
+		display: inline-block;
+		margin-right: 20px;
+		cursor: pointer;
+	}
+	.chNbtn:hover{
+		opacity: .7;
+	}
+	.chNbtncheck{
+		color: #33B3FF;
 	}
 </style>

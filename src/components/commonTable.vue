@@ -227,6 +227,7 @@
 						this.$parent.$parent.dialogTableVisible = false;
 					break;
 					case "newproject":
+					case "newprojectLong":
 					    this.$parent.$parent.getactivitiesrows1(this.row);
 					    this.$parent.$parent.dialogTableVisible2 = false;
 					break;

@@ -660,7 +660,7 @@
 		},
 		methods: {
 			contentAudit(id){
-				console.log(this.material_info)
+
 				if(id == '2'){
 					
 					if(!this.did && this.apply_info.business_type!=6){
