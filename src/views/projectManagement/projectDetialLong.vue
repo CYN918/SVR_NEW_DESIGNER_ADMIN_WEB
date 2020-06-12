@@ -7,26 +7,11 @@
 				查看作品
 			</span> -->
 			<div class="textcenter">
-				<span v-for="(item,index) in tabData" :key="item.name" v-if="index < 2" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
+				<span v-for="(item,index) in tabData" :key="item.name" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(index,item.name)">
 					{{ item.name }}
 				</span>
-				<span  v-else-if="index != 4 && status > item.status && info.rule_type=='1'" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span>
-				<span  v-else-if="index == 4 && status > item.status && status < 6" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span>
-				<span  v-else-if="index == 5 && status == item.status && evaluation != ''" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span>
-				<span  v-else-if="index == 2  && status >= 3" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
-					{{ item.name }}
-				</span>
+				
 			</div> 
 		</div>
 		<div v-if="tabsnum == 4">
@@ -209,35 +194,9 @@
 		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片">
 		</div>
+
 		
-		<el-dialog title="分配项目" :visible.sync="centerDialogVisible1">
-			<div id="tablebg">
-				<common-table :commonTopData="commonTopData2" :tableConfig="tableConfig2" :tableAction="tableAction2" :filterFields="filterFields2"
-				 ref="Tabledd"></common-table>
-			</div>
-			
-		</el-dialog>
-		
-		<el-dialog
-		  title="分配项目"
-		  :visible.sync="centerDialogVisible">
-		  	<ul>
-		  		<li class="w ofh textcenter" style="margin-bottom: 20px;">
-		  			<span>希望给</span>
-		  			<sapn style="color: #FF5121;">{{ username }}</sapn>
-		  			<span>如何分配项目</span>
-		  		</li>
-		  		<li class="textcenter" style="margin-bottom: 20px;">
-		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="ishide()">成为已创建项目的制作人</button>
-		  		</li>
-		  		<li class="textcenter" style="margin-bottom: 20px;">
-		  			<button class="defaultbtn" style="width: 180px;margin: 0;" @click="addnewuser()">新建项目并指定TA来制作</button>
-		  		</li>
-				<li class="textcenter" style="margin-bottom: 20px;">
-					<button class="defaultbtn" style="width: 180px;margin: 0;" @click="zhipai()">复制该项目并指派</button>
-				</li>
-		  	</ul>
-		</el-dialog>
+
 	</div>
 </div>
 </template>
@@ -246,7 +205,7 @@
 	import commonTable from '@/components/commonTable2.vue'
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from '../../views/review/reviewinfocommon'
-	import workData from '../../views/review/workData'
+	import workData from '../../views/review/workDataLong'
 	import Cent from './cent'
 	export default {
 		components:{
@@ -293,24 +252,14 @@
 						name: "基本信息"
 					},
 					{
-						name: "项目详情"
-					},
-					{
-						name: "交稿记录",
-						status:2
+						name: "详情介绍"
 					},
 					{
 						name: "报名列表",
-						status:0
 					},
 					{
-						name: "验收信息",
-						status:4
+						name: "子项目",
 					},
-					{
-						name: "项目评价",
-						status:5
-					}
 				],
 				tabsnum: 0,
 				desc:[],

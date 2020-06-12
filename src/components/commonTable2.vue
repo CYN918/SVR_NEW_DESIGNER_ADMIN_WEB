@@ -671,8 +671,6 @@
 				
 				data1 = {
 					access_token: localStorage.getItem("access_token"),
-					page: this.currentpage,
-					limit: this.pagesize
 				}
 				//获取筛选的条件
 				if (this.form) {

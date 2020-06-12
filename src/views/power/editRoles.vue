@@ -22,7 +22,8 @@
 				<li class="margint13 ofh">
 					<span class="fleft roles-input" style="margin-right: 20px;">权限设置</span>
 					<div class="roles-input width500 roletree">
-						<el-tree :data="data2" 
+						<el-tree :data="data2"
+	
 						show-checkbox
 						node-key="id" 
 						:default-checked-keys="permissions"
@@ -51,6 +52,7 @@
 		props: ['detailData','roles'],
 		data() {
 			return {
+				test:{},
 				text10: this.$route.query.name,
 				text30: this.$route.query.description,
 				length10: 0,
@@ -89,6 +91,8 @@
 				}
 			},
 			addrole(){
+				console.log(this.test);
+				return
 				let rolesString = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()).toString();
 				if(!this.text10 || !rolesString){
 					this.$message({
@@ -121,7 +125,7 @@
 					access_token:localStorage.getItem("access_token"),
 					id:this.$route.query.id
 				}).then(da =>{
-					console.log(da);
+					
 					this.rolename = da.name;
 					this.roleintroduce = da.description;
 					//console.log(da.permissions.split(","));

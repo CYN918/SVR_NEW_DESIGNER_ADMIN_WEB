@@ -195,6 +195,7 @@
 						{prop:'deal_time',lable:'验收时间',width:150},
 						{prop:'signup_num',lable:'报名人数'},
 						{prop:'username',lable:'中标人'},
+						{prop:'contributor_name',lable:'姓名/企业名称'},
 						{prop:'acceptance_price',lable:'验收价格'},
 						{prop:'deduction_price',lable:'延迟交稿扣减'},
 						{prop:'gain_share_price',lable:'收益加成'},
@@ -535,6 +536,8 @@
 						{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
 						{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
 						{name:"中标人昵称",id:"username"},
+						{name:"姓名/企业名称",id:"contributor_name"},
+						
 						// {name:"中标人手机号",id:"mobile"},
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
