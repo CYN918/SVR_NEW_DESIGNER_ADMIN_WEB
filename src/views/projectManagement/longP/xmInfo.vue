@@ -3,22 +3,16 @@
         <div class="box_message">
             <ul>
         
-                <li><span class="left">项目名称</span><span class="right">{{reviewinfocommon.name}}</span></li>
+                <li><span class="left">项目名称</span><span class="right">{{info.name}}</span></li>
                 <li>
                     <span class="left">业务类型</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '1'">广告模板</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '2'">广告图</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '3'">场景主题</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '4'">个性化主题</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '5'">来电秀</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '6'">其他</span>
-                    <span class="right" v-if="reviewinfocommon.business_type == '7'">杂志锁屏</span>
+                    <span class="right">{{business_type}}</span>
                 </li>
                 <li>
                     <span class="left">结算方式</span>
                     <span class="right">
 						<div class="jsfs_01">
-							<span :class="el.v==reviewinfocommon.settlement?'jsfs_02':''" v-for="el in fcfs">{{el.n}}</span>
+							<span :class="el.v==info.settlement?'jsfs_02':''" v-for="el in fcfs">{{el.n}}</span>
 						</div>
 					</span>
                 </li>
@@ -31,30 +25,30 @@
                     <ul>
                         <li style="height:150px;">
                             <span class="box_process_content_left">Banner</span>
-                            <span class="box_process_content_right"><img v-if="reviewinfocommon.detail_banner" width="320" height="120" :src="reviewinfocommon.detail_banner" alt=""/><img v-else width="320" height="120" :src="reviewinfocommon.banner" alt=""/></span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.banner == ''">没有图片</span>
+                            <span class="box_process_content_right"><img v-if="info.detail_banner" width="320" height="120" :src="info.detail_banner" alt=""/><img v-else width="320" height="120" :src="info.banner" alt=""/></span>
+                            <span class="box_process_content_right" v-if="info.banner == ''">没有图片</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">领域范围</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.fields}}</span>
+                            <span class="box_process_content_right">{{info.fields}}</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">项目附件</span>
-                            <span class="box_process_content_right" v-if="material_info && reviewinfocommon.business_type == '5'">{{material_info.file_name}}({{material_info.download_file_size}})</span>
-                            <span class="box_process_content_right" v-else>{{material_info.file_name}}({{material_info.file_size}})</span>
+                            <span class="box_process_content_right" v-if="info && info.business_type == '5'">{{info.file_name}}({{info.download_file_size}})</span>
+                            <span class="box_process_content_right" v-else>{{info.file_name}}({{info.file_size}})</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">预计收益</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.expected_profit}}</span>
+                            <span class="box_process_content_right">{{info.expected_profit}}</span>
                         </li>
                         <!-- <li>
                             <span class="box_process_content_left">额外赏金</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.extra_reward}}</span>
+                            <span class="box_process_content_right">{{info.extra_reward}}</span>
                         </li> -->
                         <li>
                             <span class="box_process_content_left">项目顾问QQ</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.qq}}</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.qq == ''">暂无QQ</span>
+                            <span class="box_process_content_right">{{info.qq}}</span>
+                            <span class="box_process_content_right" v-if="info.qq == ''">暂无QQ</span>
                         </li>
                     </ul>  
                 </div>
@@ -67,16 +61,16 @@
                     <ul>
                         <li>
                             <span class="box_process_content_left">发布时间</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.publish_time}}</span>
+                            <span class="box_process_content_right">{{info.publish_time}}</span>
                         </li>
                         <li>
-                            <span class="box_process_content_left">报名截止时间</span>
-                            <span class="box_process_content_right" v-if="type == 1">{{reviewinfocommon.delivery_deadline}}</span>
-                            <span class="box_process_content_right" v-if="type == 2">{{reviewinfocommon.deadline}}</span>
+                            <span class="box_process_content_left">下架时间</span>
+                            <span class="box_process_content_right">{{info.dismount_time}}</span>
+                         
                         </li>
                         <li>
                             <span class="box_process_content_left">制作周期</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.production_cycle_d}}天{{reviewinfocommon.production_cycle_h}}时</span>
+                            <span class="box_process_content_right">{{info.production_cycle_d}}天{{info.production_cycle_h}}时</span>
                         </li>
                     </ul>  
                 </div>
@@ -89,33 +83,28 @@
                     <ul>
                         <li>
                             <span class="box_process_content_left">绑定需求</span>
-                            <span class="box_process_content_right">{{reviewinfocommon.demand_id}}</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.demand_id == ''">暂未绑定需求</span>
+                            <span class="box_process_content_right">{{info.demand_id}}</span>
+                            <span class="box_process_content_right" v-if="info.demand_id == ''">暂未绑定需求</span>
                         </li>
                         <li>
                             <span class="box_process_content_left">状态</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '0'">待发布</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '1'">招募期</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '2'">选标期</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '3'">制作期</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '4'">待验收</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '5'">已验收</span>
-                            <span class="box_process_content_right" v-if="reviewinfocommon.project_status == '-1'">已终止</span>
+                            <span class="box_process_content_right">{{project_status}}</span>
+                            
                         </li>
                     </ul>  
                 </div>
             </div>
         </div>
-        <div class="box_process" style="height:180px;" v-if="reviewinfocommon.project_status == '3' || reviewinfocommon.project_status == '4'">
+        <div class="box_process" style="height:180px;" v-if="info.project_status == '3' || info.project_status == '4'">
             <div class="box_process_title">补充合同</div>
             <div class="box_process_content">
                 <div class="bt_o">
                     <ul>
-                        <li v-if="reviewinfocommon.contract_files.length == '0'">
+                        <li v-if="info.contract_files.length == '0'">
                             <span class="box_process_content_left">绑定合同</span>
                             <span class="box_process_content_right">暂未绑定合同</span>
                         </li>
-                        <li v-for="(todo,index) in reviewinfocommon.contract_files" v-else>
+                        <li v-for="(todo,index) in info.contract_files" v-else>
                             <span class="box_process_content_left">绑定合同{{index+1}}</span>
                             <span class="box_process_content_right">{{todo.file_name}}</span>
                             <!-- <span class="box_process_content_right" @click="download(todo)" style="margin-left: 100px;color: rgba(51,179,255,1);cursor: pointer;">下载</span> -->
@@ -131,7 +120,9 @@
 
 <script>
     export default {
-        props: ['reviewinfocommon','material_info','type'],
+		props:{
+			value:Object,
+		},
         data(){
             return {
                 list:[],
@@ -139,13 +130,45 @@
 					{n:'用户选择',v:0},
 					{n:'买断',v:1},
 					{n:'分成',v:2}
-				]
+				],
+				info:{},
             }
         },
-        components:{
-
-        },
+		computed:{
+			business_type(){
+				let map = {
+					'1':'广告模板',
+					'2':'广告图',
+					'3':'场景主题',
+					'4':'个性化主题',
+					'5':'来电秀',
+					'6':'其他',
+					'7':'杂志锁屏'
+				};
+				return map[this.info.business_type];				
+			},
+			project_status(){
+				let map = {
+					'0':'待发布',
+					'1':'招募期',
+					'2':'选标期',
+					'3':'制作期',
+					'4':'待验收',
+					'5':'已验收',
+					'-1':'已终止'
+				};
+				return map[this.info.project_status];
+			},
+		},
         methods:{
+			getworkdetial(){
+				this.api.projectdetail({
+					project_id:this.$route.query.id,
+					access_token:localStorage.getItem("access_token")
+				}).then(da => {
+					this.info = da;					
+				})
+			},
             download(row){
                 fetch(row.file_url).then(res => res.blob()).then(blob => {
                     const a = document.createElement('a');
@@ -164,12 +187,8 @@
             }
 
         },
-        created(){
-                
-        },
         mounted(){
-            
-
+            this.getworkdetial();
         },
         
     }

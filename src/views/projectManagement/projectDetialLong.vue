@@ -3,67 +3,15 @@
 	<common-top :commonTopData="projectDetialTopData"></common-top>
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
-			<!-- <span class="fleft worktabs">
-				查看作品
-			</span> -->
 			<div class="textcenter">
-				<span v-for="(item,index) in tabData" :key="item.name" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'" 
-				 @click="tabsChange(index,item.name)">
+				<span v-for="item in tabData" :class="compData.zj == item.zj ? 'tabs tabactive' : 'tabs'" 
+				 @click="tabsChange(item.zj)">
 					{{ item.name }}
-				</span>
-				
+				</span>				
 			</div> 
-		</div>
-		<div v-if="tabsnum == 4">
-			<reviewinfocommon :reviewinfocommon="info" :apply_info="info" :demand_id="info.demand_id" :gain_share_rate="info.gain_share_rate"></reviewinfocommon>
-		</div>
-		<div v-if="tabsnum == 0">
-			<workData :reviewinfocommon="info" :material_info="info" :type="type"></workData>
-		</div>
+		</div>	
+		<component v-bind:is="compData.zj" v-model="compData"></component>				
 		<div class="detailContent ofh">
-			
-			
-			<div class="paddinglr40 ofh" v-if="tabsnum == 1">
-				<div v-for ="(item,index) in desc" class="ofh">
-					<div v-if="false" class="fleft" style="line-height: 40px;padding-left: 40px;">说明模块-{{ index+1 }}</div>
-					<ul style="padding-top: 0px;margin-top: 0px;">
-						<li   class="margint13 ofh">
-							<span v-if="false" class="fleft detailKey" style="line-height: 40px;">模块标题</span>
-							<span class="w" style="height:40px;line-height: 40px;text-align: center;display: block;font-size: 22px;color: #909296;border-bottom: 1px solid rgb(242, 242, 245);margin-top: 20px;">{{ item.module_title }}</span>
-						</li>
-						<li class="margint13 ofh">
-							<span  v-if="false" class="fleft detailKey" style="line-height: 40px;">详细说明</span>
-							<span style="width:357px;height:40px;line-height: 40px;" v-html="item.module_content"></span>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div v-if="tabsnum == 2" class="detailContent0">
-				<!-- <common-table :commonTopData="commonTopData1" :tableConfig="tableConfig1" :tableAction="tableAction" :filterFields="filterFields1"
-				></common-table> -->
-				<Cent :dataList="dataList"></Cent>
-			</div>
-			<div v-if="tabsnum == 5">
-				<div class="question_00">
-					<!-- <div class="question_01">{{datad}}</div> -->
-					<ul class="question_02">
-						<li v-for="(el,index) in List" :key="index">
-							<div class="ques_01">{{el.sort+'、'+el.question}}</div>
-							<div class="ques_02" v-if="el.type==1">
-								<label v-for="(el2,key) in el.option" :key="key" :class="key==postData[el.id]?'teShu':''">
-									<span :class="key==postData[el.id]?'chekdOn':''"></span>
-									{{el2}}
-								</label>
-							</div>													
-						</li>
-						<div class="ques_03">
-							<textarea readonly v-model="value" placeholder="终止项目将会永久降低你的信用分，并影响之后项目中标率，确定要终止项目？"></textarea>
-							<div class="maxd_ss">{{value.length}}/140</div>
-						</div>
-					</ul>
-					
-				</div>
-			</div>
 			<div v-if="tabsnum == 3">
 				<ul class="ofh">
 					<li class="ofh signlist relative" v-for="(item,index) in signupLists">
@@ -177,23 +125,13 @@
 						<img v-if="index == 0 && item.is_selected == '1'" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
 					</li>
 				</ul>
-				<div class="w" id="bottoms" style="text-align: right;background: #FFFFFF;">
-					<div class="fleft" style="line-height: 100px;color: #999999;margin-left: 40px;">
-						<span>共{{tableConfig.total}}条数据</span>
-					</div>
-					<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="tableConfig.currentpage"
-					 :page-sizes="[50, 100, 200, 500]" :page-size="tableConfig.pagesize" layout="sizes, prev, pager, next, jumper" :total="tableConfig.total">
-					</el-pagination>
-				</div>
+				
 			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
-				<button class="defaultbtn" @click="getparent()">返回</button>
-				<button v-if="status  == 2 && tabsnum != 3 && (adminuseraccess.indexOf('200525') > -1)" class="defaultbtn defaultbtnactive" @click="gotouser()">前往选标</button>
+				<button class="defaultbtn" @click="getparent()">返回</button>				
 			</div>
 		</div>
-		<div class="maskimg screenContent" v-if="isimgurl" @click="getimgulr">
-			<img :src="imgurl" alt="暂无图片">
-		</div>
+
 
 		
 
@@ -205,18 +143,29 @@
 	import commonTable from '@/components/commonTable2.vue'
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from '../../views/review/reviewinfocommon'
-	import workData from '../../views/review/workDataLong'
+
 	import Cent from './cent'
+	import bmList from './longP/bmList'
+	import xmInfo from './longP/xmInfo'
+	import xmCont from './longP/xmCont'
 	export default {
 		components:{
 			commonTable,
 			commonTop,
 			reviewinfocommon,
-			workData,
-			Cent
+			Cent,
+			bmList,
+			xmInfo,
+			xmCont
 		},
 		data() {
 			return {
+				compData:{
+					zj:'xmInfo',
+					data:''
+				},
+				
+				
 				projectDetialTopData: {
 					"pageName": "projectDetial",
 					"commonleftbtn": [],
@@ -248,18 +197,10 @@
 					}	
 				],
 				tabData: [
-					{
-						name: "基本信息"
-					},
-					{
-						name: "详情介绍"
-					},
-					{
-						name: "报名列表",
-					},
-					{
-						name: "子项目",
-					},
+					{name: "基本信息",zj:'xmInfo'},
+					{name: "详情介绍",zj:'xmCont'},
+					{name: "报名列表",zj:'bmList'},
+					{name: "子项目",zj:'zxm'},
 				],
 				tabsnum: 0,
 				desc:[],
@@ -719,18 +660,7 @@
 					type: '',
 					center: true
 				}).then(() => {
-					//console.log({open_ids:openids,level:this.radioS})
-					/* this.$router.push({
-						path:"/projectManagement/projectList/editproject",
-						query:{
-							row: JSON.stringify(row),
-							usernameitem: JSON.stringify(this.usernameitem)
-						}
-					}) */
-					/* row.open_id = this.usernameitem.open_id;
-					row.status = 3; */
-					
-					
+
 					this.api.selectUser({
 						access_token:localStorage.getItem('access_token'),
 						project_id:row.project_id,
@@ -852,13 +782,14 @@
 				}
 			},
 			tabsChange(num) {
-				this.tabsnum = num;
-				if (this.tabsnum == 2) {
-					this.fileRecord();
-					this.detailbtn = false;
-				} else {
-					this.detailbtn = true;
-				}
+				this.compData.zj = num;
+				// this.tabsnum = num;
+				// if (this.tabsnum == 2) {
+				// 	this.fileRecord();
+				// 	this.detailbtn = false;
+				// } else {
+				// 	this.detailbtn = true;
+				// }
 			},
 			fileRecord(num){
 				this.api.fileRecord({
@@ -883,9 +814,12 @@
 					project_id:this.$route.query.id,
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
-					// console.log(JSON.parse(da.evaluate_result)[7])
 					this.info = da;
-					// this.datad = da.name;
+					console.log(22222222)
+					if(this.compData.zj=='xmInfo'){
+						this.compData.data = da;
+						console.log(this.compData)
+					}
 					this.desc = JSON.parse(da.desc);
 					if(da.evaluate_result != ''){
 						this.evaluation = da.evaluate_result;
