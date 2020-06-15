@@ -21,6 +21,21 @@ Vue.config.productionTip = false
 Vue.prototype.router = router
 Vue.prototype.axios = axios
 Vue.prototype.api = api
+
+
+
+Vue.prototype.ywArr = [
+					{name:"广告模板",id:"1"},
+					{name:"广告图",id:"2"},
+					{name:"场景主题",id:"3"},
+					{name:"个性化主题",id:"4"},
+					{id:"5",name:"来电秀"},
+					{id:"7",name:"杂志锁屏"},	
+					{id:"8",name:"投稿作品"},
+					{id:"9",name:"贴纸花字（华为）"},
+					{id:"6",name:"其他"},
+];
+
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));

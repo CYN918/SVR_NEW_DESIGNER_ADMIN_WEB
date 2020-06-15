@@ -473,11 +473,12 @@
 					
 				},
 				detailData: "",
+
 				filterFields:{
 					filterFields0:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},
@@ -489,7 +490,7 @@
 					filterFields1:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},
@@ -501,7 +502,7 @@
 					filterFields2:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},
@@ -513,7 +514,7 @@
 					filterFields3:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},
@@ -528,7 +529,7 @@
 					filterFields4:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},
@@ -544,7 +545,7 @@
 					filterFields5:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",child:this.ywArr},
 						{name:"领域范围",id:"fields"},
 						// {name:"额外赏金",id:"extra_reward"},
 						{name:"绑定需求ID",id:"demand_id"},

@@ -511,5 +511,8 @@ export default {
 	probjLongpcList:{
 		url:'/admin/Project/pcList',method:'post',baseURL:0
 	},
+	subprojectsList:{
+		url:'/admin/project/subprojectsList',method:'post',baseURL:0
+	},
 	
 }

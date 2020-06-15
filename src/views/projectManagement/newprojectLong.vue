@@ -381,26 +381,13 @@
 				imageUrl: "",
 				tableData1: [],
 				tableData2:[
-					{
-						id:"3",
-						name:"场景主题"
-					},
-					{
-						id:"4",
-						name:"个性化主题"
-					},
-					{
-						id:"5",
-						name:"来电秀"
-					},
-					{
-						id:"7",
-						name:"杂志锁屏"
-					},	
-					{
-						id:"6",
-						name:"其他"
-					}
+					{id:"3",name:"场景主题"},
+					{id:"4",name:"个性化主题"},
+					{id:"5",name:"来电秀"},
+					{id:"7",name:"杂志锁屏"},	
+					{id:"8",name:"投稿作品"},
+					{id:"9",name:"贴纸花字（华为）"},
+					{id:"6",name:"其他"},					
 				],
 				tableData3:[],
 				ifBjType:0,

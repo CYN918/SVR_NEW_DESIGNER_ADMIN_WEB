@@ -265,6 +265,7 @@
 					"commonbottombtn": [],
 					upload: true
 				},
+				
 				type:2,
 				tableData2:[
 					{
@@ -469,8 +470,7 @@
 				checkList: [],
 				checkAll: ["1", "2", "3", "4", "5", "6"],
 				work_info:{},
-				material_list:{
-				},
+				material_list:{},
 				hire_info:{},
 				font_size:0,
 				imgurl:"",
@@ -597,10 +597,22 @@
 						
 					
 				},
+				ywArr:[
+					{name:"广告模板",id:"1"},
+					{name:"广告图",id:"2"},
+					{name:"场景主题",id:"3"},
+					{name:"个性化主题",id:"4"},
+					{id:"5",name:"来电秀"},
+					{id:"7",name:"杂志锁屏"},	
+					{id:"8",name:"投稿作品"},
+					{id:"9",name:"贴纸花字（华为）"},
+					{id:"6",name:"其他"},
+				],
 				filterFields0:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",
+					child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -611,7 +623,7 @@
 				filterFields1:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -619,10 +631,11 @@
 					{name:'截稿时间',id:'deadline',type:"time",child:[{name:'发布时间(开始)',id:'deadline_start'},{name:'发布时间(开始)',id:'deadline_end'}]},
 					{name:"",id:"project_id",type:"display"},
 				],
+				
 				filterFields2:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},

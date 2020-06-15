@@ -175,7 +175,7 @@
 					filterFields0:[
 						{name:"项目名称",id:"name",type:'input'},
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
-						{name:"业务类型",id:"business_type",type:'selet',child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",type:'selet',child:this.ywArr},
 						{name:"项目ID",id:"project_id",type:'input'}
 					],
 					

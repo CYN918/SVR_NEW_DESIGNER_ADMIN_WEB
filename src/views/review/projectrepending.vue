@@ -177,6 +177,7 @@
 						if(item.type == "more"){
 							if(urldata[item.id]){
 								let a = '';	
+				
 								urldata.business_type.split(',').forEach(item => {
 									if(item == '3'){
 										a += '场景主题' + ",";
@@ -192,6 +193,12 @@
 									}
 									if(item == '7'){
 										a += '杂志锁屏' + ",";
+									}
+									if(item == '8'){
+										a += '投稿作品' + ",";
+									}
+									if(item == '9'){
+										a += '贴纸花字（华为）' + ",";
 									}
 								})
 								this.commonTopData.commonbottombtn.push({btnName:item.name,val:a.substring(0,a.lastIndexOf(',')),id:item.id})

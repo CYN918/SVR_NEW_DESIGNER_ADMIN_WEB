@@ -12,121 +12,6 @@
 		</div>	
 		<component v-bind:is="compData.zj" v-model="compData"></component>				
 		<div class="detailContent ofh">
-			<div v-if="tabsnum == 3">
-				<ul class="ofh">
-					<li class="ofh signlist relative" v-for="(item,index) in signupLists">
-						<div class="ofh" style="padding-bottom: 60px;border-bottom: 1px solid rgba(251,252,259,1);">
-							<div class="fleft ofh signl" style="margin: 10px;margin-top: 0;">
-								<div class="fleft" style="width: 100%;height: 100%;" id="projectDetial">
-									<el-carousel style="width: 100%;height: 100%;" arrow="always">
-									  <el-carousel-item v-for="citem in item.works" style="width: 100%;height: 100%;" @click.native="openwork(citem.work_id)">
-										<div class="signlistwork">
-											<img :src="citem.face_pic" width="100%" height="100%">
-										</div>
-										<div class="ofh" style="margin: 10px 10px 0;color: #333333;">
-											<span class="fleft" style="color: #999999;font-size: 12px;">{{ citem.work_name }}</span> 
-											<span class="fright"><img src="../../assets/img/zs_icon_tj.svg" width="14px" height="14px"></span>
-										</div>
-										<div class="ofh" style="margin-left: 10px;">
-											<span class="labelbtn textcenter">{{  citem.classify_1_name }}</span>
-											<span style="padding: 3px 5px;color: #999999;font-size: 12px;">{{ citem.classify_2_name+'-'+citem.classify_3_name }}</span>
-										</div>
-										<div class="ofh textcenter" style="margin: 10px 10px 0;color: #999999;">
-											<div class="fleft ofh" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_gk.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.view_num  }}
-											</div>
-											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_dz.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.like_num}}
-											</div>
-											<div class="fleft" style="width: 33.3%;">
-												<img src="../../assets/img/zs_icon_xx.svg" style="vertical-align: middle;width: 15px;">
-												{{ citem.comment_num }}
-											</div>
-										</div>
-									  </el-carousel-item>
-									</el-carousel>
-								</div>
-							</div>
-							<div class="fleft ofh">
-								<div style="margin-left: 20px;width: 300px;border-bottom: 1px solid rgba(251,252,253,1);">
-									<div class="ofh">
-										<img class="fleft" :src="item.user.avatar" width="48px" height="48px" style="border-radius: 50%;">
-										<div class="fleft" style="margin-left: 8px;">
-											<div>{{ item.user.username }}</div>
-											<div style="color:rgba(187,187,187,1);font-size: 12px;">{{ item.user.vocation + "|" +item.user.province }}</div>
-										</div>
-									</div>
-									<div class="screenContent" style="margin-top: 10px;">
-										<div style="margin-right: 20px;width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">粉丝 </span>
-											<span>{{ item.user.fans_num }}</span>
-										</div>
-										<div style="margin-right: 20px;width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">人气 </span>
-											<span>{{ item.user.popular_num }}</span>
-										</div>
-										<div style="width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">创作 </span>
-											<span>{{ item.user.work_num }}</span>
-										</div>
-									</div>
-									<div class="screenContent" style="margin-top: 10px;">
-										<div style="margin-right: 20px;width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">接单 </span>
-											<span>{{ item.user.project_hire_num ? item.user.project_hire_num : 0 }}</span>
-										</div>
-										<div style="margin-right: 20px;width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">收益 </span>
-											<span>{{ item.user.project_income ? item.user.project_income : 0 }}</span>
-										</div>
-										<div style="width: 30%;">
-											<span style="color:rgba(187,187,187,1);font-size: 12px;">评级 </span>
-											<span>{{ item.user.recommend_level ? item.user.recommend_level : '--' }}</span>
-										</div>
-									</div>
-								</div>
-								<div style="margin-left: 20px;line-height: 35px;margin-top: 40px;">
-									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">工作现状 </span><span>{{ item.user.situation ? item.user.situation :"--" }}</span>
-									</div>
-									<div>
-										<span style="color:rgba(187,187,187,1);font-size: 12px;">每周时间 </span><span>{{ item.user.work_experience ? item.user.work_experience :"--"}}</span>
-									</div>
-									<div style="width: 100%;height: 35px;">
-										<span style="color:rgba(187,187,187,1);font-size: 12px;float: left;display: block;">类型偏好 </span><span style="width: 300px;overflow: hidden;display: block;height: 25px;float: left;">{{ item.user.preference_classify ? item.user.preference_classify :"--"}}</span>
-									</div>
-									<div class="ofh">
-										<span class="fleft"  style="color:rgba(187,187,187,1);font-size: 12px;">擅长风格 </span>
-										<span class="ofh fleft" style="width: 230px;">
-											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.style)">
-												{{ citem }}
-											</span>
-										</span>
-									</div>
-									<div class="ofh">
-										<span class="fleft" style="color:rgba(187,187,187,1);font-size: 12px;">擅长领域 </span>
-										<span class="ofh fleft" style="width: 230px;">
-											<span style="padding:2px 2px;background: rgba(244,246,249,1);margin:0 2px;border-radius: 4px;color: #999999;" v-for="(citem,index) in arrchange(item.user.field)">
-												{{ citem }}
-											</span>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="screenContent">
-							<button class="defaultbtn" @click="userdetail(item.user.open_id)">用户详情</button>
-							<button class="defaultbtn" @click="gotoweb(item.user.open_id)">个人主页</button>
-							<button v-if="status == 2 && (adminuseraccess.indexOf('200519') > -1)" class="defaultbtn" @click="getselectUser(item)">中标录用</button>
-							<button v-if="adminuseraccess.indexOf('200519') > -1" class="defaultbtn" @click="feipei(item.user.username,item.user)">分配其他项目</button>
-						</div>
-						<img v-if="index == 0 && item.is_selected == '1'" style="position: absolute;top: 0;right: 0;z-index: 100;" src="../../assets/img/buystyle.svg" alt="">
-					</li>
-				</ul>
-				
-			</div>
 			<div class="screenContent detailbtn" v-if="detailbtn">
 				<button class="defaultbtn" @click="getparent()">返回</button>				
 			</div>
@@ -148,6 +33,7 @@
 	import bmList from './longP/bmList'
 	import xmInfo from './longP/xmInfo'
 	import xmCont from './longP/xmCont'
+	import zxm from './longP/zxm'
 	export default {
 		components:{
 			commonTable,
@@ -156,7 +42,8 @@
 			Cent,
 			bmList,
 			xmInfo,
-			xmCont
+			xmCont,
+			zxm
 		},
 		data() {
 			return {
@@ -165,7 +52,17 @@
 					data:''
 				},
 				
-				
+				ywArr:[
+					{name:"广告模板",id:"1"},
+					{name:"广告图",id:"2"},
+					{name:"场景主题",id:"3"},
+					{name:"个性化主题",id:"4"},
+					{id:"5",name:"来电秀"},
+					{id:"7",name:"杂志锁屏"},	
+					{id:"8",name:"投稿作品"},
+					{id:"9",name:"贴纸花字（华为）"},
+					{id:"6",name:"其他"},
+				],
 				projectDetialTopData: {
 					"pageName": "projectDetial",
 					"commonleftbtn": [],
@@ -490,7 +387,7 @@
 				filterFields0:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -501,7 +398,7 @@
 				filterFields1:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -512,7 +409,7 @@
 				filterFields2:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:[{name:"广告模板",id:"1"},{name:"广告图",id:"2"},{name:"场景主题",id:"3"},{name:"主题",id:"4"}]},
+					{name:"业务类型",id:"business_type",child:this.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},

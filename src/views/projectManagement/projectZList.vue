@@ -95,7 +95,7 @@
 				screenConfig: [],
 				tableConfig: {
 					project_type:2,
-					status:'3,4,-1',
+					status:'3,4,5,-1',
 					url:"probjLongpcList",
 					title:"项目发布",
 					list0: [
@@ -121,7 +121,6 @@
 				centerDialogVisible:false,
 				centerDialogVisible1:false,
 				tableData: [],
-				
 				tableAction: {
 					chNav:[
 						{n:'制作阶段',v:'3,4,-1'},
@@ -160,7 +159,7 @@
 					filterFields0:[
 						{name:"子项目名称",id:"name",type:'input'},
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
-						{name:"业务类型",id:"business_type",type:'selet',child:[{name:"场景主题",id:"3"},{name:"个性化主题",id:"4"},{name:"来电秀",id:"5"},{name:"其他",id:"6"},{name:"杂志锁屏",id:"7"}]},
+						{name:"业务类型",id:"business_type",type:'selet',child:this.ywArr},
 						{name:"制作人昵称",id:"username",type:'input'},
 						{name:"结算方式",id:"deal_type",type:'selet',child:[
 							{id:0,name:"未选择"},

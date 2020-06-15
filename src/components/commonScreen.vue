@@ -196,6 +196,12 @@
 							if(item == '杂志锁屏'){
 								a += 7 + ",";
 							}
+							if(item == '投稿作品'){
+								a += 8 + ",";
+							}
+							if(item == '贴纸花字（华为）'){
+								a += 9 + ",";
+							}
 						})
 						this.form.business_type = a.substring(0,a.lastIndexOf(','));	 
 					}

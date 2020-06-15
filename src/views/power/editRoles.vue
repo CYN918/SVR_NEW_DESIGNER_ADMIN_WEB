@@ -91,8 +91,7 @@
 				}
 			},
 			addrole(){
-				console.log(this.test);
-				return
+
 				let rolesString = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()).toString();
 				if(!this.text10 || !rolesString){
 					this.$message({
