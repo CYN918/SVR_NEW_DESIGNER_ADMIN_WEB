@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="zxm_l_01">
-			<span @click="qhN(el.v)" v-for="el in btns">
+			<span :class="el.v==compData.zj?'ischkon':''" @click="qhN(el.v)" v-for="el in btns">
 				{{el.n}}<span v-if="el.num>0">（{{el.num}}）</span>
 			</span>
 		</div>
@@ -21,8 +21,6 @@ export default{
 	},
 	data(){
 		return {
-			
-			checkOn:"3",
 			btns:[
 				{n:'制作阶段',num:0,v:"zxm1"},
 				{n:'已验收',num:0,v:"zxm2"},
@@ -30,36 +28,7 @@ export default{
 			],
 			compData:{
 				zj:'zxm1',
-				// url:'subprojectsList',
-				// status:'',
-				// project_id:'',	
-				// tabCon:[],
 			},
-			tabCon:{
-				"3":[
-					{prop:'id',lable:'ID'},
-					{prop:'id',lable:'子项目'},
-					{prop:'id',lable:'制作人',width:120},
-					{prop:'id',lable:'截稿时间'},
-					{prop:'id',lable:'当前状态',width:120},
-				],
-				"4":[
-					{prop:'id',lable:'ID'},
-					{prop:'id',lable:'子项目'},
-					{prop:'id',lable:'制作人',width:120},
-					{prop:'id',lable:'结算方式'},
-					{prop:'id',lable:'成交价格'},
-					{prop:'id',lable:'验收时间'},
-					{prop:'id',lable:'当前状态',width:120},
-				],
-				"-1":[
-					{prop:'id',lable:'ID'},
-					{prop:'id',lable:'子项目'},
-					{prop:'id',lable:'制作人',width:120},
-					{prop:'id',lable:'终止理由'},
-					{prop:'id',lable:'当前状态',width:120},
-				]
-			}
 		}
 	},
 	mounted(){
@@ -67,15 +36,36 @@ export default{
 	},
 	methods:{	
 		init(){
-			console.log(1);
+			this.getNum();
 		},
 		qhN(v){
-			this.checkOn = v;	
+			this.compData.zj = v;
 		},
+		getNum(){
+			this.api.subprogetCount({
+				access_token:localStorage.getItem("access_token")
+			}).then((da)=>{
+				this.btns[0].num = da.product;
+				this.btns[1].num = da.accept;
+				this.btns[2].num = da.terminated;
+			})
+		}
 		
 	}
 }
 </script>
 
 <style>
+.zxm_l_01{
+	margin-left: 10px;
+}
+.zxm_l_01>span{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+	cursor: pointer;
+}
+.zxm_l_01>.ischkon{
+	color: #33B3FF;
+}
 </style>

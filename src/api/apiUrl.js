@@ -514,5 +514,9 @@ export default {
 	subprojectsList:{
 		url:'/admin/project/subprojectsList',method:'post',baseURL:0
 	},
+	subprogetCount:{
+		url:'/admin/project/getCount',method:'post',baseURL:0
+	},
+	
 	
 }

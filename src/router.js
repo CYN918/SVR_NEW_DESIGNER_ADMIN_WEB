@@ -133,6 +133,26 @@ var router = new Router({
 					},
 					component: () => import('@/views/review/workDetial.vue')
 				},
+				
+				
+				{
+					path: 'publishWork/xmBm',
+					name: 'xmBm',
+					meta: {
+						title: "作品发布 / 审核详情"
+					},
+					component: () => import('@/views/review/xmBm.vue')
+				},
+				{
+					path: 'publishWork/xmXb',
+					name: 'xmXb',
+					meta: {
+						title: "作品发布 / 审核详情"
+					},
+					component: () => import('@/views/review/xmXb.vue')
+				},
+				
+				
 				{
 					path: 'finalistsWork',
 					name: 'finalistsWork',

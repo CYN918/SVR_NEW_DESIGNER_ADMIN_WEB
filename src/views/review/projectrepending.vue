@@ -259,104 +259,68 @@
 			this.getcommonrightbtn();
 			this.getData1();
 			if(localStorage.getItem("access")){
-				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
+				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
+				let map = {
+					
+					"53":{
+						"200573":"0",
+						"200575":"1",
+						"business_type":5
+					},
+					"54":{
+						"200577":"0",
+						"200578":"1",
+						"business_type":4
+					},
+					"55":{
+						"200580":"0",
+						"200581":"1",
+						"business_type":3
+					},
+					"56":{
+						"200583":"0",
+						"200584":"1",
+						"business_type":6
+					},
+					"57":{
+						"200585":"0",
+						"200586":"1",
+						"business_type":7
+					},
+					"60":{
+						"200603":"0",
+						"200604":"1",
+						"business_type":8
+					},
+					"200680":{
+						"200685":"0",
+						"200686":"1",
+						"business_type":9
+					}
+				};
 				this.top_banner.forEach(item => {
-					item.child.forEach(element => {		
+					item.child.some((element,index) => {		
 					if(element.id == '16'){					
-							element.child.forEach(val => {			
-								if(val.id == '55'){
-									if(val.child.length == '2'){
-										this.check_steps = '0,1';
-									}else{
-										val.child.forEach(da => {
-											if(da.id == '200580'){
-												this.check_steps = 0;
-											}else if(da.id == '200581'){
-												this.check_steps = 1;
-											}
-										})
-									}		
-									let obj = {
-										business_type:3,
-										check_steps:this.check_steps,
-									}
-									this.mxArr.push(obj)
-								}
-								if(val.id == '53'){
-									if(val.child.length == '2'){
-										this.check_steps = '0,1';
-									}else{
-										val.child.forEach(da => {
-											if(da.id == '200573'){
-												this.check_steps = 0;
-											}else if(da.id == '200575'){
-												this.check_steps = 1;
-											}
-										})
-									}		
-									let obj1 = {
-										business_type:5,
-										check_steps:this.check_steps,
-									}	
-									this.mxArr.push(obj1)
-								}
-								if(val.id == '54'){
-									if(val.child.length == '2'){
-										this.check_steps = '0,1';
-									}else{
-										val.child.forEach(da => {
-											if(da.id == '200577'){
-												this.check_steps = 0;
-											}else if(da.id == '200578'){
-												this.check_steps = 1;
-											}
-										})
-									}		
-									let obj2 = {
-										business_type:4,
-										check_steps:this.check_steps,
-									}	
-									this.mxArr.push(obj2)
-								}
-								if(val.id == '56'){
-									if(val.child.length == '2'){
-										this.check_steps = '0,1';
-									}else{
-										val.child.forEach(da => {
-											if(da.id == '200583'){
-												this.check_steps = 0;
-											}else if(da.id == '200584'){
-												this.check_steps = 1;
-											}
-										})
-									}		
-									let obj3 = {
-										business_type:6,
-										check_steps:this.check_steps,
-									}	
-									this.mxArr.push(obj3)	
-								}
-								if(val.id == '57'){
-									if(val.child.length == '2'){
-										this.check_steps = '0,1';
-									}else{
-										val.child.forEach(da => {
-											if(da.id == '200585'){
-												this.check_steps = 0;
-											}else if(da.id == '200586'){
-												this.check_steps = 1;
-											}
-										})
-									}		
-									let obj4 = {
-										business_type:7,
-										check_steps:this.check_steps,
-									}	
-									this.mxArr.push(obj4)	
-								}
+							element.child.forEach(val => {		
+								let clfn = (da)=>{
+									if(!da){return}
+									let arr = [];
+									val.child.forEach(dx => {
+										if(da[dx.id]){
+											arr.push(da[dx.id])
+										}										
+									})
+									this.mxArr.push({
+										business_type:da.business_type,
+										check_steps:arr.join(','),
+									})
+								};
+								clfn(map[val.id]);
 							})
+							return true;
 						}
 					})
+					
 				})
 			}
 		},
@@ -375,6 +339,7 @@
 			}
 		}
 	}
+
 </script>
 <style scoped='scoped'>
 	.wh{

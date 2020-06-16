@@ -55,6 +55,7 @@
 					{name:"作品录用",id:"3"},
 					{name:"平台供稿人",id:"4"},
 					{name:"项目验收",id:"5"},
+					{name:"项目报名",id:"6"},
 				],
 				type:"1",
 				commonTopData: {

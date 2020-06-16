@@ -41,53 +41,147 @@
 			 :page-sizes="[50, 100, 200, 500]" :page-size="limit" layout="sizes, prev, pager, next, jumper" :total="total">
 			</el-pagination>
 		</div>
-		
-		<div :style="dwpsDat" @mouseover="setT2(true)" @mouseout="setT2(false)" class="user_n_01">
-			<div>
-				<img class="user_n_02" :src="userInfo.avatar">
-				<div class="user_n_03">
-					<div class="user_n_04">{{userInfo.username}}</div>
-					<div class="user_n_05">{{userInfo.vocation}}|{{userInfo.city}}</div>
-				</div>
-			</div>
-			<div class="user_n_06">
-				<span>粉丝<i></i>{{userInfo.fans_num}}</span>
-				<span>人气<i></i>{{userInfo.popular_num}}</span>
-				<span>作品<i></i>{{userInfo.work_num}}</span>
-				<span>接单<i></i>{{userInfo.project_hire_num}}</span>
-				<span>收益<i></i>{{userInfo.project_income}}</span>
-				<span>评级<i></i>{{userInfo.recommend_level}}</span>
-			</div>
-			<div class="user_n_07">
-				工作现状<span class="user_n_08">{{userInfo.situation}}</span>
-			</div>
-			<div class="user_n_07">
-				类型偏好<span class="user_n_08">{{userInfo.preference_classify}}</span>
-			</div>
-			<div class="user_n_07">
-				每周时间<span class="user_n_08">{{userInfo.work_experience}}</span>
-			</div>
-			<div class="user_n_07">
-				擅长风格
-				<div class="user_n_09">
-					<span v-for="el in arrchange(userInfo.style)">{{el}}</span>
-				</div>
-			</div>
-			<div class="user_n_07">
-				擅长领域
-				<div class="user_n_09">
-					<span v-for="el in arrchange(userInfo.field)">{{el}}</span>
-				</div>
-			</div>
-			<div class="user_n_07 user_n_10">
-				<span @click="userdetail(userInfo.open_id)">用户详情</span>
-				<span @click="gotoweb(userInfo.open_id)">个人主页</span>
-			</div>
-		</div>
 	</div>
 </template>
 
 <script>
+export default{
+	data(){
+		return {
+			loading:false,
+			tableDatas:[],
+			page:1,
+			limit:50,
+			total:0,
+			tConfig:[
+				{prop:'project_id',lable:'ID'},
+				{prop:'name',lable:'子项目'},
+				{prop:'username',lable:'制作人',width:120},
+				{prop:'id',lable:'结算方式'},
+				{prop:'id',lable:'成交价格'},
+				{prop:'id',lable:'验收时间'},
+				{prop:'status',lable:'当前状态',type:'status',width:120,clfn:(da)=>{
+					return "已验收"
+				}},				
+			],
+			tools:[],
+			dwpsDat:'',
+			userInfo:{},
+			ismv2:false,
+		}
+	},
+	mounted(){
+		this.init();
+	},
+
+	methods:{
+		gettools(obj){
+			let arr = [{n:"查看子项目",fn:'seeXM'}];
+
+			return arr;
+		},
+		seeXM(obj){
+			const {href} = this.$router.resolve({ path: "/projectManagement/projectList/projectDetial",query:{
+				id:obj.project_id,
+				status:obj.status,
+				business_type:3,
+				blank:'_blank',
+			}})
+			window.open(href, '_blank')
+		},
+		goSh(cs){
+			
+		},
+		tabCl(fn,cs,on){
+			console.log(fn);
+			if(!fn){
+				return
+			}
+			this[fn](cs,on);
+		},
+		gozp(obj,on){
+			
+			window.open(localStorage.getItem("URL")+"/#/cont?id=" + obj.imgId[on]);
+		},
+		tabmsout(e,obj,cs){
+			this[obj.outFn](e,cs);
+		},
+		tabmsover(e,obj,cs){
+			this[obj.overFn](e,cs);
+		},
+		setType2(e,o){
+			let bj = e.target.getBoundingClientRect();
+			this.dwpsDat = 'display: block;top: '+bj.y+'px;left: '+(bj.x+bj.width-20)+'px;';
+			this.userInfo = o.userData;
+		},
+		setType(){
+
+			setTimeout(()=>{
+				if(this.ismv2){
+					return
+				}
+				this.dwpsDat = '';
+				this.userInfo = {};
+			},50)
+			
+		},
+		setT2(t){
+			this.ismv2 = t;	
+			if(!t){
+				this.setType();
+			}
+		},
+		arrchange(item){
+			return item?item.split(","):[];
+		},
+		userdetail(open_id){
+			const {href} = this.$router.resolve({ 
+				path: '/userManager/userBaseInfo/userBaseInfoDetail',
+				query:{
+					open_id:open_id,
+					hide:"hide"
+			    }
+			})
+			window.open(href, '_blank');
+		},
+		gotoweb(id){
+			window.open(localStorage.getItem("URL")+"/#/works?id=" + id);
+		},
+		setImg(u){
+			return "background-image: url("+u+");"
+		},
+		init(){
+			this.getTabData();
+		},
+		cellStyle() {
+		  return 'borderBottom: 5px solid #f0f2f5'
+		},
+		handleSizeChange(val){
+			this.limit = val;
+			this.getTabData();
+		},
+		handleCurrentChange(val){
+			this.page = val;
+			this.getTabData();
+		},
+		getTabData(){
+			this.api.subprojectsList({
+				project_id:this.$route.query.id,
+				status:'6',
+				page:this.page,
+				limit:this.limit,
+				access_token: localStorage.getItem("access_token")
+			}).then(da => {
+				this.loading = false;
+				this.tableDatas = da.data;
+				this.total = da.total;
+			}).catch(da =>{
+				this.loading = false;
+			})
+		},
+		
+	}
+}
 </script>
 
 <style>

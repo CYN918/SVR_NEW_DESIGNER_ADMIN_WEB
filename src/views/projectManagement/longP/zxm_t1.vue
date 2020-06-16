@@ -185,8 +185,8 @@ export default{
 				access_token: localStorage.getItem("access_token")
 			}).then(da => {
 				this.loading = false;
-				this.tableDatas = da;
-				// this.total = da.total;
+				this.tableDatas = da.data;
+				this.total = da.total;
 			}).catch(da =>{
 				this.loading = false;
 			})
