@@ -110,8 +110,8 @@ var router = new Router({
 		},
 		{
 			path: '/review',
-			component: Layout,
-			name: 'Layout',
+			component: () => import('@/components/Layoutsht.vue'),
+			name: 'Layoutsht',
 			redirect:"/review/publishWork",
 			meta:{
 				title:"审核台"
@@ -136,7 +136,7 @@ var router = new Router({
 				
 				
 				{
-					path: 'publishWork/xmBm',
+					path: 'xmBm',
 					name: 'xmBm',
 					meta: {
 						title: "作品发布 / 审核详情"
@@ -144,7 +144,7 @@ var router = new Router({
 					component: () => import('@/views/review/xmBm.vue')
 				},
 				{
-					path: 'publishWork/xmXb',
+					path: 'xmXb',
 					name: 'xmXb',
 					meta: {
 						title: "作品发布 / 审核详情"
@@ -210,6 +210,14 @@ var router = new Router({
 						title: "项目验收 / 审核详情"
 					},
 					component: () => import('@/views/review/projectdetial.vue')
+				},
+				{
+					path: 'projectreview/xxbmxq',
+					name: 'xxbmxq',
+					meta: {
+						title: "项目报名 / 审核详情"
+					},
+					component: () => import('@/views/review/projectdetialbm.vue')
 				},
 				{
 					path: 'finalistsWork/workDetial',
@@ -1051,6 +1059,15 @@ var router = new Router({
 						pagetitle: "项目发布-狮圈儿运营管理平台"
 					},
 					component: () => import('@/views/projectManagement/newproject.vue'),
+				},
+				{
+					path:"projectList/editprojectlong",
+					name: 'editprojectlong',
+					meta: {
+						title: "编辑页面",
+						pagetitle: "项目发布-狮圈儿运营管理平台"
+					},
+					component: () => import('@/views/projectManagement/newprojectLong.vue'),
 				},
 				{
 					path:"projectList/presentation",

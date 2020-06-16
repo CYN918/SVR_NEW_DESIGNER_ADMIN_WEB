@@ -66,7 +66,7 @@
 			gettodoCount(str){
 				this.api.todoCount({
 					access_token:localStorage.getItem("access_token"),
-					permissions:str,
+			
 				}).then(da =>{
 					//alert(1);
 					//console.log(da);

@@ -254,6 +254,7 @@
 				// },false)
 			},
 			getScreen() {
+				
 				if(this.tabnum){
 					if(this.tabnum == 1){
 						this.texts = DataScreen.screen[this.pageName].filterFields0
@@ -273,6 +274,7 @@
 						this.texts = DataScreen.screen.homeBanner["filterFields"+0];
 						return;
 					} else {
+						console.log(this.pageName)
 						this.texts = DataScreen.screen[this.pageName].filterFields;
 					}
 				}

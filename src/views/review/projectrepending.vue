@@ -11,7 +11,7 @@
 </template>
 
 <script>
-	import commonTop from '@/components/commonTop.vue'
+	import commonTop from '@/components/commonTop1.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
 	import createRoles from '@/views/power/createRoles.vue'
@@ -33,33 +33,7 @@
 						url: ""
 					}],
 					"commonbottombtn":[],
-					"tabData":[
-						{
-							name:"作品发布",
-							linkTo:"/review/publishWork",
-							accessid:"12",
-						},
-						{
-							name:"作品入围",
-							linkTo:"/review/finalistsWork",
-							accessid:"13",
-						},
-						{
-							name:"作品录用",
-							linkTo:"/review/employWork",
-							accessid:"14",
-						},
-						{
-							name:"项目验收",
-							linkTo:"/review/projectreview",
-							accessid:"16",
-						},
-						{
-							name:"供稿人申请",
-							linkTo:"/review/applyPerson",
-							accessid:"15",
-						}
-					],
+				
 					"option":[
 						{
 							name:"我的待审",
@@ -82,7 +56,7 @@
 							// accessid:"52",
 						}
 					],
-					'tabnums':3,
+					'tabnums':5,
 					'mintabnums': 0,
 				},
 				screenConfig: [],
@@ -231,7 +205,7 @@
 				}).catch()
 			},
 			getData1() {
-				DataScreen.screen.projectreview.filterFields[2].child = [];
+				// DataScreen.screen.projectreview.filterFields[2].child = [];
 				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
@@ -243,7 +217,7 @@
 				this.api.projectclassifylist(data).then((da) => {
 					
 					da.data.forEach(item =>{
-						DataScreen.screen.projectreview.filterFields[2].child.push({
+						DataScreen.screen.projectreview.filterFields[3].child.push({
 							name:item.classify_name,
 							id:item.id
 						})
@@ -300,7 +274,7 @@
 				};
 				this.top_banner.forEach(item => {
 					item.child.some((element,index) => {		
-					if(element.id == '16'){					
+						if(element.id == '16'){					
 							element.child.forEach(val => {		
 								let clfn = (da)=>{
 									if(!da){return}
@@ -319,8 +293,7 @@
 							})
 							return true;
 						}
-					})
-					
+					})					
 				})
 			}
 		},

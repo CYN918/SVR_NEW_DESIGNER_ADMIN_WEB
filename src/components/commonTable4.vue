@@ -830,7 +830,7 @@
 			gettodoCount(str){
 				this.api.todoCount({
 					access_token:localStorage.getItem("access_token"),
-					permissions:str,
+			
 				}).then(da =>{
 					// this.doCount = da;
 					this.reviewnum = da.total;

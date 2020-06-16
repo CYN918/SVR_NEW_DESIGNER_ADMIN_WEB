@@ -95,7 +95,7 @@
 				screenConfig: [],
 				tableConfig: {
 					project_type:2,
-					status:'3,4,5,-1',
+					status:'3,4,-1',
 					url:"probjLongpcList",
 					title:"项目发布",
 					list0: [

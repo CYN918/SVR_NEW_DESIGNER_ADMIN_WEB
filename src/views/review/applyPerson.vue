@@ -11,7 +11,7 @@
 </template>
 
 <script>
-	import commonTop from '@/components/commonTop.vue'
+	import commonTop from '@/components/commonTop1.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
 
@@ -32,6 +32,16 @@
 					}],
 					"commonbottombtn":[],
 					"tabData":[
+						{
+							name:"项目报名",
+							linkTo:"/review/publishWork",
+							accessid:"61",
+						},
+						{
+							name:"项目选标",
+							linkTo:"/review/publishWork",
+							accessid:"62",
+						},
 						{
 							name:"作品发布",
 							linkTo:"/review/publishWork",
@@ -58,7 +68,7 @@
 							accessid:"15",
 						}
 					],
-					'tabnums':4,
+					'tabnums':6,
 				},
 				screenConfig: [],
 				tableConfig: {

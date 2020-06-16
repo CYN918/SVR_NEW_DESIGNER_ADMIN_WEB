@@ -425,7 +425,7 @@
 			edit(row){
 				this.setpage()
 				this.$router.push({
-					path:"/projectManagement/projectList/editproject",
+					path:"/projectManagement/projectList/editprojectlong",
 					query:{
 						row: JSON.stringify(row)
 					}

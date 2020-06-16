@@ -79,6 +79,10 @@ export default {
 	reviewInfo5:{
 		url:'/admin/Review/info?type=5',method:'post',baseURL:0
 	},
+	reviewInfo:{
+		url:'/admin/Review/info',method:'post',baseURL:0
+	},
+	
 	reviewCheck1:{
 		url:'/admin/Review/check?type=1',method:'post',baseURL:0,isType:{suktip:true}
 	},

@@ -646,7 +646,7 @@
 			getparent() {
 				this.loading = false;
 				this.$router.push({
-					path:"/projectManagement/projectList",
+					path:"/projectManagement/projectLongList",
 					query:{
 						tabsnum:localStorage.getItem('projectlist')
 					}

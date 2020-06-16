@@ -245,7 +245,9 @@
 					this.$parent.delect(row);
 				}
 				//return;
+				console.log(page)
 				switch(page){
+					
 					case "userBaseInfo":
 						if (setid == "contributor0") {
 							this.$parent.setContributor(row);
@@ -304,6 +306,12 @@
 					case "projectreview":
 						if(!setid){
 							this.router.push({path:"/review/projectreview/projectdetial",query:{id:row.id,type:5,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
+							
+						}
+					break;
+					case "projectreviewbm":
+						if(!setid){
+							this.router.push({path:"/review/projectreview/xxbmxq",query:{id:row.id,type:6,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
 							
 						}
 					break;
