@@ -1529,37 +1529,9 @@
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
 				// console.log(this.business_title)
-				this.access.top_banner[0].child.forEach(item => {
-					if(item.id == '16'){
-						item.child.forEach(element => {
-							if(element.title == this.business_title){
-								element.child.forEach(val => {
-									if(val.id == '200573'){
-										this.audit1 = val.id;
-									}else if(val.id == '200577'){
-										this.audit1 = val.id;
-									}else if(val.id == '200580'){
-										this.audit1 = val.id;
-									}else if(val.id == '200583'){
-										this.audit1 = val.id;
-									}else if(val.id == '200585'){
-										this.audit1 = val.id;
-									}else if(val.id == '200575'){
-										this.audit2 = val.id;
-									}else if(val.id == '200578'){
-										this.audit2 = val.id;
-									}else if(val.id == '200581'){
-										this.audit2 = val.id;
-									}else if(val.id == '200584'){
-										this.audit2 = val.id;
-									}else if(val.id == '200586'){
-										this.audit2 = val.id;
-									}
-								})
-							}			
-						})
-					}
-				})
+				let type = this.$route.query.business_type;
+				this.audit1 = this.ywArr_qx[type][0]?this.ywArr_qx[type][0]:'';
+				this.audit2 = this.ywArr_qx[type][1]?this.ywArr_qx[type][1]:'';
 			}
 		},
 		mounted() {

@@ -22,19 +22,26 @@ Vue.prototype.router = router
 Vue.prototype.axios = axios
 Vue.prototype.api = api
 
-
-
 Vue.prototype.ywArr = [
-					{name:"广告模板",id:"1"},
-					{name:"广告图",id:"2"},
-					{name:"场景主题",id:"3"},
-					{name:"个性化主题",id:"4"},
-					{id:"5",name:"来电秀"},
-					{id:"7",name:"杂志锁屏"},	
-					{id:"8",name:"投稿作品"},
-					{id:"9",name:"贴纸花字（华为）"},
-					{id:"6",name:"其他"},
+	{id:"1",name:"广告模板"},
+	{id:"2",name:"广告图"},
+	{id:"3",name:"场景主题"},
+	{id:"4",name:"个性化主题"},
+	{id:"5",name:"来电秀"},
+	{id:"6",name:"其他"},
+	{id:"7",name:"杂志锁屏"},	
+	{id:"8",name:"投稿作品"},
+	{id:"9",name:"贴纸花字（华为）"}
 ];
+Vue.prototype.ywArr_qx = {
+	"3":['200580','200581'],
+	"4":['200577','200578'],
+	"5":['200573','200575'],
+	"6":['200583','200584'],
+	"7":['200585','200586'],
+	"8":['200603','200604'],
+	"9":['200685','200686']			
+};
 
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
