@@ -102,9 +102,7 @@
 						
 					],
 					"tabData":[
-						{name:"待发布"},
 						{name:"招募期"},
-						{name:"待选标"},
 						{name:"制作期"},
 						{name:"已验收"},
 						{name:"已终止"}
@@ -130,39 +128,39 @@
 						{prop:'delivery_deadline',lable:'截稿时间',width:150},
 						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
+					// list1: [
+					// 	{prop:'project_id',lable:'项目ID'},
+					// 	{prop:'name',lable:'项目名称'},
+					// 	{prop:'classify_name',lable:'项目类型'},
+					// 	{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+					// 	{prop:'banner',lable:'banner',type:"img"},
+					// 	{prop:'fields',lable:'领域范围'},
+					// 	{prop:'expected_profit',lable:'预计收益'},
+					// 	{prop:'demand_id',lable:'绑定需求'},
+					// 	// {prop:'extra_reward',lable:'额外赏金'},
+					// 	{prop:'publish_time',lable:'发布时间',width:150},
+					// 	{prop:'bidding_time',lable:'中标时间',width:150},
+					// 	{prop:'delivery_deadline',lable:'截稿时间',width:150},
+					// 	{prop:'signup_num',lable:'报名人数'},
+					// 	{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+					// ],
+					// list2: [
+					// 	{prop:'project_id',lable:'项目ID'},
+					// 	{prop:'name',lable:'项目名称'},
+					// 	{prop:'classify_name',lable:'项目类型'},
+					// 	{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+					// 	{prop:'banner',lable:'banner',type:"img"},
+					// 	{prop:'fields',lable:'领域范围'},
+					// 	{prop:'expected_profit',lable:'预计收益'},
+					// 	{prop:'demand_id',lable:'绑定需求'},
+					// 	// {prop:'extra_reward',lable:'额外赏金'},
+					// 	{prop:'publish_time',lable:'发布时间',width:150},
+					// 	{prop:'bidding_time',lable:'中标时间',width:150},
+					// 	{prop:'delivery_deadline',lable:'截稿时间',width:150},
+					// 	{prop:'signup_num',lable:'报名人数'},
+					// 	{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
+					// ],
 					list1: [
-						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目名称'},
-						{prop:'classify_name',lable:'项目类型'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
-						{prop:'banner',lable:'banner',type:"img"},
-						{prop:'fields',lable:'领域范围'},
-						{prop:'expected_profit',lable:'预计收益'},
-						{prop:'demand_id',lable:'绑定需求'},
-						// {prop:'extra_reward',lable:'额外赏金'},
-						{prop:'publish_time',lable:'发布时间',width:150},
-						{prop:'bidding_time',lable:'中标时间',width:150},
-						{prop:'delivery_deadline',lable:'截稿时间',width:150},
-						{prop:'signup_num',lable:'报名人数'},
-						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
-					],
-					list2: [
-						{prop:'project_id',lable:'项目ID'},
-						{prop:'name',lable:'项目名称'},
-						{prop:'classify_name',lable:'项目类型'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
-						{prop:'banner',lable:'banner',type:"img"},
-						{prop:'fields',lable:'领域范围'},
-						{prop:'expected_profit',lable:'预计收益'},
-						{prop:'demand_id',lable:'绑定需求'},
-						// {prop:'extra_reward',lable:'额外赏金'},
-						{prop:'publish_time',lable:'发布时间',width:150},
-						{prop:'bidding_time',lable:'中标时间',width:150},
-						{prop:'delivery_deadline',lable:'截稿时间',width:150},
-						{prop:'signup_num',lable:'报名人数'},
-						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
-					],
-					list3: [
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
@@ -179,7 +177,7 @@
 						{prop:'username',lable:'中标人'},
 						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
-					list4: [
+					list2: [
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
@@ -205,7 +203,7 @@
 						{prop:'level',lable:'项目评级'},
 						{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 					],
-					list5: [
+					list3: [
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
@@ -243,27 +241,11 @@
 								},
 								{
 									name:(da)=>{
-										
 										return '删除';
-										
 									},
 									fun:"delect",
 									accessid:"200518",
-								}
-							]
-						},
-						links:{
-							name:(da)=>{
-								return "查看"
-							},
-							accessid:"200521",
-							fun:"see",
-						}
-					},
-					tableAction1:{
-						morebtns:{
-							name:"更多",
-							child:[
+								},
 								{
 									name:(da)=>{
 										return '预览';
@@ -271,35 +253,6 @@
 									fun:"yulan",
 									accessid:"200521",
 								},
-								{
-									name:(da)=>{
-										return "编辑"
-									},
-									fun:"edit",
-									accessid:"200519",
-								},
-								{
-									name:(da)=>{
-										return '删除';
-									},
-									fun:"delect",
-									accessid:"200518",
-								},
-								
-							]
-						},
-						links:{
-							name:(da)=>{
-								return "查看"
-							},
-							accessid:"200521",
-							fun:"see",
-						}
-					},
-					tableAction2:{
-						morebtns:{
-							name:"更多",
-							child:[
 								{
 									name:(da)=>{
 										return '选标';
@@ -307,21 +260,31 @@
 									fun:"selectobj",
 									accessid:"200525",
 								},
-								{
-									name:(da)=>{
-										return '预览';
-									},
-									fun:"yulan",
-									accessid:"200521",
-								},
-								{
-									name:(da)=>{
-										return "编辑"
-									},
-									fun:"edit",
-									accessid:"200519",
+							],
+							clFn:function(da){
+								let arr = [];
+								if(da.status==0){
+									arr = [
+										{name:(da)=>{return "编辑"},fun:"edit",accessid:"200519"},
+										{name:(da)=>{return '删除'},fun:"delect",accessid:"200518"},										
+									]
 								}
-							]
+								if(da.status==1){
+									arr = [
+										{name:(da)=>{return '预览'},fun:"yulan",accessid:"200521"},
+										{name:(da)=>{return "编辑"},fun:"edit",accessid:"200519"},
+										{name:(da)=>{return '删除'},fun:"delect",accessid:"200518"},										
+									]
+								}
+								if(da.status==2){
+									arr = [
+										{name:(da)=>{return '预览'},fun:"yulan",accessid:"200521"},
+										{name:(da)=>{return '选标'},fun:"selectobj",accessid:"200525"},
+										{name:(da)=>{return "编辑"},fun:"edit",accessid:"200519"},										
+									]
+								}
+								return arr
+							}
 						},
 						links:{
 							name:(da)=>{
@@ -331,7 +294,78 @@
 							fun:"see",
 						}
 					},
-					tableAction3:{
+					// tableAction1:{
+					// 	morebtns:{
+					// 		name:"更多",
+					// 		child:[
+					// 			{
+					// 				name:(da)=>{
+					// 					return '预览';
+					// 				},
+					// 				fun:"yulan",
+					// 				accessid:"200521",
+					// 			},
+					// 			{
+					// 				name:(da)=>{
+					// 					return "编辑"
+					// 				},
+					// 				fun:"edit",
+					// 				accessid:"200519",
+					// 			},
+					// 			{
+					// 				name:(da)=>{
+					// 					return '删除';
+					// 				},
+					// 				fun:"delect",
+					// 				accessid:"200518",
+					// 			},
+								
+					// 		]
+					// 	},
+					// 	links:{
+					// 		name:(da)=>{
+					// 			return "查看"
+					// 		},
+					// 		accessid:"200521",
+					// 		fun:"see",
+					// 	}
+					// },
+					// tableAction2:{
+					// 	morebtns:{
+					// 		name:"更多",
+					// 		child:[
+					// 			{
+					// 				name:(da)=>{
+					// 					return '选标';
+					// 				},
+					// 				fun:"selectobj",
+					// 				accessid:"200525",
+					// 			},
+					// 			{
+					// 				name:(da)=>{
+					// 					return '预览';
+					// 				},
+					// 				fun:"yulan",
+					// 				accessid:"200521",
+					// 			},
+					// 			{
+					// 				name:(da)=>{
+					// 					return "编辑"
+					// 				},
+					// 				fun:"edit",
+					// 				accessid:"200519",
+					// 			}
+					// 		]
+					// 	},
+					// 	links:{
+					// 		name:(da)=>{
+					// 			return "查看"
+					// 		},
+					// 		accessid:"200521",
+					// 		fun:"see",
+					// 	}
+					// },
+					tableAction1:{
 						morebtns:{
 							name:"更多",
 							child:[
@@ -427,7 +461,7 @@
 							fun:"see",
 						}
 					},
-					tableAction4:{
+					tableAction2:{
 						morebtns:{
 							name:"更多",
 							child:[
@@ -457,7 +491,7 @@
 							fun:"see",
 						}
 					},
-					tableAction5:{
+					tableAction3:{
 						morebtns:{
 							
 						},
@@ -487,31 +521,31 @@
 						{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
 						{name:"",id:"id",type:"display"},
 					],
+					// filterFields1:[
+					// 	{name:"项目ID",id:"project_id"},
+					// 	{name:"项目名称",id:"name"},
+					// 	{name:"业务类型",id:"business_type",child:this.ywArr},
+					// 	{name:"领域范围",id:"fields"},
+					// 	// {name:"额外赏金",id:"extra_reward"},
+					// 	{name:"绑定需求ID",id:"demand_id"},
+					// 	{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(结束)',id:'publish_time_end'}]},
+					// 	{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
+					// 	{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
+					// 	{name:"",id:"id",type:"display"},
+					// ],
+					// filterFields2:[
+					// 	{name:"项目ID",id:"project_id"},
+					// 	{name:"项目名称",id:"name"},
+					// 	{name:"业务类型",id:"business_type",child:this.ywArr},
+					// 	{name:"领域范围",id:"fields"},
+					// 	// {name:"额外赏金",id:"extra_reward"},
+					// 	{name:"绑定需求ID",id:"demand_id"},
+					// 	{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(结束)',id:'publish_time_end'}]},
+					// 	{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
+					// 	{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
+					// 	{name:"",id:"id",type:"display"},
+					// ],
 					filterFields1:[
-						{name:"项目ID",id:"project_id"},
-						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:this.ywArr},
-						{name:"领域范围",id:"fields"},
-						// {name:"额外赏金",id:"extra_reward"},
-						{name:"绑定需求ID",id:"demand_id"},
-						{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(结束)',id:'publish_time_end'}]},
-						{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
-						{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
-						{name:"",id:"id",type:"display"},
-					],
-					filterFields2:[
-						{name:"项目ID",id:"project_id"},
-						{name:"项目名称",id:"name"},
-						{name:"业务类型",id:"business_type",child:this.ywArr},
-						{name:"领域范围",id:"fields"},
-						// {name:"额外赏金",id:"extra_reward"},
-						{name:"绑定需求ID",id:"demand_id"},
-						{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(结束)',id:'publish_time_end'}]},
-						{name:'中标时间',id:'bidding_time',type:"time",child:[{name:'中标时间(开始)',id:'bidding_time_start'},{name:'中标时间(结束)',id:'bidding_time_end'}]},
-						{name:'截稿时间',id:'deadline',type:"time",child:[{name:'截稿时间(开始)',id:'deadline_start'},{name:'截稿时间(结束)',id:'deadline_end'}]},
-						{name:"",id:"id",type:"display"},
-					],
-					filterFields3:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:this.ywArr},
@@ -526,7 +560,7 @@
 						// {name:"状态",id:"status",child:[{name:"禁用",id:"0"},{name:"启用",id:"1"}]},
 						{name:"",id:"id",type:"display"},
 					],
-					filterFields4:[
+					filterFields2:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:this.ywArr},
@@ -542,7 +576,7 @@
 						// {name:"中标人手机号",id:"mobile"},
 						{type:"display",prop:'t',lable:'额外赏金'},
 					],
-					filterFields5:[
+					filterFields3:[
 						{name:"项目ID",id:"project_id"},
 						{name:"项目名称",id:"name"},
 						{name:"业务类型",id:"business_type",child:this.ywArr},
