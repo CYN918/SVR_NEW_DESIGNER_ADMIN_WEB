@@ -14,12 +14,9 @@
 		
 		
 		<div v-if="tabsnum == 0">
-			<div class="bmxq_01">
-				<img src="" alt="">
+			<div class="bmwork_01">
+				<work1 v-for="(el,index) in works" v-model="works[index]"></work1>
 			</div>
-			
-			
-			
 		</div>
 		
 		
@@ -386,16 +383,21 @@
 	import reviewinfocommon from './reviewinfocommon'
 	import workData from './workData'
 	import Cent from './cent'
+	import work1 from '../com/work1'
 	export default {
 		props: ['detailData', 'roles'],
 		components:{
 			commonTop,
 			reviewinfocommon,
 			workData,
-			Cent
+			Cent,
+			work1
 		},
 		data() {
 			return {
+				works:[],
+				
+				
 				projectdetialTopData:{
 					"pageName": "projectdetial",
 					"commonleftbtn": [],
@@ -1349,7 +1351,16 @@
 					type: this.pagetype,
 					id: this.$route.query.id,
 				}).then(da => {
-		
+					console.log(da);
+					let workarr = [];
+					for(let k in da.file_info){
+						let obj = {id:k};
+						obj = Object.assign(obj,da.file_info[k]);
+						workarr.push(obj)
+						
+					}
+					
+					this.works = workarr;
 					this.did = da.project_info.demand_id;
 					this.reviewinfocommon = da.check_info;
 					this.apply_info = da.project_info;
