@@ -8,12 +8,12 @@
 				<el-table-column v-for="(item,index) in tableConfig.list" :key="index" :label="item.lable" :width="item.width">
 					<template slot-scope="scope"  >
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
-						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
-						<div class="tbimgs">
-							<img  v-if="item.type == 'imgs'" v-for="el in climgs(scope.row[item.prop])" :src="el" @click="getimgulr(el)">
+						<img v-if="item.type == 'imgtou'" style="width: 50px;height: 50px;border-radius: 50%;margin: auto;"  :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<div v-else-if="item.type == 'imgs'" class="tbimgs">
+							<img   v-for="el in climgs(scope.row[item.prop])" :src="el" @click="getimgulr(el)">
 							
 						</div>
-						<span class="tbimgs" v-if="item.type == 'img'">
+						<span v-else-if="item.type == 'img'" class="tbimgs" >
 							<img v-for="el in clnIMG(scope.row[item.prop])" style="width: 80px;height: 48px;margin: auto;" :src="el" alt="" @click="getimgulr(el)">
 						</span>
 						
@@ -277,7 +277,7 @@
 					this.$parent.delect(row);
 				}
 				//return;
-				console.log(page)
+				
 				switch(page){
 					
 					case "userBaseInfo":
