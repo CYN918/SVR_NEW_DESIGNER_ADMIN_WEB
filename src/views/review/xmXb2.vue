@@ -65,7 +65,7 @@
 						{prop:'name',lable:'报名项目'},
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
 						{prop:'signup_num',lable:'报名人数'},
-						{prop:'sign_created_at',lable:'提审时间'},
+						{prop:'deadline',lable:'提审时间'},
 						{prop:'status',lable:'当前状态',type:"clFnd",clFnd:(da)=>{
 							return da.status==2?'待选标':'已选标'
 						},width:350},							
