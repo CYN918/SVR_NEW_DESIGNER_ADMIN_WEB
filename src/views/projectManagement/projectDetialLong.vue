@@ -6,7 +6,7 @@
 			<div class="textcenter">
 				<span v-for="item in tabData" :class="compData.zj == item.zj ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(item.zj)">
-					{{ item.name }}
+					{{ item.name}}
 				</span>				
 			</div> 
 		</div>	

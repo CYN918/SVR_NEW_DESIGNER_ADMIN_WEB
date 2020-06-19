@@ -52,7 +52,7 @@
 					],
 					'tabnums':1,
 					
-					'mintabnums': 0,
+					'mintabnums': 1,
 				},
 				
 				screenConfig: [],
@@ -68,7 +68,7 @@
 						{prop:'sign_created_at',lable:'提审时间'},
 						{prop:'status',lable:'当前状态',type:"clFnd",clFnd:(da)=>{
 							return da.status==2?'待选标':'已选标'
-						},width:350},						
+						},width:350},							
 					]
 				},
 				tableData: [],
@@ -109,7 +109,7 @@
 				}
 				data.access_token = localStorage.getItem("access_token");
 				data.type = 7;
-				data.select_status = 0;
+				data.select_status = 1;
 				data.page = pg.pageCurrent;
 				data.limit = pg.pageSize;
 				this.api.reviewList5(data).then((da) => {
@@ -130,7 +130,6 @@
 				})
 			},
 			getcommonrightbtn(){
-				return
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);

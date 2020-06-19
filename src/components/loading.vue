@@ -9,16 +9,13 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				access_token = "06c9407a50ea0d6e287913aad929ec7f";
-				//console.log(access_token)
+				// access_token = "441bb66ca5925bfe32d29c861871987d";
 				
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
 				}).then((da) => {
 					if(da.result == 0){
-						//alert(11)
-						
 						localStorage.setItem("access",JSON.stringify(da.data));
 						let url = {
 							"2":"/userManager/userBaseInfo",
@@ -57,26 +54,17 @@
 							
 						}
 						for(var i = 0; i<da.data.menu_banner.length;i++){
-								if(da.data.menu_banner[i].child.length != 0){
-									console.log(url[da.data.menu_banner[i].child[0].id])
-									this.router.push({path: url[da.data.menu_banner[i].child[0].id]});
-									break;
-								}
+							if(da.data.menu_banner[i].child.length != 0){								
+								this.router.push({path: url[da.data.menu_banner[i].child[0].id]});
+								break;
 							}
+						}
 						
 						
-							// for(var i = 0; i<da.data.top_banner.length;i++){
-							// 	if(da.data.top_banner[i].child.length != 0){
-							// 		console.log(url[da.data.top_banner[i].child[0].id])
-							// 		this.router.push({path: url[da.data.top_banner[i].child[0].id]});
-							// 		break;
-							// 	}
-							// }
 											
-					} else {
 					}
 				}).catch((da) => {
-					console.log(da);
+			
 					//alert(4)
 					
 				})

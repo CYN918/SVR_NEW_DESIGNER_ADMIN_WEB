@@ -139,19 +139,58 @@ var router = new Router({
 					path: 'xmBm',
 					name: 'xmBm',
 					meta: {
-						title: "作品发布 / 审核详情"
+						title: "项目报名"
 					},
 					component: () => import('@/views/review/xmBm.vue')
+				},
+				{
+					path: 'xmBm1',
+					name: 'xmBm1',
+					meta: {
+						title: "项目报名"
+					},
+					component: () => import('@/views/review/xmBm1.vue')
+				},
+				{
+					path: 'xmBm2',
+					name: 'xmBm2',
+					meta: {
+						title: "项目报名"
+					},
+					component: () => import('@/views/review/xmBm2.vue')
+				},
+				{
+					path: 'xmBm3',
+					name: 'xmBm3',
+					meta: {
+						title: "项目报名"
+					},
+					component: () => import('@/views/review/xmBm3.vue')
 				},
 				{
 					path: 'xmXb',
 					name: 'xmXb',
 					meta: {
-						title: "作品发布 / 审核详情"
+						title: "项目选标"
 					},
 					component: () => import('@/views/review/xmXb.vue')
 				},
-				
+				{
+					path: 'xmXb1',
+					name: 'xmXb1',
+					meta: {
+						title: "项目选标"
+					},
+					component: () => import('@/views/review/xmXb1.vue')
+				},
+				{
+					path: 'xmXb2',
+					name: 'xmXb2',
+					meta: {
+						title: "项目选标"
+					},
+					component: () => import('@/views/review/xmXb2.vue')
+				},
 				
 				{
 					path: 'finalistsWork',

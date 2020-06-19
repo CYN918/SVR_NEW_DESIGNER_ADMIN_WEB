@@ -166,7 +166,7 @@ export default{
 		getTabData(){
 			this.api.subprojectsList({
 				project_id:this.$route.query.id,
-				status:'-1',
+				status:'-1,-2',
 				page:this.page,
 				limit:this.limit,
 				access_token: localStorage.getItem("access_token")

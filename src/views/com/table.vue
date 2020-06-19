@@ -7,7 +7,7 @@
 			:data="tableDatas" 
 			tooltip-effect  
 			:header-cell-style="cellStyle" 
-			:max-height="tableHeight" 
+			:max-height="600" 
 			v-loading="loading" 
 			@selection-change="handleSelectionChange" 
 			

@@ -26,7 +26,7 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "projectreviewxb",
+					"pageName": "projectreviewbm",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
@@ -36,25 +36,29 @@
 					"option":[
 						{
 							name:"我的待审",
-							linkTo:"/review/xmXb",
+							linkTo:"/review/xmBm",
 							/* accessid:"12", */
 						},
 						{
 							name:"我通过的",
-							linkTo:"/review/xmXb1",
+							linkTo:"/review/xmBm1",
 							/* accessid:"13", */
 						},
 						{
+							name:"我驳回的",
+							linkTo:"/review/xmBm2",
+							/* accessid:"14", */
+						},
+						{
 							name:"全部记录",
-							linkTo:"/review/xmXb2",
+							linkTo:"/review/xmBm3",
 							// accessid:"52",
 						}
 					],
-					'tabnums':1,
+					'tabnums':0,
 					
-					'mintabnums': 0,
+					'mintabnums': 2,
 				},
-				
 				screenConfig: [],
 				tableConfig: {
 					total: 0,
@@ -64,11 +68,11 @@
 						{prop:"banner",lable:"项目banner",type:"img",width:150},
 						{prop:'name',lable:'报名项目'},
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
-						{prop:'signup_num',lable:'报名人数'},
-						{prop:'sign_created_at',lable:'提审时间'},
-						{prop:'status',lable:'当前状态',type:"clFnd",clFnd:(da)=>{
-							return da.status==2?'待选标':'已选标'
-						},width:350},						
+						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
+						{prop:'username',lable:'提审用户'},
+						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
+						{prop:'admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
+						
 					]
 				},
 				tableData: [],
@@ -76,7 +80,7 @@
 					morebtns:{
 						name:"设置角色",
 						Ishow:false,
-						page:"projectreviewxb"
+						page:"projectreviewbm"
 					},
 					links:{
 						name:"详情",
@@ -85,7 +89,11 @@
 					}
 				},
 				detailData: "",
-
+				filterFields:[
+					{name:"项目名称",id:"name"},
+					{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+					{name:"提审用户昵称",id:"username"},
+				],
 				IsDetail:1,
 				roles:{},
 				mxArr:[],
@@ -95,23 +103,25 @@
 		computed: {},
 		methods: {
 			setLoding(type){
+				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
-				let data = {}
+				var data = {}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
-					const sreenData = JSON.parse(this.$route.query.urlDate);
+					const sreenData = JSON.parse(this.$route.query.urlDate);		
 					data = sreenData;					
 				}
-				data.access_token = localStorage.getItem("access_token");
-				data.type = 7;
-				data.select_status = 0;
 				data.page = pg.pageCurrent;
 				data.limit = pg.pageSize;
+				data.access_token = localStorage.getItem("access_token");
+				data.type = 6;
+				data.check_status = -1;
+				
 				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
@@ -130,7 +140,6 @@
 				})
 			},
 			getcommonrightbtn(){
-				return
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
@@ -190,7 +199,7 @@
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
 					delete urldata[tag];
-
+					//console.log(tag);
 					this.$router.push({path:'/review/projectreview/projectrepending',query:{urlDate:JSON.stringify(urldata)}});
 				}
 			},
@@ -199,7 +208,7 @@
 					access_token:localStorage.getItem("access_token"),
 					id:id
 				}).then(da => {
-
+					console.log(da);
 					this.$message({
 						type:"waring",
 						message:da
@@ -208,6 +217,8 @@
 				}).catch()
 			},
 			getData1() {
+				// DataScreen.screen.projectreview.filterFields[2].child = [];
+				//获取子组件表格数据
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: 1,

@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="wh">
 	<common-top :commonTopData="projectdetialTopData"></common-top>
-	<div class="wh Detail">
+	<div class="wh Detail ">
 		<div class="detailtitle ofh relative">
 			<div class="textcenter">
 				<span v-for="(item,index) in tabData" :key="item.name" tag="span" :class="tabsnum == index ? 'tabs tabactive' : 'tabs'"
@@ -10,9 +10,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="detailContent1 ofh"></div>
-		
-		
+
 		<div class="bmwork_01" v-if="tabsnum == 0">
 			<div class="musl">
 				<bmList></bmList>
@@ -92,7 +90,7 @@
 <script>
 	import reviewData from "@/assets/reviewData.js"
 	import commonTop from '@/components/commonTop.vue'
-	import reviewinfocommon from './reviewinfocommonNew'
+	import reviewinfocommon from './reviewinfocommonNew2'
 	import workData from './workData'
 	import Cent from './cent'
 	import work1 from '../com/work1'
@@ -150,7 +148,7 @@
 				length10: 0,
 				length30: 0,
 				tabData: [{
-						name: "案例作品",
+						name: "报名列表",
 					},
 					{
 						name: "审核信息",
@@ -1194,5 +1192,8 @@
 }
 .musl{
 	width: 100%;
+}
+.sfff{
+	    height: calc(100% - 127px);
 }
 </style>

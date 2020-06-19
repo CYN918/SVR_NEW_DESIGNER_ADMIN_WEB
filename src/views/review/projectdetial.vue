@@ -43,6 +43,18 @@
 				<ul>
 					<li class="w ofh">
 						<span class="fleft Dialogkey">
+							驳回方式
+						</span>
+						<el-radio-group v-model="radiox" class="sel-dialog-content fleft">
+							<div class="w  sel-radio" v-for="(item,index) in tableDatax" :key="item.id">
+								<el-radio :label="item.content">{{ item.content }}</el-radio>
+							</div>
+						</el-radio-group>
+					</li>
+					
+					
+					<li class="w ofh">
+						<span class="fleft Dialogkey">
 							驳回理由
 						</span>
 						<el-radio-group v-model="radio1" class="sel-dialog-content fleft">
@@ -395,7 +407,7 @@
 	import commonTop from '@/components/commonTop.vue'
 	import reviewinfocommon from './reviewinfocommon'
 	import workData from './workData'
-	import Cent from './cent'
+	import Cent from './cent1'
 	export default {
 		props: ['detailData', 'roles'],
 		components:{
@@ -406,6 +418,11 @@
 		},
 		data() {
 			return {
+				radiox:'1',
+				tableDatax:[
+					{id:'1',content:'驳回后可重新提交'},
+					{id:'2',content:' 驳回后终止项目'}
+				],
 				projectdetialTopData:{
 					"pageName": "projectdetial",
 					"commonleftbtn": [],
@@ -1080,13 +1097,14 @@
 					})
 					return;
 				}
-
+				
 				let data = {
 					access_token: localStorage.getItem("access_token"),
 					type: 5,
 					id: this.$route.query.id,
 					check_status: -1,
 					reason: this.radio1,
+					reject_type:this.radiox,
 					check_steps: 0,
 					comment:'',
 				}

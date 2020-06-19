@@ -36,22 +36,22 @@
 					"option":[
 						{
 							name:"我的待审",
-							linkTo:"/review/xmBm?check_status=0",
+							linkTo:"/review/xmBm",
 							/* accessid:"12", */
 						},
 						{
 							name:"我通过的",
-							linkTo:"/review/xmBm?check_status=1",
+							linkTo:"/review/xmBm1",
 							/* accessid:"13", */
 						},
 						{
 							name:"我驳回的",
-							linkTo:"/review/xmBm?check_status=-1",
+							linkTo:"/review/xmBm2",
 							/* accessid:"14", */
 						},
 						{
 							name:"全部记录",
-							linkTo:"/review/xmBm?check_status=all",
+							linkTo:"/review/xmBm3",
 							// accessid:"52",
 						}
 					],
@@ -90,14 +90,9 @@
 				},
 				detailData: "",
 				filterFields:[
-					{name:"审核ID",id:"id"},
-					{name:"项目ID",id:"project_id"},
 					{name:"项目名称",id:"name"},
-					{name:"项目类型",id:"classify_id",child:[]},
 					{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
 					{name:"提审用户昵称",id:"username"},
-					{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
-					{name:"",type:"display"}
 				],
 				IsDetail:1,
 				roles:{},
@@ -115,33 +110,18 @@
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
-				let sta = this.$route.query.check_status;
-				var data = {
-					access_token: localStorage.getItem("access_token"),
-					page: pg.pageCurrent,
-					limit: pg.pageSize,
-					type:6,
-					
-
-				}
-				if(sta!='all'){
-					data.check_status = sta?sta:0;
-				}
-				
-				
+				var data = {}
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
-					const sreenData = JSON.parse(this.$route.query.urlDate);
-					sreenData.page = pg.pageCurrent;
-					sreenData.limit = pg.pageSize;
-					sreenData.access_token = localStorage.getItem("access_token");
-					sreenData.type = 6
-					sreenData.mix_blens = JSON.stringify(this.mxArr)
-					sreenData.check_status = sreenData.check_status!=0?sreenData.check_status:0
-					data = sreenData;
-					
+					const sreenData = JSON.parse(this.$route.query.urlDate);		
+					data = sreenData;					
 				}
-
+				data.page = pg.pageCurrent;
+				data.limit = pg.pageSize;
+				data.access_token = localStorage.getItem("access_token");
+				data.type = 6;
+				data.check_status = 0;
+				
 				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
@@ -338,17 +318,6 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
-				let map = [
-					'0',
-					'1',					
-					'-1',
-					'all'
-				];
-				let sta = this.$route.query.check_status;
-				if(!sta){
-					sta = '0';
-				}
-				this.commonTopData.mintabnums = map.indexOf(sta);
 				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}

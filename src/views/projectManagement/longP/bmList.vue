@@ -1,11 +1,15 @@
 <template>
-	<div v-loading="loading">
+	<div v-loading="loading" >
 		<el-table 
-			:reserve-selection="true" 
+			
 			:data="tableDatas" 
-			tooltip-effect  
-			:header-cell-style="cellStyle">
-			<el-table-column v-for="(item,index) in tConfig" :prop="item.prop" :label="item.lable" :width="item.width">
+			style="width: 100%"
+			tooltip-effect
+			:header-cell-style="cellStyle" 
+		>
+			<el-table-column 
+			v-for="(item,index) in tConfig" 
+			:prop="item.prop" :label="item.lable" :width="item.width">
 				<template slot-scope="scope">
 					<div>
 						<div class="bm_uimg" v-if="item.type=='imgs'">
@@ -36,7 +40,7 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<div>
+		<!-- <div>
 			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page"
 			 :page-sizes="[50, 100, 200, 500]" :page-size="limit" layout="sizes, prev, pager, next, jumper" :total="total">
 			</el-pagination>
@@ -84,7 +88,7 @@
 				<span @click="gotoweb(userInfo.open_id)">个人主页</span>
 			</div>
 		</div>
-	</div>
+	 --></div>
 </template>
 
 <script>

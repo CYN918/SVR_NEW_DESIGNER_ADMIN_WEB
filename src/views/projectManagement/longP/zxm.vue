@@ -2,7 +2,7 @@
 	<div>
 		<div class="zxm_l_01">
 			<span :class="el.v==compData.zj?'ischkon':''" @click="qhN(el.v)" v-for="el in btns">
-				{{el.n}}<span v-if="el.num>0">（{{el.num}}）</span>
+				{{el.n}}</span>
 			</span>
 		</div>
 		<component v-bind:is="compData.zj" v-model="compData"></component>

@@ -63,6 +63,21 @@ const screenData = {
 			],
 			
 		},
+		
+		projectreviewxb:{
+			filterFields:[
+				{name:"项目名称",id:"name"},
+				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+				{name:"提审用户昵称",id:"username"}
+			],
+		},
+		projectreviewbm:{
+			filterFields:[
+				{name:"项目名称",id:"name"},
+				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+			],
+		},
+		
 		addblack:{
 			filterFields0:[
 				{name:'用户id',id:'open_id'},
@@ -1033,7 +1048,7 @@ const screenData = {
 				{prop:'project_id',lable:'项目ID'},
 				{prop:'name',lable:'项目名称'},
 				{prop:'classify_name',lable:'项目类型',},
-				{lable:"稿件预览图",prop:"preview_pic",type:"img",width:150},
+				{lable:"稿件预览图",prop:"preview_pic",type:"img",width:270},
 				{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏","8":"投稿作品","9":"贴纸花字（华为）"}},
 				{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
 				{prop:'remark',lable:'备注说明',width:350},

@@ -13,10 +13,23 @@
 							<img  v-if="item.type == 'imgs'" v-for="el in climgs(scope.row[item.prop])" :src="el" @click="getimgulr(el)">
 							
 						</div>
-						<img style="width: 80px;height: 48px;margin: auto;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<span class="tbimgs" v-if="item.type == 'img'">
+							<img v-for="el in clnIMG(scope.row[item.prop])" style="width: 80px;height: 48px;margin: auto;" :src="el" alt="" @click="getimgulr(el)">
+						</span>
+						
+						
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;cursor: pointer;" @click="openwindowrouter(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'urlopen'" style="color: #FF5121;" @click="openwindow(item.prop+scope.row['work_id'])">{{ item.prop+scope.row["work_id"] }}</div>
+						
+						<div v-else-if="item.type == 'clFnd'">
+							<button style="width: 100px;" 
+							:class="'fleft defaultbtn0'">
+							{{item.clFnd(scope.row)}}
+							</button>
+							<span style="margin-left:5px;height: 100%;line-height: 2.5;">{{ scope.row['role'] }}</span>
+
+						</div>
 						<div v-else-if="item.type == 'btn'">
 							<div v-if="item.child[scope.row[item.prop]] == '待审核' && scope.row.check_steps == '0'">
 								<!-- <div v-if="adminuseraccess.indexOf('200573') > 0"> -->
@@ -174,6 +187,15 @@
 			}
 		},
 		methods: {
+			clnIMG(UM){
+				let st = [];
+				try{
+					st = JSON.parse(UM);
+				}catch(e){
+					st = [UM];
+				}
+				return st
+			},
 			climgs(all){
 				if(!all){
 					return []

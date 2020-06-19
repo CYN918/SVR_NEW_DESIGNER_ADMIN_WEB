@@ -86,7 +86,7 @@
 						fun: "ISshow"
 					}],
 					"commonrightbtn": [{
-						name: "新建项目",
+						name: "新建招标项目",
 						id: "right1",
 						fun: "add20",
 						accessid:"200520"
