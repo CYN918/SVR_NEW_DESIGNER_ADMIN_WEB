@@ -220,6 +220,14 @@ var router = new Router({
 					component: () => import('@/views/review/projectdetialbm.vue')
 				},
 				{
+					path: 'projectreview/xxxbxq',
+					name: 'xxxbxq',
+					meta: {
+						title: "项目选标 / 审核详情"
+					},
+					component: () => import('@/views/review/projectdetialxb.vue')
+				},
+				{
 					path: 'finalistsWork/workDetial',
 					name: 'workDetial',
 					meta: {

@@ -1,18 +1,11 @@
 <template>
-	<div class="work1_01">
-		<div class="work1_01_1">
-			<img class="work1_02" :src="value.face_pic"/>
-			<div class="work1_03">
-				<div class="work1_04">{{value.name}}</div>
-				<div class="work1_05">{{value.name+'|'+value.name}}</div>
-			</div>
-		</div>
+	<div @click="openWork()" class="work1_01">
 		<div class="work1_06" :style="bgd(value.face_pic)"></div>
 		<div class="work1_07">
 			<span class="work1_08">{{value.name}}</span><span class="work1_09"></span>
 		</div>
 		<div class="work1_10">
-			<span class="work1_03 work1_11">原创</span><span class="work1_12">{{value.classify_1+'--'+value.classify_2}}</span>
+			<span class="work1_03 work1_11">{{value.classify_1}}</span><span class="work1_12">{{value.classify_2+'--'+value.classify_3}}</span>
 		</div>
 		<div class="work1_13">
 			<span>
@@ -34,6 +27,10 @@ export default{
 	methods:{
 		bgd(rl){
 			return 'background-image: url('+rl+');'
+		},
+		openWork(){
+			window.open(localStorage.getItem("URL")+"/#/cont?id=" + this.value.id);
+
 		}
 	}
 }
@@ -41,11 +38,12 @@ export default{
 
 <style>
 .work1_01{
+	cursor: pointer;
 	display: inline-block;
 	vertical-align: top;
 	padding: 20px 15px;
 	width:310px;
-	height:374px;
+	height:304px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
@@ -86,7 +84,7 @@ export default{
 	margin-bottom: 20px;
 }
 .work1_07{
-	margin-bottom: 6;
+	margin-bottom: 6px;
 }
 .work1_08{
 	width:291px;
@@ -107,6 +105,7 @@ export default{
 	font-size:12px;
 	color:rgba(153,153,153,1);
 	line-height:22px;
+	margin-right: 5px;
 }
 .work1_12{
 	font-size:12px;

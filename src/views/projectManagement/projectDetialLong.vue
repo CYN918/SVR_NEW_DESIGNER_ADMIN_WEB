@@ -16,10 +16,6 @@
 				<button class="defaultbtn" @click="getparent()">返回</button>				
 			</div>
 		</div>
-
-
-		
-
 	</div>
 </div>
 </template>

@@ -9,6 +9,10 @@
 					<template slot-scope="scope"  >
 						<el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[item.prop]">{{ "" }}</el-radio>
 						<img style="width: 50px;height: 50px;border-radius: 50%;margin: auto;" v-if="item.type == 'imgtou'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
+						<div class="tbimgs">
+							<img  v-if="item.type == 'imgs'" v-for="el in climgs(scope.row[item.prop])" :src="el" @click="getimgulr(el)">
+							
+						</div>
 						<img style="width: 80px;height: 48px;margin: auto;" v-if="item.type == 'img'" :src="scope.row[item.prop]" alt="" @click="getimgulr(scope.row[item.prop])">
 						<div v-else-if="item.type == 'url'" style="color: #FF5121;cursor: pointer;" @click="openwindowrouter(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
 						<div v-else-if="item.type == 'url1'" style="color: #FF5121;" @click="openwindow(item.url,scope.row[item.id])">{{ scope.row[item.prop] }}</div>
@@ -170,6 +174,12 @@
 			}
 		},
 		methods: {
+			climgs(all){
+				if(!all){
+					return []
+				}
+				return all.slice(0,3)
+			},
 			namChck: function (n,k) {
 				if(n.business_type==5){
 					return n[k]+'.mp4';
@@ -311,7 +321,13 @@
 					break;
 					case "projectreviewbm":
 						if(!setid){
-							this.router.push({path:"/review/projectreview/xxbmxq",query:{id:row.id,type:6,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
+							this.router.push({path:"/review/projectreview/xxbmxq",query:{signup_id:row.signup_id,id:row.id,type:6,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
+							
+						}
+					break;
+					case "projectreviewxb":
+						if(!setid){
+							this.router.push({path:"/review/projectreview/xxxbxq",query:{signup_id:row.signup_id,id:row.id,type:7,check_status:row.check_status,project_id:row.project_id,business_type:row.business_type}});
 							
 						}
 					break;
@@ -1150,4 +1166,12 @@
 	/* .el-table__fixed {
 		margin-left: 27px;
 	} */
+	.tbimgs{
+		width: 270px;
+	}
+	.tbimgs>img{
+		width: 80px;height: 48px;margin: 0 10px 0 0;
+		display: inline-block;
+		vertical-align: top;
+	}
 </style>

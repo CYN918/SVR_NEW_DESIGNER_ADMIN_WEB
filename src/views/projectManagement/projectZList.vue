@@ -95,7 +95,7 @@
 				screenConfig: [],
 				tableConfig: {
 					project_type:2,
-					status:'3,4,-1',
+					status:'3,4',
 					url:"probjLongpcList",
 					title:"项目发布",
 					list0: [
@@ -111,7 +111,7 @@
 							{prop:'demand_id',lable:'绑定需求'},
 							{prop:'username',lable:'制作人'},
 							{prop:'publish_time',lable:'截稿时间',width:150},
-							{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"0":"待发布","1":"招募期","2":"选标期","3":"制作期","4":"待验收","5":"已验收","-1":"已终止","-1":"已驳回"}},
+							{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 							{prop:'pid',lable:'长期项目ID'},
 							{prop:'ltname',lable:'长期项目来源'},
 					],
@@ -123,26 +123,65 @@
 				tableData: [],
 				tableAction: {
 					chNav:[
-						{n:'制作阶段',v:'3,4,-1'},
+						{n:'制作阶段',v:'3,4'},
 						{n:'已验收',v:'5'},
-						{n:'已中止',v:'-2'}
+						{n:'已中止',v:'-1'}
 					],
 					num:true,
 					tableAction0:{
 						morebtns:{
+							type:'check',
 							name:"更多",
-							child:[
-								{
-									name:(da)=>{return "编辑"},
-									fun:"edit",
-									accessid:"200611",
-								},
-								{
-									name:(da)=>{return '删除';},
-									fun:"delect",
-									accessid:"200612",
-								},		
-							]
+							backFn:function(s){
+								let map = [
+									{name:"预览",fun:"seeXm",accessid:"200611"},
+									{name:"编辑",fun:"edit",accessid:"200611"},
+									{name:"补充合同",fun:"reject1",accessid:"200611"},
+									{name:"终止",fun:"reject",accessid:"200611"},
+									
+									{name:"验收审核",fun:"see",accessid:"200611"},
+									{name:"收益明细",fun:"edit",accessid:"200611"},
+									{name:"验收报告",fun:"up",accessid:"200521"},
+									{name:"下载稿件",fun:"presentation",accessid:"200522"},
+									// {name:"删除",fun:"delect",accessid:"200612"},
+								];
+								if(s.status==-1){
+									return []
+								}
+								if(s.status==3){
+									return [
+										map[0],
+										map[1],
+										map[2],
+										map[3]
+									]
+								}
+								if(s.status==4){
+									return [
+										map[4],
+										map[0],
+										map[1],
+										map[2],
+										map[3]										
+									]
+								}
+								
+								
+								if(s.status==5){
+									let arr = [
+											map[6],
+											map[7],
+										];
+		// 							if('分成'==true){
+		
+		// 								arr.shift(map[5])
+		// 							}
+									return arr;
+									
+								}
+								return [];
+							},
+							child:[]
 						},
 						links:{
 							name:(da)=>{
@@ -189,6 +228,9 @@
 		watch: {},
 		computed: {},
 		methods: {
+			seeXm(id){
+				
+			},
 			getProjectclassify(){
 				this.api.projectclassifylist({
 					page:1,

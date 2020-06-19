@@ -35,6 +35,7 @@ Vue.prototype.ywArr = [
 	{id:"8",name:"投稿作品"},
 	{id:"9",name:"贴纸花字（华为）"}
 ];
+/*验收*/
 Vue.prototype.ywArr_qx = {
 	"3":['200580','200581'],
 	"4":['200577','200578'],
@@ -44,6 +45,25 @@ Vue.prototype.ywArr_qx = {
 	"8":['200603','200604'],
 	"9":['200685','200686']			
 };
+/*报名 查看审核*/
+Vue.prototype.ywArr_bmqx = {
+	// "3":['200580','200581'],
+	// "4":['200577','200578'],
+	// "5":['200573','200575'],
+	// "6":['200583','200584'],
+	// "7":['200585','200586'],
+	// "8":['200603','200604'],
+	"9":['200681','200682']			
+};
+
+Vue.prototype.opCont = function(id){
+	window.open(localStorage.getItem("URL")+"/#/cont?id="+id);
+};
+Vue.prototype.opPrCont = function(id){
+	window.open(localStorage.getItem("URL")+"/#/prcent?id="+id+'&type=prj');
+};
+
+			
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));

@@ -26,37 +26,16 @@
 		data() {
 			return {
 				commonTopData: {
-					"pageName": "projectreview",
+					"pageName": "projectreviewxb",
 					"commonleftbtn": [{
 						name: "筛选",
 						id: "left1",
 						url: ""
 					}],
 					"commonbottombtn":[],
-				
-					"option":[
-						{
-							name:"我的待审",
-							linkTo:"/review/projectreview/projectrepending",
-							/* accessid:"12", */
-						},
-						{
-							name:"我通过的",
-							linkTo:"/review/projectreview/projectrethrough",
-							/* accessid:"13", */
-						},
-						{
-							name:"我驳回的",
-							linkTo:"/review/projectreview/projectrerejected",
-							/* accessid:"14", */
-						},
-						{
-							name:"全部记录",
-							linkTo:"/review/projectreview/projectreallrecords",
-							// accessid:"52",
-						}
-					],
+					"option":[],
 					'tabnums':1,
+					
 					'mintabnums': 0,
 				},
 				screenConfig: [],
@@ -64,12 +43,39 @@
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					list: DataScreen.screenShow.projectreview.bts
+					list:[
+						{prop:"banner",lable:"项目banner",type:"img",width:150},
+						{prop:'name',lable:'报名项目'},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+						{prop:'signup_num',lable:'报名人数'},
+						{prop:'sign_created_at',lable:'提审时间'},
+						{prop:'status',lable:'当前状态',type:"btn",child:{"2":"待审核"},width:350},						
+					]
 				},
 				tableData: [],
-				tableAction: DataScreen.screenShow.projectreview.action,
+				tableAction:{
+					morebtns:{
+						name:"设置角色",
+						Ishow:false,
+						page:"projectreviewxb"
+					},
+					links:{
+						name:"详情",
+						Ishow:true,
+						// accessid:"200510"
+					}
+				},
 				detailData: "",
-				filterFields:DataScreen.screen.projectreview.filterFields,
+				filterFields:[
+					{name:"审核ID",id:"id"},
+					{name:"项目ID",id:"project_id"},
+					{name:"项目名称",id:"name"},
+					{name:"项目类型",id:"classify_id",child:[]},
+					{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+					{name:"提审用户昵称",id:"username"},
+					{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+					{name:"",type:"display"}
+				],
 				IsDetail:1,
 				roles:{},
 				mxArr:[],
@@ -86,20 +92,25 @@
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
+				let sta = this.$route.query.check_status;
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:7,
-					check_status:0,
+					
+
 				}
+			
+				
+				
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
 					const sreenData = JSON.parse(this.$route.query.urlDate);
 					sreenData.page = pg.pageCurrent;
 					sreenData.limit = pg.pageSize;
 					sreenData.access_token = localStorage.getItem("access_token");
-					sreenData.type = 5
+					sreenData.type = 6
 					sreenData.mix_blens = JSON.stringify(this.mxArr)
 					sreenData.check_status = sreenData.check_status!=0?sreenData.check_status:0
 					data = sreenData;
@@ -231,7 +242,6 @@
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
 				let map = {
-					
 					"53":{
 						"200573":"0",
 						"200575":"1",
@@ -294,7 +304,6 @@
 			}
 		},
 		mounted() {
-			//console.log(this.tableConfig)
 			this.getData({pageCurrent:1,pageSize:50});
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
@@ -304,6 +313,17 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
+				let map = [
+					'0',
+					'1',					
+					'-1',
+					'all'
+				];
+				let sta = this.$route.query.check_status;
+				if(!sta){
+					sta = '0';
+				}
+				this.commonTopData.mintabnums = map.indexOf(sta);
 				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}

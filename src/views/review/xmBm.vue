@@ -36,26 +36,27 @@
 					"option":[
 						{
 							name:"我的待审",
-							linkTo:"/review/xmBm",
+							linkTo:"/review/xmBm?check_status=0",
 							/* accessid:"12", */
 						},
 						{
 							name:"我通过的",
-							linkTo:"/review/projectreview/projectrethrough",
+							linkTo:"/review/xmBm?check_status=1",
 							/* accessid:"13", */
 						},
 						{
 							name:"我驳回的",
-							linkTo:"/review/projectreview/projectrerejected",
+							linkTo:"/review/xmBm?check_status=-1",
 							/* accessid:"14", */
 						},
 						{
 							name:"全部记录",
-							linkTo:"/review/projectreview/projectreallrecords",
+							linkTo:"/review/xmBm?check_status=all",
 							// accessid:"52",
 						}
 					],
 					'tabnums':0,
+					
 					'mintabnums': 0,
 				},
 				screenConfig: [],
@@ -67,7 +68,7 @@
 						{prop:"banner",lable:"项目banner",type:"img",width:150},
 						{prop:'name',lable:'报名项目'},
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
-						{prop:"face_pics",lable:"作品案例",type:"img",width:150},
+						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
 						{prop:'username',lable:'提审用户'},
 						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 						{prop:'admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
@@ -88,7 +89,16 @@
 					}
 				},
 				detailData: "",
-				filterFields:DataScreen.screen.projectreview.filterFields,
+				filterFields:[
+					{name:"审核ID",id:"id"},
+					{name:"项目ID",id:"project_id"},
+					{name:"项目名称",id:"name"},
+					{name:"项目类型",id:"classify_id",child:[]},
+					{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+					{name:"提审用户昵称",id:"username"},
+					{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+					{name:"",type:"display"}
+				],
 				IsDetail:1,
 				roles:{},
 				mxArr:[],
@@ -105,14 +115,20 @@
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
+				let sta = this.$route.query.check_status;
 				var data = {
 					access_token: localStorage.getItem("access_token"),
 					page: pg.pageCurrent,
 					limit: pg.pageSize,
 					type:6,
-					check_status:0,
+					
 
 				}
+				if(sta!='all'){
+					data.check_status = sta?sta:0;
+				}
+				
+				
 				//获取筛选的条件
 				if (this.$route.query.urlDate) {
 					const sreenData = JSON.parse(this.$route.query.urlDate);
@@ -251,7 +267,6 @@
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
 				let map = {
-					
 					"53":{
 						"200573":"0",
 						"200575":"1",
@@ -314,7 +329,6 @@
 			}
 		},
 		mounted() {
-			//console.log(this.tableConfig)
 			this.getData({pageCurrent:1,pageSize:50});
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
@@ -324,6 +338,17 @@
 			"$route":function(){
 				this.screenreach();
 				this.getcommonrightbtn();
+				let map = [
+					'0',
+					'1',					
+					'-1',
+					'all'
+				];
+				let sta = this.$route.query.check_status;
+				if(!sta){
+					sta = '0';
+				}
+				this.commonTopData.mintabnums = map.indexOf(sta);
 				this.getData({pageCurrent:1,pageSize:50});
 			}
 		}

@@ -14,8 +14,8 @@
 		
 		
 		<div class="bmwork_01" v-if="tabsnum == 0">
-			<div class="bmwork_02">
-				<work1 v-for="(el,index) in works" v-model="works[index]"></work1>
+			<div class="musl">
+				<bmList></bmList>
 			</div>
 
 		</div>
@@ -24,15 +24,13 @@
 			<reviewinfocommon :apply_info="check_info" :reviewinfocommon="reviewinfocommon" :demand_id="apply_info.demand_id" :gain_share_rate="apply_info.gain_share_rate"></reviewinfocommon>
 		</div>
 		
-		<div v-if="tabsnum == 2">
+		<div  v-if="tabsnum == 2">
 			<xmInfo></xmInfo>
 		</div>
 		
 		
 		<div class="screenContent detailbtn" v-if="detailbtn">
 			<button class="defaultbtn" @click="xmyl()">预览项目</button>
-			<button v-if="getstatusinfo() && adminuseraccess.indexOf(ywArr_bmqx[9][1]) > -1" class="defaultbtn" @click="reject">审核驳回</button>
-			<button v-if="getstatusinfo() && adminuseraccess.indexOf(ywArr_bmqx[9][1]) > -1" class="defaultbtn" @click="reject2()">审核通过</button>
 		
 		</div>
 
@@ -98,7 +96,7 @@
 	import workData from './workData'
 	import Cent from './cent'
 	import work1 from '../com/work1'
-	
+	import bmList from '../com/bmList'
 	import xmInfo from '../projectManagement/longP/xmInfo'
 	
 	export default {
@@ -109,7 +107,8 @@
 			workData,
 			Cent,
 			work1,
-			xmInfo
+			xmInfo,
+			bmList
 		},
 		data() {
 			return {
@@ -933,7 +932,7 @@
 				this.api.reviewInfo({
 					access_token: localStorage.getItem("access_token"),
 					type: this.pagetype,
-					id: this.$route.query.signup_id,
+					id: this.$route.query.id,
 				}).then(da => {
 					console.log(da);
 					let workarr = [];
@@ -1192,5 +1191,8 @@
 }
 .tiopcs{
 	text-align: center;
+}
+.musl{
+	width: 100%;
 }
 </style>
