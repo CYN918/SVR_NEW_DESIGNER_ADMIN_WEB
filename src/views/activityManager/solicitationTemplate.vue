@@ -248,15 +248,21 @@
 						_this.progressnum = (progressEvent.loaded / progressEvent.total).toFixed(2) * 100
 					}
 				}).then(function (response) {
-					//console.log(response.data.data);
-					_this.file_url = response.data.data.url;
-					_this.filetype = response.data.data.file_type;
-					_this.isupload = false;
-					_this.progressnum = 0;
+					if(response.result == 0){
+						_this.file_url = response.data.data.url;
+						_this.filetype = response.data.data.file_type;
+						_this.isupload = false;
+						_this.progressnum = 0;
+						
+					}else{
+						this.$message({
+							message:response.data,
+						})
+					}					
 				}).catch(function (error) {
 					console.log(error);
 				}); 
-				//console.log(this.form.banner = url)
+			
 			},
 			getcommonrightbtn(){
 				this.commonTopData.commonbottombtn = [];
