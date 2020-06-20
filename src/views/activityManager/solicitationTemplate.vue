@@ -248,14 +248,18 @@
 						_this.progressnum = (progressEvent.loaded / progressEvent.total).toFixed(2) * 100
 					}
 				}).then(function (response) {
+			
+					response = response.data;
+					_this.isupload = false;
+					_this.progressnum = 0;
+					
+					
 					if(response.result == 0){
 						_this.file_url = response.data.data.url;
-						_this.filetype = response.data.data.file_type;
-						_this.isupload = false;
-						_this.progressnum = 0;
-						
+						_this.filetype = response.data.data.file_type;												
 					}else{
-						this.$message({
+						_this.$message({
+							type: 'info',
 							message:response.data,
 						})
 					}					
@@ -369,6 +373,27 @@
 				this.showmask1 = true;
 			},
 			templateadds(type){
+				
+				if(type==1 && !this.file_info.name){
+					this.$message({
+						message:'请先上传正确的文件'
+					})
+					return
+				}
+				if(type==2 ){
+					if(!this.file_info.name){
+						this.$message({
+							message:'请输入文件名'
+						})
+						return
+					}
+					if(!this.online_disk_info){
+						this.$message({
+							message:'请输入网盘链接'
+						})
+						return
+					}
+				}
 				var data = {};
 				if(type == 1){
 					data = {
