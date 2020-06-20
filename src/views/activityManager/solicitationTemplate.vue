@@ -374,7 +374,7 @@
 			},
 			templateadds(type){
 				
-				if(type==1 && !this.file_info.name){
+				if(type==1 && !this.file_info.filetype){
 					this.$message({
 						message:'请先上传正确的文件'
 					})
