@@ -1101,7 +1101,7 @@
 							num = 2;
 						}
 						this.$router.push({
-							path:"/projectManagement/projectList",
+							path:"/projectManagement/projectLongList",
 							query:{
 								tabsnum:num
 							}
