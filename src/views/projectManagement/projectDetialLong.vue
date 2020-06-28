@@ -4,7 +4,7 @@
 	<div class="wh Detail">
 		<div class="detailtitle ofh relative">
 			<div class="textcenter">
-				<span v-for="item in tabData" :class="compData.zj == item.zj ? 'tabs tabactive' : 'tabs'" 
+				<span v-for="(item, idx) in tabData" :key="idx" :class="compData.zj == item.zj ? 'tabs tabactive' : 'tabs'" 
 				 @click="tabsChange(item.zj)">
 					{{ item.name}}
 				</span>				

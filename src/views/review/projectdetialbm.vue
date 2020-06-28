@@ -968,11 +968,16 @@
 
 
 					this.getdemandcheck();
+					this.defaultTab();
 				}).catch(da => {
 
 				})
 			},
-
+			// 切换至初始化选项卡
+			defaultTab() {
+				let query = this.$route.query || {};
+				if(query.tabIdx) this.tabsChange(query.tabIdx)
+			},
 			submint(data) {
 				
 				this.api.reviewCheck(data).then(da => {
@@ -1140,6 +1145,8 @@
 					}
 				})
 			}
+
+			
 		},
 		mounted() {
 			if(this.$route.query.business_type == "5"){

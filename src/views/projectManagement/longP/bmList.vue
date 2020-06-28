@@ -8,15 +8,15 @@
 			:header-cell-style="cellStyle" 
 		>
 			<el-table-column 
-			v-for="(item,index) in tConfig" 
-			:prop="item.prop" :label="item.lable" :width="item.width">
+			v-for="(item, idx) in tConfig" 
+			:prop="item.prop" :key="idx" :label="item.lable" :width="item.width">
 				<template slot-scope="scope">
 					<div>
 						<div class="bm_uimg" v-if="item.type=='imgs'">
 							<span 
-							v-for="(el,index) in scope.row[item.prop]" 
-							@click="tabCl(item.clfn,scope.row,index)"
-							:style="setImg(el)"></span>
+							v-for="(el, idx) in scope.row[item.prop]" 
+							@click="tabCl(item.clfn, scope.row,index)"
+							:style="setImg(el)" :key="idx"></span>
 						</div>
 						<span v-else-if="item.type=='status'">
 							{{item.clfn(scope.row)}}
@@ -34,7 +34,7 @@
 			</el-table-column>
 			<el-table-column fixed="right" label="操作" width="160">
 				<template slot-scope="scope">
-					<span @click="tabCl(el.fn,scope.row)" v-for="el in gettools(scope.row)">
+					<span :key="idx" @click="tabCl(el.fn, Object.assign(scope.row, {text: el.n}))" v-for="(el, idx) in gettools(scope.row)">
 						{{el.n}}
 					</span>
 				</template>
@@ -134,18 +134,29 @@ export default{
 			if(obj.check_status==1){
 				arr = [
 					{n:"查看子项目",fn:'seeZxm'},
-					{n:"审核详情",fn:'cs'}
+					{n:"审核详情",fn:'goSh'}
 				];
 			}
 			if(obj.check_status==-1){
 				arr = [
-					{n:"审核详情",fn:'seeZxm'}
+					{n:"审核详情",fn:'goSh'}
 				];
 			}
 			return arr;
 		},
-		goSh(cs){
-			
+		goSh(row, on){
+			this.router.push({
+				path:"/review/projectreview/xxbmxq",
+				query:{
+					signup_id: row.id,
+					id: row.project_id,
+					type: 6,
+					check_status: row.check_status,
+					project_id: row.project_id,
+					business_type: 7,// row.business_type
+					tabIdx: row.text === '审核详情' ? 1 :0
+				}
+			});
 		},
 		seeZxm(){
 			this.value.zj = 'zxm';			
@@ -240,7 +251,9 @@ export default{
 						check_status:im.check_status,
 						imgs:imgs,
 						imgId:imgsId,
-						userData:im.user
+						userData:im.user,
+						project_id: im.project_id,
+						id: im.id
 					}
 				});
 				
