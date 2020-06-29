@@ -17,7 +17,7 @@
 				</li>
 				<li class="margint13 ofh">
 					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;line-height: 40px;">权限角色</span>
-					<button v-if="userinfo.roles.length != 0" v-for="(item,index) in userinfo.roles" :key="index" class="defaultbtnno" style="margin: 0;margin-right: 10px;">{{ item }}</button>
+					<button v-if="userinfo.roles.length != 0" v-for="(item,index) in userinfo.roles" :key="index" class="defaultbtnno" style="margin: 0;margin-right: 10px; width: auto;padding: 0 10px">{{ item }}</button>
 					<span v-if="userinfo.roles.length == 0">
 						无
 					</span>
