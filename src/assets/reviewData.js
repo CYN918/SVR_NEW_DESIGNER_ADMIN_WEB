@@ -581,6 +581,13 @@ const reviewData = {
 				child:{"1":"个体","2":"企业"}
 			},
 			{
+				name:"企业名称",
+				id:"company_name",
+				type:"text",
+			},
+			
+			
+			{
 				name:"统一社会信用代码",
 				id:"code",
 				type:"text",

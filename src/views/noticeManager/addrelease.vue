@@ -105,7 +105,12 @@
 				textarea: '',
 				commonTopData: {
 					"pageName": "addrelease",
-					"commonleftbtn": [],
+					"commonleftbtn": [{
+							name: "筛选",
+							id: "left1",
+							url: ""
+						}
+					],
 					"commonrightbtn": [],
 					"commonbottombtn": [],
 				},

@@ -15,7 +15,7 @@
 						<div class="bm_uimg" v-if="item.type=='imgs'">
 							<span 
 							v-for="(el, idx) in scope.row[item.prop]" 
-							@click="tabCl(item.clfn, scope.row,index)"
+							@click="tabCl(item.clfn,scope.row,idx)"
 							:style="setImg(el)" :key="idx"></span>
 						</div>
 						<span v-else-if="item.type=='status'">
@@ -40,7 +40,7 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<!-- <div>
+		<div>
 			<el-pagination class="sel-pagin" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page"
 			 :page-sizes="[50, 100, 200, 500]" :page-size="limit" layout="sizes, prev, pager, next, jumper" :total="total">
 			</el-pagination>
@@ -88,7 +88,7 @@
 				<span @click="gotoweb(userInfo.open_id)">个人主页</span>
 			</div>
 		</div>
-	 --></div>
+	</div>
 </template>
 
 <script>
@@ -162,13 +162,16 @@ export default{
 			this.value.zj = 'zxm';			
 		},
 		tabCl(fn,cs,on){
+			console.log(fn)
+				console.log(cs)
+					console.log(on)
 			if(!fn){
 				return
 			}
 			this[fn](cs,on);
 		},
 		gozp(obj,on){
-			
+			console.log(obj)
 			window.open(localStorage.getItem("URL")+"/#/cont?id=" + obj.imgId[on]);
 		},
 		tabmsout(e,obj,cs){

@@ -227,7 +227,7 @@
 								  v-if="item.type == 'time'"
 								   @change="timetwo(item.child,index)"
 								  class="ipt"
-								  v-model="times[index]"
+								  v-model="form[item.id]"
 								  type="daterange"
 								  value-format="yyyy-MM-dd HH:mm:ss"
 								  start-placeholder="开始日期"
@@ -473,8 +473,8 @@
 				}
 			},
 			timetwo(time,index){
-				this.form[time[0].id] = this.times[index][0];
-				this.form[time[1].id] = this.times[index][1];
+				// this.form[time[0].id] = this.times[index][0];
+				// this.form[time[1].id] = this.times[index][1];
 			},
 			gettrue(id){
 				if(this.adminuseraccess.indexOf(id) > -1){
@@ -512,10 +512,7 @@
 					if(da.data.length != '0'){
 						this.newtemplateId = da.data[0].id;
 					}
-					
-					// this.dataList.sort(function(a,b){
-					//     return b.id - a.id
-					// })
+
 				}).catch(() => {
 					
 				});
@@ -793,11 +790,6 @@
 				if(this.tableConfig.loading){
 					this.loading = false;
 				}
-				// document.addEventListener('keydown',(e)=>{
-				// 	if(e.keyCode==13){				
-				// 		this.cha('reach');					
-				// 	}
-				// },false)
 			},
 			cellStyle() {
 			  return 'borderBottom: 5px solid #f0f2f5'
@@ -861,6 +853,7 @@
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
 					this.filterField = this.filterFields;
+				
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
 					this.filterField = this.filterFields['filterFields'+ n];
@@ -992,6 +985,7 @@
 			this.init();	
 		},
 		created() {
+	
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.getcommonrightbtn();
 			this.getAddData();

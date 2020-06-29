@@ -708,10 +708,9 @@
 					access_token:localStorage.getItem("access_token")
 				}).then(da => {
 					this.info = da;
-					console.log(22222222)
+	
 					if(this.compData.zj=='xmInfo'){
 						this.compData.data = da;
-						console.log(this.compData)
 					}
 					this.desc = JSON.parse(da.desc);
 					if(da.evaluate_result != ''){

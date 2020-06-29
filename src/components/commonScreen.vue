@@ -243,10 +243,21 @@
 				return newStr;
 			},
 			init() {
-				//alert(typeof this.$route.query.urlDate != "string")
 				if(this.$route.query.urlDate){
 					this.form = JSON.parse(this.$route.query.urlDate);
+					
+					this.texts.map((el,index)=>{
+						if(el.type=="time" && el.child && this.form[el.child[0].id]){
+							this.times[index] = this.times[index]?this.times[index]:[];
+							this.times[index][0] = this.form[el.child[0].id];
+							this.times[index][1] = this.form[el.child[1].id];
+							
+						}
+					})
 				}
+				
+				
+				
 				// document.addEventListener('keydown',(e)=>{
 				// 	if(e.keyCode==13){				
 				// 		this.getparent('reach');					
