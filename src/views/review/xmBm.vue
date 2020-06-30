@@ -71,8 +71,7 @@
 						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
 						{prop:'username',lable:'提审用户'},
 						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
-						{prop:'admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
-						
+						// {prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 					]
 				},
 				tableData: [],
