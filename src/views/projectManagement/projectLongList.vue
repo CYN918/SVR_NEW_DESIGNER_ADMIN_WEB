@@ -61,6 +61,27 @@
 				<button class="defaultbtn defaultbtnactive" @click="supply()">提交</button>
 			</span>
 		</el-dialog>
+
+		<el-dialog
+			:visible.sync="displayDurationDialog"
+			width="30%"
+			title="请确定上架时长">
+				<div class="pro-display-duration-dialog">
+					<el-select v-model="displayDuration" placeholder="请选择">
+						<el-option
+							v-for="day in 30"
+							:key="day"
+							:label="day"
+							:value="day">
+						</el-option>
+					</el-select>
+					天
+				</div>
+			<span slot="footer" class="dialog-footer">
+				<el-button @click="closeDisplayDurationDialog">取 消</el-button>
+				<el-button type="primary" @click="upJa">确 定</el-button>
+			</span>
+		</el-dialog>
 	</div>
 </template>
 
@@ -74,6 +95,9 @@
 		},
 		data() {
 			return {
+				currentOperateItem: {},
+				displayDurationDialog: false,
+				displayDuration: '',
 				ffst:false,
 				contract_files: [{},{}],
 				reason:"",
@@ -154,7 +178,7 @@
 									name:(da)=>{
 										return da.status==-2?'上架':'下架'
 									},
-									fun:"upJa",
+									fun:　'upperOrlower',
 									accessid:"200611",
 								},
 
@@ -367,14 +391,36 @@
 			ISshow(){
 				this.$refs.Tabledd.reject();
 			},
-			upJa(row){
+			upperOrlower(row) {
+				this.currentOperateItem = row
+				if(row.status == -2) {
+					this.openDisplayDurationDialog()
+				}else {
+					this.upJa()
+				}
+			},
+			openDisplayDurationDialog(row) {
+				this.displayDurationDialog = true
+				this.displayDuration = ''
+			},
+			closeDisplayDurationDialog() {
+				this.displayDurationDialog = false
+			},
+			upJa() {
+				let row = this.currentOperateItem
 				if(this.ffst){return}
 				
 				let pr = {
-					project_id:row.project_id,
-					access_token:localStorage.getItem("access_token"),
-					type:row.status==-2?1:2
+					project_id: row.project_id,
+					access_token: localStorage.getItem("access_token"),
+					type: row.status == -2 ? 1 : 2
 				};
+
+				if(pr.type == 1) {
+					pr.onshelf_time = this.displayDuration
+					this.closeDisplayDurationDialog()
+				}
+
 				this.ffst = true;
 				this.api.projectshelve(pr).then((da)=>{
 					this.ffst = false;
@@ -483,5 +529,8 @@
 	}
 	.contract-item i{
 		cursor: pointer;
+	}
+	.pro-display-duration-dialog{
+		text-align: center;
 	}
 </style>
