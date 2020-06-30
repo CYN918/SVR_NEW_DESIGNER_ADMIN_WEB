@@ -1,42 +1,54 @@
 <template>
-	<div class="wh Detail">
-		<div class="detailtitle">查看页面</div>
-		<div class="detailContent ofh">
-			<ul>
-				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户ID</span>
-					<span>{{ userinfo.user_id }}</span>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户名</span>
-					<span>{{ userinfo.name }}</span>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">邮箱</span>
-					<span>{{ userinfo.email }}</span>
-				</li>
-				<li class="margint13 ofh">
-					<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;line-height: 40px;">权限角色</span>
-					<button v-if="userinfo.roles.length != 0" v-for="(item,index) in userinfo.roles" :key="index" class="defaultbtnno" style="margin: 0;margin-right: 10px;">{{ item }}</button>
-					<span v-if="userinfo.roles.length == 0">
-						无
-					</span>
-				</li>
-			</ul>
-		</div>
-		<div class="screenContent detailbtn">
-			<button class="defaultbtn" @click="getparent()">返回</button>
+	<div class="p-user-info-page">
+		<common-top :commonTopData="commonTopData"></common-top>
+			<div class="wh Detail">
+		<div class="detailtitle">账户信息</div>
+			<div class="detailContent ofh">
+				<ul>
+					<li class="margint13 ofh">
+						<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户ID</span>
+						<span>{{ userinfo.user_id }}</span>
+					</li>
+					<li class="margint13 ofh">
+						<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">用户名</span>
+						<span>{{ userinfo.name }}</span>
+					</li>
+					<li class="margint13 ofh">
+						<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;">邮箱</span>
+						<span>{{ userinfo.email }}</span>
+					</li>
+					<li class="margint13 ofh">
+						<span class="fleft" style="margin-right: 20px;width: 100px;text-align: right;line-height: 40px;">权限角色</span>
+						<button v-if="userinfo.roles.length != 0" v-for="(item,index) in userinfo.roles" :key="index" class="defaultbtnno" style="margin: 0;margin-right: 10px;">{{ item }}</button>
+						<span v-if="userinfo.roles.length == 0">
+							无
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="screenContent detailbtn">
+				<button class="defaultbtn" @click="getparent()">返回</button>
+			</div>
 		</div>
 	</div>
+
 </template>
 
 <script>
+import commonTop from '@/components/commonTop.vue'
+
 	export default {
 		props: ['detailData','roles'],
+		components: { commonTop },
 		data() {
 			return {
 				userinfo:JSON.parse(this.$route.query.info),
-				
+				commonTopData: {
+					"pageName": "addbannerScheme",
+					"commonleftbtn": [],
+					"commonrightbtn": [],
+					"commonbottombtn": [],
+				},
 			}
 		},
 		methods: {
@@ -62,6 +74,7 @@
 	.detailtitle {
 		padding-left: 40px;
 		padding-top: 18px;
+		margin-top: 18px;
 	}
 
 	.detailContent {
