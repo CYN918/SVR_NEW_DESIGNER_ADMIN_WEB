@@ -238,6 +238,8 @@
 								<el-radio-button label="2" ><i class="iconfont" v-if="settlement==0 && origin_type==2" >&#xe730;</i>分成</el-radio-button>
 								<el-radio-button label="3" >预付金+分成</el-radio-button>
 							</el-radio-group>
+
+							<span class="pro_settlement_type_tips" v-if="want_deal_type == 2">请先确保制作者同意，再修改结算方式</span>
 						</div>
 					</li>
 					<li class="w ofh" v-if="want_deal_type == '2' || want_deal_type == '3'">
@@ -1577,6 +1579,14 @@
 }
 .detailContent1 > ul{
 	padding-top: 30px;
+}
+
+.pro_settlement_type_tips{
+	position: absolute;
+    left: 188px;
+    top: 32px;
+    font-size: 12px;
+    color: #999;
 }
 
 </style>
