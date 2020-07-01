@@ -4,6 +4,16 @@
   </div>
 </template>
 
+<script>
+export default {
+	methods: {
+		init() {}
+	},
+	mounted() {
+		this.init()
+	}
+}
+</script>
 
 <style lang="scss">
 *{

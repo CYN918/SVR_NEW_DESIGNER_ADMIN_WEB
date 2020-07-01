@@ -1,7 +1,7 @@
 <template>
 <div>
 	<common-top :commonTopData="newprojectTopData"></common-top>
-	<div class="wh Detail" ref="height" v-loading="loading">
+	<div class="p-new-project-long-page" ref="height" v-loading="loading">
 		
 		<div class="detailtitle">
 			<!-- <span class="fleft">{{ currentpageName }}</span> -->
@@ -1921,5 +1921,10 @@
 		position: absolute;
 		top: 439px;
 		left: 371px !important;
+	}
+	.p-new-project-long-page{
+		height: calc(100vh - 100px);
+		overflow: auto;
+		background: white;
 	}
 </style>

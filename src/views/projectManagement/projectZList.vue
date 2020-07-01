@@ -103,14 +103,14 @@
 							{prop:'banner',lable:'banner',type:"img"},
 							{prop:'name',lable:'项目名称'},
 							{prop:'classify_name',lable:'项目类型'},
-							{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},							
-							{prop:'deal_type',lable:'结算方式',type:"keyvalue",child:{
-								"0":"未选择","1":"买断式","2":"分成式","3":"预付金+分成"
-							}},							
+							{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏", "8":"投稿作品", "9": "贴纸花字（华为）"}},							
+							{prop:'settlement',lable:'结算方式',type:"keyvalue",
+								child:{"0":"用户选择","1":"买断","2":"分成","3":"预付金+分成"},
+							},						
 							{prop:'expected_profit',lable:'预计收益'},
 							{prop:'demand_id',lable:'绑定需求'},
 							{prop:'username',lable:'制作人'},
-							{prop:'publish_time',lable:'截稿时间',width:150},
+							{prop:'delivery_deadline',lable:'截稿时间',width:150},
 							{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 							{prop:'pid',lable:'长期项目ID'},
 							{prop:'ltname',lable:'长期项目来源'},
@@ -229,7 +229,7 @@
 		computed: {},
 		methods: {
 			seeXm(id){
-				
+				console.log('执行')
 			},
 			getProjectclassify(){
 				this.api.projectclassifylist({
@@ -370,7 +370,6 @@
 				
 			},
 			review1(row){
-				
 				const {href} = this.$router.resolve({ path: "/review/projectreview/projectdetial",query:{
 					id:row.bing_id,
 					type:5,

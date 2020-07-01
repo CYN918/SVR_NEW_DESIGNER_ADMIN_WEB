@@ -97,7 +97,7 @@
 			setLoding(type){
 				this.$refs.Tabledd.setLoding(type);	
 			},
-			getData(pg) {
+			async getData(pg) {
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
@@ -112,6 +112,10 @@
 				data.select_status = 1;
 				data.page = pg.pageCurrent;
 				data.limit = pg.pageSize;
+
+				let user = await this.getUserInfo()
+				data.per_check_name = user.name
+	
 				this.api.reviewList5(data).then((da) => {
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
@@ -121,6 +125,10 @@
 				}).catch(() => {
 					this.setLoding(false)
 				});
+			},
+			async getUserInfo() {
+				let access_token = localStorage.getItem("access_token")
+				return await this.api.selfInfo({ access_token })
 			},
 			screenreach() {
 				eventBus.$on("sreenData", (data) => {
