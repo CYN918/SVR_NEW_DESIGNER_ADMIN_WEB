@@ -9,7 +9,7 @@
 		methods:{
 			getaccess() {
 				let access_token = this.$route.query.access_token;
-				access_token = "845b84b976fda5a08d03c4c4586159b1";
+				// access_token = "845b84b976fda5a08d03c4c4586159b1";
 				
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
