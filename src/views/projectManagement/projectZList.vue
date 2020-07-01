@@ -110,7 +110,7 @@
 							{prop:'expected_profit',lable:'预计收益'},
 							{prop:'demand_id',lable:'绑定需求'},
 							{prop:'username',lable:'制作人'},
-							{prop:'publish_time',lable:'截稿时间',width:150},
+							{prop:'delivery_deadline',lable:'截稿时间',width:150},
 							{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
 							{prop:'pid',lable:'长期项目ID'},
 							{prop:'ltname',lable:'长期项目来源'},
