@@ -14,6 +14,26 @@ var router = new Router({
 			component: loading,
 		},
 		{
+			path: '/tools',
+			name: 'Layout',
+			component: Layout,
+			redirect: '/tools/email',
+			meta: {
+				title: "用户"
+			},
+			children: [
+				{
+					path: 'email',
+					name: 'email',
+					meta: {
+						title: "批量发送邮件",
+						pagetitle: "批量发送邮件"
+					},
+					component: () => import('@/views/contentManager/tools/email.vue')
+				},
+			],
+		},
+		{
 			path: '/userManager',
 			name: 'Layout',
 			component: Layout,
