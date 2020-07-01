@@ -30,7 +30,7 @@
 					<li class="margint23 ofh">
 						<span class="fleft detailKey" style="line-height: 40px;">业务类型</span>
 						<el-select v-model="form['business_type']" placeholder="请选择" :disabled="objstatus > 0" style="width: 357px;">
-							<el-option v-for="(item,index) in tableData2" :key="item.id" :value="item.id" :label="item.name"></el-option>
+							<el-option v-for="(item,index) in businessList" :key="item.id" :value="item.id" :label="item.name"></el-option>
 						</el-select>
 					</li>
 					<li class="margint23 ofh" v-if="form['business_type'] == '6'">
@@ -380,15 +380,7 @@
 				},
 				imageUrl: "",
 				tableData1: [],
-				tableData2:[
-					{id:"3",name:"场景主题"},
-					{id:"4",name:"个性化主题"},
-					{id:"5",name:"来电秀"},
-					{id:"7",name:"杂志锁屏"},	
-					{id:"8",name:"投稿作品"},
-					{id:"9",name:"贴纸花字（华为）"},
-					{id:"6",name:"其他"},					
-				],
+				businessList:[],
 				tableData3:[],
 				ifBjType:0,
 				currentpageName:"11",
@@ -783,6 +775,16 @@
 				}).catch(() => {
 
 				})
+			},
+			// 获取业务类型列表
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.businessList = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
 			},
 			handleAvatarSuccess(params) {
 				//console.log(params);
@@ -1765,6 +1767,7 @@
 			this.getData1();
 			this.getdemandlist();
 			this.myConfig.initialFrameHeight = this.$refs.height.offsetHeight-303;
+			this.getBusinessList()
 		},
 		watch:{
 			"$route":function(){
