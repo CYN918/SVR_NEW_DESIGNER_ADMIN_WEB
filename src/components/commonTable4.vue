@@ -170,7 +170,7 @@
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name}}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 									<span v-if="tableActions.morebtns.type=='check'">
-										<span v-for="citem in  tableActions.morebtns.backFn(scope.row)">
+										<span v-for="(citem, index) in  tableActions.morebtns.backFn(scope.row)" :key="index">
 											
 											<el-dropdown-item
 												v-if="gettrue(citem.accessid)" 
