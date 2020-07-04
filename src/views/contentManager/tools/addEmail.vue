@@ -119,6 +119,11 @@
 			}
 		},
 		methods: {
+			getparent(){
+				this.$router.push({
+					path:"/new/email"
+				})
+			},
 			ready(editorInstance) {
 				this.uD = editorInstance;
 				editorInstance.addListener('focus', (editor) => {

@@ -59,7 +59,10 @@
 						{
 							name:"编辑",
 							clickFn:'editEmail',
-							accessid:"200699"
+							accessid:"200699",
+							checkFn:row=>{
+								return row.status==0;
+							}
 						},
 						{
 							name:"删除",
