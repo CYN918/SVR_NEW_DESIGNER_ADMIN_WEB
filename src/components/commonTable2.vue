@@ -353,6 +353,7 @@
 				adminuseraccess: [],
 				auditTitle: '',
 				firstId:[],
+				businessList: []
 			}
 		},
 		methods: {
@@ -756,12 +757,29 @@
 					data[this.tableConfig['data'+this.commonTopData.tabnums].name] = this.tableConfig['data'+this.commonTopData.tabnums].id;
 				}
 				this.api[url](data).then((da) => {
+
+					da.data.forEach(item => {
+						let businessType = item.business_type
+						let currentBusinessType = this.businessList.find(item => businessType == item.id )
+						item.business_type = currentBusinessType.name
+					})
+
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
 				}).catch(() => {
 					this.loading = false;
 				});
+			},
+			// 获取业务类型列表
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.businessList = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
 			},
 			getAddData(){
 				let data = {};
@@ -984,8 +1002,8 @@
 			this.autoTableHeight();
 			this.init();	
 		},
-		created() {
-	
+		async created() {
+			await this.getBusinessList()
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.getcommonrightbtn();
 			this.getAddData();
