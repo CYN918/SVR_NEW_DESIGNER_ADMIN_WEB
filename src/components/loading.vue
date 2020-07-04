@@ -11,7 +11,6 @@
 			getaccess() {
 				let access_token = this.$route.query.access_token;
 				// access_token = "c43e3388dd5e6886cdf37279718173a0";
-	
 				localStorage.setItem("access_token",access_token);
 				this.api.access({
 					access_token:access_token
