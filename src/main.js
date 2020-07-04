@@ -29,7 +29,7 @@ if(token){
 	api.getbusiness({
 		access_token:token
 	}).then((da)=>{
-		da.map((item)=>{
+		da.map((item)=>{			
 			window.ywArr.push({
 				id:item.business_type,
 				name:item.business_name

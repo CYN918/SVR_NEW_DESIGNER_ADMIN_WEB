@@ -197,7 +197,7 @@
 				filterFields:[
 						{name:"子项目名称",id:"name",type:'input'},
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
-						{name:"业务类型",id:"business_type",type:'newselet',child:this.ywArr},
+						{name:"业务类型",id:"business_type",type:'newselet',child:window.ywArr},
 						{name:"制作人昵称",id:"username",type:'input'},
 						{name:"结算方式",id:"deal_type",type:'selet',child:[
 							{id:0,name:"未选择"},

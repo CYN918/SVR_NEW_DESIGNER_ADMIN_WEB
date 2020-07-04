@@ -195,7 +195,7 @@
 				filterFields:[
 						{name:"项目名称",id:"name",type:'input'},
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
-						{name:"业务类型",id:"business_type",type:'newselet',child:this.ywArr},
+						{name:"业务类型",id:"business_type",type:'newselet',child:window.ywArr},
 						{name:"项目ID",id:"project_id",type:'input'}
 				],
 					
