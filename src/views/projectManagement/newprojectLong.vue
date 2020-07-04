@@ -380,11 +380,8 @@
 				},
 				imageUrl: "",
 				tableData1: [],
-<<<<<<< HEAD
 				tableData2:window.ywArr,
-=======
 				businessList:[],
->>>>>>> master-fix
 				tableData3:[],
 				ifBjType:0,
 				currentpageName:"11",
