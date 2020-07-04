@@ -63,7 +63,7 @@
 					list:[
 						{prop:"banner",lable:"项目banner",type:"img",width:150},
 						{prop:'name',lable:'报名项目'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
 						{prop:'signup_num',lable:'报名人数'},
 						{prop:'deadline',lable:'提审时间'},
 						{prop:'status',lable:'当前状态',type:"clFnd",clFnd:(da)=>{
@@ -232,6 +232,7 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getData1();
+			DataScreen.screen.projectreviewxb.filterFields[1].child = window.ywArr;
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
 				let map = {

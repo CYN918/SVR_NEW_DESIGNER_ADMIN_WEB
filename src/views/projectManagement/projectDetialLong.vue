@@ -383,7 +383,7 @@
 				filterFields0:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:this.ywArr},
+					{name:"业务类型",id:"business_type",child:window.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -394,7 +394,7 @@
 				filterFields1:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:this.ywArr},
+					{name:"业务类型",id:"business_type",child:window.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},
@@ -405,7 +405,7 @@
 				filterFields2:[
 					{name:"项目ID",id:"id"},
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",child:this.ywArr},
+					{name:"业务类型",id:"business_type",child:window.ywArr},
 					{name:"领域范围",id:"fields"},
 					{name:"额外赏金",id:"extra_reward"},
 					{name:'发布时间',id:'publish_time',type:"time",child:[{name:'发布时间(开始)',id:'publish_time_start'},{name:'发布时间(开始)',id:'publish_time_end'}]},

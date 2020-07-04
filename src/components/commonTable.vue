@@ -113,22 +113,45 @@
 				</el-table-column>
 				<el-table-column fixed="right" label="操作" width="150" v-if="!tableAction.is_hidden">
 					<template slot-scope="scope">
+						<div v-if="tableAction.newBtn">
+							<span v-for="el in tableAction.newBtn">
+								<span v-if="checkascc(el.accessid) && (!el.checkFn || el.checkFn(scope.row))">
+									<el-button 
+										v-if="el.type=='btn'" 
+										@click="clickFn(el.clickFn,scope.row)" 
+										type="text" size="small">{{el.name}}</el-button>	
+									<span v-else 
+									@click="clickFn(el.clickFn,scope.row)"
+									class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;" 
+									>{{el.name}}</span>						
+								</span>											
+							</span>
+						</div>
+						<div v-else>
 							<div v-if="!tableAction.pagefilterField">
-								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;" v-if="tableAction.links.Ishow && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
-								<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;" v-if="tableAction.links.Ishow && !tableAction.links.accessid">{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}</span>
+								<div v-if="tableAction.links.Ishow">
+									<el-dropdown trigger="hover" v-if="tableAction.morebtns.child ">
+										<span class="el-dropdown-link" style="padding:0 21px;">{{ tableAction.morebtns.name }}</span>
+										<el-dropdown-menu class="sel-tooltip" slot="dropdown">
+											<el-dropdown-item v-if="checkascc(citem.accessid)" v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
+										</el-dropdown-menu>
+									</el-dropdown>
+									<div v-if="!tableAction.morebtns.child">
+										<span @click="handleClick(scope.row,'',tableAction.morebtns.page,$event)"
+										class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;" 
+										v-if="checkascc(tableAction.links.accessid)">
+										{{ tableAction.links.child ? tableAction.links.child[scope.row["status"]]:tableAction.links.name }}
+										</span>
+										<el-button
+										@click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" 
+										type="text" size="small" 
+										v-if="checkascc(tableAction.morebtns.accessid)">
+										{{ tableAction.morebtns.name }}</el-button>								
+									</div>
+								</div>
 								
-								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && tableAction.morebtns.accessid && (adminuseraccess.indexOf(tableAction.morebtns.accessid) > -1)">{{ tableAction.morebtns.name }}</el-button>
-								<el-button @click="handleClick(scope.row,'contributor',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.morebtns.Ishow && !tableAction.morebtns.child && !tableAction.morebtns.accessid">{{ tableAction.morebtns.name }}</el-button>
-								
-								<el-dropdown trigger="hover" v-if="tableAction.morebtns.Ishow && tableAction.morebtns.child ">
-									<span class="el-dropdown-link" style="padding:0 21px;">{{ tableAction.morebtns.name }}</span>
-									<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-										<el-dropdown-item v-if="citem.accessid && (adminuseraccess.indexOf(citem.accessid) > -1)" v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
-										<el-dropdown-item v-if="!citem.accessid" v-for="(citem,index) in tableAction.morebtns.child" :key="index" class="comonbtn" @click.native="handleClick(scope.row,'contributor'+ index,tableAction.morebtns.page)">{{ citem.name }}</el-dropdown-item>
-									</el-dropdown-menu>
-								</el-dropdown>
 							</div>
-							<div  v-else-if="tableAction.pagefilterField">
+							<div  v-if="tableAction.pagefilterField">
 								<el-button style="padding: 0 10px;" @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && tableAction.links.accessid && (adminuseraccess.indexOf(tableAction.links.accessid) > -1)">{{ tableAction.links.name }}</el-button>
 								<el-button style="padding: 0 10px;" @click="handleClick(scope.row,'',tableAction.morebtns.page)" type="text" size="small" v-if="tableAction.links.Ishow  && ( tableAction.links.filterField ? (tableAction.links.filterField.indexOf(scope.row[tableAction.pagefilterFieldid]) > -1) : true ) && !tableAction.links.accessid">{{ tableAction.links.name }}</el-button>
 								<el-button style="padding: 0 10px;" @click="handleClick(scope.row,'activitydetel')" type="text" size="small" v-if="scope.row['status'] == '-1'">{{ tableAction.delete.name }}</el-button>
@@ -144,6 +167,8 @@
 									</el-dropdown-menu>
 								</el-dropdown>
 							</div>
+					
+						</div>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -187,6 +212,12 @@
 			}
 		},
 		methods: {
+			clickFn(n,row){
+				this.$emit('clickFn',{fn:n,pr:row});
+			},
+			checkascc(id){
+				return  !id || this.adminuseraccess.indexOf(id)>-1;
+			},
 			clnIMG(UM){
 				let st = [];
 				try{
@@ -209,41 +240,15 @@
 				
 			  return  n[k];
 			},
-			/* openPostWindow(url,data,name){  //url要跳转到的页面，data要传递的数据，name显示方式（可能任意命名）
-			  var tempForm = document.createElement("form");  
-			  tempForm.id="tempForm1";  
-			  tempForm.method="post";  
-			  tempForm.action=url;  
-			  tempForm.target=name;  
-			  for(var key in data){
-			  
-			  	var hideInput = document.createElement("input");
-			  	hideInput.type="hidden";
-			  	//传入参数名,相当于get请求中的content=
-			  	hideInput.name= key;
-			  	//传入传入数据，只传递了一个参数内容，实际可传递多个。
-			  	hideInput.value= data[key];   
-			  	tempForm.appendChild(hideInput);
-			  }
-			  console.log(tempForm)
-			  tempForm.appendChild(hideInput);   
-			  tempForm.addEventListener("onsubmit",()=>{ 
-				  this.openWindow(name); 
-			  });//必须用name不能只用url，否则无法传值到新页面
-			  document.body.appendChild(tempForm);           
-			  //tempForm.dispatchEvent("onsubmit");
-			  tempForm.submit();
-			  document.body.removeChild(tempForm);
-			},
-			openWindow(name)  {  
-				 window.open('about:blank',name,);  
-			}, */
 			formatMoney(input){ 
                 var n = parseFloat(input).toFixed(2);
                 var re = /(\d{1,3})(?=(\d{3})+(?:\.))/g;
                 return n.replace(re, "$1,");
             },
 			setparenttable(){
+				if(!this.tableAction.morebtns){
+					return
+				}
 				switch(this.tableAction.morebtns.page){
 					case "userBaseInfo":
 						
@@ -1057,31 +1062,34 @@
 			}
 		},
 		created() {
-			switch(this.tableAction.morebtns.page){
-				case "userBaseInfo":
-					this.pageid = "open_id";
-				break;
-				case "workInfo":
-					this.pageid = "work_id";
-				break;
-				case "worksShelves":
-					this.pageid = "open_id";
-				break;
-				case "newActivity":
-					this.pageid = "template_file_id";
-				break;
-				case "addrelease":
-					this.pageid = "open_id";
-				break;
-				case "addblack":
-					if(this.$parent.$parent.tabnum == 0){
+			if(this.tableAction.morebtns){
+				switch(this.tableAction.morebtns.page){
+					case "userBaseInfo":
 						this.pageid = "open_id";
-					} else {
-						this.pageid = "report_id";
-					}
-					
-				break;
+					break;
+					case "workInfo":
+						this.pageid = "work_id";
+					break;
+					case "worksShelves":
+						this.pageid = "open_id";
+					break;
+					case "newActivity":
+						this.pageid = "template_file_id";
+					break;
+					case "addrelease":
+						this.pageid = "open_id";
+					break;
+					case "addblack":
+						if(this.$parent.$parent.tabnum == 0){
+							this.pageid = "open_id";
+						} else {
+							this.pageid = "report_id";
+						}
+						
+					break;
+				}
 			}
+			
 		}
 	}
 </script>

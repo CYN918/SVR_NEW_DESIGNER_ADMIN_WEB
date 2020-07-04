@@ -145,7 +145,8 @@
 					'6':'其他',
 					'7':'杂志锁屏'
 				};
-				return map[this.info.business_type];				
+				
+				return window.ywArr2[this.info.business_type];				
 			},
 			project_status(){
 				let map = {

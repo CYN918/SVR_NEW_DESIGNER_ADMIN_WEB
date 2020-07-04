@@ -16,7 +16,7 @@
 						<el-input class="ipt" placeholder="请输入内容" v-model="form[item.id]" v-if="(!item.child) && (!item.type)"
 						 clearable></el-input>
 						<el-dropdown trigger="click" class="ipt" v-else-if="item.child && item.type == 'more'" :hide-on-click="false">
-							<el-input class="ipt el-dropdown-link" placeholder="请输入内容" v-model="form[item.id]" suffix-icon="el-icon-arrow-down"
+							<el-input class="ipt el-dropdown-link" placeholder="请选择" v-model="form[item.id]" suffix-icon="el-icon-arrow-down"
 							 clearable></el-input>
 						    <el-dropdown-menu slot="dropdown" style="width: 335px;min-height: 120px;">
 								<el-checkbox-group v-model="vocation[item.id]">
@@ -26,13 +26,27 @@
 								</el-checkbox-group>
 						    </el-dropdown-menu>
 						</el-dropdown>
-
+						
+						<el-select class="newswlwr" v-if="item.type=='newselet'" v-model="form[item.id]" multiple placeholder="请选择">
+						    <el-option
+						      v-for="item in item.child"
+						      :key="item.id"
+						      :label="item.name"
+						      :value="item.id">
+						    </el-option>
+						  </el-select>
+						
+						
 						<div class="ipt" v-else-if="item.child && !item.type">
 							<el-select v-model="form[item.id]" placeholder="请选择" >
 								<el-option value="" label="全部"></el-option>
 								<el-option v-for="(childitem,index) in item.child" :value="childitem.id" :label="childitem.name"></el-option>
 							</el-select>
 						</div>
+						
+						
+						
+						
 						 <el-date-picker
 						  v-if="item.type == 'time'"
 						   @change="timetwo(item.child,index)"
@@ -44,17 +58,8 @@
 						  end-placeholder="结束日期"
 						  >
 						</el-date-picker>
-						<!-- <el-cascader class="ipt" v-if="item.type == 'cascader'"
-						    expand-trigger="hover"
-							:options="item.child"
-							:props="item.optionProps"
-							v-model="selectedOptions"
-							@change="handleChange"
-							collapse-tags
-							clearable>
-						</el-cascader> -->
-						<div class="box">
-							<el-multi-cascader ref="myCascader" class="ipt" @change="handleChange" v-if="item.type == 'linkage'" 
+						<div class="box" v-if="item.type == 'linkage'">
+							<el-multi-cascader ref="myCascader" class="ipt" @change="handleChange"  
 								expand-trigger="hover" 
 								v-model="cascaderOptions" 
 								:options="item.child" 
@@ -69,36 +74,7 @@
 						</div>
 						
 						
-						<!-- <el-select v-model="form[item.id]" multiple collapse-tags placeholder="请选择" v-if="item.type == 'businessType'">
-							<el-option
-							v-for="citem in item.child"
-							:key="citem.id"
-							:label="citem.name"
-							:value="citem.id">
-							</el-option>
-						</el-select> -->
 						
-						<!-- <div v-if="item.type == 'cascader'">
-							<el-input class="ipt"  v-popover:popover placeholder="请输入内容" v-model="form[item.id]"></el-input>
-							<el-popover
-							  ref="popover"
-							  placement="right"
-							  width="200">
-							  <div style="max-height: 400px;min-height: 200px;overflow-y: auto;">
-								  <el-tree
-								    v-if="item.type == 'cascader'"
-								    :data="item.child"
-								    show-checkbox
-								    node-key="id"
-								    :props="defaultProps">
-								  </el-tree>
-							  </div>
-
-							</el-popover>
-						</div> -->
-						
-						
-				
 						<div v-if="item.type == 'two'" class="ipt">
 							<el-input v-model="form[item.child[0].id]" class="ipt90" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入内容" clearable></el-input>
 							<span style="padding: 0 11.5px;color:#999999;font-size:12px;">至</span>
@@ -174,37 +150,7 @@
 				
 
 				if (data == "reach") {
-					//console.log()
-					// if(this.vocation != ""){
-					// 	this.form['vocation'] = this.vocation.join(',');
-					// };
-					if(this.form.business_type != 'undefined'){	
-						let a = '';				
-						(this.form.business_type || '').split(',').forEach(item => {
-							if(item == '场景主题'){
-								a += 3 + ",";
-							}
-							if(item == '个性化主题'){
-								a += 4 + ",";
-							}
-							if(item == '来电秀'){
-								a += 5 + ",";
-							}
-							if(item == '其他'){
-								a += 6 + ",";
-							}
-							if(item == '杂志锁屏'){
-								a += 7 + ",";
-							}
-							if(item == '投稿作品'){
-								a += 8 + ",";
-							}
-							if(item == '贴纸花字（华为）'){
-								a += 9 + ",";
-							}
-						})
-						this.form.business_type = a.substring(0,a.lastIndexOf(','));	 
-					}
+					
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
@@ -223,9 +169,14 @@
 						this.form['classify_2'] = this.removeRepeatStr(arr1).substring(0,this.removeRepeatStr(arr1).lastIndexOf(','));
 						this.form['classify_3'] = this.removeRepeatStr(arr2).substring(0,this.removeRepeatStr(arr2).lastIndexOf(','));					
 					}	
+					let pd = JSON.parse(JSON.stringify(this.form));
+					if(pd.business_type){
+						pd.business_type = pd.business_type.join(',');
+					}
+					
 					this.$router.push({
 						query: {
-							urlDate: JSON.stringify(this.form)
+							urlDate: JSON.stringify(pd)
 						}
 					});
 					// eventBus.$emit("sreenData", this.form);
@@ -244,7 +195,11 @@
 			},
 			init() {
 				if(this.$route.query.urlDate){
-					this.form = JSON.parse(this.$route.query.urlDate);
+					let pd = JSON.parse(this.$route.query.urlDate);
+					if(pd.business_type){
+						pd.business_type = pd.business_type.split(',');
+					}
+					this.form = pd;
 					
 					this.texts.map((el,index)=>{
 						if(el.type=="time" && el.child && this.form[el.child[0].id]){
@@ -290,7 +245,10 @@
 				}
 			},
 			reset() {
-				this.form = {};
+			
+				this.form = {
+					business_type:[],
+				};
 				this.times = [];
 				this.cascaderOptions = [];
 				this.vocation = {
@@ -414,5 +372,8 @@
 		padding: 0;
 		background: #FFFFFF;
 		z-index: 999999;
+	}
+	.newswlwr{
+		width: 335px;
 	}
 </style>

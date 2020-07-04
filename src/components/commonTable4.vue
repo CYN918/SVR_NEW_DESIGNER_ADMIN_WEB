@@ -219,7 +219,7 @@
 				<div class="screenborder">
 					<div class="screenMidden paddinglr30" style="margin-top:35px;">
 						<ul class="screenMiddenul ofh w" style="padding-bottom:85px;">
-							<li v-for="(item,index) in filterField" :key="item.id">
+							<li v-for="(item,index) in filterFields" :key="item.id">
 								<div class="label">
 									{{ item.name }}
 								</div>
@@ -236,6 +236,16 @@
 										</el-checkbox-group>
 								    </el-dropdown-menu>
 								</el-dropdown>
+								
+								<el-select class="newswlwr" v-if="item.type=='newselet'" v-model="form[item.id]" multiple placeholder="请选择">
+								    <el-option
+								      v-for="item in item.child"
+								      :key="item.id"
+								      :label="item.name"
+								      :value="item.id">
+								    </el-option>
+								  </el-select>
+								
 								<el-select v-if="item.type=='selet'" v-model="form[item.id]" placeholder="请选择" >
 									<el-option value="" label="全部"></el-option>
 									 <el-radio-group v-model="form[item.id]">
@@ -430,7 +440,7 @@
 				this.commonTopData.commonbottombtn = [];
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate);
-					this.tabFilterFields = this.filterFields['filterFields'+ this.commonTopData.tabnums];
+					this.tabFilterFields = this.filterFields;
 					this.tabFilterFields.forEach(item=>{
 						if(urldata[item.id]){
 							var val = urldata[item.id];
@@ -534,7 +544,7 @@
 				});
 			},
 			reset(){
-				this.form ={};
+				this.form ={business_type:[]};
 				this.times = [];
 			},
 			reject(){
@@ -663,13 +673,16 @@
 						this.form['classify_2'] = this.selectedOptions[1];
 						this.form['classify_3'] = this.selectedOptions[2];
 					}
-					
+					let pd = JSON.parse(JSON.stringify(this.form));
+					if(pd.business_type){
+						pd.business_type = pd.business_type.join(',');
+					}
 					 this.$router.push({
 						query: {
-							urlDate: JSON.stringify(this.form)
+							urlDate: JSON.stringify(pd)
 						}
 					});
-					eventBus.$emit("sreenData", this.form);
+					eventBus.$emit("sreenData", pd);
 					this.getcommonrightbtn();
 					this.reject();
 					this.getTabData();
@@ -748,7 +761,13 @@
 				if(this.tableConfig.project_type){
 					data.project_type = this.tableConfig.project_type;
 				}
-				this.api[url](data).then((da) => {
+				
+				let pd = JSON.parse(JSON.stringify(data));
+				if(pd.business_type){
+					pd.business_type = pd.business_type.join(',');
+				}
+				
+				this.api[url](pd).then((da) => {
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
@@ -844,12 +863,12 @@
 				
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
-					this.filterField = this.filterFields;
+					
 				} else {
 					this.tableActions = this.tableAction['tableAction'+ n];
-					this.filterField = this.filterFields['filterFields'+ n];
+					
 				}
-				
+			
 				
 				if(!this.commonTopData.num){
 					this.commonrightbtn = this.commonTopData.commonrightbtn;
@@ -981,6 +1000,15 @@
 		},
 		created() {
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
+			if(this.$route.query.urlDate){
+				let pd = JSON.parse(this.$route.query.urlDate);
+				if(pd.business_type){
+					pd.business_type = pd.business_type.split(',');
+				}
+				this.form = pd;
+			}
+			
+			
 			this.getcommonrightbtn();
 			this.getAddData();
 			this.getData();

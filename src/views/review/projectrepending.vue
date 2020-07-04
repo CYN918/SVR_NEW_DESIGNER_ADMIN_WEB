@@ -64,12 +64,35 @@
 					total: 0,
 					currentpage:1,
 					pagesize:10,
-					list: DataScreen.screenShow.projectreview.bts
+					list:[
+						{prop:'id',lable:'审核ID'},
+						{prop:'project_id',lable:'项目ID'},
+						{prop:'name',lable:'项目名称'},
+						{prop:'classify_name',lable:'项目类型',},
+						{lable:"稿件预览图",prop:"preview_pic",type:"img",width:270},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
+						{prop:{prop1:"file_name",prop2:"online_disk_url"},type:"urlfile",filetype:{name:"type",id:'1'},lable:'交稿文件/网盘链接'},
+						{prop:'remark',lable:'备注说明',width:350},
+						{prop:'username',lable:'提审用户昵称'},
+						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
+						{prop:'admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
+					]
 				},
 				tableData: [],
 				tableAction: DataScreen.screenShow.projectreview.action,
 				detailData: "",
-				filterFields:DataScreen.screen.projectreview.filterFields,
+				filterFields:[
+					{name:"审核ID",id:"id"},
+					{name:"项目ID",id:"project_id"},
+					{name:"项目名称",id:"name"},
+					{name:"项目类型",id:"classify_id",child:[]},
+					
+					{name:"业务类型",id:"business_type",child:window.ywArr},
+					
+					{name:"提审用户昵称",id:"username"},
+					{name:"审核状态",id:"check_status",child:[{name:"待审核",id:"0"},{name:"审核通过",id:"1"},{name:"审核驳回",id:"-1"},{name:"失效或撤回",id:"-2"}]},
+					{name:"",type:"display"}
+				],
 				IsDetail:1,
 				roles:{},
 				mxArr:[],
@@ -232,6 +255,7 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getData1();
+			DataScreen.screen.projectreview.filterFields[4].child = window.ywArr;
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
 				let map = {

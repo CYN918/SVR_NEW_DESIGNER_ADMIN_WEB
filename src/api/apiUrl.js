@@ -522,5 +522,28 @@ export default {
 		url:'/admin/project/getCount',method:'post',baseURL:0
 	},
 	
+	Noticeemaillist:{
+		url:'/admin/Noticeemail/list',method:'post',baseURL:0
+	},
+	Noticeemaildetail:{
+		url:'/admin/Noticeemail/detail',method:'post',baseURL:0
+	},
+	
+	
+	Noticeemailadd:{
+		url:'/admin/Noticeemail/add',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	Noticeemaildelete:{
+		url:'/admin/Noticeemail/delete',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
+	Noticeemailedit:{
+		url:'/admin/Noticeemail/edit',method:'post',baseURL:0,isType:{suktip:true,isok:true}
+	},
+	
+	getbusiness:{
+		url:'/admin/Project/business',method:'post',baseURL:0
+	},
+	
 	
 }

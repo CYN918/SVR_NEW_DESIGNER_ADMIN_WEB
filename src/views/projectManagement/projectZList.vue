@@ -103,7 +103,7 @@
 							{prop:'banner',lable:'banner',type:"img"},
 							{prop:'name',lable:'项目名称'},
 							{prop:'classify_name',lable:'项目类型'},
-							{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏", "8":"投稿作品", "9": "贴纸花字（华为）"}},							
+							{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},							
 							{prop:'settlement',lable:'结算方式',type:"keyvalue",
 								child:{"0":"用户选择","1":"买断","2":"分成","3":"预付金+分成"},
 							},						
@@ -194,11 +194,10 @@
 
 				},
 				detailData: "",
-				filterFields:{
-					filterFields0:[
+				filterFields:[
 						{name:"子项目名称",id:"name",type:'input'},
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
-						{name:"业务类型",id:"business_type",type:'selet',child:this.ywArr},
+						{name:"业务类型",id:"business_type",type:'newselet',child:this.ywArr},
 						{name:"制作人昵称",id:"username",type:'input'},
 						{name:"结算方式",id:"deal_type",type:'selet',child:[
 							{id:0,name:"未选择"},
@@ -210,8 +209,6 @@
 						{name:"长期项目来源（项目名称）",id:"ltname",type:'input'},
 						{name:"长期项目ID",id:"pid",type:'input'},
 					],
-					
-				},
 				
 				IsDetail:1,
 				roles:{},
@@ -244,7 +241,7 @@
 							id:da.data[i].classify_name
 						})
 					}
-					this.filterFields.filterFields0[1].child = arr;						
+					this.filterFields[1].child = arr;						
 				})
 			},
 			loadContractList() {

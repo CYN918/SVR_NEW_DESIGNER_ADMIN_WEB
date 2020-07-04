@@ -67,7 +67,7 @@
 					list:[
 						{prop:"banner",lable:"项目banner",type:"img",width:150},
 						{prop:'name',lable:'报名项目'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
 						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
 						{prop:'username',lable:'提审用户'},
 						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
@@ -91,7 +91,7 @@
 				detailData: "",
 				filterFields:[
 					{name:"项目名称",id:"name"},
-					{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+					{name:"业务类型",id:"business_type",type:"newselet",child:window.ywArr},
 					{name:"提审用户昵称",id:"username"},
 				],
 				IsDetail:1,
@@ -244,6 +244,7 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getData1();
+			DataScreen.screen.projectreviewbm.filterFields[1].child = window.ywArr;
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
 				let map = {

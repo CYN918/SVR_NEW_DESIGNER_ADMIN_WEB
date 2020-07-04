@@ -1549,8 +1549,8 @@
 				this.access = JSON.parse(localStorage.getItem("access"))
 				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
 				let type = this.$route.query.business_type;
-				this.audit1 = this.ywArr_qx[type][0]?this.ywArr_qx[type][0]:'';
-				this.audit2 = this.ywArr_qx[type][1]?this.ywArr_qx[type][1]:'';
+				this.audit1 = window.ywArr_qx[type][0]?window.ywArr_qx[type][0]:'';
+				this.audit2 = window.ywArr_qx[type][1]?window.ywArr_qx[type][1]:'';
 			}
 		},
 		mounted() {

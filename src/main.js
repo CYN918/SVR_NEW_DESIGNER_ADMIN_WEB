@@ -22,18 +22,35 @@ Vue.prototype.router = router
 Vue.prototype.axios = axios
 Vue.prototype.api = api
 
+window.ywArr = [];
+window.ywArr2 = {};
+let token = localStorage.getItem("access_token");
+if(token){
+	api.getbusiness({
+		access_token:token
+	}).then((da)=>{
+		da.map((item)=>{
+			window.ywArr.push({
+				id:item.business_type,
+				name:item.business_name
+			});
+			window.ywArr2[item.business_type] = item.business_name;			
+		})
+	})	
+}
 
-
+				
 Vue.prototype.ywArr = [
-	{id:"1",name:"广告模板"},
-	{id:"2",name:"广告图"},
+	// {id:"1",name:"广告模板"},
+	// {id:"2",name:"广告图"},
 	{id:"3",name:"场景主题"},
 	{id:"4",name:"个性化主题"},
-	{id:"5",name:"来电秀"},
-	{id:"6",name:"其他"},
+	{id:"5",name:"来电秀"},	
 	{id:"7",name:"杂志锁屏"},	
 	{id:"8",name:"投稿作品"},
-	{id:"9",name:"贴纸花字（华为）"}
+	{id:"9",name:"贴纸花字（华为）"},
+	{id:"10",name:"表盘UI"},
+	{id:"6",name:"其他"},
 ];
 /*验收*/
 Vue.prototype.ywArr_qx = {

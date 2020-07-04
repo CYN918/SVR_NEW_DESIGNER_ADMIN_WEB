@@ -17,6 +17,14 @@
 						{{ item.desc }} 
 					</div>
 				</li>
+				<li class="holdlist textcenter" @click="goFn()">
+					<div style="margin: 27px auto 13px;width: 80%;color: #FFFFFF;">
+						<span>批量发送邮件</span> 
+					</div>
+					<div style="width: 80%;margin: auto; color: #FFFFFF;text-align: left;">
+						可以批量导入邮箱，设置html样式发送
+					</div>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -41,6 +49,12 @@
 			commonTop
 		},
 		methods:{
+			checkAss(id){
+				return this.adminuseraccess.indexOf(id) != -1;
+			},
+			goFn(){
+				this.router.push({path:"/new/email"})
+			},
 			goto(id){
 				if(this.adminuseraccess.indexOf("200396") == -1){
 					this.$message({

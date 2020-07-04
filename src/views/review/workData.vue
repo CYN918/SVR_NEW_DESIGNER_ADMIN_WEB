@@ -7,7 +7,7 @@
                 <li>
                     <span class="left">业务类型</span>
 					
-                    <span class="right">{{ywArr[reviewinfocommon.business_type-1].name}}</span>
+                    <span class="right">{{backBu(reviewinfocommon.business_type-1)}}</span>
      
                 </li>
                 <li>
@@ -132,6 +132,12 @@
 
         },
         methods:{
+			backBu(n){
+				if(!window.ywArr[n]){
+					return
+				}
+				return window.ywArr[n].name;
+			},
             download(row){
                 fetch(row.file_url).then(res => res.blob()).then(blob => {
                     const a = document.createElement('a');

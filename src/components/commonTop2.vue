@@ -80,28 +80,23 @@
 				</div>
 				<div class="fright" style="float:left;" v-else>
 					<div class="fleft" v-for="(item,index) in commonTopData.commonrightbtn" :key="item.id">
-						<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1)">
-							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-							<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
-								<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
-							</div>
-							<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-							<button v-if="commonTopData.upload" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
+						<div v-if="item.accessid && (adminuseraccess.indexOf(item.accessid) > -1) || !item.accessid">
+							<button v-if="!commonTopData.upload" class="defaultbtn" 
+							@click="clickFn(item.clickFn)">{{ item.name }}</button>							
 						</div>
-						<div v-if="!item.accessid">
-							<button v-if="!commonTopData.upload" class="defaultbtn" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-							<div class="sel-tooltip" v-if="item.id == 'right1' && Istooltip" style="z-index: 2004;">
-								<div v-for="(item,index) in operations" :key="item.name" class="comonbtn" @click="IsShow(index)">{{ item.name }}</div>
-							</div>
-							<div class="masku" v-if="item.id == 'right1' && Istooltip" @click="Istooltip = false"></div>
-							<button v-if="commonTopData.upload && !item.two" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-							<button v-if="commonTopData.upload && item.two && settrue(item.two.id1,item.two.id2)" class="defaultbtn defaultbtnactive" @click="getparent(item.id,commonTopData.pageName)">{{ item.name }}</button>
-						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
-
+		<!-- <div class="margin40 ta" style="margin-bottom: 15px;" v-if="commonTopData.commonbottombtn.length != '0'">
+			<div class="tagbts">
+				<el-tag :key="item.id" v-for="(item,index) in commonTopData.commonbottombtn" closable class="tag btntag"
+				 :disable-transitions="false" @close="handleClose(item.id,index)">
+					{{item.btnName + "：" + item.val}}
+				</el-tag>
+			</div>
+		</div> -->
 	</div>
 </template>
 <script>
@@ -132,6 +127,9 @@
 			};
 		},
 		methods: {
+			clickFn(n){
+				this.$emit('clickFn',{fn:n})
+			},
 			settrue(id1,id2){
 				if((this.adminuseraccess.indexOf(id1) == -1) && (this.adminuseraccess.indexOf(id2) == -1)) {
 					return false;

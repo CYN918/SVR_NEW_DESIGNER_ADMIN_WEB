@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout.vue'
 import loading from '@/components/loading.vue'
+import Index from './views/index.vue'
 Vue.use(Router)
 
 var router = new Router({
@@ -13,14 +14,15 @@ var router = new Router({
 			name: 'loading',
 			component: loading,
 		},
+		
 		{
-			path: '/tools',
-			name: 'Layout',
-			component: Layout,
-			redirect: '/tools/email',
+			path: '/new',
+			name: 'new',
+			component: Index,
 			meta: {
-				title: "用户"
+				title: "工具箱"
 			},
+			redirect: '/new/email',
 			children: [
 				{
 					path: 'email',
@@ -31,8 +33,18 @@ var router = new Router({
 					},
 					component: () => import('@/views/contentManager/tools/email.vue')
 				},
-			],
+				{
+					path: 'addEmail',
+					name: 'addEmail',
+					meta: {
+						title: "新建批量发送邮件",
+						pagetitle: "新建批量发送邮件"
+					},
+					component: () => import('@/views/contentManager/tools/addEmail.vue')
+				},					
+			]
 		},
+
 		{
 			path: '/userManager',
 			name: 'Layout',
