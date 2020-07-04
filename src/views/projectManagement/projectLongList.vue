@@ -449,6 +449,7 @@
 						if(da.result == 0) {
 							this.$refs.Tabledd.getTabData();
 						}
+						this.$refs.Tabledd.getTabData()
 					}).catch(da=>{
 						
 					})

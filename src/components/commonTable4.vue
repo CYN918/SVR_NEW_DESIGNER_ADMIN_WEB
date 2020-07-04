@@ -748,7 +748,21 @@
 				if(this.tableConfig.project_type){
 					data.project_type = this.tableConfig.project_type;
 				}
+
 				this.api[url](data).then((da) => {
+					if(this.tableConfig.project_type == 2) {
+						let settlements = { 0: '用户选择', 1: '买断' , 2: '分成' }
+						let dealTypes = { 1: '买断', 2: '分成', 3: '预约金+分成' }
+
+						da.data.forEach(item => {
+							if(item.status == '0') {
+								item.settlement = dealTypes[item.deal_type]
+							}else {
+								item.settlement = settlements[item.settlement]
+							}
+						})
+					}
+
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;
