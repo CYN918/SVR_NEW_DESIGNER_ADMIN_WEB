@@ -102,7 +102,7 @@
 						
 					],
 					"tabData":[
-						{name:"招募期"},
+						{name:"招募阶段"},
 						{name:"制作期"},
 						{name:"已验收"},
 						{name:"已终止"}
@@ -123,6 +123,7 @@
 						{prop:'expected_profit',lable:'预计收益'},
 						{prop:'demand_id',lable:'绑定需求'},
 						// {prop:'extra_reward',lable:'额外赏金'},
+						{prop:'signup_num',lable:'报名人数',width:150},
 						{prop:'publish_time',lable:'发布时间',width:150},
 						{prop:'bidding_time',lable:'中标时间',width:150},
 						{prop:'delivery_deadline',lable:'截稿时间',width:150},

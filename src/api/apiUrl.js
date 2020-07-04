@@ -521,6 +521,7 @@ export default {
 	subprogetCount:{
 		url:'/admin/project/getCount',method:'post',baseURL:0
 	},
+<<<<<<< HEAD
 	
 	Noticeemaillist:{
 		url:'/admin/Noticeemail/list',method:'post',baseURL:0
@@ -546,4 +547,12 @@ export default {
 	},
 	
 	
+=======
+	// 获取业务所有类型
+	getBusinessList: {
+		url: '/admin/Project/business',
+		method: 'post',
+		baseURL:0
+	}
+>>>>>>> master-fix
 }

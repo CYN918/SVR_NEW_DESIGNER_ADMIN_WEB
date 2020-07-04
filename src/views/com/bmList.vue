@@ -83,12 +83,7 @@ export default{
 							message:'选标成功',
 							type:"success"
 						});
-						this.$router.push({
-							path:"/projectManagement/projectList",
-							query:{
-								tabsnum:3
-							}
-						})
+						this.$router.back();
 					}
 				}).catch(da => {
 					
