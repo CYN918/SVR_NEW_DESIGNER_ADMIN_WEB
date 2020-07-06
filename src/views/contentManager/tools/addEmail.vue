@@ -10,29 +10,30 @@
 							<input type="text" 
 							placeholder="请输入内容" 
 							class="sel-input fleft" 
-							oninput="if(value.length > 10)value = value.slice(0, 10)"
-							maxlength="10" 
+							oninput="if(value.length > 10)value = value.slice(0, 30)"
+							maxlength="30" 
 					
 							v-model="form.title">
-							<span class="fright">{{ form.title.length }}/10</span>
+							<span class="fright">{{ form.title.length }}/30</span>
 						</div>
 					</li>
 					<li class="margint13 ofh">
 						<span class="fleft roles-input fontcolorg" style="margin-right: 20px;">邮箱录入</span>
 						<div class="pt_tesxt  width500">
 							<textarea
-							placeholder="请输入要发送的邮箱,若需发送多个邮箱,请每行输入一个邮箱如\r12345@qq.com\r12345@qq.com" 
+							placeholder="请输入要发送的邮箱,若需发送多个邮箱,请每行输入一个邮箱" 
 							class="sel-input fleft"v-model="form.to_email_idsAll">
-								
-							
 							</textarea>
 							
 						</div>
 					</li>
 					<li class="margint13 ofh">
 						<span class="fleft fontcolorg" style="margin-right: 20px;"></span>
-						<div style="margin-left: 77px;">
-							<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
+						<div class="pushemail_01">
+						
+							<upload ref="upload" @setPaged="setpercentage" :initialFrameHeight="300" :uploaddata="form.content"></upload>
+						
+						
 						</div>
 
 					</li>
@@ -53,6 +54,9 @@
 			</div>
 
 		</div>
+		<div class="masku screenContent" style="background: rgba(0,0,0,0.4);" v-if="pressage">
+			<el-progress type="circle" :percentage="percentage" class="prossage"></el-progress>
+		</div>
 	</div>
 </template>
 
@@ -62,14 +66,19 @@
 	import commonTop from '@/components/commonTop.vue'
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
+	import upload from '@/components/upload.vue'
 	export default {
 		components: {
+			upload,
 			commonTop,
 			commonTable,
 			VueUeditorWrap,
 		},
+		props:{config:Object},
 		data() {
 			return {
+				pressage:false,
+				percentage:50,
 				form:{
 					title:''
 				},
@@ -114,11 +123,42 @@
 				rows:{},
 				sendnum:0,
 				to_open_ids:'',
-				
+				ifBjType:0,
 				adminuseraccess:[],
 			}
 		},
 		methods: {
+			setcontent(url){
+				if (this.ifBjType == 0) {
+					this.form.info = "";
+					this.ifBjType = 1;
+				}
+				
+				if(this.uptype == "img"){
+					this.form.info += '<img src="' + url + '" alt="图片">';
+				}
+			},
+			setpercentage(obj){
+				var time = "";
+				if(obj.status == "end"){
+					this.percentage = 100;
+					this.setcontent(obj.url);
+					
+					
+					this.pressage=false;
+					this.percentage = 50;
+				}
+				if(obj.status == "start"){
+					this.pressage=true;
+					clearInterval(time);
+					time = setInterval(()=>{
+						if(this.percentage > 95){
+							clearInterval(time);
+						}
+						this.percentage++;
+					},0)
+				}
+			},
 			getparent(){
 				this.$router.push({
 					path:"/new/email"
@@ -139,6 +179,9 @@
 					}
 				});
 			
+			},
+			changedatial(){
+				this.form.content = this.$refs.upload.form.content;		
 			},
 			checkAll(){
 				if(this.ajaxType){
@@ -253,11 +296,17 @@
 				}).then((da)=>{
 					this.form = {
 						title:da.title,
-						content:da.content,
+
 						to_email_ids:da.to_email_ids,
 						send_time:da.send_time,
 						to_email_idsAll:da.to_email_ids.replace(/[,]/g,"\r\n")
 					}
+					if(da.content){
+						this.$refs.upload.setCont(da.content);
+					}
+					
+				
+					
 				}).catch(()=>{
 					this.$router.push({
 						path:"/new/email"
@@ -610,5 +659,9 @@
 		margin: 0;
 		border: 1px solid #DCDFE6;
 	}
+	.pushemail_01{
+		margin-left: 77px;width: 600px;
+	}
 	
+
 </style>

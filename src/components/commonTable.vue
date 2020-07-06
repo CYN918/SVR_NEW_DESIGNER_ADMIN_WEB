@@ -99,6 +99,11 @@
 								scope.row[item.child[0]]+scope.row[item.child[1]]+scope.row[item.child[2]]
 							}}</span>
 						</span>
+						
+						<span  v-else-if="item.type == 'hoveEvent'">
+							{{ scope.row[item.prop] }}
+						</span>
+						
 						<span v-else-if="!item.type">
 						    <span>
 								<span v-if="item.is_hidden && scope.row[item.is_hidden.name] == item.is_hidden.value">

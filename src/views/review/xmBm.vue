@@ -15,12 +15,11 @@
 	import commonTable from '@/components/commonTable.vue'
 	import DataScreen from "@/assets/DataScreen.js"
 	import createRoles from '@/views/power/createRoles.vue'
-
 	export default {
 		components: {
 			commonTop,
 			commonTable,
-			createRoles,
+			createRoles,			
 		},
 		props: {},
 		data() {
@@ -69,7 +68,7 @@
 						{prop:'name',lable:'报名项目'},
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
 						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
-						{prop:'username',lable:'提审用户'},
+						{prop:'username',lable:'提审用户',type:"hoveEvent",hFn:'showUser'},
 						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
 						// {prop:'check_admin_name',lable:'审核人',type:"hiretime1",time:"check_time",width:200},
 					]
@@ -101,6 +100,7 @@
 		watch: {},
 		computed: {},
 		methods: {
+			
 			setLoding(type){
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	

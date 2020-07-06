@@ -26,6 +26,10 @@
 							
 						</span>
 						
+						<span v-else-if="item.type=='showUser'">
+							<userTc :value="scope.row.userData"></userTc>
+						</span>
+						
 						<span v-else>
 							{{scope.row[item.prop]}}
 						</span>
@@ -92,9 +96,13 @@
 </template>
 
 <script>
+import userTc from '@/components/userTan.vue'
 export default{
 	props:{
 		value:Object
+	},
+	components: {
+		userTc
 	},
 	data(){
 		return {
@@ -104,7 +112,7 @@ export default{
 			limit:50,
 			total:0,
 			tConfig:[
-				{prop:'name',lable:'报名用户',width:200,type:'mosFn',outFn:'setType',overFn:'setType2'},
+				{prop:'name',lable:'报名用户',width:200,type:'showUser'},
 				{prop:'imgs',lable:'作品案例',type:'imgs',clfn:'gozp'},
 				{prop:'check_status',lable:'当前状态',type:'status',width:120,clfn:(da)=>{
 					let map = {

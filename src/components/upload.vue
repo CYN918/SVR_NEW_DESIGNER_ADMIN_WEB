@@ -5,11 +5,8 @@
 				<div class="upBoxd1_2 relative">
 					<vue-ueditor-wrap id="id" :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
-						<!-- <div class="fleft" @click="showUp(0)">图片</div> -->
 						<div @click="showUp1(0)" class="fleft relative">图片<input @change="handleAvatarSuccessvideo"  class="uploadBoxd2_2_2_1" ref="upnfile1"  multiple="multiple" type="file" accept=".jpg,.gif,.png" /></div>
-						<!-- <div class="fleft" @click="showUp(1)">视频</div>
-						<div class="fleft" @click="showUp(2)">音频</div> -->
-						 <div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile2"  multiple="multiple" type="file" accept=".mp4" /></div>
+						<div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile2"  multiple="multiple" type="file" accept=".mp4" /></div>
 						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile3"  multiple="multiple" type="file" accept=".mp3" /></div>
 					</div>
 				</div>
@@ -27,7 +24,8 @@ export default {
 	name: 'index',
 	components:{VueUeditorWrap,UplodImg},
 	props:[
-		'uploaddata'
+		'uploaddata',
+		'initialFrameHeight'
 	],
 	data(){
 		return{
@@ -54,7 +52,7 @@ export default {
 			upConfig:'',
 			myConfig: {
 				autoHeightEnabled: false,
-				initialFrameHeight: 500,
+				initialFrameHeight: this.initialFrameHeight?this.initialFrameHeight:500,
 				initialFrameWidth: '100%',
 				UEDITOR_HOME_URL: '/UEditor/'
 			},
@@ -167,10 +165,16 @@ export default {
 			//console.log(this.uD.getContent())
 			return this.uD.getContent();
 		},
+		setPaged(n,a,b,c){
+			if(this.$parent.$parent.setpercentage){
+				this.$parent.$parent.setpercentage(n,a,b,c);
+			}
+			this.$emit('setPaged',{status:n,url:a})
+		},
 		/*page2*/
 		handleAvatarSuccessvideo(params) {
 			
-			//console.log(this.upConfig)
+
 			let filet = params.target.files[0].type.split("/")[0];
 			if(this.upConfig.getType != filet){
 				this.$message({
@@ -200,10 +204,12 @@ export default {
 			formData.append('relation_type', 'activity')
 			formData.append('timestamp', times)
 			var _this = this;
-			this.$parent.$parent.setpercentage("start");
+			
+			this.setPaged("start")
+
 			this.axios.post('http://139.129.221.123/File/File/insert', formData).then(function (response) {
 				//_this.uptype = "video";
-				_this.$parent.$parent.setpercentage("end",response.data.data.url,"con",response.data.data.cover_img);
+				_this.setPaged("end",response.data.data.url,"con",response.data.data.cover_img);
 				 //console.log(response)
 				_this.inImg([response.data.data.url],[response.data.data.fid])
 				///_this.closed(1)
@@ -299,6 +305,10 @@ export default {
 			}
 			
 			this.saveData(dat,'自动保存成功');
+		},
+		setCont(n){
+			this.form.content = n;
+			this.ifBjType = 1;
 		},
 		init(O){
 			this.form.content = "";
@@ -1248,4 +1258,10 @@ export default {
 	padding-bottom: 20px;
 	
 }
+.pushemail_01 .upBoxd2>div:nth-child(2){
+		display: none !important;
+	}
+	.pushemail_01 .upBoxd2>div:nth-child(3){
+		display: none !important;
+	}
 </style>
