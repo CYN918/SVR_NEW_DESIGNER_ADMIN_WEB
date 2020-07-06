@@ -5,7 +5,7 @@
 				<div class="upBoxd1_2 relative">
 					<vue-ueditor-wrap id="id" :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
 					<div class="upBoxd2">
-						<div @click="showUp1(0)" class="fleft relative">图片<input @change="handleAvatarSuccessvideo"  class="uploadBoxd2_2_2_1" ref="upnfile1"  multiple="multiple" type="file" accept=".jpg,.gif,.png" /></div>
+						<div @click="showUp1(0)" class="fleft relative">{{title_name?title_name:'图片'}}<input @change="handleAvatarSuccessvideo"  class="uploadBoxd2_2_2_1" ref="upnfile1"  multiple="multiple" type="file" accept=".jpg,.gif,.png" /></div>
 						<div @click="showUp1(1)" class="fleft relative">视频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile2"  multiple="multiple" type="file" accept=".mp4" /></div>
 						<div @click="showUp1(2)" class="fleft relative">音频<input @change="handleAvatarSuccessvideo" class="uploadBoxd2_2_2_1" ref="upnfile3"  multiple="multiple" type="file" accept=".mp3" /></div>
 					</div>
@@ -25,7 +25,8 @@ export default {
 	components:{VueUeditorWrap,UplodImg},
 	props:[
 		'uploaddata',
-		'initialFrameHeight'
+		'initialFrameHeight',
+		'title_name'
 	],
 	data(){
 		return{

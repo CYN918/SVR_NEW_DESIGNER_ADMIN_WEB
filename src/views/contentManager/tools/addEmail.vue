@@ -31,7 +31,7 @@
 						<span class="fleft fontcolorg" style="margin-right: 20px;"></span>
 						<div class="pushemail_01">
 						
-							<upload ref="upload" @setPaged="setpercentage" :initialFrameHeight="300" :uploaddata="form.content"></upload>
+							<upload ref="upload" @setPaged="setpercentage" :title_name="'上传图片'" :initialFrameHeight="300" :uploaddata="form.content"></upload>
 						
 						
 						</div>
