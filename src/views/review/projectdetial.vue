@@ -47,7 +47,7 @@
 						</span>
 						<el-radio-group v-model="radiox" class="sel-dialog-content fleft">
 							<div class="w  sel-radio" v-for="(item,index) in tableDatax" :key="item.id">
-								<el-radio :label="item.content">{{ item.content }}</el-radio>
+								<el-radio :label="item.id">{{ item.content }}</el-radio>
 							</div>
 						</el-radio-group>
 					</li>
