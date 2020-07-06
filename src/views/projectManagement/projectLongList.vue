@@ -102,6 +102,7 @@
 				contract_files: [{},{}],
 				reason:"",
 				comment:"",
+				businessList: [],
 				commonTopData: {
 					num:false,
 					upload:true,
@@ -138,10 +139,7 @@
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
-						{prop:'business_type',lable:'业务类型',
-						type:"keyvalue",
-						child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"},
-						},						
+						{prop:'business_type',lable:'业务类型'},						
 						{prop:'settlement',lable:'结算方式',type:"keyvalue",
 							child:{"0":"用户选择","1":"买断","2":"分成","3":"预付金+分成"},
 						},	
@@ -220,6 +218,15 @@
 		watch: {},
 		computed: {},
 		methods: {
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.businessList = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
+			},
 			newP(){
 				this.router.push({
 					path:"/projectManagement/projectList/newprojectLong"
@@ -330,6 +337,12 @@
 					limit: 100,
 				}
 				this.api.reviewreason(data).then((da) => {
+					da.data.forEach(item => {
+						let businessType = item.business_type
+						let currentBusinessType = this.businessList.find(item => businessType == item.id )
+						item.business_type = currentBusinessType.name
+					})
+
 					this.tableData = da.data;
 				}).catch(() => {
 					
@@ -499,7 +512,8 @@
 				this.$refs.Tabledd.setexport();
 			}
 		},
-		created() {
+		async created() {
+			await this.getBusinessList()
 			this.getProjectclassify();
 			this.getData();
 			if (localStorage.getItem("adminuseraccess")) {
