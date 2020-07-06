@@ -67,7 +67,7 @@
 					list:[
 						{prop:"banner",lable:"项目banner",type:"img",width:150},
 						{prop:'name',lable:'报名项目'},
-						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}},
+						{prop:'business_type',lable:'业务类型'},
 						{prop:"face_pics",lable:"作品案例",type:"imgs",width:270},
 						{prop:'username',lable:'提审用户'},
 						{prop:'check_status',lable:'审核状态',type:"btn",child:{"0":"待审核","1":"审核通过","-1":"审核驳回","-2":"失效或撤回"},width:350},
@@ -102,6 +102,16 @@
 		watch: {},
 		computed: {},
 		methods: {
+			// 获取业务类型列表
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.businessList = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
+			},
 			setLoding(type){
 				//alert(2);
 				this.$refs.Tabledd.setLoding(type);	
@@ -126,6 +136,12 @@
 				data.per_check_name = user.name
 
 				this.api.reviewList5(data).then((da) => {
+					da.data.forEach(item => {
+						let businessType = item.business_type
+						let currentBusinessType = this.businessList.find(item => businessType == item.id )
+						item.business_type = currentBusinessType.name
+					})
+
 					this.tableData = da.data;
 					this.tableConfig.total = da.total;
 					this.tableConfig.currentpage = da.page;
@@ -315,7 +331,8 @@
 				})
 			}
 		},
-		mounted() {
+		async mounted() {
+			await this.getBusinessList()
 			this.getData({pageCurrent:1,pageSize:50});
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner
