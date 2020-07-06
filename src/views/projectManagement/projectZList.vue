@@ -229,7 +229,7 @@
 		computed: {},
 		methods: {
 			seeXm(item){
-				location.open(`http://dev-web-ndesigner.idatachain.cn/#/prcent?id=${item.id}`, '_blank')
+				window.open(`http://dev-web-ndesigner.idatachain.cn/#/prcent?id=${item.id}`, '_blank')
 			},
 			getProjectclassify(){
 				this.api.projectclassifylist({
