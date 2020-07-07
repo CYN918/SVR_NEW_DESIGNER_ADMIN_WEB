@@ -160,6 +160,8 @@
 				  children: 'sub_data',
 				  label: 'classify_name'
 				},
+				businessList: [],
+				curretnBusiness: ''
 			}
 		},
 		components:{
@@ -179,31 +181,12 @@
 					// 	this.form['vocation'] = this.vocation.join(',');
 					// };
 					if(this.form.business_type != 'undefined'){	
-						let a = '';				
-						(this.form.business_type || '').split(',').forEach(item => {
-							if(item == '场景主题'){
-								a += 3 + ",";
-							}
-							if(item == '个性化主题'){
-								a += 4 + ",";
-							}
-							if(item == '来电秀'){
-								a += 5 + ",";
-							}
-							if(item == '其他'){
-								a += 6 + ",";
-							}
-							if(item == '杂志锁屏'){
-								a += 7 + ",";
-							}
-							if(item == '投稿作品'){
-								a += 8 + ",";
-							}
-							if(item == '贴纸花字（华为）'){
-								a += 9 + ",";
-							}
+						let businessType = [];
+						this.form.business_type.split(',').forEach(business_name => {
+							let business = this.businessList.find(item => item.business_name === business_name)
+							if(business) businessType.push(business.business_type)
 						})
-						this.form.business_type = a.substring(0,a.lastIndexOf(','));	 
+						this.form.business_type = businessType.join(',')
 					}
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
@@ -264,7 +247,7 @@
 				// 	}
 				// },false)
 			},
-			getScreen() {
+			async getScreen() {
 				
 				if(this.tabnum){
 					if(this.tabnum == 1){
@@ -288,6 +271,26 @@
 						this.texts = DataScreen.screen[this.pageName].filterFields;
 					}
 				}
+				
+				// 设置业务类型
+				let businessTypeObj = this.texts.find(item => item.id === 'business_type')
+				if(businessTypeObj) {
+					businessTypeObj.child = await this.getBusinessList()
+					
+					let businessTypes = (this.form.business_type || '').split(',').map(businessType => {
+						let business = this.businessList.find(item => businessType == item.business_type)
+						if(business) return business.business_name
+					})
+					this.form.business_type = businessTypes.join(',')
+				}
+			},
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+
+				this.businessList = data
+				return data.map(item => (item.business_name))
 			},
 			reset() {
 				this.form = {};
