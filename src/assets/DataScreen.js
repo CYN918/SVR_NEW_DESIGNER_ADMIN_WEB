@@ -68,13 +68,13 @@ const screenData = {
 			filterFields:[
 				{name:"项目名称",id:"name"},
 				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
-				{name:"提审用户昵称",id:"username"}
 			],
 		},
 		projectreviewbm:{
 			filterFields:[
 				{name:"项目名称",id:"name"},
 				{name:"业务类型",id:"business_type",type:"more",child:["场景主题","个性化主题","来电秀","其他","杂志锁屏","投稿作品","贴纸花字（华为）"]},
+				{name:"提审用户昵称",id:"username"}
 			],
 		},
 		
