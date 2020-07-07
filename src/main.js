@@ -22,8 +22,6 @@ Vue.prototype.router = router
 Vue.prototype.axios = axios
 Vue.prototype.api = api
 
-
-
 Vue.prototype.ywArr = [
 	{id:"1",name:"广告模板"},
 	{id:"2",name:"广告图"},
