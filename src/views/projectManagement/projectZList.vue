@@ -104,7 +104,7 @@
 							{prop:'name',lable:'项目名称'},
 							{prop:'classify_name',lable:'项目类型'},
 							{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},							
-							{prop:'settlement',lable:'结算方式',type:"keyvalue",
+							{prop:'settle_deal_type',lable:'结算方式',type:"keyvalue",
 								child:{"0":"用户选择","1":"买断","2":"分成","3":"预付金+分成"},
 							},						
 							{prop:'expected_profit',lable:'预计收益'},
@@ -174,10 +174,10 @@
 											map[6],
 											map[7],
 										];
-		// 							if('分成'==true){
+									if(s.settle_deal_type == 2 || s.settle_deal_type == 3){
 		
-		// 								arr.shift(map[5])
-		// 							}
+										arr.unshift(map[5])
+									}
 									return arr;
 									
 								}
@@ -201,7 +201,7 @@
 						{name:"项目类型",id:"classify_name",type:'selet',child:[]},
 						{name:"业务类型",id:"business_type",type:'newselet',child:window.ywArr},
 						{name:"制作人昵称",id:"username",type:'input'},
-						{name:"结算方式",id:"deal_type",type:'selet',child:[
+						{name:"结算方式",id:"settle_deal_type",type:'selet',child:[
 							{id:0,name:"未选择"},
 							{id:1,name:"买断式"},
 							{id:2,name:"分成式"},
@@ -244,7 +244,7 @@
 						})
 					}
 
-					this.filterFields.filterFields0[1].child = arr;						
+					this.filterFields[1].child = arr;						
 				})
 			},
 			loadContractList() {
