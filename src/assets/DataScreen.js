@@ -67,14 +67,23 @@ const screenData = {
 		projectreviewxb:{
 			filterFields:[
 				{name:"项目名称",id:"name"},
+<<<<<<< HEAD
 				{name:"业务类型",id:"business_type",type:"newselet",child:[]},
 				{name:"提审用户昵称",id:"username"}
+=======
+				{name:"业务类型",id:"business_type",type:"more", child:window.ywArr2},
+>>>>>>> 4b59cdea0960a5f21f5a57ae6d408c1fc0b8ab08
 			],
 		},
 		projectreviewbm:{
 			filterFields:[
 				{name:"项目名称",id:"name"},
+<<<<<<< HEAD
 				{name:"业务类型",id:"business_type",type:"newselet",child:[]},
+=======
+				{name:"业务类型",id:"business_type",type:"more", child:window.ywArr2},
+				{name:"提审用户昵称",id:"username"}
+>>>>>>> 4b59cdea0960a5f21f5a57ae6d408c1fc0b8ab08
 			],
 		},
 		
