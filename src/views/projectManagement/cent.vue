@@ -14,9 +14,15 @@
             </div>
         </div>
         <ul class="box-content">
-            <li v-for="todo in dataList">
+            <li v-for="(todo, idx) in dataList" :key="idx">
                 <div class="preview_pic" v-if="business_type != '5'">
-                    <img :src="todo.preview_pic" alt="" @click="getimgulr(todo.preview_pic)"/>
+                    <el-carousel height="288px">
+                        <el-carousel-item v-for="img in formatPreviewPic(todo.preview_pic)" :key="img">
+                            <div class="p-preview-pic-item">
+                                <img :src="img" alt="" @click="getimgulr(todo.preview_pic)"/>
+                            </div>
+                        </el-carousel-item>
+                    </el-carousel>
                 </div>
                 <div class="preview_pic" v-else>
                     <video id="video" @click="getvideoulr(todo.file_url)" @mouseover="selectStyle()" @mouseout="outStyle()">
@@ -100,6 +106,17 @@ export default {
         
     },
     methods:{
+        // 格式化json图片
+        formatPreviewPic(picStr) {
+            let pics = []
+            try {
+                pics = JSON.parse(picStr)
+            } catch (error) {
+                pics = [picStr]
+            } finally {
+                return pics
+            }
+        },
         download(row){
             console.log(row)
             if(this.business_type == '5'){
@@ -244,9 +261,15 @@ export default {
         cursor: pointer;
         position: relative;
     }
-    .box-content > li .preview_pic img{
-        width: 100%;
+    .p-preview-pic-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 100%;
+    }
+    .box-content > li .preview_pic img{
+        max-width: 100%;
+        max-height: 100%;
         border-radius: 5px;
     }
     .box-content > li .preview_pic video{

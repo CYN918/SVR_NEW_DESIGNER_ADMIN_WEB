@@ -136,6 +136,8 @@
 				  children: 'sub_data',
 				  label: 'classify_name'
 				},
+				businessList: [],
+				curretnBusiness: ''
 			}
 		},
 		components:{
@@ -150,7 +152,18 @@
 				
 
 				if (data == "reach") {
-					
+					//console.log()
+					// if(this.vocation != ""){
+					// 	this.form['vocation'] = this.vocation.join(',');
+					// };
+					if(this.form.business_type != 'undefined'){	
+						let businessType = [];
+						this.form.business_type.split(',').forEach(business_name => {
+							let business = this.businessList.find(item => item.business_name === business_name)
+							if(business) businessType.push(business.business_type)
+						})
+						this.form.business_type = businessType.join(',')
+					}
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
@@ -219,7 +232,7 @@
 				// 	}
 				// },false)
 			},
-			getScreen() {
+			async getScreen() {
 				
 				if(this.tabnum){
 					if(this.tabnum == 1){
@@ -243,6 +256,26 @@
 						this.texts = DataScreen.screen[this.pageName].filterFields;
 					}
 				}
+				
+				// 设置业务类型
+				let businessTypeObj = this.texts.find(item => item.id === 'business_type')
+				if(businessTypeObj) {
+					businessTypeObj.child = await this.getBusinessList()
+					
+					let businessTypes = (this.form.business_type || '').split(',').map(businessType => {
+						let business = this.businessList.find(item => businessType == item.business_type)
+						if(business) return business.business_name
+					})
+					this.form.business_type = businessTypes.join(',')
+				}
+			},
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+
+				this.businessList = data
+				return data.map(item => (item.business_name))
 			},
 			reset() {
 			

@@ -109,6 +109,8 @@
 							},						
 							{prop:'expected_profit',lable:'预计收益'},
 							{prop:'demand_id',lable:'绑定需求'},
+							{prop:'signup_num_total',lable:'累积报名'},
+							
 							{prop:'username',lable:'制作人'},
 							{prop:'delivery_deadline',lable:'截稿时间',width:150},
 							{lable:"当前状态",prop:"status",type:"status",statusclass:"projectstatus",child:{"3":"制作期","4":"待验收","5":"已验收","-1":"已终止"}},
@@ -125,7 +127,7 @@
 					chNav:[
 						{n:'制作阶段',v:'3,4'},
 						{n:'已验收',v:'5'},
-						{n:'已中止',v:'-1'}
+						{n:'已终止',v:'-1'}
 					],
 					num:true,
 					tableAction0:{
@@ -141,8 +143,8 @@
 									
 									{name:"验收审核",fun:"see",accessid:"200611"},
 									{name:"收益明细",fun:"edit",accessid:"200611"},
-									{name:"验收报告",fun:"up",accessid:"200521"},
-									{name:"下载稿件",fun:"presentation",accessid:"200522"},
+									{name:"验收报告",fun:"presentation",accessid:"200521"},
+									{name:"下载稿件",fun:"up",accessid:"200522"},
 									// {name:"删除",fun:"delect",accessid:"200612"},
 								];
 								if(s.status==-1){
@@ -225,8 +227,8 @@
 		watch: {},
 		computed: {},
 		methods: {
-			seeXm(id){
-				console.log('执行')
+			seeXm(item){
+				window.open(`http://dev-web-ndesigner.idatachain.cn/#/prcent?id=${item.id}`, '_blank')
 			},
 			getProjectclassify(){
 				this.api.projectclassifylist({
@@ -241,7 +243,12 @@
 							id:da.data[i].classify_name
 						})
 					}
+<<<<<<< HEAD
 					this.filterFields[1].child = arr;						
+=======
+
+					this.filterFields.filterFields0[1].child = arr;						
+>>>>>>> feature-delivery
 				})
 			},
 			loadContractList() {
@@ -332,6 +339,7 @@
 					page: 1,
 					limit: 100,
 				}
+				
 				this.api.reviewreason(data).then((da) => {
 					this.tableData = da.data;
 				}).catch(() => {

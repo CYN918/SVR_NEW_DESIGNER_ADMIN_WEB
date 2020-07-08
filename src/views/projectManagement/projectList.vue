@@ -117,7 +117,11 @@
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
+<<<<<<< HEAD
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
+=======
+						{prop:'business_type',lable:'业务类型'},
+>>>>>>> feature-delivery
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},
@@ -165,7 +169,11 @@
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
+<<<<<<< HEAD
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
+=======
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏","8":"投稿作品","9":'贴纸花字（华为）'}},
+>>>>>>> feature-delivery
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},
@@ -182,7 +190,11 @@
 						{prop:'project_id',lable:'项目ID'},
 						{prop:'name',lable:'项目名称'},
 						{prop:'classify_name',lable:'项目类型'},
+<<<<<<< HEAD
 						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:window.ywArr2},
+=======
+						{prop:'business_type',lable:'业务类型',type:"keyvalue",child:{"1":"广告模板","2":"广告图","3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏","8":"投稿作品","9":'贴纸花字（华为）'}},
+>>>>>>> feature-delivery
 						{prop:'banner',lable:'banner',type:"img"},
 						{prop:'fields',lable:'领域范围'},
 						{prop:'expected_profit',lable:'预计收益'},

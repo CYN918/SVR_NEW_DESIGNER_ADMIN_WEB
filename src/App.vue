@@ -622,6 +622,8 @@ input{
 	.roles-input {
 		height: 40px;
 		line-height: 40px;
+		// 底部边框显示不出来,加一像素间距
+		margin-bottom: 1px;
 	}
 
 	.width500 {
