@@ -293,7 +293,7 @@
 				<button class="defaultbtn defaultbtnactive" v-if="!Isnextshow" @click="nxet()">下一步</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && !rows" @click="createdactivity">创建</button>
 				<button class="defaultbtn defaultbtnactive" v-if="Isnextshow && rows" @click="edit()">保存</button>
-				<button class="defaultbtn defaultbtnactive" @click="openproject">预览</button>
+				<!-- <button class="defaultbtn defaultbtnactive" @click="openproject">预览</button> -->
 			</div>
 		</div>
 		
