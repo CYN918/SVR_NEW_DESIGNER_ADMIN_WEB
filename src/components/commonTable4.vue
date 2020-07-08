@@ -170,7 +170,7 @@
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name}}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 									<span v-if="tableActions.morebtns.type=='check'">
-										<span v-for="citem in  tableActions.morebtns.backFn(scope.row)">
+										<span v-for="(citem, index) in  tableActions.morebtns.backFn(scope.row)" :key="index">
 											
 											<el-dropdown-item
 												v-if="gettrue(citem.accessid)" 
@@ -761,13 +761,21 @@
 				if(this.tableConfig.project_type){
 					data.project_type = this.tableConfig.project_type;
 				}
-				
-				let pd = JSON.parse(JSON.stringify(data));
-				if(pd.business_type){
-					pd.business_type = pd.business_type.join(',');
-				}
-				
-				this.api[url](pd).then((da) => {
+
+				this.api[url](data).then((da) => {
+					if(this.tableConfig.project_type == 2) {
+						let settlements = { 0: '用户选择', 1: '买断' , 2: '分成' }
+						let dealTypes = { 1: '买断', 2: '分成', 3: '预约金+分成' }
+
+						da.data.forEach(item => {
+							if(item.status == '0') {
+								item.settlement = dealTypes[item.deal_type]
+							}else {
+								item.settlement = settlements[item.settlement]
+							}
+						})
+					}
+
 					this.tableDatas = da.data;
 					this.total = da.total;
 					this.loading = false;

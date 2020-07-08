@@ -102,6 +102,7 @@
 				contract_files: [{},{}],
 				reason:"",
 				comment:"",
+				businessList: [],
 				commonTopData: {
 					num:false,
 					upload:true,
@@ -216,6 +217,15 @@
 		watch: {},
 		computed: {},
 		methods: {
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.businessList = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
+			},
 			newP(){
 				this.router.push({
 					path:"/projectManagement/projectList/newprojectLong"
@@ -326,6 +336,12 @@
 					limit: 100,
 				}
 				this.api.reviewreason(data).then((da) => {
+					da.data.forEach(item => {
+						let businessType = item.business_type
+						let currentBusinessType = this.businessList.find(item => businessType == item.id )
+						item.business_type = currentBusinessType.name
+					})
+
 					this.tableData = da.data;
 				}).catch(() => {
 					
@@ -445,6 +461,7 @@
 						if(da.result == 0) {
 							this.$refs.Tabledd.getTabData();
 						}
+						this.$refs.Tabledd.getTabData()
 					}).catch(da=>{
 						
 					})
@@ -494,7 +511,8 @@
 				this.$refs.Tabledd.setexport();
 			}
 		},
-		created() {
+		async created() {
+			await this.getBusinessList()
 			this.getProjectclassify();
 			this.getData();
 			if (localStorage.getItem("adminuseraccess")) {

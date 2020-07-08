@@ -47,7 +47,7 @@
 						</span>
 						<el-radio-group v-model="radiox" class="sel-dialog-content fleft">
 							<div class="w  sel-radio" v-for="(item,index) in tableDatax" :key="item.id">
-								<el-radio :label="item.content">{{ item.content }}</el-radio>
+								<el-radio :label="item.id">{{ item.content }}</el-radio>
 							</div>
 						</el-radio-group>
 					</li>
@@ -245,9 +245,15 @@
 					<li class="w ofh" v-if="want_deal_type == '2' || want_deal_type == '3'">
 						<div class="textcenter employipt">
 							<span class="fleft Dialogkey" style="width: 84px;text-align: right;">分成比例</span>
-							<el-input style="width: 400px" class="fleft sel-dialog-content" placeholder="按掌酷各渠道收益，请输入0-100数字(单位:%)" v-model="user_split_rate"
-							 clearable>
-							</el-input>%
+							<el-input
+								style="width: 400px"
+								class="fleft sel-dialog-content"
+								placeholder="按掌酷各渠道收益，请输入0-100数字"
+								v-model="user_split_rate"
+							 	clearable
+							>
+								<template slot="suffix">%</template>
+							</el-input>
 						</div>
 					</li>
 					<li class="w ofh" v-if="want_deal_type == '3'">
