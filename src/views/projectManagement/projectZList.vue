@@ -141,8 +141,8 @@
 									
 									{name:"验收审核",fun:"see",accessid:"200611"},
 									{name:"收益明细",fun:"edit",accessid:"200611"},
-									{name:"验收报告",fun:"up",accessid:"200521"},
-									{name:"下载稿件",fun:"presentation",accessid:"200522"},
+									{name:"验收报告",fun:"presentation",accessid:"200521"},
+									{name:"下载稿件",fun:"up",accessid:"200522"},
 									// {name:"删除",fun:"delect",accessid:"200612"},
 								];
 								if(s.status==-1){
