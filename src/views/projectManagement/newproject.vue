@@ -1510,6 +1510,15 @@
 				}
 				
 			},
+			async getBusinessList() {
+				let data = await this.api.getBusinessList({
+					access_token: localStorage.getItem("access_token")
+				})
+				this.tableData2 = data.map(item => ({
+					name: item.business_name,
+					id: item.business_type
+				}))
+			},
 			resetSave(tag){
 				if(this.$route.query.urlDate){
 					const urldata = JSON.parse(this.$route.query.urlDate)
@@ -1890,7 +1899,8 @@
 			
 			
 		},
-		mounted(){
+		async mounted(){
+			await this.getBusinessList()
 			this.currentpageName = this.$route.matched[this.$route.matched.length-1].meta.title;
 			this.getData1();
 			this.getdemandlist();
