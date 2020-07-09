@@ -55,6 +55,7 @@
 				},
 				tableData: [],
 				tableAction:{
+					
 					newBtn:[
 						{
 							name:"编辑",
