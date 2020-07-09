@@ -124,13 +124,14 @@
 				centerDialogVisible1:false,
 				tableData: [],
 				tableAction: {
-					chNav:[
-						{n:'制作阶段',v:'3,4'},
-						{n:'已验收',v:'5'},
-						{n:'已终止',v:'-1'}
-					],
+					
 				
 					tableAction:{
+						chNav:[
+							{n:'制作阶段',v:'3,4'},
+							{n:'已验收',v:'5'},
+							{n:'已终止',v:'-1'}
+						],
 						morebtns:{
 							type:'check',
 							name:"更多",
@@ -192,6 +193,9 @@
 					},
 
 				},
+				
+				
+				
 				detailData: "",
 				filterFields:[
 						{name:"子项目名称",id:"name",type:'input'},
