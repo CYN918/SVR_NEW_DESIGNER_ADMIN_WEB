@@ -29,10 +29,10 @@ const screenData = {
 		},
 		settlement:{
 			filterFields:[
-				{name:"项目名称",id:""},
-				{name:"结算日期",id:"balance_date"},
-				{name:"用户昵称",id:"open_id"},
-				{name:"项目ID",id:"work_id"},
+				{name:"项目名称",id:"name"},
+				{name:"结算日期",id:"time"},
+				{name:"用户昵称",id:"username"},
+				{name:"项目ID",id:"project_id"},
 				{name:"",type:"display"},
 			],
 		},
