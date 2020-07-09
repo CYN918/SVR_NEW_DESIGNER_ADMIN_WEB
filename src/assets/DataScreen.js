@@ -1728,7 +1728,7 @@ const screenData = {
 		presetReason:{
 			bts:[
 				{lable:"驳回理由预设ID",prop:"id"},
-				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请","5":"项目验收","5":"项目报名"}},
+				{lable:"审核类型",prop:"type",type:"keyvalue",child:{"1":"作品发布","2":"作品入围","3":"作品审核","4":"平台供稿人-认证申请","5":"项目验收","6":"项目报名"}},
 				{lable:"驳回理由",prop:"content"},
 				{lable:"状态",prop:"status",type:"status",child:{"0":"停用","1":"启用"},statusclass:"presetReasonstatus"},
 				{lable:"该理由驳回数",prop:"reject_num"},
