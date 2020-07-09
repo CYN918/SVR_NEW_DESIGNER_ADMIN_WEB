@@ -136,7 +136,6 @@
 							name:"更多",
 							backFn:function(s){
 								let map = [
-									{name:"预览",fun:"seeXm",accessid:"200611"},
 									{name:"编辑",fun:"edit",accessid:"200611"},
 									{name:"补充合同",fun:"reject1",accessid:"200611"},
 									{name:"终止",fun:"reject",accessid:"200611"},
@@ -145,7 +144,6 @@
 									{name:"收益明细",fun:"edit",accessid:"200611"},
 									{name:"验收报告",fun:"presentation",accessid:"200521"},
 									{name:"下载稿件",fun:"up",accessid:"200522"},
-									// {name:"删除",fun:"delect",accessid:"200612"},
 								];
 								if(s.status==-1){
 									return []
