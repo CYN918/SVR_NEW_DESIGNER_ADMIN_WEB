@@ -129,8 +129,8 @@
 						{n:'已验收',v:'5'},
 						{n:'已终止',v:'-1'}
 					],
-					num:true,
-					tableAction0:{
+				
+					tableAction:{
 						morebtns:{
 							type:'check',
 							name:"更多",
@@ -140,7 +140,7 @@
 									{name:"补充合同",fun:"reject1",accessid:"200611"},
 									{name:"终止",fun:"reject",accessid:"200611"},
 									
-									{name:"验收审核",fun:"see",accessid:"200611"},
+									{name:"验收审核",fun:"review1",accessid:"200611"},
 									{name:"收益明细",fun:"edit",accessid:"200611"},
 									{name:"验收报告",fun:"presentation",accessid:"200521"},
 									{name:"下载稿件",fun:"up",accessid:"200522"},
@@ -152,8 +152,7 @@
 									return [
 										map[0],
 										map[1],
-										map[2],
-										map[3]
+										map[2]
 									]
 								}
 								if(s.status==4){
@@ -369,6 +368,7 @@
 				
 			},
 			review1(row){
+
 				const {href} = this.$router.resolve({ path: "/review/projectreview/projectdetial",query:{
 					id:row.bing_id,
 					type:5,

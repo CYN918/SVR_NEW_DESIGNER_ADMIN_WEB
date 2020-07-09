@@ -106,6 +106,7 @@
 				this.$refs.Tabledd.setLoding(type);	
 			},
 			getData(pg) {
+				
 				this.tableConfig.currentpage = pg.pageCurrent;
 				this.tableConfig.pagesize = pg.pageSize
 				//获取子组件表格数据
@@ -219,7 +220,6 @@
 					access_token:localStorage.getItem("access_token"),
 					id:id
 				}).then(da => {
-					console.log(da);
 					this.$message({
 						type:"waring",
 						message:da
@@ -255,6 +255,7 @@
 			this.screenreach();
 			this.getcommonrightbtn();
 			this.getData1();
+			console.log(window.ywArr);
 			DataScreen.screen.projectreview.filterFields[4].child = window.ywArr;
 			if(localStorage.getItem("access")){
 				this.top_banner = JSON.parse(localStorage.getItem("access")).top_banner;
@@ -294,8 +295,15 @@
 						"200685":"0",
 						"200686":"1",
 						"business_type":9
-					}
+					},
+					"200693":{
+						"200694":"0",
+						"200695":"1",
+						"business_type":10
+					},
 				};
+				this.top_banner
+				
 				this.top_banner.forEach(item => {
 					item.child.some((element,index) => {		
 						if(element.id == '16'){					
@@ -319,6 +327,7 @@
 						}
 					})					
 				})
+				
 			}
 		},
 		mounted() {

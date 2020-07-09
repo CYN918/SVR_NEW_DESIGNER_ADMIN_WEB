@@ -156,14 +156,7 @@
 					// if(this.vocation != ""){
 					// 	this.form['vocation'] = this.vocation.join(',');
 					// };
-					if(this.form.business_type != 'undefined'){	
-						let businessType = [];
-						this.form.business_type.split(',').forEach(business_name => {
-							let business = this.businessList.find(item => item.business_name === business_name)
-							if(business) businessType.push(business.business_type)
-						})
-						this.form.business_type = businessType.join(',')
-					}
+					
 					if(this.selectedOptions.length != 0){
 						this.form['classify_1'] = this.selectedOptions[0];
 						this.form['classify_2'] = this.selectedOptions[1];
@@ -211,7 +204,13 @@
 					let pd = JSON.parse(this.$route.query.urlDate);
 					if(pd.business_type){
 						pd.business_type = pd.business_type.split(',');
+				
+						pd.business_type = pd.business_type.map((el,index)=>{
+							
+							return el = el-0;
+						})
 					}
+		
 					this.form = pd;
 					
 					this.texts.map((el,index)=>{
@@ -258,16 +257,7 @@
 				}
 				
 				// 设置业务类型
-				let businessTypeObj = this.texts.find(item => item.id === 'business_type')
-				if(businessTypeObj) {
-					businessTypeObj.child = await this.getBusinessList()
-					
-					let businessTypes = (this.form.business_type || '').split(',').map(businessType => {
-						let business = this.businessList.find(item => businessType == item.business_type)
-						if(business) return business.business_name
-					})
-					this.form.business_type = businessTypes.join(',')
-				}
+				
 			},
 			async getBusinessList() {
 				let data = await this.api.getBusinessList({

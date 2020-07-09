@@ -523,7 +523,7 @@
 						name: "业务类型",
 						id: "business_type",
 						type:"keyvalue",
-						child:{"3":"场景主题","4":"个性化主题","5":"来电秀","6":"其他","7":"杂志锁屏"}
+						child:window.ywArr2
 					},
 					{
 						name: "banner",
@@ -1552,11 +1552,13 @@
 			this.getData();
 			if (localStorage.getItem("adminuseraccess")) {
 				this.adminuseraccess = JSON.parse(localStorage.getItem("adminuseraccess"));				
-				this.access = JSON.parse(localStorage.getItem("access"))
-				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type]
+				this.access = JSON.parse(localStorage.getItem("access"));
+
+				this.business_title = '【业务】' + this.workData[2].child[this.$route.query.business_type];
 				let type = this.$route.query.business_type;
-				this.audit1 = window.ywArr_qx[type][0]?window.ywArr_qx[type][0]:'';
-				this.audit2 = window.ywArr_qx[type][1]?window.ywArr_qx[type][1]:'';
+			
+				this.audit1 = this.ywArr_qx[type][0]?this.ywArr_qx[type][0]:'';
+				this.audit2 = this.ywArr_qx[type][1]?this.ywArr_qx[type][1]:'';
 			}
 		},
 		mounted() {

@@ -875,7 +875,7 @@
 					this.tableActions = this.tableAction;
 					
 				} else {
-					this.tableActions = this.tableAction['tableAction'+ n];
+					this.tableActions = this.tableAction.tableAction;
 					
 				}
 			
