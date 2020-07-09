@@ -157,8 +157,8 @@
 				centerDialogVisible1:false,
 				tableData: [],
 				tableAction: {
-					num:true,
-					tableAction0:{
+			
+					tableAction:{
 						morebtns:{
 							name:"更多",
 							child:[

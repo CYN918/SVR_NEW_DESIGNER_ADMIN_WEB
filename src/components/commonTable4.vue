@@ -874,10 +874,7 @@
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction;
 					
-				} else {
-					this.tableActions = this.tableAction.tableAction;
-					
-				}
+				} 
 			
 				
 				if(!this.commonTopData.num){
