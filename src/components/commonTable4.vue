@@ -872,8 +872,8 @@
 				} 
 				
 				if(!this.tableAction.num){
-					this.tableActions = this.tableAction;
-					
+					this.tableActions = this.tableAction.tableAction;
+				
 				} 
 			
 				
