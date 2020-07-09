@@ -165,17 +165,26 @@
 				<el-table-column fixed="right" label="操作" width="150">
 					<template slot-scope="scope">
 						<div>
-							<span v-if="tableActions.links && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
-							<el-button @click="handleClick(tableActions.morebtns.fun,scope.row)" type="text" size="small" v-if="tableActions.morebtns && !tableActions.morebtns.child && gettrue(tableActions.morebtns.accessid)">{{ tableActions.morebtns.name(tableActions.morebtns.filterdata ?  scope.row[tableActions.morebtns.filterdata] : '') }}</el-button>
-							<el-dropdown trigger="click" 
-							v-if="checkBtn(scope.row)">
+							<span v-if="tableActions.links && tableActions.links.accessid && gettrue(tableActions.links.accessid)" @click="handleClick(tableActions.links.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.links.name( tableActions.links.filterdata ?  scope.row[tableActions.links.filterdata] : '') }}</span>
+							<el-button 
+							@click="handleClick(tableActions.morebtns.fun,scope.row)" 
+							type="text" 
+							size="small" 
+							v-if="tableActions.morebtns && tableActions.morebtns.accessid && !tableActions.morebtns.child && gettrue(tableActions.morebtns.accessid)">
+							{{ tableActions.morebtns.name(tableActions.morebtns.filterdata ?  scope.row[tableActions.morebtns.filterdata] : '') }}
+							</el-button>
+							<el-dropdown 
+								trigger="click" 
+								v-if="checkBtn(scope.row)"
+								>
 								<span class="el-dropdown-link">{{ tableActions.morebtns.name}}</span>
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 									<span v-if="tableActions.morebtns.type=='check'">
+									
 										<span v-for="(citem, index) in  tableActions.morebtns.backFn(scope.row)" :key="index">
 											
 											<el-dropdown-item
-												v-if="gettrue(citem.accessid)" 
+												v-if="gettrue(citem?citem.accessid:'')" 
 												class="comonbtn" 
 												@click.native="handleClick(citem.fun,scope.row,index)">
 												{{citem.name}}
@@ -196,7 +205,7 @@
 									
 								</el-dropdown-menu>
 							</el-dropdown>
-							<span v-if="tableActions.filterbtn && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
+							<span v-if="tableActions.filterbtn && tableActions.filterbtn.accessid && gettrue(tableActions.filterbtn.accessid)" @click="handleClick(tableActions.filterbtn.fun,scope.row)" class="pointer" style="padding: 0 10px;color:#33B3FF;font-size: 14px;">{{ tableActions.filterbtn.name(tableActions.filterbtn.filterdata ? scope.row[tableActions.filterbtn.filterdata] : "") }}</span>
 						</div>
 					</template>
 				</el-table-column>
@@ -873,7 +882,7 @@
 				
 				if(!this.tableAction.num){
 					this.tableActions = this.tableAction.tableAction;
-				
+					
 				} 
 			
 				

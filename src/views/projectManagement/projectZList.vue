@@ -124,15 +124,16 @@
 				centerDialogVisible1:false,
 				tableData: [],
 				tableAction: {
-					
+					chNav:[
+						{n:'制作阶段',v:'3,4'},
+						{n:'已验收',v:'5'},
+						{n:'已终止',v:'-1'}
+					],
 				
 					tableAction:{
-						chNav:[
-							{n:'制作阶段',v:'3,4'},
-							{n:'已验收',v:'5'},
-							{n:'已终止',v:'-1'}
-						],
+						
 						morebtns:{
+
 							type:'check',
 							name:"更多",
 							backFn:function(s){
@@ -158,7 +159,6 @@
 								}
 								if(s.status==4){
 									return [
-										map[4],
 										map[0],
 										map[1],
 										map[2],
@@ -169,12 +169,12 @@
 								
 								if(s.status==5){
 									let arr = [
+											map[5],
 											map[6],
-											map[7],
 										];
 									if(s.settle_deal_type == 2 || s.settle_deal_type == 3){
 		
-										arr.unshift(map[5])
+										arr.unshift(map[4])
 									}
 									return arr;
 									

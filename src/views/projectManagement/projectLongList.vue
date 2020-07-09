@@ -157,9 +157,10 @@
 				centerDialogVisible1:false,
 				tableData: [],
 				tableAction: {
-			
-					tableAction:{
+				tableAction:{
+					
 						morebtns:{
+							accessid:'200611',
 							name:"更多",
 							child:[
 								{
