@@ -1,14 +1,14 @@
 <template>
     <div class="box">
         <div class="box_message">
+			<div></div>
             <ul>
-        
-                <li><span class="left">项目名称</span><span class="right">{{info.name}}</span></li>
+				<li><span class="left">项目名称</span><span class="right">{{info.name}}</span></li>
                 <li>
                     <span class="left">业务类型</span>
                     <span class="right">{{business_type}}</span>
                 </li>
-                <li>
+                <li class="tsys">
                     <span class="left">结算方式</span>
                     <span class="right">
 						<div class="jsfs_01">
@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </div>
-        <div class="box_process" style="height:432px;border-bottom: 1px solid #F4F6F9;">
+        <div class="box_message box_process">
             <div class="box_process_title">项目详情信息</div>
             <div class="box_process_content">
                 <div class="bt_o">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="box_process" style="height:180px;border-bottom: 1px solid #F4F6F9;">
+        <div class="box_message box_process">
             <div class="box_process_title">项目时间</div>
             <div class="box_process_content">
                 <div class="bt_o">
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="box_process" style="height:180px;">
+        <div class="box_process">
             <div class="box_process_title">项目来源绑定</div>
             <div class="box_process_content">
                 <div class="bt_o">
@@ -200,7 +200,7 @@
         min-height: 1000px;
     }
     .box_message{
-        height: 240px;
+
         border-bottom: 1px solid #F4F6F9;
     }
     .box_message > ul{
@@ -209,10 +209,14 @@
     }
     .box_message > ul > li{
         width: 100%;
-        height: 35px;
-        line-height: 35px;
+        line-height: 20px;
+		min-height: 20px;
         font-size: 14px;
+		margin-bottom: 30px;
     }
+	.box_message > ul > li.tsys{
+		height: 40px;
+	}
     .box_message > ul > li .left{
         float: left;
         width: 100px;
@@ -237,6 +241,19 @@
     .box_process{
         padding-top: 30px;
     }
+
+	.box_process:after{
+	    content:"";	
+	    height:0;			
+	    line-height:0;		
+	    display:block;		
+	    visibility:hidden;		
+	    clear:both;			
+	}
+	.box_process{
+	    zoom:1;	
+	}
+	
     .box_process_title{
         width: 140px;
         padding-left: 30px;
@@ -248,8 +265,9 @@
     }
     .bt_o > ul > li{
         width: 100%;
-        height: 38px;
-        /* line-height: 38px; */
+        height:20px;
+        line-height: 20px;
+		margin-bottom: 30px;
     }
     .bt_o > ul > li .box_process_content_left{
         width: 124px;

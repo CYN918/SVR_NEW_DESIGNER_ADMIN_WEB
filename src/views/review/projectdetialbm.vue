@@ -1039,7 +1039,7 @@
 					access_token: localStorage.getItem("access_token"),
 					page: 1,
 					limit: 100,
-					type: 5,
+					type: 6,
 					status:"1"
 				}
 				this.api.reviewreason(data).then((da) => {

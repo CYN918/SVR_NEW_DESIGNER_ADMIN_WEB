@@ -143,7 +143,7 @@
 									{name:"终止",fun:"reject",accessid:"200611"},
 									
 									{name:"验收审核",fun:"review1",accessid:"200611"},
-									{name:"收益明细",fun:"edit",accessid:"200611"},
+									{name:"收益明细",fun:"gosy",accessid:"200611"},
 									{name:"验收报告",fun:"presentation",accessid:"200521"},
 									{name:"下载稿件",fun:"up",accessid:"200522"},
 								];
@@ -228,6 +228,16 @@
 		watch: {},
 		computed: {},
 		methods: {
+			gosy(row){
+				
+				this.$router.push({
+					path:"/projectManagement/settlement",
+					query:{
+						urlDate:JSON.stringify({project_id:row.project_id})
+					}
+				})
+
+			},
 			seeXm(item){
 				window.open(`http://dev-web-ndesigner.idatachain.cn/#/prcent?id=${item.id}`, '_blank')
 			},

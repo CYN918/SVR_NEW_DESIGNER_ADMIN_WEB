@@ -51,7 +51,9 @@
 				tableAction: DataScreen.screenShow.settlement.action,
 				detailData: "",
 				IsDetail: false,
-				filterFields:DataScreen.screen.settlement.filterFields
+				filterFields:DataScreen.screen.settlement.filterFields,
+				
+				
 			}
 		},
 		watch: {},
